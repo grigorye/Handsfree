@@ -5,9 +5,13 @@
 package com.garmin.android.apps.connectiq.sample.comm.activities
 
 import android.app.Activity
+import android.app.ActivityOptions
 import android.app.AlertDialog
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
@@ -79,10 +83,16 @@ class DeviceActivity : Activity() {
         deviceStatusView?.text = device.status?.name
         openAppButtonView?.setOnClickListener { openMyApp() }
         openAppStoreView?.setOnClickListener { openStore() }
+
+        listenByDeviceEvents()
+        listenByMyAppEvents()
+        getMyAppStatus()
     }
 
     public override fun onResume() {
         super.onResume()
+        return
+
         listenByDeviceEvents()
         listenByMyAppEvents()
         getMyAppStatus()
@@ -90,7 +100,8 @@ class DeviceActivity : Activity() {
 
     public override fun onPause() {
         super.onPause()
-
+        return
+        
         // It is a good idea to unregister everything and shut things down to
         // release resources and prevent unwanted callbacks.
         try {
@@ -148,6 +159,33 @@ class DeviceActivity : Activity() {
     private fun listenByMyAppEvents() {
         try {
             connectIQ.registerForAppEvents(device, myApp) { _, _, message, _ ->
+                val intent = Intent(Intent.ACTION_CALL)
+                intent.setData(Uri.parse("tel:1233"))
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                intent.addFlags(Intent.FLAG_FROM_BACKGROUND)
+                if (true) {
+                    startActivity(intent)
+                } else {
+                    val options = ActivityOptions.makeBasic()
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                        options.setPendingIntentBackgroundActivityStartMode(ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED)
+                    }
+                    val pendingIntent = PendingIntent.getActivity(
+                        this,
+                        1,
+                        intent,
+                        PendingIntent.FLAG_IMMUTABLE,
+                        options.toBundle()
+                    )
+                    try {
+                        // Perform the operation associated with our pendingIntent
+                        pendingIntent.send()
+                    } catch (e: PendingIntent.CanceledException) {
+                        e.printStackTrace()
+                    }
+                }
+
+
                 // We know from our Comm sample widget that it will only ever send us strings, but in case
                 // we get something else, we are simply going to do a toString() on each object in the
                 // message list.
