@@ -46,6 +46,7 @@ class CommInputDelegate extends WatchUi.BehaviorDelegate {
             page = 0;
         }
         WatchUi.requestUpdate();
+        return true;
     }
 }
 
