@@ -14,6 +14,7 @@ var strings = ["","","","",""];
 var stringsSize = 5;
 var mailMethod;
 var phoneMethod;
+var mailNullMethod;
 var crashOnMessage = false;
 var hasDirectMessagingSupport = true;
 
@@ -24,6 +25,7 @@ class CommExample extends Application.AppBase {
 
         mailMethod = method(:onMail);
         phoneMethod = method(:onPhone);
+        mailNullMethod = method(:onMailNull);
         if(Communications has :registerForPhoneAppMessages) {
             Communications.registerForPhoneAppMessages(phoneMethod);
         } else if(Communications has :setMailboxListener) {
@@ -63,6 +65,9 @@ class CommExample extends Application.AppBase {
 
         Communications.emptyMailbox();
         WatchUi.requestUpdate();
+    }
+
+    function onMailNull(iter) {
     }
 
     function onPhone(msg) {

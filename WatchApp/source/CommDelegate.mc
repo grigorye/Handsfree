@@ -112,7 +112,7 @@ class ListnerMenuDelegate extends WatchUi.MenuInputDelegate {
             }
         } else if(item == :none) {
             Communications.registerForPhoneAppMessages(null);
-            Communications.setMailboxListener(null);
+            Communications.setMailboxListener(mailNullMethod);
         } else if(item == :phoneFail) {
             crashOnMessage = true;
             Communications.registerForPhoneAppMessages(phoneMethod);
