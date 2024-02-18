@@ -20,6 +20,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.garmin.android.apps.connectiq.sample.comm.ContactsRepository
 import com.garmin.android.apps.connectiq.sample.comm.MessageFactory
 import com.garmin.android.apps.connectiq.sample.comm.R
 import com.garmin.android.apps.connectiq.sample.comm.adapter.MessagesAdapter
@@ -87,6 +88,8 @@ class DeviceActivity : Activity() {
         listenByDeviceEvents()
         listenByMyAppEvents()
         getMyAppStatus()
+
+        sendContacts()
     }
 
     public override fun onResume() {
@@ -159,58 +162,42 @@ class DeviceActivity : Activity() {
     private fun listenByMyAppEvents() {
         try {
             connectIQ.registerForAppEvents(device, myApp) { _, _, message, _ ->
-                val intent = Intent(Intent.ACTION_CALL)
-                intent.setData(Uri.parse("tel:1233"))
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                intent.addFlags(Intent.FLAG_FROM_BACKGROUND)
-                if (true) {
-                    startActivity(intent)
-                } else {
-                    val options = ActivityOptions.makeBasic()
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                        options.setPendingIntentBackgroundActivityStartMode(ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED)
-                    }
-                    val pendingIntent = PendingIntent.getActivity(
-                        this,
-                        1,
-                        intent,
-                        PendingIntent.FLAG_IMMUTABLE,
-                        options.toBundle()
-                    )
-                    try {
-                        // Perform the operation associated with our pendingIntent
-                        pendingIntent.send()
-                    } catch (e: PendingIntent.CanceledException) {
-                        e.printStackTrace()
-                    }
+                for (o in message) {
+                    makeCall(o as String)
                 }
-
-
-                // We know from our Comm sample widget that it will only ever send us strings, but in case
-                // we get something else, we are simply going to do a toString() on each object in the
-                // message list.
-                val builder = StringBuilder()
-                if (message.size > 0) {
-                    for (o in message) {
-                        builder.append(o.toString())
-                        builder.append("\r\n")
-                    }
-                } else {
-                    builder.append("Received an empty message from the application")
-                }
-
-                AlertDialog.Builder(this@DeviceActivity)
-                    .setTitle(R.string.received_message)
-                    .setMessage(builder.toString())
-                    .setPositiveButton(android.R.string.ok, null)
-                    .create()
-                    .show()
             }
         } catch (e: InvalidStateException) {
             Toast.makeText(this, "ConnectIQ is not in a valid state", Toast.LENGTH_SHORT).show()
         }
     }
 
+    private fun makeCall(number: String) {
+        val intent = Intent(Intent.ACTION_CALL)
+        intent.setData(Uri.parse("tel:${number}"))
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.addFlags(Intent.FLAG_FROM_BACKGROUND)
+        if (true) {
+            startActivity(intent)
+        } else {
+            val options = ActivityOptions.makeBasic()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                options.setPendingIntentBackgroundActivityStartMode(ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED)
+            }
+            val pendingIntent = PendingIntent.getActivity(
+                this,
+                1,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE,
+                options.toBundle()
+            )
+            try {
+                // Perform the operation associated with our pendingIntent
+                pendingIntent.send()
+            } catch (e: PendingIntent.CanceledException) {
+                e.printStackTrace()
+            }
+        }
+    }
     // Let's check the status of our application on the device.
     private fun getMyAppStatus() {
         try {
@@ -249,6 +236,27 @@ class DeviceActivity : Activity() {
     private fun onItemClick(message: Any) {
         try {
             connectIQ.sendMessage(device, myApp, message) { _, _, status ->
+                Toast.makeText(this@DeviceActivity, status.name, Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: InvalidStateException) {
+            Toast.makeText(this, "ConnectIQ is not in a valid state", Toast.LENGTH_SHORT).show()
+        } catch (e: ServiceUnavailableException) {
+            Toast.makeText(
+                this,
+                "ConnectIQ service is unavailable.   Is Garmin Connect Mobile installed and running?",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
+    private fun sendContacts() {
+        try {
+            val contactsJsonObject = ContactsRepository(this).contactsJsonObject()
+            connectIQ.sendMessage(
+                device,
+                myApp,
+                contactsJsonObject
+            ) { _, _, status ->
                 Toast.makeText(this@DeviceActivity, status.name, Toast.LENGTH_SHORT).show()
             }
         } catch (e: InvalidStateException) {
