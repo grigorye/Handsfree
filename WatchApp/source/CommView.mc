@@ -56,14 +56,7 @@ class CommView extends WatchUi.View {
             if(page == 0) {
                 drawIntroPage(dc);
             } else {
-                var i;
-                var y = 50;
-
-                dc.drawText(dc.getWidth() / 2, 20,  Graphics.FONT_MEDIUM, "Strings Received:", Graphics.TEXT_JUSTIFY_CENTER);
-                for(i = 0; i < stringsSize; i += 1) {
-                    dc.drawText(dc.getWidth() / 2, y,  Graphics.FONT_SMALL, strings[i], Graphics.TEXT_JUSTIFY_CENTER);
-                    y += 20;
-                }
+                dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2,  Graphics.FONT_MEDIUM, "Strings Received: " + phones.size().toString(), Graphics.TEXT_JUSTIFY_CENTER);
              }
          } else {
              dc.drawText(dc.getWidth() / 2, dc.getHeight() / 3, Graphics.FONT_MEDIUM, "Direct Messaging API\nNot Supported", Graphics.TEXT_JUSTIFY_CENTER);

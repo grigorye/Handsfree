@@ -1,21 +1,12 @@
-//
-// Copyright 2015-2016 by Garmin Ltd. or its subsidiaries.
-// Subject to Garmin SDK License Agreement and Wearables
-// Application Developer Agreement.
-//
-
 using Toybox.Application;
 using Toybox.Communications;
 using Toybox.WatchUi;
 using Toybox.System;
+using Toybox.Lang;
 
 var page = 0;
-var strings = ["","","","",""];
-var stringsSize = 5;
-var mailMethod;
+var phones = [{ "number" => "1233", "name" => "VoiceMail", "id" => 23 }] as Lang.Array<Lang.Dictionary<Lang.String, Lang.String>>;
 var phoneMethod;
-var mailNullMethod;
-var crashOnMessage = false;
 var hasDirectMessagingSupport = true;
 
 class CommExample extends Application.AppBase {
@@ -23,13 +14,9 @@ class CommExample extends Application.AppBase {
     function initialize() {
         Application.AppBase.initialize();
 
-        mailMethod = method(:onMail);
         phoneMethod = method(:onPhone);
-        mailNullMethod = method(:onMailNull);
         if(Communications has :registerForPhoneAppMessages) {
             Communications.registerForPhoneAppMessages(phoneMethod);
-        } else if(Communications has :setMailboxListener) {
-            Communications.setMailboxListener(mailMethod);
         } else {
             hasDirectMessagingSupport = false;
         }
@@ -48,42 +35,12 @@ class CommExample extends Application.AppBase {
         return [new CommView(), new CommInputDelegate()];
     }
 
-    function onMail(mailIter) {
-        var mail;
-
-        mail = mailIter.next();
-
-        while(mail != null) {
-            var i;
-            for(i = (stringsSize - 1); i > 0; i -= 1) {
-                strings[i] = strings[i-1];
-            }
-            strings[0] = mail.toString();
-            page = 1;
-            mail = mailIter.next();
-        }
-
-        Communications.emptyMailbox();
-        WatchUi.requestUpdate();
-    }
-
     function onMailNull(iter) {
     }
 
     function onPhone(msg) {
-        var i;
-
-        if((crashOnMessage == true) && msg.data.equals("Hi")) {
-            msg.length(); // Generates a symbol not found error in the VM
-        }
-
-        for(i = (stringsSize - 1); i > 0; i -= 1) {
-            strings[i] = strings[i-1];
-        }
-        strings[0] = msg.data.toString();
-        page = 1;
+        phones = msg.data as Lang.Array<Lang.Dictionary<Lang.String, Lang.String>>;
 
         WatchUi.requestUpdate();
     }
-
 }

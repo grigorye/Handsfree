@@ -1,12 +1,7 @@
-//
-// Copyright 2016 by Garmin Ltd. or its subsidiaries.
-// Subject to Garmin SDK License Agreement and Wearables
-// Application Developer Agreement.
-//
-
 using Toybox.WatchUi;
 using Toybox.System;
 using Toybox.Communications;
+using Toybox.Lang;
 
 class CommListener extends Communications.ConnectionListener {
     function initialize() {
@@ -28,12 +23,18 @@ class CommInputDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onMenu() {
-        var menu = new WatchUi.Menu();
-        var delegate;
-
-        menu.addItem("Send Data", :sendData);
-        menu.addItem("Set Listener", :setListener);
-        delegate = new BaseMenuDelegate();
+        var menu = new WatchUi.Menu2({:title=>"Call"});
+        for(var i = 0; i < phones.size(); i++) {
+            var phone = phones[i] as Lang.Dictionary<Lang.String, Lang.String>;
+            var item = new MenuItem(
+                phone["name"], // label
+                phone["number"], // subLabel
+                phone["id"], // identifier
+                {}
+            );
+            menu.addItem(item);
+        }
+        var delegate = new BaseMenuDelegate();
         WatchUi.pushView(menu, delegate, SLIDE_IMMEDIATE);
 
         return true;
@@ -50,76 +51,27 @@ class CommInputDelegate extends WatchUi.BehaviorDelegate {
     }
 }
 
-class BaseMenuDelegate extends WatchUi.MenuInputDelegate {
+class BaseMenuDelegate extends WatchUi.Menu2InputDelegate {
     function initialize() {
-        WatchUi.MenuInputDelegate.initialize();
+        WatchUi.Menu2InputDelegate.initialize();
     }
 
-    function onMenuItem(item) {
-        var menu = new WatchUi.Menu();
-        var delegate = null;
-
-        if(item == :sendData) {
-            menu.addItem("Hello World.", :hello);
-            menu.addItem("Ackbar", :trap);
-            menu.addItem("Garmin", :garmin);
-            delegate = new SendMenuDelegate();
-        } else if(item == :setListener) {
-            menu.setTitle("Listner Type");
-            menu.addItem("Mailbox", :mailbox);
-            if(Communications has :registerForPhoneAppMessages) {
-                menu.addItem("Phone Application", :phone);
+    function onSelect(item as WatchUi.MenuItem) as Void {
+        var id = item.getId();
+        var selectedPhone = null as Lang.Dictionary<Lang.String, Lang.String> or Null;
+        for(var i = 0; i < phones.size(); i++) {
+            var phone = phones[i] as Lang.Dictionary<Lang.String, Lang.String>;
+            if(phone["id"] == id) {
+                selectedPhone = phone;
+                break;
             }
-            menu.addItem("None", :none);
-            menu.addItem("Crash if 'Hi'", :phoneFail);
-            delegate = new ListnerMenuDelegate();
         }
-
-        WatchUi.pushView(menu, delegate, SLIDE_IMMEDIATE);
-    }
-}
-
-class SendMenuDelegate extends WatchUi.MenuInputDelegate {
-    function initialize() {
-        WatchUi.MenuInputDelegate.initialize();
-    }
-
-    function onMenuItem(item) {
+        if(selectedPhone == null) {
+            return;
+        }
         var listener = new CommListener();
-
-        if(item == :hello) {
-            Communications.transmit("Hello World.", null, listener);
-        } else if(item == :trap) {
-            Communications.transmit("IT'S A TRAP!", null, listener);
-        } else if(item == :garmin) {
-            Communications.transmit("ConnectIQ", null, listener);
-        }
+        Communications.transmit(selectedPhone["number"], null, listener);
 
         WatchUi.popView(SLIDE_IMMEDIATE);
     }
 }
-
-class ListnerMenuDelegate extends WatchUi.MenuInputDelegate {
-    function initialize() {
-        WatchUi.MenuInputDelegate.initialize();
-    }
-
-    function onMenuItem(item) {
-        if(item == :mailbox) {
-            Communications.setMailboxListener(mailMethod);
-        } else if(item == :phone) {
-            if(Communications has :registerForPhoneAppMessages) {
-                Communications.registerForPhoneAppMessages(phoneMethod);
-            }
-        } else if(item == :none) {
-            Communications.registerForPhoneAppMessages(null);
-            Communications.setMailboxListener(mailNullMethod);
-        } else if(item == :phoneFail) {
-            crashOnMessage = true;
-            Communications.registerForPhoneAppMessages(phoneMethod);
-        }
-
-        WatchUi.popView(SLIDE_IMMEDIATE);
-    }
-}
-
