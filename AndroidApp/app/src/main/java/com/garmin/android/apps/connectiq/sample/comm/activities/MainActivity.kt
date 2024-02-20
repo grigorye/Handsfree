@@ -9,6 +9,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.telephony.TelephonyManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
@@ -100,12 +101,24 @@ class MainActivity : Activity() {
         startActivity(DeviceActivity.getIntent(this, device))
     }
 
+    private fun isRunningInEmulator(): Boolean {
+        val tm = getSystemService(TELEPHONY_SERVICE) as TelephonyManager
+        val networkOperator = tm.networkOperatorName
+        return "Android" == networkOperator
+    }
+
     private fun setupConnectIQSdk() {
         // Here we are specifying that we want to use a WIRELESS bluetooth connection.
         // We could have just called getInstance() which would by default create a version
         // for WIRELESS, unless we had previously gotten an instance passing TETHERED
         // as the connection type.
-        connectIQ = ConnectIQ.getInstance(this, ConnectIQ.IQConnectType.WIRELESS)
+        val connectType = if (isRunningInEmulator()) {
+            ConnectIQ.IQConnectType.WIRELESS
+        } else {
+            ConnectIQ.IQConnectType.TETHERED
+        }
+
+        connectIQ = ConnectIQ.getInstance(this, connectType)
 
         // Initialize the SDK
         connectIQ.initialize(this, true, connectIQListener)
