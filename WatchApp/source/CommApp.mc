@@ -4,8 +4,17 @@ using Toybox.WatchUi;
 using Toybox.System;
 using Toybox.Lang;
 
-var page = 0;
-var phones = [{ "number" => "1233", "name" => "VoiceMail", "id" => 23 }] as Lang.Array<Lang.Dictionary<Lang.String, Lang.String>>;
+var phonesImp = [{ "number" => "1233", "name" => "VoiceMail", "id" => 23 }] as Lang.Array<Phone>;
+
+function setPhones(phones as Lang.Array<Phone>) {
+    phonesImp = phones;
+    WatchUi.requestUpdate();
+}
+
+function getPhones() as Lang.Array<Phone> {
+    return phonesImp;
+}
+
 var phoneMethod;
 var hasDirectMessagingSupport = true;
 
@@ -35,12 +44,7 @@ class CommExample extends Application.AppBase {
         return [new CommView(), new CommInputDelegate()];
     }
 
-    function onMailNull(iter) {
-    }
-
     function onPhone(msg) {
-        phones = msg.data as Lang.Array<Lang.Dictionary<Lang.String, Lang.String>>;
-
-        WatchUi.requestUpdate();
+        setPhones(msg.data as Lang.Array<Phone>);
     }
 }

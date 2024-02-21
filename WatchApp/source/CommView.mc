@@ -53,10 +53,11 @@ class CommView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
 
         if(hasDirectMessagingSupport) {
-            if(page == 0) {
+            var phones = getPhones();
+            if(phones.size() == 0) {
                 drawIntroPage(dc);
             } else {
-                dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2,  Graphics.FONT_MEDIUM, "Strings Received: " + phones.size().toString(), Graphics.TEXT_JUSTIFY_CENTER);
+                dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2, Graphics.FONT_MEDIUM, "Phones Received: " + phones.size().toString(), Graphics.TEXT_JUSTIFY_CENTER);
              }
          } else {
              dc.drawText(dc.getWidth() / 2, dc.getHeight() / 3, Graphics.FONT_MEDIUM, "Direct Messaging API\nNot Supported", Graphics.TEXT_JUSTIFY_CENTER);
