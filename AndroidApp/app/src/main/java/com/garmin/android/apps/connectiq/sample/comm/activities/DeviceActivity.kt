@@ -4,7 +4,6 @@
  */
 package com.garmin.android.apps.connectiq.sample.comm.activities
 
-import android.app.Activity
 import android.app.ActivityOptions
 import android.app.AlertDialog
 import android.app.PendingIntent
@@ -18,6 +17,8 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.garmin.android.apps.connectiq.sample.comm.ContactsRepository
@@ -29,6 +30,9 @@ import com.garmin.android.connectiq.IQApp
 import com.garmin.android.connectiq.IQDevice
 import com.garmin.android.connectiq.exception.InvalidStateException
 import com.garmin.android.connectiq.exception.ServiceUnavailableException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 private const val TAG = "DeviceActivity"
 private const val EXTRA_IQ_DEVICE = "IQDevice"
@@ -37,7 +41,7 @@ private const val COMM_WATCH_ID = "a3421feed289106a538cb9547ab12095"
 // TODO Add a valid store app id.
 private const val STORE_APP_ID = ""
 
-class DeviceActivity : Activity() {
+class DeviceActivity : AppCompatActivity() {
 
     companion object {
         fun getIntent(context: Context, device: IQDevice?): Intent {
@@ -148,9 +152,13 @@ class DeviceActivity : Activity() {
         // in our MainActivity, there is no need to do so here, we
         // can just get a reference to the one and only instance.
         try {
-            connectIQ.registerForDeviceEvents(device) { _, status ->
-                // Since we will only get updates for this device, just display the status
-                deviceStatusView?.text = status.name
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    connectIQ.registerForDeviceEvents(device) { _, status ->
+                        // Since we will only get updates for this device, just display the status
+                        deviceStatusView?.text = status.name
+                    }
+                }
             }
         } catch (e: InvalidStateException) {
             Log.wtf(TAG, "InvalidStateException:  We should not be here!")
@@ -251,13 +259,21 @@ class DeviceActivity : Activity() {
 
     private fun sendContacts() {
         try {
-            val contactsJsonObject = ContactsRepository(this).contactsJsonObject()
-            connectIQ.sendMessage(
-                device,
-                myApp,
-                contactsJsonObject
-            ) { _, _, status ->
-                Toast.makeText(this@DeviceActivity, status.name, Toast.LENGTH_SHORT).show()
+            val context = this
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    val contactsJsonObject = ContactsRepository(context).contactsJsonObject()
+                    connectIQ.sendMessage(
+                        device,
+                        myApp,
+                        contactsJsonObject
+                    ) { _, _, status ->
+                        lifecycleScope.launch {
+                            Toast.makeText(this@DeviceActivity, status.name, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                }
             }
         } catch (e: InvalidStateException) {
             Toast.makeText(this, "ConnectIQ is not in a valid state", Toast.LENGTH_SHORT).show()

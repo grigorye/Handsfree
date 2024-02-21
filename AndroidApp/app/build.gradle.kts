@@ -37,8 +37,11 @@ android {
 dependencies {
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
 
     implementation("com.garmin.connectiq:ciq-companion-app-sdk:2.0.3@aar")
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }
