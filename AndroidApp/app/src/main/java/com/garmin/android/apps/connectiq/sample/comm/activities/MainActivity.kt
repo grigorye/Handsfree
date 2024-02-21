@@ -46,7 +46,7 @@ class MainActivity : Activity() {
             }
         }
 
-    private var ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 2323
+    private val ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 2323
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
