@@ -7,6 +7,7 @@ package com.garmin.android.apps.connectiq.sample.comm.activities
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.telephony.TelephonyManager
@@ -102,9 +103,7 @@ class MainActivity : Activity() {
     }
 
     private fun isRunningInEmulator(): Boolean {
-        val tm = getSystemService(TELEPHONY_SERVICE) as TelephonyManager
-        val networkOperator = tm.networkOperatorName
-        return "Android" == networkOperator
+        return Build.DEVICE == "emu64a"
     }
 
     private fun setupConnectIQSdk() {
@@ -113,9 +112,9 @@ class MainActivity : Activity() {
         // for WIRELESS, unless we had previously gotten an instance passing TETHERED
         // as the connection type.
         val connectType = if (isRunningInEmulator()) {
-            ConnectIQ.IQConnectType.WIRELESS
-        } else {
             ConnectIQ.IQConnectType.TETHERED
+        } else {
+            ConnectIQ.IQConnectType.WIRELESS
         }
 
         connectIQ = ConnectIQ.getInstance(this, connectType)
