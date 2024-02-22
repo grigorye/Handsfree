@@ -2,4 +2,10 @@
     <bitmaps>
         <bitmap id="id_monkey" filename="images/monkey.png" />
     </bitmaps>
+
+    <layout id="MainLayout">
+        <label text="In progress\nxxx" x="center" y="center" font="Gfx.FONT_MEDIUM"
+            justification="Graphics.TEXT_JUSTIFY_CENTER"
+            color="Gfx.COLOR_DK_GRAY" />
+    </layout>
 </resources>
