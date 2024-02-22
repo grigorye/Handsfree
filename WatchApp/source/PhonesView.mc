@@ -64,6 +64,10 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
         if(selectedPhone == null) {
             return;
         }
+        if(selectedPhone["name"].equals("Crash Me")) {
+            crash();
+            return;
+        }
         new CallTask(selectedPhone).launch();
     }
 }

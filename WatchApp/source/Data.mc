@@ -5,7 +5,10 @@ using Toybox.WatchUi;
 typedef Phone as Lang.Dictionary<Lang.String, Lang.String>;
 typedef Phones as Lang.Array<Phone>;
 
-var phonesImp = [{ "number" => "1233", "name" => "VoiceMail", "id" => 23 }] as Phones;
+var phonesImp as Phones = [
+    { "number" => "1233", "name" => "Crash Me", "id" => -1 },
+    { "number" => "1233", "name" => "VoiceMail", "id" => 23 }
+];
 
 function getPhones() as Phones {
     return phonesImp;
