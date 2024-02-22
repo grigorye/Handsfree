@@ -60,6 +60,14 @@ function getCallState() as CallState {
 }
 
 function setCallState(callState as CallState) {
+    if(callStateImp.equals(callState)) {
+        dump("setCallStateNoChange", callState);
+        return;
+    }
+    if(callStateImp.toString().equals(callState.toString())) {
+        dump("setCallStateNoChangeString", callState);
+        return;
+    }
     callStateImp = callState;
     dumpCallState("setCallState", callState);
     router.updateRoute();
