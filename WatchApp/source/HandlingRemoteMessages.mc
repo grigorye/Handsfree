@@ -31,7 +31,7 @@ function handleRemoteMessage(msg as Communications.Message) {
             }
             break;
         case "noCallInProgress":
-            setCallState(null);
+            setCallState(new Idle());
             break;
         case "ringing":
             var ringingNumber = data["number"] as Lang.String;

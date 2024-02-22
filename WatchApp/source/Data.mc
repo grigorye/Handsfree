@@ -44,11 +44,16 @@ class Ringing {
     }
 }
 
+class Idle {
+    function initialize() {
+    }
+}
+
 //
 
-typedef CallState as Null or Ringing or CallInProgress or DismissedCallInProgress;
+typedef CallState as Idle or Ringing or CallInProgress or DismissedCallInProgress;
 
-var callStateImp as CallState = null; // new CallInProgress({ "number" => "1233", "name" => "VoiceMail", "id" => 23 });
+var callStateImp as CallState = new Idle(); // new CallInProgress({ "number" => "1233", "name" => "VoiceMail", "id" => 23 });
 
 function getCallState() as CallState {
     return callStateImp;

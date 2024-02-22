@@ -12,6 +12,10 @@ class Router {
     function updateRoute() {
         var callState = getCallState();
         switch(callState) {
+            default:
+                dump("unknownCallState", callState);
+                crash();
+                break;
             case instanceof CallInProgress:
                 WatchUi.switchToView(new CallInProgressConfirmation(callState.phone), new CallInProgressConfirmationDelegate(), WatchUi.SLIDE_IMMEDIATE);
                 break;
@@ -19,8 +23,8 @@ class Router {
                 WatchUi.switchToView(callStateProgressBar, null, WatchUi.SLIDE_IMMEDIATE);
                 // callStateProgressBar.setDisplayString("Incoming" + "\n" + callState.phone["number"]);
                 break;
-            default:
-                // WatchUi.switchToView(new CallInProgressConfirmation(callState.phone), new CallInProgressConfirmationDelegate(), WatchUi.SLIDE_IMMEDIATE);
+            case instanceof Idle:
+            case instanceof DismissedCallInProgress:                
                 WatchUi.switchToView(new PhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                 break;
         }
