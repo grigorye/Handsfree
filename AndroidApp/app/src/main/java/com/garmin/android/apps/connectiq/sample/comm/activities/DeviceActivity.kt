@@ -4,20 +4,25 @@
  */
 package com.garmin.android.apps.connectiq.sample.comm.activities
 
+import android.Manifest
 import android.app.ActivityOptions
 import android.app.AlertDialog
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import android.telecom.TelecomManager
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,13 +38,31 @@ import com.garmin.android.connectiq.exception.ServiceUnavailableException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import org.json.JSONObject
+
 
 private const val TAG = "DeviceActivity"
 private const val EXTRA_IQ_DEVICE = "IQDevice"
-private const val COMM_WATCH_ID = "a3421feed289106a538cb9547ab12095"
 
 // TODO Add a valid store app id.
 private const val STORE_APP_ID = ""
+
+@Serializable
+enum class Command(val key: String) {
+    CALL("call"),
+    HANGUP("hangup")
+}
+@Serializable
+data class CommonRequest(
+    val cmd: String
+)
+
+@Serializable
+data class CallRequest(
+    val number: String
+)
 
 class DeviceActivity : AppCompatActivity() {
 
@@ -56,7 +79,6 @@ class DeviceActivity : AppCompatActivity() {
 
     private val connectIQ: ConnectIQ = ConnectIQ.getInstance()
     private lateinit var device: IQDevice
-    private lateinit var myApp: IQApp
 
     private var appIsOpen = false
     private val openAppListener = ConnectIQ.IQOpenApplicationListener { _, _, status ->
@@ -76,7 +98,6 @@ class DeviceActivity : AppCompatActivity() {
         setContentView(R.layout.activity_device)
 
         device = intent.getParcelableExtra<Parcelable>(EXTRA_IQ_DEVICE) as IQDevice
-        myApp = IQApp(COMM_WATCH_ID)
         appIsOpen = false
 
         val deviceNameView = findViewById<TextView>(R.id.devicename)
@@ -93,7 +114,13 @@ class DeviceActivity : AppCompatActivity() {
         listenByMyAppEvents()
         getMyAppStatus()
 
-        sendContacts()
+        val contactsJsonObject = ContactsRepository(this).contactsJsonObject()
+        val msg = mapOf(
+            "cmd" to "setPhones",
+            "phones" to contactsJsonObject
+        )
+        globalLifecycleCoroutineScope = lifecycleScope
+        send(msg, this, lifecycleScope, connectIQ, device, myApp)
     }
 
     public override fun onResume() {
@@ -165,13 +192,25 @@ class DeviceActivity : AppCompatActivity() {
         }
     }
 
-
     // Let's register to receive messages from our application on the device.
     private fun listenByMyAppEvents() {
         try {
             connectIQ.registerForAppEvents(device, myApp) { _, _, message, _ ->
                 for (o in message) {
-                    makeCall(o as String)
+                    val pojo = o as Map<String, Any>
+                    val string = JSONObject(o).toString()
+                    val Json = Json { ignoreUnknownKeys = true }
+                    val obj = Json.decodeFromString<CommonRequest>(string)
+                    when (obj.cmd) {
+                        "call" -> {
+                            val callRequest = Json.decodeFromString<CallRequest>(string)
+                            makeCall(callRequest.number)
+                        }
+                        "hangup" -> {
+                            print("HANGUP")
+                            hangupCall()
+                        }
+                    }
                 }
             }
         } catch (e: InvalidStateException) {
@@ -206,6 +245,20 @@ class DeviceActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun hangupCall() {
+        val mgr = getSystemService(TELECOM_SERVICE) as TelecomManager
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ANSWER_PHONE_CALLS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ANSWER_PHONE_CALLS), 0)
+            return
+        }
+        mgr.endCall()
+    }
+
     // Let's check the status of our application on the device.
     private fun getMyAppStatus() {
         try {
@@ -256,33 +309,31 @@ class DeviceActivity : AppCompatActivity() {
             ).show()
         }
     }
+}
 
-    private fun sendContacts() {
-        try {
-            val context = this
-            lifecycleScope.launch {
-                withContext(Dispatchers.IO) {
-                    val contactsJsonObject = ContactsRepository(context).contactsJsonObject()
-                    connectIQ.sendMessage(
-                        device,
-                        myApp,
-                        contactsJsonObject
-                    ) { _, _, status ->
-                        lifecycleScope.launch {
-                            Toast.makeText(this@DeviceActivity, status.name, Toast.LENGTH_SHORT)
-                                .show()
-                        }
+fun send(javaObject: Any, context: Context?, lifecycleCoroutineScope: LifecycleCoroutineScope, connectIQ: ConnectIQ, device: IQDevice?, myApp: IQApp) {
+    try {
+        lifecycleCoroutineScope.launch {
+            withContext(Dispatchers.IO) {
+                connectIQ.sendMessage(
+                    device,
+                    myApp,
+                    javaObject
+                ) { _, _, status ->
+                    lifecycleCoroutineScope.launch {
+                        Toast.makeText(context, status.name, Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
             }
-        } catch (e: InvalidStateException) {
-            Toast.makeText(this, "ConnectIQ is not in a valid state", Toast.LENGTH_SHORT).show()
-        } catch (e: ServiceUnavailableException) {
-            Toast.makeText(
-                this,
-                "ConnectIQ service is unavailable.   Is Garmin Connect Mobile installed and running?",
-                Toast.LENGTH_LONG
-            ).show()
         }
+    } catch (e: InvalidStateException) {
+        Toast.makeText(context, "ConnectIQ is not in a valid state", Toast.LENGTH_SHORT).show()
+    } catch (e: ServiceUnavailableException) {
+        Toast.makeText(
+            context,
+            "ConnectIQ service is unavailable.   Is Garmin Connect Mobile installed and running?",
+            Toast.LENGTH_LONG
+        ).show()
     }
 }

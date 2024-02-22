@@ -4,6 +4,7 @@
  */
 package com.garmin.android.apps.connectiq.sample.comm.activities
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -13,14 +14,23 @@ import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.garmin.android.apps.connectiq.sample.comm.R
 import com.garmin.android.apps.connectiq.sample.comm.adapter.IQDeviceAdapter
 import com.garmin.android.connectiq.ConnectIQ
+import com.garmin.android.connectiq.IQApp
 import com.garmin.android.connectiq.IQDevice
 import com.garmin.android.connectiq.exception.InvalidStateException
 import com.garmin.android.connectiq.exception.ServiceUnavailableException
+
+var globalConnectIQ: ConnectIQ? = null
+var globalDevice: IQDevice? = null
+var globalLifecycleCoroutineScope: LifecycleCoroutineScope? = null
+const val COMM_WATCH_ID = "a3421feed289106a538cb9547ab12095"
+val myApp = IQApp(COMM_WATCH_ID)
 
 class MainActivity : Activity() {
 
@@ -46,18 +56,26 @@ class MainActivity : Activity() {
             }
         }
 
-    private val ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 2323
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                Manifest.permission.ANSWER_PHONE_CALLS,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.READ_CALL_LOG
+            ),
+            0
+        )
 
         if (!Settings.canDrawOverlays(this)) {
             val intent = Intent(
                 Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                 Uri.parse("package:$packageName")
             )
-            startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE)
+            startActivityForResult(intent, -1)
         }
 
         setupUi()
@@ -99,6 +117,7 @@ class MainActivity : Activity() {
 
     private fun onItemClick(device: IQDevice) {
         startActivity(DeviceActivity.getIntent(this, device))
+        globalDevice = device
     }
 
     private fun isRunningInEmulator(): Boolean {
@@ -117,6 +136,8 @@ class MainActivity : Activity() {
         }
 
         connectIQ = ConnectIQ.getInstance(this, connectType)
+
+        globalConnectIQ = connectIQ
 
         // Initialize the SDK
         connectIQ.initialize(this, true, connectIQListener)
