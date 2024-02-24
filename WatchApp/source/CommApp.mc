@@ -21,6 +21,11 @@ class CommExample extends Application.AppBase {
 
     // onStart() is called on application start up
     function onStart(state) {
+        var msg = {
+            "cmd" => "syncMe"
+        };
+        dump("outMsg", msg);
+        Communications.transmit(msg, null, new SyncCommListener());
     }
 
     // onStop() is called when your application is exiting
@@ -35,5 +40,21 @@ class CommExample extends Application.AppBase {
     function onPhone(msg as Communications.Message) as Void {
         handleRemoteMessage(msg);
         router.updateRoute();
+    }
+}
+
+class SyncCommListener extends Communications.ConnectionListener {
+
+    function initialize() {
+        dump("sync", "initialize");
+        ConnectionListener.initialize();
+    }
+
+    function onComplete() {
+        dump("sync", "complete");
+    }
+
+    function onError() {
+        dump("sync", "error");
     }
 }
