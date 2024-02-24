@@ -2,19 +2,20 @@ using Toybox.Lang;
 using Toybox.Communications;
 using Toybox.System;
 
-function handleRemoteMessage(msg as Communications.Message) {
-    var data = msg.data as Lang.Dictionary<Lang.String, Lang.Object>;
-    var cmd = data["cmd"] as Lang.String;
+function handleRemoteMessage(iqMsg as Communications.Message) {
+    var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
+    var cmd = msg["cmd"] as Lang.String;
+    var args = msg["args"] as Lang.Dictionary<Lang.String, Lang.Object>;
     dump("inCmd", cmd);
-    dump("inData", data);
+    dump("inArgs", args);
     var callState = getCallState();
     dumpCallState("inCallState", callState);
     switch(cmd) {
         case "setPhones":
-            setPhones(data["phones"] as Phones);
+            setPhones(args["phones"] as Phones);
             break;
         case "callInProgress":
-            var inProgressNumber = data["number"] as Lang.String;
+            var inProgressNumber = args["number"] as Lang.String;
             dump("inProgressNumber", inProgressNumber);
             switch(callState) {
                 case instanceof DismissedCallInProgress:
@@ -34,7 +35,7 @@ function handleRemoteMessage(msg as Communications.Message) {
             setCallState(new Idle());
             break;
         case "ringing":
-            var ringingNumber = data["number"] as Lang.String;
+            var ringingNumber = args["number"] as Lang.String;
             setCallState(new Ringing(phoneForNumber(ringingNumber)));
             break;
     }

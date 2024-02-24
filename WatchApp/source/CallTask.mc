@@ -13,7 +13,9 @@ class CallTask {
     function transmit() {
         var msg = {
             "cmd" => "call",
-            "number" => phone["number"]
+            "args" => {
+                "number" => phone["number"]
+            }
         };
         dump("outMsg", msg);
         Communications.transmit(msg, null, listener);
