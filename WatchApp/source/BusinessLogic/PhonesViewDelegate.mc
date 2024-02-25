@@ -26,4 +26,21 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
         }
         new CallTask(selectedPhone).launch();
     }
+
+    function onBack() {
+        dump("onBack", true);
+        var callState = getCallState();
+        switch (callState) {
+            case instanceof DismissedCallInProgress: {
+                dump("revealingDismissedCallInProgress", true);
+                var newCallState = new CallInProgress((callState as DismissedCallInProgress).phone);
+                setCallState(newCallState);
+                break;
+            }
+            default: {
+                WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+                break;
+            }
+        }
+    }
 }
