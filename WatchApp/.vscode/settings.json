@@ -1,5 +1,6 @@
 {
   "files.exclude": {
     "bin/**": true
-  }
+  },
+  "cmake.configureOnOpen": true
 }

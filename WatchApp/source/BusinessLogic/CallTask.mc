@@ -1,16 +1,14 @@
 using Toybox.Communications;
+using Toybox.Timer;
 
 class CallTask {
     var phone as Phone;
-    var timer = new Timer.Timer();
-    var listener as CallTaskCommListener;
 
     function initialize(phone as Phone) {
         self.phone = phone;
-        self.listener = new CallTaskCommListener(phone);
     }
 
-    function transmit() {
+    function transmit() as Void {
         var msg = {
             "cmd" => "call",
             "args" => {
@@ -18,11 +16,11 @@ class CallTask {
             }
         };
         dump("outMsg", msg);
-        Communications.transmit(msg, null, listener);
+        Communications.transmit(msg, null, new CallTaskCommListener(phone));
     }
 
-    function launch() {
-        listener.onStart();
-        timer.start(method(:transmit), 50, false);
+    function launch() as Void {
+        setCallState(new SchedulingCall(phone, PENDING));
+        transmit();
     }
 }

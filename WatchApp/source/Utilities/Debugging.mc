@@ -1,6 +1,10 @@
 using Toybox.Lang;
 
-function crash() {
+function crash() as Void {
+    throw new ForceCrashException();
+}
+function fatalError(msg as Lang.String) as Void {
+    dump("fatalError", msg);
     throw new ForceCrashException();
 }
 

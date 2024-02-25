@@ -4,7 +4,7 @@ using Toybox.Communications;
 using Toybox.System;
 using Toybox.Lang;
 
-class CallInProgressView extends WatchUi.View {
+class OldCallInProgressView extends WatchUi.View {
     var phone as Phone;
 
     function initialize(phone as Phone) {
@@ -25,14 +25,14 @@ class CallInProgressView extends WatchUi.View {
     }
 }
 
-class CallInProgressViewDelegate extends WatchUi.InputDelegate {
+class OldCallInProgressViewDelegate extends WatchUi.InputDelegate {
     function initialize() {
         WatchUi.InputDelegate.initialize();
     }
 
     function onKey(keyEvent as WatchUi.KeyEvent) as Lang.Boolean {
         var key = keyEvent.getKey();
-        System.println("InCallInputDelegate.onKey: " + key);
+        dump("onKey", key);
         switch(key) {
             default:
                 hangupCallInProgress();

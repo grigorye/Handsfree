@@ -7,6 +7,7 @@ class CommView extends WatchUi.View {
     }
 
     function onUpdate(dc) {
+        dump("commViewUpdate", true);
         router.updateRoute();
     }
 }

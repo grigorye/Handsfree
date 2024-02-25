@@ -19,7 +19,6 @@ class CommExample extends Application.AppBase {
         }
     }
 
-    // onStart() is called on application start up
     function onStart(state) {
         var msg = {
             "cmd" => "syncMe"
@@ -28,18 +27,15 @@ class CommExample extends Application.AppBase {
         Communications.transmit(msg, null, new SyncCommListener());
     }
 
-    // onStop() is called when your application is exiting
     function onStop(state) {
     }
 
-    // Return the initial view of your application here
     function getInitialView() {
         return [new CommView()];
     }
 
     function onPhone(msg as Communications.Message) as Void {
         handleRemoteMessage(msg);
-        router.updateRoute();
     }
 }
 
