@@ -1,7 +1,18 @@
 using Toybox.WatchUi;
 
-class SchedulingCallViewDelegate extends WatchUi.InputDelegate {
+class SchedulingCallViewDelegate extends WatchUi.BehaviorDelegate {
     function initialize() {
-        WatchUi.InputDelegate.initialize();
+        WatchUi.BehaviorDelegate.initialize();
+    }
+
+    function onBack() {
+        var callState = getCallState();
+        if (!(callState instanceof SchedulingCall)) {
+            dumpCallState("badCallState", callState);
+            fatalError("badCallState");
+            return false;
+        }
+        setCallState(new Idle());
+        return true;
     }
 }
