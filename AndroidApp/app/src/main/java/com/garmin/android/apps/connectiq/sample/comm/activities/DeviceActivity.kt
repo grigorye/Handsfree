@@ -26,10 +26,11 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.garmin.android.apps.connectiq.sample.comm.ContactsRepository
-import com.garmin.android.apps.connectiq.sample.comm.MessageFactory
+import com.garmin.android.apps.connectiq.sample.comm.impl.MessageFactory
 import com.garmin.android.apps.connectiq.sample.comm.R
 import com.garmin.android.apps.connectiq.sample.comm.adapter.MessagesAdapter
+import com.garmin.android.apps.connectiq.sample.comm.globals.COMM_WATCH_ID
+import com.garmin.android.apps.connectiq.sample.comm.globals.myApp
 import com.garmin.android.connectiq.ConnectIQ
 import com.garmin.android.connectiq.IQApp
 import com.garmin.android.connectiq.IQDevice
@@ -61,6 +62,11 @@ data class CommonRequest(
 
 @Serializable
 data class CallRequest(
+    val args: CallArgs
+)
+
+@Serializable
+data class CallArgs(
     val number: String
 )
 
@@ -114,13 +120,6 @@ class DeviceActivity : AppCompatActivity() {
         listenByMyAppEvents()
         getMyAppStatus()
 
-        val contactsJsonObject = ContactsRepository(this).contactsJsonObject()
-        val msg = mapOf(
-            "cmd" to "setPhones",
-            "phones" to contactsJsonObject
-        )
-        globalLifecycleCoroutineScope = lifecycleScope
-        send(msg, this, lifecycleScope, connectIQ, device, myApp)
     }
 
     public override fun onResume() {
@@ -204,7 +203,7 @@ class DeviceActivity : AppCompatActivity() {
                     when (obj.cmd) {
                         "call" -> {
                             val callRequest = Json.decodeFromString<CallRequest>(string)
-                            makeCall(callRequest.number)
+                            makeCall(callRequest.args.number)
                         }
                         "hangup" -> {
                             print("HANGUP")

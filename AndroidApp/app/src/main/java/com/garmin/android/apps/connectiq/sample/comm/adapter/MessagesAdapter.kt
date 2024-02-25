@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.garmin.android.apps.connectiq.sample.comm.Message
+import com.garmin.android.apps.connectiq.sample.comm.impl.Message
 
 class MessagesAdapter(
     private val onItemClickListener: (Any) -> Unit

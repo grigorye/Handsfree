@@ -2,9 +2,11 @@
  * Copyright (C) 2015 Garmin International Ltd.
  * Subject to Garmin SDK License Agreement and Wearables Application Developer Agreement.
  */
-package com.garmin.android.apps.connectiq.sample.comm
+package com.garmin.android.apps.connectiq.sample.comm.impl
 
 import android.content.Context
+import com.garmin.android.apps.connectiq.sample.comm.R
+import java.lang.Double
 
 data class Message(val text: String, val payload: Any)
 
@@ -42,7 +44,7 @@ object MessageFactory {
                 "and",
                 "one",
                 "pi",
-                java.lang.Double.valueOf(3.14159265359)
+                Double.valueOf(3.14159265359)
             )
         ),
         Message(
