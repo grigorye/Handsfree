@@ -11,7 +11,8 @@ class CallTaskCommListener extends Communications.ConnectionListener {
     function onComplete() {
         var oldState = getCallState() as SchedulingCall;
         if (!(oldState instanceof SchedulingCall)) {
-            crash();
+            // We may already go back, and hence change the call state to Idle.
+            dumpCallState("CallTask.onComplete.callStateInvalidated", oldState);
             return;
         }
         var newState = oldState.clone();
@@ -22,7 +23,8 @@ class CallTaskCommListener extends Communications.ConnectionListener {
     function onError() {
         var oldState = getCallState() as SchedulingCall;
         if (!(oldState instanceof SchedulingCall)) {
-            crash();
+            // We may already go back, and hence change the call state to Idle.
+            dumpCallState("CallTask.onError.callStateInvalidated", oldState);
             return;
         }
         var newState = oldState.clone();

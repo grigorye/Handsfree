@@ -8,7 +8,8 @@ class HangupCommListener extends Communications.ConnectionListener {
     function onComplete() {
         var oldState = getCallState() as HangingUp;
         if (!(oldState instanceof HangingUp)) {
-            crash();
+            // We may already go back, and hence change the call state to Idle.
+            dumpCallState("Hangup.onComplete.callStateInvalidated", oldState);
             return;
         }
         var newState = oldState.clone();
@@ -19,7 +20,8 @@ class HangupCommListener extends Communications.ConnectionListener {
     function onError() {
         var oldState = getCallState() as HangingUp;
         if (!(oldState instanceof HangingUp)) {
-            crash();
+            // We may already go back, and hence change the call state to Idle.
+            dumpCallState("Hangup.onError.callStateInvalidated", oldState);
             return;
         }
         var newState = oldState.clone();
