@@ -23,6 +23,7 @@ function setCallState(callState as CallState) as Void {
 function setCallStateIgnoringRouting(callState as CallState) as Void {
     dumpCallState("setCallStateIgnoringRouting", callState);
     setCallStateImp(callState);
+    getPhonesView().updateFromCallState(callState);
 }
 
 function setCallStateImp(callState as CallState) as Void {

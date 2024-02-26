@@ -14,7 +14,7 @@ class CallInProgressViewDelegate extends WatchUi.ConfirmationDelegate {
         } else {
             var callState = getCallState() as CallInProgress;
             dumpCallState("callState", callState);
-            setCallState(new DismissedCallInProgress(callState.phone));
+            setCallStateIgnoringRouting(new DismissedCallInProgress(callState.phone));
         }
         return true;
     }
