@@ -8,11 +8,6 @@ class PhonesView extends WatchUi.Menu2 {
 
     var oldPhones as Phones = [];
 
-    // function onUpdate(dc) {
-    //     updateItems();
-    //     WatchUi.Menu2.onUpdate(dc);
-    // }
-
     function updateFromCallState(callState as CallState) as Void {
         var title = "Idle";
         switch (callState) {
