@@ -32,6 +32,16 @@
             android:exported="false" />
 
         <receiver
+            android:name=".broadcastreceivers.BootCompletedBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
             android:name=".broadcastreceivers.PhoneStateBroadcastReceiver"
             android:exported="true">
             <intent-filter>
