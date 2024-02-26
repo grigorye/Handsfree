@@ -11,5 +11,9 @@ function setPhonesView(phonesView as PhonesView) as Void {
     if (phonesViewImp != null) {
         fatalError("phonesView is already set");
     }
+    setPhonesViewImp(phonesView);
+}
+
+function setPhonesViewImp(phonesView as PhonesView) as Void {
     phonesViewImp = phonesView;
 }
