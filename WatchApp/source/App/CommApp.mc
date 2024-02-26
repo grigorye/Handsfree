@@ -7,6 +7,7 @@ using Toybox.Lang;
 class CommExample extends Application.AppBase {
 
     var isSupportedPlatform as Lang.Boolean = getIsSupportedPlatform();
+    var readyToSync as Lang.Boolean = false;
 
     function initialize() {
         dump("initialize", true);
@@ -16,6 +17,7 @@ class CommExample extends Application.AppBase {
         }
         dump("registerForPhoneAppMessages", true);
         Communications.registerForPhoneAppMessages(method(:onPhone));
+        readyToSync = true;
     }
 
     function onStart(state) {
@@ -39,6 +41,10 @@ class CommExample extends Application.AppBase {
     }
 
     function onPhone(msg as Communications.Message) as Void {
+        if (!readyToSync) {
+            dump("flushedMsg", msg);
+            return;
+        }
         handleRemoteMessage(msg);
     }
 }
