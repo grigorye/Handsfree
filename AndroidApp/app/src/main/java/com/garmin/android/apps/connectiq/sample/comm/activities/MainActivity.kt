@@ -15,12 +15,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.ParcelUuid
 import android.provider.Settings
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.garmin.android.apps.connectiq.sample.comm.R
+import com.garmin.android.apps.connectiq.sample.comm.impl.DefaultRemoteMessageService
 import com.garmin.android.apps.connectiq.sample.comm.services.GarminPhoneCallConnectorService
 import java.util.UUID
 import java.util.concurrent.Executor
@@ -30,6 +32,7 @@ import java.util.regex.Pattern
 class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d(TAG, "onCreate")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -61,20 +64,20 @@ class MainActivity : Activity() {
     }
 
     public override fun onResume() {
+        Log.d(TAG, "onResume")
         super.onResume()
     }
 
     public override fun onDestroy() {
+        Log.d(TAG, "onDestroy")
         super.onDestroy()
     }
-
 
     private fun setupUi() {
         findViewById<RecyclerView>(android.R.id.list).apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
         }
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
@@ -83,5 +86,9 @@ class MainActivity : Activity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        private val TAG = MainActivity::class.java.simpleName
     }
 }
