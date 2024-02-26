@@ -6,12 +6,13 @@ class HangingUpViewDelegate extends WatchUi.BehaviorDelegate {
 
     function onBack() {
         var callState = getCallState();
+        dumpCallState("onBackFromHangingUp", callState);
         if (!(callState instanceof HangingUp)) {
             dumpCallState("badCallState", callState);
             fatalError("badCallState");
             return false;
         }
-        setCallState(new Idle());
+        setCallStateIgnoringRouting(new Idle());
         return true;
     }
 }

@@ -7,12 +7,13 @@ class SchedulingCallViewDelegate extends WatchUi.BehaviorDelegate {
 
     function onBack() {
         var callState = getCallState();
+        dumpCallState("onBackFromSchedulingCall", callState);
         if (!(callState instanceof SchedulingCall)) {
             dumpCallState("badCallState", callState);
             fatalError("badCallState");
             return false;
         }
-        setCallState(new Idle());
+        setCallStateIgnoringRouting(new Idle());
         return true;
     }
 }
