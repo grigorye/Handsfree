@@ -23,8 +23,9 @@ class PhonesView extends WatchUi.Menu2 {
                 break;
         }
         setTitle(title);
+    }
 
-        var phones = getPhones();
+    function updateFromPhones(phones as Phones) as Void {
         if (oldPhones.equals(phones)) {
             return;
         }
@@ -47,4 +48,16 @@ class PhonesView extends WatchUi.Menu2 {
         }
         oldPhones = phones;
     }
+}
+
+function initialPhonesView() as PhonesView {
+    var callState = getCallState();
+    dumpCallState("callStateOnInitialPhonesView", callState);
+    if (!(callState instanceof Idle)) {
+        fatalError("CallState is not idle: we don't support this scenario yet.");
+    }
+    var phonesView = new PhonesView();
+    phonesView.updateFromCallState(callState);
+    phonesView.updateFromPhones(getPhones());
+    return phonesView;
 }

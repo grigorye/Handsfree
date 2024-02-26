@@ -28,8 +28,8 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onBack() {
-        dump("onBack", true);
         var callState = getCallState();
+        dumpCallState("onBackFromPhones", callState);
         switch (callState) {
             case instanceof DismissedCallInProgress: {
                 dump("revealingDismissedCallInProgress", true);
@@ -38,7 +38,8 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
                 break;
             }
             default: {
-                WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+                routingBackToSystem = true;
+                WatchUi.popView(WatchUi.SLIDE_IMMEDIATE); // Required in Simulator.
                 break;
             }
         }

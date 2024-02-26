@@ -6,32 +6,36 @@ using Toybox.Lang;
 
 class CommExample extends Application.AppBase {
 
-    function initialize() {
-        Application.AppBase.initialize();
+    var isSupportedPlatform as Lang.Boolean = getIsSupportedPlatform();
 
-        router = new Router();
-        
-        var phoneMethod = method(:onPhone);
-        if(Communications has :registerForPhoneAppMessages) {
-            Communications.registerForPhoneAppMessages(phoneMethod);
-        } else {
-            // hasDirectMessagingSupport = false;
+    function initialize() {
+        dump("initialize", true);
+        Application.AppBase.initialize();
+        if (!isSupportedPlatform) {
+            return;
         }
+        dump("registerForPhoneAppMessages", true);
+        Communications.registerForPhoneAppMessages(method(:onPhone));
     }
 
     function onStart(state) {
-        var msg = {
-            "cmd" => "syncMe"
-        };
-        dump("outMsg", msg);
-        Communications.transmit(msg, null, new SyncCommListener());
+        dump("onStart", state);
+        Application.AppBase.onStart(state);
+        requestSync();
     }
 
     function onStop(state) {
+        dump("onStop", state);
+        Application.AppBase.onStop(state);
     }
 
     function getInitialView() {
-        return [new CommView()];
+        dump("getInitialView", true);
+        if (isSupportedPlatform) {
+            return [new CommView()];
+        } else {
+            return [new WatchUi.ProgressBar("No support", 0.0)];
+        }
     }
 
     function onPhone(msg as Communications.Message) as Void {
@@ -39,18 +43,8 @@ class CommExample extends Application.AppBase {
     }
 }
 
-class SyncCommListener extends Communications.ConnectionListener {
-
-    function initialize() {
-        dump("sync", "initialize");
-        ConnectionListener.initialize();
-    }
-
-    function onComplete() {
-        dump("sync", "complete");
-    }
-
-    function onError() {
-        dump("sync", "error");
-    }
+function getIsSupportedPlatform() as Lang.Boolean {
+    var hasRegisterForAppMessages = Communications has :registerForPhoneAppMessages;
+    dump("hasRegisterForAppMessages", hasRegisterForAppMessages);
+    return hasRegisterForAppMessages;
 }
