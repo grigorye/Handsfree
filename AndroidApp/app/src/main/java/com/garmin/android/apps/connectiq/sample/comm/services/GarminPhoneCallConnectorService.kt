@@ -32,18 +32,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
-
-        // Before starting the service as foreground check that the app has the
-        // appropriate runtime permissions. In this case, verify that the user has
-        // granted the CAMERA permission.
-//        val permission = checkSelfPermission(Manifest.permission.FOREGROUND_SERVICE_SYSTEM_EXEMPTED)
-//        if (permission == PackageManager.PERMISSION_DENIED) {
-//            // Without camera permissions the service cannot run in the foreground
-//            // Consider informing user or updating your app UI if visible.
-//            stopSelf()
-//            return START_NOT_STICKY
-//        }
-
+        
         try {
             val CHANNEL_ID = "CHANNEL_ID"
             val channel = NotificationChannel(
