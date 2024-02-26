@@ -1,4 +1,5 @@
 using Toybox.Lang;
+using Toybox.WatchUi;
 
 function setCallInProgress(number as Lang.String) as Void {
     var phones = getPhones();
@@ -24,6 +25,7 @@ function setCallStateIgnoringRouting(callState as CallState) as Void {
     dumpCallState("setCallStateIgnoringRouting", callState);
     setCallStateImp(callState);
     getPhonesView().updateFromCallState(callState);
+    WatchUi.requestUpdate();
 }
 
 function setCallStateImp(callState as CallState) as Void {
