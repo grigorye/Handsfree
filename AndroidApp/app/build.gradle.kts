@@ -4,6 +4,12 @@ plugins {
     kotlin("plugin.serialization") version "1.9.22"
 }
 
+kotlin {
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of("17"))
+    }
+}
+
 val compileSdkVersion: String by project
 val minSdkVersion: String by project
 val targetSdkVersion: String by project
