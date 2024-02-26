@@ -5,7 +5,6 @@ import android.content.ContextWrapper
 import android.util.Log
 import com.garmin.android.apps.connectiq.sample.comm.R
 import com.garmin.android.apps.connectiq.sample.comm.globals.myApp
-import com.garmin.android.apps.connectiq.sample.comm.services.globalServiceLocator
 import com.garmin.android.connectiq.ConnectIQ
 import com.garmin.android.connectiq.IQDevice
 
@@ -22,7 +21,8 @@ interface GarminConnector {
 class DefaultGarminConnector(
     base: Context?,
     val onSDKReady: () -> Unit,
-    val dispatchIncomingMessage: (Any) -> Unit
+    val dispatchIncomingMessage: (Any) -> Unit,
+    val accountDeviceConnection: (IQDevice) -> Unit,
 ) : ContextWrapper(base), GarminConnector {
 
     override lateinit var connectIQ: ConnectIQ
@@ -61,7 +61,7 @@ class DefaultGarminConnector(
         Log.d(TAG, "device(${device.friendlyName}) <- status($status)")
         when (status) {
             IQDevice.IQDeviceStatus.CONNECTED -> {
-                globalServiceLocator!!.outgoingMessageDispatcher.sendPhones()
+                accountDeviceConnection(device)
             }
 
             else -> {}

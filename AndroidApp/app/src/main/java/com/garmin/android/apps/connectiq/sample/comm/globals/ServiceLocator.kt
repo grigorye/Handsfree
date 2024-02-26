@@ -14,8 +14,11 @@ import com.garmin.android.apps.connectiq.sample.comm.impl.IncomingMessageDispatc
 import com.garmin.android.apps.connectiq.sample.comm.impl.PhoneCallService
 import com.garmin.android.apps.connectiq.sample.comm.impl.RemoteMessageService
 
-class DefaultServiceLocator(base: Context?, lifecycleScope: LifecycleCoroutineScope) :
-    ContextWrapper(base) {
+class DefaultServiceLocator(
+    base: Context?,
+    lifecycleScope: LifecycleCoroutineScope,
+    onSDKReadyImp: () -> Unit
+) : ContextWrapper(base) {
 
     private val phoneCallService: PhoneCallService by lazy {
         DefaultPhoneCallService(this)
@@ -49,7 +52,7 @@ class DefaultServiceLocator(base: Context?, lifecycleScope: LifecycleCoroutineSc
         CompoundRemoteMessageService()
     }
 
-    fun startIncomingMessageProcessing() {
+    private fun startIncomingMessageProcessing() {
         for (device in garminConnector.knownDevices()) {
             device.status = garminConnector.connectIQ.getDeviceStatus(device)
             garminConnector.startIncomingMessageProcessing(device)
@@ -64,8 +67,8 @@ class DefaultServiceLocator(base: Context?, lifecycleScope: LifecycleCoroutineSc
         DefaultGarminConnector(
             this,
             onSDKReady = {
+                onSDKReadyImp()
                 startIncomingMessageProcessing()
-                outgoingMessageDispatcher.sendPhones()
                 Log.d(
                     TAG,
                     "Known devices: ${garminConnector.knownDevices().map { x -> x.friendlyName }}"
@@ -73,7 +76,11 @@ class DefaultServiceLocator(base: Context?, lifecycleScope: LifecycleCoroutineSc
             },
             dispatchIncomingMessage = { o ->
                 incomingMessageDispatcher.handleMessage(o)
-            })
+            },
+            accountDeviceConnection = {
+                outgoingMessageDispatcher.sendPhones()
+            }
+        )
     }
 
     companion object {

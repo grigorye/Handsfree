@@ -7,14 +7,16 @@ import android.app.NotificationManager
 import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.os.Build
+import android.telephony.TelephonyManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
 import com.garmin.android.apps.connectiq.sample.comm.globals.DefaultServiceLocator
+import com.garmin.android.apps.connectiq.sample.comm.impl.PhoneState
+import com.garmin.android.apps.connectiq.sample.comm.impl.lastTrackedPhoneState
+import com.garmin.android.apps.connectiq.sample.comm.impl.sendPhoneState
 
-
-var globalServiceLocator: DefaultServiceLocator? = null
 
 class GarminPhoneCallConnectorService : LifecycleService() {
 
@@ -30,9 +32,35 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         super.onDestroy()
     }
 
+    var delayedIntents: ArrayList<Intent>? = ArrayList()
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
-        
+
+        ensureForegroundService()
+
+        Log.d(TAG, "Intent: $intent")
+        if (intent?.action == "android.intent.action.PHONE_STATE") {
+            scheduleIntent(intent)
+        }
+
+        return START_NOT_STICKY
+    }
+
+    private fun scheduleIntent(intent: Intent) {
+        delayedIntents?.add(intent) ?: processIntent(intent)
+    }
+
+    private fun processIntent(intent: Intent) {
+        val stateExtra = intent.getStringExtra(TelephonyManager.EXTRA_STATE)!!
+        val incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
+        Log.d(TAG, "stateExtra: $stateExtra")
+        Log.d(TAG, "incomingNumber: $incomingNumber")
+
+        accountPhoneState(incomingNumber, stateExtra)
+    }
+
+    private fun ensureForegroundService() {
         try {
             val CHANNEL_ID = "CHANNEL_ID"
             val channel = NotificationChannel(
@@ -73,13 +101,35 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             }
             // ...
         }
-        return START_NOT_STICKY
+    }
+
+    private fun accountPhoneState(incomingNumber: String?, stateExtra: String) {
+        val outgoingMessageDispatcher = l.outgoingMessageDispatcher
+
+        val phoneState = PhoneState(incomingNumber, stateExtra)
+        lastTrackedPhoneState = phoneState
+
+        sendPhoneState(phoneState) { message ->
+            outgoingMessageDispatcher.send(message)
+        }
     }
 
     private val l by lazy {
-        val l = DefaultServiceLocator(this, lifecycleScope)
-        globalServiceLocator = l
-        l
+        DefaultServiceLocator(
+            this,
+            lifecycleScope = lifecycleScope,
+            onSDKReadyImp = {
+                if (delayedIntents == null) {
+                    Log.e(TAG, "Delayed intents is already null.")
+                } else {
+                    val intents = delayedIntents
+                    delayedIntents = null
+                    intents?.forEach {
+                        processIntent(it)
+                    }
+                }
+            }
+        )
     }
 
     private val garminConnector by lazy { l.garminConnector }

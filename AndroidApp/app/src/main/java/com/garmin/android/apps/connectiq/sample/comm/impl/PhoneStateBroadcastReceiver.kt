@@ -1,7 +1,6 @@
 package com.garmin.android.apps.connectiq.sample.comm.impl
 
 import android.telephony.TelephonyManager
-import com.garmin.android.apps.connectiq.sample.comm.services.globalServiceLocator
 
 data class PhoneState(
     val incomingNumber: String?,
@@ -10,16 +9,6 @@ data class PhoneState(
 
 var lastTrackedPhoneState: PhoneState? = null
 
-fun accountPhoneState(incomingNumber: String?, stateExtra: String) {
-    val outgoingMessageDispatcher = globalServiceLocator!!.outgoingMessageDispatcher
-
-    val phoneState = PhoneState(incomingNumber, stateExtra)
-    lastTrackedPhoneState = phoneState
-
-    sendPhoneState(phoneState) { message ->
-        outgoingMessageDispatcher.send(message)
-    }
-}
 
 fun sendPhoneState(
     phoneState: PhoneState,
