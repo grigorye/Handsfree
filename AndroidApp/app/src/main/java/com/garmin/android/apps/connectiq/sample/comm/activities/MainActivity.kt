@@ -2,18 +2,9 @@ package com.garmin.android.apps.connectiq.sample.comm.activities
 
 import android.Manifest
 import android.app.Activity
-import android.bluetooth.BluetoothDevice
-import android.companion.AssociationInfo
-import android.companion.AssociationRequest
-import android.companion.BluetoothDeviceFilter
-import android.companion.CompanionDeviceManager
-import android.content.Context
 import android.content.Intent
-import android.content.IntentSender
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.os.ParcelUuid
 import android.provider.Settings
 import android.util.Log
 import android.view.Menu
@@ -22,11 +13,7 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.garmin.android.apps.connectiq.sample.comm.R
-import com.garmin.android.apps.connectiq.sample.comm.impl.DefaultRemoteMessageService
 import com.garmin.android.apps.connectiq.sample.comm.services.GarminPhoneCallConnectorService
-import java.util.UUID
-import java.util.concurrent.Executor
-import java.util.regex.Pattern
 
 
 class MainActivity : Activity() {
