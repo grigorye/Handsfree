@@ -27,12 +27,11 @@ class Router {
                     }
                     case instanceof SchedulingCall: {
                         dump("routingToScheduling", true);
-                        var phone = (newState as SchedulingCall).phone;
                         if (animating) {
                             dump("pushingOutPhones", true);
-                            WatchUi.pushView(new SchedulingCallView(phone), new SchedulingCallViewDelegate(), WatchUi.SLIDE_LEFT);
+                            WatchUi.pushView(new SchedulingCallView(newState as SchedulingCall), new SchedulingCallViewDelegate(), WatchUi.SLIDE_LEFT);
                         } else {
-                            WatchUi.switchToView(new SchedulingCallView(phone), new SchedulingCallViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                            WatchUi.switchToView(new SchedulingCallView(newState as SchedulingCall), new SchedulingCallViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         }
                         break;
                     }
@@ -58,8 +57,7 @@ class Router {
                 switch (newState) {
                     case instanceof SchedulingCall: {
                         dump("routingToUpdatedScheduledCall", true);
-                        var phone = (newState as SchedulingCall).phone;
-                        WatchUi.switchToView(new SchedulingCallView(phone), new SchedulingCallViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        WatchUi.switchToView(new SchedulingCallView(newState as SchedulingCall), new SchedulingCallViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof CallInProgress: {
