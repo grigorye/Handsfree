@@ -13,7 +13,12 @@ class CommView extends WatchUi.View {
             dump("routingBackToSystem", "true");
             WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
         } else {
-            setPhonesView(initialPhonesView());
+            if (phonesViewImp == null) {
+                dump("settingInitialPhonesView", true);
+                setPhonesView(initialPhonesView());
+            } else {
+                dump("pushingBackPhonesView", true);
+            }
             WatchUi.pushView(getPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
             return;
         }

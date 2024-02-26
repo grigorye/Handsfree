@@ -85,7 +85,8 @@ class Router {
                     case instanceof CallInProgress: {
                         dump("routingToNewCallInProgress", true);
                         var phone = (newState as CallInProgress).phone;
-                        WatchUi.switchToView(new CallInProgressView(phone), new CallInProgressViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+                        WatchUi.pushView(new CallInProgressView(phone), new CallInProgressViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     default:
