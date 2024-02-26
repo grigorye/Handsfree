@@ -145,14 +145,11 @@ class Router {
     }
 
     function updatedPhonesView() as PhonesView {
-        if (phonesView == null) {
-            phonesView = new PhonesView();
-        }
-        (phonesView as PhonesView).updateFromCallState(getCallState());
+        var phonesView = getPhonesView();
+        phonesView.updateFromCallState(getCallState());
         WatchUi.requestUpdate();
-        return phonesView as PhonesView;
+        return phonesView;
     }
 }
 
 var animating as Lang.Boolean = false;
-var phonesView as PhonesView or Null;
