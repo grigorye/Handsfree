@@ -39,7 +39,10 @@ class DefaultRemoteMessageService(
                 myApp,
                 message
             ) { device, app, status ->
-                Log.d(TAG, "device.${device.deviceIdentifier}(${device.friendlyName}) -> ack(${status}, msg${message}")
+                Log.d(
+                    TAG,
+                    "device.${device.deviceIdentifier}(${device.friendlyName}) -> ack(${status}, msg${message}"
+                )
             }
         } catch (e: InvalidStateException) {
             Log.e(TAG, "ConnectIQ is not in a valid state. ${e}")
