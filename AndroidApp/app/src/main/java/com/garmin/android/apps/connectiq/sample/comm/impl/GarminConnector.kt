@@ -58,7 +58,14 @@ class DefaultGarminConnector(
     }
 
     private fun accountDeviceStatus(device: IQDevice, status: IQDevice.IQDeviceStatus) {
-        Log.i(TAG, "Status changed for device ${device}: ${status}")
+        Log.d(TAG, "device(${device.friendlyName}) <- status($status)")
+        when (status) {
+            IQDevice.IQDeviceStatus.CONNECTED -> {
+                globalServiceLocator!!.outgoingMessageDispatcher.sendPhones()
+            }
+
+            else -> {}
+        }
     }
 
     private val connectIQListener: ConnectIQ.ConnectIQListener =
@@ -75,14 +82,7 @@ class DefaultGarminConnector(
                 onSDKReady()
                 knownDevices().forEach {
                     connectIQ.registerForDeviceEvents(it) { device, status ->
-                        Log.d(TAG, "device(${device.friendlyName}) <- status($status)")
-                        when (status) {
-                            IQDevice.IQDeviceStatus.CONNECTED -> {
-                                globalServiceLocator!!.outgoingMessageDispatcher.sendPhones()
-                            }
-
-                            else -> {}
-                        }
+                        accountDeviceStatus(device, status)
                     }
                 }
             }
