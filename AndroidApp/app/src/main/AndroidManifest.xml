@@ -28,8 +28,8 @@
         <service
             android:name=".services.GarminPhoneCallConnectorService"
             android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="systemExempted"></service>
+            android:foregroundServiceType="systemExempted"
+            android:exported="false" />
 
         <receiver
             android:name=".broadcastreceivers.PhoneStateBroadcastReceiver"
