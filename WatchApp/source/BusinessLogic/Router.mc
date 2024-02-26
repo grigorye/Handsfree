@@ -126,8 +126,7 @@ class Router {
                     case instanceof Idle: {
                         dump("routingToPhones", true);
                         if (animating) {
-                            (phonesView as PhonesView).updateFromCallState(getCallState());
-                            WatchUi.requestUpdate();
+                            updatedPhonesView();
                             dump("poppingToPhones", true);
                             WatchUi.popView(WatchUi.SLIDE_RIGHT);
                         } else {
