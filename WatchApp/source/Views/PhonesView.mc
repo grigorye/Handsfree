@@ -43,6 +43,18 @@ class PhonesView extends WatchUi.Menu2 {
         }
         oldPhones = phones;
     }
+
+    function onShow() as Void {
+        WatchUi.Menu2.onShow();
+        // Workaround (as long as we employ it for CallInProgress) WatchUi.ConfirmationDelegate.onResponse not being called on back button press on devices
+        // https://forums.garmin.com/developer/connect-iq/f/discussion/1386/handling-back-button-press-with-confirmation-view---vivoactive
+        var callState = getCallState();
+        dumpCallState("callStateOnPhonesShow", callState);
+        if (callState instanceof CallInProgress) {
+            dump("workingAroundNoOnResponse", true);
+            onResponseForCallInProgressConfirmation(WatchUi.CONFIRM_NO);
+        }
+    }
 }
 
 function initialPhonesView() as PhonesView {
