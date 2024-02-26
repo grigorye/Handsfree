@@ -1,8 +1,6 @@
 package com.garmin.android.apps.connectiq.sample.comm.impl
 
 import android.util.Log
-import com.garmin.android.apps.connectiq.sample.comm.activities.CallRequest
-import com.garmin.android.apps.connectiq.sample.comm.activities.CommonRequest
 import kotlinx.serialization.json.Json
 import org.json.JSONObject
 
