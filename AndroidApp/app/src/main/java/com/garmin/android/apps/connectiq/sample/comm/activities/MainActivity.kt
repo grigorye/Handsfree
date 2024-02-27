@@ -50,6 +50,11 @@ class MainActivity : Activity() {
         startForegroundService(Intent(this, GarminPhoneCallConnectorService::class.java))
     }
 
+    public override fun onPause() {
+        Log.d(TAG, "onPause")
+        super.onPause()
+    }
+    
     public override fun onResume() {
         Log.d(TAG, "onResume")
         super.onResume()
