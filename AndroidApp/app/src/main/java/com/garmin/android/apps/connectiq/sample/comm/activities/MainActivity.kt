@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.garmin.android.apps.connectiq.sample.comm.R
+import com.garmin.android.apps.connectiq.sample.comm.impl.requestIgnoreBatteryOptimizations
 import com.garmin.android.apps.connectiq.sample.comm.services.GarminPhoneCallConnectorService
 
 
@@ -33,10 +34,13 @@ class MainActivity : Activity() {
                 Manifest.permission.READ_CALL_LOG,
                 Manifest.permission.READ_CONTACTS,
                 Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.RECEIVE_BOOT_COMPLETED
+                Manifest.permission.RECEIVE_BOOT_COMPLETED,
+                Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
             ),
             0
         )
+
+        requestIgnoreBatteryOptimizations(this)
 
         if (!Settings.canDrawOverlays(this)) {
             val intent = Intent(
