@@ -2,6 +2,7 @@ package com.garmin.android.apps.connectiq.sample.comm.services
 
 import android.R
 import android.app.ForegroundServiceStartNotAllowedException
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Intent
@@ -66,7 +67,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             val channel = NotificationChannel(
                 CHANNEL_ID,
                 "Status",
-                NotificationManager.IMPORTANCE_LOW
+                NotificationManager.IMPORTANCE_DEFAULT
             )
             channel.description = "Allows making calls from Garmin devices."
 
@@ -75,6 +76,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
                 .setSmallIcon(R.drawable.stat_notify_sync)
                 .setSilent(true)
                 .setOngoing(true)
+                .setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE)
                 .build()
             val notificationManager = getSystemService(NotificationManager::class.java)
             notificationManager.createNotificationChannel(channel)
