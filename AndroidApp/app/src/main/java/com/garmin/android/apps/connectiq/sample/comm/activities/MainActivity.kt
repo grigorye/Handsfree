@@ -28,11 +28,12 @@ class MainActivity : Activity() {
                 Manifest.permission.ANSWER_PHONE_CALLS,
                 Manifest.permission.CALL_PHONE,
                 Manifest.permission.FOREGROUND_SERVICE,
-                Manifest.permission.FOREGROUND_SERVICE_SYSTEM_EXEMPTED,
+                Manifest.permission.FOREGROUND_SERVICE_SPECIAL_USE,
+                Manifest.permission.POST_NOTIFICATIONS,
                 Manifest.permission.READ_CALL_LOG,
                 Manifest.permission.READ_CONTACTS,
                 Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.SCHEDULE_EXACT_ALARM,
+                Manifest.permission.RECEIVE_BOOT_COMPLETED
             ),
             0
         )

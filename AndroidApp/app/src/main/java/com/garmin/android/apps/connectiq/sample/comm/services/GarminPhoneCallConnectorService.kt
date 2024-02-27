@@ -62,34 +62,31 @@ class GarminPhoneCallConnectorService : LifecycleService() {
 
     private fun ensureForegroundService() {
         try {
-            val CHANNEL_ID = "CHANNEL_ID"
+            val CHANNEL_ID = "FOREGROUND_SERVICE"
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "Channel",
-                NotificationManager.IMPORTANCE_HIGH
+                "Status",
+                NotificationManager.IMPORTANCE_LOW
             )
-            channel.description = "PennSkanvTic channel for foreground service notification"
+            channel.description = "Allows making calls from Garmin devices."
 
             val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-                .setOngoing(true)
-                .setContentTitle("Title")
-                .setContentText("Content text")
-                .setSmallIcon(R.drawable.stat_sys_download)
-                .setTicker("ticker")
+                .setContentText("Serving call requests from Garmin devices")
+                .setSmallIcon(R.drawable.stat_notify_sync)
+                .setSilent(true)
                 .build()
-            val notificationManager =
-                getSystemService(NotificationManager::class.java)
+            val notificationManager = getSystemService(NotificationManager::class.java)
             notificationManager.createNotificationChannel(channel)
 
             startForeground(
-                /* id = */ 100, // Cannot be 0
+                /* id = */ 100,
                 /* notification = */ notification,
                 /* foregroundServiceType = */
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    ServiceInfo.FOREGROUND_SERVICE_TYPE_SYSTEM_EXEMPTED
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_MANIFEST
                 } else {
                     0
-                },
+                }
             )
         } catch (e: Exception) {
             Log.e(TAG, "Exception: ${e}")
