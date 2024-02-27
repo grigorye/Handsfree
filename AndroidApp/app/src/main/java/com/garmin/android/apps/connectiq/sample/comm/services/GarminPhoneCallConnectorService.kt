@@ -74,6 +74,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
                 .setContentText("Serving call requests from Garmin devices")
                 .setSmallIcon(R.drawable.stat_notify_sync)
                 .setSilent(true)
+                .setOngoing(true)
                 .build()
             val notificationManager = getSystemService(NotificationManager::class.java)
             notificationManager.createNotificationChannel(channel)
