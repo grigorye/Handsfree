@@ -35,9 +35,7 @@ class MainActivity : Activity() {
                 Manifest.permission.READ_CONTACTS,
                 Manifest.permission.READ_PHONE_STATE,
                 Manifest.permission.RECEIVE_BOOT_COMPLETED,
-                Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
-                Manifest.permission.SCHEDULE_EXACT_ALARM,
-                Manifest.permission.SYSTEM_ALERT_WINDOW
+                Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
             ),
             0
         )

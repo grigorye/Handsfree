@@ -15,7 +15,6 @@ import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
 import com.garmin.android.apps.connectiq.sample.comm.activities.MainActivity
-import com.garmin.android.apps.connectiq.sample.comm.broadcastreceivers.scheduleKeepAwakeBroadcast
 import com.garmin.android.apps.connectiq.sample.comm.globals.DefaultServiceLocator
 import com.garmin.android.apps.connectiq.sample.comm.impl.PhoneState
 import com.garmin.android.apps.connectiq.sample.comm.impl.lastTrackedPhoneState
@@ -28,7 +27,6 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     override fun onCreate() {
         Log.d(TAG, "onCreate")
         super.onCreate()
-        scheduleKeepAwakeBroadcast(this)
         garminConnector.onStart()
     }
 
