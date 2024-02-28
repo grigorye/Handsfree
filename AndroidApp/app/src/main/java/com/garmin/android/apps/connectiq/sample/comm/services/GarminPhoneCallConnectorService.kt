@@ -68,45 +68,34 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     }
 
     private fun ensureForegroundService() {
-        try {
-            val CHANNEL_ID = "FOREGROUND_SERVICE"
-            val channel = NotificationChannel(
-                CHANNEL_ID,
-                "Status",
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            channel.description = "Allows making calls from Garmin devices."
+        val CHANNEL_ID = "FOREGROUND_SERVICE"
+        val channel = NotificationChannel(
+            CHANNEL_ID,
+            "Status",
+            NotificationManager.IMPORTANCE_DEFAULT
+        )
+        channel.description = "Allows making calls from Garmin devices."
 
-            val resultIntent = Intent(this, MainActivity::class.java)
-            val resultPendingIntent = PendingIntent.getActivity(
-                this, 0, resultIntent, PendingIntent.FLAG_IMMUTABLE
-            )
+        val resultIntent = Intent(this, MainActivity::class.java)
+        val resultPendingIntent = PendingIntent.getActivity(
+            this, 0, resultIntent, PendingIntent.FLAG_IMMUTABLE
+        )
 
-            val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentText("Serving since ${Date()}")
-                .setSmallIcon(R.drawable.stat_notify_sync)
-                .setOngoing(true)
-                .setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE)
-                .setContentIntent(resultPendingIntent)
-                .build()
-            val notificationManager = getSystemService(NotificationManager::class.java)
-            notificationManager.createNotificationChannel(channel)
+        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setContentText("Serving since ${Date()}")
+            .setSmallIcon(R.drawable.stat_notify_sync)
+            .setOngoing(true)
+            .setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE)
+            .setContentIntent(resultPendingIntent)
+            .build()
+        val notificationManager = getSystemService(NotificationManager::class.java)
+        notificationManager.createNotificationChannel(channel)
 
-            startForeground(
-                /* id = */ 100,
-                /* notification = */ notification,
-                /* foregroundServiceType = */ ServiceInfo.FOREGROUND_SERVICE_TYPE_MANIFEST
-            )
-        } catch (e: Exception) {
-            Log.e(TAG, "Exception: ${e}")
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                && e is ForegroundServiceStartNotAllowedException
-            ) {
-                // App not in a valid state to start foreground service
-                // (e.g. started from bg)
-            }
-            // ...
-        }
+        startForeground(
+            /* id = */ 100,
+            /* notification = */ notification,
+            /* foregroundServiceType = */ ServiceInfo.FOREGROUND_SERVICE_TYPE_MANIFEST
+        )
     }
 
     private fun accountPhoneState(incomingNumber: String?, stateExtra: String) {
