@@ -33,7 +33,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         super.onDestroy()
     }
 
-    var delayedIntents: ArrayList<Intent>? = ArrayList()
+    private var delayedIntents: ArrayList<Intent>? = ArrayList()
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
