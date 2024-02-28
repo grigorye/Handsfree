@@ -95,12 +95,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             startForeground(
                 /* id = */ 100,
                 /* notification = */ notification,
-                /* foregroundServiceType = */
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    ServiceInfo.FOREGROUND_SERVICE_TYPE_MANIFEST
-                } else {
-                    0
-                }
+                /* foregroundServiceType = */ ServiceInfo.FOREGROUND_SERVICE_TYPE_MANIFEST
             )
         } catch (e: Exception) {
             Log.e(TAG, "Exception: ${e}")
