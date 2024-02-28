@@ -31,11 +31,11 @@
             android:name=".broadcastreceivers.KeepAwakeReceiver"
             android:enabled="true"
             android:exported="true" />
-        
+
         <service
             android:name=".services.GarminPhoneCallConnectorService"
-            android:foregroundServiceType="specialUse"
-            android:exported="false">
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
             <property
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="Make phone calls from Garmin devices." />
@@ -50,7 +50,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".broadcastreceivers.PhoneStateBroadcastReceiver"
             android:exported="true">
