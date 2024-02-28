@@ -5,6 +5,7 @@ import android.app.ForegroundServiceStartNotAllowedException
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.os.Build
@@ -13,11 +14,13 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
+import com.garmin.android.apps.connectiq.sample.comm.activities.MainActivity
 import com.garmin.android.apps.connectiq.sample.comm.broadcastreceivers.scheduleKeepAwakeBroadcast
 import com.garmin.android.apps.connectiq.sample.comm.globals.DefaultServiceLocator
 import com.garmin.android.apps.connectiq.sample.comm.impl.PhoneState
 import com.garmin.android.apps.connectiq.sample.comm.impl.lastTrackedPhoneState
 import com.garmin.android.apps.connectiq.sample.comm.impl.sendPhoneState
+import java.util.Date
 
 
 class GarminPhoneCallConnectorService : LifecycleService() {
@@ -74,12 +77,17 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             )
             channel.description = "Allows making calls from Garmin devices."
 
+            val resultIntent = Intent(this, MainActivity::class.java)
+            val resultPendingIntent = PendingIntent.getActivity(
+                this, 0, resultIntent, PendingIntent.FLAG_IMMUTABLE
+            )
+
             val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentText("Serving call requests from Garmin devices")
+                .setContentText("Serving since ${Date()}")
                 .setSmallIcon(R.drawable.stat_notify_sync)
-                .setSilent(true)
                 .setOngoing(true)
                 .setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE)
+                .setContentIntent(resultPendingIntent)
                 .build()
             val notificationManager = getSystemService(NotificationManager::class.java)
             notificationManager.createNotificationChannel(channel)
