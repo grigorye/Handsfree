@@ -1,14 +1,12 @@
 package com.garmin.android.apps.connectiq.sample.comm.services
 
 import android.R
-import android.app.ForegroundServiceStartNotAllowedException
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.ServiceInfo
-import android.os.Build
 import android.telephony.TelephonyManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -51,7 +49,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             }
         }
 
-        return START_REDELIVER_INTENT
+        return START_STICKY
     }
 
     private fun scheduleIntent(intent: Intent) {
