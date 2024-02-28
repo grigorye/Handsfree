@@ -60,7 +60,7 @@ class MainActivity : Activity() {
         Log.d(TAG, "onPause")
         super.onPause()
     }
-    
+
     public override fun onResume() {
         Log.d(TAG, "onResume")
         super.onResume()
