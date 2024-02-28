@@ -43,9 +43,10 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         Log.d(TAG, "Intent: $intent")
         if (intent?.action == "android.intent.action.PHONE_STATE") {
             scheduleIntent(intent)
+            return START_NOT_STICKY
         }
 
-        return START_NOT_STICKY
+        return START_REDELIVER_INTENT
     }
 
     private fun scheduleIntent(intent: Intent) {
