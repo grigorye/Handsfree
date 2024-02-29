@@ -30,6 +30,7 @@ class MainActivity : Activity() {
                 Manifest.permission.CALL_PHONE,
                 Manifest.permission.FOREGROUND_SERVICE,
                 Manifest.permission.FOREGROUND_SERVICE_SPECIAL_USE,
+                Manifest.permission.FOREGROUND_SERVICE_SYSTEM_EXEMPTED,
                 Manifest.permission.POST_NOTIFICATIONS,
                 Manifest.permission.READ_CALL_LOG,
                 Manifest.permission.READ_CONTACTS,
@@ -37,6 +38,7 @@ class MainActivity : Activity() {
                 Manifest.permission.RECEIVE_BOOT_COMPLETED,
                 Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
                 Manifest.permission.SCHEDULE_EXACT_ALARM,
+                Manifest.permission.USE_EXACT_ALARM,
                 Manifest.permission.SYSTEM_ALERT_WINDOW
             ),
             0

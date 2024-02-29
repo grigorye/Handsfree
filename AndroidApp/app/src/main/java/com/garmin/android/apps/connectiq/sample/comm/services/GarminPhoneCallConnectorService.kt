@@ -95,7 +95,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         startForeground(
             /* id = */ 100,
             /* notification = */ notification,
-            /* foregroundServiceType = */ ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
+            /* foregroundServiceType = */ ServiceInfo.FOREGROUND_SERVICE_TYPE_MANIFEST
         )
     }
 
