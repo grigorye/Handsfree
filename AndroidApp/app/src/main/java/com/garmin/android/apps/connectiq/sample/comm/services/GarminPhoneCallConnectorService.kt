@@ -42,7 +42,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
 
         ensureForegroundService()
 
-        Log.d(TAG, "Intent: $intent")
+        Log.d(TAG, "intent: $intent")
         when (intent?.action) {
             "android.intent.action.PHONE_STATE" -> {
                 scheduleIntent(intent)

@@ -9,7 +9,7 @@ import com.garmin.android.apps.connectiq.sample.comm.services.GarminPhoneCallCon
 class ConnectIQIncomingMessageBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        Log.d(TAG, "Intent: $intent")
+        Log.d(TAG, "intent: $intent")
         val intentForConnector =
             Intent(context, GarminPhoneCallConnectorService::class.java).apply {
                 action = intent.action

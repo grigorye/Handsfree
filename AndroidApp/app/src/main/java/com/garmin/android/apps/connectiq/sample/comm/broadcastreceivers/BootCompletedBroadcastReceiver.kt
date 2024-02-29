@@ -10,8 +10,11 @@ import com.garmin.android.apps.connectiq.sample.comm.services.GarminPhoneCallCon
 class BootCompletedBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        Log.d(TAG, "Intent: $intent")
-        startForegroundService(context, Intent(context, GarminPhoneCallConnectorService::class.java))
+        Log.d(TAG, "intent: $intent")
+        startForegroundService(
+            context,
+            Intent(context, GarminPhoneCallConnectorService::class.java)
+        )
     }
 
     companion object {
