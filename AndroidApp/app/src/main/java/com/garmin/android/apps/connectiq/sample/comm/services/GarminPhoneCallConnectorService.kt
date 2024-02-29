@@ -69,11 +69,11 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     }
 
     private fun ensureForegroundService() {
-        val channelId = "FOREGROUND_SERVICE"
+        val channelId = "GARMIN_CONNECT"
         val channel = NotificationChannel(
             channelId,
-            "Status",
-            NotificationManager.IMPORTANCE_DEFAULT
+            "Garmin Connect",
+            NotificationManager.IMPORTANCE_LOW
         )
         channel.description = "Allows making calls from Garmin devices."
 
