@@ -10,7 +10,7 @@ import android.provider.Settings
 import android.util.Log
 
 fun requestIgnoreBatteryOptimizations(context: Context) {
-    val tag = object {}.javaClass.enclosingMethod.name
+    val tag = object {}.javaClass.enclosingMethod?.name
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         val packageName = context.packageName
