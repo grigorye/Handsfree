@@ -1,0 +1,21 @@
+#! /bin/bash
+
+set -euo pipefail
+set -x
+
+sdk_version="7.0.2.beta-2024-01-10-acc16aead"
+developer_key=~/Workbench/Garmin/developer_key
+
+sdk_root=~/"Library/Application Support/Garmin/ConnectIQ/Sdks/connectiq-sdk-mac-$sdk_version"
+
+for device in fenix7 fr955 vivoactive4; do
+
+    java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
+        -jar "$sdk_root"/bin/monkeybrains.jar \
+        -o bin/WatchApp-"$device".prg \
+        -f monkey.jungle \
+        -y "$developer_key" \
+        -d "$device" \
+        -w \
+        -l 3
+done
