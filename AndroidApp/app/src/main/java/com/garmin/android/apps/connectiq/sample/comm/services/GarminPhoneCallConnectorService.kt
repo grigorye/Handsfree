@@ -67,9 +67,9 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     }
 
     private fun ensureForegroundService() {
-        val CHANNEL_ID = "FOREGROUND_SERVICE"
+        val channelId = "FOREGROUND_SERVICE"
         val channel = NotificationChannel(
-            CHANNEL_ID,
+            channelId,
             "Status",
             NotificationManager.IMPORTANCE_DEFAULT
         )
@@ -80,7 +80,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             this, 0, resultIntent, PendingIntent.FLAG_IMMUTABLE
         )
 
-        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+        val notification = NotificationCompat.Builder(this, channelId)
             .setContentText("Serving since ${Date()}")
             .setSmallIcon(android.R.drawable.stat_notify_sync)
             .setOngoing(true)
