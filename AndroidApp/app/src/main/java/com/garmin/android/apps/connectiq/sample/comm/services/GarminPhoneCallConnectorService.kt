@@ -1,6 +1,5 @@
 package com.garmin.android.apps.connectiq.sample.comm.services
 
-import android.R
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -81,7 +80,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
 
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentText("Serving since ${Date()}")
-            .setSmallIcon(R.drawable.stat_notify_sync)
+            .setSmallIcon(android.R.drawable.stat_notify_sync)
             .setOngoing(true)
             .setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE)
             .setContentIntent(resultPendingIntent)
