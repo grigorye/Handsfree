@@ -57,6 +57,8 @@ class GarminPhoneCallConnectorService : LifecycleService() {
 
     private fun processIntent(intent: Intent) {
         val stateExtra = intent.getStringExtra(TelephonyManager.EXTRA_STATE)!!
+
+        @Suppress("DEPRECATION")
         val incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
         Log.d(TAG, "stateExtra: $stateExtra")
         Log.d(TAG, "incomingNumber: $incomingNumber")
