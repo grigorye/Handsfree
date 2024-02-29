@@ -23,7 +23,9 @@ data class StartStats(
     val launchDate: Date = Date(),
     var total: Int = 0,
     var phoneState: Int = 0,
-    var incomingMessage: Int = 0
+    var incomingMessage: Int = 0,
+    var mainActivity: Int = 0,
+    var other: Int = 0
 )
 
 var startStats = StartStats()
@@ -65,7 +67,15 @@ class GarminPhoneCallConnectorService : LifecycleService() {
                 START_REDELIVER_INTENT
             }
 
-            else -> START_REDELIVER_INTENT
+            ACTIVATE_FROM_MAIN_ACTIVITY_ACTION -> {
+                startStats.mainActivity += 1
+                START_REDELIVER_INTENT
+            }
+
+            else -> {
+                startStats.other += 1
+                START_REDELIVER_INTENT
+            }
         }
 
         ensureForegroundService()

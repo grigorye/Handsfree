@@ -1,5 +1,6 @@
 package com.garmin.android.apps.connectiq.sample.comm.activities
 
+import com.garmin.android.apps.connectiq.sample.comm.helpers.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
@@ -13,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.garmin.android.apps.connectiq.sample.comm.R
 import com.garmin.android.apps.connectiq.sample.comm.impl.requestIgnoreBatteryOptimizations
-import com.garmin.android.apps.connectiq.sample.comm.services.GarminPhoneCallConnectorService
+import com.garmin.android.apps.connectiq.sample.comm.helpers.startConnector
 
 
 class MainActivity : Activity() {
@@ -55,7 +56,7 @@ class MainActivity : Activity() {
         }
 
         setupUi()
-        startForegroundService(Intent(this, GarminPhoneCallConnectorService::class.java))
+        startConnector(this, ACTIVATE_FROM_MAIN_ACTIVITY_ACTION)
     }
 
     public override fun onPause() {
