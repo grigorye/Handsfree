@@ -28,6 +28,7 @@ class DefaultGarminConnector(
     override lateinit var connectIQ: ConnectIQ
 
     override fun onStop() {
+        Log.d(TAG, "onStop")
         // It is a good idea to unregister everything and shut things down to
         // release resources and prevent unwanted callbacks.
         connectIQ.unregisterAllForEvents()
@@ -35,6 +36,7 @@ class DefaultGarminConnector(
     }
 
     override fun onStart() {
+        Log.d(TAG, "onStart")
         val connectType = if (isRunningInEmulator()) {
             ConnectIQ.IQConnectType.TETHERED
         } else {
@@ -42,10 +44,12 @@ class DefaultGarminConnector(
         }
 
         connectIQ = ConnectIQ.getInstance(this, connectType)
+        Log.d(TAG, "connectIQ: $connectIQ")
         connectIQ.initialize(this, true, connectIQListener)
     }
 
     override fun startIncomingMessageProcessing(device: IQDevice) {
+        Log.d(TAG, "startIncomingMessageProcessing: ${device.friendlyName}")
         connectIQ.registerForAppEvents(device, myApp) { _, _, message, _ ->
             for (o in message) {
                 dispatchIncomingMessage(o)
@@ -71,10 +75,7 @@ class DefaultGarminConnector(
     private val connectIQListener: ConnectIQ.ConnectIQListener =
         object : ConnectIQ.ConnectIQListener {
             override fun onInitializeError(errStatus: ConnectIQ.IQSdkErrorStatus) {
-                Log.d(
-                    TAG,
-                    getString(R.string.initialization_error) + ": " + errStatus.name
-                )
+                Log.d(TAG, "initializeError: ${errStatus.name}")
             }
 
             override fun onSdkReady() {
