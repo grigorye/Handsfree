@@ -19,6 +19,14 @@ import com.garmin.android.apps.connectiq.sample.comm.impl.lastTrackedPhoneState
 import com.garmin.android.apps.connectiq.sample.comm.impl.sendPhoneState
 import java.util.Date
 
+data class StartStats(
+    val launchDate: Date = Date(),
+    var total: Int = 0,
+    var phoneState: Int = 0,
+    var incomingMessage: Int = 0
+)
+
+var startStats = StartStats()
 
 class GarminPhoneCallConnectorService : LifecycleService() {
 
@@ -40,17 +48,30 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
 
-        ensureForegroundService()
+        startStats.total += 1
 
         Log.d(TAG, "intent: $intent")
-        when (intent?.action) {
+
+        val resultCode: Int = when (intent?.action) {
             "android.intent.action.PHONE_STATE" -> {
+                startStats.phoneState += 1
                 scheduleIntent(intent)
-                return START_NOT_STICKY
+                START_NOT_STICKY
             }
+
+            "com.garmin.android.connectiq.INCOMING_MESSAGE" -> {
+                startStats.incomingMessage += 1
+                ensureForegroundService()
+                START_REDELIVER_INTENT
+            }
+
+            else -> START_REDELIVER_INTENT
         }
 
-        return START_REDELIVER_INTENT
+        ensureForegroundService()
+
+        Log.d(TAG, "onStartResultCode: $resultCode")
+        return resultCode
     }
 
     private fun scheduleIntent(intent: Intent) {
@@ -83,7 +104,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         )
 
         val notification = NotificationCompat.Builder(this, channelId)
-            .setContentText("Serving since ${Date()}")
+            .setContentText("Serving ($startStats)")
             .setSmallIcon(android.R.drawable.stat_notify_sync)
             .setOngoing(true)
             .setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE)
