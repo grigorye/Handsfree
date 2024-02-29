@@ -15,7 +15,7 @@ class ConnectIQIncomingMessageBroadcastReceiver : BroadcastReceiver() {
                 action = intent.action
                 putExtras(intent)
             }
-        context.startForegroundService(intentForConnector);
+        context.startForegroundService(intentForConnector)
     }
 
     companion object {
