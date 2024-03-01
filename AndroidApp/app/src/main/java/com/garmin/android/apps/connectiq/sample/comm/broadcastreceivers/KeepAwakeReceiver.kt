@@ -12,7 +12,7 @@ class KeepAwakeReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         Log.d(TAG, "onReceive")
-        scheduleKeepAwakeBroadcast(context)
+        scheduleKeepAwakeBroadcast(context, 5)
     }
 
     companion object {
@@ -20,7 +20,7 @@ class KeepAwakeReceiver : BroadcastReceiver() {
     }
 }
 
-fun scheduleKeepAwakeBroadcast(context: Context) {
+fun scheduleKeepAwakeBroadcast(context: Context, minutes: Int) {
     val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     val intent = Intent(context, KeepAwakeReceiver::class.java)
     val pendingIntent =
@@ -31,7 +31,7 @@ fun scheduleKeepAwakeBroadcast(context: Context) {
     if (canScheduleExactAlarms) {
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
-            System.currentTimeMillis() + 1000 * 60 * 5,
+            System.currentTimeMillis() + 1000 * 60 * minutes,
             pendingIntent
         )
     }

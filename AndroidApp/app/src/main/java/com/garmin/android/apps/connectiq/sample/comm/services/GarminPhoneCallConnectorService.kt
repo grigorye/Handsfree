@@ -35,7 +35,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     override fun onCreate() {
         Log.d(TAG, "onCreate")
         super.onCreate()
-        scheduleKeepAwakeBroadcast(this)
+        scheduleKeepAwakeBroadcast(this, 5)
         garminConnector.onStart()
     }
 
