@@ -24,14 +24,17 @@ class KeepAwakeReceiver : BroadcastReceiver() {
     }
 }
 
+
 fun scheduleKeepAwakeBroadcast(context: Context, minutes: Int) {
+    val tag = object {}.javaClass.enclosingMethod?.name
+
     val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     val intent = Intent(context, KeepAwakeReceiver::class.java)
     val pendingIntent =
         PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
     val canScheduleExactAlarms = alarmManager.canScheduleExactAlarms()
-    Log.d(KeepAwakeReceiver.TAG, "canScheduleExactAlarms: $canScheduleExactAlarms")
+    Log.d(tag, "canScheduleExactAlarms: $canScheduleExactAlarms")
     if (canScheduleExactAlarms) {
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
