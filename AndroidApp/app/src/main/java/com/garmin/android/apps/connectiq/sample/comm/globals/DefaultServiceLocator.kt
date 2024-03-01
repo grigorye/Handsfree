@@ -77,8 +77,8 @@ class DefaultServiceLocator(
             dispatchIncomingMessage = { o ->
                 incomingMessageDispatcher.handleMessage(o)
             },
-            accountDeviceConnection = {
-                outgoingMessageDispatcher.sendPhones()
+            accountDeviceConnection = { device ->
+                Log.d(TAG, "deviceConnected: ${device.friendlyName}")
             }
         )
     }
