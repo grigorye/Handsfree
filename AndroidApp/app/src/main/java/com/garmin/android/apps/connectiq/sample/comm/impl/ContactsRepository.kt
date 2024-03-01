@@ -27,8 +27,6 @@ data class ContactData(
     var phoneDataList: List<PhoneData> = ArrayList<PhoneData>()
 )
 
-typealias ContactDataList = ArrayList<ContactData>
-
 interface ContactsRepository {
     fun contactsJsonObject(): Any
 }
@@ -156,8 +154,8 @@ class ContactsRepositoryImpl(base: Context?) : ContextWrapper(base), ContactsRep
         return numbers
     }
 
-    fun contacts(): ContactDataList {
-        var contacts = ContactDataList()
+    fun contacts(): List<ContactData> {
+        var contacts = ArrayList<ContactData>()
         val groupId = contactsGroupId()
         if (groupId != null) {
             forEachContactInGroup(groupId) { contactId, displayName ->
