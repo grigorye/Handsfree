@@ -5,7 +5,7 @@ import android.content.Intent
 import android.util.Log
 import com.garmin.android.apps.connectiq.sample.comm.services.GarminPhoneCallConnectorService
 
-val ACTIVATE_FROM_MAIN_ACTIVITY_ACTION = "ACTIVATE_FROM_MAIN_ACTIVITY"
+const val ACTIVATE_FROM_MAIN_ACTIVITY_ACTION = "ACTIVATE_FROM_MAIN_ACTIVITY"
 
 fun startConnector(context: Context, customAction: String) {
     val tag = object {}.javaClass.enclosingMethod?.name
