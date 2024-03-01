@@ -3,11 +3,15 @@ using Toybox.Communications;
 using Toybox.WatchUi;
 using Toybox.System;
 using Toybox.Lang;
+using Toybox.Timer;
 
 class CommExample extends Application.AppBase {
 
     var isSupportedPlatform as Lang.Boolean = getIsSupportedPlatform();
     var readyToSync as Lang.Boolean = false;
+    var remoteResponded as Lang.Boolean = false;
+    var checkInAttemptsRemaining as Lang.Number = 3;
+    var secondsToCheckIn as Lang.Number = 1;
 
     function initialize() {
         dump("initialize", true);
@@ -23,6 +27,24 @@ class CommExample extends Application.AppBase {
     function onStart(state) {
         dump("onStart", state);
         Application.AppBase.onStart(state);
+        checkIn();
+    }
+
+    function checkIn() as Void {
+        dump("remoteResponded", remoteResponded);
+        if (remoteResponded) {
+            return;
+        }
+        dump("checkInAttemptsRemaining", checkInAttemptsRemaining);
+        if (checkInAttemptsRemaining == 0) {
+            dump("checkInTimedOut", true);
+            return;
+        }
+        dump("secondsToCheckIn", secondsToCheckIn);
+        var timer = new Timer.Timer();
+        timer.start(method(:checkIn), 1000 * secondsToCheckIn, false);
+        checkInAttemptsRemaining -= 1;
+        secondsToCheckIn *= 2;
         requestSync();
     }
 
@@ -45,6 +67,7 @@ class CommExample extends Application.AppBase {
             dump("flushedMsg", msg);
             return;
         }
+        remoteResponded = true;
         handleRemoteMessage(msg);
     }
 }
