@@ -14,6 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import com.garmin.android.apps.connectiq.sample.comm.activities.MainActivity
 import com.garmin.android.apps.connectiq.sample.comm.broadcastreceivers.scheduleKeepAwakeBroadcast
 import com.garmin.android.apps.connectiq.sample.comm.globals.DefaultServiceLocator
+import com.garmin.android.apps.connectiq.sample.comm.helpers.ACTIVATE_FROM_KEEP_AWAKE
+import com.garmin.android.apps.connectiq.sample.comm.helpers.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.garmin.android.apps.connectiq.sample.comm.impl.PhoneState
 import com.garmin.android.apps.connectiq.sample.comm.impl.lastTrackedPhoneState
 import com.garmin.android.apps.connectiq.sample.comm.impl.sendPhoneState
@@ -24,7 +26,9 @@ data class StartStats(
     var total: Int = 0,
     var phoneState: Int = 0,
     var incomingMessage: Int = 0,
+    var bootCompleted: Int = 0,
     var mainActivity: Int = 0,
+    var keepAwake: Int = 0,
     var other: Int = 0
 )
 
@@ -67,8 +71,18 @@ class GarminPhoneCallConnectorService : LifecycleService() {
                 START_REDELIVER_INTENT
             }
 
+            "android.intent.action.BOOT_COMPLETED" -> {
+                startStats.bootCompleted += 1
+                START_REDELIVER_INTENT
+            }
+
             ACTIVATE_FROM_MAIN_ACTIVITY_ACTION -> {
                 startStats.mainActivity += 1
+                START_REDELIVER_INTENT
+            }
+
+            ACTIVATE_FROM_KEEP_AWAKE -> {
+                startStats.keepAwake += 1
                 START_REDELIVER_INTENT
             }
 
