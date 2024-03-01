@@ -24,9 +24,15 @@ class KeepAwakeReceiver : BroadcastReceiver() {
     }
 }
 
+var keepAwakeEnabled = false
 
 fun scheduleKeepAwakeBroadcast(context: Context, minutes: Int) {
     val tag = object {}.javaClass.enclosingMethod?.name
+
+    Log.d(tag, "keepAwakeEnabled: $keepAwakeEnabled")
+    if (!keepAwakeEnabled) {
+        return
+    }
 
     val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     val intent = Intent(context, KeepAwakeReceiver::class.java)
