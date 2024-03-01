@@ -163,7 +163,7 @@ class ContactsRepositoryImpl(base: Context?) : ContextWrapper(base), ContactsRep
                 contacts.add(ContactData(contactId, displayName, number))
             }
         }
-        return contacts
+        return contacts.sortedBy { it.name }
     }
 
     override fun contactsJsonObject(): Any {
