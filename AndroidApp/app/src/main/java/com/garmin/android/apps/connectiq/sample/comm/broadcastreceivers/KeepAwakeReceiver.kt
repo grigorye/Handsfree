@@ -11,7 +11,7 @@ import android.util.Log
 class KeepAwakeReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        Log.d(TAG, "onReceive")
+        Log.d(TAG, "onReceivePid: ${android.os.Process.myPid()}")
         scheduleKeepAwakeBroadcast(context, 5)
     }
 
