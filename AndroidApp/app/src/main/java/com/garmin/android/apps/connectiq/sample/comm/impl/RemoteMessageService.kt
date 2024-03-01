@@ -38,7 +38,7 @@ class DefaultRemoteMessageService(
                 device,
                 myApp,
                 message
-            ) { device, app, status ->
+            ) { device, _, status ->
                 Log.d(
                     TAG,
                     "device.${device.deviceIdentifier}(${device.friendlyName}) -> ack(${status}, msg${message}"
