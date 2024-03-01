@@ -176,9 +176,8 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             this,
             lifecycleScope = lifecycleScope,
             onSDKReadyImp = {
-                if (delayedIntents == null) {
-                    Log.e(TAG, "Delayed intents is already null.")
-                } else {
+                Log.d(TAG, "delayedIntents: $delayedIntents")
+                if (delayedIntents != null) {
                     val intents = delayedIntents
                     delayedIntents = null
                     intents?.forEach {
