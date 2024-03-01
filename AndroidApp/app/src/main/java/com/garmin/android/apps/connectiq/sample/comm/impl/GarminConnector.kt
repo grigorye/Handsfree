@@ -48,7 +48,10 @@ class DefaultGarminConnector(
     }
 
     override fun startIncomingMessageProcessing(device: IQDevice) {
-        Log.d(TAG, "startIncomingMessageProcessing: ${device.friendlyName}")
+        Log.d(
+            TAG,
+            "startIncomingMessageProcessing: ${device.deviceIdentifier}(${device.friendlyName})"
+        )
         connectIQ.registerForAppEvents(device, myApp) { _, _, message, _ ->
             for (o in message) {
                 dispatchIncomingMessage(o)
@@ -61,7 +64,7 @@ class DefaultGarminConnector(
     }
 
     private fun accountDeviceStatus(device: IQDevice, status: IQDevice.IQDeviceStatus) {
-        Log.d(TAG, "device(${device.friendlyName}) <- status($status)")
+        Log.d(TAG, "device.${device.deviceIdentifier}(${device.friendlyName}) <- status($status)")
         when (status) {
             IQDevice.IQDeviceStatus.CONNECTED -> {
                 accountDeviceConnection(device)

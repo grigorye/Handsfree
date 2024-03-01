@@ -72,14 +72,17 @@ class DefaultServiceLocator(
                 startIncomingMessageProcessing()
                 Log.d(
                     TAG,
-                    "knownDevices: ${garminConnector.knownDevices().map { x -> x.friendlyName }}"
+                    "knownDevices: ${
+                        garminConnector.knownDevices()
+                            .map { x -> "${x.deviceIdentifier}(${x.friendlyName})" }
+                    }"
                 )
             },
             dispatchIncomingMessage = { o ->
                 incomingMessageDispatcher.handleMessage(o)
             },
             accountDeviceConnection = { device ->
-                Log.d(TAG, "deviceConnected: ${device.friendlyName}")
+                Log.d(TAG, "deviceConnected: ${device.deviceIdentifier}(${device.friendlyName})")
             }
         )
     }
