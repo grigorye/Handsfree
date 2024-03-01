@@ -7,6 +7,7 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.telephony.TelephonyManager
+import android.text.TextUtils
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
@@ -19,6 +20,7 @@ import com.garmin.android.apps.connectiq.sample.comm.helpers.ACTIVATE_FROM_MAIN_
 import com.garmin.android.apps.connectiq.sample.comm.impl.PhoneState
 import com.garmin.android.apps.connectiq.sample.comm.impl.lastTrackedPhoneState
 import com.garmin.android.apps.connectiq.sample.comm.impl.sendPhoneState
+import java.text.DateFormat
 import java.util.Date
 
 data class StartStats(
@@ -127,8 +129,22 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             this, 0, resultIntent, PendingIntent.FLAG_IMMUTABLE
         )
 
+        val dateFormatted = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)
+            .format(startStats.launchDate)
         val notification = NotificationCompat.Builder(this, channelId)
-            .setContentText("Serving ($startStats)")
+            .setContentTitle("Comm: $dateFormatted")
+            .setContentText(
+                TextUtils.join(
+                    ", ", arrayOf(
+                        "i.${startStats.incomingMessage}",
+                        "p.${startStats.phoneState}",
+                        "b.${startStats.bootCompleted}",
+                        "m.${startStats.mainActivity}",
+                        "k.${startStats.keepAwake}",
+                        "o.${startStats.other}"
+                    )
+                )
+            )
             .setSmallIcon(android.R.drawable.stat_notify_sync)
             .setOngoing(true)
             .setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE)
