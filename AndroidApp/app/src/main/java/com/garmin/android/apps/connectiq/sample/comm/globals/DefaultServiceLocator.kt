@@ -53,6 +53,7 @@ class DefaultServiceLocator(
     }
 
     private fun startIncomingMessageProcessing() {
+        Log.d(TAG, "garminConnector.connectIQ: ${garminConnector.connectIQ}")
         for (device in garminConnector.knownDevices()) {
             device.status = garminConnector.connectIQ.getDeviceStatus(device)
             garminConnector.startIncomingMessageProcessing(device)
