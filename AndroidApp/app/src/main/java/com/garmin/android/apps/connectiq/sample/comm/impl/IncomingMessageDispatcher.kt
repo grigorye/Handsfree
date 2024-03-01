@@ -13,7 +13,7 @@ class IncomingMessageDispatcher(
         val string = JSONObject(pojo).toString()
         val json = Json { ignoreUnknownKeys = true }
         val obj = json.decodeFromString<CommonRequest>(string)
-        Log.d(TAG, "Incoming: ${obj}")
+        Log.d(TAG, "incomingMsg: $obj")
         when (obj.cmd) {
             "call" -> {
                 val callRequest = json.decodeFromString<CallRequest>(string)
@@ -29,7 +29,7 @@ class IncomingMessageDispatcher(
             }
 
             else -> {
-                Log.e(TAG, "Unknown cmd: ${obj}")
+                Log.e(TAG, "unknownMsg: $obj")
             }
         }
     }
