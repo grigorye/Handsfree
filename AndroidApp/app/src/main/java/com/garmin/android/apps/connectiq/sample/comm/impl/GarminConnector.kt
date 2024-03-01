@@ -3,7 +3,6 @@ package com.garmin.android.apps.connectiq.sample.comm.impl
 import android.content.Context
 import android.content.ContextWrapper
 import android.util.Log
-import com.garmin.android.apps.connectiq.sample.comm.R
 import com.garmin.android.apps.connectiq.sample.comm.globals.myApp
 import com.garmin.android.connectiq.ConnectIQ
 import com.garmin.android.connectiq.IQDevice
