@@ -5,18 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.garmin.android.apps.connectiq.sample.comm.helpers.goAsync
-import com.garmin.android.apps.connectiq.sample.comm.services.GarminPhoneCallConnectorService
+import com.garmin.android.apps.connectiq.sample.comm.helpers.startConnector
 
 class PhoneStateBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) = goAsync {
         Log.d(TAG, "intent: $intent")
-        val intentForConnector =
-            Intent(context, GarminPhoneCallConnectorService::class.java).apply {
-                action = intent.action
-                putExtras(intent)
-            }
-        context.startForegroundService(intentForConnector)
+        startConnector(context, intent)
     }
 
     companion object {
