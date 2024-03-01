@@ -1,6 +1,5 @@
 package com.garmin.android.apps.connectiq.sample.comm.activities
 
-import com.garmin.android.apps.connectiq.sample.comm.helpers.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
@@ -12,8 +11,9 @@ import android.view.Menu
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.app.ActivityCompat
 import com.garmin.android.apps.connectiq.sample.comm.R
-import com.garmin.android.apps.connectiq.sample.comm.impl.requestIgnoreBatteryOptimizations
+import com.garmin.android.apps.connectiq.sample.comm.helpers.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.garmin.android.apps.connectiq.sample.comm.helpers.startConnector
+import com.garmin.android.apps.connectiq.sample.comm.impl.requestIgnoreBatteryOptimizations
 import dev.doubledot.doki.ui.DokiActivity
 
 
