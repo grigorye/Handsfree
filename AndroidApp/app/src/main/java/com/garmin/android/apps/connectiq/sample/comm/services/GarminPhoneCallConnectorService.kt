@@ -58,7 +58,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
 
         startStats.total += 1
 
-        Log.d(TAG, "intent: $intent")
+        Log.d(TAG, "onStartCommand.intent: $intent")
 
         val resultCode: Int = when (intent?.action) {
             "android.intent.action.PHONE_STATE" -> {
