@@ -9,12 +9,12 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.Menu
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.app.ActivityCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.garmin.android.apps.connectiq.sample.comm.R
 import com.garmin.android.apps.connectiq.sample.comm.impl.requestIgnoreBatteryOptimizations
 import com.garmin.android.apps.connectiq.sample.comm.helpers.startConnector
+import dev.doubledot.doki.ui.DokiActivity
 
 
 class MainActivity : Activity() {
@@ -23,6 +23,11 @@ class MainActivity : Activity() {
         Log.d(TAG, "onCreate")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val activityBtn: AppCompatButton? = findViewById(R.id.launch_doki_btn)
+        activityBtn?.setOnClickListener {
+            DokiActivity.start(this)
+        }
 
         ActivityCompat.requestPermissions(
             this,
@@ -75,9 +80,7 @@ class MainActivity : Activity() {
     }
 
     private fun setupUi() {
-        findViewById<RecyclerView>(android.R.id.list).apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -51,4 +51,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
     implementation("androidx.lifecycle:lifecycle-service:2.7.0")
+
+    implementation("dev.doubledot.doki:library:0.0.1@aar") {
+        isTransitive = true
+    }
+    implementation("com.google.android.material:material:1.11.0")
 }

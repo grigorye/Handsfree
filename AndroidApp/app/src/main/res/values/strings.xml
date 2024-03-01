@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  Copyright (C) 2015 Garmin International Ltd.
  Subject to Garmin SDK License Agreement and Wearables Application Developer Agreement.
 -->
@@ -35,5 +34,6 @@
 
     <string name="missing_store_id">Missing App Store Id</string>
     <string name="missing_store_id_message">Please add a valid store app id for STORE_APP_ID in DeviceActivity.</string>
+    <string name="open_doki">Help It Run In Background</string>
 
 </resources>
