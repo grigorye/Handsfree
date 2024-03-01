@@ -35,6 +35,7 @@ class DefaultPhoneCallService(base: Context?) : ContextWrapper(base), PhoneCallS
             Log.i(TAG, "${Manifest.permission.ANSWER_PHONE_CALLS} is not there.")
             return
         }
+        @Suppress("DEPRECATION")
         mgr.endCall()
     }
 
