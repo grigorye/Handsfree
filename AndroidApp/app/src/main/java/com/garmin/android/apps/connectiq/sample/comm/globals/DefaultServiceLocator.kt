@@ -71,7 +71,7 @@ class DefaultServiceLocator(
                 startIncomingMessageProcessing()
                 Log.d(
                     TAG,
-                    "Known devices: ${garminConnector.knownDevices().map { x -> x.friendlyName }}"
+                    "knownDevices: ${garminConnector.knownDevices().map { x -> x.friendlyName }}"
                 )
             },
             dispatchIncomingMessage = { o ->
