@@ -1,12 +1,12 @@
 package com.garmin.android.apps.connectiq.sample.comm.broadcastreceivers
 
-import com.garmin.android.apps.connectiq.sample.comm.helpers.ACTIVATE_FROM_KEEP_AWAKE
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.garmin.android.apps.connectiq.sample.comm.helpers.ACTIVATE_FROM_KEEP_AWAKE
 import com.garmin.android.apps.connectiq.sample.comm.helpers.startConnector
 
 
