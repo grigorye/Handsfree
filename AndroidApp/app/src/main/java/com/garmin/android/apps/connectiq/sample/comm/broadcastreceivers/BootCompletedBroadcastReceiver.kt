@@ -12,7 +12,14 @@ class BootCompletedBroadcastReceiver : BroadcastReceiver() {
     @SuppressLint("UnsafeProtectedBroadcastReceiver")
     override fun onReceive(context: Context, intent: Intent) {
         Log.d(TAG, "intent: $intent")
-        startConnector(context, intent)
+        if (!keepAwakeEnabled) {
+            // Attempts to launch it on boot fail because the service running inside GarminConnect
+            // dies. On the other hand, it's not necessary to launch it on boot *unless* we rely
+            // on e.g. alarms to relaunch the app (and we don't: relying on INCOMING_MESSAGE as
+            // a trigger instead).
+        } else {
+            startConnector(context, intent)
+        }
     }
 
     companion object {
