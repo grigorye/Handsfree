@@ -24,6 +24,9 @@ class KeepAwakeReceiver : BroadcastReceiver() {
     }
 }
 
+// Relying on keep awake is not reliable and it results in the need for launching on boot (that
+// itself is problematic due to problems with initialization of Garmin SDK at that moment).
+// We (luckily) can employ INCOMING_MESSAGE as a trigger instead.
 var keepAwakeEnabled = false
 
 fun scheduleKeepAwakeBroadcast(context: Context, minutes: Int) {
