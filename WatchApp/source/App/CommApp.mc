@@ -19,6 +19,7 @@ class CommExample extends Application.AppBase {
         if (!isSupportedPlatform) {
             return;
         }
+        phonesImp = loadPhones();
         dump("registerForPhoneAppMessages", true);
         Communications.registerForPhoneAppMessages(method(:onPhone));
         readyToSync = true;

@@ -10,11 +10,6 @@ class AppState {
         callStateImp = callState;
     }
 
-    var phones as Phones = [
-        { "number" => "1233", "name" => "Crash Me", "id" => -1 },
-        { "number" => "1233", "name" => "VoiceMail", "id" => 23 }
-    ];
-    
     function initialize() {
     }
 }
