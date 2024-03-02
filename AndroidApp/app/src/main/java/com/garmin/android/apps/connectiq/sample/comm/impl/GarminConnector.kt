@@ -37,12 +37,11 @@ class DefaultGarminConnector(
     override fun onStart() {
         Log.d(TAG, "onStart")
         val connectType = if (isRunningInEmulator()) {
-            ConnectIQ.IQConnectType.TETHERED
+            connectIQ = ConnectIQ.getInstance(this, ConnectIQ.IQConnectType.TETHERED)
         } else {
-            ConnectIQ.IQConnectType.WIRELESS
+            connectIQ = ConnectIQ.getInstance()
         }
 
-        connectIQ = ConnectIQ.getInstance(this, connectType)
         connectIQ.initialize(this, true, connectIQListener)
     }
 
