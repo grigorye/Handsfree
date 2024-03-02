@@ -33,10 +33,12 @@ class CommExample extends Application.AppBase {
     function checkIn() as Void {
         dump("remoteResponded", remoteResponded);
         if (remoteResponded) {
+            setCheckInStatus(CHECK_IN_SUCCEEDED);
             return;
         }
         dump("checkInAttemptsRemaining", checkInAttemptsRemaining);
         if (checkInAttemptsRemaining == 0) {
+            setCheckInStatus(CHECK_IN_FAILED);
             dump("checkInTimedOut", true);
             return;
         }

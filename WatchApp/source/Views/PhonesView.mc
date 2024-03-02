@@ -8,16 +8,30 @@ class PhonesView extends WatchUi.Menu2 {
 
     var oldPhones as Phones = [];
 
+    function updateFromCheckInStatus(checkInStatus as CheckInStatus) as Void {
+        switch (checkInStatus) {
+            case CHECK_IN_IN_PROGRESS:
+                setTitle("...");
+                break;
+            case CHECK_IN_SUCCEEDED:
+                setTitle("Idle");
+                break;
+            case CHECK_IN_FAILED:
+                setTitle("Sync Failed");
+                break;        
+        }
+    }
     function updateFromCallState(callState as CallState) as Void {
         var title = "Idle";
         switch (callState) {
             case instanceof DismissedCallInProgress:
                 title = (callState as DismissedCallInProgress).phone["number"] as Lang.String;
+                setTitle(title);
                 break;
             default:
+                updateFromCheckInStatus(getCheckInStatus());
                 break;
         }
-        setTitle(title);
     }
 
     function updateFromPhones(phones as Phones) as Void {
