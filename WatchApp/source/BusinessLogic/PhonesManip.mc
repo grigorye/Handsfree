@@ -20,6 +20,12 @@ function getPhones() as Phones {
 }
 
 function setPhones(phones as Phones) as Void {
+    dump("setPhones", phones);
+    if (phones.toString().equals((phonesImp as Phones).toString())) {
+        dump("phonesUnchanged", true);
+        return;
+    }
+
     phonesImp = phones;
     Application.Storage.setValue("phones.v1", phones);
 
