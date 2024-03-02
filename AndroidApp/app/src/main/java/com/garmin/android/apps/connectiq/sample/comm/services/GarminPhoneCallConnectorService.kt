@@ -43,7 +43,6 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         super.onCreate()
         scheduleKeepAwakeBroadcast(this, 5)
         garminConnector.onStart()
-        Log.d(TAG, "onCreateCompleted")
     }
 
     override fun onDestroy() {

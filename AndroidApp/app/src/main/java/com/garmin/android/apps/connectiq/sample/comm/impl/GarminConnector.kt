@@ -43,7 +43,6 @@ class DefaultGarminConnector(
         }
 
         connectIQ = ConnectIQ.getInstance(this, connectType)
-        Log.d(TAG, "connectIQ: $connectIQ")
         connectIQ.initialize(this, true, connectIQListener)
     }
 
