@@ -16,7 +16,7 @@ class SchedulingCallView extends WatchUi.ProgressBar {
                 progress = 100.0;
                 break;
             case FAILED:
-                message = "Communication failed";
+                message = "Communication\nfailed";
                 progress = 0.0;
                 break;
             default:
