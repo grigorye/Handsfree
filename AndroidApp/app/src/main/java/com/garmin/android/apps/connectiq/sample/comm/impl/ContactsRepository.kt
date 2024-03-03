@@ -137,11 +137,7 @@ class ContactsRepositoryImpl(base: Context?) : ContextWrapper(base), ContactsRep
                 val normalizedPhoneNumber = getString(normalizedPhoneNumberColumn)
                 normalizedPhoneNumber?.let {
                     phoneData.normalized = it
-                    val formattedPhoneNumber = PhoneNumberUtils.formatNumber(
-                        normalizedPhoneNumber,
-                        Locale.getDefault().country
-                    )
-                    phoneData.formatted = formattedPhoneNumber
+                    phoneData.formatted = formatPhoneNumber(it)
                 }
                 phoneDataList.add(phoneData)
             }
