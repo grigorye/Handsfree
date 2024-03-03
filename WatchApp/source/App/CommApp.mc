@@ -7,7 +7,6 @@ using Toybox.Timer;
 
 class CommExample extends Application.AppBase {
 
-    var isSupportedPlatform as Lang.Boolean = getIsSupportedPlatform();
     var readyToSync as Lang.Boolean = false;
     var remoteResponded as Lang.Boolean = false;
     var checkInAttemptsRemaining as Lang.Number = 3;
@@ -17,9 +16,6 @@ class CommExample extends Application.AppBase {
         dump("initialize", true);
         dump("deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
         Application.AppBase.initialize();
-        if (!isSupportedPlatform) {
-            return;
-        }
         phonesImp = loadPhones();
         dump("registerForPhoneAppMessages", true);
         Communications.registerForPhoneAppMessages(method(:onPhone));
@@ -59,11 +55,7 @@ class CommExample extends Application.AppBase {
 
     function getInitialView() {
         dump("getInitialView", true);
-        if (isSupportedPlatform) {
-            return [new CommView()];
-        } else {
-            return [new WatchUi.ProgressBar("No support", 0.0)];
-        }
+        return [new CommView()];
     }
 
     function onPhone(msg as Communications.Message) as Void {
@@ -74,12 +66,6 @@ class CommExample extends Application.AppBase {
         remoteResponded = true;
         handleRemoteMessage(msg);
     }
-}
-
-function getIsSupportedPlatform() as Lang.Boolean {
-    var hasRegisterForAppMessages = Communications has :registerForPhoneAppMessages;
-    dump("hasRegisterForAppMessages", hasRegisterForAppMessages);
-    return hasRegisterForAppMessages;
 }
 
 function deviceSettingsDumpRep(deviceSettings as System.DeviceSettings) as Lang.String {
