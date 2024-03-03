@@ -12,6 +12,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
+import com.garmin.android.apps.connectiq.sample.comm.R
 import com.garmin.android.apps.connectiq.sample.comm.activities.MainActivity
 import com.garmin.android.apps.connectiq.sample.comm.broadcastreceivers.scheduleKeepAwakeBroadcast
 import com.garmin.android.apps.connectiq.sample.comm.globals.DefaultServiceLocator
@@ -127,7 +128,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         val dateFormatted = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)
             .format(startStats.launchDate)
         val notification = NotificationCompat.Builder(this, channelId)
-            .setContentTitle("Comm: $dateFormatted")
+            .setContentTitle("${getString(R.string.app_name)}: $dateFormatted")
             .setContentText(
                 TextUtils.join(
                     ", ", arrayOf(
