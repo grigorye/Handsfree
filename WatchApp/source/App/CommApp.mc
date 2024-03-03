@@ -15,6 +15,7 @@ class CommExample extends Application.AppBase {
 
     function initialize() {
         dump("initialize", true);
+        dump("deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
         Application.AppBase.initialize();
         if (!isSupportedPlatform) {
             return;
@@ -79,4 +80,13 @@ function getIsSupportedPlatform() as Lang.Boolean {
     var hasRegisterForAppMessages = Communications has :registerForPhoneAppMessages;
     dump("hasRegisterForAppMessages", hasRegisterForAppMessages);
     return hasRegisterForAppMessages;
+}
+
+function deviceSettingsDumpRep(deviceSettings as System.DeviceSettings) as Lang.String {
+    return ""
+        + Lang.format("monkey: $1$.$2$.$3$", deviceSettings.monkeyVersion) 
+        + ", "
+        + Lang.format("firmware: $1$", deviceSettings.firmwareVersion)
+        + ", "
+        + Lang.format("part: $1$", [deviceSettings.partNumber]);
 }
