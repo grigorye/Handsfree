@@ -44,7 +44,7 @@ class DefaultServiceLocator(
         CompoundRemoteMessageService()
     }
 
-    val outgoingMessageDispatcher by lazy {
+    val outgoingMessageDispatcher: OutgoingMessageDispatcher by lazy {
         DefaultOutgoingMessageDispatcher(remoteMessageService, contactsRepository)
     }
 
