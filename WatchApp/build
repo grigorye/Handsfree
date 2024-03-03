@@ -8,7 +8,7 @@ developer_key=~/Workbench/Garmin/developer_key
 
 sdk_root=~/"Library/Application Support/Garmin/ConnectIQ/Sdks/connectiq-sdk-mac-$sdk_version"
 
-for device in fenix7 fr955 vivoactive4; do
+for device in fenix7 fr955 vivoactive4 fr645m; do
 
     java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
         -jar "$sdk_root"/bin/monkeybrains.jar \
