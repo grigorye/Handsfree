@@ -6,7 +6,7 @@ class PhonesView extends WatchUi.Menu2 {
         WatchUi.Menu2.initialize({});
     }
 
-    var oldPhones as Phones = [];
+    var oldPhones as Phones = [] as Phones;
 
     function updateFromCheckInStatus(checkInStatus as CheckInStatus) as Void {
         switch (checkInStatus) {

@@ -36,4 +36,4 @@ class PopViewAfterDelayTask {
     }
 }
 
-var poppingViews as Lang.Array<WatchUi.View> = [];
+var poppingViews as Lang.Array<WatchUi.View> = [] as Lang.Array<WatchUi.View>;

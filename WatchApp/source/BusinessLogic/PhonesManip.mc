@@ -11,7 +11,7 @@ function loadPhones() as Phones {
         return [
             { "number" => "1233", "name" => "Crash Me", "id" => -1 },
             { "number" => "1233", "name" => "VoiceMail", "id" => 23 }
-        ];
+        ] as Phones;
     }
 }
 
