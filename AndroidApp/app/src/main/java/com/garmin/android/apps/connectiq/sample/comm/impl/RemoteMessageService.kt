@@ -5,7 +5,6 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import com.garmin.android.apps.connectiq.sample.comm.globals.myApp
 import com.garmin.android.connectiq.ConnectIQ
 import com.garmin.android.connectiq.IQDevice
-import com.garmin.android.connectiq.exception.InvalidStateException
 import com.garmin.android.connectiq.exception.ServiceUnavailableException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,10 +43,9 @@ class DefaultRemoteMessageService(
                     "device.${device.deviceIdentifier}(${device.friendlyName}) -> ack(${status}, msg${message}"
                 )
             }
-        } catch (e: InvalidStateException) {
-            Log.e(TAG, "ConnectIQ is not in a valid state. ${e}")
         } catch (e: ServiceUnavailableException) {
-            Log.e(TAG, "ConnectIQ service is unavailable. ${e}")
+            Log.e(TAG, "serviceUnavailable: $e")
+            breakIntoDebugger()
         }
     }
 
