@@ -18,7 +18,6 @@ function phoneForNumber(number as Lang.String or Null) as Phone {
     }
     return {
         "number" => adjustedNumber,
-        "name" => "Unknown",
         "id" => -2
     };
 }
