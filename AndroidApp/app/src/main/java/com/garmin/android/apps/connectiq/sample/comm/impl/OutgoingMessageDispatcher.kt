@@ -40,7 +40,7 @@ class DefaultOutgoingMessageDispatcher(
                 val msg = mapOf(
                     "cmd" to "callInProgress",
                     "args" to mapOf(
-                        "number" to (phoneState.incomingNumber ?: "")
+                        "number" to dispatchedPhoneNumber(phoneState.incomingNumber)
                     )
                 )
                 send(msg)
@@ -50,7 +50,7 @@ class DefaultOutgoingMessageDispatcher(
                 val msg = mapOf(
                     "cmd" to "ringing",
                     "args" to mapOf(
-                        "number" to (phoneState.incomingNumber ?: "")
+                        "number" to dispatchedPhoneNumber(phoneState.incomingNumber)
                     )
                 )
                 send(msg)
@@ -63,4 +63,8 @@ class DefaultOutgoingMessageDispatcher(
     fun send(msg: Map<String, Any>) {
         remoteMessageService.sendMessage(msg)
     }
+}
+
+private fun dispatchedPhoneNumber(incomingNumber: String?): String {
+    return incomingNumber?.also { normalizePhoneNumber(it) } ?: ""
 }
