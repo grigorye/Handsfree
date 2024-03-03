@@ -20,7 +20,6 @@ import com.garmin.android.apps.connectiq.sample.comm.helpers.ACTIVATE_FROM_MAIN_
 import com.garmin.android.apps.connectiq.sample.comm.impl.GarminConnector
 import com.garmin.android.apps.connectiq.sample.comm.impl.PhoneState
 import com.garmin.android.apps.connectiq.sample.comm.impl.lastTrackedPhoneState
-import com.garmin.android.apps.connectiq.sample.comm.impl.sendPhoneState
 import java.text.DateFormat
 import java.util.Date
 
@@ -162,9 +161,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         val phoneState = PhoneState(incomingNumber, stateExtra)
         lastTrackedPhoneState = phoneState
 
-        sendPhoneState(phoneState) { message ->
-            outgoingMessageDispatcher.send(message)
-        }
+        outgoingMessageDispatcher.sendPhoneState(phoneState)
     }
 
     private val l by lazy {
