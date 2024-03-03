@@ -1,6 +1,7 @@
 using Toybox.WatchUi;
 using Toybox.System;
 using Toybox.Lang;
+using Toybox.Application;
 
 var router as Router = new Router();
 
@@ -126,7 +127,7 @@ class Router {
     }
 
     function popToPhones() as Void {
-        if (popOutOfAppInsteadOfPhones) {
+        if (popOutOfAppInsteadOfPhones()) {
             popOutOfApp();
         } else {
             updatedPhonesView();
@@ -141,4 +142,6 @@ function popOutOfApp() as Void {
     WatchUi.popView(WatchUi.SLIDE_RIGHT);
 }
 
-var popOutOfAppInsteadOfPhones as Lang.Boolean = true;
+function popOutOfAppInsteadOfPhones() as Lang.Boolean {
+    return Application.Properties.getValue("popOutOfAppInsteadOfPhones") as Lang.Boolean;
+}

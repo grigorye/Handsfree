@@ -1,0 +1,18 @@
+<resources>
+
+    <properties>
+        <property id="popOutOfAppInsteadOfPhones" type="boolean">false</property>
+    </properties>
+
+    <strings>
+        <string id="popOutOfAppInsteadOfPhones">Close app after call</string>
+    </strings>
+
+    <settings>
+        <setting propertyKey="@Properties.popOutOfAppInsteadOfPhones"
+            title="@Strings.popOutOfAppInsteadOfPhones">
+            <settingConfig type="boolean" />
+        </setting>
+    </settings>
+
+</resources>
