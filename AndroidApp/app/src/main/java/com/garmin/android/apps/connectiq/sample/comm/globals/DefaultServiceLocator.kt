@@ -9,8 +9,10 @@ import com.garmin.android.apps.connectiq.sample.comm.impl.DefaultOutgoingMessage
 import com.garmin.android.apps.connectiq.sample.comm.impl.DefaultPhoneCallService
 import com.garmin.android.apps.connectiq.sample.comm.impl.GarminConnector
 import com.garmin.android.apps.connectiq.sample.comm.impl.IncomingMessageDispatcher
+import com.garmin.android.apps.connectiq.sample.comm.impl.OutgoingMessageDispatcher
 import com.garmin.android.apps.connectiq.sample.comm.impl.PhoneCallService
 import com.garmin.android.apps.connectiq.sample.comm.impl.RemoteMessageService
+import com.garmin.android.apps.connectiq.sample.comm.impl.lastTrackedPhoneState
 
 class DefaultServiceLocator(
     base: Context?,
@@ -29,6 +31,9 @@ class DefaultServiceLocator(
         IncomingMessageDispatcher(
             phoneCallService,
             syncImp = {
+                lastTrackedPhoneState?.let {
+                    outgoingMessageDispatcher.sendPhoneState(it)
+                }
                 outgoingMessageDispatcher.sendPhones()
             }
         )
