@@ -55,7 +55,7 @@ class CommExample extends Application.AppBase {
 
     function getInitialView() {
         dump("getInitialView", true);
-        return [new CommView()];
+        return [new CommView()] as Lang.Array<WatchUi.Views or WatchUi.InputDelegates> or Null;
     }
 
     function onPhone(msg as Communications.Message) as Void {
