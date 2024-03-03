@@ -4,7 +4,7 @@
 -->
 <resources>
 
-    <string name="app_name">Comm</string>
+    <string name="app_name">Handsfree</string>
     <string name="load_devices">Reload Devices</string>
     <string name="initialization_error">Failed to initalize the SDK.\n</string>
     <string name="service_unavailable">The ConnectIQ service is unavailabe.</string>
