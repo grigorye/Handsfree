@@ -64,11 +64,12 @@ class DefaultGarminConnector(
     private fun startSDK() {
         Log.d(TAG, "startSDK")
         val connectType = if (isRunningInEmulator()) {
-            connectIQ = ConnectIQ.getInstance(this, ConnectIQ.IQConnectType.TETHERED)
+            ConnectIQ.IQConnectType.TETHERED
         } else {
-            connectIQ = ConnectIQ.getInstance()
+            ConnectIQ.IQConnectType.WIRELESS
         }
 
+        connectIQ = ConnectIQ.getInstance(this, connectType)
         connectIQ.initialize(this, true, connectIQListener)
     }
 
