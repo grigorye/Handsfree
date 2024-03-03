@@ -60,8 +60,7 @@ class Router {
                     }
                     case instanceof Idle: {
                         dump("poppingToPhones", true);
-                        updatedPhonesView();
-                        WatchUi.popView(WatchUi.SLIDE_RIGHT);
+                        popToPhones();
                         break;
                     }
                     default:
@@ -73,8 +72,7 @@ class Router {
                     case instanceof DismissedCallInProgress:
                     case instanceof Idle: {
                         dump("poppingToPhones", true);
-                        updatedPhonesView();
-                        WatchUi.popView(WatchUi.SLIDE_RIGHT);
+                        popToPhones();
                         break;
                     }
                     case instanceof HangingUp: {
@@ -108,8 +106,7 @@ class Router {
                     }
                     case instanceof Idle: {
                         dump("poppingToPhones", true);
-                        updatedPhonesView();
-                        WatchUi.popView(WatchUi.SLIDE_RIGHT);
+                        popToPhones();
                         break;
                     }
                     default:
@@ -127,4 +124,21 @@ class Router {
         WatchUi.requestUpdate();
         return phonesView;
     }
+
+    function popToPhones() as Void {
+        if (popOutOfAppInsteadOfPhones) {
+            popOutOfApp();
+        } else {
+            updatedPhonesView();
+            WatchUi.popView(WatchUi.SLIDE_RIGHT);
+        }
+    }
 }
+
+function popOutOfApp() as Void {
+    routingBackToSystem = true;
+    WatchUi.popView(WatchUi.SLIDE_RIGHT);
+    WatchUi.popView(WatchUi.SLIDE_RIGHT);
+}
+
+var popOutOfAppInsteadOfPhones as Lang.Boolean = true;
