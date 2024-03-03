@@ -21,7 +21,6 @@ import com.garmin.android.apps.connectiq.sample.comm.impl.GarminConnector
 import com.garmin.android.apps.connectiq.sample.comm.impl.PhoneState
 import com.garmin.android.apps.connectiq.sample.comm.impl.lastTrackedPhoneState
 import com.garmin.android.apps.connectiq.sample.comm.impl.sendPhoneState
-import com.garmin.android.connectiq.exception.ServiceUnavailableException
 import java.text.DateFormat
 import java.util.Date
 
@@ -44,16 +43,14 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         Log.d(TAG, "onCreate")
         super.onCreate()
         scheduleKeepAwakeBroadcast(this, 5)
-        garminConnector.onStart()
+        garminConnector.launch()
     }
 
     override fun onDestroy() {
         Log.d(TAG, "onDestroy")
-        garminConnector.onStop()
+        garminConnector.terminate()
         super.onDestroy()
     }
-
-    private var delayedIntents: ArrayList<Intent>? = ArrayList()
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
@@ -65,7 +62,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         val resultCode: Int = when (intent?.action) {
             "android.intent.action.PHONE_STATE" -> {
                 startStats.phoneState += 1
-                scheduleIntent(intent)
+                processIntent(intent)
                 START_NOT_STICKY
             }
 
@@ -102,9 +99,6 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         return resultCode
     }
 
-    private fun scheduleIntent(intent: Intent) {
-        delayedIntents?.add(intent) ?: processIntent(intent)
-    }
 
     private fun processIntent(intent: Intent) {
         val stateExtra = intent.getStringExtra(TelephonyManager.EXTRA_STATE)!!
@@ -173,33 +167,10 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         }
     }
 
-    private var pendingServiceUnavailable: ServiceUnavailableException? = null
-
     private val l by lazy {
         DefaultServiceLocator(
             this,
-            lifecycleScope = lifecycleScope,
-            onSDKReadyImp = {
-                Log.d(TAG, "delayedIntents: $delayedIntents")
-                if (delayedIntents != null) {
-                    val intents = delayedIntents
-                    delayedIntents = null
-                    intents?.forEach {
-                        processIntent(it)
-                    }
-                }
-            },
-            onSDKShutdownImp = {
-                if (pendingServiceUnavailable != null) {
-                    Log.d(TAG, "restartingConnectorDue: $pendingServiceUnavailable")
-                    pendingServiceUnavailable = null
-                    garminConnector.onStart()
-                }
-            },
-            onServiceUnavailableImp = {
-                Log.d(TAG, "serviceUnavailable: $it")
-                pendingServiceUnavailable = it
-            }
+            lifecycleScope = lifecycleScope
         )
     }
 
