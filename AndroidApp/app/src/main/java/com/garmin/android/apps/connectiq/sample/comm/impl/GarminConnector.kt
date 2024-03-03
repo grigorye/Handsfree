@@ -6,6 +6,8 @@ import android.util.Log
 import com.garmin.android.apps.connectiq.sample.comm.globals.myApp
 import com.garmin.android.connectiq.ConnectIQ
 import com.garmin.android.connectiq.IQDevice
+import com.garmin.android.connectiq.exception.ServiceUnavailableException
+
 
 interface GarminConnector {
     fun onStart()
@@ -20,6 +22,8 @@ interface GarminConnector {
 class DefaultGarminConnector(
     base: Context?,
     val onSDKReady: () -> Unit,
+    val onSDKShutdown: () -> Unit,
+    val onServiceUnavailable: (ServiceUnavailableException) -> Unit,
     val dispatchIncomingMessage: (Any) -> Unit,
     val accountDeviceConnection: (IQDevice) -> Unit,
 ) : ContextWrapper(base), GarminConnector {
@@ -72,6 +76,16 @@ class DefaultGarminConnector(
         }
     }
 
+    private fun exerciseConnection() {
+        connectIQ.knownDevices.forEach { device ->
+            val status = connectIQ.getDeviceStatus(device)
+            Log.d(
+                TAG,
+                "status.${device.deviceIdentifier}(${device.friendlyName}): $status"
+            )
+        }
+    }
+
     private val connectIQListener: ConnectIQ.ConnectIQListener =
         object : ConnectIQ.ConnectIQListener {
             override fun onInitializeError(errStatus: ConnectIQ.IQSdkErrorStatus) {
@@ -80,16 +94,20 @@ class DefaultGarminConnector(
 
             override fun onSdkReady() {
                 Log.d(TAG, "sdkReady")
-                onSDKReady()
-                knownDevices().forEach {
-                    connectIQ.registerForDeviceEvents(it) { device, status ->
-                        accountDeviceStatus(device, status)
-                    }
+                try {
+                    exerciseConnection()
+                } catch (e: ServiceUnavailableException) {
+                    Log.d(TAG, "e: $e")
+                    breakIntoDebugger()
+                    onServiceUnavailable(e)
+                    return
                 }
+                onSDKReady()
             }
 
             override fun onSdkShutDown() {
                 Log.d(TAG, "sdkShutdown")
+                onSDKShutdown()
             }
         }
 

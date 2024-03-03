@@ -13,11 +13,15 @@ import com.garmin.android.apps.connectiq.sample.comm.impl.GarminConnector
 import com.garmin.android.apps.connectiq.sample.comm.impl.IncomingMessageDispatcher
 import com.garmin.android.apps.connectiq.sample.comm.impl.PhoneCallService
 import com.garmin.android.apps.connectiq.sample.comm.impl.RemoteMessageService
+import com.garmin.android.apps.connectiq.sample.comm.impl.breakIntoDebugger
+import com.garmin.android.connectiq.exception.ServiceUnavailableException
 
 class DefaultServiceLocator(
     base: Context?,
     lifecycleScope: LifecycleCoroutineScope,
-    onSDKReadyImp: () -> Unit
+    onSDKReadyImp: () -> Unit,
+    onSDKShutdownImp: () -> Unit,
+    val onServiceUnavailableImp: (ServiceUnavailableException) -> Unit
 ) : ContextWrapper(base) {
 
     private val phoneCallService: PhoneCallService by lazy {
@@ -53,9 +57,23 @@ class DefaultServiceLocator(
     }
 
     private fun startIncomingMessageProcessing() {
-        for (device in garminConnector.knownDevices()) {
-            device.status = garminConnector.connectIQ.getDeviceStatus(device)
-            garminConnector.startIncomingMessageProcessing(device)
+        Log.d(TAG, "garminConnector.connectIQ: ${garminConnector.connectIQ}")
+        try {
+            Log.d(
+                TAG,
+                "knownDevices: ${
+                    garminConnector.knownDevices()
+                        .map { x -> "${x.deviceIdentifier}(${x.friendlyName})" }
+                }"
+            )
+            for (device in garminConnector.knownDevices()) {
+                device.status = garminConnector.connectIQ.getDeviceStatus(device)
+                garminConnector.startIncomingMessageProcessing(device)
+            }
+        } catch (e: ServiceUnavailableException) {
+            Log.e(TAG, "e: $e")
+            breakIntoDebugger()
+            onServiceUnavailableImp(e)
         }
     }
 
@@ -69,13 +87,12 @@ class DefaultServiceLocator(
             onSDKReady = {
                 onSDKReadyImp()
                 startIncomingMessageProcessing()
-                Log.d(
-                    TAG,
-                    "knownDevices: ${
-                        garminConnector.knownDevices()
-                            .map { x -> "${x.deviceIdentifier}(${x.friendlyName})" }
-                    }"
-                )
+            },
+            onSDKShutdown = {
+                onSDKShutdownImp()
+            },
+            onServiceUnavailable = {
+                onServiceUnavailableImp(it)
             },
             dispatchIncomingMessage = { o ->
                 incomingMessageDispatcher.handleMessage(o)

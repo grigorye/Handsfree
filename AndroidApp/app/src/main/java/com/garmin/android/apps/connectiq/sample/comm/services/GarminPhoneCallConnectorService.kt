@@ -17,9 +17,11 @@ import com.garmin.android.apps.connectiq.sample.comm.broadcastreceivers.schedule
 import com.garmin.android.apps.connectiq.sample.comm.globals.DefaultServiceLocator
 import com.garmin.android.apps.connectiq.sample.comm.helpers.ACTIVATE_FROM_KEEP_AWAKE
 import com.garmin.android.apps.connectiq.sample.comm.helpers.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
+import com.garmin.android.apps.connectiq.sample.comm.impl.GarminConnector
 import com.garmin.android.apps.connectiq.sample.comm.impl.PhoneState
 import com.garmin.android.apps.connectiq.sample.comm.impl.lastTrackedPhoneState
 import com.garmin.android.apps.connectiq.sample.comm.impl.sendPhoneState
+import com.garmin.android.connectiq.exception.ServiceUnavailableException
 import java.text.DateFormat
 import java.util.Date
 
@@ -171,6 +173,8 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         }
     }
 
+    private var pendingServiceUnavailable: ServiceUnavailableException? = null
+
     private val l by lazy {
         DefaultServiceLocator(
             this,
@@ -184,11 +188,22 @@ class GarminPhoneCallConnectorService : LifecycleService() {
                         processIntent(it)
                     }
                 }
+            },
+            onSDKShutdownImp = {
+                if (pendingServiceUnavailable != null) {
+                    Log.d(TAG, "restartingConnectorDue: $pendingServiceUnavailable")
+                    pendingServiceUnavailable = null
+                    garminConnector.onStart()
+                }
+            },
+            onServiceUnavailableImp = {
+                Log.d(TAG, "serviceUnavailable: $it")
+                pendingServiceUnavailable = it
             }
         )
     }
 
-    private val garminConnector by lazy { l.garminConnector }
+    private val garminConnector: GarminConnector by lazy { l.garminConnector }
 
     companion object {
         private val TAG: String = GarminPhoneCallConnectorService::class.java.simpleName
