@@ -1,5 +1,7 @@
 package com.garmin.android.apps.connectiq.sample.comm.impl
 
+import android.telephony.TelephonyManager
+
 
 interface ContactsService {
     fun contactsJsonObject()
@@ -7,6 +9,7 @@ interface ContactsService {
 
 interface OutgoingMessageDispatcher {
     fun sendPhones()
+    fun sendPhoneState(phoneState: PhoneState)
 }
 
 class DefaultOutgoingMessageDispatcher(
@@ -22,6 +25,39 @@ class DefaultOutgoingMessageDispatcher(
             )
         )
         send(msg)
+    }
+
+    override fun sendPhoneState(phoneState: PhoneState) {
+        when (phoneState.stateExtra) {
+            TelephonyManager.EXTRA_STATE_IDLE -> {
+                val msg = mapOf(
+                    "cmd" to "noCallInProgress"
+                )
+                send(msg)
+            }
+
+            TelephonyManager.EXTRA_STATE_OFFHOOK -> {
+                val msg = mapOf(
+                    "cmd" to "callInProgress",
+                    "args" to mapOf(
+                        "number" to (phoneState.incomingNumber ?: "")
+                    )
+                )
+                send(msg)
+            }
+
+            TelephonyManager.EXTRA_STATE_RINGING -> {
+                val msg = mapOf(
+                    "cmd" to "ringing",
+                    "args" to mapOf(
+                        "number" to (phoneState.incomingNumber ?: "")
+                    )
+                )
+                send(msg)
+            }
+
+            else -> {}
+        }
     }
 
     fun send(msg: Map<String, Any>) {
