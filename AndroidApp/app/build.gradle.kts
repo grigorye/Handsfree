@@ -13,7 +13,7 @@ kotlin {
 val compileSdkVersion: String by project
 val minSdkVersion: String by project
 val targetSdkVersion: String by project
-val packageName = "com.garmin.android.apps.connectiq.sample.comm"
+val packageName = "com.gentin.connectiq.handsfree"
 val versionCode: String by project
 val versionName: String by project
 
