@@ -11,6 +11,7 @@ import android.view.Menu
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.app.ActivityCompat
 import com.gentin.connectiq.handsfree.R
+import com.gentin.connectiq.handsfree.helpers.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.helpers.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.helpers.startConnector
 import com.gentin.connectiq.handsfree.impl.requestIgnoreBatteryOptimizations
@@ -24,9 +25,15 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val activityBtn: AppCompatButton? = findViewById(R.id.launch_doki_btn)
-        activityBtn?.setOnClickListener {
-            DokiActivity.start(this)
+        findViewById<AppCompatButton>(R.id.launch_doki_btn)?.let {
+            it.setOnClickListener {
+                DokiActivity.start(this)
+            }
+        }
+        findViewById<AppCompatButton>(R.id.reconnect_btn)?.let {
+            it.setOnClickListener {
+                startConnector(this, ACTIVATE_AND_RECONNECT)
+            }
         }
 
         ActivityCompat.requestPermissions(

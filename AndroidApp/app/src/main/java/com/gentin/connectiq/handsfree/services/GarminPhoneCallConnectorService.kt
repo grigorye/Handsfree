@@ -16,6 +16,7 @@ import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.activities.MainActivity
 import com.gentin.connectiq.handsfree.broadcastreceivers.scheduleKeepAwakeBroadcast
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
+import com.gentin.connectiq.handsfree.helpers.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.helpers.ACTIVATE_FROM_KEEP_AWAKE
 import com.gentin.connectiq.handsfree.helpers.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.GarminConnector
@@ -84,6 +85,13 @@ class GarminPhoneCallConnectorService : LifecycleService() {
 
             ACTIVATE_FROM_KEEP_AWAKE -> {
                 startStats.keepAwake += 1
+                START_REDELIVER_INTENT
+            }
+
+            ACTIVATE_AND_RECONNECT -> {
+                startStats.other += 1
+                garminConnector.terminate()
+                garminConnector.launch()
                 START_REDELIVER_INTENT
             }
 
