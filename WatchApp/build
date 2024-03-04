@@ -3,15 +3,19 @@
 set -euo pipefail
 set -x
 
-sdk_version="7.0.2.beta-2024-01-10-acc16aead"
+latest_sdk_version="6.4.2-2024-01-04-a1dd13ee0"
+stable_sdk_version="6.4.2-2024-01-04-a1dd13ee0"
+
 developer_key=~/Workbench/Garmin/developer_key
 
-sdk_root=~/"Library/Application Support/Garmin/ConnectIQ/Sdks/connectiq-sdk-mac-$sdk_version"
+sdks_dir=~/Library/Application\ Support/Garmin/ConnectIQ/Sdks
+latest_sdk_root="$sdks_dir/connectiq-sdk-mac-$latest_sdk_version"
+stable_sdk_root="$sdks_dir/connectiq-sdk-mac-$stable_sdk_version"
 
 for device in fenix7 fr955 vivoactive4 fr645m; do
 
     java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
-        -jar "$sdk_root"/bin/monkeybrains.jar \
+        -jar "$latest_sdk_root"/bin/monkeybrains.jar \
         -o bin/WatchApp-"$device".prg \
         -f monkey.jungle \
         -y "$developer_key" \
@@ -19,3 +23,13 @@ for device in fenix7 fr955 vivoactive4 fr645m; do
         -w \
         -l 3
 done
+
+java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
+    -jar "$stable_sdk_root"/bin/monkeybrains.jar \
+    -o bin/WatchApp.iq \
+    -f monkey.jungle \
+    -y "$developer_key" \
+    -e \
+    -r \
+    -w \
+    -l 3
