@@ -12,8 +12,14 @@ sdks_dir=~/Library/Application\ Support/Garmin/ConnectIQ/Sdks
 latest_sdk_root="$sdks_dir/connectiq-sdk-mac-$latest_sdk_version"
 stable_sdk_root="$sdks_dir/connectiq-sdk-mac-$stable_sdk_version"
 
-for device in fenix7 fr955 vivoactive4 fr645m; do
+dev_devices=(
+    fenix7
+    fr955
+    vivoactive4
+    fr645m
+)
 
+for device in "${dev_devices[@]}"; do
     java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
         -jar "$latest_sdk_root"/bin/monkeybrains.jar \
         -o bin/WatchApp-"$device".prg \
