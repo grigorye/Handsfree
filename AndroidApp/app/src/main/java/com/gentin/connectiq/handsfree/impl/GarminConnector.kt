@@ -180,7 +180,7 @@ class DefaultGarminConnector(
         sentMessagesCounter += 1
 
         try {
-            connectIQ.knownDevices.forEach { device ->
+            connectIQ.connectedDevices.forEach { device ->
                 Log.d(
                     TAG,
                     "device.${device.deviceIdentifier}(${device.friendlyName}) <- msg${message}"
