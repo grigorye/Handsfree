@@ -9,7 +9,7 @@ class CommExample extends Application.AppBase {
 
     var readyToSync as Lang.Boolean = false;
     var remoteResponded as Lang.Boolean = false;
-    var checkInAttemptsRemaining as Lang.Number = 1;
+    var checkInAttemptsRemaining as Lang.Number;
     var secondsToCheckIn as Lang.Number;
 
     function initialize() {
