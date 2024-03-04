@@ -41,6 +41,7 @@ class DefaultGarminConnector(
     override fun terminate() {
         Log.d(TAG, "stop")
         shutdownSDK()
+        pendingMessages = ArrayList()
     }
 
     override fun sendMessage(message: Map<String, Any>) {
@@ -59,6 +60,7 @@ class DefaultGarminConnector(
         // release resources and prevent unwanted callbacks.
         connectIQ.unregisterAllForEvents()
         connectIQ.shutdown(this)
+        shuttingDownSDK = false
     }
 
     private fun startSDK() {
