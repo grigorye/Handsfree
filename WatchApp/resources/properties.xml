@@ -2,16 +2,21 @@
 
     <properties>
         <property id="popOutOfAppInsteadOfPhones" type="boolean">false</property>
+        <property id="syncAttempts" type="number">1</property>
     </properties>
 
     <strings>
         <string id="popOutOfAppInsteadOfPhones">Close app after call</string>
+        <string id="syncAttempts">Sync attempts</string>
     </strings>
 
     <settings>
         <setting propertyKey="@Properties.popOutOfAppInsteadOfPhones"
             title="@Strings.popOutOfAppInsteadOfPhones">
             <settingConfig type="boolean" />
+        </setting>
+        <setting propertyKey="@Properties.syncAttempts" title="@Strings.syncAttempts">
+            <settingConfig type="numeric" />
         </setting>
     </settings>
 
