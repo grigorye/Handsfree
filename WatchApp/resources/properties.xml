@@ -3,11 +3,13 @@
     <properties>
         <property id="popOutOfAppInsteadOfPhones" type="boolean">false</property>
         <property id="syncAttempts" type="number">1</property>
+        <property id="secondsToCheckIn" type="number">2</property>
     </properties>
 
     <strings>
         <string id="popOutOfAppInsteadOfPhones">Close app after call</string>
         <string id="syncAttempts">Sync attempts</string>
+        <string id="secondsToCheckIn">Timeout for check-in (sec)</string>
     </strings>
 
     <settings>
@@ -16,6 +18,9 @@
             <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.syncAttempts" title="@Strings.syncAttempts">
+            <settingConfig type="numeric" />
+        </setting>
+        <setting propertyKey="@Properties.secondsToCheckIn" title="@Strings.secondsToCheckIn">
             <settingConfig type="numeric" />
         </setting>
     </settings>

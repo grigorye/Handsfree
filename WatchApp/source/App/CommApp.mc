@@ -10,7 +10,7 @@ class CommExample extends Application.AppBase {
     var readyToSync as Lang.Boolean = false;
     var remoteResponded as Lang.Boolean = false;
     var checkInAttemptsRemaining as Lang.Number = 1;
-    var secondsToCheckIn as Lang.Number = 1;
+    var secondsToCheckIn as Lang.Number;
 
     function initialize() {
         dump("initialize", true);
@@ -21,6 +21,7 @@ class CommExample extends Application.AppBase {
         Communications.registerForPhoneAppMessages(method(:onPhone));
         readyToSync = true;
         checkInAttemptsRemaining = Properties.getValue("syncAttempts") as Lang.Number;
+        secondsToCheckIn = Properties.getValue("secondsToCheckIn") as Lang.Number;
     }
 
     function onStart(state) {
