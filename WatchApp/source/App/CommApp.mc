@@ -11,6 +11,7 @@ class CommExample extends Application.AppBase {
     var remoteResponded as Lang.Boolean = false;
     var checkInAttemptsRemaining as Lang.Number;
     var secondsToCheckIn as Lang.Number;
+    var checkInTimer as Timer.Timer or Null = null;
 
     function initialize() {
         dump("initialize", true);
@@ -44,6 +45,7 @@ class CommExample extends Application.AppBase {
         }
         dump("secondsToCheckIn", secondsToCheckIn);
         var timer = new Timer.Timer();
+        checkInTimer = timer;
         timer.start(method(:checkIn), 1000 * secondsToCheckIn, false);
         checkInAttemptsRemaining -= 1;
         secondsToCheckIn *= 2;
@@ -65,7 +67,12 @@ class CommExample extends Application.AppBase {
             dump("flushedMsg", msg);
             return;
         }
-        remoteResponded = true;
+        if (!remoteResponded) {
+            remoteResponded = true;
+            (checkInTimer as Timer.Timer).stop();
+            checkIn();
+            checkInTimer = null;
+        }
         handleRemoteMessage(msg);
     }
 }
