@@ -5,10 +5,10 @@ import android.content.ContextWrapper
 import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
-import com.gentin.connectiq.handsfree.globals.myApp
 import com.garmin.android.connectiq.ConnectIQ
 import com.garmin.android.connectiq.IQDevice
 import com.garmin.android.connectiq.exception.ServiceUnavailableException
+import com.gentin.connectiq.handsfree.globals.myApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
