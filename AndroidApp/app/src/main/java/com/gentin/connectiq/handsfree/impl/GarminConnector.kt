@@ -47,7 +47,7 @@ class DefaultGarminConnector(
         pendingMessages?.apply {
             Log.d(TAG, "addedPending: $message")
             add(message)
-        } ?: sendMessageAsync(message)
+        } ?: sendMessageOrRescheduleAsync(message)
     }
 
     private var shuttingDownSDK = false
@@ -145,31 +145,19 @@ class DefaultGarminConnector(
 
     private var pendingMessages: ArrayList<Map<String, Any>>? = ArrayList()
 
-    private fun sendMessageAsync(message: Map<String, Any>) {
+    private fun sendMessageOrRescheduleAsync(message: Map<String, Any>) {
         lifecycleScope.launch(Dispatchers.Default) {
             try {
-                sendMessageOrReschedule(message)
+                sendMessageSync(message)
             } catch (e: ServiceUnavailableException) {
-                Log.d(TAG, "sendMessageAsyncFailed: $e")
+                Log.e(TAG, "sendMessageOrRescheduleFailed($message): $e")
                 breakIntoDebugger()
+                if (pendingMessages == null) {
+                    pendingMessages = ArrayList()
+                }
+                pendingMessages!!.add(message)
+                throw e
             }
-        }
-    }
-
-    private fun sendMessageOrReschedule(message: Map<String, Any>) {
-        try {
-            connectIQ.knownDevices.forEach { device ->
-                sendMessageSync(device, message)
-            }
-        } catch (e: ServiceUnavailableException) {
-            Log.d(TAG, "sendMessageOrRescheduleFailed: $e")
-            breakIntoDebugger()
-            Log.d(TAG, "schedulingLaterRetry: $message")
-            if (pendingMessages == null) {
-                pendingMessages = ArrayList()
-            }
-            pendingMessages!!.add(message)
-            throw e
         }
     }
 
@@ -177,7 +165,7 @@ class DefaultGarminConnector(
         Log.d(TAG, "pendingMessages: $pendingMessages")
         while (pendingMessages!!.isNotEmpty()) {
             val message = pendingMessages!![0]
-            sendMessageOrReschedule(message)
+            sendMessageSync(message)
             pendingMessages!!.removeFirst()
         }
         pendingMessages = null
@@ -185,19 +173,27 @@ class DefaultGarminConnector(
 
     private var sentMessagesCounter = 0
 
-    private fun sendMessageSync(device: IQDevice, messageValue: Map<String, Any>) {
+    private fun sendMessageSync(messageValue: Map<String, Any>) {
         val message = mapOf("id" to sentMessagesCounter) + messageValue
         sentMessagesCounter += 1
 
-        Log.d(
-            TAG,
-            "device.${device.deviceIdentifier}(${device.friendlyName}) <- msg${message}"
-        )
-        connectIQ.sendMessage(device, myApp, message) { _, _, status ->
-            Log.d(
-                TAG,
-                "device.${device.deviceIdentifier}(${device.friendlyName}) -> ack(${status}, msg${message}"
-            )
+        try {
+            connectIQ.knownDevices.forEach { device ->
+                Log.d(
+                    TAG,
+                    "device.${device.deviceIdentifier}(${device.friendlyName}) <- msg${message}"
+                )
+                connectIQ.sendMessage(device, myApp, message) { _, _, status ->
+                    Log.d(
+                        TAG,
+                        "device.${device.deviceIdentifier}(${device.friendlyName}) -> ack(${status}, msg${message}"
+                    )
+                }
+            }
+        } catch (e: ServiceUnavailableException) {
+            Log.e(TAG, "sendMessageFailed($message): $e")
+            breakIntoDebugger()
+            throw e
         }
     }
 
