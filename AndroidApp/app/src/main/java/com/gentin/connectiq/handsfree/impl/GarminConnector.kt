@@ -56,9 +56,6 @@ class DefaultGarminConnector(
     private fun shutdownSDK() {
         Log.d(TAG, "shutdownSDK")
         shuttingDownSDK = true
-        // It is a good idea to unregister everything and shut things down to
-        // release resources and prevent unwanted callbacks.
-        connectIQ.unregisterAllForEvents()
         connectIQ.shutdown(this)
         shuttingDownSDK = false
     }
@@ -119,8 +116,14 @@ class DefaultGarminConnector(
     }
 
     fun onSDKShutDown() {
+        if (shuttingDownSDK) {
         Log.d(TAG, "shuttingDownSDK: $shuttingDownSDK")
-        if (!shuttingDownSDK) {
+        } else {
+            Log.d(TAG, "relaunchingSDKOnException")
+            shuttingDownSDK = true
+            connectIQ.shutdown(this) // Workaround no actual shutdown on exceptions
+            shuttingDownSDK = false
+
             lifecycleScope.launch(Dispatchers.Default) {
                 if (Looper.myLooper() == null) {
                     Looper.prepare()
