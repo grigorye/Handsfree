@@ -117,7 +117,7 @@ class DefaultGarminConnector(
 
     fun onSDKShutDown() {
         if (shuttingDownSDK) {
-        Log.d(TAG, "shuttingDownSDK: $shuttingDownSDK")
+            Log.d(TAG, "shuttingDownSDK: $shuttingDownSDK")
         } else {
             Log.d(TAG, "relaunchingSDKOnException")
             shuttingDownSDK = true
@@ -177,10 +177,11 @@ class DefaultGarminConnector(
     }
 
     private var sentMessagesCounter = 0
+    private var acknowledgedMessagesCounter = 0
 
     private fun sendMessageSync(messageValue: Map<String, Any>) {
-        val message = mapOf("id" to sentMessagesCounter) + messageValue
         sentMessagesCounter += 1
+        val message = mapOf("id" to sentMessagesCounter) + messageValue
 
         try {
             connectIQ.connectedDevices.forEach { device ->
@@ -189,9 +190,10 @@ class DefaultGarminConnector(
                     "device.${device.deviceIdentifier}(${device.friendlyName}) <- msg${message}"
                 )
                 connectIQ.sendMessage(device, myApp, message) { _, _, status ->
+                    acknowledgedMessagesCounter += 1
                     Log.d(
                         TAG,
-                        "device.${device.deviceIdentifier}(${device.friendlyName}) -> ack(${status}, msg${message}"
+                        "device.${device.deviceIdentifier}(${device.friendlyName}) -> ack(${status}, msg.${acknowledgedMessagesCounter})"
                     )
                 }
             }
