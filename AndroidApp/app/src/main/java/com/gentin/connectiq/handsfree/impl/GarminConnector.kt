@@ -119,6 +119,7 @@ class DefaultGarminConnector(
         if (shuttingDownSDK) {
             Log.d(TAG, "shuttingDownSDK: $shuttingDownSDK")
         } else {
+            sdkRelaunchesOnExceptions += 1
             Log.d(TAG, "relaunchingSDKOnException")
             shuttingDownSDK = true
             connectIQ.shutdown(this) // Workaround no actual shutdown on exceptions
@@ -208,6 +209,8 @@ class DefaultGarminConnector(
         private val TAG: String = DefaultGarminConnector::class.java.simpleName
     }
 }
+
+var sdkRelaunchesOnExceptions = 0
 
 class DefaultConnectIQListener(
     private val garminConnector: DefaultGarminConnector

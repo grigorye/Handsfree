@@ -22,6 +22,7 @@ import com.gentin.connectiq.handsfree.helpers.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.PhoneState
 import com.gentin.connectiq.handsfree.impl.lastTrackedPhoneState
+import com.gentin.connectiq.handsfree.impl.sdkRelaunchesOnExceptions
 import java.text.DateFormat
 import java.util.Date
 
@@ -142,10 +143,11 @@ class GarminPhoneCallConnectorService : LifecycleService() {
                     ", ", arrayOf(
                         "i.${startStats.incomingMessage}",
                         "p.${startStats.phoneState}",
+                        "e.${sdkRelaunchesOnExceptions}",
+                        "o.${startStats.other}",
                         "b.${startStats.bootCompleted}",
                         "m.${startStats.mainActivity}",
                         "k.${startStats.keepAwake}",
-                        "o.${startStats.other}"
                     )
                 )
             )
