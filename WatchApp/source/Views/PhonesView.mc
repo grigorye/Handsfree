@@ -45,15 +45,19 @@ class PhonesView extends WatchUi.Menu2 {
                 fatalError("Failed to delete menu item");
             }
         }
-        for (var i = 0; i < phones.size(); i++) {
-            var phone = phones[i];
-            var item = new WatchUi.MenuItem(
-                phone["name"] as Lang.String, // label
-                phone["number"] as Lang.String, // subLabel
-                phone["id"] as Lang.Number, // identifier
-                {}
-            );
-            addItem(item);
+        if (phones.size() > 0) {
+            for (var i = 0; i < phones.size(); i++) {
+                var phone = phones[i];
+                var item = new WatchUi.MenuItem(
+                    phone["name"] as Lang.String, // label
+                    phone["number"] as Lang.String, // subLabel
+                    phone["id"] as Lang.Number, // identifier
+                    {}
+                );
+                addItem(item);
+            }
+        } else {
+            addItem(new WatchUi.MenuItem("Handsfree group", "has no contacts", noPhonesMenuItemId, {}));
         }
         oldPhones = phones;
     }
@@ -82,3 +86,5 @@ function initialPhonesView() as PhonesView {
     phonesView.updateFromPhones(getPhones());
     return phonesView;
 }
+
+var noPhonesMenuItemId as Lang.Number = -1;

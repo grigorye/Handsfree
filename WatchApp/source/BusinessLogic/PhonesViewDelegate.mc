@@ -8,6 +8,10 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
 
     function onSelect(item as WatchUi.MenuItem) as Void {
         var id = item.getId();
+        if (id == noPhonesMenuItemId) {
+            requestSync();
+            return;
+        }
         var selectedPhone = null as Phone or Null;
         var phones = getPhones();
         for (var i = 0; i < phones.size(); i++) {
