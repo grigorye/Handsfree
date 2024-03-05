@@ -1,55 +1,22 @@
 using Toybox.Application;
-using Toybox.Communications;
 using Toybox.WatchUi;
 using Toybox.System;
 using Toybox.Lang;
-using Toybox.Timer;
 
 class CommExample extends Application.AppBase {
-
-    var readyToSync as Lang.Boolean = false;
-    var remoteResponded as Lang.Boolean = false;
-    var checkInAttemptsRemaining as Lang.Number;
-    var secondsToCheckIn as Lang.Number;
-    var checkInTimer as Timer.Timer or Null = null;
 
     function initialize() {
         dump("initialize", true);
         dump("deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
         Application.AppBase.initialize();
         phonesImp = loadPhones();
-        dump("registerForPhoneAppMessages", true);
-        Communications.registerForPhoneAppMessages(method(:onPhone));
-        readyToSync = true;
-        checkInAttemptsRemaining = Properties.getValue("syncAttempts") as Lang.Number;
-        secondsToCheckIn = Properties.getValue("secondsToCheckIn") as Lang.Number;
+        syncImp = new Sync();
     }
 
     function onStart(state) {
         dump("onStart", state);
         Application.AppBase.onStart(state);
-        checkIn();
-    }
-
-    function checkIn() as Void {
-        dump("remoteResponded", remoteResponded);
-        if (remoteResponded) {
-            setCheckInStatus(CHECK_IN_SUCCEEDED);
-            return;
-        }
-        dump("checkInAttemptsRemaining", checkInAttemptsRemaining);
-        if (checkInAttemptsRemaining == 0) {
-            setCheckInStatus(CHECK_IN_FAILED);
-            dump("checkInTimedOut", true);
-            return;
-        }
-        dump("secondsToCheckIn", secondsToCheckIn);
-        var timer = new Timer.Timer();
-        checkInTimer = timer;
-        timer.start(method(:checkIn), 1000 * secondsToCheckIn, false);
-        checkInAttemptsRemaining -= 1;
-        secondsToCheckIn *= 2;
-        requestSync();
+        getSync().checkIn();
     }
 
     function onStop(state) {
@@ -60,20 +27,6 @@ class CommExample extends Application.AppBase {
     function getInitialView() {
         dump("getInitialView", true);
         return [new CommView()] as Lang.Array<WatchUi.Views or WatchUi.InputDelegates> or Null;
-    }
-
-    function onPhone(msg as Communications.Message) as Void {
-        if (!readyToSync) {
-            dump("flushedMsg", msg);
-            return;
-        }
-        if (!remoteResponded) {
-            remoteResponded = true;
-            (checkInTimer as Timer.Timer).stop();
-            checkIn();
-            checkInTimer = null;
-        }
-        handleRemoteMessage(msg);
     }
 }
 
