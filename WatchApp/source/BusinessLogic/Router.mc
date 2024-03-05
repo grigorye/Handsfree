@@ -78,7 +78,7 @@ class Router {
                     }
                     case instanceof HangingUp: {
                         dump("routingToHangingUp", true);
-                        WatchUi.pushView(new HangingUpView(), new HangingUpViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        WatchUi.pushView(new HangingUpView(newState as HangingUp), new HangingUpViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof CallInProgress: {
@@ -96,7 +96,7 @@ class Router {
                 switch (newState) {
                     case instanceof HangingUp: {
                         dump("routingToUpdatedHangingUp", true);
-                        WatchUi.switchToView(new HangingUpView(), new HangingUpViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        WatchUi.switchToView(new HangingUpView(newState as HangingUp), new HangingUpViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof CallInProgress: {
