@@ -8,11 +8,11 @@ class SchedulingCallView extends WatchUi.ProgressBar {
         var progress = null;
         switch (callState.commStatus) {
             case PENDING:
-                message = "Calling" + "\n" + callState.phone["number"];
+                message = "Pending" + "\n" + callState.phone["number"];
                 progress = null;
                 break;
             case SUCCEEDED:
-                message = "Awaiting" + "\n" + callState.phone["number"];
+                message = "Calling" + "\n" + callState.phone["number"];
                 progress = 100.0;
                 break;
             case FAILED:
