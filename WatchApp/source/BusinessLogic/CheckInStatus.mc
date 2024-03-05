@@ -16,6 +16,10 @@ function setCheckInStatus(checkInStatus as CheckInStatus) as Void {
     dump("setCheckInStatus", checkInStatus);
     checkInStatusImp = checkInStatus;
     if (getCallState() instanceof Idle) {
+        if (phonesViewImp == null) {
+            dump("phonesViewImp", phonesViewImp);
+            return;
+        }
         getPhonesView().updateFromCheckInStatus(checkInStatus);
         WatchUi.requestUpdate();
     }
