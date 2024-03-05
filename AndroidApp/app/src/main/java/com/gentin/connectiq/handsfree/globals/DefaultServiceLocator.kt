@@ -24,7 +24,7 @@ class DefaultServiceLocator(
     }
 
     private val contactsRepository by lazy {
-        ContactsRepositoryImpl(this)
+        ContactsRepositoryImpl(this, "Handsfree")
     }
 
     private val incomingMessageDispatcher: IncomingMessageDispatcher by lazy {

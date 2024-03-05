@@ -29,7 +29,10 @@ interface ContactsRepository {
     fun contactsJsonObject(): Any
 }
 
-class ContactsRepositoryImpl(base: Context?) : ContextWrapper(base), ContactsRepository {
+class ContactsRepositoryImpl(
+    base: Context?,
+    val groupName: String
+) : ContextWrapper(base), ContactsRepository {
 
     private fun contactsGroupId(): Int? {
         val cursor = contentResolver.query(
@@ -39,7 +42,7 @@ class ContactsRepositoryImpl(base: Context?) : ContextWrapper(base), ContactsRep
                 ContactsContract.Groups._ID
             ),
             "${ContactsContract.Groups.TITLE} = ?",
-            arrayOf("Garmin"),
+            arrayOf(groupName),
             null
         )
         var groupId: Int? = null
