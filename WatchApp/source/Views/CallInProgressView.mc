@@ -6,9 +6,9 @@ class CallInProgressView extends Toybox.WatchUi.Confirmation {
         var name = phone["name"];
         var message;
         if (name == null) {
-            message = phone["number"] + "\n" + "Keep call?";
+            message = phone["number"] + "\n" + "Hang up?";
         } else {
-            message = name + "\n" + "Keep call?";
+            message = name + "\n" + "Hang up?";
         }
         Confirmation.initialize(message);
     }
