@@ -164,8 +164,7 @@ class ContactsRepositoryImpl(
     }
 
     override fun contactsJsonObject(): Any {
-        var crashMe = ContactData(-1, "Crash Me", "1233")
-        val list = listOf(crashMe) + contacts()
+        val list = contacts()
 
         val pojo = ArrayList<Any>()
         for (contact in list) {
