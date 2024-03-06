@@ -1,0 +1,11 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+pngtopnm Android-CropMask.png >Android-CropMask.pnm
+
+for i in Originals/*.png; do
+    croppedPng=$(basename "$i")
+    pngtopnm "$i" | pnmcrop -borderfile=Android-CropMask.pnm | pnmtopng >Cropped/"$croppedPng"
+done

@@ -1,0 +1,11 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+pngtopnm fenix7-Screenshot-CropMask.png >fenix7-Screenshot-CropMask.pnm
+
+for i in Originals/fenix7-*.png; do
+    croppedJpg=$(basename "$i" | sed 's/.png$/.jpg/')
+    pngtopnm "$i" | pnmcrop -borderfile=fenix7-Screenshot-CropMask.pnm | pnmtojpeg >Cropped/"$croppedJpg"
+done
