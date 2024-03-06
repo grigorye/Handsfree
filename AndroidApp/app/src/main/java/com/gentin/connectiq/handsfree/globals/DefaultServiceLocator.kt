@@ -12,6 +12,8 @@ import com.gentin.connectiq.handsfree.impl.IncomingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.OutgoingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.PhoneCallService
 import com.gentin.connectiq.handsfree.impl.RemoteMessageService
+import com.gentin.connectiq.handsfree.impl.contactsGroupId
+import com.gentin.connectiq.handsfree.impl.forEachContactInGroup
 import com.gentin.connectiq.handsfree.impl.lastTrackedPhoneState
 
 class DefaultServiceLocator(
@@ -23,8 +25,14 @@ class DefaultServiceLocator(
         DefaultPhoneCallService(this)
     }
 
+    private val targetContactsGroupId = contactsGroupId(this, "Handsfree")
+
     private val contactsRepository by lazy {
-        ContactsRepositoryImpl(this, "Handsfree")
+        ContactsRepositoryImpl(this) {
+            if (targetContactsGroupId != null) {
+                forEachContactInGroup(this, targetContactsGroupId, it)
+            }
+        }
     }
 
     private val incomingMessageDispatcher: IncomingMessageDispatcher by lazy {
