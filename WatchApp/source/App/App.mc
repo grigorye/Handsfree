@@ -3,7 +3,7 @@ using Toybox.WatchUi;
 using Toybox.System;
 using Toybox.Lang;
 
-class CommExample extends Application.AppBase {
+class App extends Application.AppBase {
 
     function initialize() {
         dump("initialize", true);
