@@ -1,14 +1,17 @@
 package com.gentin.connectiq.handsfree.services
 
+import android.Manifest
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
 import android.telephony.TelephonyManager
 import android.text.TextUtils
 import android.util.Log
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
@@ -111,10 +114,22 @@ class GarminPhoneCallConnectorService : LifecycleService() {
 
     private fun processIntent(intent: Intent) {
         val stateExtra = intent.getStringExtra(TelephonyManager.EXTRA_STATE)!!
+        Log.d(TAG, "stateExtra: $stateExtra")
+
+        val shouldHaveIncomingNumber = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.READ_CALL_LOG
+        ) == PackageManager.PERMISSION_GRANTED
+        Log.d(TAG, "shouldHaveIncomingNumber: $shouldHaveIncomingNumber")
+
+        @Suppress("DEPRECATION")
+        if (shouldHaveIncomingNumber && !intent.hasExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)) {
+            Log.d(TAG, "skippedForNoIncomingNumberWhilePermission: $intent")
+            return
+        }
 
         @Suppress("DEPRECATION")
         val incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
-        Log.d(TAG, "stateExtra: $stateExtra")
         Log.d(TAG, "incomingNumber: $incomingNumber")
 
         accountPhoneState(incomingNumber, stateExtra)
