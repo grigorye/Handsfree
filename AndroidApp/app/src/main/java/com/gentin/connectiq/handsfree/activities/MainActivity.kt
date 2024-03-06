@@ -14,6 +14,7 @@ import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.helpers.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.helpers.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.helpers.startConnector
+import com.gentin.connectiq.handsfree.impl.openFavorites
 import com.gentin.connectiq.handsfree.impl.requestIgnoreBatteryOptimizations
 import dev.doubledot.doki.ui.DokiActivity
 
@@ -25,6 +26,11 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        findViewById<AppCompatButton>(R.id.open_contacts_btn)?.let {
+            it.setOnClickListener {
+                openFavorites(this)
+            }
+        }
         findViewById<AppCompatButton>(R.id.launch_doki_btn)?.let {
             it.setOnClickListener {
                 DokiActivity.start(this)

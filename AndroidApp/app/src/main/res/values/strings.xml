@@ -6,6 +6,7 @@
 
     <string name="app_name">Handsfree</string>
     <string name="reconnect">Reconnect</string>
+    <string name="open_contacts">Edit Contacts</string>
     <string name="load_devices">Reload Devices</string>
     <string name="initialization_error">Failed to initalize the SDK.\n</string>
     <string name="service_unavailable">The ConnectIQ service is unavailabe.</string>
