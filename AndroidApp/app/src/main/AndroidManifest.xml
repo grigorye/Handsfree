@@ -19,8 +19,6 @@
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="true" />
-    <uses-feature android:name="android.software.companion_device_setup" />
-
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
