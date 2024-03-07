@@ -57,7 +57,7 @@ class PhonesView extends WatchUi.Menu2 {
                 addItem(item);
             }
         } else {
-            addItem(new WatchUi.MenuItem("Handsfree group", "has no contacts", noPhonesMenuItemId, {}));
+            addItem(new WatchUi.MenuItem("Starred group", "has no contacts", noPhonesMenuItemId, {}));
         }
         oldPhones = phones;
     }
