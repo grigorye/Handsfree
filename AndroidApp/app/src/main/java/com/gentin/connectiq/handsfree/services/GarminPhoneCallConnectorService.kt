@@ -19,9 +19,9 @@ import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.activities.MainActivity
 import com.gentin.connectiq.handsfree.broadcastreceivers.scheduleKeepAwakeBroadcast
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
-import com.gentin.connectiq.handsfree.helpers.ACTIVATE_AND_RECONNECT
-import com.gentin.connectiq.handsfree.helpers.ACTIVATE_FROM_KEEP_AWAKE
-import com.gentin.connectiq.handsfree.helpers.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
+import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
+import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_KEEP_AWAKE
+import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.PhoneState
 import com.gentin.connectiq.handsfree.impl.lastTrackedPhoneState

@@ -9,6 +9,8 @@ import com.garmin.android.connectiq.ConnectIQ
 import com.garmin.android.connectiq.IQDevice
 import com.garmin.android.connectiq.exception.ServiceUnavailableException
 import com.gentin.connectiq.handsfree.globals.myApp
+import com.gentin.connectiq.handsfree.helpers.breakIntoDebugger
+import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

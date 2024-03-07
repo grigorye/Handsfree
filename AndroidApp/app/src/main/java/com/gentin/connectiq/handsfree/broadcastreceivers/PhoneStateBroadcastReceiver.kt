@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.gentin.connectiq.handsfree.helpers.goAsync
-import com.gentin.connectiq.handsfree.helpers.startConnector
+import com.gentin.connectiq.handsfree.impl.startConnector
 
 class PhoneStateBroadcastReceiver : BroadcastReceiver() {
 

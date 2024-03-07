@@ -1,4 +1,4 @@
-package com.gentin.connectiq.handsfree.impl
+package com.gentin.connectiq.handsfree.helpers
 
 fun breakIntoDebugger() {
     if (debugEnabled) {

@@ -1,10 +1,9 @@
-package com.gentin.connectiq.handsfree.impl
+package com.gentin.connectiq.handsfree.contacts
 
 import android.content.Context
 import android.content.ContextWrapper
-import android.provider.ContactsContract
-import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.CommonDataKinds.Phone
+import com.gentin.connectiq.handsfree.helpers.formatPhoneNumber
 import kotlinx.serialization.Serializable
 
 

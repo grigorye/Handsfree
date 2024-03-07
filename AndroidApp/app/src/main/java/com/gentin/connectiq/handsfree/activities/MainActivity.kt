@@ -11,11 +11,11 @@ import android.view.Menu
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.app.ActivityCompat
 import com.gentin.connectiq.handsfree.R
-import com.gentin.connectiq.handsfree.helpers.ACTIVATE_AND_RECONNECT
-import com.gentin.connectiq.handsfree.helpers.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
-import com.gentin.connectiq.handsfree.helpers.startConnector
-import com.gentin.connectiq.handsfree.impl.openFavorites
-import com.gentin.connectiq.handsfree.impl.requestIgnoreBatteryOptimizations
+import com.gentin.connectiq.handsfree.contacts.openFavorites
+import com.gentin.connectiq.handsfree.helpers.requestIgnoreBatteryOptimizations
+import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
+import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
+import com.gentin.connectiq.handsfree.impl.startConnector
 import dev.doubledot.doki.ui.DokiActivity
 
 

@@ -1,6 +1,8 @@
 package com.gentin.connectiq.handsfree.impl
 
 import android.telephony.TelephonyManager
+import com.gentin.connectiq.handsfree.contacts.ContactsRepository
+import com.gentin.connectiq.handsfree.helpers.normalizePhoneNumber
 
 
 interface ContactsService {

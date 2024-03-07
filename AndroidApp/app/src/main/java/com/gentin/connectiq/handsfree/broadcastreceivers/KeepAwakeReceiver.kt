@@ -6,8 +6,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.gentin.connectiq.handsfree.helpers.ACTIVATE_FROM_KEEP_AWAKE
-import com.gentin.connectiq.handsfree.helpers.startConnector
+import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_KEEP_AWAKE
+import com.gentin.connectiq.handsfree.impl.startConnector
 
 
 class KeepAwakeReceiver : BroadcastReceiver() {

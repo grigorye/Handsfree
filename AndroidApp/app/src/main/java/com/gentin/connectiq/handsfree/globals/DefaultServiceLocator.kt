@@ -3,7 +3,10 @@ package com.gentin.connectiq.handsfree.globals
 import android.content.Context
 import android.content.ContextWrapper
 import androidx.lifecycle.LifecycleCoroutineScope
-import com.gentin.connectiq.handsfree.impl.ContactsRepositoryImpl
+import com.gentin.connectiq.handsfree.contacts.ContactsRepositoryImpl
+import com.gentin.connectiq.handsfree.contacts.contactsGroupId
+import com.gentin.connectiq.handsfree.contacts.forEachContactInGroup
+import com.gentin.connectiq.handsfree.contacts.forEachContactWithPhoneNumberInFavorites
 import com.gentin.connectiq.handsfree.impl.DefaultGarminConnector
 import com.gentin.connectiq.handsfree.impl.DefaultOutgoingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.DefaultPhoneCallService
@@ -12,9 +15,6 @@ import com.gentin.connectiq.handsfree.impl.IncomingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.OutgoingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.PhoneCallService
 import com.gentin.connectiq.handsfree.impl.RemoteMessageService
-import com.gentin.connectiq.handsfree.impl.contactsGroupId
-import com.gentin.connectiq.handsfree.impl.forEachContactInGroup
-import com.gentin.connectiq.handsfree.impl.forEachContactWithPhoneNumberInFavorites
 import com.gentin.connectiq.handsfree.impl.lastTrackedPhoneState
 
 class DefaultServiceLocator(

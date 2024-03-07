@@ -1,7 +1,7 @@
 package com.gentin.connectiq.handsfree.globals
 
-import com.gentin.connectiq.handsfree.impl.isRunningInEmulator
 import com.garmin.android.connectiq.IQApp
+import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
 
 val COMM_WATCH_ID = if (isRunningInEmulator()) {
     ""

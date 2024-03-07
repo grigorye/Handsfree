@@ -1,4 +1,4 @@
-package com.gentin.connectiq.handsfree.impl
+package com.gentin.connectiq.handsfree.contacts
 
 import android.content.Context
 import android.content.Intent

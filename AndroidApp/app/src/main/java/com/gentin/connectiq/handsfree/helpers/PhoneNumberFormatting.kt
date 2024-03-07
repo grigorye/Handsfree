@@ -1,4 +1,4 @@
-package com.gentin.connectiq.handsfree.impl
+package com.gentin.connectiq.handsfree.helpers
 
 import android.telephony.PhoneNumberUtils
 import java.util.Locale
