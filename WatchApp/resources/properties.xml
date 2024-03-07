@@ -3,7 +3,7 @@
     <properties>
         <property id="popOutOfAppInsteadOfPhones" type="boolean">true</property>
         <property id="syncAttempts" type="number">1</property>
-        <property id="secondsToCheckIn" type="number">2</property>
+        <property id="secondsToCheckIn" type="number">3</property>
     </properties>
 
     <strings>
