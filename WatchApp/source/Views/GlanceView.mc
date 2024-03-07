@@ -26,7 +26,7 @@ class GlanceView extends WatchUi.GlanceView {
         dc.drawText(
             0,
             dc.getHeight() / 2,
-            Toybox.Graphics.FONT_GLANCE,
+            Toybox.Graphics.FONT_SYSTEM_MEDIUM,
             text,
             Toybox.Graphics.TEXT_JUSTIFY_LEFT | Toybox.Graphics.TEXT_JUSTIFY_VCENTER
         );
