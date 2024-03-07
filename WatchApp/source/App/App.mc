@@ -28,6 +28,10 @@ class App extends Application.AppBase {
         dump("getInitialView", true);
         return [new CommView()] as Lang.Array<WatchUi.Views or WatchUi.InputDelegates> or Null;
     }
+
+    function getGlanceView() {
+        return [new GlanceView()] as Lang.Array<WatchUi.GlanceView or Toybox.WatchUi.GlanceViewDelegate> or Null;
+    }
 }
 
 function deviceSettingsDumpRep(deviceSettings as System.DeviceSettings) as Lang.String {
