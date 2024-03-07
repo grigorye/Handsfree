@@ -34,7 +34,7 @@ There're two components of the solution:
 ## Setup
 
 -   Install the Android app, let it run in background, access your contacts, control your calls. You should get all the prompts for permission on first run.
--   Create a contact group, named "Handsfree", put the contacts that you want to dial from the watch, there.
+-   Put whatever contacts you want in the Favorites contacts group.
 -   Install the watch app, launch it. It should get the list of the contacts from the phone.
 
 That should make the setup complete. You're ready to go.

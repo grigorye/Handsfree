@@ -14,6 +14,7 @@ import com.gentin.connectiq.handsfree.impl.PhoneCallService
 import com.gentin.connectiq.handsfree.impl.RemoteMessageService
 import com.gentin.connectiq.handsfree.impl.contactsGroupId
 import com.gentin.connectiq.handsfree.impl.forEachContactInGroup
+import com.gentin.connectiq.handsfree.impl.forEachContactWithPhoneNumberInFavorites
 import com.gentin.connectiq.handsfree.impl.lastTrackedPhoneState
 
 class DefaultServiceLocator(
@@ -25,12 +26,17 @@ class DefaultServiceLocator(
         DefaultPhoneCallService(this)
     }
 
-    private val targetContactsGroupId = contactsGroupId(this, "Handsfree")
+    private val targetContactsGroupName: String? = null // e.g. "Handsfree", null for Favorites
 
     private val contactsRepository by lazy {
         ContactsRepositoryImpl(this) {
-            if (targetContactsGroupId != null) {
-                forEachContactInGroup(this, targetContactsGroupId, it)
+            if (targetContactsGroupName != null) {
+                val groupId = contactsGroupId(this, targetContactsGroupName)
+                if (groupId != null) {
+                    forEachContactInGroup(this, groupId, it)
+                }
+            } else {
+                forEachContactWithPhoneNumberInFavorites(this, it)
             }
         }
     }
