@@ -16,7 +16,6 @@ class App extends Application.AppBase {
     function onStart(state) {
         dump("onStart", state);
         Application.AppBase.onStart(state);
-        getSync().checkIn();
     }
 
     function onStop(state) {
@@ -41,4 +40,9 @@ function deviceSettingsDumpRep(deviceSettings as System.DeviceSettings) as Lang.
         + Lang.format("firmware: $1$", deviceSettings.firmwareVersion)
         + ", "
         + Lang.format("part: $1$", [deviceSettings.partNumber]);
+}
+
+function onUILaunched() as Void {
+    dump("onUILaunched", true);
+    getSync().checkIn();
 }
