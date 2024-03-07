@@ -161,6 +161,8 @@ class GarminPhoneCallConnectorService : LifecycleService() {
                         "i.${startStats.incomingMessage}",
                         "p.${startStats.phoneState}",
                         "e.${sdkRelaunchesOnExceptions}",
+                        "s.${garminConnector.sentMessagesCounter}",
+                        "a.${garminConnector.acknowledgedMessagesCounter}",
                         "o.${startStats.other}",
                         "b.${startStats.bootCompleted}",
                         "m.${startStats.mainActivity}",

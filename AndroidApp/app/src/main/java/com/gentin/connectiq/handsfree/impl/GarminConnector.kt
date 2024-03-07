@@ -20,6 +20,9 @@ interface GarminConnector {
     fun terminate()
 
     fun sendMessage(message: Map<String, Any>)
+
+    val sentMessagesCounter: Int
+    val acknowledgedMessagesCounter: Int
 }
 
 class DefaultGarminConnector(
@@ -103,7 +106,10 @@ class DefaultGarminConnector(
     private val connectIQListener = DefaultConnectIQListener(this)
 
     fun onSDKReady() {
-        Log.d(TAG, "sdkReady")
+        sdkStartCount += 1
+        sentMessagesCounter = 0
+        acknowledgedMessagesCounter = 0
+        Log.d(TAG, "sdkReady: $sdkStartCount")
         lifecycleScope.launch(Dispatchers.Default) {
             try {
                 startObservingDeviceEvents()
@@ -179,24 +185,30 @@ class DefaultGarminConnector(
         pendingMessages = null
     }
 
-    private var sentMessagesCounter = 0
-    private var acknowledgedMessagesCounter = 0
+    private var sdkStartCount = 0
+    override var sentMessagesCounter = 0
+        private set
+    override var acknowledgedMessagesCounter = 0
+        private set
 
     private fun sendMessageSync(messageValue: Map<String, Any>) {
         sentMessagesCounter += 1
-        val message = mapOf("id" to sentMessagesCounter) + messageValue
+        val sdkStartCount = this.sdkStartCount
+        val id = "$sdkStartCount.$sentMessagesCounter"
+        val message = mapOf("id" to id) + messageValue
 
         try {
             connectIQ.connectedDevices.forEach { device ->
                 Log.d(
                     TAG,
-                    "device.${device.deviceIdentifier}(${device.friendlyName}) <- msg${message}"
+                    "device.${device.deviceIdentifier}(${device.friendlyName}) <- msg.$id$messageValue"
                 )
                 connectIQ.sendMessage(device, myApp, message) { _, _, status ->
                     acknowledgedMessagesCounter += 1
+                    val receivedId = "$sdkStartCount.$acknowledgedMessagesCounter"
                     Log.d(
                         TAG,
-                        "device.${device.deviceIdentifier}(${device.friendlyName}) -> ack(${status}, msg.${acknowledgedMessagesCounter})"
+                        "device.${device.deviceIdentifier}(${device.friendlyName}) -> ack(${status}, msg.$receivedId)"
                     )
                 }
             }
