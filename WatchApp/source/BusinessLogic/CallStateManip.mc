@@ -18,9 +18,7 @@ function getCallState() as CallState {
 function setCallState(callState as CallState) as Void {
     dumpCallState("setCallState", callState);
     setCallStateImp(callState);
-    if (!showingGlance) {
-        router.updateRoute();
-    }
+    router.updateRoute();
 }
 
 function setCallStateIgnoringRouting(callState as CallState) as Void {
