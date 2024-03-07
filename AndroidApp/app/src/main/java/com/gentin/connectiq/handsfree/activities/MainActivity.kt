@@ -81,6 +81,7 @@ class MainActivity : Activity() {
 
     public override fun onResume() {
         Log.d(TAG, "onResume")
+        startConnector(this, ACTIVATE_FROM_MAIN_ACTIVITY_ACTION)
         super.onResume()
     }
 
