@@ -9,8 +9,6 @@ class App extends Application.AppBase {
         dump("initialize", true);
         dump("deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
         Application.AppBase.initialize();
-        phonesImp = loadPhones();
-        syncImp = new Sync();
     }
 
     function onStart(state) {
@@ -42,7 +40,13 @@ function deviceSettingsDumpRep(deviceSettings as System.DeviceSettings) as Lang.
         + Lang.format("part: $1$", [deviceSettings.partNumber]);
 }
 
-function onUILaunched() as Void {
-    dump("onUILaunched", true);
+function onAppWillFinishLaunching() as Void {
+    dump("onAppWillFinishLaunching", true);
+    phonesImp = loadPhones();
+}
+
+function onAppDidFinishLaunching() as Void {
+    dump("onAppDidFinishLaunching", true);
+    syncImp = new Sync();
     getSync().checkIn();
 }

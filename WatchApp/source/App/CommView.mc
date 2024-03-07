@@ -14,10 +14,11 @@ class CommView extends WatchUi.View {
             WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
         } else {
             if (phonesViewImp == null) {
+                onAppWillFinishLaunching();
                 dump("settingInitialPhonesView", true);
                 setPhonesView(initialPhonesView());
                 WatchUi.pushView(getPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
-                onUILaunched();
+                onAppDidFinishLaunching();
             } else {
                 dump("pushingBackPhonesView", true);
                 WatchUi.pushView(getPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
