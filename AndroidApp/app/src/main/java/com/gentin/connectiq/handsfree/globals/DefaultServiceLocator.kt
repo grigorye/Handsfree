@@ -15,7 +15,7 @@ import com.gentin.connectiq.handsfree.impl.IncomingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.OutgoingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.PhoneCallService
 import com.gentin.connectiq.handsfree.impl.RemoteMessageService
-import com.gentin.connectiq.handsfree.impl.lastTrackedPhoneState
+import com.gentin.connectiq.handsfree.services.lastTrackedPhoneState
 
 class DefaultServiceLocator(
     base: Context?,
