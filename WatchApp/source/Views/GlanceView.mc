@@ -1,4 +1,7 @@
 using Toybox.WatchUi;
+using Toybox.Lang;
+
+var showingGlance as Lang.Boolean = false;
 
 class GlanceView extends WatchUi.GlanceView {
 
@@ -7,11 +10,13 @@ class GlanceView extends WatchUi.GlanceView {
     }
 
     function onShow() {
+        showingGlance = true;
         dump("glanceOnShow", true);
     }
 
     function onHide() {
         dump("glanceOnHide", true);
+        showingGlance = false;
     }
 
     function onUpdate(dc) {
