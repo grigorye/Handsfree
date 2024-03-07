@@ -22,6 +22,7 @@ class DefaultPhoneCallService(base: Context?) : ContextWrapper(base), PhoneCallS
         intent.setData(Uri.parse("tel:${number}"))
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.addFlags(Intent.FLAG_FROM_BACKGROUND)
+        Log.d(TAG, "actionCallIntent: $intent")
         startActivity(intent)
     }
 
