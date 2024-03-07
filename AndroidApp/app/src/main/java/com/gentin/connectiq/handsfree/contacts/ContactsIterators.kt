@@ -21,7 +21,8 @@ fun forEachContactInGroup(
 
     groupCursor?.apply {
         val displayNameColumn = getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
-        val contactIdColumn = getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID)
+        val contactIdColumn =
+            getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID)
         while (moveToNext()) {
             val displayName = getString(displayNameColumn)
             val contactId = getInt(contactIdColumn)
@@ -31,7 +32,10 @@ fun forEachContactInGroup(
     }
 }
 
-fun forEachContactWithPhoneNumberInFavorites(context: Context, operation: (contactId: Int, displayName: String) -> Unit) {
+fun forEachContactWithPhoneNumberInFavorites(
+    context: Context,
+    operation: (contactId: Int, displayName: String) -> Unit
+) {
     val contactsCursor = context.contentResolver.query(
         ContactsContract.Data.CONTENT_URI,
         arrayOf(

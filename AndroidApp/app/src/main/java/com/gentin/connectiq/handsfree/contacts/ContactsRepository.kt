@@ -70,7 +70,7 @@ class ContactsRepositoryImpl(
         }
         return numbers
     }
-    
+
     fun contacts(): List<ContactData> {
         var contacts = ArrayList<ContactData>()
         iterateOverContacts { contactId, displayName ->
