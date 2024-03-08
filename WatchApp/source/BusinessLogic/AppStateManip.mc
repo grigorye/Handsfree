@@ -1,5 +1,8 @@
 function getAppState() as AppState {
-    return appStateImp;
+    if (appStateImp == null) {
+        appStateImp = new AppState();
+    }
+    return appStateImp as AppState;
 }
 
-var appStateImp as AppState = new AppState();
+var appStateImp as AppState or Null;

@@ -3,7 +3,14 @@ using Toybox.System;
 using Toybox.Lang;
 using Toybox.Application;
 
-var router as Router = new Router();
+var routerImp as Router or Null;
+
+function getRouter() as Router {
+    if (routerImp == null) {
+        routerImp = new Router();
+    }
+    return routerImp as Router;
+}
 
 class Router {
     function initialize() {}

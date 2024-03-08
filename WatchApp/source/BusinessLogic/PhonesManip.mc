@@ -1,7 +1,7 @@
 using Toybox.WatchUi;
 using Toybox.Application;
 
-var phonesImp as Phones or Null = null;
+var phonesImp as Phones or Null;
 
 function loadPhones() as Phones {
     var phones = Application.Storage.getValue("phones.v1") as Phones or Null;

@@ -18,7 +18,7 @@ function getCallState() as CallState {
 function setCallState(callState as CallState) as Void {
     dumpCallState("setCallState", callState);
     setCallStateImp(callState);
-    router.updateRoute();
+    getRouter().updateRoute();
 }
 
 function setCallStateIgnoringRouting(callState as CallState) as Void {
@@ -30,7 +30,7 @@ function setCallStateIgnoringRouting(callState as CallState) as Void {
 
 function setCallStateImp(callState as CallState) as Void {
     if (false) {
-        var callStateImp = appStateImp.callState();
+        var callStateImp = getAppState().callState();
         if (callStateImp.equals(callState)) {
             dumpCallState("setCallStateNoChange", callState);
             return;
@@ -40,5 +40,5 @@ function setCallStateImp(callState as CallState) as Void {
             return;
         }
     }
-    appStateImp.setCallState(callState);
+    getAppState().setCallState(callState);
 }

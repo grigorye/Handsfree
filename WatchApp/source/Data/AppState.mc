@@ -2,7 +2,10 @@ using Toybox.Lang;
 
 class AppState {
     function callState() as CallState {
-        return callStateImp;
+        if (callStateImp == null) {
+            callStateImp = initialCallState();
+        }
+        return callStateImp as CallState;
     }
     
     function setCallState(callState as CallState) as Void {
@@ -14,9 +17,14 @@ class AppState {
     }
 }
 
-var callStateImp as CallState = new Idle(); // new CallInProgress({ "number" => "1233", "name" => "VoiceMail", "id" => 23 });
-var oldCallStateImp as CallState = callStateImp;
+var callStateImp as CallState or Null;
+
+function initialCallState() as CallState {
+    return new Idle(); // new CallInProgress({ "number" => "1233", "name" => "VoiceMail", "id" => 23 });
+}
+
+var oldCallStateImp as CallState or Null;
 
 function getOldCallState() as CallState {
-    return oldCallStateImp;
+    return oldCallStateImp as CallState;
 }

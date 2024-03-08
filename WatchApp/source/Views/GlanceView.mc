@@ -1,8 +1,10 @@
 using Toybox.WatchUi;
 using Toybox.Lang;
 
+(:glance)
 var showingGlance as Lang.Boolean = false;
 
+(:glance)
 class GlanceView extends WatchUi.GlanceView {
 
     function initialize() {

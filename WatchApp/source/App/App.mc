@@ -3,6 +3,7 @@ using Toybox.WatchUi;
 using Toybox.System;
 using Toybox.Lang;
 
+(:glance)
 class App extends Application.AppBase {
 
     function initialize() {
@@ -21,6 +22,7 @@ class App extends Application.AppBase {
         Application.AppBase.onStop(state);
     }
 
+    (:typecheck(disableGlanceCheck))
     function getInitialView() {
         dump("getInitialView", true);
         return [new CommView()] as Lang.Array<WatchUi.Views or WatchUi.InputDelegates> or Null;
@@ -31,6 +33,7 @@ class App extends Application.AppBase {
     }
 }
 
+(:glance)
 function deviceSettingsDumpRep(deviceSettings as System.DeviceSettings) as Lang.String {
     return ""
         + Lang.format("monkey: $1$.$2$.$3$", deviceSettings.monkeyVersion) 
