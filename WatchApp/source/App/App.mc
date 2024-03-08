@@ -50,6 +50,5 @@ function onAppWillFinishLaunching() as Void {
 
 function onAppDidFinishLaunching() as Void {
     dump("onAppDidFinishLaunching", true);
-    syncImp = new Sync();
     getSync().checkIn();
 }

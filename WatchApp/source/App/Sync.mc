@@ -3,9 +3,12 @@ using Toybox.Communications;
 using Toybox.Lang;
 using Toybox.Timer;
 
-var syncImp as Sync or Null = null;
+var syncImp as Sync or Null;
 
 function getSync() as Sync {
+    if (syncImp == null) {
+        syncImp = new Sync();
+    }
     return syncImp as Sync;
 }
 
