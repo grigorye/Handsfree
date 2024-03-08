@@ -26,8 +26,7 @@ for device in "${dev_devices[@]}"; do
         -f monkey.jungle \
         -y "$developer_key" \
         -d "$device" \
-        -w \
-        -l 3
+        -w
 done
 
 java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
@@ -37,5 +36,4 @@ java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
     -y "$developer_key" \
     -e \
     -r \
-    -w \
-    -l 3
+    -w
