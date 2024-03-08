@@ -11,10 +11,6 @@ function setCallInProgress(number as Lang.String) as Void {
     }
 }
 
-function getCallState() as CallState {
-    return getAppState().callState();
-}
-
 function setCallState(callState as CallState) as Void {
     dumpCallState("setCallState", callState);
     setCallStateImp(callState);
@@ -26,19 +22,4 @@ function setCallStateIgnoringRouting(callState as CallState) as Void {
     setCallStateImp(callState);
     getPhonesView().updateFromCallState(callState);
     WatchUi.requestUpdate();
-}
-
-function setCallStateImp(callState as CallState) as Void {
-    if (false) {
-        var callStateImp = getAppState().callState();
-        if (callStateImp.equals(callState)) {
-            dumpCallState("setCallStateNoChange", callState);
-            return;
-        }
-        if (callStateImp.toString().equals(callState.toString())) {
-            dumpCallState("setCallStateNoChangeString", callState);
-            return;
-        }
-    }
-    getAppState().setCallState(callState);
 }
