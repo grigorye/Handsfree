@@ -25,7 +25,7 @@ data class ContactData(
 )
 
 interface ContactsRepository {
-    fun contactsJsonObject(): Any
+    fun contacts(): List<ContactData>
 }
 
 class ContactsRepositoryImpl(
@@ -71,28 +71,12 @@ class ContactsRepositoryImpl(
         return numbers
     }
 
-    fun contacts(): List<ContactData> {
+    override fun contacts(): List<ContactData> {
         var contacts = ArrayList<ContactData>()
         iterateOverContacts { contactId, displayName ->
             val number = numbersForContact(contactId)[0]
             contacts.add(ContactData(contactId, displayName, number))
         }
         return contacts.sortedBy { it.name }
-    }
-
-    override fun contactsJsonObject(): Any {
-        val list = contacts()
-
-        val pojo = ArrayList<Any>()
-        for (contact in list) {
-            pojo.add(
-                mapOf(
-                    "number" to contact.number,
-                    "name" to contact.name,
-                    "id" to contact.id
-                )
-            )
-        }
-        return pojo
     }
 }

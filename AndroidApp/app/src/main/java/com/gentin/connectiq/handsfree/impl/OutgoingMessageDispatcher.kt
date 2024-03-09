@@ -2,7 +2,7 @@ package com.gentin.connectiq.handsfree.impl
 
 import android.telephony.TelephonyManager
 import android.util.Log
-import com.gentin.connectiq.handsfree.contacts.ContactsRepository
+import com.gentin.connectiq.handsfree.contacts.ContactData
 import com.gentin.connectiq.handsfree.helpers.normalizePhoneNumber
 
 
@@ -11,20 +11,29 @@ interface ContactsService {
 }
 
 interface OutgoingMessageDispatcher {
-    fun sendPhones()
+    fun sendPhones(contacts: List<ContactData>)
     fun sendPhoneState(phoneState: PhoneState, args: Map<String, Any> = mapOf())
 }
 
 class DefaultOutgoingMessageDispatcher(
-    private val remoteMessageService: RemoteMessageService,
-    private val contactsRepository: ContactsRepository
+    private val remoteMessageService: RemoteMessageService
 ) : OutgoingMessageDispatcher {
-    override fun sendPhones() {
-        val contactsJsonObject = contactsRepository.contactsJsonObject()
+    override fun sendPhones(contacts: List<ContactData>) {
+        val pojo = ArrayList<Any>()
+        for (contact in contacts) {
+            pojo.add(
+                mapOf(
+                    "number" to contact.number,
+                    "name" to contact.name,
+                    "id" to contact.id
+                )
+            )
+        }
+
         val msg = mapOf(
             "cmd" to "setPhones",
             "args" to mapOf(
-                "phones" to contactsJsonObject
+                "phones" to pojo
             )
         )
         send(msg)

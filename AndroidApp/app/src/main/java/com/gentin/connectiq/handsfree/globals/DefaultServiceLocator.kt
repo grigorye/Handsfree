@@ -48,7 +48,7 @@ class DefaultServiceLocator(
                 lastTrackedPhoneState?.let {
                     outgoingMessageDispatcher.sendPhoneState(it)
                 }
-                outgoingMessageDispatcher.sendPhones()
+                outgoingMessageDispatcher.sendPhones(contactsRepository.contacts())
             }
         )
     }
@@ -64,7 +64,7 @@ class DefaultServiceLocator(
     }
 
     val outgoingMessageDispatcher: OutgoingMessageDispatcher by lazy {
-        DefaultOutgoingMessageDispatcher(remoteMessageService, contactsRepository)
+        DefaultOutgoingMessageDispatcher(remoteMessageService)
     }
 
     val garminConnector: GarminConnector by lazy {
