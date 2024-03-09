@@ -45,6 +45,8 @@ class PhonesView extends WatchUi.Menu2 {
                 fatalError("Failed to delete menu item");
             }
         }
+        var focusedItemId = getFocusedPhonesViewItemId();
+        var focus = null as Lang.Number | Null;
         if (phones.size() > 0) {
             for (var i = 0; i < phones.size(); i++) {
                 var phone = phones[i];
@@ -54,10 +56,16 @@ class PhonesView extends WatchUi.Menu2 {
                     phone["id"] as Lang.Number, // identifier
                     {}
                 );
+                if (item.getId() == focusedItemId) {
+                    focus = i;
+                }
                 addItem(item);
             }
         } else {
             addItem(new WatchUi.MenuItem("No contacts", "selected", noPhonesMenuItemId, {}));
+        }
+        if (focus != null) {
+           setFocus(focus);
         }
         oldPhones = phones;
     }
