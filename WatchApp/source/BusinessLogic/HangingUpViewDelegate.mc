@@ -9,8 +9,7 @@ class HangingUpViewDelegate extends WatchUi.BehaviorDelegate {
         dumpCallState("onBackFromHangingUp", callState);
         if (!(callState instanceof HangingUp)) {
             dumpCallState("badCallState", callState);
-            fatalError("badCallState");
-            return false;
+            System.error("badCallState");
         }
         setCallStateIgnoringRouting(new Idle());
         return true;

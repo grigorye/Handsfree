@@ -50,7 +50,7 @@ class Router {
                         break;
                     }
                     default:
-                        fatalError("Unhandled newState");
+                        System.error("Unhandled newState");
                 }
                 break;
             case instanceof SchedulingCall:
@@ -72,7 +72,7 @@ class Router {
                         break;
                     }
                     default:
-                        fatalError("Unhandled newState");
+                        System.error("Unhandled newState");
                 }
                 break;
             case instanceof CallInProgress:
@@ -96,7 +96,7 @@ class Router {
                         break;
                     }
                     default:
-                        fatalError("Unhandled newState");
+                        System.error("Unhandled newState");
                 }
                 break;
             case instanceof HangingUp:
@@ -118,11 +118,11 @@ class Router {
                         break;
                     }
                     default:
-                        fatalError("Unhandled newState");
+                        System.error("Unhandled newState");
                 }
                 break;
             default:
-                fatalError("Unhandled oldState");
+                System.error("Unhandled oldState");
         }
     }
 

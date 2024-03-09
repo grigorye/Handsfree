@@ -20,8 +20,7 @@ class HangingUpView extends WatchUi.ProgressBar {
                 progress = 0.0;
                 break;
             default:
-                fatalError("Unknown commStatus");
-                break;
+                System.error("Unknown commStatus");
         }
         WatchUi.ProgressBar.initialize(message, progress);
     }

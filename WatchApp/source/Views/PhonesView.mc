@@ -1,5 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.Lang;
+using Toybox.System;
 
 class PhonesView extends WatchUi.Menu2 {
     function initialize() {
@@ -42,7 +43,7 @@ class PhonesView extends WatchUi.Menu2 {
             var existed = deleteItem(0);
             if (existed == null) {
                 dump("failedIndex", i);
-                fatalError("Failed to delete menu item");
+                System.error("Failed to delete menu item");
             }
         }
         var focusedItemId = getFocusedPhonesViewItemId();
@@ -87,7 +88,7 @@ function initialPhonesView() as PhonesView {
     var callState = getCallState();
     dumpCallState("callStateOnInitialPhonesView", callState);
     if (!(callState instanceof Idle)) {
-        fatalError("CallState is not idle: we don't support this scenario yet.");
+        System.error("CallState is not idle: we don't support this scenario yet.");
     }
     var phonesView = new PhonesView();
     phonesView.updateFromCallState(callState);
