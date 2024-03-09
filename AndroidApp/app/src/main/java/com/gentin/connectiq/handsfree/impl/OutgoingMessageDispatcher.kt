@@ -7,14 +7,34 @@ import com.gentin.connectiq.handsfree.helpers.normalizePhoneNumber
 
 
 interface OutgoingMessageDispatcher {
-    fun sendPhones(contacts: List<ContactData>)
-    fun sendPhoneState(phoneState: PhoneState, args: Map<String, Any> = mapOf())
+    fun sendSyncYou(contacts: List<ContactData>, phoneState: PhoneState?)
+    fun sendPhoneState(phoneState: PhoneState)
 }
 
 class DefaultOutgoingMessageDispatcher(
     private val remoteMessageService: RemoteMessageService
 ) : OutgoingMessageDispatcher {
-    override fun sendPhones(contacts: List<ContactData>) {
+    override fun sendSyncYou(contacts: List<ContactData>, phoneState: PhoneState?) {
+        val msg = mapOf(
+            "cmd" to "syncYou",
+            "args" to mapOf(
+                "setPhones" to phonesArgs(contacts),
+                "phoneStateChanged" to phoneState?.let { phoneStateChangedArgs(it) }
+            )
+        )
+        send(msg)
+    }
+
+    override fun sendPhoneState(phoneState: PhoneState) {
+        val args = phoneStateChangedArgs(phoneState)
+        val msg = mapOf(
+            "cmd" to "phoneStateChanged",
+            "args" to args
+        )
+        send(msg)
+    }
+
+    private fun phonesArgs(contacts: List<ContactData>): Map<String, Any> {
         val pojo = ArrayList<Any>()
         for (contact in contacts) {
             pojo.add(
@@ -26,51 +46,38 @@ class DefaultOutgoingMessageDispatcher(
             )
         }
 
-        val msg = mapOf(
-            "cmd" to "setPhones",
-            "args" to mapOf(
-                "phones" to pojo
-            )
+        return mapOf(
+            "phones" to pojo
         )
-        send(msg)
     }
 
-    override fun sendPhoneState(phoneState: PhoneState, args: Map<String, Any>) {
-        when (phoneState.stateExtra) {
+    private fun phoneStateChangedArgs(phoneState: PhoneState): Map<String, Any> {
+        return when (phoneState.stateExtra) {
             TelephonyManager.EXTRA_STATE_IDLE -> {
-                val msg = mapOf(
-                    "cmd" to "phoneStateChanged",
-                    "args" to args + mapOf(
-                        "state" to "noCallInProgress"
-                    )
+                mapOf(
+                    "state" to "noCallInProgress"
                 )
-                send(msg)
             }
 
             TelephonyManager.EXTRA_STATE_OFFHOOK -> {
-                val msg = mapOf(
-                    "cmd" to "phoneStateChanged",
-                    "args" to args + mapOf(
-                        "state" to "callInProgress",
-                        "number" to dispatchedPhoneNumber(phoneState.incomingNumber)
-                    )
+                mapOf(
+                    "state" to "callInProgress",
+                    "number" to dispatchedPhoneNumber(phoneState.incomingNumber)
                 )
-                send(msg)
             }
 
             TelephonyManager.EXTRA_STATE_RINGING -> {
-                val msg = mapOf(
-                    "cmd" to "phoneStateChanged",
-                    "args" to args + mapOf(
-                        "state" to "ringing",
-                        "number" to dispatchedPhoneNumber(phoneState.incomingNumber)
-                    )
+                mapOf(
+                    "state" to "ringing",
+                    "number" to dispatchedPhoneNumber(phoneState.incomingNumber)
                 )
-                send(msg)
             }
 
             else -> {
                 Log.e(TAG, "unknownPhoneStateExtra: ${phoneState.stateExtra}")
+                return mapOf(
+                    "unknownState" to phoneState.stateExtra
+                )
             }
         }
     }
