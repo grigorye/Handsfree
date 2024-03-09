@@ -1,15 +1,17 @@
 using Toybox.Application;
+using Toybox.Background;
 using Toybox.WatchUi;
 using Toybox.System;
 using Toybox.Lang;
 
-(:glance)
+(:glance, :background)
 class App extends Application.AppBase {
 
     function initialize() {
         dump("initialize", true);
         dump("deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
         Application.AppBase.initialize();
+        Background.registerForPhoneAppMessageEvent();
     }
 
     function onStart(state) {
@@ -22,18 +24,31 @@ class App extends Application.AppBase {
         Application.AppBase.onStop(state);
     }
 
-    (:typecheck(disableGlanceCheck))
+    (:typecheck([disableGlanceCheck]))
+    function getServiceDelegate() as Lang.Array<System.ServiceDelegate> {
+        isRunningInBackground = true;
+        dump("getServiceDelegate", true);
+        return [new BackgroundServiceDelegate()] as Lang.Array<System.ServiceDelegate>;
+    }
+
+    function onBackgroundData(data as Application.PersistableType) as Void {
+        dump("onBackgroundData", data);
+        Application.AppBase.onBackgroundData(data);
+    }
+
+    (:typecheck([disableGlanceCheck, disableBackgroundCheck]))
     function getInitialView() {
         dump("getInitialView", true);
         return [new CommView()] as Lang.Array<WatchUi.Views or WatchUi.InputDelegates> or Null;
     }
 
+    (:typecheck([disableGlanceCheck, disableBackgroundCheck]))
     function getGlanceView() {
         return [new GlanceView()] as Lang.Array<WatchUi.GlanceView or Toybox.WatchUi.GlanceViewDelegate> or Null;
     }
 }
 
-(:glance)
+(:glance, :background)
 function deviceSettingsDumpRep(deviceSettings as System.DeviceSettings) as Lang.String {
     return ""
         + Lang.format("monkey: $1$.$2$.$3$", deviceSettings.monkeyVersion) 
@@ -52,3 +67,6 @@ function onAppDidFinishLaunching() as Void {
     dump("onAppDidFinishLaunching", true);
     getSync().checkIn();
 }
+
+(:background)
+var isRunningInBackground as Lang.Boolean = false;

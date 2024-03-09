@@ -1,8 +1,10 @@
 using Toybox.WatchUi;
 using Toybox.Application;
 
+(:background)
 var phonesImp as Phones or Null;
 
+(:background)
 function loadPhones() as Phones {
     var phones = Application.Storage.getValue("phones.v1") as Phones or Null;
     if (phones != null) {
@@ -12,10 +14,12 @@ function loadPhones() as Phones {
     }
 }
 
+(:background)
 function getPhones() as Phones {
     return phonesImp as Phones;
 }
 
+(:background)
 function setPhones(phones as Phones) as Void {
     dump("setPhones", phones);
     if (phones.toString().equals((phonesImp as Phones).toString())) {
@@ -25,6 +29,17 @@ function setPhones(phones as Phones) as Void {
 
     phonesImp = phones;
     Application.Storage.setValue("phones.v1", phones);
+
+    updateUIForPhones();
+}
+
+(:typecheck(disableBackgroundCheck))
+function updateUIForPhones() as Void {
+    if (isRunningInBackground) {
+        return;
+    }
+
+    var phones = getPhones();
 
     if ((WatchUi has :getCurrentView) && (WatchUi.getCurrentView()[0] instanceof PhonesView)) {
         // Workaround for menu items not being updated visually until it is hidden and shown again.

@@ -2,6 +2,7 @@ using Toybox.Lang;
 using Toybox.Communications;
 using Toybox.System;
 
+(:background)
 function handleRemoteMessage(iqMsg as Communications.Message) as Void {
     var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
     var cmd = msg["cmd"] as Lang.String;

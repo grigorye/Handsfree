@@ -3,7 +3,7 @@ using Toybox.Lang;
 using Toybox.Time;
 using Toybox.Time.Gregorian;
 
-(:glance)
+(:glance, :background)
 function dump(tag as Lang.String, output as Lang.Object or Null) as Void {
     var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
 
@@ -26,5 +26,5 @@ function dump(tag as Lang.String, output as Lang.Object or Null) as Void {
     System.println(timePrefix + tag + ": " + output);
 }
 
-(:glance)
+(:glance, :background)
 var newSession as Lang.Boolean = true;

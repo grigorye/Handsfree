@@ -11,15 +11,31 @@ function setCallInProgress(number as Lang.String) as Void {
     }
 }
 
+(:background)
 function setCallState(callState as CallState) as Void {
     dumpCallState("setCallState", callState);
     setCallStateImp(callState);
+    updateUIForCallState();
+}
+
+(:typecheck(disableBackgroundCheck), :background)
+function updateUIForCallState() as Void {
+    if (isRunningInBackground) {
+        return;
+    }
     getRouter().updateRoute();
 }
 
 function setCallStateIgnoringRouting(callState as CallState) as Void {
     dumpCallState("setCallStateIgnoringRouting", callState);
     setCallStateImp(callState);
-    getPhonesView().updateFromCallState(callState);
+}
+
+(:typecheck(disableBackgroundCheck))
+function updateUIForCallStateIgnoringRouting() as Void {
+    if (isRunningInBackground) {
+        return;
+    }
+    getPhonesView().updateFromCallState(getCallState());
     WatchUi.requestUpdate();
 }

@@ -1,5 +1,6 @@
 using Toybox.Lang;
 
+(:background)
 class Idle extends CallStateImp {
     function initialize() {
         CallStateImp.initialize();

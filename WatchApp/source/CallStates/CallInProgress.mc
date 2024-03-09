@@ -1,5 +1,6 @@
 using Toybox.Lang;
 
+(:background)
 class CallInProgress extends CallStateImp {
     var phone as Phone;
     
