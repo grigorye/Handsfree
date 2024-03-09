@@ -10,8 +10,18 @@ function handleRemoteMessage(iqMsg as Communications.Message) as Void {
     dump("<- inCmd", cmd);
     dump("inArgs", args);
     switch (cmd) {
-        case "setPhones":
-            setPhones(args["phones"] as Phones);
+        case "syncYou":
+            var phonesArgs = args["setPhones"] as Lang.Dictionary<Lang.String, Lang.Object>;
+            setPhones(phonesArgs["phones"] as Phones);
+            if (!callStateIsOwnedByUs) {
+                var phoneStateChangedArgs = args["phoneStateChanged"] as Lang.Dictionary<Lang.String, Lang.Object> or Null;
+                if (phoneStateChangedArgs != null) {
+                    handlePhoneStateChanged(phoneStateChangedArgs as Lang.Dictionary<Lang.String, Lang.Object>);
+                }
+                callStateIsOwnedByUs = true;
+            } else {
+                dump("callStateIsNotOwnedByUs", true);
+            }
             break;
         case "phoneStateChanged":
             handlePhoneStateChanged(args);

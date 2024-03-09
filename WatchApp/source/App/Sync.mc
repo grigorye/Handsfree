@@ -28,12 +28,14 @@ class Sync {
     }
 
     function checkIn() as Void {
-        dump("checkIn", true);
+        dump("preCheckInCallStateIsOwnedByUs", callStateIsOwnedByUs);
         dump("remoteResponded", remoteResponded);
         if (remoteResponded) {
             setCheckInStatus(CHECK_IN_SUCCEEDED);
             return;
         }
+        callStateIsOwnedByUs = false;
+        dump("postCheckInCallStateIsOwnedByUs", callStateIsOwnedByUs);
         dump("checkInAttemptsRemaining", checkInAttemptsRemaining);
         if (checkInAttemptsRemaining == 0) {
             setCheckInStatus(CHECK_IN_FAILED);
