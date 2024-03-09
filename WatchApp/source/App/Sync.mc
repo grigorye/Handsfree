@@ -28,6 +28,7 @@ class Sync {
     }
 
     function checkIn() as Void {
+        dump("checkIn", true);
         dump("remoteResponded", remoteResponded);
         if (remoteResponded) {
             setCheckInStatus(CHECK_IN_SUCCEEDED);
