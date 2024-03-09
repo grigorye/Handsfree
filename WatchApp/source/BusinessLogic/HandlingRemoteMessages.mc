@@ -9,12 +9,23 @@ function handleRemoteMessage(iqMsg as Communications.Message) as Void {
     var args = msg["args"] as Lang.Dictionary<Lang.String, Lang.Object>;
     dump("<- inCmd", cmd);
     dump("inArgs", args);
-    var callState = getCallState();
-    dumpCallState("inCallState", callState);
     switch (cmd) {
         case "setPhones":
             setPhones(args["phones"] as Phones);
             break;
+        case "phoneStateChanged":
+            handlePhoneStateChanged(args);
+            break;
+    }
+}
+
+(:background)
+function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
+    var callState = getCallState();
+    dumpCallState("callState", callState);
+    var phoneState = args["state"] as Lang.String;
+    dump("inPhoneState", phoneState);
+    switch (phoneState) {
         case "callInProgress":
             var inProgressNumber = args["number"] as Lang.String;
             dump("inProgressNumber", inProgressNumber);
