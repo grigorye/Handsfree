@@ -1,6 +1,7 @@
 package com.gentin.connectiq.handsfree.impl
 
 import android.telephony.TelephonyManager
+import android.util.Log
 import com.gentin.connectiq.handsfree.contacts.ContactsRepository
 import com.gentin.connectiq.handsfree.helpers.normalizePhoneNumber
 
@@ -58,12 +59,18 @@ class DefaultOutgoingMessageDispatcher(
                 send(msg)
             }
 
-            else -> {}
+            else -> {
+                Log.e(TAG, "unknownPhoneStateExtra: ${phoneState.stateExtra}")
+            }
         }
     }
 
     fun send(msg: Map<String, Any>) {
         remoteMessageService.sendMessage(msg)
+    }
+
+    companion object {
+        private val TAG: String = DefaultOutgoingMessageDispatcher::class.java.simpleName
     }
 }
 
