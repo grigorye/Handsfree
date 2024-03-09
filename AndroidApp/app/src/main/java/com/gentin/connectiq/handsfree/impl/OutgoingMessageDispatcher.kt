@@ -6,10 +6,6 @@ import com.gentin.connectiq.handsfree.contacts.ContactData
 import com.gentin.connectiq.handsfree.helpers.normalizePhoneNumber
 
 
-interface ContactsService {
-    fun contactsJsonObject()
-}
-
 interface OutgoingMessageDispatcher {
     fun sendPhones(contacts: List<ContactData>)
     fun sendPhoneState(phoneState: PhoneState, args: Map<String, Any> = mapOf())
