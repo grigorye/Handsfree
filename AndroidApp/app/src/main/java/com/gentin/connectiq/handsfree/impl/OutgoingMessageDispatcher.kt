@@ -12,7 +12,7 @@ interface ContactsService {
 
 interface OutgoingMessageDispatcher {
     fun sendPhones()
-    fun sendPhoneState(phoneState: PhoneState)
+    fun sendPhoneState(phoneState: PhoneState, args: Map<String, Any> = mapOf())
 }
 
 class DefaultOutgoingMessageDispatcher(
@@ -30,19 +30,23 @@ class DefaultOutgoingMessageDispatcher(
         send(msg)
     }
 
-    override fun sendPhoneState(phoneState: PhoneState) {
+    override fun sendPhoneState(phoneState: PhoneState, args: Map<String, Any>) {
         when (phoneState.stateExtra) {
             TelephonyManager.EXTRA_STATE_IDLE -> {
                 val msg = mapOf(
-                    "cmd" to "noCallInProgress"
+                    "cmd" to "phoneStateChanged",
+                    "args" to args + mapOf(
+                        "state" to "noCallInProgress"
+                    )
                 )
                 send(msg)
             }
 
             TelephonyManager.EXTRA_STATE_OFFHOOK -> {
                 val msg = mapOf(
-                    "cmd" to "callInProgress",
-                    "args" to mapOf(
+                    "cmd" to "phoneStateChanged",
+                    "args" to args + mapOf(
+                        "state" to "callInProgress",
                         "number" to dispatchedPhoneNumber(phoneState.incomingNumber)
                     )
                 )
@@ -51,8 +55,9 @@ class DefaultOutgoingMessageDispatcher(
 
             TelephonyManager.EXTRA_STATE_RINGING -> {
                 val msg = mapOf(
-                    "cmd" to "ringing",
-                    "args" to mapOf(
+                    "cmd" to "phoneStateChanged",
+                    "args" to args + mapOf(
+                        "state" to "ringing",
                         "number" to dispatchedPhoneNumber(phoneState.incomingNumber)
                     )
                 )
