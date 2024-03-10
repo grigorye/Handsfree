@@ -1,2 +1,2 @@
 project.manifest = manifest.xml
-project.typecheck = 3
+project.typecheck = strict
