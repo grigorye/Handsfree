@@ -2,6 +2,7 @@
 
     <properties>
         <property id="popOutOfAppInsteadOfPhones" type="boolean">true</property>
+        <property id="backgroundServiceEnabled" type="boolean">false</property>
         <property id="syncCallStateOnLaunch" type="boolean">false</property>
         <property id="callStateOnGlance" type="boolean">false</property>
         <property id="syncAttempts" type="number">1</property>
@@ -11,6 +12,7 @@
 
     <strings>
         <string id="popOutOfAppInsteadOfPhones">Close app after call</string>
+        <string id="backgroundServiceEnabled">Enable background service</string>
         <string id="syncCallStateOnLaunch">Update call state on app launch.</string>
         <string id="callStateOnGlance">Show call state on glance.</string>
         <string id="syncAttempts">Sync attempts</string>
@@ -20,6 +22,10 @@
     <settings>
         <setting propertyKey="@Properties.popOutOfAppInsteadOfPhones"
             title="@Strings.popOutOfAppInsteadOfPhones">
+            <settingConfig type="boolean" />
+        </setting>
+        <setting propertyKey="@Properties.backgroundServiceEnabled"
+            title="@Strings.backgroundServiceEnabled">
             <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.syncCallStateOnLaunch"
