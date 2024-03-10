@@ -59,6 +59,7 @@ class App extends Application.AppBase {
 
     (:glance)
     function getGlanceView() {
+        dump("getGlanceView", true);
         setActiveUiKind(ACTIVE_UI_GLANCE);
         onAppWillFinishLaunching();
         return [new GlanceView()] as Lang.Array<WatchUi.GlanceView or Toybox.WatchUi.GlanceViewDelegate> or Null;
