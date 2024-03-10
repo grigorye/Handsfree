@@ -8,11 +8,21 @@ using Toybox.Communications;
 (:glance, :background)
 class App extends Application.AppBase {
 
+    var backgroundServiceEnabled as Lang.Boolean;
+    
     function initialize() {
         dump("initialize", true);
         dump("deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
         Application.AppBase.initialize();
-        Background.registerForPhoneAppMessageEvent();
+        backgroundServiceEnabled = Application.Properties.getValue("backgroundServiceEnabled") as Lang.Boolean;
+        dump("backgroundServiceEnabled", backgroundServiceEnabled);
+        dump("getPhoneAppMessageEventRegistered", Background.getPhoneAppMessageEventRegistered());
+        if (backgroundServiceEnabled) {
+           Background.registerForPhoneAppMessageEvent();
+        } else {
+            Background.deletePhoneAppMessageEvent();
+            
+        }
     }
 
     function onStart(state) {
@@ -25,10 +35,13 @@ class App extends Application.AppBase {
         Application.AppBase.onStop(state);
     }
 
-    (:typecheck([disableGlanceCheck]))
+    (:background, :typecheck(disableGlanceCheck))
     function getServiceDelegate() as Lang.Array<System.ServiceDelegate> {
         isRunningInBackground = true;
         dump("getServiceDelegate", true);
+        if (!backgroundServiceEnabled) {
+            return [] as Lang.Array<System.ServiceDelegate>;
+        }
         return [new BackgroundServiceDelegate()] as Lang.Array<System.ServiceDelegate>;
     }
 
@@ -67,11 +80,7 @@ function onAppWillFinishLaunching() as Void {
 
 function onAppDidFinishLaunching() as Void {
     dump("onAppDidFinishLaunching", true);
-    if (Application.Properties.getValue("syncCallStateOnLaunch")) {
-        getSync().checkIn();
-    } else {
-        requestPhones();
-    }
+    getSync().checkIn();
 }
 
 (:glance, :background)

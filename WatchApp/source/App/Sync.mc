@@ -48,7 +48,11 @@ class Sync {
         timer.start(method(:checkIn), 1000 * secondsToCheckIn, false);
         checkInAttemptsRemaining -= 1;
         secondsToCheckIn *= 2;
-        requestSync();
+        if (Application.Properties.getValue("syncCallStateOnLaunch")) {
+            requestSync();
+        } else {
+            requestPhones();
+        }
     }
 
     function onPhone(msg as Communications.Message) as Void {
