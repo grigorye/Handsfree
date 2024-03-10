@@ -12,7 +12,7 @@ function encodeCallState(someCallState as CallState) as CallStateData {
             return { "state" => "idle" };
         case instanceof Ringing: {
             var callState = someCallState as Ringing;
-            return { "state" => "ringing", "phone" => (callState as Ringing).phone };
+            return { "state" => "ringing", "phone" => callState.phone };
         }
         case instanceof SchedulingCall: {
             var callState = someCallState as SchedulingCall;
