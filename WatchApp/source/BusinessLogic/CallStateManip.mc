@@ -20,7 +20,7 @@ function setCallState(callState as CallState) as Void {
 
 (:typecheck(disableBackgroundCheck), :background)
 function updateUIForCallState() as Void {
-    if (isRunningInBackground) {
+    if (isRunningInBackground || showingGlance) {
         return;
     }
     getRouter().updateRoute();
