@@ -15,7 +15,7 @@ class CallStateImp {
     }
 }
 
-(:background)
+(:background, :glance)
 function dumpCallState(tag as Lang.String, callState as CallStateImp or Null) as Void {
     if (callState == null) {
         dump(tag, "null");

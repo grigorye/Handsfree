@@ -44,6 +44,7 @@ class App extends Application.AppBase {
 
     (:typecheck([disableGlanceCheck, disableBackgroundCheck]))
     function getGlanceView() {
+        onAppWillFinishLaunching();
         return [new GlanceView()] as Lang.Array<WatchUi.GlanceView or Toybox.WatchUi.GlanceViewDelegate> or Null;
     }
 }
@@ -58,6 +59,7 @@ function deviceSettingsDumpRep(deviceSettings as System.DeviceSettings) as Lang.
         + Lang.format("part: $1$", [deviceSettings.partNumber]);
 }
 
+(:glance)
 function onAppWillFinishLaunching() as Void {
     dump("onAppWillFinishLaunching", true);
     phonesImp = loadPhones();

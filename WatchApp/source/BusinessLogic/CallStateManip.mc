@@ -11,16 +11,20 @@ function setCallInProgress(number as Lang.String) as Void {
     }
 }
 
-(:background)
+(:background, :glance)
 function setCallState(callState as CallState) as Void {
     dumpCallState("setCallState", callState);
     setCallStateImp(callState);
     updateUIForCallState();
 }
 
-(:typecheck(disableBackgroundCheck), :background)
+(:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function updateUIForCallState() as Void {
-    if (isRunningInBackground || showingGlance) {
+    if (isRunningInBackground) {
+        return;
+    }
+    if (showingGlance) {
+        WatchUi.requestUpdate();
         return;
     }
     getRouter().updateRoute();

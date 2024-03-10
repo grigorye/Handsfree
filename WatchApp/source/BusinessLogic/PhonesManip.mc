@@ -19,7 +19,7 @@ function getPhones() as Phones {
     return phonesImp as Phones;
 }
 
-(:background)
+(:background, :glance)
 function setPhones(phones as Phones) as Void {
     dump("setPhones", phones);
     if (phones.toString().equals((phonesImp as Phones).toString())) {
@@ -33,9 +33,9 @@ function setPhones(phones as Phones) as Void {
     updateUIForPhones();
 }
 
-(:background, :typecheck(disableBackgroundCheck))
+(:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function updateUIForPhones() as Void {
-    if (isRunningInBackground) {
+    if (isRunningInBackground || showingGlance) {
         return;
     }
 
