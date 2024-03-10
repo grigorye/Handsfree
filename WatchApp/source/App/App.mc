@@ -32,7 +32,7 @@ class App extends Application.AppBase {
     }
 
     function onBackgroundData(data as Application.PersistableType) as Void {
-        dump("onBackgroundData", data);
+        onBackgroundDataImp(data);
         Application.AppBase.onBackgroundData(data);
     }
 
@@ -66,6 +66,29 @@ function onAppWillFinishLaunching() as Void {
 function onAppDidFinishLaunching() as Void {
     dump("onAppDidFinishLaunching", true);
     getSync().checkIn();
+
+(:typecheck(disableBackgroundCheck), :glance)
+function onBackgroundDataImp(data as Application.PersistableType) as Void {
+    dump("onBackgroundData", data);
+    switch (data) {
+        case instanceof Lang.String: {
+            switch (data as Lang.String) {
+                case "onPhoneAppMessage": {
+                    setPhones(loadPhones());
+                    var loadedCallState = loadCallState();
+                    if (loadedCallState != null) {
+                        setCallState(loadedCallState);
+                    }
+                    break;
+                }
+                default:
+                    System.error("Unexpected data");
+            }
+            break;
+        }
+        default:
+            System.error("Unexpected data type");
+    }
 }
 
 (:background)

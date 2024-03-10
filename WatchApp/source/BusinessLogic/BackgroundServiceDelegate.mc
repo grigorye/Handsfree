@@ -15,6 +15,6 @@ class BackgroundServiceDelegate extends System.ServiceDelegate {
         dump("onPhoneAppMessage", msg);
         dump("isRunningInBackground", isRunningInBackground);
         handleRemoteMessage(msg);
-        Background.exit(null);
+        Background.exit("onPhoneAppMessage");
     }
 }
