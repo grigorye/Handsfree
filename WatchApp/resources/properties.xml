@@ -4,7 +4,7 @@
         <property id="popOutOfAppInsteadOfPhones" type="boolean">true</property>
         <property id="backgroundServiceEnabled" type="boolean">true</property>
         <property id="syncCallStateOnLaunch" type="boolean">false</property>
-        <property id="callStateOnGlance" type="boolean">false</property>
+        <property id="callStateOnGlance" type="boolean">true</property>
         <property id="syncAttempts" type="number">1</property>
         <property id="secondsToCheckIn" type="number">3</property>
         <property id="focusedPhonesViewItemId" type="string"></property>
