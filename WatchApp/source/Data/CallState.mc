@@ -6,7 +6,7 @@ typedef CallState as Idle or SchedulingCall or Ringing or CallInProgress or Dism
 (:background, :glance)
 var callStateImp as CallState or Null;
 (:background, :glance)
-var oldCallStateImp as CallState or Null;
+var oldCallStateImp as CallState = new Idle();
 
 (:background, :glance)
 class CallStateImp {
@@ -68,7 +68,7 @@ function getCallState() as CallState {
 
 (:background, :glance)
 function setCallStateImp(callState as CallState) as Void {
-    oldCallStateImp = callStateImp;
+    oldCallStateImp = getCallState();
     callStateImp = callState;
     saveCallState(callState);
 }
