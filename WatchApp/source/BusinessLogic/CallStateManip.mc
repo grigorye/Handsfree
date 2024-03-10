@@ -12,7 +12,7 @@ function setCallInProgress(number as Lang.String) as Void {
     }
 }
 
-(:background, :glance)
+(:background)
 function setCallState(callState as CallState) as Void {
     dumpCallState("setCallState", callState);
     setCallStateImp(callState);
@@ -29,9 +29,6 @@ function updateUIForCallState() as Void {
             return;
         }
         case ACTIVE_UI_GLANCE: {
-            if (!showingGlance) {
-                System.error("Inconsistent showingGlance: " + showingGlance);
-            }
             WatchUi.requestUpdate();
             return;
         }
