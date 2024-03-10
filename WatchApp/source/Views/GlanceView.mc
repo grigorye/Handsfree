@@ -41,7 +41,11 @@ class GlanceView extends WatchUi.GlanceView {
                     break;
                 default:
                     title = appName;
-                    subtitle = "No calls in progress";
+                    if (isShowingSourceVersionEnabled()) {
+                        subtitle = sourceVersion();
+                    } else {
+                        subtitle = "No calls in progress";
+                    }
                     break;
             }
 

@@ -10,17 +10,19 @@ class PhonesView extends WatchUi.Menu2 {
     var oldPhones as Phones = [] as Phones;
 
     function updateFromCheckInStatus(checkInStatus as CheckInStatus) as Void {
+        var title = "";
         switch (checkInStatus) {
             case CHECK_IN_IN_PROGRESS:
-                setTitle("...");
+                title = "...";
                 break;
             case CHECK_IN_SUCCEEDED:
-                setTitle("Idle");
+                title = "Idle";
                 break;
             case CHECK_IN_FAILED:
-                setTitle("Sync Failed");
-                break;        
+                title = "Sync Failed";
+                break;
         }
+        setTitle(decorateWithSourceVersion(title));
     }
     function updateFromCallState(callState as CallState) as Void {
         var title = "Idle";
@@ -89,6 +91,13 @@ function phonesView(callState as CallState, phones as Phones) as PhonesView {
     phonesView.updateFromCallState(callState);
     phonesView.updateFromPhones(phones);
     return phonesView;
+}
+
+function decorateWithSourceVersion(title as Lang.String) as Lang.String {
+    if (!isShowingSourceVersionEnabled()) {
+        return title;
+    }
+    return title + "\n" + sourceVersion();
 }
 
 var noPhonesMenuItemId as Lang.Number = -1;

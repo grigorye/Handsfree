@@ -26,3 +26,8 @@ function isExitToSystemAfterCallCompletionEnabled() as Lang.Boolean {
 function isShowingCallStateOnGlanceEnabled() as Lang.Boolean {
     return Application.Properties.getValue("callStateOnGlance") as Lang.Boolean;
 }
+
+(:glance)
+function isShowingSourceVersionEnabled() as Lang.Boolean {
+    return Application.Properties.getValue("showSourceVersion") as Lang.Boolean;
+}
