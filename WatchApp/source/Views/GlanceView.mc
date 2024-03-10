@@ -39,7 +39,10 @@ class GlanceView extends WatchUi.GlanceView {
 (:glance)
 function glanceTitle() as Lang.String {
     var text;
-    if (!(Application.Properties.getValue("callStateOnGlance") as Lang.Boolean)) {
+    
+    var shouldShowCallState = Application.Properties.getValue("callStateOnGlance") as Lang.Boolean;
+    dump("shouldShowCallState", shouldShowCallState);
+    if (!shouldShowCallState) {
         text = "Handsfree";
     } else {
         var callState = getCallState();
