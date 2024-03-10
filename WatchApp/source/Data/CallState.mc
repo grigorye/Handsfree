@@ -41,11 +41,8 @@ function loadCallState() as CallState or Null {
     return null;
 }
 
-(:background, :typecheck(disableGlanceCheck))
+(:background, :glance)
 function saveCallState(callState as CallState) as Void {
-    if (showingGlance) {
-        return;
-    }
     Application.Storage.setValue("callState.v1", encodeCallState(callState));
 }
 

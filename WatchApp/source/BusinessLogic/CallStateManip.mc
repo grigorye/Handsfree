@@ -12,7 +12,7 @@ function setCallInProgress(number as Lang.String) as Void {
     }
 }
 
-(:background)
+(:background, :glance)
 function setCallState(callState as CallState) as Void {
     dumpCallState("setCallState", callState);
     setCallStateImp(callState);

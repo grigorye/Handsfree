@@ -4,7 +4,7 @@ using Toybox.System;
 
 typedef CallStateData as Lang.Dictionary<Application.PropertyKeyType, Application.PropertyValueType>;
 
-(:background)
+(:background, :glance)
 function encodeCallState(someCallState as CallState) as CallStateData {
     dumpCallState("encodingCallState", someCallState);
     switch (someCallState) {
