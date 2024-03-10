@@ -14,15 +14,18 @@ function loadPhones() as Phones {
     }
 }
 
-(:background)
+(:background, :glance)
 function getPhones() as Phones {
+    if (phonesImp == null) {
+        phonesImp = loadPhones();
+    }
     return phonesImp as Phones;
 }
 
 (:background, :glance)
 function setPhones(phones as Phones) as Void {
     dump("setPhones", phones);
-    if (phones.toString().equals((phonesImp as Phones).toString())) {
+    if (phones.toString().equals(getPhones().toString())) {
         dump("phonesUnchanged", true);
         return;
     }

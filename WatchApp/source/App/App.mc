@@ -63,7 +63,6 @@ function deviceSettingsDumpRep(deviceSettings as System.DeviceSettings) as Lang.
 (:glance)
 function onAppWillFinishLaunching() as Void {
     dump("onAppWillFinishLaunching", true);
-    phonesImp = loadPhones();
 }
 
 function onAppDidFinishLaunching() as Void {

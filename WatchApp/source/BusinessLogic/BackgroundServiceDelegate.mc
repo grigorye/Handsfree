@@ -8,7 +8,6 @@ class BackgroundServiceDelegate extends System.ServiceDelegate {
 
     function initialize() {
         ServiceDelegate.initialize();
-        phonesImp = loadPhones();
     }
 
     function onPhoneAppMessage(msg as Communications.PhoneAppMessage) as Void {
