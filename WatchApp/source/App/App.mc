@@ -53,11 +53,13 @@ class App extends Application.AppBase {
     (:typecheck([disableGlanceCheck, disableBackgroundCheck]))
     function getInitialView() {
         dump("getInitialView", true);
+        setActiveUiKind(ACTIVE_UI_APP);
         return [new CommView()] as Lang.Array<WatchUi.Views or WatchUi.InputDelegates> or Null;
     }
 
     (:glance)
     function getGlanceView() {
+        setActiveUiKind(ACTIVE_UI_GLANCE);
         onAppWillFinishLaunching();
         return [new GlanceView()] as Lang.Array<WatchUi.GlanceView or Toybox.WatchUi.GlanceViewDelegate> or Null;
     }
