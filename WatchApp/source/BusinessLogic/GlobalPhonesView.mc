@@ -4,7 +4,11 @@ var phonesViewImp as PhonesView or Null;
 
 function getPhonesView() as PhonesView {
     if (phonesViewImp == null) {
-        System.error("phonesView is not set yet");
+        dump("settingInitialPhonesView", true);
+        var phonesView = new PhonesView();
+        phonesView.updateFromCallState(getOldCallState());
+        phonesView.updateFromPhones(getPhones());
+        phonesViewImp = phonesView;
     }
     return phonesViewImp as PhonesView;
 }
