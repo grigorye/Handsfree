@@ -12,7 +12,7 @@ class BackgroundServiceDelegate extends System.ServiceDelegate {
 
     function onPhoneAppMessage(msg as Communications.PhoneAppMessage) as Void {
         dump("onPhoneAppMessage", msg);
-        dump("isRunningInBackground", isRunningInBackground);
+        dump("activeUiKind", getActiveUIKind());
         handleRemoteMessage(msg);
         Background.exit("onPhoneAppMessage");
     }

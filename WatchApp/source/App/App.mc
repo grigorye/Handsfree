@@ -37,7 +37,6 @@ class App extends Application.AppBase {
 
     (:background, :typecheck(disableGlanceCheck))
     function getServiceDelegate() as Lang.Array<System.ServiceDelegate> {
-        isRunningInBackground = true;
         dump("getServiceDelegate", true);
         if (!backgroundServiceEnabled) {
             return [] as Lang.Array<System.ServiceDelegate>;
@@ -109,6 +108,3 @@ function onBackgroundDataImp(data as Application.PersistableType) as Void {
             System.error("Unexpected data type");
     }
 }
-
-(:background)
-var isRunningInBackground as Lang.Boolean = false;
