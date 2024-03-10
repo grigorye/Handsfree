@@ -1,10 +1,10 @@
 using Toybox.WatchUi;
 using Toybox.Application;
 
-(:background)
+(:background, :glance)
 var phonesImp as Phones or Null;
 
-(:background)
+(:background, :glance)
 function loadPhones() as Phones {
     var phones = Application.Storage.getValue("phones.v1") as Phones or Null;
     if (phones != null) {
@@ -33,7 +33,7 @@ function setPhones(phones as Phones) as Void {
     updateUIForPhones();
 }
 
-(:typecheck(disableBackgroundCheck))
+(:background, :typecheck(disableBackgroundCheck))
 function updateUIForPhones() as Void {
     if (isRunningInBackground) {
         return;
