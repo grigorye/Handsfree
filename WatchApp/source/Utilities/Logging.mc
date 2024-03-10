@@ -16,7 +16,7 @@ function dump(tag as Lang.String, output as Lang.Object or Null) as Void {
             info.day.format("%02d");
 
         //             "23:57:28 "
-        System.println("-------- " + dateFormatted);
+        System.println("-------- " + dateFormatted + " (" + sourceVersion() + ")");
     }
 
     var timePrefix =
