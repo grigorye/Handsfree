@@ -3,6 +3,7 @@
     <properties>
         <property id="popOutOfAppInsteadOfPhones" type="boolean">true</property>
         <property id="syncCallStateOnLaunch" type="boolean">false</property>
+        <property id="callStateOnGlance" type="boolean">false</property>
         <property id="syncAttempts" type="number">1</property>
         <property id="secondsToCheckIn" type="number">3</property>
         <property id="focusedPhonesViewItemId" type="string"></property>
@@ -11,6 +12,7 @@
     <strings>
         <string id="popOutOfAppInsteadOfPhones">Close app after call</string>
         <string id="syncCallStateOnLaunch">Update call state on app launch.</string>
+        <string id="callStateOnGlance">Show call state on glance.</string>
         <string id="syncAttempts">Sync attempts</string>
         <string id="secondsToCheckIn">Timeout for check-in (sec)</string>
     </strings>
@@ -22,6 +24,9 @@
         </setting>
         <setting propertyKey="@Properties.syncCallStateOnLaunch"
             title="@Strings.syncCallStateOnLaunch">
+            <settingConfig type="boolean" />
+        </setting>
+        <setting propertyKey="@Properties.callStateOnGlance" title="@Strings.callStateOnGlance">
             <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.syncAttempts" title="@Strings.syncAttempts">
