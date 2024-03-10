@@ -46,6 +46,9 @@ class DefaultServiceLocator(
             phoneCallService,
             syncImp = {
                 outgoingMessageDispatcher.sendSyncYou(contactsRepository.contacts(), lastTrackedPhoneState)
+            },
+            syncPhonesImp = {
+                outgoingMessageDispatcher.sendPhones(contactsRepository.contacts())
             }
         )
     }
