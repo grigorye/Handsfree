@@ -16,8 +16,12 @@ class CommView extends WatchUi.View {
             if (phonesViewImp == null) {
                 onAppWillFinishLaunching();
                 dump("settingInitialPhonesView", true);
-                setPhonesView(initialPhonesView());
+                var phonesView = new PhonesView();
+                phonesView.updateFromCallState(getOldCallState());
+                phonesView.updateFromPhones(getPhones());
+                setPhonesView(phonesView);
                 WatchUi.pushView(getPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                getRouter().updateRoute();
                 onAppDidFinishLaunching();
             } else {
                 dump("pushingBackPhonesView", true);

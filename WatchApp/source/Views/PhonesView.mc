@@ -84,15 +84,10 @@ class PhonesView extends WatchUi.Menu2 {
     }
 }
 
-function initialPhonesView() as PhonesView {
-    var callState = getCallState();
-    dumpCallState("callStateOnInitialPhonesView", callState);
-    if (!(callState instanceof Idle)) {
-        System.error("CallState is not idle: we don't support this scenario yet.");
-    }
+function phonesView(callState as CallState, phones as Phones) as PhonesView {
     var phonesView = new PhonesView();
     phonesView.updateFromCallState(callState);
-    phonesView.updateFromPhones(getPhones());
+    phonesView.updateFromPhones(phones);
     return phonesView;
 }
 
