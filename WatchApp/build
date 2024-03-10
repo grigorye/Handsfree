@@ -27,11 +27,19 @@ dev_devices=(
     fr645m
 )
 
+release_resources="./release/resources"
+mkdir -p "$release_resources"
+
+unmatchable='736fd2e'
+source_version=$(git describe --match "$unmatchable" --dirty --always | sed 's/dirty/?/g')
+
+sed -e "s/SOURCE_VERSION/$source_version/g" resources/sourceVersion.xml.template >"$release_resources"/sourceVersion.xml
+
 for device in "${dev_devices[@]}"; do
     java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
         -jar "$latest_sdk_root"/bin/monkeybrains.jar \
         -o release/"$device"/WatchApp-"$device".prg \
-        -f monkey.jungle \
+        -f 'monkey-release.jungle;monkey.jungle' \
         -y "$developer_key" \
         -d "$device" \
         -w
@@ -40,7 +48,7 @@ done
 java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
     -jar "$stable_sdk_root"/bin/monkeybrains.jar \
     -o release/iq/WatchApp.iq \
-    -f monkey.jungle \
+    -f 'monkey-release.jungle;monkey.jungle' \
     -y "$developer_key" \
     -e \
     -w
