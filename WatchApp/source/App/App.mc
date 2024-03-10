@@ -14,7 +14,7 @@ class App extends Application.AppBase {
         dump("initialize", true);
         dump("deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
         Application.AppBase.initialize();
-        backgroundServiceEnabled = Application.Properties.getValue("backgroundServiceEnabled") as Lang.Boolean;
+        backgroundServiceEnabled = isBackgroundServiceEnabled();
         dump("backgroundServiceEnabled", backgroundServiceEnabled);
         dump("getPhoneAppMessageEventRegistered", Background.getPhoneAppMessageEventRegistered());
         if (backgroundServiceEnabled) {

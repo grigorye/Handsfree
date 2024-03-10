@@ -1,4 +1,3 @@
-using Toybox.Application;
 using Toybox.Communications;
 using Toybox.Lang;
 using Toybox.Timer;
@@ -23,8 +22,8 @@ class Sync {
         dump("registerForPhoneAppMessages", true);
         Communications.registerForPhoneAppMessages(method(:onPhone));
         readyToSync = true;
-        checkInAttemptsRemaining = Application.Properties.getValue("syncAttempts") as Lang.Number;
-        secondsToCheckIn = Application.Properties.getValue("secondsToCheckIn") as Lang.Number;
+        checkInAttemptsRemaining = initialAttemptsToCheckin();
+        secondsToCheckIn = initialSecondsToCheckin();
     }
 
     function checkIn() as Void {
@@ -48,7 +47,7 @@ class Sync {
         timer.start(method(:checkIn), 1000 * secondsToCheckIn, false);
         checkInAttemptsRemaining -= 1;
         secondsToCheckIn *= 2;
-        if (Application.Properties.getValue("syncCallStateOnLaunch")) {
+        if (isSyncingCallStateOnCheckinEnabled()) {
             requestSync();
         } else {
             requestPhones();

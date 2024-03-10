@@ -134,7 +134,7 @@ class Router {
     }
 
     function popToPhones() as Void {
-        if (popOutOfAppInsteadOfPhones()) {
+        if (isExitToSystemAfterCallCompletionEnabled()) {
             popOutOfApp();
         } else {
             updatedPhonesView();
@@ -147,8 +147,4 @@ function popOutOfApp() as Void {
     routingBackToSystem = true;
     WatchUi.popView(WatchUi.SLIDE_RIGHT);
     WatchUi.popView(WatchUi.SLIDE_RIGHT);
-}
-
-function popOutOfAppInsteadOfPhones() as Lang.Boolean {
-    return Application.Properties.getValue("popOutOfAppInsteadOfPhones") as Lang.Boolean;
 }
