@@ -29,7 +29,11 @@ function updateUIForCallState() as Void {
         WatchUi.requestUpdate();
         return;
     }
-    getRouter().updateRoute();
+    if (!($ has :getRouter)) {
+        dump("$hasGetRouter", $ has :getRouter);
+    } else {
+        getRouter().updateRoute();
+    }
 }
 
 function setCallStateIgnoringRouting(callState as CallState) as Void {
