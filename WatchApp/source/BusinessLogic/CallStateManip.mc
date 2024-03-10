@@ -21,8 +21,8 @@ function setCallState(callState as CallState) as Void {
 
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function updateUIForCallState() as Void {
-    dump("activeUiKind", getActiveUIKind());
-    var activeUiKind = getActiveUIKind();
+    dump("activeUiKind", getActiveUiKind());
+    var activeUiKind = getActiveUiKind();
     dump("activeUiKind", activeUiKind);
     switch (activeUiKind) {
         case ACTIVE_UI_NONE: {
@@ -46,7 +46,7 @@ function setCallStateIgnoringRouting(callState as CallState) as Void {
 
 (:typecheck(disableBackgroundCheck))
 function updateUIForCallStateIgnoringRouting() as Void {
-    if (getActiveUIKind().equals(ACTIVE_UI_NONE)) {
+    if (getActiveUiKind().equals(ACTIVE_UI_NONE)) {
         return;
     }
     getPhonesView().updateFromCallState(getCallState());

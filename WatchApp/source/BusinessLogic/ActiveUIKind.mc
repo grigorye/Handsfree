@@ -11,7 +11,7 @@ enum ActiveUiKind {
 var activeUiKindImp as ActiveUiKind = ACTIVE_UI_NONE;
 
 (:glance, :background)
-function getActiveUIKind() as ActiveUiKind {
+function getActiveUiKind() as ActiveUiKind {
     return activeUiKindImp;
 }
 

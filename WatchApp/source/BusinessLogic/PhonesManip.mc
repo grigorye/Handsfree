@@ -38,7 +38,7 @@ function setPhones(phones as Phones) as Void {
 
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function updateUIForPhones() as Void {
-    if (!getActiveUIKind().equals(ACTIVE_UI_APP)){
+    if (!getActiveUiKind().equals(ACTIVE_UI_APP)){
         return;
     }
 
