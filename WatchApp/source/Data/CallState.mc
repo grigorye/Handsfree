@@ -1,13 +1,14 @@
+using Toybox.Application;
 using Toybox.Lang;
 
 typedef CallState as Idle or SchedulingCall or Ringing or CallInProgress or DismissedCallInProgress or HangingUp;
 
-(:background)
+(:background, :glance)
 var callStateImp as CallState or Null;
-(:background)
+(:background, :glance)
 var oldCallStateImp as CallState or Null;
 
-(:background)
+(:background, :glance)
 class CallStateImp {
     function dumpRep() as Lang.String {
         return "" + self;
@@ -23,25 +24,51 @@ function dumpCallState(tag as Lang.String, callState as CallStateImp or Null) as
     dump(tag, callState.dumpRep());
 }
 
-(:background)
+(:background, :glance)
 function initialCallState() as CallState {
     return new Idle(); // new CallInProgress({ "number" => "1233", "name" => "VoiceMail", "id" => 23 });
+}
+
+(:background, :glance)
+function loadCallState() as CallState or Null {
+    var callStateData = Application.Storage.getValue("callState.v1") as CallStateData or Null;
+    var callState = decodeCallState(callStateData);
+    if (callState != null) {
+        dump("loadedCallState", callState.dumpRep());
+        return callState as CallState;
+    }
+    dump("loadedCallState", "null");
+    return null;
+}
+
+(:background, :typecheck(disableGlanceCheck))
+function saveCallState(callState as CallState) as Void {
+    if (showingGlance) {
+        return;
+    }
+    Application.Storage.setValue("callState.v1", encodeCallState(callState));
 }
 
 function getOldCallState() as CallState {
     return oldCallStateImp as CallState;
 }
 
-(:background)
+(:background, :glance)
 function getCallState() as CallState {
     if (callStateImp == null) {
-        callStateImp = initialCallState();
+        var loadedCallState = loadCallState();
+        if (loadedCallState != null) {
+            callStateImp = loadedCallState;
+        } else {
+            callStateImp = initialCallState();
+        }
     }
     return callStateImp as CallState;
 }
 
-(:background)
+(:background, :glance)
 function setCallStateImp(callState as CallState) as Void {
     oldCallStateImp = callStateImp;
     callStateImp = callState;
+    saveCallState(callState);
 }
