@@ -1,4 +1,5 @@
 WatchApp/bin
+WatchApp/release
 AndroidApp/local.properties
 AndroidApp/.gradle
 AndroidApp/app/release
