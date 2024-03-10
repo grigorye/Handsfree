@@ -1,5 +1,6 @@
 using Toybox.Lang;
 
+(:background, :glance)
 class Ringing extends CallStateImp {
     var phone as Phone;
 

@@ -1,5 +1,6 @@
 using Toybox.Lang;
 
+(:background, :glance)
 class SchedulingCall extends CallStateImp {
     var phone as Phone;
     var commStatus as CommStatus;

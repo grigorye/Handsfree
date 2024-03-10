@@ -1,6 +1,6 @@
 using Toybox.Lang;
 
-(:background)
+(:background, :glance)
 class DismissedCallInProgress extends CallStateImp {
     var phone as Phone;
     

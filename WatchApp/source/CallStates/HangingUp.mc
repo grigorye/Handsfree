@@ -1,5 +1,6 @@
 using Toybox.Lang;
 
+(:background, :glance)
 class HangingUp extends CallStateImp {
     var commStatus as CommStatus;
     
