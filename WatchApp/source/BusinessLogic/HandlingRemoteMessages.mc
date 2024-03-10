@@ -23,6 +23,9 @@ function handleRemoteMessage(iqMsg as Communications.Message) as Void {
                 dump("callStateIsNotOwnedByUs", true);
             }
             break;
+        case "setPhones":
+            setPhones(args["phones"] as Phones);
+            break;
         case "phoneStateChanged":
             handlePhoneStateChanged(args);
             break;
