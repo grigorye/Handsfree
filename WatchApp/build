@@ -4,8 +4,8 @@ set -euo pipefail
 set -x
 
 filter_redundant_monkeyc_warnings() {
-    grep -v "^WARNING: .*: The launcher icon (128x128) isn't compatible with the specified launcher icon size of the device .*\. Image will be scaled to the target size" |
-        grep -v "^WARNING: .*: Glance applications are not supported for app type 'watch-app' on device .*\. The glance annotation will be ignored.$" ||
+    grep --line-buffered -v "^WARNING: .*: The launcher icon (128x128) isn't compatible with the specified launcher icon size of the device .*\. Image will be scaled to the target size" |
+        grep --line-buffered -v "^WARNING: .*: Glance applications are not supported for app type 'watch-app' on device .*\. The glance annotation will be ignored.$" ||
         true
 }
 
@@ -36,7 +36,7 @@ source_version=$(git describe --match "$unmatchable" --dirty --always | sed 's/d
 sed -e "s/SOURCE_VERSION/$source_version/g" resources/sourceVersion.xml.template >"$release_resources"/sourceVersion.xml
 
 for device in "${dev_devices[@]}"; do
-    java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
+    stdbuf -oL -eL java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
         -jar "$latest_sdk_root"/bin/monkeybrains.jar \
         -o release/"$device"/WatchApp-"$device".prg \
         -f 'monkey-release.jungle;monkey.jungle' \
@@ -45,7 +45,7 @@ for device in "${dev_devices[@]}"; do
         -w
 done
 
-java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
+stdbuf -oL -eL java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
     -jar "$stable_sdk_root"/bin/monkeybrains.jar \
     -o release/iq/WatchApp.iq \
     -f 'monkey-release.jungle;monkey.jungle' \
