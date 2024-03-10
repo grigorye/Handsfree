@@ -74,7 +74,7 @@ function onAppDidFinishLaunching() as Void {
     }
 }
 
-(:typecheck(disableBackgroundCheck), :glance)
+(:glance, :background)
 function onBackgroundDataImp(data as Application.PersistableType) as Void {
     dump("onBackgroundData", data);
     switch (data) {

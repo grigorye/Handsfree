@@ -20,6 +20,8 @@ function setCallState(callState as CallState) as Void {
 
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function updateUIForCallState() as Void {
+    dump("isRunningInBackground", isRunningInBackground);
+    dump("showingGlance", showingGlance);
     if (isRunningInBackground) {
         return;
     }
