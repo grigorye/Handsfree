@@ -56,7 +56,7 @@ class App extends Application.AppBase {
         return [new CommView()] as Lang.Array<WatchUi.Views or WatchUi.InputDelegates> or Null;
     }
 
-    (:typecheck([disableGlanceCheck, disableBackgroundCheck]))
+    (:glance)
     function getGlanceView() {
         onAppWillFinishLaunching();
         return [new GlanceView()] as Lang.Array<WatchUi.GlanceView or Toybox.WatchUi.GlanceViewDelegate> or Null;
@@ -73,7 +73,7 @@ function deviceSettingsDumpRep(deviceSettings as System.DeviceSettings) as Lang.
         + Lang.format("part: $1$", [deviceSettings.partNumber]);
 }
 
-(:glance)
+(:glance, :typecheck(disableBackgroundCheck))
 function onAppWillFinishLaunching() as Void {
     dump("onAppWillFinishLaunching", true);
 }

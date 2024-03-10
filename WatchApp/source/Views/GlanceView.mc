@@ -5,7 +5,7 @@ using Toybox.Application;
 (:glance, :background)
 var showingGlance as Lang.Boolean = false;
 
-(:glance)
+(:glance, :typecheck(disableBackgroundCheck))
 class GlanceView extends WatchUi.GlanceView {
 
     function initialize() {
@@ -39,7 +39,7 @@ class GlanceView extends WatchUi.GlanceView {
 (:glance)
 function glanceTitle() as Lang.String {
     var text;
-    
+
     var shouldShowCallState = Application.Properties.getValue("callStateOnGlance") as Lang.Boolean;
     dump("shouldShowCallState", shouldShowCallState);
     if (!shouldShowCallState) {
