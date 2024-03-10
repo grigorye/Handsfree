@@ -1,5 +1,6 @@
 using Toybox.Lang;
 using Toybox.WatchUi;
+using Toybox.System;
 
 function setCallInProgress(number as Lang.String) as Void {
     var phones = getPhones();
@@ -22,17 +23,27 @@ function setCallState(callState as CallState) as Void {
 function updateUIForCallState() as Void {
     dump("isRunningInBackground", isRunningInBackground);
     dump("showingGlance", showingGlance);
-    if (isRunningInBackground) {
-        return;
-    }
-    if (showingGlance) {
-        WatchUi.requestUpdate();
-        return;
-    }
-    if (!($ has :getRouter)) {
-        dump("$hasGetRouter", $ has :getRouter);
-    } else {
-        getRouter().updateRoute();
+    var activeUiKind = getActiveUIKind();
+    dump("activeUiKind", activeUiKind);
+    switch (activeUiKind) {
+        case ACTIVE_UI_NONE: {
+            if (!isRunningInBackground) {
+                dump("isRunningInBackground!", isRunningInBackground);
+                return;
+            }
+            return;
+        }
+        case ACTIVE_UI_GLANCE: {
+            if (!showingGlance) {
+                System.error("Inconsistent showingGlance: " + showingGlance);
+            }
+            WatchUi.requestUpdate();
+            return;
+        }
+        case ACTIVE_UI_APP: {
+            getRouter().updateRoute();
+            return;
+        }
     }
 }
 
