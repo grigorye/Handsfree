@@ -3,6 +3,7 @@ using Toybox.Background;
 using Toybox.WatchUi;
 using Toybox.System;
 using Toybox.Lang;
+using Toybox.Communications;
 
 (:glance, :background)
 class App extends Application.AppBase {
@@ -67,7 +68,12 @@ function onAppWillFinishLaunching() as Void {
 
 function onAppDidFinishLaunching() as Void {
     dump("onAppDidFinishLaunching", true);
-    getSync().checkIn();
+    if (false) {
+        getSync().checkIn();
+    } else {
+        requestPhones();
+    }
+}
 
 (:typecheck(disableBackgroundCheck), :glance)
 function onBackgroundDataImp(data as Application.PersistableType) as Void {

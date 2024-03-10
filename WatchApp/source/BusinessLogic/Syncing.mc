@@ -7,3 +7,11 @@ function requestSync() as Void {
     dump("outMsg", msg);
     Communications.transmit(msg, null, new SyncCommListener());
 }
+
+function requestPhones() as Void {
+    var msg = {
+        "cmd" => "syncPhones"
+    };
+    dump("outMsg", msg);
+    Communications.transmit(msg, null, new SyncCommListener());
+}
