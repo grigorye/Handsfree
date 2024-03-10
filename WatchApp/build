@@ -39,7 +39,7 @@ for device in "${dev_devices[@]}"; do
     stdbuf -oL -eL java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
         -jar "$latest_sdk_root"/bin/monkeybrains.jar \
         -o release/"$device"/WatchApp-"$device".prg \
-        -f 'monkey-release.jungle;monkey.jungle' \
+        -f 'monkey-dev.jungle;monkey.jungle' \
         -y "$developer_key" \
         -d "$device" \
         -w

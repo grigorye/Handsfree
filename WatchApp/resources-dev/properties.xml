@@ -1,0 +1,5 @@
+<resources>
+    <properties>
+        <property id="showSourceVersion" type="boolean">true</property>
+    </properties>
+</resources>
