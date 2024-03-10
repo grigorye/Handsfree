@@ -17,6 +17,7 @@
         <string id="callStateOnGlance">Show call state on glance.</string>
         <string id="syncAttempts">Sync attempts</string>
         <string id="secondsToCheckIn">Timeout for check-in (sec)</string>
+        <string id="sourceVersion">Source version</string>
     </strings>
 
     <settings>
@@ -40,6 +41,9 @@
         </setting>
         <setting propertyKey="@Properties.secondsToCheckIn" title="@Strings.secondsToCheckIn">
             <settingConfig type="numeric" />
+        </setting>
+        <setting propertyKey="@Properties.sourceVersion" title="@Strings.sourceVersion">
+            <settingConfig type="alphaNumeric" readonly="true" />
         </setting>
     </settings>
 
