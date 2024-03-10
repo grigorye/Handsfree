@@ -68,7 +68,7 @@ function onAppWillFinishLaunching() as Void {
 
 function onAppDidFinishLaunching() as Void {
     dump("onAppDidFinishLaunching", true);
-    if (false) {
+    if (Application.Properties.getValue("syncCallStateOnLaunch")) {
         getSync().checkIn();
     } else {
         requestPhones();
