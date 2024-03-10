@@ -43,5 +43,4 @@ java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
     -f monkey.jungle \
     -y "$developer_key" \
     -e \
-    -r \
     -w
