@@ -36,7 +36,7 @@ class GlanceView extends WatchUi.GlanceView {
             var subtitle;
             switch (callState) {
                 case instanceof CallInProgress:
-                    title = "Call in progress";
+                    title = (callState as CallInProgress).phone["name"] as Lang.String;
                     subtitle = (callState as CallInProgress).phone["number"] as Lang.String;
                     break;
                 default:
@@ -44,7 +44,7 @@ class GlanceView extends WatchUi.GlanceView {
                     if (isShowingSourceVersionEnabled()) {
                         subtitle = sourceVersion();
                     } else {
-                        subtitle = "No calls in progress";
+                        subtitle = "Idle";
                     }
                     break;
             }
