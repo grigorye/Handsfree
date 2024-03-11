@@ -29,17 +29,20 @@ dev_devices=(
 
 release_resources="./release/resources"
 mkdir -p "$release_resources"
+release_source="./release/source"
+mkdir -p "$release_source"
 
 unmatchable='736fd2e'
 source_version=$(git describe --match "$unmatchable" --dirty --always | sed 's/dirty/?/g')
 
-sed -e "s/SOURCE_VERSION/$source_version/g" resources/sourceVersion.xml.template >"$release_resources"/sourceVersion.xml
+sed -e "s/__SOURCE_VERSION__/$source_version/g" local/resources/sourceVersion.xml-template >"$release_resources"/sourceVersion.xml
+sed -e "s/__SOURCE_VERSION__/$source_version/g" local/source/SourceVersion.mc-template >"$release_source"/SourceVersion.mc
 
 for device in "${dev_devices[@]}"; do
     stdbuf -oL -eL java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
         -jar "$latest_sdk_root"/bin/monkeybrains.jar \
         -o release/"$device"/WatchApp-"$device".prg \
-        -f 'monkey-dev.jungle;monkey.jungle' \
+        -f 'monkey.jungle;monkey-dev-additions.jungle;' \
         -y "$developer_key" \
         -d "$device" \
         -w
@@ -48,7 +51,7 @@ done
 stdbuf -oL -eL java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
     -jar "$stable_sdk_root"/bin/monkeybrains.jar \
     -o release/iq/WatchApp.iq \
-    -f 'monkey-release.jungle;monkey.jungle' \
+    -f 'monkey.jungle;monkey-release-additions.jungle' \
     -y "$developer_key" \
     -e \
     -w

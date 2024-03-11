@@ -1,0 +1,5 @@
+<resources>
+    <strings>
+        <string id="sourceVersion">Source version __SOURCE_VERSION__</string>
+    </strings>
+</resources>
