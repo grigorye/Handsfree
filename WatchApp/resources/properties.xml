@@ -9,7 +9,7 @@
         <property id="secondsToCheckIn" type="number">3</property>
         <property id="focusedPhonesViewItemId" type="string"></property>
         <property id="showSourceVersion" type="boolean">false</property>
-        <property id="dummySourceVersion" type="string"></property>
+        <property id="dummySourceVersion" type="string">Z</property>
     </properties>
 
     <strings>
@@ -20,6 +20,7 @@
         <string id="syncAttempts">Sync attempts</string>
         <string id="secondsToCheckIn">Timeout for check-in (sec)</string>
         <string id="showSourceVersion">Show source verison in the app</string>
+        <string id="sourceVersion">Source version</string>
     </strings>
 
     <settings>
@@ -47,7 +48,7 @@
         <setting propertyKey="@Properties.showSourceVersion" title="@Strings.showSourceVersion">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.dummySourceVersion" title="@Strings.sourceVersion">
+        <setting propertyKey="@Properties.sourceVersion" title="@Strings.sourceVersion">
             <settingConfig type="alphaNumeric" readonly="true" />
         </setting>
     </settings>

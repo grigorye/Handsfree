@@ -1,5 +1,5 @@
 <resources>
-    <strings>
-        <string id="sourceVersion">Source version __SOURCE_VERSION__</string>
-    </strings>
+    <properties>
+        <property id="sourceVersion" type="string">__SOURCE_VERSION__</property>
+    </properties>
 </resources>

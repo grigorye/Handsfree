@@ -29,14 +29,11 @@ dev_devices=(
 
 release_resources="./release/resources"
 mkdir -p "$release_resources"
-release_source="./release/source"
-mkdir -p "$release_source"
 
 unmatchable='736fd2e'
 source_version=$(git describe --match "$unmatchable" --dirty --always | sed 's/dirty/?/g')
 
 sed -e "s/__SOURCE_VERSION__/$source_version/g" local/resources/sourceVersion.xml-template >"$release_resources"/sourceVersion.xml
-sed -e "s/__SOURCE_VERSION__/$source_version/g" local/source/SourceVersion.mc-template >"$release_source"/SourceVersion.mc
 
 for device in "${dev_devices[@]}"; do
     stdbuf -oL -eL java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
