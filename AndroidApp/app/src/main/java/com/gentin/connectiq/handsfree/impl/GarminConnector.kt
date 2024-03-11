@@ -135,7 +135,7 @@ class DefaultGarminConnector(
 
     fun onSDKShutDown() {
         if (shuttingDownSDK) {
-            Log.d(TAG, "shuttingDownSDK: $shuttingDownSDK")
+            Log.d(TAG, "shuttingDownSDK")
         } else {
             sdkRelaunchesOnExceptions += 1
             Log.d(TAG, "relaunchingSDKOnException")
