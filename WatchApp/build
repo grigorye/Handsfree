@@ -1,4 +1,5 @@
-#! /bin/bash
+#! /usr/bin/env -S stdbuf -oL -eL /bin/bash
+# shellcheck shell=bash
 
 set -euo pipefail
 set -x
@@ -36,7 +37,7 @@ source_version=$(git describe --match "$unmatchable" --dirty --always | sed 's/d
 sed -e "s/__SOURCE_VERSION__/$source_version/g" local/resources/sourceVersion.xml-template >"$release_resources"/sourceVersion.xml
 
 for device in "${dev_devices[@]}"; do
-    stdbuf -oL -eL java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
+    java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
         -jar "$latest_sdk_root"/bin/monkeybrains.jar \
         -o release/"$device"/WatchApp-"$device".prg \
         -f 'monkey.jungle;monkey-dev-additions.jungle;' \
@@ -45,7 +46,7 @@ for device in "${dev_devices[@]}"; do
         -w
 done
 
-stdbuf -oL -eL java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
+java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
     -jar "$stable_sdk_root"/bin/monkeybrains.jar \
     -o release/iq/WatchApp.iq \
     -f 'monkey.jungle;monkey-release-additions.jungle' \
