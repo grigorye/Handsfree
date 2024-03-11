@@ -23,6 +23,7 @@ There're two components of the solution:
 
 -   Shows you the list of the starred contacts provided by companion app
 -   Lets you start and control the outgoing call for a selected contact phone
+-   (As a bonus) lets you control *any* call in progress on your Android phone, even if it's not initiated from the watch.
 
 # Getting started
 
@@ -47,4 +48,4 @@ There're two components of the solution:
 
 # Troubleshooting
 
-It's critical for the companion app to be able to run in background and to be able to receive the requests from the watch. I really recommended to take a look at https://dontkillmyapp.com and follow instructions for your specific model of the phone, to let Handsfree companion *and* Garmin Connect app run in the background.
+It's critical for the companion app to be able to run in background and to be able to receive the requests from the watch. To avoid troubles, I really recommend to take a look at https://dontkillmyapp.com and follow instructions for your specific model of the phone, to let Handsfree companion *and* Garmin Connect app run in the background.
