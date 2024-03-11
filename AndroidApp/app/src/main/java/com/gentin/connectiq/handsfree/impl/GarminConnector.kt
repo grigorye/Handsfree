@@ -8,6 +8,7 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import com.garmin.android.connectiq.ConnectIQ
 import com.garmin.android.connectiq.IQDevice
 import com.garmin.android.connectiq.exception.ServiceUnavailableException
+import com.gentin.connectiq.handsfree.globals.COMM_WATCH_ID
 import com.gentin.connectiq.handsfree.globals.myApp
 import com.gentin.connectiq.handsfree.helpers.breakIntoDebugger
 import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
@@ -20,6 +21,7 @@ interface GarminConnector {
     fun terminate()
 
     fun sendMessage(message: Map<String, Any>)
+    fun openWatchAppInStore()
 
     val sentMessagesCounter: Int
     val acknowledgedMessagesCounter: Int
@@ -54,6 +56,14 @@ class DefaultGarminConnector(
             Log.d(TAG, "addedPending: $message")
             add(message)
         } ?: sendMessageOrRescheduleAsync(message)
+    }
+
+    override fun openWatchAppInStore() {
+        try {
+            connectIQ.openStore(COMM_WATCH_ID)
+        } catch (e: UnsupportedOperationException) {
+            Log.e(TAG, "openStoreFailed: $e")
+        }
     }
 
     private var shuttingDownSDK = false

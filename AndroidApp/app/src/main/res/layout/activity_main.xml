@@ -29,4 +29,12 @@
         android:gravity="center"
         android:text="@string/reconnect" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/open_connectiq_store_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/open_connectiq_store" />
+
 </LinearLayout>

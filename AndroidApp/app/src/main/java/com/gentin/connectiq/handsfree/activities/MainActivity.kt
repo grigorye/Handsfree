@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.contacts.openFavorites
 import com.gentin.connectiq.handsfree.helpers.requestIgnoreBatteryOptimizations
+import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.startConnector
@@ -34,6 +35,11 @@ class MainActivity : Activity() {
         findViewById<AppCompatButton>(R.id.launch_doki_btn)?.let {
             it.setOnClickListener {
                 DokiActivity.start(this)
+            }
+        }
+        findViewById<AppCompatButton>(R.id.open_connectiq_store_btn)?.let {
+            it.setOnClickListener {
+                startConnector(this, ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE)
             }
         }
         findViewById<AppCompatButton>(R.id.reconnect_btn)?.let {
