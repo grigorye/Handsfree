@@ -12,11 +12,11 @@ class HangingUpView extends WatchUi.ProgressBar {
                 progress = null;
                 break;
             case SUCCEEDED:
-                message = "Hanging Up...";
+                message = "Hanging up...";
                 progress = 100.0;
                 break;
             case FAILED:
-                message = "Hang up failed";
+                message = "Companion app\ndid not respond";
                 progress = 0.0;
                 break;
             default:

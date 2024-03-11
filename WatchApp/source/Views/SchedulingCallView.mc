@@ -16,7 +16,7 @@ class SchedulingCallView extends WatchUi.ProgressBar {
                 progress = 100.0;
                 break;
             case FAILED:
-                message = "Communication\nfailed";
+                message = "Companion app\ndid not respond";
                 progress = 0.0;
                 break;
             default:
