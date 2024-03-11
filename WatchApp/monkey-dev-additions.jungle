@@ -1,1 +1,2 @@
 base.resourcePath = resources;release/resources;resources-dev
+base.sourcePath = source;release/source

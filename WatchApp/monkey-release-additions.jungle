@@ -1,1 +1,2 @@
 base.resourcePath = resources;release/resources
+base.sourcePath = source;release/source

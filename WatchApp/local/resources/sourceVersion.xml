@@ -1,5 +1,5 @@
 <resources>
-    <properties>
-        <property id="sourceVersion" type="string">987abcd-?</property>
-    </properties>
+    <strings>
+        <string id="sourceVersion">Source version 987abcd-?</string>
+    </strings>
 </resources>
