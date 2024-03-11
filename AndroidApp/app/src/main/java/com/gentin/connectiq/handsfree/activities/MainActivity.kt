@@ -58,6 +58,9 @@ class MainActivity : Activity() {
                 startConnector(this, ACTIVATE_AND_RECONNECT)
             }
         }
+        findViewById<TextView>(R.id.version_info_txt)?.let {
+            it.setText(versionInfo())
+        }
 
         ActivityCompat.requestPermissions(
             this,
