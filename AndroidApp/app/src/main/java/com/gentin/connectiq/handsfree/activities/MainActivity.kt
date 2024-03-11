@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.Menu
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.app.ActivityCompat
+import com.gentin.connectiq.handsfree.BuildConfig
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.contacts.openFavorites
 import com.gentin.connectiq.handsfree.helpers.requestIgnoreBatteryOptimizations
@@ -20,10 +21,20 @@ import com.gentin.connectiq.handsfree.impl.startConnector
 import dev.doubledot.doki.ui.DokiActivity
 
 
+fun versionInfo(): String {
+    return arrayOf(
+        BuildConfig.APPLICATION_ID,
+        BuildConfig.VERSION_NAME + "(" + BuildConfig.VERSION_CODE + ")",
+        BuildConfig.SOURCE_VERSION,
+        BuildConfig.BUILD_TYPE,
+    ).joinToString("|")
+}
+
 class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG, "onCreate")
+        Log.d(TAG, "versionInfo: ${versionInfo()}")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
