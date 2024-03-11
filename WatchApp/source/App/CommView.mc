@@ -1,6 +1,4 @@
 using Toybox.WatchUi;
-using Toybox.System;
-using Toybox.Lang;
 
 class CommView extends WatchUi.View {
     function initialize() {
@@ -9,22 +7,14 @@ class CommView extends WatchUi.View {
 
     function onShow() {
         dump("commView", "onShow");
-        if (routingBackToSystem) {
-            dump("routingBackToSystem", "true");
-            WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+        if (phonesViewImp == null) {
+            onAppWillFinishLaunching();
+            WatchUi.pushView(getPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+            getRouter().updateRoute();
+            onAppDidFinishLaunching();
         } else {
-            if (phonesViewImp == null) {
-                onAppWillFinishLaunching();
-                WatchUi.pushView(getPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
-                getRouter().updateRoute();
-                onAppDidFinishLaunching();
-            } else {
-                dump("pushingBackPhonesView", true);
-                WatchUi.pushView(getPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
-            }
-            return;
+            dump("pushingBackPhonesView", true);
+            WatchUi.pushView(getPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
         }
     }
 }
-
-var routingBackToSystem as Lang.Boolean = false;

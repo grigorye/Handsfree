@@ -1,5 +1,4 @@
 using Toybox.WatchUi;
-using Toybox.Communications;
 using Toybox.System;
 using Toybox.Lang;
 
@@ -21,7 +20,7 @@ function onResponseForCallInProgressConfirmation(response as WatchUi.Confirm) as
         var callState = getCallState() as CallInProgress;
         dumpCallState("callState", callState);
         if (isExitToSystemAfterCallCompletionEnabled()) {
-            popOutOfApp();
+            System.exit();
         } else {
             setCallStateIgnoringRouting(new DismissedCallInProgress(callState.phone));
         }

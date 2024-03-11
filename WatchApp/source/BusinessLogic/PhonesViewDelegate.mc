@@ -42,9 +42,7 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
                 break;
             }
             default: {
-                routingBackToSystem = true;
-                WatchUi.popView(WatchUi.SLIDE_IMMEDIATE); // Required in Simulator.
-                break;
+                System.exit();
             }
         }
     }

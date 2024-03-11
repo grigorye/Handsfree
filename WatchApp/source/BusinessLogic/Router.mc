@@ -1,7 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.System;
 using Toybox.Lang;
-using Toybox.Application;
 
 var routerImp as Router or Null;
 
@@ -135,16 +134,10 @@ class Router {
 
     function popToPhones() as Void {
         if (isExitToSystemAfterCallCompletionEnabled()) {
-            popOutOfApp();
+            System.exit();
         } else {
             updatedPhonesView();
             WatchUi.popView(WatchUi.SLIDE_RIGHT);
         }
     }
-}
-
-function popOutOfApp() as Void {
-    routingBackToSystem = true;
-    WatchUi.popView(WatchUi.SLIDE_RIGHT);
-    WatchUi.popView(WatchUi.SLIDE_RIGHT);
 }
