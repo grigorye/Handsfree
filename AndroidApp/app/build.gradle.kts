@@ -16,6 +16,9 @@ val targetSdkVersion: String by project
 val packageName = "com.gentin.connectiq.handsfree"
 val versionCode: String by project
 val versionName: String by project
+val sourceVersion = providers.exec {
+    commandLine("git", "describe", "--match", "736fd2e"/* unmatchable */, "--dirty", "--always")
+}.standardOutput.asText.get().trim()
 
 android {
     namespace = this@Build_gradle.packageName
@@ -27,6 +30,7 @@ android {
         targetSdk = targetSdkVersion.toInt()
         versionCode = this@Build_gradle.versionCode.toInt()
         versionName = this@Build_gradle.versionName
+        buildConfigField("String", "SOURCE_VERSION", "\"$sourceVersion\"")
     }
 
     buildTypes {
@@ -37,6 +41,10 @@ android {
                 "proguard-rules.pro"
             )
         }
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 }
 
