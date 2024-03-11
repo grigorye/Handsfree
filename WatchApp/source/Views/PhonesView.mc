@@ -53,6 +53,11 @@ class PhonesView extends WatchUi.Menu2 {
         if (phones.size() > 0) {
             for (var i = 0; i < phones.size(); i++) {
                 var phone = phones[i];
+                var specialItem = specialItemForPhone(phone);
+                if (specialItem != null) {
+                    addItem(specialItem);
+                    continue;
+                }
                 var item = new WatchUi.MenuItem(
                     phone["name"] as Lang.String, // label
                     phone["number"] as Lang.String, // subLabel
@@ -101,3 +106,17 @@ function decorateWithSourceVersion(title as Lang.String) as Lang.String {
 }
 
 var noPhonesMenuItemId as Lang.Number = -1;
+var crashMeMenuItemId as Lang.Number = -2;
+
+function specialItemForPhone(phone as Phone) as WatchUi.MenuItem | Null {
+    var phoneName = phone["name"] as Lang.String;
+    if (phoneName.equals("Crash Me")) {
+        return new WatchUi.MenuItem(
+            phoneName, // label
+            sourceVersion(), // subLabel
+            phone["id"] as Lang.Number, // identifier
+            {}
+        );
+    }
+    return null;
+}
