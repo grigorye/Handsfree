@@ -22,7 +22,7 @@ class PhonesView extends WatchUi.Menu2 {
                 title = "Sync Failed";
                 break;
         }
-        setTitle(decorateWithSourceVersion(title));
+        setTitle(title);
     }
     function updateFromCallState(callState as CallState) as Void {
         var title = "Idle";
@@ -96,13 +96,6 @@ function phonesView(callState as CallState, phones as Phones) as PhonesView {
     phonesView.updateFromCallState(callState);
     phonesView.updateFromPhones(phones);
     return phonesView;
-}
-
-function decorateWithSourceVersion(title as Lang.String) as Lang.String {
-    if (!isShowingSourceVersionEnabled()) {
-        return title;
-    }
-    return title + "\n" + sourceVersion();
 }
 
 var noPhonesMenuItemId as Lang.Number = -1;
