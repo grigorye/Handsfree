@@ -14,6 +14,7 @@ import com.gentin.connectiq.handsfree.helpers.breakIntoDebugger
 import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.lang.RuntimeException
 
 
 interface GarminConnector {
@@ -61,7 +62,7 @@ class DefaultGarminConnector(
     override fun openWatchAppInStore() {
         try {
             connectIQ.openStore(COMM_WATCH_ID)
-        } catch (e: UnsupportedOperationException) {
+        } catch (e: RuntimeException) {
             Log.e(TAG, "openStoreFailed: $e")
         }
     }
