@@ -44,9 +44,6 @@ class MainActivity : Activity() {
         findViewById<AppCompatButton>(R.id.launch_doki_btn)?.setOnClickListener {
             DokiActivity.start(this)
         }
-        findViewById<AppCompatButton>(R.id.open_connectiq_store_btn)?.setOnClickListener {
-            startConnector(this, ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE)
-        }
         findViewById<AppCompatButton>(R.id.reconnect_btn)?.setOnClickListener {
             startConnector(this, ACTIVATE_AND_RECONNECT)
         }
