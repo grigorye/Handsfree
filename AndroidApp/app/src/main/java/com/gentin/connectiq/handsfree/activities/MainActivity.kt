@@ -39,29 +39,19 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<AppCompatButton>(R.id.open_contacts_btn)?.let {
-            it.setOnClickListener {
-                openFavorites(this)
-            }
+        findViewById<AppCompatButton>(R.id.open_contacts_btn)?.setOnClickListener {
+            openFavorites(this)
         }
-        findViewById<AppCompatButton>(R.id.launch_doki_btn)?.let {
-            it.setOnClickListener {
-                DokiActivity.start(this)
-            }
+        findViewById<AppCompatButton>(R.id.launch_doki_btn)?.setOnClickListener {
+            DokiActivity.start(this)
         }
-        findViewById<AppCompatButton>(R.id.open_connectiq_store_btn)?.let {
-            it.setOnClickListener {
-                startConnector(this, ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE)
-            }
+        findViewById<AppCompatButton>(R.id.open_connectiq_store_btn)?.setOnClickListener {
+            startConnector(this, ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE)
         }
-        findViewById<AppCompatButton>(R.id.reconnect_btn)?.let {
-            it.setOnClickListener {
-                startConnector(this, ACTIVATE_AND_RECONNECT)
-            }
+        findViewById<AppCompatButton>(R.id.reconnect_btn)?.setOnClickListener {
+            startConnector(this, ACTIVATE_AND_RECONNECT)
         }
-        findViewById<TextView>(R.id.version_info_txt)?.let {
-            it.setText(versionInfo())
-        }
+        findViewById<TextView>(R.id.version_info_txt)?.text = versionInfo()
 
         ActivityCompat.requestPermissions(
             this,
