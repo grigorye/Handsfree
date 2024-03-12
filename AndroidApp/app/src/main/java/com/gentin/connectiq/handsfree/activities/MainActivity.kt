@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import android.view.Menu
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.app.ActivityCompat
@@ -81,7 +80,6 @@ class MainActivity : Activity() {
             startActivityForResult(intent, -1)
         }
 
-        setupUi()
         startConnector(this, ACTIVATE_FROM_MAIN_ACTIVITY_ACTION)
     }
 
@@ -99,15 +97,6 @@ class MainActivity : Activity() {
     public override fun onDestroy() {
         Log.d(TAG, "onDestroy")
         super.onDestroy()
-    }
-
-    private fun setupUi() {
-
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
-        return true
     }
 
     companion object {
