@@ -1,23 +1,20 @@
 package com.gentin.connectiq.handsfree.activities
 
-import android.Manifest
 import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.util.Log
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
-import androidx.core.app.ActivityCompat
 import com.gentin.connectiq.handsfree.BuildConfig
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.contacts.openFavorites
-import com.gentin.connectiq.handsfree.helpers.requestIgnoreBatteryOptimizations
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.startConnector
+import com.gentin.connectiq.handsfree.permissions.anyPermissionMissing
+import com.gentin.connectiq.handsfree.permissions.requestPermissions
 import dev.doubledot.doki.ui.DokiActivity
 
 
@@ -47,35 +44,30 @@ class MainActivity : Activity() {
         findViewById<AppCompatButton>(R.id.reconnect_btn)?.setOnClickListener {
             startConnector(this, ACTIVATE_AND_RECONNECT)
         }
-        findViewById<TextView>(R.id.version_info_txt)?.text = versionInfo()
-
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(
-                Manifest.permission.ANSWER_PHONE_CALLS,
-                Manifest.permission.CALL_PHONE,
-                Manifest.permission.FOREGROUND_SERVICE,
-                Manifest.permission.FOREGROUND_SERVICE_SPECIAL_USE,
-                Manifest.permission.POST_NOTIFICATIONS,
-                Manifest.permission.READ_CALL_LOG,
-                Manifest.permission.READ_CONTACTS,
-                Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.RECEIVE_BOOT_COMPLETED,
-                Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
-                Manifest.permission.SYSTEM_ALERT_WINDOW
-            ),
-            0
-        )
-
-        requestIgnoreBatteryOptimizations(this)
-
-        if (!Settings.canDrawOverlays(this)) {
-            val intent = Intent(
-                Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                Uri.parse("package:$packageName")
-            )
-            startActivityForResult(intent, -1)
+        findViewById<AppCompatButton>(R.id.permissions_info_btn)?.setOnClickListener {
+            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+            builder
+                .setMessage(R.string.permissions_explanation)
+                .setTitle(R.string.permissions_dialog_title)
+                .setPositiveButton(R.string.permissions_dialog_proceed_btn) { dialog, which ->
+                }
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
         }
+        findViewById<AppCompatButton>(R.id.grant_permissions_btn)?.setOnClickListener {
+            if (!anyPermissionMissing(this)) {
+                val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+                builder
+                    .setMessage(R.string.all_permissions_are_granted_message)
+                    .setPositiveButton(R.string.all_permissions_are_granted_ok_btn) { dialog, which ->
+                    }
+                val dialog: AlertDialog = builder.create()
+                dialog.show()
+            } else {
+                requestPermissions(this)
+            }
+        }
+        findViewById<TextView>(R.id.version_info_txt)?.text = versionInfo()
 
         startConnector(this, ACTIVATE_FROM_MAIN_ACTIVITY_ACTION)
     }

@@ -6,5 +6,12 @@
     <string name="open_contacts">Edit Contacts</string>
     <string name="open_connectiq_store">Open watch app in Connect IQ</string>
     <string name="open_doki">Help It Run In Background</string>
+    <string name="permissions_explanation">• Make calls: lets you initiate the calls from the watch\n• Answer calls: lets you hangup the calls from the watch\n• Access call logs: lets you see the phone number for call in progress\n• Read phone state: lets you monitor the calls in progress\n• Read your contacts: lets you see the list of starred contacts on the watch\n• Boot completed: lets you forget about launching the app after rebooting your phone\n• Ignore battery optimization: lets the app work in background\n• Alert window: lets the app to call into phone dialer to initiate outgoing calls\n• Foreground service: lets the app work in background\n• Foreground service special use: lets the app work in the background\n• Post notifications: allows the app to hook into the system to avoid being quitted</string>
+    <string name="grant_permissions_button">Grant Missing Permissions</string>
+    <string name="permissions_dialog_title">Handsfree uses the following permissions</string>
+    <string name="permissions_dialog_proceed_btn">OK</string>
+    <string name="permissions_info_btn">Permissions Used</string>
+    <string name="all_permissions_are_granted_message">All the general permissions are already granted. Thanks!\n\nPlease check \"Help it run in background\" for the other instructions specific to your device.</string>
+    <string name="all_permissions_are_granted_ok_btn">OK</string>
 
 </resources>
