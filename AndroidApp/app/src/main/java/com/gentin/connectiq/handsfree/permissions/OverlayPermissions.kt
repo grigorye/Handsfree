@@ -3,10 +3,14 @@ package com.gentin.connectiq.handsfree.permissions
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
+import android.util.Log
 
 val overlayPermissionsHandler = PermissionsHandler(
     hasPermission = { context ->
-        Settings.canDrawOverlays(context)
+        val tag = object {}.javaClass.enclosingMethod?.name
+        val canDrawOverlays = Settings.canDrawOverlays(context)
+        Log.d(tag, "canDrawOverlays: $canDrawOverlays")
+        canDrawOverlays
     },
     requestPermission = { context ->
         val intent = Intent(
