@@ -1,0 +1,12 @@
+-   Make calls: lets you initiate the calls from the watch
+-   Answer calls: lets you hangup the calls from the watch
+-   Access call logs: lets you see the phone number for call in progress
+-   Read phone state: lets you monitor the calls in progress
+-   Read your contacts: lets you see the list of starred contacts on the watch
+-   Boot completed: lets you forget about launching the app after rebooting your phone
+-   Ignore battery optimization: lets the app work in background
+-   Alert window: lets the app to call into phone dialer to initiate outgoing calls
+-   Foreground service: lets the app work in background
+-   Foreground service special use: lets the app work in the background
+-   Post notifications: allows the app to hook into the system to avoid being quitted
+
