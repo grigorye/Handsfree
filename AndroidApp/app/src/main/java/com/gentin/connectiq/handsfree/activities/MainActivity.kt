@@ -3,6 +3,9 @@ package com.gentin.connectiq.handsfree.activities
 import android.app.Activity
 import android.os.Bundle
 import android.util.Log
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
@@ -43,28 +46,27 @@ class MainActivity : Activity() {
         findViewById<AppCompatButton>(R.id.reconnect_btn)?.setOnClickListener {
             startConnector(this, ACTIVATE_AND_RECONNECT)
         }
-        findViewById<AppCompatButton>(R.id.permissions_info_btn)?.setOnClickListener {
-            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-            builder
+
+        showPermissionsButton?.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle(R.string.permissions_dialog_all_granted_title)
                 .setMessage(R.string.permissions_explanation)
-                .setTitle(R.string.permissions_dialog_title)
-                .setPositiveButton(R.string.permissions_dialog_proceed_btn) { dialog, which ->
+                .setPositiveButton(R.string.permissions_dialog_all_granted_ok_btn) { _, _ ->
                 }
-            val dialog: AlertDialog = builder.create()
-            dialog.show()
+                .create()
+                .show()
         }
-        findViewById<AppCompatButton>(R.id.grant_permissions_btn)?.setOnClickListener {
-            if (!anyPermissionMissing(this)) {
-                val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-                builder
-                    .setMessage(R.string.all_permissions_are_granted_message)
-                    .setPositiveButton(R.string.all_permissions_are_granted_ok_btn) { dialog, which ->
-                    }
-                val dialog: AlertDialog = builder.create()
-                dialog.show()
-            } else {
-                requestPermissions(this)
-            }
+        grantPermissionsButton?.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle(R.string.permissions_dialog_proceed_title)
+                .setMessage(R.string.permissions_explanation)
+                .setPositiveButton(R.string.permissions_dialog_proceed_btn) { _, _ ->
+                    requestPermissions(this)
+                }
+                .setNegativeButton(R.string.permissions_dialog_do_not_proceed_btn) { _, _ ->
+                }
+                .create()
+                .show()
         }
         findViewById<TextView>(R.id.version_info_txt)?.text = versionInfo()
 
@@ -80,6 +82,22 @@ class MainActivity : Activity() {
         Log.d(TAG, "onResume")
         startConnector(this, ACTIVATE_FROM_MAIN_ACTIVITY_ACTION)
         super.onResume()
+
+        if (anyPermissionMissing(this)) {
+            showPermissionsButton?.visibility = GONE
+            grantPermissionsButton?.visibility = VISIBLE
+        } else {
+            showPermissionsButton?.visibility = VISIBLE
+            grantPermissionsButton?.visibility = GONE
+        }
+    }
+
+    private val showPermissionsButton: Button? by lazy {
+        findViewById<AppCompatButton>(R.id.show_permissions_btn)
+    }
+
+    private val grantPermissionsButton: Button? by lazy {
+        findViewById<AppCompatButton>(R.id.grant_permissions_btn)
     }
 
     public override fun onDestroy() {

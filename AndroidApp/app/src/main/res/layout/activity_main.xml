@@ -9,20 +9,20 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/permissions_info_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="@string/permissions_info_btn" />
-
-    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/grant_permissions_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="@string/grant_permissions_button" />
+        android:text="@string/grant_permissions_btn" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/show_permissions_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/show_permissions_btn" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/launch_doki_btn"

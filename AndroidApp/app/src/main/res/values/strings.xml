@@ -3,15 +3,16 @@
 
     <string name="app_name">Handsfree</string>
     <string name="reconnect">Reconnect</string>
-    <string name="open_contacts">Edit Contacts</string>
+    <string name="open_contacts">Edit contacts</string>
     <string name="open_connectiq_store">Open watch app in Connect IQ</string>
-    <string name="open_doki">Help It Run In Background</string>
+    <string name="open_doki">Help it run in the background</string>
     <string name="permissions_explanation">\"Display over other apps\":\nLets the app to activate the phone dialer application to initiate outgoing calls.\n\n\"Always run in background\":\nLets the app work in the background forever.\n\n\"Access your phone call logs\":\nLets you see the phone number for call in progress.\n\n\"Access your contacts\":\nLets you see the list of starred contacts on the watch.\n\n\"Send you notifications\":\nLets the app show the status notification, required for working in background.\n\n\"Make and manage calls\":\nLets the app initiate the calls, directed from your watch.\n</string>
-    <string name="grant_permissions_button">Grant Missing Permissions</string>
-    <string name="permissions_dialog_title">Handsfree uses the following permissions</string>
-    <string name="permissions_dialog_proceed_btn">OK</string>
-    <string name="permissions_info_btn">Permissions Used</string>
-    <string name="all_permissions_are_granted_message">All the general permissions are already granted. Thanks!\n\nPlease check \"Help it run in background\" for the other instructions specific to your device.</string>
-    <string name="all_permissions_are_granted_ok_btn">OK</string>
+    <string name="grant_permissions_btn">Grant permissions</string>
+    <string name="show_permissions_btn">Permissions granted</string>
+    <string name="permissions_dialog_proceed_title">Grant Handsfree permissions to</string>
+    <string name="permissions_dialog_proceed_btn">Grant</string>
+    <string name="permissions_dialog_do_not_proceed_btn">Cancel</string>
+    <string name="permissions_dialog_all_granted_title">Handsfree has permissions to</string>
+    <string name="permissions_dialog_all_granted_ok_btn">OK</string>
 
 </resources>
