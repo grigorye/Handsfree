@@ -14,7 +14,7 @@ val batteryOptimizationPermissionsHandler = PermissionsHandler(
         val packageName = context.packageName
         val pm = context.getSystemService(POWER_SERVICE) as PowerManager
         val isIgnoringBatteryOptimizations = pm.isIgnoringBatteryOptimizations(packageName)
-        Log.i(tag, "isIgnoringBatteryOptimizations: $isIgnoringBatteryOptimizations")
+        Log.d(tag, "isIgnoringBatteryOptimizations: $isIgnoringBatteryOptimizations")
         isIgnoringBatteryOptimizations
     },
     requestPermission = { context ->
