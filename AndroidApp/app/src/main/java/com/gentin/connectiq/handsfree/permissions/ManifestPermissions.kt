@@ -2,6 +2,7 @@ package com.gentin.connectiq.handsfree.permissions
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
@@ -22,10 +23,16 @@ val manifestPermissions = arrayOf(
 val manifestPermissionsHandler = PermissionsHandler(
     hasPermission = { context ->
         manifestPermissions.all {
-            ContextCompat.checkSelfPermission(
+            val tag = object {}.javaClass.enclosingMethod?.name
+            if (ContextCompat.checkSelfPermission(
                 context,
                 it
-            ) == PackageManager.PERMISSION_GRANTED
+            ) != PackageManager.PERMISSION_GRANTED) {
+                Log.d(tag, "Missing permission: $it")
+                false
+            } else {
+                true
+            }
         }
     },
     requestPermission = { context ->
