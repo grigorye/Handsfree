@@ -21,11 +21,11 @@ val manifestPermissions = arrayOf(
 
 val manifestPermissionsHandler = PermissionsHandler(
     hasPermission = { context ->
-        manifestPermissions.any {
+        manifestPermissions.all {
             ContextCompat.checkSelfPermission(
                 context,
                 it
-            ) != PackageManager.PERMISSION_GRANTED
+            ) == PackageManager.PERMISSION_GRANTED
         }
     },
     requestPermission = { context ->
