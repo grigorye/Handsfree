@@ -63,6 +63,8 @@
     <TextView
         android:id="@+id/version_info_txt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="0.0.1 (21)" />
 
 </LinearLayout>
