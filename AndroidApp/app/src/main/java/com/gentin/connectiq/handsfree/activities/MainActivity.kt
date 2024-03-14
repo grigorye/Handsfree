@@ -1,7 +1,10 @@
 package com.gentin.connectiq.handsfree.activities
 
 import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -51,8 +54,10 @@ class MainActivity : Activity() {
             AlertDialog.Builder(this)
                 .setTitle(R.string.permissions_dialog_all_granted_title)
                 .setMessage(R.string.permissions_explanation)
-                .setPositiveButton(R.string.permissions_dialog_all_granted_ok_btn) { _, _ ->
+                .setNeutralButton(R.string.permissions_dialog_app_settings_btn) { _, _ ->
+                    openAppSettings()
                 }
+                .setPositiveButton(R.string.permissions_dialog_all_granted_ok_btn) { _, _ -> }
                 .create()
                 .show()
         }
@@ -62,6 +67,9 @@ class MainActivity : Activity() {
                 .setMessage(R.string.permissions_explanation)
                 .setPositiveButton(R.string.permissions_dialog_proceed_btn) { _, _ ->
                     requestPermissions(this)
+                }
+                .setNeutralButton(R.string.permissions_dialog_app_settings_btn) { _, _ ->
+                    openAppSettings()
                 }
                 .setNegativeButton(R.string.permissions_dialog_do_not_proceed_btn) { _, _ ->
                 }
@@ -103,6 +111,13 @@ class MainActivity : Activity() {
     public override fun onDestroy() {
         Log.d(TAG, "onDestroy")
         super.onDestroy()
+    }
+
+    private fun openAppSettings() {
+        startActivity(Intent().apply {
+            action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+            data = Uri.fromParts("package", packageName, null)
+        })
     }
 
     companion object {
