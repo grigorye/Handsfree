@@ -9,6 +9,18 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/open_contacts_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/open_contacts" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/grant_permissions_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,18 +43,6 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="@string/open_hints_for_background" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/open_contacts_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="@string/open_contacts" />
 
     <Space
         android:layout_width="match_parent"
