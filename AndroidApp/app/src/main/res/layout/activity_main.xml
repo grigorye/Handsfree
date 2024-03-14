@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="@string/open_doki" />
+        android:text="@string/open_hints_for_background" />
 
     <Space
         android:layout_width="match_parent"
