@@ -17,19 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="20sp" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/app_logo_description"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/ic_launcher" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20sp" />
-
         <TextView
             android:id="@+id/intro_txt"
             android:layout_width="wrap_content"
