@@ -14,5 +14,6 @@
     <string name="permissions_dialog_do_not_proceed_btn">Cancel</string>
     <string name="permissions_dialog_all_granted_title">Handsfree has permissions to</string>
     <string name="permissions_dialog_all_granted_ok_btn">OK</string>
+    <string name="app_logo_description">App logo</string>
 
 </resources>

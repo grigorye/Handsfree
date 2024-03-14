@@ -8,6 +8,30 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_logo_description"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_launcher" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <TextView
+        android:id="@+id/version_info_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="0.0.1 (21)" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/open_contacts_btn"
         android:layout_width="match_parent"
@@ -55,16 +79,5 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="@string/reconnect" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
-
-    <TextView
-        android:id="@+id/version_info_txt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        tools:text="0.0.1 (21)" />
 
 </LinearLayout>
