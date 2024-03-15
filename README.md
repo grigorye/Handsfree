@@ -25,6 +25,12 @@ There're two components of the solution:
 -   Lets you start and control the outgoing call for a selected contact phone
 -   (As a bonus) lets you control *any* call in progress on your Android phone, even if it's not initiated from the watch.
 
+# Demo
+
+Following is the demo of the app running in Simulators. Beware that Simulator does not show the glance/terminates the app on navigation from the app - that's not a bug, rather a limitation of Simulator/on real device you would see the glance again: during the demo I had to restart the app, so that the glance would reappear.
+
+https://s3.amazonaws.com/gentin.connectiq.handsfree/demo-67cb5b1.mp4
+
 # Getting started
 
 ## Requirements
