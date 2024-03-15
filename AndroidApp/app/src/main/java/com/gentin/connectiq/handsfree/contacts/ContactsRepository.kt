@@ -2,6 +2,9 @@ package com.gentin.connectiq.handsfree.contacts
 
 import android.content.Context
 import android.content.ContextWrapper
+import android.net.Uri
+import android.provider.BaseColumns
+import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds.Phone
 import com.gentin.connectiq.handsfree.helpers.formatPhoneNumber
 import kotlinx.serialization.Serializable
@@ -26,6 +29,7 @@ data class ContactData(
 
 interface ContactsRepository {
     fun contacts(): List<ContactData>
+    fun displayNamesForPhoneNumber(phoneNumber: String): List<String>
 }
 
 class ContactsRepositoryImpl(
@@ -78,5 +82,29 @@ class ContactsRepositoryImpl(
             contacts.add(ContactData(contactId, displayName, number))
         }
         return contacts.sortedBy { it.name }
+    }
+
+    override fun displayNamesForPhoneNumber(phoneNumber: String): List<String> {
+        var displayNames = ArrayList<String>()
+        // https://stackoverflow.com/a/7967182/1859783
+        val uri = Uri.withAppendedPath(
+            ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
+            Uri.encode(phoneNumber)
+        )
+        val contactLookup = contentResolver.query(
+            uri, arrayOf(
+                BaseColumns._ID,
+                ContactsContract.PhoneLookup.DISPLAY_NAME
+            ), null, null, null
+        )
+        contactLookup?.apply {
+            val displayNameColumn = getColumnIndex(ContactsContract.Data.DISPLAY_NAME)
+            while (moveToNext()) {
+                val displayName = getString(displayNameColumn)
+                displayNames.add(displayName)
+            }
+            close()
+        }
+        return displayNames
     }
 }
