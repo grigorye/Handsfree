@@ -70,7 +70,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         val resultCode: Int = when (intent?.action) {
             "android.intent.action.PHONE_STATE" -> {
                 startStats.phoneState += 1
-                processIntent(intent)
+                processPhoneStateIntent(intent)
                 START_NOT_STICKY
             }
 
@@ -120,7 +120,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     }
 
 
-    private fun processIntent(intent: Intent) {
+    private fun processPhoneStateIntent(intent: Intent) {
         val stateExtra = intent.getStringExtra(TelephonyManager.EXTRA_STATE)!!
         Log.d(TAG, "stateExtra: $stateExtra")
 
