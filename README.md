@@ -38,6 +38,7 @@ https://github.com/grigorye/Handsfree/assets/803905/d5636bee-87dc-4bec-ac5d-584b
 
 -   Garmin watch (see [WatchApp/manifest.xml](WatchApp/manifest.xml) for the list of the supported models)
 -   Android phone (currently limited to Android 10 or later), with Garmin Connect app installed and connected to the watch
+-   iPhones are not supported (I could not find a way to drive calls there without explicit user confirmation for each call).
 
 ## Setup
 
@@ -60,3 +61,9 @@ It's critical for the companion app to be able to run in background and to be ab
 # Overview of Garmin watch app screens
 
 <img src="WatchApp-Flow.svg" alt="WatchApp-Flow" width="60%" />
+
+
+
+# Disclaimer
+
+I'm neither Garmin nor Android software developer (I'm iOS/ex. macOS developer in my day life though). This is my first and the only pet project that utilizes either of the platforms.
