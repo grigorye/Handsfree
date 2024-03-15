@@ -56,3 +56,7 @@ https://github.com/grigorye/Handsfree/assets/803905/d5636bee-87dc-4bec-ac5d-584b
 # Troubleshooting
 
 It's critical for the companion app to be able to run in background and to be able to receive the requests from the watch. To avoid troubles, I really recommend to take a look at https://dontkillmyapp.com and follow instructions for your specific model of the phone (you can see those by tapping "HOW TO RUN IT IN THE BACKGROUND" button inside the app), to let Handsfree *and* Garmin Connect app run in the background.
+
+# Overview of Garmin watch app screens
+
+<img src="WatchApp-Flow.svg" alt="WatchApp-Flow" width="60%" />
