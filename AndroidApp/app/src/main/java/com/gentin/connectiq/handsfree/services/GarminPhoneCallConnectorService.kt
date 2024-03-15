@@ -192,12 +192,14 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     }
 
     private fun accountPhoneState(incomingNumber: String?, stateExtra: String) {
-        val outgoingMessageDispatcher = l.outgoingMessageDispatcher
+        val incomingDisplayNames = incomingNumber?.let {
+            l.contactsRepository.displayNamesForPhoneNumber(it)
+        } ?: listOf()
+        Log.d(TAG, "incomingDisplayNames: $incomingDisplayNames")
+        val phoneState = PhoneState(incomingNumber, incomingDisplayNames, stateExtra)
 
-        val phoneState = PhoneState(incomingNumber, stateExtra)
         lastTrackedPhoneState = phoneState
-
-        outgoingMessageDispatcher.sendPhoneState(phoneState)
+        l.outgoingMessageDispatcher.sendPhoneState(phoneState)
     }
 
     private val l by lazy {

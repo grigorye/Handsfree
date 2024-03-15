@@ -3,6 +3,7 @@ package com.gentin.connectiq.handsfree.globals
 import android.content.Context
 import android.content.ContextWrapper
 import androidx.lifecycle.LifecycleCoroutineScope
+import com.gentin.connectiq.handsfree.contacts.ContactsRepository
 import com.gentin.connectiq.handsfree.contacts.ContactsRepositoryImpl
 import com.gentin.connectiq.handsfree.contacts.contactsGroupId
 import com.gentin.connectiq.handsfree.contacts.forEachContactInGroup
@@ -28,7 +29,7 @@ class DefaultServiceLocator(
 
     private val targetContactsGroupName: String? = null // e.g. "Handsfree", null for Favorites
 
-    private val contactsRepository by lazy {
+    val contactsRepository: ContactsRepository by lazy {
         ContactsRepositoryImpl(this) {
             if (targetContactsGroupName != null) {
                 val groupId = contactsGroupId(this, targetContactsGroupName)
