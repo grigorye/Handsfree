@@ -41,7 +41,15 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
     switch (phoneState) {
         case "callInProgress":
             var inProgressNumber = args["number"] as Lang.String;
+            var inProgressName = args["name"] as Lang.String or Null;
             dump("inProgressNumber", inProgressNumber);
+            var inProgressPhone = {
+                "number" => inProgressNumber,
+                "id" => -3
+            };
+            if (inProgressName != null) {
+                inProgressPhone["name"] = inProgressName as Lang.String;
+            }
             switch (callState) {
                 case instanceof DismissedCallInProgress:
                     var dismissedCallState = callState as DismissedCallInProgress;
@@ -49,11 +57,11 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
                     var dismissedButChanged = !dismissedNumber.equals(inProgressNumber);
                     dump("inDismissedButChanged", dismissedButChanged);
                     if (dismissedButChanged) {
-                        setCallState(new CallInProgress(phoneForNumber(inProgressNumber)));
+                        setCallState(new CallInProgress(inProgressPhone));
                     }
                     break;
                 default:
-                    setCallState(new CallInProgress(phoneForNumber(inProgressNumber)));
+                    setCallState(new CallInProgress(inProgressPhone));
                     break;
             }
             break;
