@@ -101,5 +101,5 @@ class DefaultOutgoingMessageDispatcher(
 }
 
 private fun dispatchedPhoneNumber(incomingNumber: String?): String {
-    return incomingNumber?.also { normalizePhoneNumber(it) } ?: ""
+    return incomingNumber?.let { normalizePhoneNumber(it) } ?: ""
 }
