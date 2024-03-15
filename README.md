@@ -36,7 +36,7 @@ https://github.com/grigorye/Handsfree/assets/803905/d5636bee-87dc-4bec-ac5d-584b
 
 ## Requirements
 
--   Garmin watch
+-   Garmin watch (see [WatchApp/manifest.xml](WatchApp/manifest.xml) for the list of the supported models)
 -   Android phone (currently limited to Android 10 or later), with Garmin Connect app installed and connected to the watch
 
 ## Setup
