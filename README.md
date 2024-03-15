@@ -30,12 +30,12 @@ There're two components of the solution:
 ## Requirements
 
 -   Garmin watch
--   Android phone (currently limited to Android 13 or later), with Garmin Connect app installed and connected to the watch
+-   Android phone (currently limited to Android 10 or later), with Garmin Connect app installed and connected to the watch
 
 ## Setup
 
--   Install the Android app, open it, and give it permissions to run in background, access your contacts and control your calls. You should get all the prompts for missing permissions, if any, every time you open it.
--   Put contacts you want to dial from the watch, into the starred contacts (tap "Edit Contacts" if you want to modify those).
+-   Install the Android app, open it, and give it permissions to run in background, access your contacts and control your calls. (You should see "GRANT PERMISSIONS" if any permissions are missing, otherwise you should see "MANAGE PERMISSIONS" button)
+-   Put contacts you want to dial from the watch, into the starred contacts (tap "SELECT CONTACTS" if you want to modify those).
 -   Install the watch app, launch it. It should get the list of the contacts from the phone and you should be ready to go.
 
 ### Making calls
@@ -48,4 +48,4 @@ There're two components of the solution:
 
 # Troubleshooting
 
-It's critical for the companion app to be able to run in background and to be able to receive the requests from the watch. To avoid troubles, I really recommend to take a look at https://dontkillmyapp.com and follow instructions for your specific model of the phone, to let Handsfree companion *and* Garmin Connect app run in the background.
+It's critical for the companion app to be able to run in background and to be able to receive the requests from the watch. To avoid troubles, I really recommend to take a look at https://dontkillmyapp.com and follow instructions for your specific model of the phone (you can see those by tapping "HOW TO RUN IT IN THE BACKGROUND" button inside the app), to let Handsfree *and* Garmin Connect app run in the background.
