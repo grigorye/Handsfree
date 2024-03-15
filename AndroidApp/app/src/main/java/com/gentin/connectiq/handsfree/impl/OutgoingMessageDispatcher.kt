@@ -62,7 +62,7 @@ class DefaultOutgoingMessageDispatcher(
         )
     }
 
-    private fun phoneStateChangedArgs(phoneState: PhoneState): Map<String, Any> {
+    private fun phoneStateChangedArgs(phoneState: PhoneState): Map<String, Any?> {
         return when (phoneState.stateExtra) {
             TelephonyManager.EXTRA_STATE_IDLE -> {
                 mapOf(
@@ -74,7 +74,7 @@ class DefaultOutgoingMessageDispatcher(
                 mapOf(
                     "state" to "callInProgress",
                     "number" to dispatchedPhoneNumber(context, phoneState.incomingNumber),
-                    "name" to phoneState.incomingDisplayNames.first()
+                    "name" to phoneState.incomingDisplayNames.firstOrNull()
                 )
             }
 
@@ -82,7 +82,7 @@ class DefaultOutgoingMessageDispatcher(
                 mapOf(
                     "state" to "ringing",
                     "number" to dispatchedPhoneNumber(context, phoneState.incomingNumber),
-                    "name" to phoneState.incomingDisplayNames.first()
+                    "name" to phoneState.incomingDisplayNames.firstOrNull()
                 )
             }
 
