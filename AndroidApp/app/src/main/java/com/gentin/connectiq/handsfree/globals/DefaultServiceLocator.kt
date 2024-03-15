@@ -64,7 +64,7 @@ class DefaultServiceLocator(
     }
 
     val outgoingMessageDispatcher: OutgoingMessageDispatcher by lazy {
-        DefaultOutgoingMessageDispatcher(remoteMessageService)
+        DefaultOutgoingMessageDispatcher(this, remoteMessageService)
     }
 
     val garminConnector: GarminConnector by lazy {

@@ -1,5 +1,6 @@
 package com.gentin.connectiq.handsfree.impl
 
+import android.content.Context
 import android.telephony.TelephonyManager
 import android.util.Log
 import com.gentin.connectiq.handsfree.contacts.ContactData
@@ -13,6 +14,7 @@ interface OutgoingMessageDispatcher {
 }
 
 class DefaultOutgoingMessageDispatcher(
+    val context: Context,
     private val remoteMessageService: RemoteMessageService
 ) : OutgoingMessageDispatcher {
     override fun sendSyncYou(contacts: List<ContactData>, phoneState: PhoneState?) {
@@ -71,14 +73,14 @@ class DefaultOutgoingMessageDispatcher(
             TelephonyManager.EXTRA_STATE_OFFHOOK -> {
                 mapOf(
                     "state" to "callInProgress",
-                    "number" to dispatchedPhoneNumber(phoneState.incomingNumber)
+                    "number" to dispatchedPhoneNumber(context, phoneState.incomingNumber)
                 )
             }
 
             TelephonyManager.EXTRA_STATE_RINGING -> {
                 mapOf(
                     "state" to "ringing",
-                    "number" to dispatchedPhoneNumber(phoneState.incomingNumber)
+                    "number" to dispatchedPhoneNumber(context, phoneState.incomingNumber)
                 )
             }
 
@@ -100,6 +102,6 @@ class DefaultOutgoingMessageDispatcher(
     }
 }
 
-private fun dispatchedPhoneNumber(incomingNumber: String?): String {
-    return incomingNumber?.let { normalizePhoneNumber(it) } ?: ""
+private fun dispatchedPhoneNumber(context: Context, incomingNumber: String?): String {
+    return incomingNumber?.let { normalizePhoneNumber(context, it) } ?: ""
 }
