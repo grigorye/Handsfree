@@ -73,21 +73,23 @@ class DefaultOutgoingMessageDispatcher(
             TelephonyManager.EXTRA_STATE_OFFHOOK -> {
                 mapOf(
                     "state" to "callInProgress",
-                    "number" to dispatchedPhoneNumber(context, phoneState.incomingNumber)
+                    "number" to dispatchedPhoneNumber(context, phoneState.incomingNumber),
+                    "name" to phoneState.incomingDisplayNames.first()
                 )
             }
 
             TelephonyManager.EXTRA_STATE_RINGING -> {
                 mapOf(
                     "state" to "ringing",
-                    "number" to dispatchedPhoneNumber(context, phoneState.incomingNumber)
+                    "number" to dispatchedPhoneNumber(context, phoneState.incomingNumber),
+                    "name" to phoneState.incomingDisplayNames.first()
                 )
             }
 
             else -> {
                 Log.e(TAG, "unknownPhoneStateExtra: ${phoneState.stateExtra}")
                 return mapOf(
-                    "unknownState" to phoneState.stateExtra
+                    "unknownState" to phoneState.stateExtra,
                 )
             }
         }
