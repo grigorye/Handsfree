@@ -29,7 +29,8 @@ There're two components of the solution:
 
 Following is the demo of the app running in Simulators. Beware that Simulator does not show the glance/terminates the app on navigation from the app - that's not a bug, rather a limitation of Simulator/on real device you would see the glance again: during the demo I had to restart the app, so that the glance would reappear.
 
-https://s3.amazonaws.com/gentin.connectiq.handsfree/demo-67cb5b1.mp4
+https://github.com/grigorye/Handsfree/assets/803905/d5636bee-87dc-4bec-ac5d-584b989791d0
+
 
 # Getting started
 
