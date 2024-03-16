@@ -17,8 +17,8 @@
     <string name="permissions_dialog_all_granted_ok_btn">OK</string>
     <string name="app_logo_description">App logo</string>
     <string name="intro_txt">Handsfree runs in the background and serves your requests from a Garmin watch to initiate and control calls on your phone. To complete or adjust its setup, follow the steps below.</string>
-    <string name="select_contacts_hint">Select the contacts that you will use for outgoing calls from your watch.</string>
-    <string name="give_permissions_hint">Give the app permissions to manage calls, have access to the contacts, and run in the background in general.</string>
-    <string name="run_in_background_hint">Let the app run in the background on your specific phone model.</string>
+    <string name="select_contacts_hint">Select the contacts that you will use for outgoing calls from your watch:</string>
+    <string name="give_permissions_hint">Give the app permissions to manage calls, have access to the contacts, and run in the background in general:</string>
+    <string name="run_in_background_hint">Let the app run in the background on your specific phone model:</string>
 
 </resources>
