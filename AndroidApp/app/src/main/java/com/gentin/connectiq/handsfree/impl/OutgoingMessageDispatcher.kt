@@ -104,6 +104,6 @@ class DefaultOutgoingMessageDispatcher(
     }
 }
 
-private fun dispatchedPhoneNumber(context: Context, incomingNumber: String?): String {
-    return incomingNumber?.let { normalizePhoneNumber(context, it) } ?: ""
+private fun dispatchedPhoneNumber(context: Context, incomingNumber: String?): String? {
+    return incomingNumber?.let { normalizePhoneNumber(context, it) }
 }
