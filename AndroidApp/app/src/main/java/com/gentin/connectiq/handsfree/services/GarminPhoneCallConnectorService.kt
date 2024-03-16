@@ -193,13 +193,22 @@ class GarminPhoneCallConnectorService : LifecycleService() {
 
     private fun accountPhoneState(incomingNumber: String?, stateExtra: String) {
         val incomingDisplayNames = incomingNumber?.let {
-            l.contactsRepository.displayNamesForPhoneNumber(it)
+            availableDisplayNames(it)
         } ?: listOf()
-        Log.d(TAG, "incomingDisplayNames: $incomingDisplayNames")
         val phoneState = PhoneState(incomingNumber, incomingDisplayNames, stateExtra)
-
         lastTrackedPhoneState = phoneState
         l.outgoingMessageDispatcher.sendPhoneState(phoneState)
+    }
+
+    private fun availableDisplayNames(incomingNumber: String): List<String> {
+        return try {
+            val displayNames = l.contactsRepository.displayNamesForPhoneNumber(incomingNumber)
+            Log.d(TAG, "displayNames: $displayNames")
+            displayNames
+        } catch (e: RuntimeException) {
+            Log.e(TAG, "failedToRetrieveDisplayNames: $e")
+            listOf()
+        }
     }
 
     private val l by lazy {
