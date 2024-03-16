@@ -15,7 +15,7 @@
         android:justificationMode="none"
         android:scrollHorizontally="false"
         android:text="@string/intro_txt"
-        app:layout_constraintBottom_toTopOf="@+id/hint_txt"
+        app:layout_constraintBottom_toTopOf="@+id/select_contacts_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -24,7 +24,7 @@
         tools:layout_conversion_absoluteWidth="371dp" />
 
     <TextView
-        android:id="@+id/hint_txt"
+        android:id="@+id/select_contacts_hint"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -46,14 +46,14 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/open_contacts"
-        app:layout_constraintBottom_toTopOf="@+id/hint2_txt"
-        app:layout_constraintStart_toStartOf="@+id/hint_txt"
-        app:layout_constraintTop_toBottomOf="@+id/hint_txt"
+        app:layout_constraintBottom_toTopOf="@+id/give_permissions_hint"
+        app:layout_constraintStart_toStartOf="@+id/select_contacts_hint"
+        app:layout_constraintTop_toBottomOf="@+id/select_contacts_hint"
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="371dp" />
 
     <TextView
-        android:id="@+id/hint2_txt"
+        android:id="@+id/give_permissions_hint"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -77,7 +77,7 @@
         android:text="@string/grant_permissions_btn"
         app:layout_constraintBottom_toTopOf="@+id/show_permissions_btn"
         app:layout_constraintStart_toStartOf="@+id/open_contacts_btn"
-        app:layout_constraintTop_toBottomOf="@+id/hint2_txt"
+        app:layout_constraintTop_toBottomOf="@+id/give_permissions_hint"
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="371dp" />
 
@@ -87,14 +87,14 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/show_permissions_btn"
-        app:layout_constraintBottom_toTopOf="@+id/launch_doki_hint"
+        app:layout_constraintBottom_toTopOf="@+id/run_in_background_hint"
         app:layout_constraintStart_toStartOf="@+id/grant_permissions_btn"
         app:layout_constraintTop_toBottomOf="@+id/grant_permissions_btn"
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="371dp" />
 
     <TextView
-        android:id="@+id/launch_doki_hint"
+        android:id="@+id/run_in_background_hint"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -117,8 +117,8 @@
         android:gravity="center|start"
         android:text="@string/open_hints_for_background"
         app:layout_constraintBottom_toTopOf="@+id/reconnect_btn"
-        app:layout_constraintStart_toStartOf="@+id/launch_doki_hint"
-        app:layout_constraintTop_toBottomOf="@+id/launch_doki_hint"
+        app:layout_constraintStart_toStartOf="@+id/run_in_background_hint"
+        app:layout_constraintTop_toBottomOf="@+id/run_in_background_hint"
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="371dp" />
 
