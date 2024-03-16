@@ -16,8 +16,8 @@
     <string name="permissions_dialog_all_granted_title">Handsfree has the following permissions</string>
     <string name="permissions_dialog_all_granted_ok_btn">OK</string>
     <string name="app_logo_description">App logo</string>
-    <string name="intro_txt">Handsfree runs in the background and serves your requests from the <a href="https://apps.garmin.com/apps/a3d8da80-e013-41f9-aca4-f66bb38fad3f">Garmin watch app</a> to initiate and control calls on your phone.\n\nUse the controls below to complete or adjust the setup.</string>
-    <string name="select_contacts_hint">Select the contacts that you will use for outgoing calls from your watch:</string>
+    <string name="intro_txt">Handsfree runs in the background and serves your requests from the <a href="https://apps.garmin.com/apps/a3d8da80-e013-41f9-aca4-f66bb38fad3f">Garmin watch app</a> (installed separately on the watch) to make calls on your phone.\n\nUse the controls below to complete or adjust the setup.</string>
+    <string name="select_contacts_hint">Select the contacts to be shared with the watch app, to let you dial one of those later:</string>
     <string name="give_permissions_hint">Give the app permissions to manage calls, have access to the contacts, and run in the background in general:</string>
     <string name="run_in_background_hint">Let the app run in the background on your specific phone model:</string>
 
