@@ -8,7 +8,7 @@ Lets the app work in the background forever.
 Lets you see the phone number for call in progress.
 
 "Access your contacts":
-Lets you see the list of starred contacts on the watch.
+Lets you see the list of starred contacts on the watch, as well as see the contacts for calls in progress.
 
 "Send you notifications":
 Lets the app show the status notification, required for working in background.

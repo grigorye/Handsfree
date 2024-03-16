@@ -6,7 +6,7 @@
     <string name="open_contacts">Select contacts</string>
     <string name="open_connectiq_store">Open watch app in Connect IQ</string>
     <string name="open_hints_for_background">How to run it in the background</string>
-    <string name="permissions_explanation">\"Display over other apps\":\nLets the app to activate the phone dialer application to initiate outgoing calls.\n\n\"Always run in background\":\nLets the app work in the background forever.\n\n\"Access your phone call logs\":\nLets you see the phone number for call in progress.\n\n\"Access your contacts\":\nLets you see the list of starred contacts on the watch.\n\n\"Send you notifications\":\nLets the app show the status notification, required for working in background.\n\n\"Make and manage calls\":\nLets the app initiate the calls, directed from your watch.\n</string>
+    <string name="permissions_explanation">\"Display over other apps\":\nLets the app to activate the phone dialer application to initiate outgoing calls.\n\n\"Always run in background\":\nLets the app work in the background forever.\n\n\"Access your phone call logs\":\nLets you see the phone number for call in progress.\n\n\"Access your contacts\":\nLets you see the list of starred contacts on the watch, as well as see the contacts for calls in progress.\n\n\"Send you notifications\":\nLets the app show the status notification, required for working in background.\n\n\"Make and manage calls\":\nLets the app initiate the calls, directed from your watch.\n</string>
     <string name="grant_permissions_btn">Grant permissions</string>
     <string name="show_permissions_btn">Manage permissions</string>
     <string name="permissions_dialog_proceed_title">Handsfree needs the following permissions</string>
