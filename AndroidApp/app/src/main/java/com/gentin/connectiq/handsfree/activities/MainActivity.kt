@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -48,6 +49,9 @@ class MainActivity : Activity() {
         }
         findViewById<AppCompatButton>(R.id.reconnect_btn)?.setOnClickListener {
             startConnector(this, ACTIVATE_AND_RECONNECT)
+        }
+        findViewById<TextView>(R.id.intro_txt)?.apply {
+            movementMethod = LinkMovementMethod.getInstance()
         }
 
         showPermissionsButton?.setOnClickListener {
