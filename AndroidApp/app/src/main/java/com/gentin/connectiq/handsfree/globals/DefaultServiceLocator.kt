@@ -2,7 +2,9 @@ package com.gentin.connectiq.handsfree.globals
 
 import android.content.Context
 import android.content.ContextWrapper
+import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
+import com.gentin.connectiq.handsfree.contacts.ContactData
 import com.gentin.connectiq.handsfree.contacts.ContactsRepository
 import com.gentin.connectiq.handsfree.contacts.ContactsRepositoryImpl
 import com.gentin.connectiq.handsfree.contacts.contactsGroupId
@@ -46,12 +48,21 @@ class DefaultServiceLocator(
         IncomingMessageDispatcher(
             phoneCallService,
             syncImp = {
-                outgoingMessageDispatcher.sendSyncYou(contactsRepository.contacts(), lastTrackedPhoneState)
+                outgoingMessageDispatcher.sendSyncYou(availableContacts(), lastTrackedPhoneState)
             },
             syncPhonesImp = {
-                outgoingMessageDispatcher.sendPhones(contactsRepository.contacts())
+                outgoingMessageDispatcher.sendPhones(availableContacts())
             }
         )
+    }
+
+    private fun availableContacts(): List<ContactData> {
+        return try {
+            contactsRepository.contacts()
+        } catch (e: java.lang.RuntimeException) {
+            Log.d(TAG, "contactsRetrievalFailed: $e")
+            listOf()
+        }
     }
 
     private val remoteMessageService: RemoteMessageService by lazy {
