@@ -21,7 +21,7 @@ class GlanceView extends WatchUi.GlanceView {
         dc.setColor(Toybox.Graphics.COLOR_WHITE, Toybox.Graphics.COLOR_TRANSPARENT);
 
         dump("shouldShowCallState", isShowingCallStateOnGlanceEnabled());
-        var appName = "Handsfree";
+        var appName = "Handsfree" + headsetStatusSuffix();
         if (!isShowingCallStateOnGlanceEnabled()) {
             dc.drawText(
                 0,
@@ -60,5 +60,14 @@ class GlanceView extends WatchUi.GlanceView {
                 Toybox.Graphics.TEXT_JUSTIFY_LEFT | Toybox.Graphics.TEXT_JUSTIFY_VCENTER
             );
         }
+    }
+}
+
+(:glance)
+function headsetStatusSuffix() as Lang.String {
+    if (!getIsHeadsetConnected()) {
+        return " #";
+    } else {
+        return "";
     }
 }

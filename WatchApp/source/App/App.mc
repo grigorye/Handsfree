@@ -97,6 +97,10 @@ function onBackgroundDataImp(data as Application.PersistableType) as Void {
                     if (loadedCallState != null) {
                         setCallState(loadedCallState);
                     }
+                    var loadedIsHeadsetConnected = loadIsHeadsetConnected();
+                    if (loadedIsHeadsetConnected != null) {
+                        setIsHeadsetConnected(loadedIsHeadsetConnected);
+                    }
                     break;
                 }
                 default:

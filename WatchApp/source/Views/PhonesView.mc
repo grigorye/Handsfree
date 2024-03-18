@@ -22,10 +22,11 @@ class PhonesView extends WatchUi.Menu2 {
                 title = "Sync Failed";
                 break;
         }
-        setTitle(title);
+        setTitle(title + headsetStatusSuffix());
     }
+
     function updateFromCallState(callState as CallState) as Void {
-        var title = "Idle";
+        var title = "Idle" + headsetStatusSuffix();
         switch (callState) {
             case instanceof DismissedCallInProgress:
                 title = (callState as DismissedCallInProgress).phone["number"] as Lang.String;
