@@ -63,7 +63,7 @@ class DefaultOutgoingMessageDispatcher(
     }
 
     private fun phoneStateChangedArgs(phoneState: PhoneState): Map<String, Any?> {
-        return when (phoneState.stateExtra) {
+        val stateArgs = when (phoneState.stateExtra) {
             TelephonyManager.EXTRA_STATE_IDLE -> {
                 mapOf(
                     "state" to "noCallInProgress"
@@ -93,6 +93,10 @@ class DefaultOutgoingMessageDispatcher(
                 )
             }
         }
+        val headsetArgs = mapOf(
+            "isHeadsetConnected" to phoneState.isHeadsetConnected
+        )
+        return stateArgs + headsetArgs
     }
 
     fun send(msg: Map<String, Any>) {

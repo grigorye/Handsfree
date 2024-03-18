@@ -18,6 +18,7 @@ import com.gentin.connectiq.handsfree.impl.IncomingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.OutgoingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.PhoneCallService
 import com.gentin.connectiq.handsfree.impl.RemoteMessageService
+import com.gentin.connectiq.handsfree.impl.isHeadsetConnected
 import com.gentin.connectiq.handsfree.services.lastTrackedPhoneState
 
 class DefaultServiceLocator(
@@ -63,6 +64,12 @@ class DefaultServiceLocator(
             Log.d(TAG, "contactsRetrievalFailed: $e")
             listOf()
         }
+    }
+
+    private fun isHeadsetConnected(): Boolean {
+        val isHeadsetConnected = isHeadsetConnected(this)
+        Log.d(TAG, "isHeadsetConnected: $isHeadsetConnected")
+        return isHeadsetConnected
     }
 
     private val remoteMessageService: RemoteMessageService by lazy {

@@ -25,6 +25,7 @@ import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_KEEP_AWAKE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.PhoneState
+import com.gentin.connectiq.handsfree.impl.isHeadsetConnected
 import com.gentin.connectiq.handsfree.impl.sdkRelaunchesOnExceptions
 import java.text.DateFormat
 import java.util.Date
@@ -195,7 +196,12 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         val incomingDisplayNames = incomingNumber?.let {
             availableDisplayNames(it)
         } ?: listOf()
-        val phoneState = PhoneState(incomingNumber, incomingDisplayNames, stateExtra)
+        val phoneState = PhoneState(
+            incomingNumber,
+            incomingDisplayNames,
+            stateExtra,
+            isHeadsetConnected(this)
+        )
         lastTrackedPhoneState = phoneState
         l.outgoingMessageDispatcher.sendPhoneState(phoneState)
     }
