@@ -23,7 +23,8 @@ There're two components of the solution:
 
 -   Shows you the list of the starred contacts provided by companion app
 -   Lets you start and control the outgoing call for a selected contact phone
--   (As a bonus) lets you control *any* call in progress on your Android phone, even if it's not initiated from the watch.
+-   Lets you control the calls in progress, even when they're *not* initiated from the watch
+-   Shows status of Bluetooth headset connection in the app/glance (# in the title means no headset is connected to the phone), so you can be sure that  the headset will be used for the call.
 
 # Demo
 
@@ -55,7 +56,7 @@ https://github.com/grigorye/Handsfree/assets/803905/a095f6d8-b827-493f-b76a-3950
 
 # Troubleshooting
 
-It's critical for the companion app to be able to run in background and to be able to receive the requests from the watch. To avoid troubles, I really recommend to take a look at https://dontkillmyapp.com and follow instructions for your specific model of the phone (you can see those by tapping "HOW TO RUN IT IN THE BACKGROUND" button inside the app), to let Handsfree *and* Garmin Connect app run in the background.
+It's critical for the companion app to be able to run in background and to be able to receive the requests from the watch. To avoid troubles, I really recommend to take a look at https://dontkillmyapp.com and follow instructions for your specific model of the phone (you can see those by tapping "RUN IT IN THE BACKGROUND" button inside the app), to let Handsfree *and* Garmin Connect app run in the background.
 
 # Overview of Garmin watch app screens
 
