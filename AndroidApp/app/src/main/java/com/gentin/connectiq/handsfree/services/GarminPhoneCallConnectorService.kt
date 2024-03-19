@@ -24,8 +24,8 @@ import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_KEEP_AWAKE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.GarminConnector
+import com.gentin.connectiq.handsfree.impl.HeadsetConnectionMonitor
 import com.gentin.connectiq.handsfree.impl.PhoneState
-import com.gentin.connectiq.handsfree.impl.isHeadsetConnected
 import com.gentin.connectiq.handsfree.impl.sdkRelaunchesOnExceptions
 import java.text.DateFormat
 import java.util.Date
@@ -53,10 +53,12 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         super.onCreate()
         scheduleKeepAwakeBroadcast(this, 5)
         garminConnector.launch()
+        headPhoneConnectionMonitor.start()
     }
 
     override fun onDestroy() {
         Log.d(TAG, "onDestroy")
+        headPhoneConnectionMonitor.stop()
         garminConnector.terminate()
         super.onDestroy()
     }
@@ -196,11 +198,12 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         val incomingDisplayNames = incomingNumber?.let {
             availableDisplayNames(it)
         } ?: listOf()
+        val isHeadsetConnected = headPhoneConnectionMonitor.isHeadsetConnected()
         val phoneState = PhoneState(
             incomingNumber,
             incomingDisplayNames,
             stateExtra,
-            isHeadsetConnected(this)
+            isHeadsetConnected
         )
         lastTrackedPhoneState = phoneState
         l.outgoingMessageDispatcher.sendPhoneState(phoneState)
@@ -225,6 +228,17 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     }
 
     private val garminConnector: GarminConnector by lazy { l.garminConnector }
+
+    private val headPhoneConnectionMonitor = HeadsetConnectionMonitor(this) {
+        sendHeadsetState()
+    }
+
+    private fun sendHeadsetState() {
+        accountPhoneState(
+            lastTrackedPhoneState?.incomingNumber,
+            lastTrackedPhoneState?.stateExtra ?: TelephonyManager.EXTRA_STATE_IDLE
+        )
+    }
 
     companion object {
         private val TAG: String = GarminPhoneCallConnectorService::class.java.simpleName
