@@ -42,15 +42,18 @@ fun manifestPermissionsExtrasTiramisu(): Array<String> {
 
 val manifestPermissionsHandler = PermissionsHandler(
     hasPermission = { context ->
-        manifestPermissions.all { permission ->
+        var allPermissionsGranted = true
+        for (permission in manifestPermissions) {
             val tag = object {}.javaClass.enclosingMethod?.name
             val hasPermission = ContextCompat.checkSelfPermission(
                 context,
                 permission
             ) == PackageManager.PERMISSION_GRANTED
             Log.d(tag, "$permission: $hasPermission")
-            hasPermission
+            allPermissionsGranted = allPermissionsGranted && hasPermission
         }
+
+        allPermissionsGranted
     },
     requestPermission = { context ->
         ActivityCompat.requestPermissions(context, manifestPermissions, 0)
