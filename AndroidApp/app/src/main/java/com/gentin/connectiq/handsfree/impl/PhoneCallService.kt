@@ -18,6 +18,14 @@ interface PhoneCallService {
 
 class DefaultPhoneCallService(base: Context?) : ContextWrapper(base), PhoneCallService {
     override fun makeCall(number: String) {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CALL_PHONE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            Log.e(TAG, "${Manifest.permission.CALL_PHONE} is not there.")
+            return
+        }
         val intent = Intent(Intent.ACTION_CALL)
         intent.setData(Uri.parse("tel:${number}"))
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
