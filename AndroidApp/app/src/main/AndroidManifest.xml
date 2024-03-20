@@ -3,10 +3,13 @@
     android:versionCode="1"
     android:versionName="1.0">
 
+    <!-- "Make and manage calls" group -->
     <!-- to hang up -->
     <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
     <!-- to make outgoing calls -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- to observe calls in progress -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
@@ -16,8 +19,6 @@
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <!-- to send the contacts to the watch -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <!-- to observe calls in progress -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- to launch on boot -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- to not be killed -->
