@@ -1,0 +1,8 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+while true; do
+    monkeydo ./WatchApp/release/fenix7_sim/WatchApp-fenix7_sim.prg fenix7
+done
