@@ -22,6 +22,7 @@ import com.gentin.connectiq.handsfree.impl.startConnector
 import com.gentin.connectiq.handsfree.permissions.anyPermissionMissing
 import com.gentin.connectiq.handsfree.permissions.requestPermissions
 import dev.doubledot.doki.ui.DokiActivity
+import io.noties.markwon.Markwon
 
 
 fun versionInfo(): String {
@@ -57,7 +58,7 @@ class MainActivity : Activity() {
         showPermissionsButton?.setOnClickListener {
             AlertDialog.Builder(this)
                 .setTitle(R.string.permissions_dialog_all_granted_title)
-                .setMessage(R.string.permissions_explanation)
+                .setMessage(permissionsExplanation)
                 .setNeutralButton(R.string.permissions_dialog_app_settings_btn) { _, _ ->
                     openAppSettings()
                 }
@@ -68,7 +69,7 @@ class MainActivity : Activity() {
         grantPermissionsButton?.setOnClickListener {
             AlertDialog.Builder(this)
                 .setTitle(R.string.permissions_dialog_proceed_title)
-                .setMessage(R.string.permissions_explanation)
+                .setMessage(permissionsExplanation)
                 .setPositiveButton(R.string.permissions_dialog_proceed_btn) { _, _ ->
                     requestPermissions(this)
                 }
@@ -110,6 +111,12 @@ class MainActivity : Activity() {
 
     private val grantPermissionsButton: Button? by lazy {
         findViewById<AppCompatButton>(R.id.grant_permissions_btn)
+    }
+
+    private val permissionsExplanation by lazy {
+        val markwon = Markwon.create(this)
+        val explanation = markwon.toMarkdown(getString(R.string.permissions_explanation_markdown))
+        explanation
     }
 
     public override fun onDestroy() {

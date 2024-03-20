@@ -64,4 +64,5 @@ dependencies {
         isTransitive = true
     }
     implementation("com.google.android.material:material:1.11.0")
+    implementation("io.noties.markwon:core:4.6.2")
 }
