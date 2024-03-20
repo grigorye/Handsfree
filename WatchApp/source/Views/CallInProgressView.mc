@@ -4,12 +4,16 @@ using Toybox.Graphics;
 class CallInProgressView extends Toybox.WatchUi.Confirmation {
     function initialize(phone as Phone) {
         var name = phone["name"];
-        var message;
-        if (name == null) {
-            message = phone["number"] + "\n" + "Hang up?";
+        var number = phone["number"];
+        var prefix;
+        if (name != null) {
+            prefix = name + "\n";
+        } else if (number != null) {
+            prefix = number + "\n";
         } else {
-            message = name + "\n" + "Hang up?";
+            prefix = "<Unreadable>" + "\n";
         }
+        var message = prefix + "Hang up?";
         Confirmation.initialize(message);
     }
 }

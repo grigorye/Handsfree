@@ -40,7 +40,12 @@ class GlanceView extends WatchUi.GlanceView {
                     if (title == null) {
                         title = appName;
                     }
-                    subtitle = (callState as CallInProgress).phone["number"] as Lang.String;
+                    var number = (callState as CallInProgress).phone["number"] as Lang.String or Null;
+                    if (number != null) {
+                        subtitle = number;
+                    } else {
+                        subtitle = "<Unreadable>";
+                    }
                     break;
                 default:
                     title = appName;
