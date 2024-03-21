@@ -60,7 +60,7 @@ class DefaultServiceLocator(
         return try {
             contactsRepository.contacts()
         } catch (e: java.lang.RuntimeException) {
-            Log.d(TAG, "contactsRetrievalFailed: $e")
+            Log.e(TAG, "contactsRetrievalFailed: $e")
             listOf()
         }
     }

@@ -128,7 +128,7 @@ class DefaultGarminConnector(
                 processPendingMessages()
                 pendingMessages = null
             } catch (e: ServiceUnavailableException) {
-                Log.d(TAG, "serviceUnavailableOnSDKReady: $e")
+                Log.e(TAG, "serviceUnavailableOnSDKReady: $e")
                 breakIntoDebugger()
             }
         }
