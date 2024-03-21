@@ -1,0 +1,40 @@
+set sdk_ver "6.4.2"
+set sdk_date "2024-01-04"
+set sdk_hash "a1dd13ee0"
+
+set attempts 0
+while {1} {
+    set timeout 5
+    spawn "/opt/homebrew/Caskroom/connectiq/$sdk_ver,$sdk_date,$sdk_hash/connectiq-sdk-mac-$sdk_ver-$sdk_date-$sdk_hash/bin/connectiq"
+    spawn monkeydo ./WatchApp/release/fenix7_sim/WatchApp-fenix7_sim.prg fenix7
+    expect {
+        "Unable to connect to simulator." {
+            if {$attempts > 3} {
+                set attempts 0
+                spawn sh -c "killall -q simulator || true"
+            } else {
+                incr attempts
+                sleep 1
+            }
+            continue
+        }
+        timeout {
+            spawn sh -c "killall -q simulator || true"
+            continue
+        }
+        -re "^Background: " {
+            set attempts 0
+            while {1} {
+                expect {
+                    "activeUiKindOnStop: App" {
+                        break
+                    }
+                    -re '.*' {
+                        puts "$expect_out(buffer)"
+                    }
+                }
+            }
+            continue
+        }
+    }
+}
