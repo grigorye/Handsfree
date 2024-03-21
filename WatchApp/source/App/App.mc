@@ -31,6 +31,7 @@ class App extends Application.AppBase {
     }
 
     function onStop(state) {
+        dump("activeUiKindOnStop", getActiveUiKind());
         dump("onStop", state);
         Application.AppBase.onStop(state);
     }
