@@ -6,6 +6,12 @@ To have the best experience for making the calls from the watch, while leaving y
 
 ## Permissions
 
+### Make and manage calls
+
+To be able to initiate, observe and hangup calls from your watch, Handsfree needs permission from you to make and manage calls.
+
+If you don't give this permission. Handsfree will have very little use, because it won't be able to do much with the calls on the phone for you.
+
 ### Access your call logs
 
 To be able to identify the number of a call in progress, Handsfree needs access to your call logs.
@@ -19,12 +25,6 @@ If you don't give this permission, you'll see "Unreadable" instead of the number
 To let you see the predefined list of the contacts that you can use for outgoing calls on your watch, as well as to display a matching contact name during a call in progress, on your watch, Handsfree needs permission to access your contacts.
 
 If you don't give this permission, you won't be able to dial the contacts from the watch.
-
-### Make and manage calls
-
-To be able to initiate, observe and hangup calls from your watch, Handsfree needs permission from you to make and manage calls.
-
-If you don't give this permission. Handsfree will have very little use, because it won't be able to do much with the calls on the phone for you.
 
 ### Display over other apps
 
