@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
 import androidx.core.content.ContextCompat
 
 val manifestPermissions = arrayOf(
@@ -50,7 +51,11 @@ val manifestPermissionsHandler = PermissionsHandler(
                 permission
             ) == PackageManager.PERMISSION_GRANTED
             Log.d(tag, "$permission: $hasPermission")
-            allPermissionsGranted = allPermissionsGranted && hasPermission
+            if (!hasPermission) {
+                val shouldShowRequestPermissionsRationale = shouldShowRequestPermissionRationale(context, permission)
+                Log.d(tag, "$permission: shouldShowRequestPermissionsRationale($shouldShowRequestPermissionsRationale))")
+                allPermissionsGranted = false
+            }
         }
 
         allPermissionsGranted
