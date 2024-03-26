@@ -24,6 +24,7 @@ stable_sdk_root="$sdks_dir/connectiq-sdk-mac-$stable_sdk_version"
 dev_devices=(
     fenix7_sim
     fenix7
+    edge530
     fr955
     vivoactive4
     fr645m
