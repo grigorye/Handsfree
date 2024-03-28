@@ -7,7 +7,7 @@ import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
-val manifestPermissions = arrayOf(
+val manifestPermissions = listOf(
     Manifest.permission.ANSWER_PHONE_CALLS,
     Manifest.permission.CALL_PHONE,
     Manifest.permission.FOREGROUND_SERVICE,
@@ -20,50 +20,54 @@ val manifestPermissions = arrayOf(
     // Manifest.permission.SYSTEM_ALERT_WINDOW,
 ) + manifestPermissionsExtrasUpsideDownCake() + manifestPermissionsExtrasTiramisu()
 
-fun manifestPermissionsExtrasUpsideDownCake(): Array<String> {
+fun manifestPermissionsExtrasUpsideDownCake(): List<String> {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-        arrayOf(
+        listOf(
             Manifest.permission.FOREGROUND_SERVICE_SPECIAL_USE,
         )
     } else {
-        arrayOf()
+        listOf()
     }
 }
 
-fun manifestPermissionsExtrasTiramisu(): Array<String> {
+fun manifestPermissionsExtrasTiramisu(): List<String> {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        arrayOf(
+        listOf(
             Manifest.permission.POST_NOTIFICATIONS,
         )
     } else {
-        arrayOf()
+        listOf()
     }
 }
 
-val manifestPermissionsHandler = PermissionsHandler(
-    hasPermission = { context ->
-        var allPermissionsGranted = true
-        for (permission in manifestPermissions) {
-            val tag = object {}.javaClass.enclosingMethod?.name
-            val hasPermission = ContextCompat.checkSelfPermission(
-                context,
-                permission
-            ) == PackageManager.PERMISSION_GRANTED
-            Log.d(tag, "$permission: $hasPermission")
-            if (!hasPermission) {
-                val shouldShowRequestPermissionsRationale =
-                    ActivityCompat.shouldShowRequestPermissionRationale(context, permission)
-                Log.d(
-                    tag,
-                    "$permission: shouldShowRequestPermissionsRationale($shouldShowRequestPermissionsRationale))"
-                )
-                allPermissionsGranted = false
-            }
-        }
+val manifestPermissionsHandler = newManifestPermissionsHandler(manifestPermissions)
 
-        allPermissionsGranted
-    },
-    requestPermission = { context ->
-        ActivityCompat.requestPermissions(context, manifestPermissions, 0)
-    }
-)
+fun newManifestPermissionsHandler(manifestPermissions: List<String>): PermissionsHandler {
+    return PermissionsHandler(
+        hasPermission = { context ->
+            var allPermissionsGranted = true
+            for (permission in manifestPermissions) {
+                val tag = object {}.javaClass.enclosingMethod?.name
+                val hasPermission = ContextCompat.checkSelfPermission(
+                    context,
+                    permission
+                ) == PackageManager.PERMISSION_GRANTED
+                Log.d(tag, "$permission: $hasPermission")
+                if (!hasPermission) {
+                    val shouldShowRequestPermissionsRationale =
+                        ActivityCompat.shouldShowRequestPermissionRationale(context, permission)
+                    Log.d(
+                        tag,
+                        "$permission: shouldShowRequestPermissionsRationale($shouldShowRequestPermissionsRationale))"
+                    )
+                    allPermissionsGranted = false
+                }
+            }
+
+            allPermissionsGranted
+        },
+        requestPermission = { context ->
+            ActivityCompat.requestPermissions(context, manifestPermissions.toTypedArray(), 0)
+        }
+    )
+}
