@@ -3,3 +3,5 @@ WatchApp/release
 AndroidApp/local.properties
 AndroidApp/.gradle
 AndroidApp/app/release
+AndroidApp/app/.gradle/config.properties
+AndroidApp/app/local.properties
