@@ -4,6 +4,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gentin.connectiq.handsfree.R
+import com.gentin.connectiq.handsfree.contacts.openFavorites
 import com.gentin.connectiq.handsfree.permissions.batteryOptimizationPermissionsHandler
 import com.gentin.connectiq.handsfree.permissions.newManifestPermissionsHandler
 import com.gentin.connectiq.handsfree.permissions.overlayPermissionsHandler
@@ -46,6 +47,18 @@ fun resolveLink(link: String, fragment: Fragment) {
                     overlayPermissionsHandler.requestPermission(context)
                 }
             }
+        }
+
+        "contacts" -> {
+            when (url.host) {
+                "starred" -> {
+                    openFavorites(context)
+                }
+            }
+        }
+
+        else -> {
+            Log.e(tag, "unknownScheme: ${url.scheme}")
         }
     }
 }
