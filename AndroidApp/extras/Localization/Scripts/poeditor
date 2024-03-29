@@ -1,0 +1,10 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+PATH="$PATH:$(python3 -c 'import site; print(site.USER_BASE)')/bin"
+export PATH
+
+wd=$(dirname "$0")
+poeditor -f "$wd"/../Configuration/poeditor.yml "$@"

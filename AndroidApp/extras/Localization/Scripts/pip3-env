@@ -1,0 +1,9 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+PATH="$PATH:$(python3 -c 'import site; print(site.USER_BASE)')/bin"
+export PATH
+
+"$@"

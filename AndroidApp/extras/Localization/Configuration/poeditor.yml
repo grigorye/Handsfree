@@ -1,0 +1,4 @@
+projects:
+- format: android_strings
+  id: '691894'
+  terms_path: 'app/src/main/res/values/strings.xml'
