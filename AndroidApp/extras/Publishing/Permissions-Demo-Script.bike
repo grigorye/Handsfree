@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8"/>
+  </head>
+  <body>
+    <ul id="EEHgMaVB">
+      <li id="6X">
+        <p>Introduce the app</p>
+        <ul>
+          <li id="oS">
+            <p>Purpose of the app: making outgoing calls and managing the calls in progress</p>
+          </li>
+          <li id="DP">
+            <p>Select contacts: explain that it does not require permission, as the app does not have access to those yet</p>
+          </li>
+          <li id="Xi">
+            <p>Grant permissions</p>
+          </li>
+          <li id="j0">
+            <p>Run in the background</p>
+          </li>
+        </ul>
+      </li>
+      <li id="aS">
+        <p>Permissions</p>
+        <ul>
+          <li id="qS">
+            <p>Explain that that it’s useless because the contacts list is not accessible and there’s no permissions to see the calls</p>
+          </li>
+          <li id="fe">
+            <p>Grant permission to see the calls (Make and Manage calls)</p>
+          </li>
+          <li id="WC">
+            <p>Demo call with that permission (no contacts nor phone numbers should be seen)</p>
+          </li>
+          <li id="bV">
+            <p>Grant permission to see the the call logs</p>
+          </li>
+          <li id="jN">
+            <p>Demo call with that permission (phone number should be seen, not contact)</p>
+          </li>
+          <li id="PT">
+            <p>Grant permission for contacts</p>
+          </li>
+          <li id="W8">
+            <p>Demo call with that permission (contact should be seen)</p>
+          </li>
+          <li id="Dx">
+            <p>Demo outgoing call in foreground</p>
+          </li>
+          <li id="Nk">
+            <p>Demo outgoing call in background</p>
+          </li>
+          <li id="HV">
+            <p>Grant permission to Display over other apps</p>
+          </li>
+          <li id="Ic">
+            <p/>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </body>
+</html>
