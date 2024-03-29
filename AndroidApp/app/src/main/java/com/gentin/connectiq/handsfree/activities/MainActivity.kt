@@ -13,26 +13,17 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
-import com.gentin.connectiq.handsfree.BuildConfig
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.contacts.openFavorites
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.startConnector
+import com.gentin.connectiq.handsfree.impl.versionInfo
 import com.gentin.connectiq.handsfree.permissions.anyPermissionMissing
 import com.gentin.connectiq.handsfree.permissions.requestPermissions
 import dev.doubledot.doki.ui.DokiActivity
 import io.noties.markwon.Markwon
 
-
-fun versionInfo(): String {
-    return arrayOf(
-        BuildConfig.VERSION_NAME,
-        "(" + BuildConfig.VERSION_CODE + ")",
-        BuildConfig.SOURCE_VERSION,
-        "(" + BuildConfig.BUILD_TYPE + ")",
-    ).joinToString(" ")
-}
 
 class MainActivity : Activity() {
 
