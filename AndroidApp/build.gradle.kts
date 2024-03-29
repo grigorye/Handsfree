@@ -7,3 +7,14 @@ plugins {
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
+
+buildscript {
+
+    repositories {
+        google()
+    }
+    dependencies {
+        val navigationVersion = "2.7.7"
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion")
+    }
+}
