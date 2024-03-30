@@ -24,7 +24,7 @@ data class ContactData(
     val id: Int,
     var name: String,
     var number: String,
-    var phoneDataList: List<PhoneData> = ArrayList<PhoneData>()
+    var phoneDataList: List<PhoneData> = ArrayList()
 )
 
 interface ContactsRepository {
@@ -38,7 +38,7 @@ class ContactsRepositoryImpl(
 ) : ContextWrapper(base), ContactsRepository {
 
     private fun numbersForContact(contactId: Int): ArrayList<String> {
-        var numbers = ArrayList<String>()
+        val numbers = ArrayList<String>()
         val phonesCursor = contentResolver.query(
             Phone.CONTENT_URI,
             arrayOf(
@@ -68,7 +68,7 @@ class ContactsRepositoryImpl(
             }
             close()
 
-            var phoneData = phoneDataList[0]
+            val phoneData = phoneDataList[0]
             val number = phoneData.normalized ?: phoneData.raw
             numbers.add(number)
         }
@@ -76,7 +76,7 @@ class ContactsRepositoryImpl(
     }
 
     override fun contacts(): List<ContactData> {
-        var contacts = ArrayList<ContactData>()
+        val contacts = ArrayList<ContactData>()
         iterateOverContacts { contactId, displayName ->
             val number = numbersForContact(contactId)[0]
             contacts.add(ContactData(contactId, displayName, number))
@@ -85,7 +85,7 @@ class ContactsRepositoryImpl(
     }
 
     override fun displayNamesForPhoneNumber(phoneNumber: String): List<String> {
-        var displayNames = ArrayList<String>()
+        val displayNames = ArrayList<String>()
         // https://stackoverflow.com/a/7967182/1859783
         val uri = Uri.withAppendedPath(
             ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
