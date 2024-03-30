@@ -20,3 +20,5 @@ Without the permission, you'll still be able to use it in foreground, but it wil
 
 To be able to serve your request while working in background, Handsfree needs the permission to show you a notification. This is a measure for you to be sure that it's running in the background/awaiting for your requests from the watch. It also shows you a bit of current status of the connection to your watch.
 
+Besides the above permissions, to let Handsfree run without interruptions, it's **strongly** recommended to take a look at **[known hints for running Android apps in background, on your particular phone model](do://doki).**
+
