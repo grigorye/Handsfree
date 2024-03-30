@@ -2,6 +2,7 @@ package com.gentin.connectiq.handsfree.onboarding
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.net.Uri
 import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
@@ -18,17 +19,21 @@ import com.gentin.connectiq.handsfree.permissions.openAppSettings
 import com.gentin.connectiq.handsfree.permissions.overlayPermissionsHandler
 import com.google.android.material.snackbar.Snackbar
 import dev.doubledot.doki.ui.DokiActivity
-import java.net.URI
 
 
 fun resolveLink(link: String, fragment: Fragment) {
     val tag = object {}.javaClass.enclosingMethod?.name
     val context: Activity = fragment.requireActivity()
     Log.d(tag, "link: $link")
-    val uri = URI(link)
+    val uri = Uri.parse(link)
     when (uri.scheme) {
         "link" -> {
-            val resourceName = uri.host
+            val host = uri.host
+            if (host == null) {
+                Log.e(tag, "missingHost: $uri")
+                return
+            }
+            val resourceName: String = host
             Log.d(tag, "destinationResourceName: $resourceName")
             val resourceId = getStringResourceIdByName(resourceName, fragment)
             Log.d(tag, "destinationResourceId: $resourceId")
@@ -44,7 +49,12 @@ fun resolveLink(link: String, fragment: Fragment) {
         "permission" -> {
             when (uri.host) {
                 "manifest" -> {
-                    val permissions = uri.query.split("&")
+                    val query = uri.query
+                    if (query == null) {
+                        Log.e(tag, "missingQuery: $uri")
+                        return
+                    }
+                    val permissions = query.split("&")
                     val handler = newManifestPermissionsHandler(permissions)
                     val hasPermission = handler.hasPermission(context)
                     Log.d(tag, "hasPermission($permissions): $hasPermission")
