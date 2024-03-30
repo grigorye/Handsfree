@@ -2,6 +2,7 @@ package com.gentin.connectiq.handsfree.onboarding
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.view.View
@@ -27,6 +28,11 @@ fun resolveLink(link: String, fragment: Fragment) {
     Log.d(tag, "link: $link")
     val uri = Uri.parse(link)
     when (uri.scheme) {
+        "https" -> {
+            val browserIntent = Intent(Intent.ACTION_VIEW, uri)
+            context.startActivity(browserIntent)
+        }
+
         "link" -> {
             val host = uri.host
             if (host == null) {
