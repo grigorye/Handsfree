@@ -149,6 +149,9 @@ Without this permission, only the phone number will be visible on the watch (and
 
 **[Reconnect to your watch](do://reconnect-connectiq)**
 
+**[App settings](do://settings)**
+
+**[Hints for running apps in background on your phone](do://doki)**
 "</string>
     <string name="navigation_overview">"Overview"</string>
     <string name="permissions_snackbar_app_settings_btn">"App Settings"</string>
