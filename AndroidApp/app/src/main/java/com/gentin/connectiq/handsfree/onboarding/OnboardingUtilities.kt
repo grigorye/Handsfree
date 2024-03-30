@@ -20,14 +20,15 @@ import com.google.android.material.snackbar.Snackbar
 import dev.doubledot.doki.ui.DokiActivity
 import java.net.URI
 
+
 fun resolveLink(link: String, fragment: Fragment) {
     val tag = object {}.javaClass.enclosingMethod?.name
     val context: Activity = fragment.requireActivity()
     Log.d(tag, "link: $link")
-    val url = URI(link)
-    when (url.scheme) {
+    val uri = URI(link)
+    when (uri.scheme) {
         "link" -> {
-            val resourceName = url.host
+            val resourceName = uri.host
             Log.d(tag, "destinationResourceName: $resourceName")
             val resourceId = getStringResourceIdByName(resourceName, fragment)
             Log.d(tag, "destinationResourceId: $resourceId")
@@ -41,9 +42,9 @@ fun resolveLink(link: String, fragment: Fragment) {
         }
 
         "permission" -> {
-            when (url.host) {
+            when (uri.host) {
                 "manifest" -> {
-                    val permissions = url.query.split("&")
+                    val permissions = uri.query.split("&")
                     val handler = newManifestPermissionsHandler(permissions)
                     val hasPermission = handler.hasPermission(context)
                     Log.d(tag, "hasPermission($permissions): $hasPermission")
@@ -67,7 +68,7 @@ fun resolveLink(link: String, fragment: Fragment) {
         }
 
         "contacts" -> {
-            when (url.host) {
+            when (uri.host) {
                 "starred" -> {
                     openFavorites(context)
                 }
@@ -75,7 +76,7 @@ fun resolveLink(link: String, fragment: Fragment) {
         }
 
         "do" -> {
-            when (url.host) {
+            when (uri.host) {
                 "reconnect-connectiq" -> {
                     startConnector(context, ACTIVATE_AND_RECONNECT)
                     val contextView = fragment.view
@@ -99,13 +100,13 @@ fun resolveLink(link: String, fragment: Fragment) {
                 }
 
                 else -> {
-                    Log.e(tag, "unknownDo: ${url.host}")
+                    Log.e(tag, "unknownDo: ${uri.host}")
                 }
             }
         }
 
         else -> {
-            Log.e(tag, "unknownScheme: ${url.scheme}")
+            Log.e(tag, "unknownScheme: ${uri.scheme}")
         }
     }
 }
