@@ -13,6 +13,7 @@ import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.contacts.openFavorites
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.startConnector
+import com.gentin.connectiq.handsfree.permissions.PermissionStatus
 import com.gentin.connectiq.handsfree.permissions.PermissionsHandler
 import com.gentin.connectiq.handsfree.permissions.batteryOptimizationPermissionsHandler
 import com.gentin.connectiq.handsfree.permissions.newManifestPermissionsHandler
@@ -62,22 +63,22 @@ fun resolveLink(link: String, fragment: Fragment) {
                     }
                     val permissions = query.split("&")
                     val handler = newManifestPermissionsHandler(permissions)
-                    val hasPermission = handler.hasPermission(context)
-                    Log.d(tag, "hasPermission($permissions): $hasPermission")
+                    val permissionStatus = handler.permissionStatus(context)
+                    Log.d(tag, "permissionStatus($permissions): $permissionStatus")
                     navigatePermissionsLink(context, fragment.view, handler)
                 }
 
                 "battery_optimization" -> {
                     val handler = batteryOptimizationPermissionsHandler
-                    val hasPermission = handler.hasPermission(context)
-                    Log.d(tag, "hasPermission(batteryOptimization): $hasPermission")
+                    val permissionStatus = handler.permissionStatus(context)
+                    Log.d(tag, "permissionStatus(batteryOptimization): $permissionStatus")
                     navigatePermissionsLink(context, fragment.view, handler)
                 }
 
                 "draw_overlays" -> {
                     val handler = overlayPermissionsHandler
-                    val hasPermission = handler.hasPermission(context)
-                    Log.d(tag, "hasPermission(overlay): $hasPermission")
+                    val permissionStatus = handler.permissionStatus(context)
+                    Log.d(tag, "hasPermission(overlay): $permissionStatus")
                     navigatePermissionsLink(context, fragment.view, handler)
                 }
             }
@@ -132,21 +133,40 @@ private fun navigatePermissionsLink(
     contextView: View?,
     permissionsHandler: PermissionsHandler
 ) {
-    if (permissionsHandler.hasPermission(context)) {
-        contextView?.apply {
-            Snackbar
-                .make(
-                    this,
-                    R.string.permissions_snackbar_permission_is_already_granted,
-                    Snackbar.LENGTH_SHORT
-                )
-                .setAction(R.string.permissions_snackbar_app_settings_btn) {
-                    openAppSettings(context)
-                }
-                .show()
+    when (permissionsHandler.permissionStatus(context)) {
+        PermissionStatus.Granted -> {
+            contextView?.apply {
+                Snackbar
+                    .make(
+                        this,
+                        R.string.permissions_snackbar_permission_is_already_granted,
+                        Snackbar.LENGTH_SHORT
+                    )
+                    .setAction(R.string.permissions_snackbar_app_settings_btn) {
+                        openAppSettings(context)
+                    }
+                    .show()
+            }
         }
-    } else {
-        permissionsHandler.requestPermission(context)
+
+        PermissionStatus.NotGranted -> {
+            permissionsHandler.requestPermission(context)
+        }
+
+        PermissionStatus.Denied -> {
+            contextView?.apply {
+                Snackbar
+                    .make(
+                        this,
+                        R.string.permissions_snackbar_permission_is_denied,
+                        Snackbar.LENGTH_SHORT
+                    )
+                    .setAction(R.string.permissions_snackbar_app_settings_btn) {
+                        openAppSettings(context)
+                    }
+                    .show()
+            }
+        }
     }
 }
 
@@ -162,8 +182,7 @@ fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String
         .replace("\\[.*]\\(permission://manifest\\?(.*)\\)".toRegex()) {
             val permissions = it.groupValues[1].split("&")
             Log.d(tag, "permissions: $permissions")
-            val hasPermission =
-                newManifestPermissionsHandler(permissions).hasPermission(context)
+            val hasPermission = newManifestPermissionsHandler(permissions).hasPermission(context)
             val suffix = if (hasPermission) {
                 " (Granted)"
             } else {

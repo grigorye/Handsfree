@@ -10,14 +10,18 @@ import android.util.Log
 
 @SuppressLint("BatteryLife")
 val batteryOptimizationPermissionsHandler = PermissionsHandler(
-    hasPermission = { context ->
+    permissionStatus = { context ->
         val tag = object {}.javaClass.enclosingMethod?.name
 
         val packageName = context.packageName
         val pm = context.getSystemService(POWER_SERVICE) as PowerManager
         val isIgnoringBatteryOptimizations = pm.isIgnoringBatteryOptimizations(packageName)
         Log.d(tag, "isIgnoringBatteryOptimizations: $isIgnoringBatteryOptimizations")
-        isIgnoringBatteryOptimizations
+        if (isIgnoringBatteryOptimizations) {
+            PermissionStatus.Granted
+        } else {
+            PermissionStatus.NotGranted
+        }
     },
     requestPermission = { context ->
         val intent = Intent()

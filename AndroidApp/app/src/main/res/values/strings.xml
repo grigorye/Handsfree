@@ -157,4 +157,5 @@ Without this permission, only the phone number will be visible on the watch (and
     <string name="permissions_snackbar_app_settings_btn">"App Settings"</string>
     <string name="overview_snackbar_reconnecting_connectiq">"Reconnecting…"</string>
     <string name="permissions_snackbar_permission_is_already_granted">"The permission is already there."</string>
+    <string name="permissions_snackbar_permission_is_denied">"The permission is available in App Settings."</string>
 </resources>

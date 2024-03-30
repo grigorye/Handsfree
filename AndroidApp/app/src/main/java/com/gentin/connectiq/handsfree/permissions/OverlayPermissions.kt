@@ -6,11 +6,15 @@ import android.provider.Settings
 import android.util.Log
 
 val overlayPermissionsHandler = PermissionsHandler(
-    hasPermission = { context ->
+    permissionStatus = { context ->
         val tag = object {}.javaClass.enclosingMethod?.name
         val canDrawOverlays = Settings.canDrawOverlays(context)
         Log.d(tag, "canDrawOverlays: $canDrawOverlays")
-        canDrawOverlays
+        if (canDrawOverlays) {
+            PermissionStatus.Granted
+        } else {
+            PermissionStatus.NotGranted
+        }
     },
     requestPermission = { context ->
         val intent = Intent(
