@@ -10,8 +10,16 @@ import com.gentin.connectiq.handsfree.impl.startConnector
 class PhoneStateBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) = goAsync {
-        Log.d(TAG, "intent: $intent")
-        startConnector(context, intent)
+        when (intent.action) {
+            "android.intent.action.PHONE_STATE" -> {
+                Log.d(TAG, "intent: $intent")
+                startConnector(context, intent)
+            }
+
+            else -> {
+                Log.d(TAG, "spoofedIntent: $intent")
+            }
+        }
     }
 
     companion object {
