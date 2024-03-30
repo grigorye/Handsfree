@@ -75,11 +75,22 @@ fun resolveLink(link: String, fragment: Fragment) {
             when (url.host) {
                 "reconnect-connectiq" -> {
                     startConnector(context, ACTIVATE_AND_RECONNECT)
+                    val contextView = fragment.view
+                    contextView?.apply {
+                        Snackbar
+                            .make(
+                                this,
+                                R.string.overview_snackbar_reconnecting_connectiq,
+                                Snackbar.LENGTH_SHORT
+                            )
+                            .show()
+                    }
                 }
 
                 "doki" -> {
                     DokiActivity.start(context)
                 }
+
                 else -> {
                     Log.e(tag, "unknownDo: ${url.host}")
                 }
