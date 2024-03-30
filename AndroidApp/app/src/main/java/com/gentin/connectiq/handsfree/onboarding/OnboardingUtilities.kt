@@ -133,7 +133,41 @@ private fun navigatePermissionsLink(
     contextView: View?,
     permissionsHandler: PermissionsHandler
 ) {
-    permissionsHandler.requestPermission(context, contextView)
+    when (permissionsHandler.permissionStatus(context)) {
+        PermissionStatus.Granted -> {
+            contextView?.apply {
+                Snackbar
+                    .make(
+                        this,
+                        R.string.permissions_snackbar_permission_is_already_granted,
+                        Snackbar.LENGTH_SHORT
+                    )
+                    .setAction(R.string.permissions_snackbar_app_settings_btn) {
+                        openAppSettings(context)
+                    }
+                    .show()
+            }
+        }
+
+        PermissionStatus.NotGranted -> {
+            permissionsHandler.requestPermission(context)
+        }
+
+        PermissionStatus.Denied -> {
+            contextView?.apply {
+                Snackbar
+                    .make(
+                        this,
+                        R.string.permissions_snackbar_permission_is_denied,
+                        Snackbar.LENGTH_SHORT
+                    )
+                    .setAction(R.string.permissions_snackbar_app_settings_btn) {
+                        openAppSettings(context)
+                    }
+                    .show()
+            }
+        }
+    }
 }
 
 @SuppressLint("DiscouragedApi")
