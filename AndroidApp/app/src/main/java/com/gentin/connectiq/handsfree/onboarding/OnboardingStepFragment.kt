@@ -13,8 +13,6 @@ import com.gentin.connectiq.handsfree.R
 import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
 import io.noties.markwon.MarkwonConfiguration
-import preprocessPermissionsInMarkdown
-import resolveLink
 
 
 class OnboardingStepFragment : Fragment() {
