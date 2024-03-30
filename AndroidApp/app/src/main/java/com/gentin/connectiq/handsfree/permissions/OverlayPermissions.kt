@@ -16,7 +16,7 @@ val overlayPermissionsHandler = PermissionsHandler(
             PermissionStatus.NotGranted
         }
     },
-    requestPermission = { context ->
+    requestPermission = { context, _ ->
         val intent = Intent(
             Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
             Uri.parse("package:${context.packageName}")

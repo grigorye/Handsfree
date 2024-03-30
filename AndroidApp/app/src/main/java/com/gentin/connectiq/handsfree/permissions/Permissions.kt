@@ -19,7 +19,7 @@ fun anyPermissionMissing(context: Activity): Boolean {
 fun requestPermissions(context: Activity) {
     registeredPermissionHandlers.forEach {
         if (!it.hasPermission(context)) {
-            it.requestPermission(context)
+            it.requestPermission(context, null)
         }
     }
 }
