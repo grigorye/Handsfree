@@ -94,6 +94,10 @@ fun resolveLink(link: String, fragment: Fragment) {
                     DokiActivity.start(context)
                 }
 
+                "settings" -> {
+                    openAppSettings(context)
+                }
+
                 else -> {
                     Log.e(tag, "unknownDo: ${url.host}")
                 }
