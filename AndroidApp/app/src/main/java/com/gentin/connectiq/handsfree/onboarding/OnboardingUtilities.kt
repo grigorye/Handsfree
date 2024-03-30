@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.contacts.openFavorites
+import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
+import com.gentin.connectiq.handsfree.impl.startConnector
 import com.gentin.connectiq.handsfree.permissions.batteryOptimizationPermissionsHandler
 import com.gentin.connectiq.handsfree.permissions.newManifestPermissionsHandler
 import com.gentin.connectiq.handsfree.permissions.overlayPermissionsHandler
+import dev.doubledot.doki.ui.DokiActivity
 import java.net.URI
 
 fun resolveLink(link: String, fragment: Fragment) {
@@ -53,6 +56,21 @@ fun resolveLink(link: String, fragment: Fragment) {
             when (url.host) {
                 "starred" -> {
                     openFavorites(context)
+                }
+            }
+        }
+
+        "do" -> {
+            when (url.host) {
+                "reconnect-connectiq" -> {
+                    startConnector(context, ACTIVATE_AND_RECONNECT)
+                }
+
+                "doki" -> {
+                    DokiActivity.start(context)
+                }
+                else -> {
+                    Log.e(tag, "unknownDo: ${url.host}")
                 }
             }
         }
