@@ -1,5 +1,6 @@
 package com.gentin.connectiq.handsfree.permissions
 
+import android.annotation.SuppressLint
 import android.content.Context.POWER_SERVICE
 import android.content.Intent
 import android.net.Uri
@@ -7,6 +8,7 @@ import android.os.PowerManager
 import android.provider.Settings
 import android.util.Log
 
+@SuppressLint("BatteryLife")
 val batteryOptimizationPermissionsHandler = PermissionsHandler(
     hasPermission = { context ->
         val tag = object {}.javaClass.enclosingMethod?.name
