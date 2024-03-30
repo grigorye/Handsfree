@@ -99,7 +99,7 @@ class DefaultOutgoingMessageDispatcher(
         return stateArgs + headsetArgs
     }
 
-    fun send(msg: Map<String, Any>) {
+    private fun send(msg: Map<String, Any>) {
         remoteMessageService.sendMessage(msg)
     }
 
