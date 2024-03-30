@@ -1,6 +1,7 @@
 package com.gentin.connectiq.handsfree.onboarding
 
 import android.os.Bundle
+import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
@@ -35,10 +36,16 @@ class OnboardingStepFragment : Fragment() {
         }
     }
 
-    private val markdown by lazy {
+    fun reloadMarkdown() {
+        view?.findViewById<TextView>(R.id.text_view)?.apply {
+            text = markdown
+        }
+    }
+
+    private val markdown: Spanned? get() {
         val safeArgs: OnboardingStepFragmentArgs by navArgs()
         val resource = safeArgs.markdown
-        markwon?.toMarkdown(preprocessPermissionsInMarkdown(requireActivity(), getString(resource)))
+        return markwon?.toMarkdown(preprocessPermissionsInMarkdown(requireActivity(), getString(resource)))
     }
 
     private val markwon by lazy {

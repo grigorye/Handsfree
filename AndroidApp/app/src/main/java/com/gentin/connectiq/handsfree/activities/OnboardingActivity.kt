@@ -1,16 +1,20 @@
 package com.gentin.connectiq.handsfree.activities
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.databinding.ActivityOnboardingBinding
+import com.gentin.connectiq.handsfree.onboarding.OnboardingStepFragment
 
 class OnboardingActivity : AppCompatActivity() {
 
@@ -51,6 +55,12 @@ class OnboardingActivity : AppCompatActivity() {
     public override fun onResume() {
         Log.d(TAG, "onResume")
         super.onResume()
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+
+        for (childFragment in navHostFragment?.childFragmentManager?.fragments ?: listOf()) {
+            (childFragment as? OnboardingStepFragment)?.reloadMarkdown()
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
