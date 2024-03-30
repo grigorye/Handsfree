@@ -24,6 +24,7 @@ class OnboardingActivity : AppCompatActivity() {
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d(TAG, "onCreate")
         super.onCreate(savedInstanceState)
 
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
@@ -42,9 +43,23 @@ class OnboardingActivity : AppCompatActivity() {
         navBarView.setupWithNavController(navController)
     }
 
+    public override fun onPause() {
+        Log.d(TAG, "onPause")
+        super.onPause()
+    }
+
+    public override fun onResume() {
+        Log.d(TAG, "onResume")
+        super.onResume()
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.nav_host_fragment).navigateUp(
             appBarConfiguration
         )
+    }
+
+    companion object {
+        private val TAG = OnboardingActivity::class.java.simpleName
     }
 }
