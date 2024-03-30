@@ -1,3 +1,6 @@
+package com.gentin.connectiq.handsfree.onboarding
+
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.util.Log
 import android.view.View
@@ -126,16 +129,16 @@ private fun navigatePermissionsLink(
     }
 }
 
+@SuppressLint("DiscouragedApi")
 private fun getStringResourceIdByName(name: String, fragment: Fragment): Int {
     val packageName = fragment.activity?.packageName
-    val resId = fragment.resources.getIdentifier(name, "string", packageName)
-    return resId
+    return fragment.resources.getIdentifier(name, "string", packageName)
 }
 
 fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String {
     val tag = object {}.javaClass.enclosingMethod?.name
     return markdown
-        .replace("\\[.*\\]\\(permission://manifest\\?(.*)\\)".toRegex()) {
+        .replace("\\[.*]\\(permission://manifest\\?(.*)\\)".toRegex()) {
             val permissions = it.groupValues[1].split("&")
             Log.d(tag, "permissions: $permissions")
             val hasPermission =
@@ -147,7 +150,7 @@ fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String
             }
             it.value + suffix
         }
-        .replace("\\[.*\\]\\(permission://battery_optimization\\)".toRegex()) {
+        .replace("\\[.*]\\(permission://battery_optimization\\)".toRegex()) {
             val hasPermission = batteryOptimizationPermissionsHandler.hasPermission(context)
             val suffix = if (hasPermission) {
                 " (Granted)"
@@ -156,7 +159,7 @@ fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String
             }
             it.value + suffix
         }
-        .replace("\\[.*\\]\\(permission://draw_overlays\\)".toRegex()) {
+        .replace("\\[.*]\\(permission://draw_overlays\\)".toRegex()) {
             val hasPermission = overlayPermissionsHandler.hasPermission(context)
             val suffix = if (hasPermission) {
                 " (Granted)"
