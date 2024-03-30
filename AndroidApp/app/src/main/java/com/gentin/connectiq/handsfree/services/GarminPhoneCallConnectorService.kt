@@ -16,7 +16,6 @@ import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
 import com.gentin.connectiq.handsfree.R
-import com.gentin.connectiq.handsfree.activities.MainActivity
 import com.gentin.connectiq.handsfree.broadcastreceivers.scheduleKeepAwakeBroadcast
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE
