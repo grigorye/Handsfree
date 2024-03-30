@@ -1,5 +1,6 @@
 import android.app.Activity
 import android.util.Log
+import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -7,9 +8,12 @@ import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.contacts.openFavorites
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.startConnector
+import com.gentin.connectiq.handsfree.permissions.PermissionsHandler
 import com.gentin.connectiq.handsfree.permissions.batteryOptimizationPermissionsHandler
 import com.gentin.connectiq.handsfree.permissions.newManifestPermissionsHandler
+import com.gentin.connectiq.handsfree.permissions.openAppSettings
 import com.gentin.connectiq.handsfree.permissions.overlayPermissionsHandler
+import com.google.android.material.snackbar.Snackbar
 import dev.doubledot.doki.ui.DokiActivity
 import java.net.URI
 
@@ -38,16 +42,23 @@ fun resolveLink(link: String, fragment: Fragment) {
                 "manifest" -> {
                     val permissions = url.query.split("&")
                     val handler = newManifestPermissionsHandler(permissions)
-                    Log.d(tag, "hasPermission($permissions): ${handler.hasPermission(context)}")
-                    handler.requestPermission(context)
+                    val hasPermission = handler.hasPermission(context)
+                    Log.d(tag, "hasPermission($permissions): $hasPermission")
+                    navigatePermissionsLink(context, fragment.view, handler)
                 }
 
                 "battery_optimization" -> {
-                    batteryOptimizationPermissionsHandler.requestPermission(context)
+                    val handler = batteryOptimizationPermissionsHandler
+                    val hasPermission = handler.hasPermission(context)
+                    Log.d(tag, "hasPermission(batteryOptimization): $hasPermission")
+                    navigatePermissionsLink(context, fragment.view, handler)
                 }
 
                 "draw_overlays" -> {
-                    overlayPermissionsHandler.requestPermission(context)
+                    val handler = overlayPermissionsHandler
+                    val hasPermission = handler.hasPermission(context)
+                    Log.d(tag, "hasPermission(overlay): $hasPermission")
+                    navigatePermissionsLink(context, fragment.view, handler)
                 }
             }
         }
@@ -78,6 +89,29 @@ fun resolveLink(link: String, fragment: Fragment) {
         else -> {
             Log.e(tag, "unknownScheme: ${url.scheme}")
         }
+    }
+}
+
+private fun navigatePermissionsLink(
+    context: Activity,
+    contextView: View?,
+    permissionsHandler: PermissionsHandler
+) {
+    if (permissionsHandler.hasPermission(context)) {
+        contextView?.apply {
+            Snackbar
+                .make(
+                    this,
+                    R.string.permissions_snackbar_permission_is_already_granted,
+                    Snackbar.LENGTH_SHORT
+                )
+                .setAction(R.string.permissions_snackbar_app_settings_btn) {
+                    openAppSettings(context)
+                }
+                .show()
+        }
+    } else {
+        permissionsHandler.requestPermission(context)
     }
 }
 
