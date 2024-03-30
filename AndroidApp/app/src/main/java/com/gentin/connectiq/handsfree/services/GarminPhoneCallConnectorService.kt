@@ -155,9 +155,9 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         )
         channel.description = "Allows making calls from Garmin devices."
 
-        val resultIntent = Intent(this, MainActivity::class.java)
-        val resultPendingIntent = PendingIntent.getActivity(
-            this, 0, resultIntent, PendingIntent.FLAG_IMMUTABLE
+        val launchIntent = packageManager.getLaunchIntentForPackage(packageName)
+        val pendingLaunchIntent = PendingIntent.getActivity(
+            this, 0, launchIntent, PendingIntent.FLAG_IMMUTABLE
         )
 
         val dateFormatted = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)
@@ -182,7 +182,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             .setSmallIcon(android.R.drawable.stat_notify_sync)
             .setOngoing(true)
             .setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE)
-            .setContentIntent(resultPendingIntent)
+            .setContentIntent(pendingLaunchIntent)
             .build()
         val notificationManager = getSystemService(NotificationManager::class.java)
         notificationManager.createNotificationChannel(channel)
