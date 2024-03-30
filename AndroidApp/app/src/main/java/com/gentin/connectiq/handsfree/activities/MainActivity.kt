@@ -1,10 +1,7 @@
 package com.gentin.connectiq.handsfree.activities
 
 import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.View.GONE
@@ -20,6 +17,7 @@ import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.startConnector
 import com.gentin.connectiq.handsfree.impl.versionInfo
 import com.gentin.connectiq.handsfree.permissions.anyPermissionMissing
+import com.gentin.connectiq.handsfree.permissions.openAppSettings
 import com.gentin.connectiq.handsfree.permissions.requestPermissions
 import dev.doubledot.doki.ui.DokiActivity
 import io.noties.markwon.Markwon
@@ -51,7 +49,7 @@ class MainActivity : Activity() {
                 .setTitle(R.string.permissions_dialog_all_granted_title)
                 .setMessage(permissionsExplanation)
                 .setNeutralButton(R.string.permissions_dialog_app_settings_btn) { _, _ ->
-                    openAppSettings()
+                    openAppSettings(this)
                 }
                 .setPositiveButton(R.string.permissions_dialog_all_granted_ok_btn) { _, _ -> }
                 .create()
@@ -65,7 +63,7 @@ class MainActivity : Activity() {
                     requestPermissions(this)
                 }
                 .setNeutralButton(R.string.permissions_dialog_app_settings_btn) { _, _ ->
-                    openAppSettings()
+                    openAppSettings(this)
                 }
                 .setNegativeButton(R.string.permissions_dialog_do_not_proceed_btn) { _, _ ->
                 }
@@ -113,13 +111,6 @@ class MainActivity : Activity() {
     public override fun onDestroy() {
         Log.d(TAG, "onDestroy")
         super.onDestroy()
-    }
-
-    private fun openAppSettings() {
-        startActivity(Intent().apply {
-            action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-            data = Uri.fromParts("package", packageName, null)
-        })
     }
 
     companion object {
