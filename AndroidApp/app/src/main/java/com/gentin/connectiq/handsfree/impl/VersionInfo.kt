@@ -1,4 +1,4 @@
-package com.gentin.connectiq.handsfree.impl;
+package com.gentin.connectiq.handsfree.impl
 
 import com.gentin.connectiq.handsfree.BuildConfig
 
