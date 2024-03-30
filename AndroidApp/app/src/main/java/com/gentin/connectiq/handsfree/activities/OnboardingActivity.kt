@@ -14,6 +14,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.databinding.ActivityOnboardingBinding
+import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
+import com.gentin.connectiq.handsfree.impl.startConnector
 import com.gentin.connectiq.handsfree.onboarding.OnboardingStepFragment
 
 class OnboardingActivity : AppCompatActivity() {
@@ -54,6 +56,7 @@ class OnboardingActivity : AppCompatActivity() {
 
     public override fun onResume() {
         Log.d(TAG, "onResume")
+        startConnector(this, ACTIVATE_FROM_MAIN_ACTIVITY_ACTION)
         super.onResume()
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
