@@ -59,7 +59,7 @@ fun newManifestPermissionsHandler(manifestPermissions: List<String>): Permission
                         ActivityCompat.shouldShowRequestPermissionRationale(context, permission)
                     Log.d(
                         tag,
-                        "$permission: shouldShowRequestPermissionsRationale($shouldShowRequestPermissionsRationale))"
+                        "$permission.shouldShowRequestPermissionsRationale: $shouldShowRequestPermissionsRationale"
                     )
                     if (!shouldShowRequestPermissionsRationale) {
                         anyPermissionDenied = true
