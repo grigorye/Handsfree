@@ -5,7 +5,7 @@ import android.net.Uri
 import android.provider.Settings
 import android.util.Log
 
-val overlayPermissionsHandler = PermissionsHandler(
+val overlayPermissionHandler = PermissionHandler(
     permissionStatus = { context ->
         val tag = object {}.javaClass.enclosingMethod?.name
         val canDrawOverlays = Settings.canDrawOverlays(context)

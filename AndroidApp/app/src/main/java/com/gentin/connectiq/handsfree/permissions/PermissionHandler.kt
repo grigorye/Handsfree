@@ -8,7 +8,7 @@ enum class PermissionStatus {
     Denied
 }
 
-data class PermissionsHandler(
+data class PermissionHandler(
     val permissionStatus: (context: Activity) -> PermissionStatus,
     val requestPermission: (context: Activity) -> Unit
 ) {

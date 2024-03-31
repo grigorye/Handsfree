@@ -16,7 +16,7 @@ val manifestPermissions = listOf(
     Manifest.permission.READ_PHONE_STATE,
     Manifest.permission.RECEIVE_BOOT_COMPLETED,
     Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
-    // SYSTEM_ALERT_WINDOW is checked via Settings.canDrawOverlays()/OverlayPermissionsHandler
+    // SYSTEM_ALERT_WINDOW is checked via Settings.canDrawOverlays()/OverlayPermissionHandler
     // Manifest.permission.SYSTEM_ALERT_WINDOW,
 ) + manifestPermissionsExtrasUpsideDownCake() + manifestPermissionsExtrasTiramisu()
 
@@ -40,10 +40,10 @@ fun manifestPermissionsExtrasTiramisu(): List<String> {
     }
 }
 
-val manifestPermissionsHandler = newManifestPermissionsHandler(manifestPermissions)
+val manifestPermissionHandler = newManifestPermissionHandler(manifestPermissions)
 
-fun newManifestPermissionsHandler(manifestPermissions: List<String>): PermissionsHandler {
-    return PermissionsHandler(
+fun newManifestPermissionHandler(manifestPermissions: List<String>): PermissionHandler {
+    return PermissionHandler(
         permissionStatus = { context ->
             var allPermissionsGranted = true
             var anyPermissionDenied = false

@@ -7,9 +7,9 @@ import android.net.Uri
 import android.provider.Settings
 
 val registeredPermissionHandlers = arrayOf(
-    manifestPermissionsHandler,
-    batteryOptimizationPermissionsHandler,
-    overlayPermissionsHandler
+    manifestPermissionHandler,
+    batteryOptimizationPermissionHandler,
+    overlayPermissionHandler
 )
 
 fun anyPermissionMissing(context: Activity): Boolean {

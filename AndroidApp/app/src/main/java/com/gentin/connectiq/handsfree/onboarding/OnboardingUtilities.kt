@@ -14,11 +14,11 @@ import com.gentin.connectiq.handsfree.contacts.openFavorites
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.startConnector
 import com.gentin.connectiq.handsfree.permissions.PermissionStatus
-import com.gentin.connectiq.handsfree.permissions.PermissionsHandler
-import com.gentin.connectiq.handsfree.permissions.batteryOptimizationPermissionsHandler
-import com.gentin.connectiq.handsfree.permissions.newManifestPermissionsHandler
+import com.gentin.connectiq.handsfree.permissions.PermissionHandler
+import com.gentin.connectiq.handsfree.permissions.batteryOptimizationPermissionHandler
+import com.gentin.connectiq.handsfree.permissions.newManifestPermissionHandler
 import com.gentin.connectiq.handsfree.permissions.openAppSettings
-import com.gentin.connectiq.handsfree.permissions.overlayPermissionsHandler
+import com.gentin.connectiq.handsfree.permissions.overlayPermissionHandler
 import com.google.android.material.snackbar.Snackbar
 import dev.doubledot.doki.ui.DokiActivity
 
@@ -62,21 +62,21 @@ fun resolveLink(link: String, fragment: Fragment) {
                         return
                     }
                     val permissions = query.split("&")
-                    val handler = newManifestPermissionsHandler(permissions)
+                    val handler = newManifestPermissionHandler(permissions)
                     val permissionStatus = handler.permissionStatus(context)
                     Log.d(tag, "permissionStatus($permissions): $permissionStatus")
                     navigatePermissionsLink(context, fragment.view, handler)
                 }
 
                 "battery_optimization" -> {
-                    val handler = batteryOptimizationPermissionsHandler
+                    val handler = batteryOptimizationPermissionHandler
                     val permissionStatus = handler.permissionStatus(context)
                     Log.d(tag, "permissionStatus(batteryOptimization): $permissionStatus")
                     navigatePermissionsLink(context, fragment.view, handler)
                 }
 
                 "draw_overlays" -> {
-                    val handler = overlayPermissionsHandler
+                    val handler = overlayPermissionHandler
                     val permissionStatus = handler.permissionStatus(context)
                     Log.d(tag, "hasPermission(overlay): $permissionStatus")
                     navigatePermissionsLink(context, fragment.view, handler)
@@ -131,9 +131,9 @@ fun resolveLink(link: String, fragment: Fragment) {
 private fun navigatePermissionsLink(
     context: Activity,
     contextView: View?,
-    permissionsHandler: PermissionsHandler
+    permissionHandler: PermissionHandler
 ) {
-    when (permissionsHandler.permissionStatus(context)) {
+    when (permissionHandler.permissionStatus(context)) {
         PermissionStatus.Granted -> {
             contextView?.apply {
                 Snackbar
@@ -150,7 +150,7 @@ private fun navigatePermissionsLink(
         }
 
         PermissionStatus.NotGranted -> {
-            permissionsHandler.requestPermission(context)
+            permissionHandler.requestPermission(context)
         }
 
         PermissionStatus.Denied -> {
@@ -184,7 +184,7 @@ fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String
             val linkUrl = it.groupValues[2]
             val permissions = it.groupValues[3].split("&")
             Log.d(tag, "permissions: $permissions")
-            val hasPermission = newManifestPermissionsHandler(permissions).hasPermission(context)
+            val hasPermission = newManifestPermissionHandler(permissions).hasPermission(context)
             val format = if (hasPermission) {
                 context.getString(R.string.markdown_link_permission_granted_fmt)
             } else {
@@ -197,7 +197,7 @@ fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String
         .replace("\\[([^]]*)]\\((permission://battery_optimization)\\)".toRegex()) {
             val linkText = it.groupValues[1]
             val linkUrl = it.groupValues[2]
-            val hasPermission = batteryOptimizationPermissionsHandler.hasPermission(context)
+            val hasPermission = batteryOptimizationPermissionHandler.hasPermission(context)
             val format = if (hasPermission) {
                 context.getString(R.string.markdown_link_permission_granted_fmt)
             } else {
@@ -210,7 +210,7 @@ fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String
         .replace("\\[([^]]*)]\\((permission://draw_overlays)\\)".toRegex()) {
             val linkText = it.groupValues[1]
             val linkUrl = it.groupValues[2]
-            val hasPermission = overlayPermissionsHandler.hasPermission(context)
+            val hasPermission = overlayPermissionHandler.hasPermission(context)
             val format = if (hasPermission) {
                 context.getString(R.string.markdown_link_permission_granted_fmt)
             } else {

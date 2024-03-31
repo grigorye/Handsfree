@@ -9,7 +9,7 @@ import android.provider.Settings
 import android.util.Log
 
 @SuppressLint("BatteryLife")
-val batteryOptimizationPermissionsHandler = PermissionsHandler(
+val batteryOptimizationPermissionHandler = PermissionHandler(
     permissionStatus = { context ->
         val tag = object {}.javaClass.enclosingMethod?.name
 
