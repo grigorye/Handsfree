@@ -179,7 +179,7 @@ private fun getStringResourceIdByName(name: String, fragment: Fragment): Int {
 fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String {
     val tag = object {}.javaClass.enclosingMethod?.name
     return markdown
-        .replace("\\[(.*)]\\((permission://manifest\\?(.*))\\)".toRegex()) {
+        .replace("\\[([^]]*)]\\((permission://manifest\\?([^)]*))\\)".toRegex()) {
             val linkText = it.groupValues[1]
             val linkUrl = it.groupValues[2]
             val permissions = it.groupValues[3].split("&")
@@ -194,7 +194,7 @@ fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String
                 .replace("{{link_text}}", linkText)
                 .replace("{{link_url}}", linkUrl)
         }
-        .replace("\\[(.*)]\\((permission://battery_optimization)\\)".toRegex()) {
+        .replace("\\[([^]]*)]\\((permission://battery_optimization)\\)".toRegex()) {
             val linkText = it.groupValues[1]
             val linkUrl = it.groupValues[2]
             val hasPermission = batteryOptimizationPermissionsHandler.hasPermission(context)
@@ -207,7 +207,7 @@ fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String
                 .replace("{{link_text}}", linkText)
                 .replace("{{link_url}}", linkUrl)
         }
-        .replace("\\[(.*)]\\((permission://draw_overlays)\\)".toRegex()) {
+        .replace("\\[([^]]*)]\\((permission://draw_overlays)\\)".toRegex()) {
             val linkText = it.groupValues[1]
             val linkUrl = it.groupValues[2]
             val hasPermission = overlayPermissionsHandler.hasPermission(context)
