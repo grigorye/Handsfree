@@ -179,6 +179,26 @@ private fun getStringResourceIdByName(name: String, fragment: Fragment): Int {
 fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String {
     val tag = object {}.javaClass.enclosingMethod?.name
     return markdown
+        .replace("\\[([^]]*)]\\((permissions://([^)]*))\\)".toRegex()) {
+            val linkText = it.groupValues[1]
+            val uriString = it.groupValues[2]
+            val uri = Uri.parse(uriString)
+            val permissionHandlers = permissionHandlersForLink(uri)
+            var hasPermission = true
+            for (permissionHandler in permissionHandlers) {
+                if (!permissionHandler.hasPermission(context)) {
+                    hasPermission = false
+                }
+            }
+            val format = if (hasPermission) {
+                context.getString(R.string.markdown_link_permission_granted_fmt)
+            } else {
+                context.getString(R.string.markdown_link_permission_not_granted_fmt)
+            }
+            format
+                .replace("{{link_text}}", linkText)
+                .replace("{{link_url}}", uriString)
+        }
         .replace("\\[([^]]*)]\\((permission://manifest\\?([^)]*))\\)".toRegex()) {
             val linkText = it.groupValues[1]
             val linkUrl = it.groupValues[2]
@@ -231,4 +251,22 @@ private fun headerFromMarkdown(markdown: String): String {
         .dropWhile {
             it == ' '
         }
+}
+
+private fun permissionHandlersForLink(uri: Uri): List<PermissionHandler> {
+    val handlers = ArrayList<PermissionHandler>()
+    val manifestPermissionsArg = uri.getQueryParameter("manifest")
+    if (manifestPermissionsArg != null) {
+        val manifestPermissions = manifestPermissionsArg.split(",")
+        handlers.add(newManifestPermissionHandler(manifestPermissions))
+    }
+    val batteryPermissionArg = uri.getQueryParameterNames().contains("battery_optimization")
+    if (batteryPermissionArg) {
+        handlers.add(batteryOptimizationPermissionHandler)
+    }
+    val overlayPermissionArg = uri.getQueryParameterNames().contains("draw_overlays")
+    if (overlayPermissionArg) {
+        handlers.add(overlayPermissionHandler)
+    }
+    return handlers
 }
