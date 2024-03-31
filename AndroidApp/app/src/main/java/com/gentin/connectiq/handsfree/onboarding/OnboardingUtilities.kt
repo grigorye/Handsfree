@@ -179,34 +179,46 @@ private fun getStringResourceIdByName(name: String, fragment: Fragment): Int {
 fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String {
     val tag = object {}.javaClass.enclosingMethod?.name
     return markdown
-        .replace("\\[.*]\\(permission://manifest\\?(.*)\\)".toRegex()) {
-            val permissions = it.groupValues[1].split("&")
+        .replace("\\[(.*)]\\((permission://manifest\\?(.*))\\)".toRegex()) {
+            val linkText = it.groupValues[1]
+            val linkUrl = it.groupValues[2]
+            val permissions = it.groupValues[3].split("&")
             Log.d(tag, "permissions: $permissions")
             val hasPermission = newManifestPermissionsHandler(permissions).hasPermission(context)
-            val suffix = if (hasPermission) {
-                context.getString(R.string.markdown_header_suffix_permission_granted)
+            val format = if (hasPermission) {
+                context.getString(R.string.markdown_link_permission_granted_fmt)
             } else {
-                context.getString(R.string.markdown_header_suffix_permission_not_granted)
+                context.getString(R.string.markdown_link_permission_not_granted_fmt)
             }
-            it.value + suffix
+            format
+                .replace("{{link_text}}", linkText)
+                .replace("{{link_url}}", linkUrl)
         }
-        .replace("\\[.*]\\(permission://battery_optimization\\)".toRegex()) {
+        .replace("\\[(.*)]\\((permission://battery_optimization)\\)".toRegex()) {
+            val linkText = it.groupValues[1]
+            val linkUrl = it.groupValues[2]
             val hasPermission = batteryOptimizationPermissionsHandler.hasPermission(context)
-            val suffix = if (hasPermission) {
-                context.getString(R.string.markdown_header_suffix_permission_granted)
+            val format = if (hasPermission) {
+                context.getString(R.string.markdown_link_permission_granted_fmt)
             } else {
-                context.getString(R.string.markdown_header_suffix_permission_not_granted)
+                context.getString(R.string.markdown_link_permission_not_granted_fmt)
             }
-            it.value + suffix
+            format
+                .replace("{{link_text}}", linkText)
+                .replace("{{link_url}}", linkUrl)
         }
-        .replace("\\[.*]\\(permission://draw_overlays\\)".toRegex()) {
+        .replace("\\[(.*)]\\((permission://draw_overlays)\\)".toRegex()) {
+            val linkText = it.groupValues[1]
+            val linkUrl = it.groupValues[2]
             val hasPermission = overlayPermissionsHandler.hasPermission(context)
-            val suffix = if (hasPermission) {
-                context.getString(R.string.markdown_header_suffix_permission_granted)
+            val format = if (hasPermission) {
+                context.getString(R.string.markdown_link_permission_granted_fmt)
             } else {
-                context.getString(R.string.markdown_header_suffix_permission_not_granted)
+                context.getString(R.string.markdown_link_permission_not_granted_fmt)
             }
-            it.value + suffix
+            format
+                .replace("{{link_text}}", linkText)
+                .replace("{{link_url}}", linkUrl)
         }
 }
 
