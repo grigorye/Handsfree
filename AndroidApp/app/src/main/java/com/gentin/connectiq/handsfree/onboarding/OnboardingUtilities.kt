@@ -184,27 +184,27 @@ fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String
             Log.d(tag, "permissions: $permissions")
             val hasPermission = newManifestPermissionsHandler(permissions).hasPermission(context)
             val suffix = if (hasPermission) {
-                " (Granted)"
+                context.getString(R.string.markdown_header_suffix_permission_granted)
             } else {
-                " (Grant permission)"
+                context.getString(R.string.markdown_header_suffix_permission_not_granted)
             }
             it.value + suffix
         }
         .replace("\\[.*]\\(permission://battery_optimization\\)".toRegex()) {
             val hasPermission = batteryOptimizationPermissionsHandler.hasPermission(context)
             val suffix = if (hasPermission) {
-                " (Granted)"
+                context.getString(R.string.markdown_header_suffix_permission_granted)
             } else {
-                " (Grant permission)"
+                context.getString(R.string.markdown_header_suffix_permission_not_granted)
             }
             it.value + suffix
         }
         .replace("\\[.*]\\(permission://draw_overlays\\)".toRegex()) {
             val hasPermission = overlayPermissionsHandler.hasPermission(context)
             val suffix = if (hasPermission) {
-                " (Granted)"
+                context.getString(R.string.markdown_header_suffix_permission_granted)
             } else {
-                " (Grant permission)"
+                context.getString(R.string.markdown_header_suffix_permission_not_granted)
             }
             it.value + suffix
         }
