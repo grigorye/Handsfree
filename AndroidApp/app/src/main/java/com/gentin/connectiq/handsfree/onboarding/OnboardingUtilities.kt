@@ -157,7 +157,6 @@ private fun getStringResourceIdByName(name: String, fragment: Fragment): Int {
 }
 
 fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String {
-    val tag = object {}.javaClass.enclosingMethod?.name
     return markdown
         .replace("\\[([^]]*)]\\((permissions://([^)]*))\\)".toRegex()) {
             val linkText = it.groupValues[1]
