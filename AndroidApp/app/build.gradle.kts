@@ -75,5 +75,10 @@ dependencies {
         isTransitive = true
     }
     implementation("com.google.android.material:material:1.11.0")
+
     implementation("io.noties.markwon:core:4.6.2")
+    implementation("io.noties.markwon:image:4.6.2")
+    implementation("io.noties.markwon:html:4.6.2")
+
+    implementation("com.caverock:androidsvg-aar:1.4")
 }
