@@ -13,6 +13,7 @@ import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.contacts.openFavorites
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.startConnector
+import com.gentin.connectiq.handsfree.impl.versionInfo
 import com.gentin.connectiq.handsfree.permissions.PermissionStatus
 import com.gentin.connectiq.handsfree.permissions.PermissionHandler
 import com.gentin.connectiq.handsfree.permissions.batteryOptimizationPermissionHandler
@@ -163,6 +164,7 @@ fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String
                 .replace("{{link_text}}", linkText)
                 .replace("{{link_url}}", uriString)
         }
+        .replace("{{version_info}}", versionInfo())
 }
 
 private fun headerFromMarkdown(markdown: String): String {
