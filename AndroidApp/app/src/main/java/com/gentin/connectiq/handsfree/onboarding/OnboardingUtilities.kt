@@ -53,34 +53,13 @@ fun resolveLink(link: String, fragment: Fragment) {
             )
         }
 
-        "permission" -> {
-            when (uri.host) {
-                "manifest" -> {
-                    val query = uri.query
-                    if (query == null) {
-                        Log.e(tag, "missingQuery: $uri")
-                        return
-                    }
-                    val permissions = query.split("&")
-                    val handler = newManifestPermissionHandler(permissions)
-                    val permissionStatus = handler.permissionStatus(context)
-                    Log.d(tag, "permissionStatus($permissions): $permissionStatus")
-                    navigatePermissionsLink(context, fragment.view, handler)
-                }
+        "permissions" -> {
+            val permissionHandlers = permissionHandlersForLink(uri)
 
-                "battery_optimization" -> {
-                    val handler = batteryOptimizationPermissionHandler
-                    val permissionStatus = handler.permissionStatus(context)
-                    Log.d(tag, "permissionStatus(batteryOptimization): $permissionStatus")
-                    navigatePermissionsLink(context, fragment.view, handler)
-                }
-
-                "draw_overlays" -> {
-                    val handler = overlayPermissionHandler
-                    val permissionStatus = handler.permissionStatus(context)
-                    Log.d(tag, "hasPermission(overlay): $permissionStatus")
-                    navigatePermissionsLink(context, fragment.view, handler)
-                }
+            for (permissionHandler in permissionHandlers) {
+                val permissionStatus = permissionHandler.permissionStatus(context)
+                Log.d(tag, "permissionStatus($permissionHandler): $permissionStatus")
+                navigatePermissionsLink(context, fragment.view, permissionHandler)
             }
         }
 
