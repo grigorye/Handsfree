@@ -158,6 +158,6 @@ Without this permission, only the phone number will be visible on the watch (and
     <string name="overview_snackbar_reconnecting_connectiq">"Reconnecting…"</string>
     <string name="permissions_snackbar_permission_is_already_granted">"The permission is already there."</string>
     <string name="permissions_snackbar_permission_is_denied">"The permission is available in App Settings."</string>
-    <string name="markdown_link_permission_granted_fmt">"[✅]({{link_url}}) [{{link_text}}]({{link_url}})"</string>
-    <string name="markdown_link_permission_not_granted_fmt">"[❎]({{link_url}}) [{{link_text}}]({{link_url}})"</string>
+    <string name="markdown_link_permission_granted_fmt">"[✅]({{link_url}})  [{{link_text}}]({{link_url}})"</string>
+    <string name="markdown_link_permission_not_granted_fmt">"[❎]({{link_url}})  [{{link_text}}]({{link_url}})"</string>
 </resources>
