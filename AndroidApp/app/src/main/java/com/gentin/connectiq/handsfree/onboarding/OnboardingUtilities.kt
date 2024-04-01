@@ -199,47 +199,6 @@ fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String
                 .replace("{{link_text}}", linkText)
                 .replace("{{link_url}}", uriString)
         }
-        .replace("\\[([^]]*)]\\((permission://manifest\\?([^)]*))\\)".toRegex()) {
-            val linkText = it.groupValues[1]
-            val linkUrl = it.groupValues[2]
-            val permissions = it.groupValues[3].split("&")
-            Log.d(tag, "permissions: $permissions")
-            val hasPermission = newManifestPermissionHandler(permissions).hasPermission(context)
-            val format = if (hasPermission) {
-                context.getString(R.string.markdown_link_permission_granted_fmt)
-            } else {
-                context.getString(R.string.markdown_link_permission_not_granted_fmt)
-            }
-            format
-                .replace("{{link_text}}", linkText)
-                .replace("{{link_url}}", linkUrl)
-        }
-        .replace("\\[([^]]*)]\\((permission://battery_optimization)\\)".toRegex()) {
-            val linkText = it.groupValues[1]
-            val linkUrl = it.groupValues[2]
-            val hasPermission = batteryOptimizationPermissionHandler.hasPermission(context)
-            val format = if (hasPermission) {
-                context.getString(R.string.markdown_link_permission_granted_fmt)
-            } else {
-                context.getString(R.string.markdown_link_permission_not_granted_fmt)
-            }
-            format
-                .replace("{{link_text}}", linkText)
-                .replace("{{link_url}}", linkUrl)
-        }
-        .replace("\\[([^]]*)]\\((permission://draw_overlays)\\)".toRegex()) {
-            val linkText = it.groupValues[1]
-            val linkUrl = it.groupValues[2]
-            val hasPermission = overlayPermissionHandler.hasPermission(context)
-            val format = if (hasPermission) {
-                context.getString(R.string.markdown_link_permission_granted_fmt)
-            } else {
-                context.getString(R.string.markdown_link_permission_not_granted_fmt)
-            }
-            format
-                .replace("{{link_text}}", linkText)
-                .replace("{{link_url}}", linkUrl)
-        }
 }
 
 private fun headerFromMarkdown(markdown: String): String {
