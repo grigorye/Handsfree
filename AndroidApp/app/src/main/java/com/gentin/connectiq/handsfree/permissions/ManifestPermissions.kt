@@ -46,7 +46,7 @@ fun newManifestPermissionHandler(manifestPermissions: List<String>): PermissionH
     return PermissionHandler(
         permissionStatus = { context ->
             var allPermissionsGranted = true
-            var anyPermissionDenied = false
+            var anyPermissionNeedsRationale = false
             for (permission in manifestPermissions) {
                 val tag = object {}.javaClass.enclosingMethod?.name
                 val hasPermission = ContextCompat.checkSelfPermission(
@@ -61,8 +61,8 @@ fun newManifestPermissionHandler(manifestPermissions: List<String>): PermissionH
                         tag,
                         "$permission.shouldShowRequestPermissionsRationale: $shouldShowRequestPermissionsRationale"
                     )
-                    if (!shouldShowRequestPermissionsRationale) {
-                        anyPermissionDenied = true
+                    if (shouldShowRequestPermissionsRationale) {
+                        anyPermissionNeedsRationale = true
                     }
                     allPermissionsGranted = false
                 }
@@ -70,8 +70,8 @@ fun newManifestPermissionHandler(manifestPermissions: List<String>): PermissionH
 
             if (allPermissionsGranted) {
                 PermissionStatus.Granted
-            } else if (anyPermissionDenied) {
-                PermissionStatus.Denied
+            } else if (anyPermissionNeedsRationale) {
+                PermissionStatus.NotGrantedNeedsRationale
             } else {
                 PermissionStatus.NotGranted
             }

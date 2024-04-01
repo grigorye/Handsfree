@@ -128,23 +128,8 @@ private fun navigatePermissionsLink(
             }
         }
 
-        PermissionStatus.NotGranted -> {
+        PermissionStatus.NotGranted, PermissionStatus.NotGrantedNeedsRationale -> {
             permissionHandler.requestPermission(context)
-        }
-
-        PermissionStatus.Denied -> {
-            contextView?.apply {
-                Snackbar
-                    .make(
-                        this,
-                        R.string.permissions_snackbar_permission_is_denied,
-                        Snackbar.LENGTH_SHORT
-                    )
-                    .setAction(R.string.permissions_snackbar_app_settings_btn) {
-                        openAppSettings(context)
-                    }
-                    .show()
-            }
         }
     }
 }

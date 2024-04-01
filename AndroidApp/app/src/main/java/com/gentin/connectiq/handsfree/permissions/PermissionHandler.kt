@@ -5,7 +5,7 @@ import android.app.Activity
 enum class PermissionStatus {
     Granted,
     NotGranted,
-    Denied
+    NotGrantedNeedsRationale
 }
 
 data class PermissionHandler(
