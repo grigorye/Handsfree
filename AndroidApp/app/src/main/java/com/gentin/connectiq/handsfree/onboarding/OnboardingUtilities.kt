@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
-import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -14,8 +13,8 @@ import com.gentin.connectiq.handsfree.contacts.openFavorites
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.startConnector
 import com.gentin.connectiq.handsfree.impl.versionInfo
-import com.gentin.connectiq.handsfree.permissions.PermissionStatus
 import com.gentin.connectiq.handsfree.permissions.PermissionHandler
+import com.gentin.connectiq.handsfree.permissions.PermissionStatus
 import com.gentin.connectiq.handsfree.permissions.batteryOptimizationPermissionHandler
 import com.gentin.connectiq.handsfree.permissions.newManifestPermissionHandler
 import com.gentin.connectiq.handsfree.permissions.openAppSettings
@@ -41,26 +40,52 @@ fun resolveLink(link: String, fragment: Fragment) {
                 Log.e(tag, "missingHost: $uri")
                 return
             }
-            val resourceName: String = host
-            Log.d(tag, "destinationResourceName: $resourceName")
-            val resourceId = getStringResourceIdByName(resourceName, fragment)
-            Log.d(tag, "destinationResourceId: $resourceId")
-            fragment.findNavController().navigate(
-                R.id.link,
-                bundleOf(
-                    "markdown" to resourceId,
-                    "navigationLabel" to headerFromMarkdown(fragment.getString(resourceId))
-                )
-            )
+            navigateToResource(host, tag, fragment)
         }
 
         "permissions" -> {
-            val permissionHandlers = permissionHandlersForLink(uri)
+            val handlers = permissionHandlersForLink(uri)
 
-            for (permissionHandler in permissionHandlers) {
-                val permissionStatus = permissionHandler.permissionStatus(context)
-                Log.d(tag, "permissionStatus($permissionHandler): $permissionStatus")
-                navigatePermissionsLink(context, fragment.view, permissionHandler)
+            val handlersRequiringRationale = ArrayList<PermissionHandler>()
+            val handlersNotGranted = ArrayList<PermissionHandler>()
+            val handlersGranted = ArrayList<PermissionHandler>()
+            for (handler in handlers) {
+                when (handler.permissionStatus(context)) {
+                    PermissionStatus.NotGrantedNeedsRationale -> {
+                        handlersRequiringRationale.add(handler)
+                    }
+
+                    PermissionStatus.NotGranted -> {
+                        handlersNotGranted.add(handler)
+                    }
+
+                    PermissionStatus.Granted -> {
+                        handlersGranted.add(handler)
+                    }
+                }
+            }
+            when {
+                handlersRequiringRationale.isNotEmpty() -> {
+                    val rationaleForPermissions = uri.host
+                    if (rationaleForPermissions.isNullOrBlank()) {
+                        Log.d(tag, "noRationaleForPermissions: $uri")
+                        for (handler in handlersNotGranted + handlersRequiringRationale) {
+                            handler.requestPermission(context)
+                        }
+                    } else {
+                        navigateToResource(rationaleForPermissions, tag, fragment)
+                    }
+                }
+
+                handlersNotGranted.isNotEmpty() -> {
+                    for (handler in handlersNotGranted) {
+                        handler.requestPermission(context)
+                    }
+                }
+
+                else -> {
+                    Log.d(tag, "handlersGranted: $handlersGranted")
+                }
             }
         }
 
@@ -108,31 +133,21 @@ fun resolveLink(link: String, fragment: Fragment) {
     }
 }
 
-private fun navigatePermissionsLink(
-    context: Activity,
-    contextView: View?,
-    permissionHandler: PermissionHandler
+private fun navigateToResource(
+    resourceName: String,
+    tag: String?,
+    fragment: Fragment
 ) {
-    when (permissionHandler.permissionStatus(context)) {
-        PermissionStatus.Granted -> {
-            contextView?.apply {
-                Snackbar
-                    .make(
-                        this,
-                        R.string.permissions_snackbar_permission_is_already_granted,
-                        Snackbar.LENGTH_SHORT
-                    )
-                    .setAction(R.string.permissions_snackbar_app_settings_btn) {
-                        openAppSettings(context)
-                    }
-                    .show()
-            }
-        }
-
-        PermissionStatus.NotGranted, PermissionStatus.NotGrantedNeedsRationale -> {
-            permissionHandler.requestPermission(context)
-        }
-    }
+    Log.d(tag, "destinationResourceName: $resourceName")
+    val resourceId = getStringResourceIdByName(resourceName, fragment)
+    Log.d(tag, "destinationResourceId: $resourceId")
+    fragment.findNavController().navigate(
+        R.id.link,
+        bundleOf(
+            "markdown" to resourceId,
+            "navigationLabel" to headerFromMarkdown(fragment.getString(resourceId))
+        )
+    )
 }
 
 @SuppressLint("DiscouragedApi")
