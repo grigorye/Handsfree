@@ -1,9 +1,11 @@
 package com.gentin.connectiq.handsfree.activities
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,8 +17,9 @@ import com.gentin.connectiq.handsfree.databinding.ActivityOnboardingBinding
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.startConnector
 import com.gentin.connectiq.handsfree.onboarding.OnboardingStepFragment
+import com.gentin.connectiq.handsfree.permissions.manifestPermissions
 
-class OnboardingActivity : AppCompatActivity() {
+class OnboardingActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsResultCallback {
 
     private lateinit var binding: ActivityOnboardingBinding
 
@@ -62,6 +65,16 @@ class OnboardingActivity : AppCompatActivity() {
         for (childFragment in navHostFragment?.childFragmentManager?.fragments ?: listOf()) {
             (childFragment as? OnboardingStepFragment)?.reloadMarkdown()
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        Log.d(TAG, "permissions: ${permissions.joinToString(", ")}, grantResults: ${grantResults.joinToString(", ")}")
     }
 
     override fun onSupportNavigateUp(): Boolean {
