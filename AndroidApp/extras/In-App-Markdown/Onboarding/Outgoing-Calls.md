@@ -1,8 +1,8 @@
 # Outgoing calls
 
-Besides the essential functionality, Handsfree lets you make outgoing calls from the watch for your [starred contacts](contacts://starred), by redirecting your requests from the watch to the default phone application. 
+Besides the essential functionality, Handsfree lets you make outgoing calls from the watch for your [starred contacts](contacts://starred), by redirecting your requests from the watch to the default phone application.
 
-Beware that even though you can open Contacts app/see the starred contacts with the above link, Handsfree itself has no access to the list until you give it permission for that.
+Beware that even though you can open Contacts app/see the starred contacts with the above link, Handsfree itself has no access to the list until you give it the permission.
 
 If you want to use outgoing calls on your watch, you need to give Handsfree a few permissions, **in addition** to those required for the [bare minimum](link://onboarding_essentials) functionality:
 
