@@ -40,11 +40,14 @@ class OnboardingStepFragment : Fragment() {
         }
     }
 
-    private val markdown: Spanned? get() {
-        val safeArgs: OnboardingStepFragmentArgs by navArgs()
-        val resource = safeArgs.markdown
-        return markwon?.toMarkdown(preprocessPermissionsInMarkdown(requireActivity(), getString(resource)))
-    }
+    private val markdown: Spanned?
+        get() {
+            val safeArgs: OnboardingStepFragmentArgs by navArgs()
+            val resource = safeArgs.markdown
+            val raw = getString(resource)
+            val preprocessed = preprocessMarkdown(requireActivity(), raw)
+            return markwon?.toMarkdown(preprocessed)
+        }
 
     private val markwon by lazy {
         activity?.let {

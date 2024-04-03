@@ -156,6 +156,11 @@ private fun getStringResourceIdByName(name: String, fragment: Fragment): Int {
     return fragment.resources.getIdentifier(name, "string", packageName)
 }
 
+fun preprocessMarkdown(context: Activity, markdown: String): String {
+    return preprocessPermissionsInMarkdown(context, markdown)
+        .replace("{{version_info}}", versionInfo())
+}
+
 fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String {
     return markdown
         .replace("\\[([^]]*)]\\((permissions://([^)]*))\\)".toRegex()) {
@@ -182,7 +187,6 @@ fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String
                     .replace("{{link_url}}", uriString)
             }
         }
-        .replace("{{version_info}}", versionInfo())
 }
 
 const val disarmPermissionLinks = false
