@@ -169,17 +169,23 @@ fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String
                     hasPermission = false
                 }
             }
-            val format = if (hasPermission) {
-                context.getString(R.string.markdown_link_permission_granted_fmt)
+            if (disarmPermissionLinks) {
+                linkText
             } else {
-                context.getString(R.string.markdown_link_permission_not_granted_fmt)
+                val format = if (hasPermission) {
+                    context.getString(R.string.markdown_link_permission_granted_fmt)
+                } else {
+                    context.getString(R.string.markdown_link_permission_not_granted_fmt)
+                }
+                format
+                    .replace("{{link_text}}", linkText)
+                    .replace("{{link_url}}", uriString)
             }
-            format
-                .replace("{{link_text}}", linkText)
-                .replace("{{link_url}}", uriString)
         }
         .replace("{{version_info}}", versionInfo())
 }
+
+const val disarmPermissionLinks = false
 
 private fun headerFromMarkdown(markdown: String): String {
     val firstLine = markdown.split("\n")[0]
