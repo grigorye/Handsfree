@@ -43,3 +43,12 @@ for i in extras/In-App-Markdown/Onboarding/*.md; do
     jq -n -cr --rawfile data "$i" '[{term: "'"$term"'", translation:{content: $data}}]' >"$json"
     push_json "$json"
 done
+
+for i in extras/In-App-Markdown/Settings/*.md; do
+    echo "Uploading $i"
+    suffix=$(basename "$i" .md | tr '-' '_' | tr '[:upper:]' '[:lower:]')
+    term="settings_$suffix"
+    json="$tmpdir/$term.json"
+    app/push-strings-from-markdown.main.kts "$i" >"$json"
+    push_json "$json"
+done
