@@ -47,47 +47,11 @@ fun resolveLink(link: String, fragment: Fragment) {
         "permissions" -> {
             val handlers = permissionHandlersForLink(uri)
 
-            val handlersRequiringRationale = ArrayList<PermissionHandler>()
-            val handlersNotGranted = ArrayList<PermissionHandler>()
-            val handlersGranted = ArrayList<PermissionHandler>()
-            for (handler in handlers) {
-                when (handler.permissionStatus(context)) {
-                    PermissionStatus.NotGrantedNeedsRationale -> {
-                        handlersRequiringRationale.add(handler)
-                    }
-
-                    PermissionStatus.NotGranted -> {
-                        handlersNotGranted.add(handler)
-                    }
-
-                    PermissionStatus.Granted -> {
-                        handlersGranted.add(handler)
-                    }
-                }
-            }
-            when {
-                handlersRequiringRationale.isNotEmpty() -> {
-                    val rationaleForPermissions = uri.host
-                    if (rationaleForPermissions.isNullOrBlank()) {
-                        Log.d(tag, "noRationaleForPermissions: $uri")
-                        for (handler in handlersNotGranted + handlersRequiringRationale) {
-                            handler.requestPermission(context)
-                        }
-                    } else {
-                        navigateToResource(rationaleForPermissions, tag, fragment)
-                    }
-                }
-
-                handlersNotGranted.isNotEmpty() -> {
-                    for (handler in handlersNotGranted) {
-                        handler.requestPermission(context)
-                    }
-                }
-
-                else -> {
-                    Log.d(tag, "handlersGranted: $handlersGranted")
-                }
-            }
+            requestPermissionsWithRationale(
+                handlers,
+                context,
+                navigateToRationaleForLink(uri, fragment)
+            )
         }
 
         "contacts" -> {
@@ -130,6 +94,70 @@ fun resolveLink(link: String, fragment: Fragment) {
 
         else -> {
             Log.e(tag, "unknownScheme: ${uri.scheme}")
+        }
+    }
+}
+
+fun requestPermissionsWithRationale(
+    handlers: List<PermissionHandler>,
+    context: Activity,
+    navigateToRationale: (() -> Unit)?
+) {
+    val tag = object {}.javaClass.enclosingMethod?.name
+
+    val handlersRequiringRationale = ArrayList<PermissionHandler>()
+    val handlersNotGranted = ArrayList<PermissionHandler>()
+    val handlersGranted = ArrayList<PermissionHandler>()
+    for (handler in handlers) {
+        when (handler.permissionStatus(context)) {
+            PermissionStatus.NotGrantedNeedsRationale -> {
+                handlersRequiringRationale.add(handler)
+            }
+
+            PermissionStatus.NotGranted -> {
+                handlersNotGranted.add(handler)
+            }
+
+            PermissionStatus.Granted -> {
+                handlersGranted.add(handler)
+            }
+        }
+    }
+    when {
+        handlersRequiringRationale.isNotEmpty() -> {
+            if (navigateToRationale != null) {
+                navigateToRationale()
+            } else {
+                Log.d(tag, "noRationaleForPermissions: $handlersRequiringRationale")
+                for (handler in handlersNotGranted + handlersRequiringRationale) {
+                    handler.requestPermission(context)
+                }
+            }
+
+        }
+
+        handlersNotGranted.isNotEmpty() -> {
+            for (handler in handlersNotGranted) {
+                handler.requestPermission(context)
+            }
+        }
+
+        else -> {
+            Log.d(tag, "handlersGranted: $handlersGranted")
+        }
+    }
+}
+
+fun navigateToRationaleForLink(uri: Uri, fragment: Fragment): (() -> Unit)? {
+    val tag = object {}.javaClass.enclosingMethod?.name
+
+    val rationaleForPermissions = uri.host
+    if (rationaleForPermissions.isNullOrBlank()) {
+        Log.d(tag, "noRationaleForUri: $uri")
+        return null
+    } else {
+        return {
+            navigateToResource(rationaleForPermissions, fragment)
         }
     }
 }
