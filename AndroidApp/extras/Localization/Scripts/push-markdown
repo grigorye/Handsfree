@@ -9,12 +9,23 @@ project_id="691894"
 
 tmpdir=$(mktemp -d /tmp/push-markdown.XXXXX)
 
-for i in extras/In-App-Markdown/Onboarding/*.md; do
-    echo "Uploading $i"
-    suffix=$(basename "$i" .md | tr '-' '_' | tr '[:upper:]' '[:lower:]')
-    term="onboarding_$suffix"
-    json="$tmpdir/$term.json"
-    jq -n -cr --rawfile data "$i" '[{term: "'"$term"'", translation:{content: $data}}]' >"$json"
+push_json() {
+    local json="$1"
+
+    curl -X POST https://api.poeditor.com/v2/terms/add \
+        --fail-with-body \
+        -w "\n" \
+        -d api_token="$api_token" \
+        -d id="$project_id" \
+        -d language="en" \
+        --data-urlencode data@"$json"
+    curl -X POST https://api.poeditor.com/v2/translations/add \
+        --fail-with-body \
+        -w "\n" \
+        -d api_token="$api_token" \
+        -d id="$project_id" \
+        -d language="en" \
+        --data-urlencode data@"$json"
     curl -X POST https://api.poeditor.com/v2/translations/update \
         --fail-with-body \
         -w "\n" \
@@ -22,4 +33,13 @@ for i in extras/In-App-Markdown/Onboarding/*.md; do
         -d id="$project_id" \
         -d language="en" \
         --data-urlencode data@"$json"
+}
+
+for i in extras/In-App-Markdown/Onboarding/*.md; do
+    echo "Uploading $i"
+    suffix=$(basename "$i" .md | tr '-' '_' | tr '[:upper:]' '[:lower:]')
+    term="onboarding_$suffix"
+    json="$tmpdir/$term.json"
+    jq -n -cr --rawfile data "$i" '[{term: "'"$term"'", translation:{content: $data}}]' >"$json"
+    push_json "$json"
 done
