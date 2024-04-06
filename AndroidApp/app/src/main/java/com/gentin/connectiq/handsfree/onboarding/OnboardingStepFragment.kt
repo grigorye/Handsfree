@@ -15,7 +15,7 @@ import io.noties.markwon.Markwon
 import io.noties.markwon.MarkwonConfiguration
 
 
-class OnboardingStepFragment : Fragment() {
+open class OnboardingStepFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,14 +40,23 @@ class OnboardingStepFragment : Fragment() {
         }
     }
 
+    protected val unprocessedMarkdown: String by lazy {
+        val resource = args.markdown
+        val raw = getString(resource)
+        raw
+    }
+
+    open val preprocessedMarkdown: String
+        get() {
+            return preprocessMarkdown(requireActivity(), unprocessedMarkdown)
+        }
+
     private val markdown: Spanned?
         get() {
-            val safeArgs: OnboardingStepFragmentArgs by navArgs()
-            val resource = safeArgs.markdown
-            val raw = getString(resource)
-            val preprocessed = preprocessMarkdown(requireActivity(), raw)
-            return markwon?.toMarkdown(preprocessed)
+            return markwon?.toMarkdown(preprocessedMarkdown)
         }
+
+    private val args: OnboardingStepFragmentArgs by navArgs()
 
     private val markwon by lazy {
         activity?.let {
