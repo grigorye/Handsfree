@@ -7,7 +7,7 @@ import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
-val manifestPermissions = listOf(
+private val manifestPermissions = listOf(
     Manifest.permission.ANSWER_PHONE_CALLS,
     Manifest.permission.CALL_PHONE,
     Manifest.permission.FOREGROUND_SERVICE,

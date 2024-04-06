@@ -17,7 +17,6 @@ import com.gentin.connectiq.handsfree.databinding.ActivityOnboardingBinding
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.startConnector
 import com.gentin.connectiq.handsfree.onboarding.OnboardingStepFragment
-import com.gentin.connectiq.handsfree.permissions.manifestPermissions
 
 class OnboardingActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsResultCallback {
 
