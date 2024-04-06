@@ -16,21 +16,24 @@
         app:iconSpaceReserved="false">
         <Preference
             app:dependency="essentials"
+            app:iconSpaceReserved="false"
+            app:key="full_featured"
+            app:summary="@string/settings_call_info_off"
+            app:title="@string/settings_call_info" />
+        <Preference
+            app:dependency="essentials"
             app:enabled="false"
             app:iconSpaceReserved="false"
             app:key="outgoing_calls"
             app:summary="@string/settings_outgoing_calls_off"
             app:title="@string/settings_outgoing_calls" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:iconSpaceReserved="false">
         <Preference
             app:iconSpaceReserved="false"
             app:key="contacts"
             app:summary="@string/settings_contacts_off"
             app:title="@string/settings_contacts" />
-        <Preference
-            app:dependency="essentials"
-            app:iconSpaceReserved="false"
-            app:key="full_featured"
-            app:summary="@string/settings_call_info_off"
-            app:title="@string/settings_call_info" />
     </PreferenceCategory>
 </PreferenceScreen>
