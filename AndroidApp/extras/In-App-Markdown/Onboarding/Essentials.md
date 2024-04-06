@@ -1,4 +1,4 @@
-# Run essentials
+# Control calls from the watch
 
 As a bare minimum, Handsfree lets you observe and hangup calls in progress, without sharing any personal information with the watch. The only information that is shared is the fact that there's an unidentified call in progress.
 

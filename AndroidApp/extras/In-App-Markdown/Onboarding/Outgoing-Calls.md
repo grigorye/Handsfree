@@ -1,4 +1,4 @@
-# Outgoing calls
+# Allow outgoing calls
 
 Besides the essential functionality, Handsfree lets you make outgoing calls from the watch for your [starred contacts](contacts://starred), by redirecting your requests from the watch to the default phone application.
 

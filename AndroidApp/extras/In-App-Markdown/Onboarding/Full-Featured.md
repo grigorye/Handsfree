@@ -1,6 +1,6 @@
-# Run most of the phone features on the watch
+# Show contact and phone number for calls in progress
 
-With Handsfree you can completely offload most of the phone call management to your watch: besides letting you make outgoing calls, Handsfree can show you the phone numbers and the names of the contacts for any calls in progress. If you want to benefit from that, you need to give Handsfree a couple more permissions, in addition to those required for [bare minimum outgoing calls](link://onboarding_outgoing_calls):
+Handsfree can let you see the phone number and contact name, on the watch, like any general phone. If you want to benefit from that, give it a couple more permissions, in addition to the [essential ones](link://onboarding_essentials):
 
 ### [Access your phone call logs](permissions://?manifest=android.permission.READ_CALL_LOG)
 
