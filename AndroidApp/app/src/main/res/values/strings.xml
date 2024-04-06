@@ -182,9 +182,7 @@ Version {{version_info}}
     <string name="settings_call_info_off">"No phone numbers or names are shown on the watch."</string>
     <string name="settings_call_info_on">"Phone numbers or contact names are shown on the watch."</string>
     <string name="settings_disabled_due_to_essentials_are_off">"Disabled due to basic call control is off."</string>
-    <string name="onboarding_troubleshooting">"# Troubleshooting
-
-**[Reconnect with the watch](do://reconnect-connectiq)**
+    <string name="onboarding_troubleshooting">"**[Reconnect with the watch](do://reconnect-connectiq)**
 
 **[Settings](do://settings)**
 
