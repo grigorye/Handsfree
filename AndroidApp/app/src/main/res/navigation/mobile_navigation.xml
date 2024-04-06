@@ -57,6 +57,13 @@
             android:name="markdown"
             android:defaultValue="@string/onboarding_intro"
             app:argType="reference" />
+        <action
+            android:id="@+id/link"
+            app:destination="@id/inner_onboarding_step"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/settings_home"
