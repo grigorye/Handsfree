@@ -169,18 +169,18 @@ Version {{version_info}}
     <string name="permissions_snackbar_permission_is_denied">"The permission is available in App Settings."</string>
     <string name="markdown_link_permission_granted_fmt">"[✅]({{link_url}})  [{{link_text}}]({{link_url}})"</string>
     <string name="markdown_link_permission_not_granted_fmt">"[❎]({{link_url}})  [{{link_text}}]({{link_url}})"</string>
-    <string name="settings_essentials">"Manage calls on the watch"</string>
-    <string name="settings_essentials_on">"Enabled: calls can be seen and hang up from the watch."</string>
-    <string name="settings_essentials_off">"Disabled: no calls are managed on the watch."</string>
-    <string name="settings_contacts">"Contacts for outgoing calls"</string>
+    <string name="settings_essentials">"Call control"</string>
+    <string name="settings_essentials_on">"Calls can be observed and hang up on the watch."</string>
+    <string name="settings_essentials_off">"No calls are enabled on the watch."</string>
+    <string name="settings_contacts">"Starred contacts"</string>
     <string name="settings_contacts_on">"Some contacts are starred and should be available on the watch."</string>
-    <string name="settings_contacts_off">"Edit starred contacts to dial them from the watch."</string>
+    <string name="settings_contacts_off">"Available for dialing from the watch."</string>
     <string name="settings_outgoing_calls">"Outgoing calls"</string>
-    <string name="settings_outgoing_calls_off">"Disabled"</string>
-    <string name="settings_outgoing_calls_on">"Enabled"</string>
-    <string name="settings_call_info">"Show phone numbers or names for calls in progress"</string>
-    <string name="settings_call_info_off">"Disabled: no phone numbers or names are shown on the watch."</string>
-    <string name="settings_call_info_on">"Enabled: phone numbers or contact names are shown on the watch."</string>
+    <string name="settings_outgoing_calls_off"></string>
+    <string name="settings_outgoing_calls_on">"Effective only if call control is enabled."</string>
+    <string name="settings_call_info">"Contact visibility"</string>
+    <string name="settings_call_info_off">"No phone numbers or names are shown on the watch."</string>
+    <string name="settings_call_info_on">"Phone numbers or contact names are shown on the watch."</string>
     <string name="settings_disabled_due_to_essentials_are_off">"Disabled due to basic call control is off."</string>
     <string name="onboarding_troubleshooting">"# Troubleshooting
 
@@ -194,4 +194,6 @@ Version {{version_info}}
     <string name="settings_essentials_group">"Essentials"</string>
     <string name="settings_extras_group">"Extras"</string>
     <string name="settings_screen">"Settings"</string>
+    <string name="settings_preference_disabled_fmt">"❎ {{title}}"</string>
+    <string name="settings_preference_enabled_fmt">"✅ {{title}}"</string>
 </resources>
