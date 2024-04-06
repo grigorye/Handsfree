@@ -195,15 +195,28 @@ private fun getStringResourceIdByName(name: String, fragment: Fragment): Int {
 
 fun preprocessMarkdown(context: Activity, markdown: String): String {
     return preprocessPermissionsInMarkdown(context, markdown)
+        .markdown
         .replace("{{version_info}}", versionInfo())
 }
 
-fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String {
-    return markdown
+data class PreprocessedMarkdownWithPermissions(
+    val markdown: String,
+    val permissionHandlers: List<PermissionHandler>
+)
+
+fun preprocessPermissionsInMarkdown(
+    context: Activity,
+    markdown: String
+): PreprocessedMarkdownWithPermissions {
+    val tag = object {}.javaClass.enclosingMethod?.name
+
+    val accumulatedPermissionLinks = ArrayList<Uri>()
+    val preprocessedMarkdown = markdown
         .replace("\\[([^]]*)]\\((permissions://([^)]*))\\)".toRegex()) {
             val linkText = it.groupValues[1]
             val uriString = it.groupValues[2]
             val uri = Uri.parse(uriString)
+            accumulatedPermissionLinks.add(uri)
             val permissionHandlers = permissionHandlersForLink(uri)
             var hasPermission = true
             for (permissionHandler in permissionHandlers) {
@@ -224,6 +237,10 @@ fun preprocessPermissionsInMarkdown(context: Activity, markdown: String): String
                     .replace("{{link_url}}", uriString)
             }
         }
+
+    Log.d(tag, "accumulatedPermissionLinks: $accumulatedPermissionLinks")
+    val permissionHandlers = permissionHandlersForLinks(accumulatedPermissionLinks)
+    return PreprocessedMarkdownWithPermissions(preprocessedMarkdown, permissionHandlers)
 }
 
 const val disarmPermissionLinks = false
@@ -240,19 +257,29 @@ private fun headerFromMarkdown(markdown: String): String {
 }
 
 private fun permissionHandlersForLink(uri: Uri): List<PermissionHandler> {
+    return permissionHandlersForLinks(listOf(uri))
+}
+
+private fun permissionHandlersForLinks(uris: List<Uri>): List<PermissionHandler> {
     val handlers = ArrayList<PermissionHandler>()
-    val manifestPermissionsArg = uri.getQueryParameter("manifest")
-    if (manifestPermissionsArg != null) {
-        val manifestPermissions = manifestPermissionsArg.split(",")
-        handlers.add(newManifestPermissionHandler(manifestPermissions))
+    var accumulatedManifestPermissions = ArrayList<String>()
+    for (uri in uris) {
+        val manifestPermissionsArg = uri.getQueryParameter("manifest")
+        if (manifestPermissionsArg != null) {
+            val manifestPermissions = manifestPermissionsArg.split(",")
+            accumulatedManifestPermissions += manifestPermissions
+        }
+        val batteryPermissionArg = uri.getQueryParameterNames().contains("battery_optimization")
+        if (batteryPermissionArg) {
+            handlers.add(batteryOptimizationPermissionHandler)
+        }
+        val overlayPermissionArg = uri.getQueryParameterNames().contains("draw_overlays")
+        if (overlayPermissionArg) {
+            handlers.add(overlayPermissionHandler)
+        }
     }
-    val batteryPermissionArg = uri.getQueryParameterNames().contains("battery_optimization")
-    if (batteryPermissionArg) {
-        handlers.add(batteryOptimizationPermissionHandler)
-    }
-    val overlayPermissionArg = uri.getQueryParameterNames().contains("draw_overlays")
-    if (overlayPermissionArg) {
-        handlers.add(overlayPermissionHandler)
+    if (accumulatedManifestPermissions.isNotEmpty()) {
+        handlers.add(newManifestPermissionHandler(accumulatedManifestPermissions))
     }
     return handlers
 }
