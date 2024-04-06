@@ -37,12 +37,12 @@ class App extends Application.AppBase {
     }
 
     (:background, :typecheck(disableGlanceCheck))
-    function getServiceDelegate() as Lang.Array<System.ServiceDelegate> {
+    function getServiceDelegate() as [System.ServiceDelegate] {
         dump("getServiceDelegate", true);
         if (!backgroundServiceEnabled) {
-            return [] as Lang.Array<System.ServiceDelegate>;
+            return [new DummyServiceDelegate()];
         }
-        return [new BackgroundServiceDelegate()] as Lang.Array<System.ServiceDelegate>;
+        return [new BackgroundServiceDelegate()];
     }
 
     function onBackgroundData(data as Application.PersistableType) as Void {
@@ -54,7 +54,7 @@ class App extends Application.AppBase {
     function getInitialView() {
         dump("getInitialView", true);
         setActiveUiKind(ACTIVE_UI_APP);
-        return [new CommView()] as Lang.Array<WatchUi.Views or WatchUi.InputDelegates> or Null;
+        return [new CommView()];
     }
 
     (:glance)
@@ -62,7 +62,7 @@ class App extends Application.AppBase {
         dump("getGlanceView", true);
         setActiveUiKind(ACTIVE_UI_GLANCE);
         onAppWillFinishLaunching();
-        return [new GlanceView()] as Lang.Array<WatchUi.GlanceView or Toybox.WatchUi.GlanceViewDelegate> or Null;
+        return [new GlanceView()];
     }
 }
 

@@ -6,14 +6,14 @@ set -x
 
 filter_redundant_monkeyc_warnings() {
     grep --line-buffered -v "^WARNING: .*: The launcher icon (128x128) isn't compatible with the specified launcher icon size of the device .*\. Image will be scaled to the target size" |
-        grep --line-buffered -v "^WARNING: .*: Glance applications are not supported for app type 'watch-app' on device .*\. The glance annotation will be ignored.$" ||
+        grep --line-buffered -v "^WARNING: .*: Glance applications are not supported for app type 'watch-app' on device .*\. The (:glance) annotation will be ignored.$" ||
         true
 }
 
 exec > >(filter_redundant_monkeyc_warnings) 2>&1
 
-latest_sdk_version="6.4.2-2024-01-04-a1dd13ee0"
-stable_sdk_version="6.4.2-2024-01-04-a1dd13ee0"
+latest_sdk_version="7.1.0_RC2-2024-02-14-4a71df847"
+stable_sdk_version="7.1.0_RC2-2024-02-14-4a71df847"
 
 developer_key=~/Workbench/Garmin/developer_key
 
