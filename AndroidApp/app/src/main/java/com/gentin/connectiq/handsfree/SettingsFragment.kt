@@ -24,17 +24,20 @@ class SettingsFragment(val preferencesResId: Int = R.xml.root_preferences) :
         setPreferencesFromResource(preferencesResId, null)
         setupPermissionPreference(
             essentialsPreference,
+            R.string.settings_essentials,
             R.string.settings_essentials_on,
             R.string.settings_essentials_off
         )
         setupPermissionPreference(
             outgoingCallsPreference,
+            R.string.settings_outgoing_calls,
             R.string.settings_outgoing_calls_on,
             R.string.settings_outgoing_calls_off,
             R.string.settings_disabled_due_to_essentials_are_off
         )
         setupPermissionPreference(
             callInfoPreference,
+            R.string.settings_call_info,
             R.string.settings_call_info_on,
             R.string.settings_call_info_off,
             R.string.settings_disabled_due_to_essentials_are_off
@@ -44,6 +47,7 @@ class SettingsFragment(val preferencesResId: Int = R.xml.root_preferences) :
 
     private fun setupPermissionPreference(
         preference: Preference?,
+        title: Int,
         summaryOn: Int,
         summaryOff: Int,
         summaryOffDueToDependency: Int = 0
@@ -57,6 +61,13 @@ class SettingsFragment(val preferencesResId: Int = R.xml.root_preferences) :
                 isEnabled = true
                 val isOn = sharedPreferences!!.getBoolean(key, false)
                 Log.d(TAG, "preference.$key.isOn: $isOn")
+                val titleFormat = if (isOn) {
+                    getString(R.string.settings_preference_enabled_fmt)
+                } else {
+                    getString(R.string.settings_preference_disabled_fmt)
+                }
+                val formattedTitle = titleFormat.replace("{{title}}", getString(title))
+                setTitle(formattedTitle)
                 summary = if (isOn) {
                     getString(summaryOn)
                 } else {
