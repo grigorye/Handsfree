@@ -28,9 +28,8 @@
     </fragment>
     <fragment
         android:id="@+id/inner_onboarding_step"
-        android:name="com.gentin.connectiq.handsfree.onboarding.OnboardingStepFragment"
-        android:label="@string/navigation_onboarding"
-        tools:layout="@layout/fragment_onboarding_step">
+        android:name="com.gentin.connectiq.handsfree.onboarding.InnerOnboardingStepFragment"
+        android:label="@string/navigation_onboarding">
         <argument
             android:name="markdown"
             app:argType="reference" />
@@ -44,16 +43,20 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <argument
+            android:name="preferenceKey"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/overview_home"
         android:name="com.gentin.connectiq.handsfree.onboarding.OnboardingStepFragment"
         android:label="@string/navigation_overview"
-        tools:layout="@layout/fragment_onboarding_step" >
+        tools:layout="@layout/fragment_onboarding_step">
         <argument
             android:name="markdown"
-            app:argType="reference"
-            android:defaultValue="@string/onboarding_intro" />
+            android:defaultValue="@string/onboarding_intro"
+            app:argType="reference" />
     </fragment>
 
 </navigation>
