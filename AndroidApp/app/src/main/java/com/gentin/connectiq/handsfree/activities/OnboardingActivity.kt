@@ -1,6 +1,5 @@
 package com.gentin.connectiq.handsfree.activities
 
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +24,8 @@ class OnboardingActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissi
     private val appBarConfiguration = AppBarConfiguration(
         setOf(
             R.id.onboarding_home,
-            R.id.overview_home
+            R.id.overview_home,
+            R.id.settings_home
         )
     )
 
