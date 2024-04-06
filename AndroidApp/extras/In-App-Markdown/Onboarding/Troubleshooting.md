@@ -1,8 +1,8 @@
 # Troubleshooting
 
-**[Reconnect to your watch](do://reconnect-connectiq)**
+**[Reconnect with the watch](do://reconnect-connectiq)**
 
-**[App settings](do://settings)**
+**[Settings](do://settings)**
 
 **[Hints for running apps in background on your phone](do://doki)**
 

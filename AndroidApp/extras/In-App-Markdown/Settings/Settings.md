@@ -2,11 +2,11 @@
 
 ## [Essentials](lk:essentials_group)
 
-### [Serve calls on the watch](lk:essentials)
+### [Manage calls on the watch](lk:essentials)
 
-❎ [Disabled: enable to unblock Handsfree on the watch](lk:essentials_off)
+❎ [Disabled: no calls are managed on the watch.](lk:essentials_off)
 
-✅ [Enabled: Observing and hanging up calls on the watch.](lk:essentials_on)
+✅ [Enabled: calls can be seen and hang up from the watch.](lk:essentials_on)
 
 ## [Extras](lk:extras_group)
 
@@ -16,7 +16,7 @@
 
 ❎ [Edit starred contacts to dial them from the watch.](lk:contacts_off)
 
-✅ [Some contacts are starred.](lk:contacts_on)
+✅ [Some contacts are starred and should be available on the watch.](lk:contacts_on)
 
 ### [Outgoing calls](lk:outgoing_calls)
 
@@ -24,9 +24,9 @@
 
 ✅ [Enabled](lk:outgoing_calls_on)
 
-### [Show contact info for calls in progress](lk:call_info)
+### [Show phone numbers or names for calls in progress](lk:call_info)
 
-❎ [Disabled: nothing is shared with the watch.](lk:call_info_off)
+❎ [Disabled: no phone numbers or names are shown on the watch.](lk:call_info_off)
 
-✅ [Enabled: Phone numbers and contact names can be seen for calls in progress.](lk:call_info_on)
+✅ [Enabled: phone numbers or contact names are shown on the watch.](lk:call_info_on)
 
