@@ -4,7 +4,8 @@
     <item
         android:id="@+id/onboarding_home"
         android:icon="@drawable/ic_settings"
-        android:title="@string/navigation_onboarding" />
+        android:title="@string/navigation_onboarding"
+        android:visible="false" />
     <item
         android:id="@+id/overview_home"
         android:icon="@drawable/ic_info"
