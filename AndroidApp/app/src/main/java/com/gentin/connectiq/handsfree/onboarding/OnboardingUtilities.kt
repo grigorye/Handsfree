@@ -143,6 +143,10 @@ private fun navigateToResource(
 
     Log.d(tag, "destinationResourceName: $resourceName")
     val resourceId = getStringResourceIdByName(resourceName, fragment)
+    if (resourceId == 0) {
+        Log.e(tag, "resourceNotFound: $resourceName")
+        return
+    }
     Log.d(tag, "destinationResourceId: $resourceId")
     fragment.findNavController().navigate(
         R.id.link,
