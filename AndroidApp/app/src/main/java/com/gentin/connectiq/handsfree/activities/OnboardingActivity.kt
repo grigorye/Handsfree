@@ -2,6 +2,7 @@ package com.gentin.connectiq.handsfree.activities
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
@@ -47,6 +48,16 @@ class OnboardingActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissi
 
         val navBarView = binding.navBarView
         navBarView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            Log.d(TAG, "navDestinationChanged: $destination")
+
+            binding.navBarView.visibility = if (destination.id == R.id.inner_onboarding_step) {
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
+        }
     }
 
     public override fun onPause() {
