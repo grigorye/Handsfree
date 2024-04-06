@@ -40,7 +40,8 @@ fun resolveLink(link: String, fragment: Fragment) {
                 Log.e(tag, "missingHost: $uri")
                 return
             }
-            navigateToResource(host, tag, fragment)
+            val preferenceKey = uri.getQueryParameter("preferenceKey")
+            navigateToResource(host, fragment, preferenceKey)
         }
 
         "permissions" -> {
@@ -135,9 +136,11 @@ fun resolveLink(link: String, fragment: Fragment) {
 
 private fun navigateToResource(
     resourceName: String,
-    tag: String?,
-    fragment: Fragment
+    fragment: Fragment,
+    preferenceKey: String? = null
 ) {
+    val tag = object {}.javaClass.enclosingMethod?.name
+
     Log.d(tag, "destinationResourceName: $resourceName")
     val resourceId = getStringResourceIdByName(resourceName, fragment)
     Log.d(tag, "destinationResourceId: $resourceId")
@@ -145,7 +148,9 @@ private fun navigateToResource(
         R.id.link,
         bundleOf(
             "markdown" to resourceId,
-            "navigationLabel" to headerFromMarkdown(fragment.getString(resourceId))
+            "navigationLabel" to headerFromMarkdown(fragment.getString(resourceId)),
+            "preferenceKey" to preferenceKey,
+            "hideHeader" to true
         )
     )
 }
