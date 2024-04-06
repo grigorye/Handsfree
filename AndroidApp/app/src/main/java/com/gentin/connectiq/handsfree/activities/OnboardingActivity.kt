@@ -74,7 +74,12 @@ class OnboardingActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissi
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        Log.d(TAG, "permissions: ${permissions.joinToString(", ")}, grantResults: ${grantResults.joinToString(", ")}")
+        Log.d(
+            TAG,
+            "permissions: ${permissions.joinToString(", ")}, grantResults: ${
+                grantResults.joinToString(", ")
+            }"
+        )
     }
 
     override fun onSupportNavigateUp(): Boolean {
