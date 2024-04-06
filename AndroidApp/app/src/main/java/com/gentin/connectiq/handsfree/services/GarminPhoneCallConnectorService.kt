@@ -18,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.broadcastreceivers.scheduleKeepAwakeBroadcast
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
+import com.gentin.connectiq.handsfree.globals.callInfoShouldBeEnabled
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_KEEP_AWAKE
@@ -194,13 +195,18 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     }
 
     private fun accountPhoneState(incomingNumber: String?, stateExtra: String) {
-        val incomingDisplayNames = incomingNumber?.let {
+        var sentIncomingNumber: String? = if (callInfoShouldBeEnabled(this)) {
+            incomingNumber
+        } else {
+            null
+        }
+        val sentIncomingDisplayNames = sentIncomingNumber?.let {
             availableDisplayNames(it)
         } ?: listOf()
         val isHeadsetConnected = headPhoneConnectionMonitor.isHeadsetConnected()
         val phoneState = PhoneState(
-            incomingNumber,
-            incomingDisplayNames,
+            sentIncomingNumber,
+            sentIncomingDisplayNames,
             stateExtra,
             isHeadsetConnected
         )

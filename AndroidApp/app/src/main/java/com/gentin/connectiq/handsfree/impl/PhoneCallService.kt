@@ -10,6 +10,7 @@ import android.telecom.TelecomManager
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.gentin.connectiq.handsfree.globals.outgoingCallsShouldBeEnabled
 
 interface PhoneCallService {
     fun makeCall(number: String)
@@ -18,6 +19,10 @@ interface PhoneCallService {
 
 class DefaultPhoneCallService(base: Context?) : ContextWrapper(base), PhoneCallService {
     override fun makeCall(number: String) {
+        Log.d(TAG, "outgoingCallsShouldBeEnabled: ${outgoingCallsShouldBeEnabled(this)}")
+        if (!outgoingCallsShouldBeEnabled(this)) {
+            return
+        }
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.CALL_PHONE
