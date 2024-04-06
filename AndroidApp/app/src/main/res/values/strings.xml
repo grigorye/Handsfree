@@ -86,7 +86,7 @@ To see all the call details:
 ### [Enable call info](permissions://onboarding_full_featured?manifest=android.permission.READ_CALL_LOG,android.permission.READ_CONTACTS) [(guide)️](link://onboarding_full_featured)
 
 "</string>
-    <string name="onboarding_essentials">"# Run essentials
+    <string name="onboarding_essentials">"# Control calls from the watch
 
 As a bare minimum, Handsfree lets you observe and hangup calls in progress, without sharing any personal information with the watch. The only information that is shared is the fact that there's an unidentified call in progress.
 
@@ -113,7 +113,7 @@ To be able to serve your request while working in background, Handsfree needs th
 Besides the above permissions, to let Handsfree run without interruptions, it's **strongly** recommended to take a look at **[known hints for running Android apps in background, on your particular phone model](do://doki).**
 
 "</string>
-    <string name="onboarding_outgoing_calls">"# Outgoing calls
+    <string name="onboarding_outgoing_calls">"# Allow outgoing calls
 
 Besides the essential functionality, Handsfree lets you make outgoing calls from the watch for your [starred contacts](contacts://starred), by redirecting your requests from the watch to the default phone application.
 
@@ -134,9 +134,9 @@ To let you see the list of the starred contacts that you can use for outgoing ca
 Without this permission, the (starred) contacts won't be available on the watch, and hence it will not be possible to dial the contacts from the watch.
 
 "</string>
-    <string name="onboarding_full_featured">"# Run most of the phone features on the watch
+    <string name="onboarding_full_featured">"# Show contact and phone number for calls in progress
 
-With Handsfree you can completely offload most of the phone call management to your watch: besides letting you make outgoing calls, Handsfree can show you the phone numbers and the names of the contacts for any calls in progress. If you want to benefit from that, you need to give Handsfree a couple more permissions, in addition to those required for [bare minimum outgoing calls](link://onboarding_outgoing_calls):
+Handsfree can let you see the phone number and contact name, on the watch, like any general phone. If you want to benefit from that, give it a couple more permissions, in addition to the [essential ones](link://onboarding_essentials):
 
 ### [Access your phone call logs](permissions://?manifest=android.permission.READ_CALL_LOG)
 
@@ -167,4 +167,29 @@ Version {{version_info}}
     <string name="permissions_snackbar_permission_is_denied">"The permission is available in App Settings."</string>
     <string name="markdown_link_permission_granted_fmt">"[✅]({{link_url}})  [{{link_text}}]({{link_url}})"</string>
     <string name="markdown_link_permission_not_granted_fmt">"[❎]({{link_url}})  [{{link_text}}]({{link_url}})"</string>
+    <string name="settings_essentials">"Serve calls on the watch"</string>
+    <string name="settings_essentials_on">"Enabled: Observing and hanging up calls on the watch."</string>
+    <string name="settings_essentials_off">"Disabled: enable to unblock Handsfree on the watch"</string>
+    <string name="settings_contacts">"Contacts for outgoing calls"</string>
+    <string name="settings_contacts_on">"Some contacts are starred."</string>
+    <string name="settings_contacts_off">"Edit starred contacts to dial them from the watch."</string>
+    <string name="settings_outgoing_calls">"Outgoing calls"</string>
+    <string name="settings_outgoing_calls_off">"Disabled"</string>
+    <string name="settings_outgoing_calls_on">"Enabled"</string>
+    <string name="settings_call_info">"Show contact info for calls in progress"</string>
+    <string name="settings_call_info_off">"Disabled: nothing is shared with the watch."</string>
+    <string name="settings_call_info_on">"Enabled: Phone numbers and contact names can be seen for calls in progress."</string>
+    <string name="settings_disabled_due_to_essentials_are_off">"Disabled due to basic call control is off."</string>
+    <string name="onboarding_troubleshooting">"# Troubleshooting
+
+**[Reconnect to your watch](do://reconnect-connectiq)**
+
+**[App settings](do://settings)**
+
+**[Hints for running apps in background on your phone](do://doki)**
+
+"</string>
+    <string name="settings_essentials_group">"Essentials"</string>
+    <string name="settings_extras_group">"Extras"</string>
+    <string name="settings_screen">"Settings"</string>
 </resources>
