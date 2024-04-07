@@ -16,9 +16,9 @@
 
 [✅ {{title}}](lk:preference_enabled_fmt)
 
-### [Starred contacts](lk:contacts)
+### [✅ Phonebook](lk:contacts)
 
-❎ [Available for dialing from the watch.](lk:contacts_off)
+❎ [Starred contacts make the list for dialing from the watch.](lk:contacts_off)
 
 ✅ [Some contacts are starred and should be available on the watch.](lk:contacts_on)
 
@@ -28,7 +28,7 @@
 
 ✅ [Effective only if call control is enabled.](lk:outgoing_calls_on)
 
-### [Contact visibility](lk:call_info)
+### [Caller ID](lk:call_info)
 
 ❎ [No phone numbers or names are shown on the watch.](lk:call_info_off)
 
