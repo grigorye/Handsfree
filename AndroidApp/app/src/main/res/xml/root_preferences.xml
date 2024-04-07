@@ -27,9 +27,6 @@
             app:key="outgoing_calls"
             app:summary="@string/settings_outgoing_calls_off"
             app:title="@string/settings_outgoing_calls" />
-    </PreferenceCategory>
-
-    <PreferenceCategory app:iconSpaceReserved="false">
         <Preference
             app:iconSpaceReserved="false"
             app:key="contacts"
