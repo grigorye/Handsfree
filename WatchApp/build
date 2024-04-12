@@ -26,6 +26,7 @@ dev_devices=(
     fenix7
     edge530
     fr955
+    fr265
     vivoactive4
     fr645m
 )
