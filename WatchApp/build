@@ -12,8 +12,8 @@ filter_redundant_monkeyc_warnings() {
 
 exec > >(filter_redundant_monkeyc_warnings) 2>&1
 
-latest_sdk_version="7.1.0_RC2-2024-02-14-4a71df847"
-stable_sdk_version="7.1.0_RC2-2024-02-14-4a71df847"
+latest_sdk_version="7.1.1-2024-04-11-66d0159ae"
+stable_sdk_version="7.1.1-2024-04-11-66d0159ae"
 
 developer_key=~/Workbench/Garmin/developer_key
 
