@@ -21,7 +21,6 @@ class App extends Application.AppBase {
            Background.registerForPhoneAppMessageEvent();
         } else {
             Background.deletePhoneAppMessageEvent();
-            
         }
     }
 
