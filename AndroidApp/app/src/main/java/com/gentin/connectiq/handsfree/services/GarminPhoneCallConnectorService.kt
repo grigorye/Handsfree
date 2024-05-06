@@ -16,12 +16,10 @@ import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
 import com.gentin.connectiq.handsfree.R
-import com.gentin.connectiq.handsfree.broadcastreceivers.scheduleKeepAwakeBroadcast
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
 import com.gentin.connectiq.handsfree.globals.callInfoShouldBeEnabled
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
-import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_KEEP_AWAKE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.HeadsetConnectionMonitor
@@ -37,7 +35,6 @@ data class StartStats(
     var incomingMessage: Int = 0,
     var bootCompleted: Int = 0,
     var mainActivity: Int = 0,
-    var keepAwake: Int = 0,
     var other: Int = 0
 )
 
@@ -51,7 +48,6 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     override fun onCreate() {
         Log.d(TAG, "onCreate")
         super.onCreate()
-        scheduleKeepAwakeBroadcast(this, 5)
         garminConnector.launch()
         headPhoneConnectionMonitor.start()
     }
@@ -90,11 +86,6 @@ class GarminPhoneCallConnectorService : LifecycleService() {
 
             ACTIVATE_FROM_MAIN_ACTIVITY_ACTION -> {
                 startStats.mainActivity += 1
-                START_REDELIVER_INTENT
-            }
-
-            ACTIVATE_FROM_KEEP_AWAKE -> {
-                startStats.keepAwake += 1
                 START_REDELIVER_INTENT
             }
 
@@ -174,8 +165,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
                         "a.${garminConnector.acknowledgedMessagesCounter}",
                         "o.${startStats.other}",
                         "b.${startStats.bootCompleted}",
-                        "m.${startStats.mainActivity}",
-                        "k.${startStats.keepAwake}",
+                        "m.${startStats.mainActivity}"
                     )
                 )
             )

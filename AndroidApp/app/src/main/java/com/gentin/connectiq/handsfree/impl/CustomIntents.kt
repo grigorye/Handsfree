@@ -6,7 +6,6 @@ import android.util.Log
 import com.gentin.connectiq.handsfree.services.GarminPhoneCallConnectorService
 
 const val ACTIVATE_FROM_MAIN_ACTIVITY_ACTION = "ACTIVATE_FROM_MAIN_ACTIVITY"
-const val ACTIVATE_FROM_KEEP_AWAKE = "ACTIVATE_FROM_KEEP_AWAKE"
 const val ACTIVATE_AND_RECONNECT = "ACTIVATE_AND_RECONNECT"
 const val ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE = "ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE"
 

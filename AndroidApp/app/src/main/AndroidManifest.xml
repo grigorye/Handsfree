@@ -33,11 +33,6 @@
             </intent-filter>
         </activity>
 
-        <receiver
-            android:name=".broadcastreceivers.KeepAwakeReceiver"
-            android:enabled="true"
-            android:exported="true" />
-
         <service
             android:name=".services.GarminPhoneCallConnectorService"
             android:exported="false"
