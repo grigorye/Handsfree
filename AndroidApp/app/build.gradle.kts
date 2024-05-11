@@ -70,12 +70,12 @@ dependencies {
     implementation("com.garmin.connectiq:ciq-companion-app-sdk:2.0.3@aar")
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
 
     implementation("dev.doubledot.doki:library:0.0.1@aar") {
         isTransitive = true
     }
-    implementation("com.google.android.material:material:1.11.0")
+    implementation("com.google.android.material:material:1.12.0")
 
     implementation("io.noties.markwon:core:4.6.2")
     implementation("io.noties.markwon:image:4.6.2")
