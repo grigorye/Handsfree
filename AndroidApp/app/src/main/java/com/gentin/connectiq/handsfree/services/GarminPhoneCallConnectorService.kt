@@ -8,6 +8,7 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
+import android.os.Build
 import android.telephony.TelephonyManager
 import android.text.TextUtils
 import android.util.Log
@@ -171,8 +172,12 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             )
             .setSmallIcon(android.R.drawable.stat_notify_sync)
             .setOngoing(true)
-            .setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE)
             .setContentIntent(pendingLaunchIntent)
+            .apply {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE)
+                }
+            }
             .build()
         val notificationManager = getSystemService(NotificationManager::class.java)
         notificationManager.createNotificationChannel(channel)
