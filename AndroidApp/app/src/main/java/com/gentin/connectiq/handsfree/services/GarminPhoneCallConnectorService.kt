@@ -185,7 +185,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     }
 
     private fun accountPhoneState(incomingNumber: String?, stateExtra: String) {
-        var sentIncomingNumber: String? = if (callInfoShouldBeEnabled(this)) {
+        val sentIncomingNumber: String? = if (callInfoShouldBeEnabled(this)) {
             incomingNumber
         } else {
             null
