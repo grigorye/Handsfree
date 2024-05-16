@@ -6,6 +6,7 @@ import android.content.ContextWrapper
 import android.media.AudioDeviceCallback
 import android.media.AudioDeviceInfo
 import android.media.AudioManager
+import android.os.Build
 
 class HeadsetConnectionMonitor(
     base: Context,
@@ -21,12 +22,15 @@ class HeadsetConnectionMonitor(
 
     fun isHeadsetConnected(): Boolean {
         val audioDevices = audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS)
-        val headsetDeviceTypes = arrayOf(
+        val headsetDeviceTypes = mutableListOf(
             AudioDeviceInfo.TYPE_WIRED_HEADSET,
-            AudioDeviceInfo.TYPE_BLE_HEADSET,
             AudioDeviceInfo.TYPE_HEARING_AID,
             AudioDeviceInfo.TYPE_BLUETOOTH_SCO
-        )
+        ).apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                add(AudioDeviceInfo.TYPE_BLE_HEADSET)
+            }
+        }.toList()
         for (deviceInfo in audioDevices) {
             if (headsetDeviceTypes.contains(deviceInfo.type)) {
                 return true
