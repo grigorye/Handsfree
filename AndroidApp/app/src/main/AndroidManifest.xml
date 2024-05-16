@@ -71,7 +71,7 @@
 
         <activity
             android:name=".activities.MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>
