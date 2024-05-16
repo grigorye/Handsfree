@@ -62,7 +62,8 @@
         <receiver
             android:name=".broadcastreceivers.ConnectIQIncomingMessageBroadcastReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:permission="com.garmin.connectiq.permission.RECEIVE_BROADCASTS">
             <intent-filter>
                 <action android:name="com.garmin.android.connectiq.INCOMING_MESSAGE" />
             </intent-filter>
