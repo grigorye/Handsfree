@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -21,9 +24,22 @@ val sourceVersion = providers.exec {
     commandLine("git", "describe", "--match", "736fd2e"/* unmatchable */, "--dirty", "--always")
 }.standardOutput.asText.get().trim()
 
+
+val keystoreProperties = Properties()
+keystoreProperties.load(FileInputStream(rootProject.file("keystore.properties")))
+
 android {
     namespace = this@Build_gradle.packageName
     compileSdk = this@Build_gradle.compileSdkVersion.toInt()
+
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPassword"] as String
+            storeFile = file(keystoreProperties["storeFile"] as String)
+            storePassword = keystoreProperties["storePassword"] as String
+        }
+    }
 
     defaultConfig {
         applicationId = this@Build_gradle.packageName
@@ -36,6 +52,7 @@ android {
 
     buildTypes {
         getByName("release") {
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
