@@ -5,3 +5,4 @@ AndroidApp/.gradle
 AndroidApp/app/release
 AndroidApp/app/.gradle/config.properties
 AndroidApp/app/local.properties
+AndroidApp/keystore.properties
