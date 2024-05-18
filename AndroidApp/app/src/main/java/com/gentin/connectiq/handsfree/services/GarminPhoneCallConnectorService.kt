@@ -114,7 +114,6 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         return resultCode
     }
 
-
     private fun processPhoneStateIntent(intent: Intent) {
         val stateExtra = intent.getStringExtra(TelephonyManager.EXTRA_STATE)!!
         Log.d(TAG, "stateExtra: $stateExtra")
