@@ -264,7 +264,7 @@ private fun permissionHandlersForLink(uri: Uri): List<PermissionHandler> {
 
 private fun permissionHandlersForLinks(uris: List<Uri>): List<PermissionHandler> {
     val handlers = ArrayList<PermissionHandler>()
-    var accumulatedManifestPermissions = ArrayList<String>()
+    val accumulatedManifestPermissions = ArrayList<String>()
     for (uri in uris) {
         val manifestPermissionsArg = uri.getQueryParameter("manifest")
         if (manifestPermissionsArg != null) {
