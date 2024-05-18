@@ -12,6 +12,7 @@ import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.contacts.openFavorites
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.startConnector
+import com.gentin.connectiq.handsfree.impl.statusInfo
 import com.gentin.connectiq.handsfree.impl.versionInfo
 import com.gentin.connectiq.handsfree.permissions.PermissionHandler
 import com.gentin.connectiq.handsfree.permissions.PermissionStatus
@@ -197,6 +198,7 @@ fun preprocessMarkdown(context: Activity, markdown: String): String {
     return preprocessPermissionsInMarkdown(context, markdown)
         .markdown
         .replace("{{version_info}}", versionInfo())
+        .replace("{{status_info}}", statusInfo())
 }
 
 data class PreprocessedMarkdownWithPermissions(
