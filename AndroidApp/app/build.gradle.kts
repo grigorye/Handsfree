@@ -20,6 +20,7 @@ val targetSdkVersion: String by project
 val packageName = "com.gentin.connectiq.handsfree"
 val versionCode: String by project
 val versionName: String by project
+@Suppress("UnstableApiUsage")
 val sourceVersion = providers.exec {
     commandLine("git", "describe", "--match", "736fd2e"/* unmatchable */, "--dirty", "--always")
 }.standardOutput.asText.get().trim()
