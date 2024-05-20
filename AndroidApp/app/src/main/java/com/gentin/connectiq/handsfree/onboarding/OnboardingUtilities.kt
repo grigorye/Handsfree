@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.contacts.openFavorites
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
+import com.gentin.connectiq.handsfree.impl.knownDevicesMarkdown
 import com.gentin.connectiq.handsfree.impl.startConnector
 import com.gentin.connectiq.handsfree.impl.statusInfo
 import com.gentin.connectiq.handsfree.impl.versionInfo
@@ -199,6 +200,7 @@ fun preprocessMarkdown(context: Activity, markdown: String): String {
         .markdown
         .replace("{{version_info}}", versionInfo())
         .replace("{{status_info}}", statusInfo())
+        .replace("{{known_devices}}", knownDevicesMarkdown())
 }
 
 data class PreprocessedMarkdownWithPermissions(
