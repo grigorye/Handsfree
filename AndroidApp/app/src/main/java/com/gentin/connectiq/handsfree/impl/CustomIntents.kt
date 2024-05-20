@@ -16,7 +16,8 @@ fun startConnector(context: Context, customAction: String) {
         action = customAction
     }
     Log.d(tag, "startConnectorCustomAction: $customAction")
-    context.startForegroundService(intentForConnector)
+    val componentName = context.startForegroundService(intentForConnector)
+    Log.d(tag, "startedConnector: $componentName")
 }
 
 fun startConnector(context: Context, sourceIntent: Intent) {
