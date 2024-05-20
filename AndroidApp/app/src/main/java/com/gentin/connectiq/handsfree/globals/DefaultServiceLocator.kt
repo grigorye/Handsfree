@@ -86,10 +86,14 @@ class DefaultServiceLocator(
             dispatchIncomingMessage = { o ->
                 incomingMessageDispatcher.handleMessage(o)
             }
-        )
+        ).apply {
+            activeGarminConnector = this
+        }
     }
 
     companion object {
         private val TAG: String = DefaultServiceLocator::class.java.simpleName
+        var activeGarminConnector: GarminConnector? = null
     }
 }
+
