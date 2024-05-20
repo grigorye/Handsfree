@@ -26,7 +26,14 @@ interface GarminConnector {
 
     val sentMessagesCounter: Int
     val acknowledgedMessagesCounter: Int
+
+    val knownDeviceInfos: List<DeviceInfo>
 }
+
+data class DeviceInfo(
+    val name: String,
+    val connected: Boolean
+)
 
 class DefaultGarminConnector(
     base: Context?,
@@ -35,6 +42,9 @@ class DefaultGarminConnector(
 ) : ContextWrapper(base), GarminConnector {
 
     private lateinit var connectIQ: ConnectIQ
+
+    override val knownDeviceInfos: List<DeviceInfo>
+        get() = knownDevices.values.toList()
 
     override fun launch() {
         Log.d(TAG, "launch")
@@ -156,10 +166,14 @@ class DefaultGarminConnector(
         }
     }
 
+    private var knownDevices = mutableMapOf<Long, DeviceInfo>()
+
     private fun startObservingDeviceEvents() {
         connectIQ.knownDevices.forEach { device ->
             device.status = connectIQ.getDeviceStatus(device)
             connectIQ.registerForDeviceEvents(device) { _, status ->
+                knownDevices[device.deviceIdentifier] =
+                    DeviceInfo(device.friendlyName, status == IQDevice.IQDeviceStatus.CONNECTED)
                 Log.d(
                     TAG,
                     "device.${device.deviceIdentifier}(${device.friendlyName}) <- status($status)"
