@@ -14,7 +14,6 @@ import com.gentin.connectiq.handsfree.helpers.breakIntoDebugger
 import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.lang.RuntimeException
 
 
 interface GarminConnector {
