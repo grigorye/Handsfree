@@ -6,7 +6,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.gentin.connectiq.handsfree.onboarding.resolveLink
 
-class SettingsFragment(val preferencesResId: Int = R.xml.root_preferences) :
+class SettingsFragment(private val preferencesResId: Int = R.xml.root_preferences) :
     PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
