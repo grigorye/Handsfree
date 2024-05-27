@@ -75,7 +75,10 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
         summaryOffDueToDependency: Int = 0
     ) {
         preference?.apply {
-            if (disableExtrasWithEssentials && (dependency != null) && !sharedPreferences!!.getBoolean(dependency, false)) {
+            val dependencyIsOff = lazy {
+                (dependency != null) && !sharedPreferences!!.getBoolean(dependency, false)
+            }
+            if (disableExtrasWithEssentials && dependencyIsOff.value) {
                 Log.d(TAG, "preference.$key.disabledDue: $dependency")
                 isEnabled = false
                 summary = getString(summaryOffDueToDependency)
