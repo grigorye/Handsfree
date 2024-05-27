@@ -71,8 +71,4 @@ open class OnboardingStepFragment : Fragment() {
                 .build()
         }
     }
-
-    companion object {
-        private val TAG = OnboardingStepFragment::class.java.simpleName
-    }
 }
