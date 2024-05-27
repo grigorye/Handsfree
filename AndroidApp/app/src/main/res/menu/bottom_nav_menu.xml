@@ -7,12 +7,12 @@
         android:title="@string/navigation_onboarding"
         android:visible="false" />
     <item
-        android:id="@+id/overview_home"
-        android:icon="@drawable/ic_info"
-        android:title="@string/navigation_overview" />
-    <item
         android:id="@+id/settings_home"
         android:icon="@drawable/ic_settings"
         android:title="@string/settings_screen" />
+    <item
+        android:id="@+id/overview_home"
+        android:icon="@drawable/ic_info"
+        android:title="@string/navigation_overview" />
 
 </menu>
