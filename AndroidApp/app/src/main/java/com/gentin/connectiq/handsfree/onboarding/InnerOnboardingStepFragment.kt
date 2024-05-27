@@ -7,7 +7,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.preference.SwitchPreferenceCompat
 import com.gentin.connectiq.handsfree.DynamicSettingsFragment
 import com.gentin.connectiq.handsfree.R
-import com.gentin.connectiq.handsfree.permissions.PermissionHandler
 
 class InnerOnboardingStepFragment : OnboardingStepFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,10 +57,6 @@ class InnerOnboardingStepFragment : OnboardingStepFragment() {
             .replace(R.id.fragment_container_view, settingsFragment)
             .addToBackStack(null)
             .commit()
-    }
-
-    private val permissionHandlers: List<PermissionHandler> by lazy {
-        preprocessPermissionsInMarkdown(requireActivity(), unprocessedMarkdown).permissionHandlers
     }
 
     private val args: InnerOnboardingStepFragmentArgs by navArgs()
