@@ -199,4 +199,6 @@ Version {{version_info}}
     <string name="settings_preferences_subscreen">"Configuration"</string>
     <string name="device_label_connected">"Connected"</string>
     <string name="device_label_not_connected">"Not Connected"</string>
+    <string name="no_devices_preference_title">"No devices are registered."</string>
+    <string name="no_devices_preference_summary"></string>
 </resources>
