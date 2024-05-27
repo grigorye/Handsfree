@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import com.gentin.connectiq.handsfree.contacts.ContactData
 import com.gentin.connectiq.handsfree.contacts.ContactsRepository
 import com.gentin.connectiq.handsfree.contacts.ContactsRepositoryImpl
@@ -13,6 +16,7 @@ import com.gentin.connectiq.handsfree.contacts.forEachContactWithPhoneNumberInFa
 import com.gentin.connectiq.handsfree.impl.DefaultGarminConnector
 import com.gentin.connectiq.handsfree.impl.DefaultOutgoingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.DefaultPhoneCallService
+import com.gentin.connectiq.handsfree.impl.DeviceInfo
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.IncomingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.OutgoingMessageDispatcher
@@ -87,13 +91,20 @@ class DefaultServiceLocator(
                 incomingMessageDispatcher.handleMessage(o)
             }
         ).apply {
-            activeGarminConnector = this
+            activeGarminConnector.value = this
         }
     }
 
     companion object {
         private val TAG: String = DefaultServiceLocator::class.java.simpleName
-        var activeGarminConnector: GarminConnector? = null
+        private var activeGarminConnector = MutableLiveData<GarminConnector>()
+        var knownDeviceInfos: LiveData<List<DeviceInfo>> = MediatorLiveData<List<DeviceInfo>>().apply {
+            addSource(activeGarminConnector) { garminConnector ->
+                addSource(garminConnector.knownDeviceInfos) {
+                    value = it
+                }
+            }
+        }
     }
 }
 

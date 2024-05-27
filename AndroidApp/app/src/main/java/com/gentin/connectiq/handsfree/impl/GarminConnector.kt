@@ -5,6 +5,9 @@ import android.content.ContextWrapper
 import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import com.garmin.android.connectiq.ConnectIQ
 import com.garmin.android.connectiq.IQDevice
 import com.garmin.android.connectiq.exception.ServiceUnavailableException
@@ -26,7 +29,7 @@ interface GarminConnector {
     val sentMessagesCounter: Int
     val acknowledgedMessagesCounter: Int
 
-    val knownDeviceInfos: List<DeviceInfo>
+    val knownDeviceInfos: LiveData<List<DeviceInfo>>
 }
 
 data class DeviceInfo(
@@ -42,8 +45,13 @@ class DefaultGarminConnector(
 
     private lateinit var connectIQ: ConnectIQ
 
-    override val knownDeviceInfos: List<DeviceInfo>
-        get() = knownDevices.values.toList()
+    override val knownDeviceInfos: LiveData<List<DeviceInfo>> by lazy {
+        MediatorLiveData<List<DeviceInfo>>().apply {
+            addSource(knownDevices) { knownDevices ->
+                value = knownDevices.values.toList()
+            }
+        }
+    }
 
     override fun launch() {
         Log.d(TAG, "launch")
@@ -165,14 +173,17 @@ class DefaultGarminConnector(
         }
     }
 
-    private var knownDevices = mutableMapOf<Long, DeviceInfo>()
+    private var knownDevices = MutableLiveData(mapOf<Long, DeviceInfo>())
 
     private fun startObservingDeviceEvents() {
         connectIQ.knownDevices.forEach { device ->
             device.status = connectIQ.getDeviceStatus(device)
             connectIQ.registerForDeviceEvents(device) { _, status ->
-                knownDevices[device.deviceIdentifier] =
+                val oldValue = knownDevices.value ?: mapOf()
+                val newValue = oldValue.toMutableMap()
+                newValue[device.deviceIdentifier] =
                     DeviceInfo(device.friendlyName, status == IQDevice.IQDeviceStatus.CONNECTED)
+                knownDevices.postValue(newValue)
                 Log.d(
                     TAG,
                     "device.${device.deviceIdentifier}(${device.friendlyName}) <- status($status)"
