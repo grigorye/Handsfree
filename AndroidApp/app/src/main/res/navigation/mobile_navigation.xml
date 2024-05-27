@@ -47,6 +47,10 @@
             android:name="preferenceKey"
             app:argType="string"
             app:nullable="true" />
+        <argument
+            android:name="preferenceTitle"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/overview_home"

@@ -111,7 +111,8 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
                 Log.d(TAG, "preferenceClicked: $preference")
                 resolveLink(
                     "link://onboarding_${preference.key}?preferenceKey=${preference.key}",
-                    this@SettingsFragment
+                    this@SettingsFragment,
+                    getString(R.string.settings_preferences_subscreen)
                 )
                 false
             }

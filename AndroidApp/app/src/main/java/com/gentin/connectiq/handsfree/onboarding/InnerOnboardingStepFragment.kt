@@ -29,7 +29,7 @@ class InnerOnboardingStepFragment : OnboardingStepFragment() {
                 val context = preferenceManager.context
                 val preference = SwitchPreferenceCompat(context).apply {
                     key = args.preferenceKey
-                    title = args.navigationLabel
+                    title = args.preferenceTitle
                     isIconSpaceReserved = false
                     isSingleLineTitle = false
                     setOnPreferenceChangeListener { preference, newValue ->

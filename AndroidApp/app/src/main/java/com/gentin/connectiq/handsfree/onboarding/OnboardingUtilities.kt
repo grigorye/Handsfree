@@ -25,7 +25,7 @@ import com.google.android.material.snackbar.Snackbar
 import dev.doubledot.doki.ui.DokiActivity
 
 
-fun resolveLink(link: String, fragment: Fragment) {
+fun resolveLink(link: String, fragment: Fragment, navigationLabel: String? = null) {
     val tag = object {}.javaClass.enclosingMethod?.name
     val context: Activity = fragment.requireActivity()
     Log.d(tag, "link: $link")
@@ -43,7 +43,7 @@ fun resolveLink(link: String, fragment: Fragment) {
                 return
             }
             val preferenceKey = uri.getQueryParameter("preferenceKey")
-            navigateToResource(host, fragment, preferenceKey)
+            navigateToResource(host, fragment, preferenceKey, navigationLabel)
         }
 
         "permissions" -> {
@@ -167,7 +167,8 @@ fun navigateToRationaleForLink(uri: Uri, fragment: Fragment): (() -> Unit)? {
 private fun navigateToResource(
     resourceName: String,
     fragment: Fragment,
-    preferenceKey: String? = null
+    preferenceKey: String? = null,
+    navigationLabel: String? = null
 ) {
     val tag = object {}.javaClass.enclosingMethod?.name
 
@@ -182,7 +183,8 @@ private fun navigateToResource(
         R.id.link,
         bundleOf(
             "markdown" to resourceId,
-            "navigationLabel" to headerFromMarkdown(fragment.getString(resourceId)),
+            "navigationLabel" to (navigationLabel ?: headerFromMarkdown(fragment.getString(resourceId))),
+            "preferenceTitle" to headerFromMarkdown(fragment.getString(resourceId)),
             "preferenceKey" to preferenceKey,
             "hideHeader" to true
         )
