@@ -55,7 +55,7 @@ class DefaultGarminConnector(
 
     override fun launch() {
         Log.d(TAG, "launch")
-        lifecycleScope.launch(Dispatchers.Main) {
+        lifecycleScope.launch(Dispatchers.Default) {
             if (Looper.myLooper() == null) {
                 Looper.prepare()
             }
