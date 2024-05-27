@@ -59,7 +59,10 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
                     deviceInfo.apply {
                         title = this?.name
                         summary = this?.connected?.let {
-                            if (it) "connected" else "not connected"
+                            if (it)
+                                getString(R.string.device_label_connected)
+                            else
+                                getString(R.string.device_label_not_connected)
                         }
                     }
                 }

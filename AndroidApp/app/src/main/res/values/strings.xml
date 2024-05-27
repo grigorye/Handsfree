@@ -197,4 +197,6 @@ Version {{version_info}}
     <string name="settings_preference_enabled_fmt">"✅ {{title}}"</string>
     <string name="settings_devices_group">"Devices"</string>
     <string name="settings_preferences_subscreen">"Configuration"</string>
+    <string name="device_label_connected">"Connected"</string>
+    <string name="device_label_not_connected">"Not Connected"</string>
 </resources>
