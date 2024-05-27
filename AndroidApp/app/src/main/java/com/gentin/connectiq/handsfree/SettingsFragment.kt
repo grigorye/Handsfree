@@ -63,6 +63,14 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
                         }
                     }
                 }
+                setOnPreferenceClickListener { preference ->
+                    Log.d(TAG, "preferenceClicked: $preference")
+                    resolveLink(
+                        "do://reconnect-connectiq",
+                        this@SettingsFragment
+                    )
+                    false
+                }
             }
         }
     }
