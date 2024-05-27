@@ -197,4 +197,5 @@ Version {{version_info}}
     <string name="settings_screen">"Settings"</string>
     <string name="settings_preference_disabled_fmt">"❎ {{title}}"</string>
     <string name="settings_preference_enabled_fmt">"✅ {{title}}"</string>
+    <string name="settings_devices_group">"Devices"</string>
 </resources>

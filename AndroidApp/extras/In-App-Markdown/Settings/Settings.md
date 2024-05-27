@@ -1,5 +1,7 @@
 # [Settings](lk:screen)
 
+## [Devices](lk:devices_group)
+
 ## [Essentials](lk:essentials_group)
 
 ### [Call control](lk:essentials)

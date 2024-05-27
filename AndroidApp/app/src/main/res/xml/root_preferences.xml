@@ -2,6 +2,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/settings_devices_group"
+        app:iconSpaceReserved="false">
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="devices"
+            app:summary="Connected"
+            app:title="fenix 7" />
+    </PreferenceCategory>
+    <PreferenceCategory
         android:title="@string/settings_essentials_group"
         app:iconSpaceReserved="false">
         <Preference

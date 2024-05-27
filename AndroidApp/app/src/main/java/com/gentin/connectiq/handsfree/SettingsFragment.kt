@@ -2,8 +2,11 @@ package com.gentin.connectiq.handsfree
 
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
+import com.gentin.connectiq.handsfree.impl.DeviceInfo
 import com.gentin.connectiq.handsfree.onboarding.resolveLink
 
 class SettingsFragment(private val preferencesResId: Int = R.xml.root_preferences) :
@@ -22,6 +25,7 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
 
     private fun setupPreferences() {
         setPreferencesFromResource(preferencesResId, null)
+        setupDevicesPreference()
         setupPermissionPreference(
             essentialsPreference,
             R.string.settings_essentials,
@@ -43,6 +47,24 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
             R.string.settings_disabled_due_to_essentials_are_off
         )
         setupContactsPreference()
+    }
+
+    private fun setupDevicesPreference(
+        knownDeviceInfos: LiveData<List<DeviceInfo>> = DefaultServiceLocator.knownDeviceInfos
+    ) {
+        knownDeviceInfos.observe(this) {
+            devicesPreference?.apply {
+                val deviceInfo = it?.lastOrNull()
+                deviceInfo.apply {
+                    deviceInfo.apply {
+                        title = this?.name
+                        summary = this?.connected?.let {
+                            if (it) "connected" else "not connected"
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun setupPermissionPreference(
@@ -99,6 +121,11 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
         }
     }
 
+    private val devicesPreference: Preference?
+        get() {
+            return findPreference("devices")
+        }
+
     private val essentialsPreference: Preference?
         get() {
             return findPreference("essentials")
@@ -124,4 +151,4 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
     }
 }
 
-private val disableExtrasWithEssentials = false
+private const val disableExtrasWithEssentials = false
