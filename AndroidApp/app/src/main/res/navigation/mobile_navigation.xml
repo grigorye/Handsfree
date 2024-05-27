@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/inner_onboarding_step"
         android:name="com.gentin.connectiq.handsfree.onboarding.InnerOnboardingStepFragment"
-        android:label="@string/navigation_onboarding">
+        android:label="{navigationLabel}">
         <argument
             android:name="markdown"
             app:argType="reference" />

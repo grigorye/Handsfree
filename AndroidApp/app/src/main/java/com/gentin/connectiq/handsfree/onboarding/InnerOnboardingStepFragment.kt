@@ -20,11 +20,7 @@ class InnerOnboardingStepFragment : OnboardingStepFragment() {
 
     override val preprocessedMarkdown: String
         get() {
-            if (args.preferenceKey != null) {
-                return stripHeaderFromMarkdown(super.preprocessedMarkdown)
-            } else {
-                return super.preprocessedMarkdown
-            }
+            return stripHeaderFromMarkdown(super.preprocessedMarkdown)
         }
 
     private fun embedSettings() {
