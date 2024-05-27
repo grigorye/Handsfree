@@ -1,4 +1,4 @@
-# [Settings](lk:screen)
+# [Controls](lk:screen)
 
 ## [Devices](lk:devices_group)
 
