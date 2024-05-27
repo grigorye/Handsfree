@@ -157,15 +157,11 @@ Without the permission, no contact names for calls in progress would be visible 
     <string name="navigation_onboarding">"Configuration"</string>
     <string name="onboarding_intro">"Handsfree lets you keep your phone in your pocket while you make calls, allowing you to use Garmin watch for initiating and/or controlling the calls. It's a companion application to the application that you can install on Garmin watch from [Connect IQ store](https://apps.garmin.com/apps/a3d8da80-e013-41f9-aca4-f66bb38fad3f).
 
-# Known devices
-
-{{known_devices}}
-
 [Troubleshooting](link://onboarding_troubleshooting)
 
 Version {{version_info}}
 "</string>
-    <string name="navigation_overview">"Overview"</string>
+    <string name="navigation_overview">"About"</string>
     <string name="permissions_snackbar_app_settings_btn">"App Settings"</string>
     <string name="overview_snackbar_reconnecting_connectiq">"Reconnecting…"</string>
     <string name="permissions_snackbar_permission_is_already_granted">"The permission is already there."</string>
@@ -185,7 +181,9 @@ Version {{version_info}}
     <string name="settings_call_info_off">"No phone numbers or names are shown on the watch."</string>
     <string name="settings_call_info_on">"Phone numbers or contact names are shown on the watch."</string>
     <string name="settings_disabled_due_to_essentials_are_off">"Disabled due to basic call control is off."</string>
-    <string name="onboarding_troubleshooting">"**[Reconnect with the watch](do://reconnect-connectiq)**
+    <string name="onboarding_troubleshooting">"# Troubleshooting
+
+**[Reconnect with the watch](do://reconnect-connectiq)**
 
 **[Settings](do://settings)**
 
@@ -194,7 +192,7 @@ Version {{version_info}}
 "</string>
     <string name="settings_essentials_group">"Essentials"</string>
     <string name="settings_extras_group">"Extras"</string>
-    <string name="settings_screen">"Settings"</string>
+    <string name="settings_screen">"Controls"</string>
     <string name="settings_preference_disabled_fmt">"❎ {{title}}"</string>
     <string name="settings_preference_enabled_fmt">"✅ {{title}}"</string>
     <string name="settings_devices_group">"Devices"</string>
