@@ -1,3 +1,5 @@
+# Troubleshooting
+
 **[Reconnect with the watch](do://reconnect-connectiq)**
 
 **[Settings](do://settings)**
