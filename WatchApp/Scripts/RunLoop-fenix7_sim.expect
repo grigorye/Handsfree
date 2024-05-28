@@ -1,12 +1,11 @@
-set sdk_ver "6.4.2"
-set sdk_date "2024-01-04"
-set sdk_hash "a1dd13ee0"
+set sdk_root "$env(sdk_root)"
+set src_root "$env(src_root)"
 
 set attempts 0
 while {1} {
-    set timeout 5
-    spawn "/opt/homebrew/Caskroom/connectiq/$sdk_ver,$sdk_date,$sdk_hash/connectiq-sdk-mac-$sdk_ver-$sdk_date-$sdk_hash/bin/connectiq"
-    spawn monkeydo ./WatchApp/release/fenix7_sim/WatchApp-fenix7_sim.prg fenix7
+    set timeout 10
+    spawn "$sdk_root/bin/connectiq"
+    spawn monkeydo "$src_root/release/fenix7_sim/WatchApp-fenix7_sim.prg" fenix7
     expect {
         "Unable to connect to simulator." {
             if {$attempts > 3} {

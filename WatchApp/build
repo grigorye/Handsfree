@@ -4,6 +4,8 @@
 set -euo pipefail
 set -x
 
+wd=$(dirname "$0")
+
 filter_redundant_monkeyc_warnings() {
     grep --line-buffered -v "^WARNING: .*: The launcher icon (128x128) isn't compatible with the specified launcher icon size of the device .*\. Image will be scaled to the target size" |
         grep --line-buffered -v "^WARNING: .*: Glance applications are not supported for app type 'watch-app' on device .*\. The (:glance) annotation will be ignored.$" ||
@@ -12,14 +14,7 @@ filter_redundant_monkeyc_warnings() {
 
 exec > >(filter_redundant_monkeyc_warnings) 2>&1
 
-latest_sdk_version="7.1.1-2024-04-11-66d0159ae"
-stable_sdk_version="7.1.1-2024-04-11-66d0159ae"
-
-developer_key=~/Workbench/Garmin/developer_key
-
-sdks_dir=~/Library/Application\ Support/Garmin/ConnectIQ/Sdks
-latest_sdk_root="$sdks_dir/connectiq-sdk-mac-$latest_sdk_version"
-stable_sdk_root="$sdks_dir/connectiq-sdk-mac-$stable_sdk_version"
+. "$wd/sdk-env.sh"
 
 dev_devices=(
     fenix7_sim
@@ -44,7 +39,7 @@ sed -e "s/__SOURCE_VERSION__/$source_version/g" local/source/SourceVersion.mc-te
 
 for device in "${dev_devices[@]}"; do
     java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
-        -jar "$latest_sdk_root"/bin/monkeybrains.jar \
+        -jar "$sdk_root"/bin/monkeybrains.jar \
         -o release/"$device"/WatchApp-"$device".prg \
         -f 'monkey.jungle;monkey-dev-additions.jungle;' \
         -y "$developer_key" \
@@ -53,7 +48,7 @@ for device in "${dev_devices[@]}"; do
 done
 
 java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
-    -jar "$stable_sdk_root"/bin/monkeybrains.jar \
+    -jar "$sdk_root"/bin/monkeybrains.jar \
     -o release/iq/WatchApp.iq \
     -f 'monkey.jungle;monkey-release-additions.jungle' \
     -y "$developer_key" \

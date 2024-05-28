@@ -5,4 +5,8 @@ set -euo pipefail
 
 wd=$(dirname "$0")
 
+export src_root="$wd/.."
+
+. "$src_root/sdk-env.sh"
+
 expect -f "$wd/RunLoop-fenix7_sim.expect"
