@@ -1,0 +1,10 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+wd=$(dirname "$0")
+src_root="$wd"/../../..
+
+"$src_root"/gradlew --project-dir "$src_root" bundle
+open -R "$src_root"/app/build/outputs/bundle/release/app-release.aab
