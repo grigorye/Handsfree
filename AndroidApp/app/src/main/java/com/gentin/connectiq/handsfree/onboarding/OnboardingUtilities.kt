@@ -76,6 +76,7 @@ fun resolveLink(link: String, fragment: Fragment, navigationLabel: String? = nul
                                 R.string.overview_snackbar_reconnecting_connectiq,
                                 Snackbar.LENGTH_SHORT
                             )
+                            .setAnchorView(R.id.nav_bar_view)
                             .show()
                     }
                 }
