@@ -20,6 +20,7 @@ val targetSdkVersion: String by project
 val packageName = "com.gentin.connectiq.handsfree"
 val versionCode: String by project
 val versionName: String by project
+
 @Suppress("UnstableApiUsage")
 val sourceVersion = providers.exec {
     commandLine("git", "describe", "--match", "736fd2e"/* unmatchable */, "--dirty", "--always")
@@ -27,18 +28,34 @@ val sourceVersion = providers.exec {
 
 
 val keystoreProperties = Properties()
-keystoreProperties.load(FileInputStream(rootProject.file("keystore.properties")))
+val keystoreFile = rootProject.file("keystore.properties")
+val keystoreAvailable = keystoreFile.exists()
+if (keystoreAvailable) {
+    keystoreProperties.load(FileInputStream(keystoreFile))
+}
 
 android {
     namespace = this@Build_gradle.packageName
     compileSdk = this@Build_gradle.compileSdkVersion.toInt()
 
-    signingConfigs {
-        create("release") {
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-            storeFile = file(keystoreProperties["storeFile"] as String)
-            storePassword = keystoreProperties["storePassword"] as String
+    if (keystoreAvailable) {
+        signingConfigs {
+            create("release") {
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+                storeFile = file(keystoreProperties["storeFile"] as String)
+                storePassword = keystoreProperties["storePassword"] as String
+            }
+        }
+
+        buildTypes {
+            getByName("release") {
+                signingConfig = signingConfigs.getByName("release")
+                isMinifyEnabled = false
+                proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+                )
+            }
         }
     }
 
@@ -49,17 +66,6 @@ android {
         versionCode = this@Build_gradle.versionCode.toInt()
         versionName = this@Build_gradle.versionName
         buildConfigField("String", "SOURCE_VERSION", "\"$sourceVersion\"")
-    }
-
-    buildTypes {
-        getByName("release") {
-            signingConfig = signingConfigs.getByName("release")
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
     }
 
     buildFeatures {
