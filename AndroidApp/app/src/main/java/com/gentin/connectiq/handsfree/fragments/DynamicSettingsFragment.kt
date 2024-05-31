@@ -1,4 +1,4 @@
-package com.gentin.connectiq.handsfree
+package com.gentin.connectiq.handsfree.fragments
 
 import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat

@@ -1,10 +1,11 @@
-package com.gentin.connectiq.handsfree
+package com.gentin.connectiq.handsfree.fragments
 
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
 import com.gentin.connectiq.handsfree.impl.DeviceInfo
 import com.gentin.connectiq.handsfree.onboarding.resolveLink

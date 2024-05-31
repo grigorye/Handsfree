@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/settings_home"
-        android:name="com.gentin.connectiq.handsfree.SettingsFragment"
+        android:name="com.gentin.connectiq.handsfree.fragments.SettingsFragment"
         android:label="@string/settings_screen">
         <action
             android:id="@+id/link"
