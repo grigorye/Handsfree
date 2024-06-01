@@ -44,7 +44,7 @@ class GlanceView extends WatchUi.GlanceView {
                     if (number != null) {
                         subtitle = number;
                     } else {
-                        subtitle = "Call in progress...";
+                        subtitle = "Call in progress.";
                     }
                     break;
                 default:

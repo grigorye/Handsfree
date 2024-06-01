@@ -11,7 +11,7 @@ class CallInProgressView extends Toybox.WatchUi.Confirmation {
         } else if (number != null) {
             prefix = number + "\n";
         } else {
-            prefix = "Call in progress..." + "\n";
+            prefix = "Call in progress." + "\n";
         }
         var message = prefix + "Hang up?";
         Confirmation.initialize(message);
