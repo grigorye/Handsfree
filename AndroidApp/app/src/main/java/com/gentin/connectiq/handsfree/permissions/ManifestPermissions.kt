@@ -7,18 +7,32 @@ import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
-private val manifestPermissions = listOf(
+private val baseManifestPermissions = listOf(
     Manifest.permission.ANSWER_PHONE_CALLS,
     Manifest.permission.CALL_PHONE,
     Manifest.permission.FOREGROUND_SERVICE,
-    Manifest.permission.READ_CALL_LOG,
     Manifest.permission.READ_CONTACTS,
     Manifest.permission.READ_PHONE_STATE,
     Manifest.permission.RECEIVE_BOOT_COMPLETED,
     Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
     // SYSTEM_ALERT_WINDOW is checked via Settings.canDrawOverlays()/OverlayPermissionHandler
     // Manifest.permission.SYSTEM_ALERT_WINDOW,
-) + manifestPermissionsExtrasUpsideDownCake() + manifestPermissionsExtrasTiramisu()
+)
+
+private val manifestPermissions =
+    baseManifestPermissions + manifestPermissionsRejectedByGooglePlay() + manifestPermissionsExtrasUpsideDownCake() + manifestPermissionsExtrasTiramisu()
+
+private var ignoreGooglePlayPermissionRejection = false
+
+fun manifestPermissionsRejectedByGooglePlay(): List<String> {
+    return if (ignoreGooglePlayPermissionRejection) {
+        listOf(
+            Manifest.permission.READ_CALL_LOG,
+        )
+    } else {
+        listOf()
+    }
+}
 
 fun manifestPermissionsExtrasUpsideDownCake(): List<String> {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
