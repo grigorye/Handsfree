@@ -55,7 +55,6 @@ class InnerOnboardingStepFragment : OnboardingStepFragment() {
         }
         activity.supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, settingsFragment)
-            .addToBackStack(null)
             .commit()
     }
 
