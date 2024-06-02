@@ -79,6 +79,15 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    flavorDimensions += listOf("distribution")
+    productFlavors {
+        create("googlePlay") {
+            dimension = "distribution"
+        }
+        create("selfHosted") {
+            dimension = "distribution"
+        }
+    }
 }
 
 dependencies {
