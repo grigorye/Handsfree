@@ -1,5 +1,6 @@
 package com.gentin.connectiq.handsfree.fragments
 
+import android.Manifest
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -9,6 +10,7 @@ import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
 import com.gentin.connectiq.handsfree.impl.DeviceInfo
 import com.gentin.connectiq.handsfree.onboarding.resolveLink
+import com.gentin.connectiq.handsfree.permissions.isPermissionRequested
 
 class SettingsFragment(private val preferencesResId: Int = R.xml.root_preferences) :
     PreferenceFragmentCompat() {
@@ -47,6 +49,8 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
             R.string.settings_call_info_off,
             R.string.settings_disabled_due_to_essentials_are_off
         )
+        callInfoPreference?.isVisible =
+            isPermissionRequested(requireActivity(), Manifest.permission.READ_CALL_LOG)
         setupContactsPreference()
     }
 

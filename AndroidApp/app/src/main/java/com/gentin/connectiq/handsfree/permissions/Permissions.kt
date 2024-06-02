@@ -6,18 +6,20 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
 
-val registeredPermissionHandlers = arrayOf(
-    manifestPermissionHandler,
-    batteryOptimizationPermissionHandler,
-    overlayPermissionHandler
-)
+fun registeredPermissionHandlers(context: Context): Array<PermissionHandler> {
+    return arrayOf(
+        newManifestPermissionHandler(context),
+        batteryOptimizationPermissionHandler,
+        overlayPermissionHandler
+    )
+}
 
 fun anyPermissionMissing(context: Activity): Boolean {
-    return registeredPermissionHandlers.any { !it.hasPermission(context) }
+    return registeredPermissionHandlers(context).any { !it.hasPermission(context) }
 }
 
 fun requestPermissions(context: Activity) {
-    registeredPermissionHandlers.forEach {
+    registeredPermissionHandlers(context).forEach {
         if (!it.hasPermission(context)) {
             it.requestPermission(context)
         }

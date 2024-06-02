@@ -1,6 +1,7 @@
 package com.gentin.connectiq.handsfree.permissions
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
@@ -19,13 +20,19 @@ private val baseManifestPermissions = listOf(
     // Manifest.permission.SYSTEM_ALERT_WINDOW,
 )
 
-private val manifestPermissions =
-    baseManifestPermissions + manifestPermissionsRejectedByGooglePlay() + manifestPermissionsExtrasUpsideDownCake() + manifestPermissionsExtrasTiramisu()
+private fun manifestPermissions(context: Context): List<String> {
+    return baseManifestPermissions + manifestPermissionsRejectedByGooglePlay(context) + manifestPermissionsExtrasUpsideDownCake() + manifestPermissionsExtrasTiramisu()
+}
 
 private var ignoreGooglePlayPermissionRejection = false
 
-fun manifestPermissionsRejectedByGooglePlay(): List<String> {
-    return if (ignoreGooglePlayPermissionRejection) {
+fun isPermissionRequested(context: Context, permission: String): Boolean {
+    val info = context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_PERMISSIONS)
+    return info.requestedPermissions.contains(permission)
+}
+
+fun manifestPermissionsRejectedByGooglePlay(context: Context): List<String> {
+    return if (isPermissionRequested(context, Manifest.permission.READ_CALL_LOG)) {
         listOf(
             Manifest.permission.READ_CALL_LOG,
         )
@@ -54,7 +61,9 @@ fun manifestPermissionsExtrasTiramisu(): List<String> {
     }
 }
 
-val manifestPermissionHandler = newManifestPermissionHandler(manifestPermissions)
+fun newManifestPermissionHandler(context: Context): PermissionHandler {
+    return newManifestPermissionHandler(manifestPermissions(context))
+}
 
 fun newManifestPermissionHandler(manifestPermissions: List<String>): PermissionHandler {
     return PermissionHandler(
