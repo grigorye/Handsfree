@@ -5,8 +5,8 @@ import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.navArgs
 import androidx.preference.SwitchPreferenceCompat
-import com.gentin.connectiq.handsfree.fragments.DynamicSettingsFragment
 import com.gentin.connectiq.handsfree.R
+import com.gentin.connectiq.handsfree.fragments.DynamicSettingsFragment
 
 class InnerOnboardingStepFragment : OnboardingStepFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
