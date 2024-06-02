@@ -6,5 +6,11 @@ set -euo pipefail
 wd=$(dirname "$0")
 src_root="$wd"/../../..
 
-"$src_root"/gradlew --project-dir "$src_root" bundle
-open -R "$src_root"/app/build/outputs/bundle/release/app-release.aab
+"$src_root"/gradlew \
+    --project-dir "$src_root" \
+    clean \
+    bundleGooglePlay \
+    assembleSelfHosted
+
+open -R "$src_root"/app/build/outputs/bundle/googlePlayRelease/app-googlePlay-release.aab
+open -R "$src_root"/app/build/outputs/apk/selfHosted/release/app-selfHosted-release.apk
