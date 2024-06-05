@@ -173,7 +173,7 @@ Version {{version_info}}
     <string name="settings_essentials_off">"No calls are enabled on the watch."</string>
     <string name="settings_contacts">"✅ Phonebook"</string>
     <string name="settings_contacts_on">"Some contacts are starred and should be available on the watch."</string>
-    <string name="settings_contacts_off">"Starred contacts make the list for dialing from the watch."</string>
+    <string name="settings_contacts_off">"**Starred** contacts make the list for dialing from the watch."</string>
     <string name="settings_outgoing_calls">"Outgoing calls"</string>
     <string name="settings_outgoing_calls_off"></string>
     <string name="settings_outgoing_calls_on">"Effective only if call control is enabled."</string>
