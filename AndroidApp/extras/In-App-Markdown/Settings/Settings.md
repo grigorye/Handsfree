@@ -20,7 +20,7 @@
 
 ### [✅ Phonebook](lk:contacts)
 
-❎ [Starred contacts make the list for dialing from the watch.](lk:contacts_off)
+❎ [**Starred** contacts make the list for dialing from the watch.](lk:contacts_off)
 
 ✅ [Some contacts are starred and should be available on the watch.](lk:contacts_on)
 
