@@ -10,13 +10,11 @@ import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
 import android.os.Build
 import android.telephony.TelephonyManager
-import android.text.TextUtils
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
-import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
 import com.gentin.connectiq.handsfree.globals.callInfoShouldBeEnabled
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE
@@ -25,8 +23,6 @@ import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.HeadsetConnectionMonitor
 import com.gentin.connectiq.handsfree.impl.PhoneState
-import com.gentin.connectiq.handsfree.impl.sdkRelaunchesOnExceptions
-import java.text.DateFormat
 import java.util.Date
 
 data class StartStats(
@@ -151,24 +147,11 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             this, 0, launchIntent, PendingIntent.FLAG_IMMUTABLE
         )
 
-        val dateFormatted = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)
-            .format(startStats.launchDate)
+        val notificationAttributesGenerator = NotificationContentGenerator(garminConnector, this)
+        val attributes = notificationAttributesGenerator.notificationContent()
         val notification = NotificationCompat.Builder(this, channelId)
-            .setContentTitle("${getString(R.string.app_name)}: $dateFormatted")
-            .setContentText(
-                TextUtils.join(
-                    ", ", arrayOf(
-                        "i.${startStats.incomingMessage}",
-                        "p.${startStats.phoneState}",
-                        "e.${sdkRelaunchesOnExceptions}",
-                        "s.${garminConnector.sentMessagesCounter}",
-                        "a.${garminConnector.acknowledgedMessagesCounter}",
-                        "o.${startStats.other}",
-                        "b.${startStats.bootCompleted}",
-                        "m.${startStats.mainActivity}"
-                    )
-                )
-            )
+            .setContentTitle(attributes.title)
+            .setContentText(attributes.text)
             .setSmallIcon(android.R.drawable.stat_notify_sync)
             .setOngoing(true)
             .setContentIntent(pendingLaunchIntent)
