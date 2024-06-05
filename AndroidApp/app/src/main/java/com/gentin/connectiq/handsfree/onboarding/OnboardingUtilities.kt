@@ -99,9 +99,9 @@ fun resolveLink(link: String, fragment: Fragment, navigationLabel: String? = nul
                             .make(
                                 this,
                                 if (isInDebugMode(context))
-                                    "Debug mode on"
+                                    "Debug mode is on"
                                 else
-                                    "Debug mode off",
+                                    "Debug mode is off",
                                 Snackbar.LENGTH_SHORT
                             )
                             .setAnchorView(R.id.nav_bar_view)
