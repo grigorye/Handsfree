@@ -6,3 +6,5 @@
 
 **[Hints for running apps in background on your phone](do://doki)**
 
+**[Toggle debug mode](do://toggle-debug-mode)**
+
