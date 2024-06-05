@@ -10,7 +10,10 @@ fun essentialsAreOn(context: Context): Boolean {
 
 fun outgoingCallsShouldBeEnabled(context: Context): Boolean {
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-    return sharedPreferences.getBoolean("essentials", false) && sharedPreferences.getBoolean("outgoing_calls", false)
+    return sharedPreferences.getBoolean(
+        "essentials",
+        false
+    ) && sharedPreferences.getBoolean("outgoing_calls", false)
 }
 
 fun callInfoShouldBeEnabled(context: Context): Boolean {
