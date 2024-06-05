@@ -6,6 +6,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
 import android.os.Build
@@ -15,6 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
+import androidx.preference.PreferenceManager
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
 import com.gentin.connectiq.handsfree.globals.callInfoShouldBeEnabled
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE
@@ -24,6 +26,7 @@ import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.HeadsetConnectionMonitor
 import com.gentin.connectiq.handsfree.impl.PhoneState
 import java.util.Date
+
 
 data class StartStats(
     val launchDate: Date = Date(),
@@ -42,15 +45,29 @@ var lastTrackedPhoneState: PhoneState? = null
 
 class GarminPhoneCallConnectorService : LifecycleService() {
 
+    private val preferenceChangeListener =
+        SharedPreferences.OnSharedPreferenceChangeListener { _, _ ->
+            ensureForegroundService()
+        }
+
+    private val sharedPreferences: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(this)
+    }
+
     override fun onCreate() {
         Log.d(TAG, "onCreate")
         super.onCreate()
         garminConnector.launch()
+        garminConnector.knownDeviceInfos.observe(this) {
+            ensureForegroundService()
+        }
         headPhoneConnectionMonitor.start()
+        sharedPreferences.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
     }
 
     override fun onDestroy() {
         Log.d(TAG, "onDestroy")
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(preferenceChangeListener)
         headPhoneConnectionMonitor.stop()
         garminConnector.terminate()
         super.onDestroy()
