@@ -20,3 +20,16 @@ fun callInfoShouldBeEnabled(context: Context): Boolean {
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     return sharedPreferences.getBoolean("full_featured", false)
 }
+
+fun isInDebugMode(context: Context): Boolean {
+    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    return sharedPreferences.getBoolean("debug", false)
+}
+
+fun setIsInDebugMode(context: Context, value: Boolean) {
+    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    with(sharedPreferences.edit()) {
+        putBoolean("debug", value)
+        apply()
+    }
+}

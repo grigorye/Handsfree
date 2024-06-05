@@ -2,6 +2,7 @@ package com.gentin.connectiq.handsfree.services
 
 import android.content.Context
 import android.text.TextUtils
+import androidx.preference.PreferenceManager
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.globals.outgoingCallsShouldBeEnabled
 import com.gentin.connectiq.handsfree.impl.GarminConnector
@@ -18,7 +19,8 @@ class NotificationContentGenerator(
     var context: Context
 ) {
     private fun isInDebugMode(): Boolean {
-        return false
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        return sharedPreferences.getBoolean("debug", false)
     }
 
     fun notificationContent(): NotificationContent {
