@@ -172,6 +172,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             .setSmallIcon(android.R.drawable.stat_notify_sync)
             .setOngoing(true)
             .setContentIntent(pendingLaunchIntent)
+            .setShowWhen(false)
             .apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE)
