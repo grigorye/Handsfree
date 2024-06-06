@@ -30,6 +30,8 @@ There're two components of the solution:
 
 Following is the demo of the app running in Simulators. Beware that Simulator does not show the glance/terminates the app on navigation from the app - that's not a bug, rather a limitation of Simulator/on real device you would see the glance again: during the demo I had to restart the app, so that the glance would reappear.
 
+Just in case, the recording shows a bit obsolete version of the Android companion app (the new version is a bit more "elaborate"/but the idea is still the same).
+
 https://github.com/grigorye/Handsfree/assets/803905/a095f6d8-b827-493f-b76a-395035f47846
 
 # Getting started
