@@ -24,8 +24,6 @@ private fun manifestPermissions(context: Context): List<String> {
     return baseManifestPermissions + manifestPermissionsRejectedByGooglePlay(context) + manifestPermissionsExtrasUpsideDownCake() + manifestPermissionsExtrasTiramisu()
 }
 
-private var ignoreGooglePlayPermissionRejection = false
-
 fun isPermissionRequested(context: Context, permission: String): Boolean {
     val info = context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_PERMISSIONS)
     return info.requestedPermissions.contains(permission)
