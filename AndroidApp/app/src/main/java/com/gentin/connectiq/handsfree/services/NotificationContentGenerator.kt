@@ -10,7 +10,7 @@ import com.gentin.connectiq.handsfree.impl.sdkRelaunchesOnExceptions
 import java.text.DateFormat
 
 data class NotificationContent(
-    var title: String,
+    var title: String? = null,
     var text: String? = null
 )
 
@@ -38,7 +38,7 @@ class NotificationContentGenerator(
             val deviceName = deviceInfo.name
             if (deviceInfo.connected)
                 if (outgoingCallsShouldBeEnabled(context)) {
-                    NotificationContent("Serving $deviceName")
+                    NotificationContent(text = "Serving $deviceName")
                 } else {
                     NotificationContent("Outgoing calls are off", "Connected to $deviceName")
                 }
