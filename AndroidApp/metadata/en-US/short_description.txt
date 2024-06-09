@@ -1,0 +1,1 @@
+Make and control calls from your Garmin watch (or bike computer).
