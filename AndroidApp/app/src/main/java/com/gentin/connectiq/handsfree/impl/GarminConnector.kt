@@ -11,8 +11,9 @@ import androidx.lifecycle.MutableLiveData
 import com.garmin.android.connectiq.ConnectIQ
 import com.garmin.android.connectiq.IQDevice
 import com.garmin.android.connectiq.exception.ServiceUnavailableException
-import com.gentin.connectiq.handsfree.globals.COMM_WATCH_ID
-import com.gentin.connectiq.handsfree.globals.myApp
+import com.gentin.connectiq.handsfree.globals.appLogName
+import com.gentin.connectiq.handsfree.globals.prodApp
+import com.gentin.connectiq.handsfree.globals.watchApps
 import com.gentin.connectiq.handsfree.helpers.breakIntoDebugger
 import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
 import kotlinx.coroutines.Dispatchers
@@ -80,7 +81,7 @@ class DefaultGarminConnector(
 
     override fun openWatchAppInStore() {
         try {
-            connectIQ.openStore(COMM_WATCH_ID)
+            connectIQ.openStore(prodApp.applicationId)
         } catch (e: RuntimeException) {
             Log.e(TAG, "openStoreFailed: $e")
         }
@@ -112,9 +113,11 @@ class DefaultGarminConnector(
             TAG,
             "startIncomingMessageProcessing: ${device.deviceIdentifier}(${device.friendlyName})"
         )
-        connectIQ.registerForAppEvents(device, myApp) { _, _, message, _ ->
-            for (o in message) {
-                dispatchIncomingMessage(o)
+        for (app in watchApps) {
+            connectIQ.registerForAppEvents(device, app) { _, _, message, _ ->
+                for (o in message) {
+                    dispatchIncomingMessage(o)
+                }
             }
         }
     }
@@ -236,17 +239,20 @@ class DefaultGarminConnector(
 
         try {
             connectIQ.connectedDevices.forEach { device ->
-                Log.d(
-                    TAG,
-                    "device.${device.deviceIdentifier}(${device.friendlyName}) <- msg.$id$messageValue"
-                )
-                connectIQ.sendMessage(device, myApp, message) { _, _, status ->
-                    acknowledgedMessagesCounter += 1
-                    val receivedId = "$sdkStartCount.$acknowledgedMessagesCounter"
+                watchApps.forEach { app ->
+                    val appLogName = appLogName(app)
                     Log.d(
                         TAG,
-                        "device.${device.deviceIdentifier}(${device.friendlyName}) -> ack(${status}, msg.$receivedId)"
+                        "device.${device.deviceIdentifier}(${device.friendlyName})($appLogName) <- msg.$id$messageValue"
                     )
+                    connectIQ.sendMessage(device, app, message) { _, _, status ->
+                        acknowledgedMessagesCounter += 1
+                        val receivedId = "$sdkStartCount.$acknowledgedMessagesCounter"
+                        Log.d(
+                            TAG,
+                            "device.${device.deviceIdentifier}(${device.friendlyName})($appLogName) -> ack(${status}, msg.$receivedId)"
+                        )
+                    }
                 }
             }
         } catch (e: ServiceUnavailableException) {
