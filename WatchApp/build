@@ -28,23 +28,27 @@ mkdir -p "$release_source"
 unmatchable='736fd2e'
 source_version=$(git describe --match "$unmatchable" --dirty --always | sed 's/dirty/?/g')
 
+beta_app_id="a3d8da80-e013-41f9-aca4-f66bb38fad3f"
+prod_app_id="76526066-d191-46f4-9cfb-bbf9ed955b23"
+
 sed -e "s/__SOURCE_VERSION__/$source_version/g" "$src_root"/local/resources/sourceVersion.xml-template >"$release_resources"/sourceVersion.xml
 sed -e "s/__SOURCE_VERSION__/$source_version/g" "$src_root"/local/source/SourceVersion.mc-template >"$release_source"/SourceVersion.mc
+sed -e "s/$beta_app_id/$prod_app_id/g" "$src_root"/manifest.xml >"$release_source"/manifest.xml
+
+java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
+    -jar "$sdk_root"/bin/monkeybrains.jar \
+    -o "$src_root/release/iq/WatchApp-prod.iq" \
+    -f "$src_root/monkey-prod.jungle" \
+    -y "$developer_key" \
+    -e \
+    -w
 
 for device in "${dev_devices[@]}"; do
     java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
         -jar "$sdk_root"/bin/monkeybrains.jar \
         -o "$src_root/release/$device/WatchApp-$device".prg \
-        -f "$src_root/monkey.jungle;$src_root/monkey-dev-additions.jungle;" \
+        -f "$src_root/monkey-dev.jungle" \
         -y "$developer_key" \
         -d "$device" \
         -w
 done
-
-java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
-    -jar "$sdk_root"/bin/monkeybrains.jar \
-    -o "$src_root/release/iq/WatchApp.iq" \
-    -f "$src_root/monkey.jungle;$src_root/monkey-release-additions.jungle" \
-    -y "$developer_key" \
-    -e \
-    -w

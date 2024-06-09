@@ -1,2 +1,5 @@
+project.manifest = release/source/manifest.xml
+project.typecheck = strict
+
 base.resourcePath = resources;release/resources
 base.sourcePath = source;release/source
