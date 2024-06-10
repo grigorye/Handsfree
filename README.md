@@ -2,6 +2,10 @@
 
 **Beta-testers wanted! If you're interested in joining the beta, please reach to me or send a request to join the [dedicated Google group](https://groups.google.com/g/handsfree-beta) - I'd really appreciate that.**
 
+Until it's approved by Google, the self-hosted variant of the companion (Android) app is available as .apk via the link below:
+
+https://s3.amazonaws.com/gentin.connectiq.handsfree/Handsfree-for-Garmin.apk
+
 # Why
 
 For one reason or another, most of the times I find myself wearing Bluetooth headset connected to my Android phone (to be specific, it's hearing aids in my case). The same phone is connected to my Garmin watch.
