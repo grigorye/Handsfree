@@ -44,6 +44,14 @@ java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
     -e \
     -w
 
+java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
+    -jar "$sdk_root"/bin/monkeybrains.jar \
+    -o "$src_root/release/iq/WatchApp-beta.iq" \
+    -f "$src_root/monkey-dev.jungle" \
+    -y "$developer_key" \
+    -e \
+    -w
+
 for device in "${dev_devices[@]}"; do
     java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
         -jar "$sdk_root"/bin/monkeybrains.jar \
