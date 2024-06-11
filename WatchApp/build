@@ -34,6 +34,7 @@ prod_app_id="76526066-d191-46f4-9cfb-bbf9ed955b23"
 sed -e "s/__SOURCE_VERSION__/$source_version/g" "$src_root"/local/resources/sourceVersion.xml-template >"$release_resources"/sourceVersion.xml
 sed -e "s/__SOURCE_VERSION__/$source_version/g" "$src_root"/local/source/SourceVersion.mc-template >"$release_source"/SourceVersion.mc
 sed -e "s/$beta_app_id/$prod_app_id/g" "$src_root"/manifest.xml >"$release_source"/manifest.xml
+diff "$src_root"/manifest.xml "$release_source"/manifest.xml && false # Check that sed did something.
 
 java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
     -jar "$sdk_root"/bin/monkeybrains.jar \
