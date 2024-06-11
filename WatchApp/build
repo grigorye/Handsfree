@@ -18,7 +18,7 @@ exec > >(filter_redundant_monkeyc_warnings) 2>&1
 
 . "$src_root/sdk-env.sh"
 
-dev_devices=($(cat manifest.xml | sed 's/iq://g' | xq -r '.manifest.application.products.product.[]|.["@id"]'))
+dev_devices=($(cat "$src_root/manifest.xml" | sed 's/iq://g' | xq -r '.manifest.application.products.product.[]|.["@id"]'))
 
 release_resources="$src_root/release/resources"
 mkdir -p "$release_resources"
