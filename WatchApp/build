@@ -14,10 +14,13 @@ filter_redundant_monkeyc_warnings() {
         true
 }
 
+# shellcheck disable=SC2312
 exec > >(filter_redundant_monkeyc_warnings) 2>&1
 
+# shellcheck source-path=SCRIPTDIR
 . "$src_root/sdk-env.sh"
 
+# shellcheck disable=SC2207
 dev_devices=($(cat "$src_root/manifest.xml" | sed 's/iq://g' | xq -r '.manifest.application.products.product.[]|.["@id"]'))
 
 release_resources="$src_root/release/resources"
