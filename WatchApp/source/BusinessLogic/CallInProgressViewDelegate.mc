@@ -20,7 +20,7 @@ function onResponseForCallInProgressConfirmation(response as WatchUi.Confirm) as
         var callState = getCallState() as CallInProgress;
         dumpCallState("callState", callState);
         if (isExitToSystemAfterCallCompletionEnabled()) {
-            System.exit();
+            exitToSystemFromPhonesView();
         } else {
             setCallStateIgnoringRouting(new DismissedCallInProgress(callState.phone));
         }

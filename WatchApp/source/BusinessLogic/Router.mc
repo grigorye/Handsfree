@@ -134,10 +134,20 @@ class Router {
 
     function popToPhones() as Void {
         if (isExitToSystemAfterCallCompletionEnabled()) {
-            System.exit();
+            exitToSystemFromPhonesView();
         } else {
             updatedPhonesView();
             WatchUi.popView(WatchUi.SLIDE_RIGHT);
         }
     }
+}
+
+function exitToSystemFromPhonesView() as Void {
+    dump("exitingToSystem", true);
+    if (true) { // Allow the compiler to accept "not reachable" statements *after* exit() in case it does nothing.
+        System.exit();
+    }
+    dump("stillRunningAfterSystemExit", true);
+    WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+    WatchUi.popView(WatchUi.SLIDE_IMMEDIATE); // Account the root view.
 }

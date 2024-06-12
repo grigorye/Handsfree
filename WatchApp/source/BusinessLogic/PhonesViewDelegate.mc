@@ -42,7 +42,7 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
                 break;
             }
             default: {
-                System.exit();
+                exitToSystemFromPhonesView();
             }
         }
     }
