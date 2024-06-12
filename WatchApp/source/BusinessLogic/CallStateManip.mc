@@ -21,7 +21,6 @@ function setCallState(callState as CallState) as Void {
 
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function updateUIForCallState() as Void {
-    dump("activeUiKind", getActiveUiKind());
     var activeUiKind = getActiveUiKind();
     dump("activeUiKind", activeUiKind);
     switch (activeUiKind) {
