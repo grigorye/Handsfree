@@ -1,5 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.Application;
+using Toybox.Lang;
 
 (:background, :glance)
 var phonesImp as Phones or Null;
@@ -31,7 +32,7 @@ function setPhones(phones as Phones) as Void {
     }
 
     phonesImp = phones;
-    Application.Storage.setValue("phones.v1", phones);
+    Application.Storage.setValue("phones.v1", phones as [Application.PropertyValueType]);
 
     updateUIForPhones();
 }
