@@ -9,4 +9,4 @@ export src_root="$wd/.."
 
 . "$src_root/sdk-env.sh"
 
-expect -f "$wd/RunLoop-fenix7_sim.expect"
+expect -f "$wd/RunLoop-fenix7_sim.exp"
