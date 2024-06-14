@@ -1,5 +1,0 @@
-project.manifest = manifest.xml
-project.typecheck = strict
-
-base.resourcePath = resources;release/resources;resources-dev
-base.sourcePath = source;release/source

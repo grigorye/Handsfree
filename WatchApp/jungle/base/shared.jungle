@@ -1,0 +1,4 @@
+project.typecheck = strict
+
+base.sourcePath = ../../source;../../local/source
+base.resourcePath = ../../resources;../../local/resources

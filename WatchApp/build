@@ -4,13 +4,19 @@
 set -euo pipefail
 set -x
 
+type="$1" # app or widget
+shift
+
 wd=$(dirname "$0")
 
 src_root="$wd"
+product_name="Handsfree"
 
 filter_redundant_monkeyc_warnings() {
-    grep --line-buffered -v "^WARNING: .*: The launcher icon (128x128) isn't compatible with the specified launcher icon size of the device .*\. Image will be scaled to the target size" |
-        grep --line-buffered -v "^WARNING: .*: Glance applications are not supported for app type 'watch-app' on device .*\. The (:glance) annotation will be ignored.$" ||
+    tee |
+        grep --line-buffered -v "^WARNING: .*: The launcher icon (128x128) isn't compatible with the specified launcher icon size of the device .*\. Image will be scaled to the target size" |
+        grep --line-buffered -v "^WARNING: .*: Glance applications are not supported for app type 'watch-app' on device .*\. The (:glance) annotation will be ignored.$" |
+        tee ||
         true
 }
 
@@ -20,8 +26,11 @@ exec > >(filter_redundant_monkeyc_warnings) 2>&1
 # shellcheck source-path=SCRIPTDIR
 . "$src_root/sdk-env.sh"
 
+jungle="$src_root/jungle"
+manifest="$jungle/manifests/$type.xml"
+
 # shellcheck disable=SC2207
-dev_devices=($(cat "$src_root/manifest.xml" | sed 's/iq://g' | xq -r '.manifest.application.products.product.[]|.["@id"]'))
+dev_devices=($(cat "$manifest" | sed 's/iq://g' | xq -r '.manifest.application.products.product.[]|.["@id"]'))
 
 release_resources="$src_root/release/resources"
 mkdir -p "$release_resources"
@@ -36,21 +45,21 @@ prod_app_id="76526066-d191-46f4-9cfb-bbf9ed955b23"
 
 sed -e "s/__SOURCE_VERSION__/$source_version/g" "$src_root"/local/resources/sourceVersion.xml-template >"$release_resources"/sourceVersion.xml
 sed -e "s/__SOURCE_VERSION__/$source_version/g" "$src_root"/local/source/SourceVersion.mc-template >"$release_source"/SourceVersion.mc
-sed -e "s/$beta_app_id/$prod_app_id/g" "$src_root"/manifest.xml >"$release_source"/manifest.xml
-diff "$src_root"/manifest.xml "$release_source"/manifest.xml && false # Check that sed did something.
+sed -e "s/$beta_app_id/$prod_app_id/g" "$manifest" >"$release_source"/manifest.xml
+diff "$manifest" "$release_source"/manifest.xml && false # Check that sed did something.
 
 java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
     -jar "$sdk_root"/bin/monkeybrains.jar \
-    -o "$src_root/release/iq/WatchApp-prod.iq" \
-    -f "$src_root/monkey-prod.jungle" \
+    -o "$src_root/release/iq/$product_name-prod-$type.iq" \
+    -f "$jungle/type/$type.jungle;$jungle/base/shared.jungle;$jungle/env/prod.jungle" \
     -y "$developer_key" \
     -e \
     -w
 
 java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
     -jar "$sdk_root"/bin/monkeybrains.jar \
-    -o "$src_root/release/iq/WatchApp-beta.iq" \
-    -f "$src_root/monkey-dev.jungle" \
+    -o "$src_root/release/iq/$product_name-beta-$type.iq" \
+    -f "$jungle/type/$type.jungle;$jungle/base/shared.jungle;$jungle/env/dev.jungle" \
     -y "$developer_key" \
     -e \
     -w
@@ -58,8 +67,8 @@ java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
 for device in "${dev_devices[@]}"; do
     java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
         -jar "$sdk_root"/bin/monkeybrains.jar \
-        -o "$src_root/release/$device/WatchApp-$device".prg \
-        -f "$src_root/monkey-dev.jungle" \
+        -o "$src_root/release/$device/$product_name-beta-$type-$device.prg" \
+        -f "$jungle/type/$type.jungle;$jungle/base/shared.jungle;$jungle/env/dev.jungle" \
         -y "$developer_key" \
         -d "$device" \
         -w
