@@ -7,3 +7,6 @@ AndroidApp/app/.gradle/config.properties
 AndroidApp/app/local.properties
 AndroidApp/keystore.properties
 AndroidApp/app/google-services.json
+AndroidApp/gradlew.bat
+AndroidApp/gradlew
+AndroidApp/gradle/wrapper/gradle-wrapper.jar
