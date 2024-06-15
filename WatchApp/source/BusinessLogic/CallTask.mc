@@ -1,5 +1,4 @@
 using Toybox.Communications;
-using Toybox.Timer;
 
 class CallTask {
     var phone as Phone;
