@@ -26,36 +26,16 @@ val sourceVersion = providers.exec {
     commandLine("git", "describe", "--match", "736fd2e"/* unmatchable */, "--dirty", "--always")
 }.standardOutput.asText.get().trim()
 
-
-val keystoreProperties = Properties()
-val keystoreFile = rootProject.file("keystore.properties")
-val keystoreAvailable = keystoreFile.exists()
-if (keystoreAvailable) {
-    keystoreProperties.load(FileInputStream(keystoreFile))
-}
-
 android {
     namespace = this@Build_gradle.packageName
     compileSdk = this@Build_gradle.compileSdkVersion.toInt()
 
-    if (keystoreAvailable) {
-        signingConfigs {
-            create("release") {
-                keyAlias = keystoreProperties["keyAlias"] as String
-                keyPassword = keystoreProperties["keyPassword"] as String
-                storeFile = file(keystoreProperties["storeFile"] as String)
-                storePassword = keystoreProperties["storePassword"] as String
-            }
-        }
-
-        buildTypes {
-            getByName("release") {
-                signingConfig = signingConfigs.getByName("release")
-                isMinifyEnabled = false
-                proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-                )
-            }
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            )
         }
     }
 
