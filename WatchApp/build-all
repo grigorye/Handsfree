@@ -32,9 +32,10 @@ manifest="$jungle/manifests/$type.xml"
 # shellcheck disable=SC2207
 dev_devices=($(cat "$manifest" | sed 's/iq://g' | xq -r '.manifest.application.products.product.[]|.["@id"]'))
 
-release_resources="$src_root/release/resources"
+build_dir="$src_root/build"
+release_resources="$build_dir/resources"
 mkdir -p "$release_resources"
-release_source="$src_root/release/source"
+release_source="$build_dir/source"
 mkdir -p "$release_source"
 
 unmatchable='736fd2e'
@@ -50,7 +51,7 @@ diff "$manifest" "$release_source"/manifest.xml && false # Check that sed did so
 
 java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
     -jar "$sdk_root"/bin/monkeybrains.jar \
-    -o "$src_root/release/iq/$product_name-prod-$type.iq" \
+    -o "$build_dir/iq/$product_name-prod-$type.iq" \
     -f "$jungle/type/$type.jungle;$jungle/base/shared.jungle;$jungle/env/prod.jungle" \
     -y "$developer_key" \
     -e \
@@ -58,7 +59,7 @@ java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
 
 java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
     -jar "$sdk_root"/bin/monkeybrains.jar \
-    -o "$src_root/release/iq/$product_name-beta-$type.iq" \
+    -o "$build_dir/iq/$product_name-beta-$type.iq" \
     -f "$jungle/type/$type.jungle;$jungle/base/shared.jungle;$jungle/env/dev.jungle" \
     -y "$developer_key" \
     -e \
@@ -67,7 +68,7 @@ java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
 for device in "${dev_devices[@]}"; do
     java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
         -jar "$sdk_root"/bin/monkeybrains.jar \
-        -o "$src_root/release/$device/$product_name-beta-$type-$device.prg" \
+        -o "$build_dir/$device/$product_name-beta-$type-$device.prg" \
         -f "$jungle/type/$type.jungle;$jungle/base/shared.jungle;$jungle/env/dev.jungle" \
         -y "$developer_key" \
         -d "$device" \
