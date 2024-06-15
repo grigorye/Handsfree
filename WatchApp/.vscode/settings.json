@@ -2,5 +2,9 @@
   "files.exclude": {
     "bin/**": true
   },
-  "cmake.configureOnOpen": true
+  "cmake.configureOnOpen": true,
+  "search.exclude": {
+    "bin": true,
+    "build/**": true
+  }
 }
