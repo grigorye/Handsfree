@@ -1,2 +1,3 @@
 all:
-	./build
+	./build-all app
+	./build-all widget
