@@ -145,6 +145,11 @@ class Router {
 
 function exitToSystemFromPhonesView() as Void {
     dump("exitingToSystem", true);
+    var topView = viewStack[viewStack.size() - 1];
+    if (!topView.equals("phones")) {
+        dump("viewStack", viewStack);
+        System.error("viewStackIsMessedUp");
+    }
     if (true) { // Allow the compiler to accept "not reachable" statements *after* exit() in case it does nothing.
         System.exit();
     }
