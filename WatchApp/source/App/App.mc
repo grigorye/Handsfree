@@ -13,6 +13,7 @@ class App extends Application.AppBase {
     function initialize() {
         dump("initialize", true);
         dump("deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
+        dump("appType", appType());
         Application.AppBase.initialize();
         backgroundServiceEnabled = isBackgroundServiceEnabled();
         dump("backgroundServiceEnabled", backgroundServiceEnabled);
