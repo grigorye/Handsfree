@@ -29,20 +29,20 @@ class Router {
                 switch (newState) {
                     case instanceof Idle: {
                         dump("routingToNewPhones", true);
-                        WatchUi.switchToView(updatedPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        switchToView("phones", updatedPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof SchedulingCall: {
                         dump("routingToScheduling", true);
                         dump("pushingOutPhones", true);
-                        WatchUi.pushView(new SchedulingCallView(newState as SchedulingCall), new SchedulingCallViewDelegate(), WatchUi.SLIDE_LEFT);
+                        pushView("scheduling", new SchedulingCallView(newState as SchedulingCall), new SchedulingCallViewDelegate(), WatchUi.SLIDE_LEFT);
                         break;
                     }
                     case instanceof CallInProgress: {
                         dump("routingToCallInProgress", true);
                         var phone = (newState as CallInProgress).phone;
                         dump("pushingOutPhones", true);
-                        WatchUi.pushView(new CallInProgressView(phone), new CallInProgressViewDelegate(), WatchUi.SLIDE_LEFT);
+                        pushView("callInProgress", new CallInProgressView(phone), new CallInProgressViewDelegate(), WatchUi.SLIDE_LEFT);
                         break;
                     }
                     case instanceof Ringing: {
@@ -56,13 +56,13 @@ class Router {
                 switch (newState) {
                     case instanceof SchedulingCall: {
                         dump("routingToUpdatedScheduledCall", true);
-                        WatchUi.switchToView(new SchedulingCallView(newState as SchedulingCall), new SchedulingCallViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        switchToView("scheduling", new SchedulingCallView(newState as SchedulingCall), new SchedulingCallViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof CallInProgress: {
                         dump("routingToCallInProgress", true);
                         var phone = (newState as CallInProgress).phone;
-                        WatchUi.switchToView(new CallInProgressView(phone), new CallInProgressViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        switchToView("callInProgress", new CallInProgressView(phone), new CallInProgressViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof Idle: {
@@ -84,14 +84,14 @@ class Router {
                     }
                     case instanceof HangingUp: {
                         dump("routingToHangingUp", true);
-                        WatchUi.pushView(new HangingUpView(newState as HangingUp), new HangingUpViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        pushView("hangingUp", new HangingUpView(newState as HangingUp), new HangingUpViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof CallInProgress: {
                         dump("routingToNewCallInProgress", true);
                         var phone = (newState as CallInProgress).phone;
-                        WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
-                        WatchUi.pushView(new CallInProgressView(phone), new CallInProgressViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        popView(WatchUi.SLIDE_IMMEDIATE);
+                        pushView("callInProgress", new CallInProgressView(phone), new CallInProgressViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     default:
@@ -102,13 +102,13 @@ class Router {
                 switch (newState) {
                     case instanceof HangingUp: {
                         dump("routingToUpdatedHangingUp", true);
-                        WatchUi.switchToView(new HangingUpView(newState as HangingUp), new HangingUpViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        switchToView("hangingUp", new HangingUpView(newState as HangingUp), new HangingUpViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof CallInProgress: {
                         dump("routingToCallInProgress", true);
                         var phone = (newState as CallInProgress).phone;
-                        WatchUi.switchToView(new CallInProgressView(phone), new CallInProgressViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        switchToView("callInProgress", new CallInProgressView(phone), new CallInProgressViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof Idle: {
@@ -137,7 +137,7 @@ class Router {
             exitToSystemFromPhonesView();
         } else {
             updatedPhonesView();
-            WatchUi.popView(WatchUi.SLIDE_RIGHT);
+            popView(WatchUi.SLIDE_RIGHT);
         }
     }
 }
@@ -148,6 +148,6 @@ function exitToSystemFromPhonesView() as Void {
         System.exit();
     }
     dump("stillRunningAfterSystemExit", true);
-    WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
-    WatchUi.popView(WatchUi.SLIDE_IMMEDIATE); // Account the root view.
+    popView(WatchUi.SLIDE_IMMEDIATE);
+    popView(WatchUi.SLIDE_IMMEDIATE); // Account the root view.
 }

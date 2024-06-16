@@ -54,7 +54,7 @@ function updateUIForPhones() as Void {
         phonesView.updateFromPhones(phones);
         phonesView.updateFromCallState(getCallState());
         setPhonesViewImp(phonesView);
-        WatchUi.switchToView(phonesView, new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+        switchToView("phones", phonesView, new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
     } else {
         dump("updatingPhonesInPlace", true);
         getPhonesView().updateFromPhones(phones);

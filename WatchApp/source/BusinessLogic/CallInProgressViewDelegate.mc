@@ -14,6 +14,7 @@ class CallInProgressViewDelegate extends WatchUi.ConfirmationDelegate {
 
 function onResponseForCallInProgressConfirmation(response as WatchUi.Confirm) as Lang.Boolean {
     dump("confirmationResponse", response);
+    trackBackFromView();
     if (response == WatchUi.CONFIRM_YES) {
         hangupCallInProgress();
     } else {

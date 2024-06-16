@@ -9,12 +9,12 @@ class CommView extends WatchUi.View {
         dump("commView", "onShow");
         if (phonesViewImp == null) {
             onAppWillFinishLaunching();
-            WatchUi.pushView(getPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+            pushView("phones", getPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
             getRouter().updateRoute();
             onAppDidFinishLaunching();
         } else {
             dump("pushingBackPhonesView", true);
-            WatchUi.pushView(getPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+            pushView("phones", getPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
         }
     }
 }

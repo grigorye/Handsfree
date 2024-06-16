@@ -6,6 +6,7 @@ class SchedulingCallViewDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onBack() {
+        trackBackFromView();
         var callState = getCallState();
         dumpCallState("onBackFromSchedulingCall", callState);
         if (!(callState instanceof SchedulingCall)) {
