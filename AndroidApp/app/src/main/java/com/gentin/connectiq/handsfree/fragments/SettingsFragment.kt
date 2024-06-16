@@ -59,16 +59,30 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
     ) {
         knownDeviceInfos.observe(this) {
             devicesPreference?.apply {
-                val deviceInfo = it?.lastOrNull()
-                if (deviceInfo != null) {
-                    title = deviceInfo.name
-                    summary = if (deviceInfo.connected)
-                        getString(R.string.device_label_connected)
-                    else
-                        getString(R.string.device_label_not_connected)
+                if (it.count() > 1) {
+                    title = it
+                        .sortedWith(compareBy { it.connected })
+                        .reversed()
+                        .map {
+                            if (it.connected) {
+                                "${it.name}"
+                            } else {
+                                "⚠ ${it.name}"
+                            }
+                        }.joinToString(", ")
+                    summary = null
                 } else {
-                    title = getString(R.string.no_devices_preference_title)
-                    summary = getString(R.string.no_devices_preference_summary)
+                    val deviceInfo = it?.lastOrNull()
+                    if (deviceInfo != null) {
+                        title = deviceInfo.name
+                        summary = if (deviceInfo.connected)
+                            getString(R.string.device_label_connected)
+                        else
+                            getString(R.string.device_label_not_connected)
+                    } else {
+                        title = getString(R.string.no_devices_preference_title)
+                        summary = getString(R.string.no_devices_preference_summary)
+                    }
                 }
                 setOnPreferenceClickListener { preference ->
                     Log.d(TAG, "preferenceClicked: $preference")
