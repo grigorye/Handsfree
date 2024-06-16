@@ -134,6 +134,7 @@ class Router {
 
     function popToPhones() as Void {
         if (isExitToSystemAfterCallCompletionEnabled()) {
+            popView(WatchUi.SLIDE_IMMEDIATE);
             exitToSystemFromPhonesView();
         } else {
             updatedPhonesView();
