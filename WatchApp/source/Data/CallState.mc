@@ -36,7 +36,14 @@ function loadCallState() as CallState or Null {
     var callState = decodeCallState(callStateData);
     if (callState != null) {
         dump("loadedCallState", callState.dumpRep());
-        return callState as CallState;
+        switch (callState) {
+            case instanceof HangingUp: {
+                return dumpCallState("adjustedLoadedCallState", new Idle()) as CallState;
+            }
+            default: {
+                return callState as CallState;
+            }
+        }
     }
     dump("loadedCallState", "null");
     return null;
