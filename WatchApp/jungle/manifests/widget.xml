@@ -32,6 +32,7 @@
             <iq:product id="marqdriver"/>
             <iq:product id="marqexpedition"/>
             <iq:product id="marqgolfer"/>
+            <iq:product id="vivoactive4"/>
         </iq:products>
         <iq:permissions>
             <iq:uses-permission id="Background"/>
