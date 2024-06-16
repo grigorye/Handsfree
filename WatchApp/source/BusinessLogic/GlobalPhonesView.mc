@@ -20,6 +20,6 @@ function setPhonesView(phonesView as PhonesView) as Void {
     setPhonesViewImp(phonesView);
 }
 
-function setPhonesViewImp(phonesView as PhonesView) as Void {
+function setPhonesViewImp(phonesView as PhonesView or Null) as Void {
     phonesViewImp = phonesView;
 }
