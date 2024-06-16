@@ -31,3 +31,23 @@ function trackInitialView(tag as Lang.String) as Void {
     viewStack.add(tag);
     dump("$$initialView", viewStack);
 }
+
+function dumpViewStack(tag as Lang.String) as Void {
+    dump("$$" + tag, viewStack);
+}
+
+function topViewIs(tag as Lang.String) as Lang.Boolean {
+    return viewStack[viewStack.size() - 1].equals(tag);
+}
+
+function viewStackEquals(other as ViewStack) as Lang.Boolean {
+    if (viewStack.size() != other.size()) {
+        return false;
+    }
+    for (var i = 0; i < viewStack.size(); i++) {
+        if (!viewStack[i].equals(other[i])) {
+            return false;
+        }
+    }
+    return true;
+}
