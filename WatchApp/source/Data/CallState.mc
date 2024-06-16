@@ -55,6 +55,12 @@ function getOldCallState() as CallState {
 }
 
 (:background, :glance)
+function setOldCallStateImp(callState as CallState or Null) as Void {
+    dumpCallState("setOldCallStateImp", callState);
+    oldCallStateImp = callState;
+}
+
+(:background, :glance)
 function getCallState() as CallState {
     if (callStateImp == null) {
         var loadedCallState = loadCallState();
@@ -69,7 +75,7 @@ function getCallState() as CallState {
 
 (:background, :glance)
 function setCallStateImp(callState as CallState) as Void {
-    oldCallStateImp = getCallState();
+    setOldCallStateImp(getCallState());
     callStateImp = callState;
     saveCallState(callState);
 }
