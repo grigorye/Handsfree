@@ -85,7 +85,8 @@ class PhonesView extends WatchUi.Menu2 {
         // https://forums.garmin.com/developer/connect-iq/f/discussion/1386/handling-back-button-press-with-confirmation-view---vivoactive
         var callState = getCallState();
         dumpCallState("callStateOnPhonesShow", callState);
-        if (callState instanceof CallInProgress) {
+        if (topViewIs("callInProgress")) {
+            dumpViewStack("viewStackOnPhonesShow");
             dump("workingAroundNoOnResponse", true);
             onResponseForCallInProgressConfirmation(WatchUi.CONFIRM_NO);
         }
