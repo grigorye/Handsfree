@@ -146,7 +146,7 @@ class Router {
 function exitToSystemFromPhonesView() as Void {
     dump("exitingToSystem", true);
     if (!topViewIs("phones")) {
-        dumpViewStack("viewStack");
+        dumpViewStack("messedUpViewStack");
         System.error("viewStackIsMessedUp");
     }
     popView(WatchUi.SLIDE_IMMEDIATE);
