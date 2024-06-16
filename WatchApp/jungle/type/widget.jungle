@@ -1,1 +1,2 @@
 project.manifest = ../manifests/widget.xml
+base.excludeAnnotations = watchApp

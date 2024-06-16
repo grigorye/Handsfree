@@ -1,4 +1,6 @@
-project.manifest = manifest.xml
+project.manifest = jungle/manifests/app.xml
+base.excludeAnnotations = widget
+
 project.typecheck = strict
 
 base.sourcePath = source;local/source
