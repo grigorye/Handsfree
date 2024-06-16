@@ -53,8 +53,21 @@ class App extends Application.AppBase {
     (:typecheck([disableGlanceCheck, disableBackgroundCheck]))
     function getInitialView() {
         dump("getInitialView", true);
+        if (System.DeviceSettings has :isGlanceModeEnabled) {
+            dump("isGlanceModeEnabled", System.getDeviceSettings().isGlanceModeEnabled);
+        } else {
+            dump("isGlanceModeEnabled", null);
+        }
+        var inWidgetMode = isWidget();
+        dump("inWidgetMode", inWidgetMode);
         setActiveUiKind(ACTIVE_UI_APP);
-        return [new CommView()];
+        if (inWidgetMode) {
+            trackInitialView("widget");
+            return [new WidgetView(), new WidgetViewDelegate()];
+        } else {
+            trackInitialView("commView");
+            return [new CommView()];
+        }
     }
 
     (:glance)

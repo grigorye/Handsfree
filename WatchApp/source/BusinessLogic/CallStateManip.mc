@@ -32,7 +32,12 @@ function updateUIForCallState() as Void {
             return;
         }
         case ACTIVE_UI_APP: {
-            getRouter().updateRoute();
+            dump("$$viewStack", viewStack);
+            if (viewStack[0].equals("widget") && viewStack.size() == 1) {
+                WatchUi.requestUpdate();
+            } else {
+                getRouter().updateRoute();
+            }
             return;
         }
     }
