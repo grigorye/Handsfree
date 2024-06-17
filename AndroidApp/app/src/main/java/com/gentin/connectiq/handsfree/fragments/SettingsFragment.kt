@@ -59,6 +59,7 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
         knownDeviceInfos: LiveData<List<DeviceInfo>> = DefaultServiceLocator.knownDeviceInfos
     ) {
         knownDeviceInfos.observe(this) {
+            Log.d(TAG, "knownDeviceInfosDidChange: $it")
             devicesPreference?.apply {
                 if (it.count() > 1) {
                     title = formattedDeviceInfos(it)
