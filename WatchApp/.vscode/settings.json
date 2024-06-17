@@ -3,7 +3,7 @@
     "bin/**": true
   },
   "cmake.configureOnOpen": true,
-  "monkeyC.jungleFiles": "jungle/type/widget.jungle;jungle/base/shared.jungle",
+  "monkeyC.jungleFiles": "shared.jungle;jungle/type/widget.jungle",
   "search.exclude": {
     "bin": true,
     "build/**": true
