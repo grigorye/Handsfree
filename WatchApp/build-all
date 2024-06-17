@@ -41,8 +41,20 @@ mkdir -p "$release_source"
 unmatchable='736fd2e'
 source_version=$(git describe --match "$unmatchable" --dirty --always | sed 's/dirty/?/g')
 
-beta_app_id="a3d8da80-e013-41f9-aca4-f66bb38fad3f"
-prod_app_id="76526066-d191-46f4-9cfb-bbf9ed955b23"
+case "$type" in
+app)
+    beta_app_id="a3d8da80-e013-41f9-aca4-f66bb38fad3f"
+    prod_app_id="76526066-d191-46f4-9cfb-bbf9ed955b23"
+    ;;
+widget)
+    beta_app_id="cdc225d9-bc88-4d9e-a8a6-ce7dffdd0714"
+    prod_app_id="4241a52e-81db-4356-ac43-c8dfeb7d0be0"
+    ;;
+*)
+    echo "Unknown type: $type"
+    exit 1
+    ;;
+esac
 
 sed -e "s/__SOURCE_VERSION__/$source_version/g" "$src_root"/local/resources/sourceVersion.xml-template >"$release_resources"/sourceVersion.xml
 sed -e "s/__SOURCE_VERSION__/$source_version/g" "$src_root"/local/source/SourceVersion.mc-template >"$release_source"/SourceVersion.mc
