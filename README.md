@@ -4,7 +4,7 @@
 
 Until it's approved by Google, the self-hosted variant of the companion (Android) app is available as .apk via the link below:
 
-https://s3.amazonaws.com/gentin.connectiq.handsfree/Handsfree-for-Garmin.apk
+https://grigorye.github.io/handsfree/Installation
 
 # Why
 
@@ -16,8 +16,8 @@ The watch (one of the best watches in the world, if you ask me), allows me to co
 
 There're two components of the solution:
 
--   Handsfree app for Garmin watch
--   Handsfree companion app for Android phone
+-   [Handsfree app](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920) for Garmin watch
+-   [Handsfree companion app](https://grigorye.github.io/handsfree/Installation) for Android phone
 
 ## Companion (Android) app
 
