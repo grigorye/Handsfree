@@ -179,16 +179,16 @@ class DefaultGarminConnector(
     }
 
     private var knownDevices = MutableLiveData(mapOf<Long, DeviceInfo>())
+    private var knownDevicesAcc = mutableMapOf<Long, DeviceInfo>()
 
     private fun startObservingDeviceEvents() {
         connectIQ.knownDevices.forEach { device ->
             device.status = connectIQ.getDeviceStatus(device)
             connectIQ.registerForDeviceEvents(device) { _, status ->
-                val oldValue = knownDevices.value ?: mapOf()
-                val newValue = oldValue.toMutableMap()
-                newValue[device.deviceIdentifier] =
+                knownDevicesAcc[device.deviceIdentifier] =
                     DeviceInfo(device.friendlyName, status == IQDevice.IQDeviceStatus.CONNECTED)
-                knownDevices.postValue(newValue)
+                Log.d(TAG, "postingNewKnownDevices: $knownDevicesAcc")
+                knownDevices.postValue(knownDevicesAcc)
                 Log.d(
                     TAG,
                     "device.${device.deviceIdentifier}(${device.friendlyName}) <- status($status)"
