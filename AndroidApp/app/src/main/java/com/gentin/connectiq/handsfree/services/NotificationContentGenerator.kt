@@ -6,6 +6,7 @@ import androidx.preference.PreferenceManager
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.globals.outgoingCallsShouldBeEnabled
 import com.gentin.connectiq.handsfree.impl.GarminConnector
+import com.gentin.connectiq.handsfree.impl.formattedDeviceInfos
 import com.gentin.connectiq.handsfree.impl.sdkRelaunchesOnExceptions
 import java.text.DateFormat
 
@@ -32,20 +33,30 @@ class NotificationContentGenerator(
     }
 
     private fun releaseModeNotificationContent(): NotificationContent {
-        val deviceInfo = garminConnector.knownDeviceInfos.value?.lastOrNull()
+        val deviceInfos = garminConnector.knownDeviceInfos.value
 
-        return if (deviceInfo != null) {
-            val deviceName = deviceInfo.name
-            if (deviceInfo.connected)
-                if (outgoingCallsShouldBeEnabled(context)) {
-                    NotificationContent(text = "Serving $deviceName")
-                } else {
-                    NotificationContent("Outgoing calls are off", "Connected to $deviceName")
-                }
-            else
-                NotificationContent("Not connected to $deviceName")
-        } else {
+        return if (deviceInfos.isNullOrEmpty()) {
             NotificationContent("Not connected", "Add a device via Garmin Connect")
+        } else {
+            if (deviceInfos.count() > 1) {
+                val formattedDeviceInfos = formattedDeviceInfos(deviceInfos)
+                if (!outgoingCallsShouldBeEnabled(context)) {
+                    NotificationContent("Outgoing calls are off", "Serving $formattedDeviceInfos")
+                } else {
+                    NotificationContent(text = "Serving $formattedDeviceInfos")
+                }
+            } else {
+                val deviceInfo = deviceInfos[0]
+                val deviceName = deviceInfo.name
+                if (deviceInfo.connected)
+                    if (outgoingCallsShouldBeEnabled(context)) {
+                        NotificationContent(text = "Serving $deviceName")
+                    } else {
+                        NotificationContent("Outgoing calls are off", "Connected to $deviceName")
+                    }
+                else
+                    NotificationContent("Not connected to $deviceName")
+            }
         }
     }
 
