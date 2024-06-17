@@ -9,6 +9,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
 import com.gentin.connectiq.handsfree.impl.DeviceInfo
+import com.gentin.connectiq.handsfree.impl.formattedDeviceInfos
 import com.gentin.connectiq.handsfree.onboarding.resolveLink
 import com.gentin.connectiq.handsfree.permissions.isPermissionRequested
 
@@ -60,16 +61,7 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
         knownDeviceInfos.observe(this) {
             devicesPreference?.apply {
                 if (it.count() > 1) {
-                    title = it
-                        .sortedWith(compareBy { it.connected })
-                        .reversed()
-                        .map {
-                            if (it.connected) {
-                                "${it.name}"
-                            } else {
-                                "⚠ ${it.name}"
-                            }
-                        }.joinToString(", ")
+                    title = formattedDeviceInfos(it)
                     summary = null
                 } else {
                     val deviceInfo = it?.lastOrNull()
