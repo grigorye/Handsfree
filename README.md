@@ -48,8 +48,9 @@ https://s3.amazonaws.com/gentin.connectiq.handsfree/Handsfree-Demo.mp4
 
 ## Setup
 
--   Install the Android app, open it, and give it permissions to run in background, access your contacts and control your calls. (You should see "GRANT PERMISSIONS" if any permissions are missing, otherwise you should see "MANAGE PERMISSIONS" button)
--   Put contacts you want to dial from the watch, into the starred contacts (tap "SELECT CONTACTS" if you want to modify those).
+-   Install the Android app, open it, and toggle all the features on (preferably) - you'll get prompts for the necessary permissions.
+-   Check/adjust the list of favorites on your phone.
+-   Check https://dontkillmyapp.com for your phone model (the link that should automatically show hints for your phone model is available in About > Troubleshooting > Hints for running apps in background on your phone in Android app).
 -   Install the watch app, launch it. It should get the list of the contacts from the phone and you should be ready to go.
 
 ### Making calls
@@ -62,7 +63,7 @@ https://s3.amazonaws.com/gentin.connectiq.handsfree/Handsfree-Demo.mp4
 
 # Troubleshooting
 
-It's critical for the companion app to be able to run in background and to be able to receive the requests from the watch. To avoid troubles, I really recommend to take a look at https://dontkillmyapp.com and follow instructions for your specific model of the phone (you can see those by tapping "RUN IT IN THE BACKGROUND" button inside the app), to let Handsfree *and* Garmin Connect app run in the background.
+It's critical for the companion app to be able to run in background and to be able to receive the requests from the watch. To avoid troubles, I really recommend to take a look at https://dontkillmyapp.com and follow instructions for your specific phone model, to let Handsfree *and* Garmin Connect app run in the background.
 
 # Overview of Garmin watch app screens
 
