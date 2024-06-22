@@ -1,7 +1,4 @@
 project.manifest = manifest-widget.xml
-base.excludeAnnotations = watchApp
+base.excludeAnnotations = $(base.excludeAnnotations);distOnly;watchApp
 
 project.typecheck = strict
-
-base.sourcePath = $(base.sourcePath);local/source
-base.resourcePath = $(base.resourcePath);local/resources

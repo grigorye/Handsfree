@@ -1,0 +1,3 @@
+project.typecheck = strict
+
+base.excludeAnnotations = $(base.excludeAnnotations);nonDistOnly

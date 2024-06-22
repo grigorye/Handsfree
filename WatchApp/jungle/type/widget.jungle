@@ -1,2 +1,2 @@
 project.manifest = ../../manifest-widget.xml
-base.excludeAnnotations = watchApp
+base.excludeAnnotations = $(base.excludeAnnotations);watchApp

@@ -1,6 +1,6 @@
 using Toybox.Lang;
 
-(:background, :glance, :devOnly)
+(:background, :glance, :nonDistOnly)
 function sourceVersion() as Lang.String {
     return "987abcd-?";
 }

@@ -1,2 +1,2 @@
 project.manifest = ../../manifest-app.xml
-base.excludeAnnotations = widget
+base.excludeAnnotations = $(base.excludeAnnotations);widget
