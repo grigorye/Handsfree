@@ -1,14 +1,8 @@
 **TLDR**: If you wear a Garmin watch and prefer to keep your Android phone in your pocket while making calls (meaning, you're wearing some kind of earphones), you can find Handsfree useful.
 
-**Beta-testers wanted! If you're interested in joining the beta, please reach to me or send a request to join the [dedicated Google group](https://groups.google.com/g/handsfree-beta) - I'd really appreciate that.**
+###### **Beta-testers wanted!**
 
-Until it's approved by Google, the self-hosted variant of the companion (Android) app is available as .apk via the link below:
-
-https://grigorye.github.io/handsfree/Installation
-
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-     alt="Get it on F-Droid"
-     height="80">](https://f-droid.org/packages/com.gentin.connectiq.handsfree/)
+**If you're interested in joining the beta, please reach to me or send a request to join the [dedicated Google group](https://groups.google.com/g/handsfree-beta) - I'd really appreciate that.**
 
 # Why
 
@@ -18,10 +12,7 @@ The watch (one of the best watches in the world, if you ask me), allows me to co
 
 # How
 
-There're two components of the solution:
-
--   [Handsfree app](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920) for Garmin watch
--   [Handsfree companion app](https://grigorye.github.io/handsfree/Installation) for Android phone
+There're two components of the solution: the app running on the watch and the companion app running on an Android phone.
 
 ## Companion (Android) app
 
@@ -46,9 +37,31 @@ https://s3.amazonaws.com/gentin.connectiq.handsfree/Handsfree-Demo.mp4
 
 ## Requirements
 
--   Garmin watch (see [WatchApp/manifest.xml](WatchApp/manifest.xml) for the list of the supported models)
+-   Garmin watch or bike computer (see [Garmin IQ app page](https://apps.garmin.com/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920?tid=1) for the list of supported models)
 -   Android phone (currently limited to Android 10 or later), with Garmin Connect app installed and connected to the watch
 -   iPhones are not supported (I could not find a way to drive calls there without explicit user confirmation for each call).
+
+## Installation
+
+##### [Handsfree app](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920) for Garmin watch
+
+[<img src="badges/Connect IQ Badge-White.svg" alt="available-connect-iq-badge" height="88"/>](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920)
+
+##### [Handsfree companion app](https://grigorye.github.io/handsfree/Installation) for Android phone
+
+There're several ways to obtain the Android app.
+
+1.   **If you joined the [beta program](https://groups.google.com/g/handsfree-beta)**, you can already benefit from installing the Android app from GooglePlay:
+
+[<img src="badges/GetItOnGooglePlay_Badge_Web_color_English.png" height="80" />](https://play.google.com/store/apps/details?id=com.gentin.connectiq.handsfree) 
+
+2.   If you are not a beta tester (or prefer to install .apks without Google Play), you can install the latest version of the app from the page below:
+
+https://grigorye.github.io/handsfree/Installation
+
+3.   You can also install the app/follow its updates at F-Droid:
+
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.svg" height="80" />](https://f-droid.org/packages/com.gentin.connectiq.handsfree/)
 
 ## Setup
 
