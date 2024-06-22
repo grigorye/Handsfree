@@ -1,7 +1,7 @@
-project.manifest = jungle/manifests/app.xml
-base.excludeAnnotations = widget
+project.manifest = manifest-widget.xml
+base.excludeAnnotations = watchApp
 
 project.typecheck = strict
 
-base.sourcePath = source;local/source
-base.resourcePath = resources;local/resources
+base.sourcePath = $(base.sourcePath);local/source
+base.resourcePath = $(base.resourcePath);local/resources

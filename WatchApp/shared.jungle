@@ -1,7 +1,0 @@
-project.typecheck = strict
-
-base.sourcePath = $(base.sourcePath);source;local/source
-base.resourcePath = $(base.resourcePath);resources;local/resources
-base.personality = $(base.personality);resources
-
-semioctagon.resourcePath = $(semioctagon.resourcePath);resources-semioctagon
