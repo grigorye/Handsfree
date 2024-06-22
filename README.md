@@ -6,6 +6,10 @@ Until it's approved by Google, the self-hosted variant of the companion (Android
 
 https://grigorye.github.io/handsfree/Installation
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/com.gentin.connectiq.handsfree/)
+
 # Why
 
 For one reason or another, most of the times I find myself wearing Bluetooth headset connected to my Android phone (to be specific, it's hearing aids in my case). The same phone is connected to my Garmin watch.
