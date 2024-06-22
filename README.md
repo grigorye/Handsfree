@@ -57,7 +57,7 @@ https://s3.amazonaws.com/gentin.connectiq.handsfree/Handsfree-Demo.mp4
 -   Check https://dontkillmyapp.com for your phone model (the link that should automatically show hints for your phone model is available in About > Troubleshooting > Hints for running apps in background on your phone in Android app).
 -   Install the watch app, launch it. It should get the list of the contacts from the phone and you should be ready to go.
 
-### Making calls
+## Making calls
 
 -   Open the app on the watch.
 -   Select a contact phone to start the call.
