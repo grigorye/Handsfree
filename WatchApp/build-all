@@ -18,7 +18,7 @@ product_name="Handsfree"
 filter_redundant_monkeyc_warnings() {
     tee |
         grep --line-buffered -v "^WARNING: .*: The launcher icon (128x128) isn't compatible with the specified launcher icon size of the device .*\. Image will be scaled to the target size" |
-        grep --line-buffered -v "^WARNING: .*: Glance applications are not supported for app type 'watch-app' on device .*\. The (:glance) annotation will be ignored.$" |
+        grep --line-buffered -v "^WARNING: .*: Glance applications are not supported for app type '.*' on device .*\. The (:glance) annotation will be ignored.$" |
         grep --line-buffered -v "^WARNING: .*: .*/source/Views/GlanceView.mc:.*: Value '.*' not available in all function scopes.$" |
         tee ||
         true
