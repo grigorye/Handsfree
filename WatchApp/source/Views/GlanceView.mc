@@ -1,5 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.Lang;
+using Rez.Styles;
 
 (:glance, :typecheck(disableBackgroundCheck))
 class GlanceView extends WatchUi.GlanceView {
@@ -21,12 +22,19 @@ class GlanceView extends WatchUi.GlanceView {
         dc.setColor(Toybox.Graphics.COLOR_WHITE, Toybox.Graphics.COLOR_TRANSPARENT);
 
         dump("shouldShowCallState", isShowingCallStateOnGlanceEnabled());
-        var appName = "Handsfree" + headsetStatusSuffix();
+        var realAppName = "Handsfree" + headsetStatusSuffix();
+        var appName;
+        if (Styles.glance_font.capitalize) {
+            appName = realAppName.toUpper();
+        } else {
+            appName = realAppName;
+        }
+        dump("appName", appName);
         if (!isShowingCallStateOnGlanceEnabled()) {
             dc.drawText(
                 0,
                 dc.getHeight() / 2,
-                Toybox.Graphics.FONT_SYSTEM_MEDIUM,
+                Styles.glance_font.font,
                 appName,
                 Toybox.Graphics.TEXT_JUSTIFY_LEFT | Toybox.Graphics.TEXT_JUSTIFY_VCENTER
             );
@@ -60,7 +68,7 @@ class GlanceView extends WatchUi.GlanceView {
             dc.drawText(
                 0,
                 dc.getHeight() / 2,
-                Toybox.Graphics.FONT_SYSTEM_TINY,
+                Styles.glance_font.font,
                 title + "\n" + subtitle,
                 Toybox.Graphics.TEXT_JUSTIFY_LEFT | Toybox.Graphics.TEXT_JUSTIFY_VCENTER
             );
