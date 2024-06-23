@@ -16,6 +16,7 @@ filter_redundant_monkeyc_warnings() {
     tee |
         grep --line-buffered -v "^WARNING: .*: The launcher icon (128x128) isn't compatible with the specified launcher icon size of the device .*\. Image will be scaled to the target size" |
         grep --line-buffered -v "^WARNING: .*: Glance applications are not supported for app type 'watch-app' on device .*\. The (:glance) annotation will be ignored.$" |
+        grep --line-buffered -v "^WARNING: .*: .*/source/Views/GlanceView.mc:.*: Value '.*' not available in all function scopes.$" |
         tee ||
         true
 }
@@ -65,7 +66,7 @@ for dist in prod beta; do
     java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
         -jar "$sdk_root"/bin/monkeybrains.jar \
         -o "$build_dir/iq/$product_name-$dist-$type.iq" \
-        -f "$jungle/type/$type.jungle;$jungle/dist/$dist.jungle;$jungle/versioning/release.jungle" \
+        -f "$jungle/type/$type.jungle;$jungle/dist/$dist.jungle;$jungle/versioning/release.jungle;shared.jungle" \
         -y "$developer_key" \
         -e \
         -w
@@ -75,7 +76,7 @@ for device in "${dev_devices[@]}"; do
     java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
         -jar "$sdk_root"/bin/monkeybrains.jar \
         -o "$build_dir/$device/$product_name-beta-$type-$device.prg" \
-        -f "$jungle/type/$type.jungle;$jungle/dist/beta.jungle;$jungle/versioning/release.jungle" \
+        -f "$jungle/type/$type.jungle;$jungle/dist/beta.jungle;$jungle/versioning/release.jungle;shared.jungle" \
         -y "$developer_key" \
         -d "$device" \
         -w
