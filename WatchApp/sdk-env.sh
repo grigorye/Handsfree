@@ -1,6 +1,6 @@
 #! /bin/bash
 
-sdk_version="7.1.1-2024-04-11-66d0159ae"
+sdk_version=$(cat "$src_root/sdk-version.txt")
 
 developer_key="$src_root/../../Handsfree-Publishing/keys/developer_key"
 
