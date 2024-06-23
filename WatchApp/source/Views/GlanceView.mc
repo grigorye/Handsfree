@@ -1,5 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.Lang;
+using Toybox.System;
 using Rez.Styles;
 
 (:glance, :typecheck(disableBackgroundCheck))
@@ -30,11 +31,17 @@ class GlanceView extends WatchUi.GlanceView {
             appName = realAppName;
         }
         dump("appName", appName);
+        var font;
+        if ((System.DeviceSettings has :isEnhancedReadabilityModeEnabled) && System.getDeviceSettings().isEnhancedReadabilityModeEnabled) {
+            font = Styles.glance_font.fontEnhanced;
+        } else {
+            font = Styles.glance_font.font;
+        }
         if (!isShowingCallStateOnGlanceEnabled()) {
             dc.drawText(
                 0,
                 dc.getHeight() / 2,
-                Styles.glance_font.font,
+                font,
                 appName,
                 Toybox.Graphics.TEXT_JUSTIFY_LEFT | Toybox.Graphics.TEXT_JUSTIFY_VCENTER
             );
@@ -68,7 +75,7 @@ class GlanceView extends WatchUi.GlanceView {
             dc.drawText(
                 0,
                 dc.getHeight() / 2,
-                Styles.glance_font.font,
+                font,
                 title + "\n" + subtitle,
                 Toybox.Graphics.TEXT_JUSTIFY_LEFT | Toybox.Graphics.TEXT_JUSTIFY_VCENTER
             );
