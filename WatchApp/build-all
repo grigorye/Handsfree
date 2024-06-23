@@ -4,8 +4,11 @@
 set -euo pipefail
 set -x
 
+dist="$1" # prod or beta
+shift
 type="$1" # app or widget
 shift
+build_for_side_loading="${1:-false}" # true or false
 
 wd=$(dirname "$0")
 
@@ -62,22 +65,22 @@ sed -e "s/__SOURCE_VERSION__/$source_version/g" "$src_root"/local/source/SourceV
 sed -e "s/$beta_app_id/$prod_app_id/g" "$manifest" >"$release_source"/manifest.xml
 diff "$manifest" "$release_source"/manifest.xml && false # Check that sed did something.
 
-for dist in prod beta; do
-    java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
-        -jar "$sdk_root"/bin/monkeybrains.jar \
-        -o "$build_dir/iq/$product_name-$dist-$type.iq" \
-        -f "$jungle/type/$type.jungle;$jungle/dist/$dist.jungle;$jungle/versioning/release.jungle;shared.jungle" \
-        -y "$developer_key" \
-        -e \
-        -w
-done
+java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
+    -jar "$sdk_root"/bin/monkeybrains.jar \
+    -o "$build_dir/iq/$product_name-$dist-$type.iq" \
+    -f "$jungle/type/$type.jungle;$jungle/dist/$dist.jungle;$jungle/versioning/release.jungle;shared.jungle" \
+    -y "$developer_key" \
+    -e \
+    -w
 
-for device in "${dev_devices[@]}"; do
-    java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
-        -jar "$sdk_root"/bin/monkeybrains.jar \
-        -o "$build_dir/$device/$product_name-beta-$type-$device.prg" \
-        -f "$jungle/type/$type.jungle;$jungle/dist/beta.jungle;$jungle/versioning/release.jungle;shared.jungle" \
-        -y "$developer_key" \
-        -d "$device" \
-        -w
-done
+if $build_for_side_loading; then
+    for device in "${dev_devices[@]}"; do
+        java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
+            -jar "$sdk_root"/bin/monkeybrains.jar \
+            -o "$build_dir/$device/$product_name-beta-$type-$device.prg" \
+            -f "$jungle/type/$type.jungle;$jungle/dist/beta.jungle;$jungle/versioning/release.jungle;shared.jungle" \
+            -y "$developer_key" \
+            -d "$device" \
+            -w
+    done
+fi
