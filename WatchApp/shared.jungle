@@ -1,1 +1,17 @@
 project.typecheck = informative
+
+epix2.personality = $(epix2.personality);./resources-glances2022
+epix2pro42mm.personality = $(epix2pro42mm.personality);./resources-glances2022
+epix2pro47mm.personality = $(epix2pro47mm.personality);./resources-glances2022
+epix2pro51mm.personality = $(epix2pro51mm.personality);./resources-glances2022
+fenix7.personality = $(fenix7.personality);./resources-glances2022
+fenix7pro.personality = $(fenix7pro.personality);./resources-glances2022
+fenix7pronowifi.personality = $(fenix7pronowifi.personality);./resources-glances2022
+fenix7s.personality = $(fenix7s.personality);./resources-glances2022
+fenix7spro.personality = $(fenix7spro.personality);./resources-glances2022
+fenix7x.personality = $(fenix7x.personality);./resources-glances2022
+fenix7xpro.personality = $(fenix7xpro.personality);./resources-glances2022
+fenix7xpronowifi.personality = $(fenix7xpronowifi.personality);./resources-glances2022
+instinct2.personality = $(instinct2.personality);./resources-glances2022
+instinct2s.personality = $(instinct2s.personality);./resources-glances2022
+instinct2x.personality = $(instinct2x.personality);./resources-glances2022
