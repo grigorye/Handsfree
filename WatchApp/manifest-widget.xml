@@ -17,6 +17,7 @@
             <iq:product id="fr245"/>
             <iq:product id="fr245m"/>
             <iq:product id="fr55"/>
+            <iq:product id="fr645m"/>
             <iq:product id="fr745"/>
             <iq:product id="fr945"/>
             <iq:product id="fr945lte"/>
@@ -32,7 +33,9 @@
             <iq:product id="marqdriver"/>
             <iq:product id="marqexpedition"/>
             <iq:product id="marqgolfer"/>
+            <iq:product id="vivoactive3m"/>
             <iq:product id="vivoactive4"/>
+            <iq:product id="vivoactive4s"/>
         </iq:products>
         <iq:permissions>
             <iq:uses-permission id="Background"/>
