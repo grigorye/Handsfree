@@ -1,4 +1,0 @@
-project.manifest = manifest.xml
-base.excludeAnnotations = $(base.excludeAnnotations);distOnly;widget
-
-project.typecheck = strict

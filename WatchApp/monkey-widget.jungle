@@ -1,4 +1,0 @@
-project.manifest = manifest-widget.xml
-base.excludeAnnotations = $(base.excludeAnnotations);distOnly;watchApp
-
-project.typecheck = strict
