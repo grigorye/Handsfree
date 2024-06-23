@@ -1,5 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.Lang;
+import Rez.Styles;
 
 class WidgetView extends WatchUi.View {
 
@@ -19,7 +20,7 @@ class WidgetView extends WatchUi.View {
             dc.drawText(
                 dc.getWidth() / 2,
                 dc.getHeight() / 2,
-                Toybox.Graphics.FONT_SYSTEM_MEDIUM,
+                Styles.widget_font__title.font,
                 appName + "\n" + headsetStatusForWidget(),
                 Toybox.Graphics.TEXT_JUSTIFY_CENTER | Toybox.Graphics.TEXT_JUSTIFY_VCENTER
             );
@@ -53,7 +54,7 @@ class WidgetView extends WatchUi.View {
             dc.drawText(
                 dc.getWidth() / 2,
                 dc.getHeight() / 2,
-                Toybox.Graphics.FONT_SYSTEM_MEDIUM,
+                Styles.widget_font__title.font,
                 title + "\n" + subtitle + "\n" + headsetStatusForWidget(),
                 Toybox.Graphics.TEXT_JUSTIFY_CENTER | Toybox.Graphics.TEXT_JUSTIFY_VCENTER
             );
