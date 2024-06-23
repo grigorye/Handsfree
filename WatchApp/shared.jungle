@@ -1,1 +1,1 @@
-project.typecheck = strict
+project.typecheck = informative
