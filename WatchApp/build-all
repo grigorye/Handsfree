@@ -10,6 +10,13 @@ type="$1" # app or widget
 shift
 build_for_side_loading="${1:-false}" # true or false
 
+if $build_for_side_loading; then
+    shift
+    dev_devices=("$@")
+else
+    dev_devices=()
+fi
+
 wd=$(dirname "$0")
 
 src_root="$wd"
@@ -33,8 +40,10 @@ exec > >(filter_redundant_monkeyc_warnings) 2>&1
 jungle="$src_root/jungle"
 manifest="$src_root/manifest-$type.xml"
 
-# shellcheck disable=SC2207
-dev_devices=($(cat "$manifest" | sed 's/iq://g' | xq -r '.manifest.application.products.product.[]|.["@id"]'))
+if [[ ${#dev_devices[@]} -eq 0 ]]; then
+    # shellcheck disable=SC2207
+    dev_devices=($(cat "$manifest" | sed 's/iq://g' | xq -r '.manifest.application.products.product.[]|.["@id"]'))
+fi
 
 build_dir="$src_root/build"
 release_resources="$build_dir/resources"
@@ -65,15 +74,15 @@ sed -e "s/__SOURCE_VERSION__/$source_version/g" "$src_root"/local/source/SourceV
 sed -e "s/$beta_app_id/$prod_app_id/g" "$manifest" >"$release_source"/manifest.xml
 diff "$manifest" "$release_source"/manifest.xml && false # Check that sed did something.
 
-java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
-    -jar "$sdk_root"/bin/monkeybrains.jar \
-    -o "$build_dir/iq/$product_name-$dist-$type.iq" \
-    -f "$jungle/type/$type.jungle;$jungle/dist/$dist.jungle;$jungle/versioning/release.jungle;shared.jungle" \
-    -y "$developer_key" \
-    -e \
-    -w
-
-if $build_for_side_loading; then
+if ! $build_for_side_loading; then
+    java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
+        -jar "$sdk_root"/bin/monkeybrains.jar \
+        -o "$build_dir/iq/$product_name-$dist-$type.iq" \
+        -f "$jungle/type/$type.jungle;$jungle/dist/$dist.jungle;$jungle/versioning/release.jungle;shared.jungle" \
+        -y "$developer_key" \
+        -e \
+        -w
+else
     for device in "${dev_devices[@]}"; do
         prgWOExt="$build_dir/$device/$product_name-beta-$type-$device"
         prg="$prgWOExt.prg"
