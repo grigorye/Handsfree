@@ -7,5 +7,5 @@
     "bin": true,
     "build/**": true
   },
-  "monkeyC.jungleFiles": "jungle/type/widget.jungle;jungle/dist/local.jungle;jungle/versioning/local.jungle;shared.jungle"
+  "monkeyC.jungleFiles": "jungle/type/app.jungle;jungle/dist/local.jungle;jungle/versioning/local.jungle;shared.jungle"
 }
