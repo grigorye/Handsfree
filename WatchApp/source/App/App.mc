@@ -86,7 +86,17 @@ function deviceSettingsDumpRep(deviceSettings as System.DeviceSettings) as Lang.
         + ", "
         + Lang.format("firmware: $1$", deviceSettings.firmwareVersion)
         + ", "
-        + Lang.format("part: $1$", [deviceSettings.partNumber]);
+        + Lang.format("part: $1$", [deviceSettings.partNumber])
+        + ", "
+        + Lang.format(
+            "glanceMode: $1$",
+            [(deviceSettings has :isGlanceModeEnabled) ? deviceSettings.isGlanceModeEnabled : "unavailable"]
+        )
+        + ", "
+        + Lang.format(
+            "enhancedReadabilityMode: $1$",
+            [(deviceSettings has :isEnhancedReadabilityModeEnabled) ? deviceSettings.isEnhancedReadabilityModeEnabled : "unavailable"]
+        );
 }
 
 (:glance, :typecheck(disableBackgroundCheck))
