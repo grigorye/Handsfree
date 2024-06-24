@@ -49,7 +49,7 @@ https://s3.amazonaws.com/gentin.connectiq.handsfree/Handsfree-Demo.mp4
 
 ##### [Handsfree companion app](https://grigorye.github.io/handsfree/Installation) for Android phone
 
-There're several ways to obtain the Android app.
+There're currently a couple ways to obtain the Android app.
 
 1.   **If you joined the [beta program](https://groups.google.com/g/handsfree-beta)**, you can already benefit from installing the Android app from GooglePlay:
 
@@ -58,10 +58,6 @@ There're several ways to obtain the Android app.
 2.   If you are not a beta tester (or prefer to install .apks without Google Play), you can install the latest version of the app from the page below:
 
 https://grigorye.github.io/handsfree/Installation
-
-3.   You can also install the app/follow its updates at F-Droid:
-
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.svg" height="80" />](https://f-droid.org/packages/com.gentin.connectiq.handsfree/)
 
 ## Setup
 
