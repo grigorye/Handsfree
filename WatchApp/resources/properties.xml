@@ -11,6 +11,7 @@
         <property id="showSourceVersion" type="boolean">false</property>
         <property id="dummySourceVersion" type="string"></property>
         <property id="customGlanceTitle" type="string"></property>
+        <property id="forceLargeFonts" type="boolean">false</property>
     </properties>
 
     <strings>
@@ -22,6 +23,7 @@
         <string id="secondsToCheckIn">Timeout for check-in (sec)</string>
         <string id="showSourceVersion">Show source verison in the app</string>
         <string id="customGlanceTitle">Custom title for glance</string>
+        <string id="forceLargeFonts">Force large fonts</string>
     </strings>
 
     <settings>
@@ -48,6 +50,9 @@
         </setting>
         <setting propertyKey="@Properties.customGlanceTitle" title="@Strings.customGlanceTitle">
             <settingConfig type="alphaNumeric" />
+        </setting>
+        <setting propertyKey="@Properties.forceLargeFonts" title="@Strings.forceLargeFonts">
+            <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.showSourceVersion" title="@Strings.showSourceVersion">
             <settingConfig type="boolean" />

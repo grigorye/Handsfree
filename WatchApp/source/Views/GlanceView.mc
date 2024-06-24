@@ -25,7 +25,8 @@ class GlanceView extends WatchUi.GlanceView {
         dump("shouldShowCallState", isShowingCallStateOnGlanceEnabled());
         var defaultTitle = defaultTitle();
         var font;
-        if ((System.DeviceSettings has :isEnhancedReadabilityModeEnabled) && System.getDeviceSettings().isEnhancedReadabilityModeEnabled) {
+        var deviceSettings = System.getDeviceSettings();
+        if (isLargeFontsEnforced() || ((deviceSettings has :isEnhancedReadabilityModeEnabled) && deviceSettings.isEnhancedReadabilityModeEnabled)) {
             font = Styles.glance_font.fontEnhanced;
         } else {
             font = Styles.glance_font.font;

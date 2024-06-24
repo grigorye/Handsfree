@@ -36,3 +36,8 @@ function isShowingSourceVersionEnabled() as Lang.Boolean {
 function customGlanceTitle() as Lang.String {
     return Application.Properties.getValue("customGlanceTitle") as Lang.String;
 }
+
+(:glance)
+function isLargeFontsEnforced() as Lang.Boolean {
+    return Application.Properties.getValue("forceLargeFonts") as Lang.Boolean;
+}
