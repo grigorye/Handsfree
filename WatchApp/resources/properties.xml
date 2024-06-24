@@ -10,6 +10,7 @@
         <property id="focusedPhonesViewItemId" type="string"></property>
         <property id="showSourceVersion" type="boolean">false</property>
         <property id="dummySourceVersion" type="string"></property>
+        <property id="customGlanceTitle" type="string"></property>
     </properties>
 
     <strings>
@@ -20,6 +21,7 @@
         <string id="syncAttempts">Sync attempts</string>
         <string id="secondsToCheckIn">Timeout for check-in (sec)</string>
         <string id="showSourceVersion">Show source verison in the app</string>
+        <string id="customGlanceTitle">Custom title for glance</string>
     </strings>
 
     <settings>
@@ -43,6 +45,9 @@
         </setting>
         <setting propertyKey="@Properties.secondsToCheckIn" title="@Strings.secondsToCheckIn">
             <settingConfig type="numeric" />
+        </setting>
+        <setting propertyKey="@Properties.customGlanceTitle" title="@Strings.customGlanceTitle">
+            <settingConfig type="alphaNumeric" />
         </setting>
         <setting propertyKey="@Properties.showSourceVersion" title="@Strings.showSourceVersion">
             <settingConfig type="boolean" />

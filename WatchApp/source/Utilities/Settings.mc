@@ -31,3 +31,8 @@ function isShowingCallStateOnGlanceEnabled() as Lang.Boolean {
 function isShowingSourceVersionEnabled() as Lang.Boolean {
     return Application.Properties.getValue("showSourceVersion") as Lang.Boolean;
 }
+
+(:glance)
+function customGlanceTitle() as Lang.String {
+    return Application.Properties.getValue("customGlanceTitle") as Lang.String;
+}

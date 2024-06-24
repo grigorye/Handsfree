@@ -23,14 +23,7 @@ class GlanceView extends WatchUi.GlanceView {
         dc.setColor(Toybox.Graphics.COLOR_WHITE, Toybox.Graphics.COLOR_TRANSPARENT);
 
         dump("shouldShowCallState", isShowingCallStateOnGlanceEnabled());
-        var realAppName = "Handsfree" + headsetStatusSuffix();
-        var appName;
-        if (Styles.glance_font.capitalize) {
-            appName = realAppName.toUpper();
-        } else {
-            appName = realAppName;
-        }
-        dump("appName", appName);
+        var defaultTitle = defaultTitle();
         var font;
         if ((System.DeviceSettings has :isEnhancedReadabilityModeEnabled) && System.getDeviceSettings().isEnhancedReadabilityModeEnabled) {
             font = Styles.glance_font.fontEnhanced;
@@ -42,7 +35,7 @@ class GlanceView extends WatchUi.GlanceView {
                 0,
                 dc.getHeight() / 2,
                 font,
-                appName,
+                defaultTitle,
                 Toybox.Graphics.TEXT_JUSTIFY_LEFT | Toybox.Graphics.TEXT_JUSTIFY_VCENTER
             );
         } else {
@@ -53,7 +46,7 @@ class GlanceView extends WatchUi.GlanceView {
                 case instanceof CallInProgress:
                     title = (callState as CallInProgress).phone["name"] as Lang.String or Null;
                     if (title == null) {
-                        title = appName;
+                        title = defaultTitle;
                     }
                     var number = (callState as CallInProgress).phone["number"] as Lang.String or Null;
                     if (number != null) {
@@ -63,7 +56,7 @@ class GlanceView extends WatchUi.GlanceView {
                     }
                     break;
                 default:
-                    title = appName;
+                    title = defaultTitle;
                     if (isShowingSourceVersionEnabled()) {
                         subtitle = sourceVersion();
                     } else {
@@ -81,6 +74,25 @@ class GlanceView extends WatchUi.GlanceView {
             );
         }
     }
+}
+
+(:glance)
+function defaultTitle() as Lang.String {
+    var customTitle = customGlanceTitle();
+    var customizedTitle;
+    if (customTitle.equals("")) {
+        customizedTitle = WatchUi.loadResource(Rez.Strings.AppName) as Lang.String;
+    } else {
+        customizedTitle = customTitle;
+    }
+    var nonCapitalizedDefaultTitle = customizedTitle + headsetStatusSuffix();
+    var defaultTitle;
+    if (Styles.glance_font.capitalize) {
+        defaultTitle = nonCapitalizedDefaultTitle.toUpper();
+    } else {
+        defaultTitle = nonCapitalizedDefaultTitle;
+    }
+    return defaultTitle;
 }
 
 (:glance)
