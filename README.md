@@ -55,7 +55,7 @@ There're currently a couple ways to obtain the Android app.
 
 [<img src="badges/GetItOnGooglePlay_Badge_Web_color_English.png" height="80" />](https://play.google.com/store/apps/details?id=com.gentin.connectiq.handsfree) 
 
-2.   If you are not a beta tester (or prefer to install .apks without Google Play), you can install the latest version of the app from the page below:
+2.   If you are not a beta tester (or prefer to not depend on Google Play), you can install the latest version of the app from the page below:
 
 https://grigorye.github.io/handsfree/Installation
 
