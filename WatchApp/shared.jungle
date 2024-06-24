@@ -1,4 +1,4 @@
-project.typecheck = informative
+project.typecheck = strict
 
 epix2.personality = $(epix2.personality);./resources-glances2022
 epix2pro42mm.personality = $(epix2pro42mm.personality);./resources-glances2022
