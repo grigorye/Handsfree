@@ -19,10 +19,12 @@ class GlanceView extends WatchUi.GlanceView {
     }
 
     function onUpdate(dc) {
-        dump("glanceOnUpdate", { "width" => dc.getWidth(), "height" => dc.getHeight() });
+        if (false) {
+            dump("glanceOnUpdate", { "width" => dc.getWidth(), "height" => dc.getHeight() });
+            dump("shouldShowCallState", isShowingCallStateOnGlanceEnabled());
+        }
         dc.setColor(Toybox.Graphics.COLOR_WHITE, Toybox.Graphics.COLOR_TRANSPARENT);
 
-        dump("shouldShowCallState", isShowingCallStateOnGlanceEnabled());
         var defaultTitle = defaultTitle();
         var font;
         var deviceSettings = System.getDeviceSettings();
