@@ -4,6 +4,7 @@ using Toybox.System;
 
 (:background)
 function handleRemoteMessage(iqMsg as Communications.Message) as Void {
+    didSeeCompanion();
     var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
     var cmd = msg["cmd"] as Lang.String;
     var args = msg["args"] as Lang.Dictionary<Lang.String, Lang.Object>;

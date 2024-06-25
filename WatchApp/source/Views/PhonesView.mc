@@ -10,6 +10,10 @@ class PhonesView extends WatchUi.Menu2 {
     var oldPhones as Phones = [] as Phones;
 
     function updateFromCheckInStatus(checkInStatus as CheckInStatus) as Void {
+        if (checkInStatus.equals(CHECK_IN_FAILED) && !everSeenCompanion()) {
+            setTitle(" ");
+            return;
+        }
         var title = "";
         switch (checkInStatus) {
             case CHECK_IN_IN_PROGRESS:
@@ -71,7 +75,15 @@ class PhonesView extends WatchUi.Menu2 {
                 addItem(item);
             }
         } else {
-            addItem(new WatchUi.MenuItem("No contacts", "selected", noPhonesMenuItemId, {}));
+            if (everSeenCompanion()) {
+                addItem(new WatchUi.MenuItem("No contacts", "selected", noPhonesMenuItemId, {}));
+            } else {
+                if (!didRequestCompanionInstallation) {
+                    addItem(new WatchUi.MenuItem("Setup companion", null, noPhonesMenuItemId, {}));
+                } else {
+                    addItem(new WatchUi.MenuItem("Check Android", null, noPhonesMenuItemId, {}));
+                }
+            }
         }
         if (focus != null) {
            setFocus(focus);

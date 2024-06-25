@@ -14,6 +14,7 @@ class App extends Application.AppBase {
         dump("initialize", true);
         dump("deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
         dump("appType", appType());
+        dump("everSeenCompanion", everSeenCompanion());
         Application.AppBase.initialize();
         backgroundServiceEnabled = isBackgroundServiceEnabled();
         dump("backgroundServiceEnabled", backgroundServiceEnabled);
