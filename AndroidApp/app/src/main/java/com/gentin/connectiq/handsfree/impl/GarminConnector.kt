@@ -182,6 +182,7 @@ class DefaultGarminConnector(
     private var knownDevicesAcc = mutableMapOf<Long, DeviceInfo>()
 
     private fun startObservingDeviceEvents() {
+        knownDevicesAcc.clear()
         connectIQ.knownDevices.forEach { device ->
             device.status = connectIQ.getDeviceStatus(device)
             connectIQ.registerForDeviceEvents(device) { _, status ->
