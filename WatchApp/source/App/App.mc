@@ -19,7 +19,7 @@ class App extends Application.AppBase {
         dump("backgroundServiceEnabled", backgroundServiceEnabled);
         dump("getPhoneAppMessageEventRegistered", Background.getPhoneAppMessageEventRegistered());
         if (backgroundServiceEnabled) {
-           Background.registerForPhoneAppMessageEvent();
+            Background.registerForPhoneAppMessageEvent();
         } else {
             Background.deletePhoneAppMessageEvent();
         }
