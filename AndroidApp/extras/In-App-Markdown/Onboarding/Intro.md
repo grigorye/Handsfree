@@ -2,4 +2,6 @@ Handsfree lets you keep your phone in your pocket while you make calls, allowing
 
 [Troubleshooting](link://onboarding_troubleshooting)
 
+[Project home](https://github.com/grigorye/Handsfree)
+
 Version {{version_info}}
