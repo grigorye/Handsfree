@@ -3,4 +3,4 @@
 set -x
 set -euo pipefail
 
-pip3 install poeditor
+pip3 install poeditor-sync
