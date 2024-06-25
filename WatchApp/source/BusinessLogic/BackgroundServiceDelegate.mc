@@ -1,6 +1,5 @@
 using Toybox.Background;
 using Toybox.System;
-using Toybox.Application.Storage;
 using Toybox.Communications;
 
 (:background)
