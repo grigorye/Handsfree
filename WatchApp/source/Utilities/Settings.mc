@@ -41,3 +41,13 @@ function customGlanceTitle() as Lang.String {
 function isLargeFontsEnforced() as Lang.Boolean {
     return Application.Properties.getValue("forceLargeFonts") as Lang.Boolean;
 }
+
+(:background, :glance)
+function isEraseAppDataOnNextLaunchEnabled() as Lang.Boolean {
+    return Application.Properties.getValue("eraseAppDataOnNextLaunch") as Lang.Boolean;
+}
+
+(:background, :glance)
+function clearEraseAppDataOnNextLaunch() as Void {
+    Application.Properties.setValue("eraseAppDataOnNextLaunch", false);
+}

@@ -53,6 +53,7 @@ class App extends Application.AppBase {
     (:typecheck([disableGlanceCheck, disableBackgroundCheck]))
     function getInitialView() {
         dump("getInitialView", true);
+        eraseAppDataIfNecessary();
         if (System.DeviceSettings has :isGlanceModeEnabled) {
             dump("isGlanceModeEnabled", System.getDeviceSettings().isGlanceModeEnabled);
         } else {
