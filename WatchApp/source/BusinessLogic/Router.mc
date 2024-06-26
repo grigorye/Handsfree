@@ -144,11 +144,20 @@ class Router {
 }
 
 function exitToSystemFromPhonesView() as Void {
-    dump("exitingToSystem", true);
+    dump("exitingToSystemFromPhonesView", true);
     if (!topViewIs("phones")) {
         dumpViewStack("messedUpViewStack");
         System.error("viewStackIsMessedUp");
     }
     popView(WatchUi.SLIDE_IMMEDIATE);
-    popView(WatchUi.SLIDE_IMMEDIATE); // Account the root view.
+    exitToSystemFromCommView();
+}
+
+function exitToSystemFromCommView() as Void {
+    dump("exitingToSystemFromCommView", true);
+    if (!topViewIs("commView")) {
+        dumpViewStack("messedUpViewStack");
+        System.error("viewStackIsMessedUp");
+    }
+    popView(WatchUi.SLIDE_IMMEDIATE);
 }
