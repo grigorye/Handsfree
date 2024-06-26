@@ -43,6 +43,9 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onBack() {
+        // !!! This is Menu2InputDelegate.onBack *that does not* popup the view
+        // when overriden, hence there's no need for trackBackFromView() here:
+        // the current view is still the phones view.
         var callState = getCallState();
         dumpCallState("onBackFromPhones", callState);
         switch (callState) {
