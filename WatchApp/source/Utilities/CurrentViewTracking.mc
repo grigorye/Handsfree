@@ -19,8 +19,8 @@ function pushView(tag as Lang.String, view as $.Toybox.WatchUi.Confirmation or $
 }
 
 function popView(transition as $.Toybox.WatchUi.SlideType) as Void {
-    viewStack = viewStack.slice(null, -1);
     dump("$$popView", viewStack);
+    viewStack = viewStack.slice(null, -1);
     WatchUi.popView(transition);
 }
 
