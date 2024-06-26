@@ -52,6 +52,11 @@ function assertViewStackIsSane(viewStack as ViewStack) as Void {
         }
     }
 }
+
+function viewStackSize() as Lang.Number {
+    return viewStack.size();
+}
+
 function viewStackEquals(other as ViewStack) as Lang.Boolean {
     if (viewStack.size() != other.size()) {
         return false;
