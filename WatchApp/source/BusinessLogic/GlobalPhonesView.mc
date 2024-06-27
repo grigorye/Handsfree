@@ -7,7 +7,7 @@ function getPhonesView() as PhonesView {
         dump("settingInitialPhonesView", true);
         var phonesView = new PhonesView();
         phonesView.updateFromCallState(getOldCallState());
-        phonesView.updateFromPhones(getPhones());
+        phonesView.setFromPhones(getPhones());
         phonesViewImp = phonesView;
     }
     return phonesViewImp as PhonesView;

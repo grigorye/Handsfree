@@ -43,16 +43,30 @@ class PhonesView extends WatchUi.Menu2 {
     }
 
     function updateFromPhones(phones as Phones) as Void {
-        if (oldPhones.equals(phones)) {
+        if (phones.size() != 0 && oldPhones.equals(phones)) {
             return;
         }
-        for (var i = 0; i < oldPhones.size(); i++) {
+        deleteExistingItems();
+        setFromPhones(phones);
+    }
+
+    function deleteExistingItems() as Void {
+        var menuItemCount;
+        if (oldPhones.size() == 0) {
+            menuItemCount = 1; // There should be a "No contacts", "Check Android" or "Syncing..." item
+        } else {
+            menuItemCount = oldPhones.size();
+        }
+        for (var i = 0; i < menuItemCount; i++) {
             var existed = deleteItem(0);
             if (existed == null) {
                 dump("failedIndex", i);
                 System.error("Failed to delete menu item");
             }
         }
+    }
+
+    function setFromPhones(phones as Phones) as Void {
         var focusedItemId = getFocusedPhonesViewItemId();
         var focus = null as Lang.Number | Null;
         if (phones.size() > 0) {
