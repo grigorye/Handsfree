@@ -90,7 +90,7 @@ class PhonesView extends WatchUi.Menu2 {
             }
         } else {
             if (everSeenCompanion()) {
-                addItem(new WatchUi.MenuItem("No contacts", "selected", noPhonesMenuItemId, {}));
+                addItem(new WatchUi.MenuItem("No contacts selected", "", noPhonesMenuItemId, {}));
             } else {
                 if (!didRequestCompanionInstallation) {
                     var title;
