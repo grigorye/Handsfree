@@ -145,6 +145,7 @@ class DefaultGarminConnector(
         Log.d(TAG, "sdkReady: $sdkStartCount")
         lifecycleScope.launch(Dispatchers.Default) {
             try {
+                stopObservingDeviceEvents()
                 startObservingDeviceEvents()
                 startIncomingMessageProcessing()
                 processPendingMessages()
@@ -181,8 +182,19 @@ class DefaultGarminConnector(
     private var knownDevices = MutableLiveData(mapOf<Long, DeviceInfo>())
     private var knownDevicesAcc = mutableMapOf<Long, DeviceInfo>()
 
-    private fun startObservingDeviceEvents() {
+    private fun stopObservingDeviceEvents() {
+        Log.d(TAG, "stopObservingDeviceEvents: ${connectIQ.knownDevices}")
+        connectIQ.knownDevices.forEach { device ->
+            device.status = connectIQ.getDeviceStatus(device)
+            connectIQ.unregisterForDeviceEvents(device)
+        }
         knownDevicesAcc.clear()
+        Log.d(TAG, "postingNewKnownDevices: $knownDevicesAcc")
+        knownDevices.postValue(knownDevicesAcc)
+    }
+
+    private fun startObservingDeviceEvents() {
+        Log.d(TAG, "startObservingDeviceEvents: ${connectIQ.knownDevices}")
         connectIQ.knownDevices.forEach { device ->
             device.status = connectIQ.getDeviceStatus(device)
             connectIQ.registerForDeviceEvents(device) { _, status ->
