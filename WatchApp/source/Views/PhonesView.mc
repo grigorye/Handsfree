@@ -93,7 +93,22 @@ class PhonesView extends WatchUi.Menu2 {
                 addItem(new WatchUi.MenuItem("No contacts", "selected", noPhonesMenuItemId, {}));
             } else {
                 if (!didRequestCompanionInstallation) {
-                    addItem(new WatchUi.MenuItem("Setup companion", null, noPhonesMenuItemId, {}));
+                    var title;
+                    switch (getCheckInStatus()) {
+                    case CHECK_IN_IN_PROGRESS:
+                        title = "Syncing...";
+                        break;
+                    case CHECK_IN_SUCCEEDED:
+                        title = "Sync succeeded";
+                        break;
+                    case CHECK_IN_FAILED:
+                        title = "Setup companion";
+                        break;
+                    default:
+                        title = "????";
+                        break;
+                    }
+                    addItem(new WatchUi.MenuItem(title, null, noPhonesMenuItemId, {}));
                 } else {
                     addItem(new WatchUi.MenuItem("Check Android", null, noPhonesMenuItemId, {}));
                 }

@@ -21,6 +21,7 @@ function setCheckInStatus(checkInStatus as CheckInStatus) as Void {
             return;
         }
         getPhonesView().setTitleFromCheckInStatus(checkInStatus);
+        getPhonesView().updateFromPhones(getPhones());
         WatchUi.requestUpdate();
     }
 }
