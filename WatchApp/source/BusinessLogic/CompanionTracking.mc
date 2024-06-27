@@ -27,4 +27,12 @@ function didSeeCompanion() as Void {
     }
     dump("sawTheCompanionFirstTime", true);
     setEverSeenCompanion(true);
+    updateForDidSeeCompanion.invoke();
+}
+
+(:background, :glance)
+var updateForDidSeeCompanion as Lang.Method = new Lang.Method($, :dummyUpdateForDidSeeCompanion);
+
+function dummyUpdateForDidSeeCompanion() as Void {
+    dump("dummyUpdateForDidSeeCompanion", true);
 }

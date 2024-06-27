@@ -16,6 +16,7 @@ class App extends Application.AppBase {
         dump("appType", appType());
         dump("everSeenCompanion", everSeenCompanion());
         Application.AppBase.initialize();
+        updateForDidSeeCompanion = new Lang.Method($, :updatePhonesView);
         backgroundServiceEnabled = isBackgroundServiceEnabled();
         dump("backgroundServiceEnabled", backgroundServiceEnabled);
         dump("getPhoneAppMessageEventRegistered", Background.getPhoneAppMessageEventRegistered());
