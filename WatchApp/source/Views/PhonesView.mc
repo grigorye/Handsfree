@@ -149,3 +149,13 @@ function specialItemForPhone(phone as Phone) as WatchUi.MenuItem | Null {
     }
     return null;
 }
+
+function updatePhonesView() as Void {
+    if (phonesViewImp == null) {
+        dump("phonesViewImp", phonesViewImp);
+        return;
+    }
+    getPhonesView().setTitleFromCheckInStatus(getCheckInStatus());
+    getPhonesView().updateFromPhones(getPhones());
+    WatchUi.requestUpdate();
+}
