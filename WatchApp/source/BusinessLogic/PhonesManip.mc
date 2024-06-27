@@ -51,7 +51,7 @@ function updateUIForPhones() as Void {
         dump("recreatingPhonesView", true);
         var phonesView = new PhonesView();
         // Beware that some stuff like the focused item isn't "recreated" below, as it's impossible to track/get it.
-        phonesView.updateFromPhones(phones);
+        phonesView.setFromPhones(phones);
         phonesView.updateFromCallState(getCallState());
         setPhonesViewImp(phonesView);
         switchToView("phones", phonesView, new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
