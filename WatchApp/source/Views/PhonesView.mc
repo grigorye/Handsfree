@@ -102,7 +102,7 @@ class PhonesView extends WatchUi.Menu2 {
                         title = "Sync succeeded";
                         break;
                     case CHECK_IN_FAILED:
-                        title = "Setup companion";
+                        title = "Setup companion app";
                         break;
                     default:
                         title = "????";
