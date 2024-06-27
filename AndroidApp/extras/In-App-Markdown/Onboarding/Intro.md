@@ -5,3 +5,6 @@ Handsfree lets you keep your phone in your pocket while you make calls, allowing
 [Project home](https://github.com/grigorye/Handsfree)
 
 Version {{version_info}}
+
+[Install the latest version](https://grigorye.github.io/handsfree/Installation)
+
