@@ -162,6 +162,9 @@ Without the permission, no contact names for calls in progress would be visible 
 [Project home](https://github.com/grigorye/Handsfree)
 
 Version {{version_info}}
+
+[Install the latest version](https://grigorye.github.io/handsfree/Installation)
+
 "</string>
     <string name="navigation_overview">"About"</string>
     <string name="permissions_snackbar_app_settings_btn">"App Settings"</string>
