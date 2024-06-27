@@ -9,7 +9,7 @@ class PhonesView extends WatchUi.Menu2 {
 
     var oldPhones as Phones = [] as Phones;
 
-    function updateFromCheckInStatus(checkInStatus as CheckInStatus) as Void {
+    function setTitleFromCheckInStatus(checkInStatus as CheckInStatus) as Void {
         if (checkInStatus.equals(CHECK_IN_FAILED) && !everSeenCompanion()) {
             setTitle(" ");
             return;
@@ -37,7 +37,7 @@ class PhonesView extends WatchUi.Menu2 {
                 setTitle(title);
                 break;
             default:
-                updateFromCheckInStatus(getCheckInStatus());
+                setTitleFromCheckInStatus(getCheckInStatus());
                 break;
         }
     }

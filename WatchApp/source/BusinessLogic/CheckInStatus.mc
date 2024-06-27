@@ -20,7 +20,7 @@ function setCheckInStatus(checkInStatus as CheckInStatus) as Void {
             dump("phonesViewImp", phonesViewImp);
             return;
         }
-        getPhonesView().updateFromCheckInStatus(checkInStatus);
+        getPhonesView().setTitleFromCheckInStatus(checkInStatus);
         WatchUi.requestUpdate();
     }
 }
