@@ -119,13 +119,6 @@ class PhonesView extends WatchUi.Menu2 {
     }
 }
 
-function phonesView(callState as CallState, phones as Phones) as PhonesView {
-    var phonesView = new PhonesView();
-    phonesView.updateFromCallState(callState);
-    phonesView.updateFromPhones(phones);
-    return phonesView;
-}
-
 var noPhonesMenuItemId as Lang.Number = -1;
 var crashMeMenuItemId as Lang.Number = -2;
 
