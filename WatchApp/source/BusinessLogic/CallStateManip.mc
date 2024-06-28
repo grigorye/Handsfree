@@ -33,7 +33,7 @@ function updateUIForCallState() as Void {
         }
         case ACTIVE_UI_APP: {
             dumpViewStack("viewStack");
-            if (viewStackEquals(["widget"])) {
+            if (viewStackTagsEqual(["widget"])) {
                 WatchUi.requestUpdate();
             } else {
                 getRouter().updateRoute();

@@ -65,11 +65,14 @@ class App extends Application.AppBase {
         dump("inWidgetMode", inWidgetMode);
         setActiveUiKind(ACTIVE_UI_APP);
         if (inWidgetMode) {
-            trackInitialView("widget");
-            return [new WidgetView(), new WidgetViewDelegate()];
+            var view = new WidgetView();
+            var delegate = new WidgetViewDelegate();
+            trackInitialView("widget", view, delegate);
+            return [view, delegate];
         } else {
-            trackInitialView("commView");
-            return [new CommView()];
+            var view = new CommView();
+            trackInitialView("commView", view, null);
+            return [view];
         }
     }
 
