@@ -12,6 +12,7 @@ class HangupCommListener extends Communications.ConnectionListener {
             dumpCallState("Hangup.onComplete.callStateInvalidated", oldState);
             return;
         }
+        dump("Hangup.onComplete", true);
         var newState = oldState.clone();
         newState.commStatus = SUCCEEDED;
         setCallState(newState);
@@ -24,6 +25,7 @@ class HangupCommListener extends Communications.ConnectionListener {
             dumpCallState("Hangup.onError.callStateInvalidated", oldState);
             return;
         }
+        dump("Hangup.onError", true);
         var newState = oldState.clone();
         newState.commStatus = FAILED;
         setCallState(newState);
