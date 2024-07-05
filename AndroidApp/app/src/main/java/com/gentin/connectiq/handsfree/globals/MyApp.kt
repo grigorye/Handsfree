@@ -18,8 +18,8 @@ val watchApps = if (isRunningInEmulator()) {
 fun appLogName(app: IQApp): String {
     return when (app) {
         simApp -> "sim"
-        prodApp -> "prod"
-        betaApp -> "beta"
+        prodApp -> "prod-a"
+        betaApp -> "beta-a"
         prodWidget -> "prod-w"
         betaWidget -> "beta-w"
         else -> "unknown"
