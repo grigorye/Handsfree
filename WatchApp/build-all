@@ -40,6 +40,7 @@ exec > >(filter_redundant_monkeyc_warnings) 2>&1
 
 jungle="$src_root/jungle"
 manifest="$src_root/manifest-$type.xml"
+shared_jungle="$src_root/shared.jungle"
 
 if [[ ${#dev_devices[@]} -eq 0 ]]; then
     # shellcheck disable=SC2207
@@ -79,7 +80,7 @@ if ! $build_for_side_loading; then
     java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
         -jar "$sdk_root"/bin/monkeybrains.jar \
         -o "$build_dir/iq/$product_name-$dist-$type.iq" \
-        -f "$jungle/type/$type.jungle;$jungle/dist/$dist.jungle;$jungle/versioning/release.jungle;shared.jungle" \
+        -f "$jungle/type/$type.jungle;$jungle/dist/$dist.jungle;$jungle/versioning/release.jungle;$shared_jungle" \
         -y "$developer_key" \
         -e \
         -w
@@ -91,7 +92,7 @@ else
         java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
             -jar "$sdk_root"/bin/monkeybrains.jar \
             -o "$prg" \
-            -f "$jungle/type/$type.jungle;$jungle/dist/beta.jungle;$jungle/versioning/release.jungle;shared.jungle" \
+            -f "$jungle/type/$type.jungle;$jungle/dist/beta.jungle;$jungle/versioning/release.jungle;$shared_jungle" \
             -y "$developer_key" \
             -d "$device" \
             -w
