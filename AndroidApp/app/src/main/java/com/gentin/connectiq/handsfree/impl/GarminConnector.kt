@@ -9,6 +9,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.garmin.android.connectiq.ConnectIQ
+import com.garmin.android.connectiq.ConnectIQ.IQApplicationInfoListener
+import com.garmin.android.connectiq.IQApp
 import com.garmin.android.connectiq.IQDevice
 import com.garmin.android.connectiq.exception.ServiceUnavailableException
 import com.gentin.connectiq.handsfree.globals.appLogName
@@ -114,6 +116,15 @@ class DefaultGarminConnector(
             "startIncomingMessageProcessing: ${device.deviceIdentifier}(${device.friendlyName})"
         )
         for (app in watchApps) {
+            connectIQ.getApplicationInfo(app.applicationId, device, object : IQApplicationInfoListener {
+                override fun onApplicationInfoReceived(p0: IQApp?) {
+                    Log.d(TAG, "appInfoReceived: ${appLogName(app)}, ${p0?.status}")
+                }
+
+                override fun onApplicationNotInstalled(p0: String?) {
+                    Log.d(TAG, "appNotInstalled: ${appLogName(app)}")
+                }
+            })
             connectIQ.registerForAppEvents(device, app) { _, _, message, _ ->
                 for (o in message) {
                     val deviceTag = "device.${device.deviceIdentifier}(${device.friendlyName})"
