@@ -54,7 +54,7 @@ release_source="$build_dir/source"
 mkdir -p "$release_source"
 
 unmatchable='736fd2e'
-source_version=$(git describe --match "$unmatchable" --dirty --always | sed 's/dirty/?/g')
+source_version=$(git -C "$src_root" describe --match "$unmatchable" --dirty --always | sed 's/dirty/?/g')
 
 case "$type" in
 app)
