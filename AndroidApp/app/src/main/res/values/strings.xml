@@ -196,6 +196,7 @@ Version {{version_info}}
 
 **[Toggle debug mode](do://toggle-debug-mode)**
 
+**[Open app on the watch](do://open-watch-app)**
 "</string>
     <string name="settings_essentials_group">"Essentials"</string>
     <string name="settings_extras_group">"Extras"</string>
