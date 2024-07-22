@@ -8,3 +8,4 @@
 
 **[Toggle debug mode](do://toggle-debug-mode)**
 
+**[Open app on the watch](do://open-watch-app)**
