@@ -28,6 +28,7 @@ interface GarminConnector {
 
     fun sendMessage(message: Map<String, Any>)
     fun openWatchAppInStore()
+    fun openWatchAppOnDevice()
 
     val sentMessagesCounter: Int
     val acknowledgedMessagesCounter: Int
@@ -84,6 +85,18 @@ class DefaultGarminConnector(
     override fun openWatchAppInStore() {
         try {
             connectIQ.openStore(prodApp.applicationId)
+        } catch (e: RuntimeException) {
+            Log.e(TAG, "openStoreFailed: $e")
+        }
+    }
+
+    override fun openWatchAppOnDevice() {
+        try {
+            connectIQ.knownDevices.forEach { device ->
+                connectIQ.openApplication(device, prodApp) { device, app, status ->
+                    Log.d(TAG, "openApplication(${device.friendlyName}): $status")
+                }
+            }
         } catch (e: RuntimeException) {
             Log.e(TAG, "openStoreFailed: $e")
         }

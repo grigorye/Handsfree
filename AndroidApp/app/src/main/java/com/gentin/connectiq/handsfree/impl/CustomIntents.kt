@@ -8,6 +8,7 @@ import com.gentin.connectiq.handsfree.services.GarminPhoneCallConnectorService
 const val ACTIVATE_FROM_MAIN_ACTIVITY_ACTION = "ACTIVATE_FROM_MAIN_ACTIVITY"
 const val ACTIVATE_AND_RECONNECT = "ACTIVATE_AND_RECONNECT"
 const val ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE = "ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE"
+const val ACTIVATE_AND_OPEN_WATCH_APP_ON_DEVICE = "ACTIVATE_AND_OPEN_WATCH_APP_ON_DEVICE"
 
 fun startConnector(context: Context, customAction: String) {
     val tag = object {}.javaClass.enclosingMethod?.name
