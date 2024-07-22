@@ -33,6 +33,7 @@ function didSeeCompanion() as Void {
 (:background, :glance)
 var updateForDidSeeCompanion as Lang.Method = new Lang.Method($, :dummyUpdateForDidSeeCompanion);
 
+(:background, :glance)
 function dummyUpdateForDidSeeCompanion() as Void {
     dump("dummyUpdateForDidSeeCompanion", true);
 }
