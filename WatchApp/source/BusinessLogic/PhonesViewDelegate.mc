@@ -27,7 +27,7 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
         var phones = getPhones();
         for (var i = 0; i < phones.size(); i++) {
             var phone = phones[i];
-            if (phone["id"] == id) {
+            if ((phone["id"] as Lang.Number) == id) {
                 selectedPhone = phone;
                 break;
             }

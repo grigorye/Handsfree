@@ -47,28 +47,25 @@ class GlanceView extends WatchUi.GlanceView {
             var subtitle;
             switch (callState) {
                 case instanceof CallInProgress: {
-                    title = (callState as CallInProgress).phone["name"] as Lang.String or Null;
+                    var callInProgress = callState as CallInProgress;
+                    var isIncomingCall = isIncomingCallPhone(callInProgress.phone);
+                    title = callInProgress.phone["name"] as Lang.String or Null;
                     if (title == null) {
                         title = defaultTitle;
                     }
-                    var number = (callState as CallInProgress).phone["number"] as Lang.String or Null;
-                    if (number != null) {
-                        subtitle = number;
+                    var number = callInProgress.phone["number"] as Lang.String or Null;
+                    if (isIncomingCall) {
+                        if (number != null) {
+                            subtitle = "< " + number;
+                        } else {
+                            subtitle = "Incoming call.";
+                        }
                     } else {
-                        subtitle = "Call in progress.";
-                    }
-                    break;
-                }
-                case instanceof Ringing: {
-                    title = (callState as Ringing).phone["name"] as Lang.String or Null;
-                    if (title == null) {
-                        title = defaultTitle;
-                    }
-                    var number = (callState as CallInProgress).phone["number"] as Lang.String or Null;
-                    if (number != null) {
-                        subtitle = "> " + number;
-                    } else {
-                        subtitle = "Incoming call.";
+                        if (number != null) {
+                            subtitle = number;
+                        } else {
+                            subtitle = "Call in progress.";
+                        }
                     }
                     break;
                 }

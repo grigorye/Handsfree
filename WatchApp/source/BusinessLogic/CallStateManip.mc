@@ -5,7 +5,7 @@ using Toybox.System;
 function setCallInProgress(number as Lang.String) as Void {
     var phones = getPhones();
     for (var i = 0; i < phones.size(); i++) {
-        if(phones[i]["number"] == number) {
+        if((phones[i]["number"] as Lang.String) == number) {
             setCallState(new CallInProgress(phones[i]));
             return;
         }

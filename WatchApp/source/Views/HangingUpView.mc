@@ -3,14 +3,23 @@ using Toybox.WatchUi;
 class HangingUpView extends WatchUi.ProgressBar {
     function initialize(callState as HangingUp) {
         var commStatus = callState.commStatus;
+        var phone = callState.phone;
         dump("commStatus", commStatus);
         var message = "";
         switch (commStatus) {
             case PENDING:
-                message = "Hang up\npending...";
+                if (isIncomingCallPhone(phone)) {
+                    message = "Accept\npending...";
+                } else {
+                    message = "Hang up\npending...";
+                }
                 break;
             case SUCCEEDED:
-                message = "Hanging up...";
+                if (isIncomingCallPhone(phone)) {
+                    message = "Accepting...";
+                } else {
+                    message = "Hanging up...";
+                }
                 break;
             case FAILED:
                 message = "Companion app\ndid not respond";

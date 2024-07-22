@@ -6,11 +6,17 @@ function revealCallInProgress() as Void {
     setCallState(new CallInProgress(callState.phone));
 }
 
-function hangupCallInProgress() as Void {
+function hangupCallInProgress(phone as Phone) as Void {
+    var cmd;
+    if (isIncomingCallPhone(phone)) {
+        cmd = "accept";
+    } else {
+        cmd = "hangup";
+    }
     var msg = {
-        "cmd" => "hangup",
+        "cmd" => cmd
     };
     dump("outMsg", msg);
-    setCallState(new HangingUp(PENDING));
+    setCallState(new HangingUp(phone, PENDING));
     Communications.transmit(msg, null, new HangupCommListener());
 }

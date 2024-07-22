@@ -129,7 +129,12 @@ class PhonesView extends WatchUi.Menu2 {
         if (topViewIs("callInProgress")) {
             dumpViewStack("viewStackOnPhonesShow");
             dump("workingAroundNoOnResponse", true);
-            onResponseForCallInProgressConfirmation(WatchUi.CONFIRM_NO);
+            if (callState instanceof CallInProgress) {
+                var callInProgress = callState as CallInProgress;
+                onResponseForCallInProgressConfirmation(callInProgress.phone, WatchUi.CONFIRM_NO);
+            } else {
+                System.error("unexpectedCallState: " + callState);
+            }
         }
     }
 }

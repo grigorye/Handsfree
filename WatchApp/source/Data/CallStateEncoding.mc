@@ -10,10 +10,6 @@ function encodeCallState(someCallState as CallState) as CallStateData {
     switch (someCallState) {
         case instanceof Idle:
             return { "state" => "idle" };
-        case instanceof Ringing: {
-            var callState = someCallState as Ringing;
-            return { "state" => "ringing", "phone" => callState.phone };
-        }
         case instanceof SchedulingCall: {
             var callState = someCallState as SchedulingCall;
             return { "state" => "schedulingCall", "phone" => callState.phone, "commStatus" => callState.commStatus };
@@ -28,7 +24,7 @@ function encodeCallState(someCallState as CallState) as CallStateData {
         }
         case instanceof HangingUp: {
             var callState = someCallState as HangingUp;
-            return { "state" => "hangingUp", "commStatus" => callState.commStatus };
+            return { "state" => "hangingUp", "phone" => callState.phone, "commStatus" => callState.commStatus };
         }
         default: {
             System.error("Unknown call state: " + someCallState);
@@ -50,8 +46,6 @@ function decodeCallState(callStateData as CallStateData or Null) as CallState or
     switch (stateId) {
         case "idle":
             return new Idle();
-        case "ringing":
-            return new Ringing(callStateData["phone"] as Phone);
         case "schedulingCall":
             return new SchedulingCall(callStateData["phone"] as Phone, callStateData["commStatus"] as CommStatus);
         case "callInProgress":
@@ -59,7 +53,7 @@ function decodeCallState(callStateData as CallStateData or Null) as CallState or
         case "dismissedCallInProgress":
             return new DismissedCallInProgress(callStateData["phone"] as Phone);
         case "hangingUp":
-            return new HangingUp(callStateData["commStatus"] as CommStatus);
+            return new HangingUp(callStateData["phone"] as Phone, callStateData["commStatus"] as CommStatus);
         default:
             System.error("Unknown call state: " + callStateData);
     }

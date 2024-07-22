@@ -26,8 +26,10 @@ class OldCallInProgressView extends WatchUi.View {
 }
 
 class OldCallInProgressViewDelegate extends WatchUi.InputDelegate {
-    function initialize() {
+    var phone as Phone;
+    function initialize(phone as Phone) {
         WatchUi.InputDelegate.initialize();
+        self.phone = phone;
     }
 
     function onKey(keyEvent as WatchUi.KeyEvent) as Lang.Boolean {
@@ -35,7 +37,7 @@ class OldCallInProgressViewDelegate extends WatchUi.InputDelegate {
         dump("onKey", key);
         switch(key) {
             default:
-                hangupCallInProgress();
+                hangupCallInProgress(phone);
                 return true;
         }
     }
