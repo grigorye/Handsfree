@@ -12,6 +12,7 @@ import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.contacts.openFavorites
 import com.gentin.connectiq.handsfree.globals.isInDebugMode
 import com.gentin.connectiq.handsfree.globals.setIsInDebugMode
+import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_ON_DEVICE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.knownDevicesMarkdown
 import com.gentin.connectiq.handsfree.impl.startConnector
@@ -107,6 +108,10 @@ fun resolveLink(link: String, fragment: Fragment, navigationLabel: String? = nul
                             .setAnchorView(R.id.nav_bar_view)
                             .show()
                     }
+                }
+
+                "open-watch-app" -> {
+                    startConnector(context, ACTIVATE_AND_OPEN_WATCH_APP_ON_DEVICE)
                 }
 
                 else -> {
