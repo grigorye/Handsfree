@@ -26,6 +26,10 @@ class IncomingMessageDispatcher(
                 phoneCallService.hangupCall()
             }
 
+            "accept" -> {
+                phoneCallService.acceptCall()
+            }
+
             "syncMe" -> {
                 syncImp()
             }

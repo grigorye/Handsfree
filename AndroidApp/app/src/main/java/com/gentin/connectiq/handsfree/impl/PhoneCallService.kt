@@ -15,6 +15,7 @@ import com.gentin.connectiq.handsfree.globals.outgoingCallsShouldBeEnabled
 interface PhoneCallService {
     fun makeCall(number: String)
     fun hangupCall()
+    fun acceptCall()
 }
 
 class DefaultPhoneCallService(base: Context?) : ContextWrapper(base), PhoneCallService {
@@ -51,6 +52,20 @@ class DefaultPhoneCallService(base: Context?) : ContextWrapper(base), PhoneCallS
         }
         @Suppress("DEPRECATION")
         mgr.endCall()
+    }
+
+    override fun acceptCall() {
+        val mgr = getSystemService(AppCompatActivity.TELECOM_SERVICE) as TelecomManager
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ANSWER_PHONE_CALLS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            Log.i(TAG, "${Manifest.permission.ANSWER_PHONE_CALLS} is not there.")
+            return
+        }
+        @Suppress("DEPRECATION")
+        mgr.acceptRingingCall()
     }
 
     companion object {
