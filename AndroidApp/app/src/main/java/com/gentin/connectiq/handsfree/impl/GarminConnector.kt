@@ -94,7 +94,7 @@ class DefaultGarminConnector(
     override fun openWatchAppOnDevice(app: IQApp) {
         try {
             connectIQ.knownDevices.forEach { device ->
-                connectIQ.openApplication(device, app) { device, app, status ->
+                connectIQ.openApplication(device, app) { _, app, status ->
                     Log.d(
                         TAG,
                         "openWatchAppOnDevice(${device.friendlyName}, ${appLogName(app)}): $status"
