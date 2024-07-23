@@ -14,7 +14,7 @@ import com.garmin.android.connectiq.IQApp
 import com.garmin.android.connectiq.IQDevice
 import com.garmin.android.connectiq.exception.ServiceUnavailableException
 import com.gentin.connectiq.handsfree.globals.appLogName
-import com.gentin.connectiq.handsfree.globals.prodApp
+import com.gentin.connectiq.handsfree.globals.defaultApp
 import com.gentin.connectiq.handsfree.globals.watchApps
 import com.gentin.connectiq.handsfree.helpers.breakIntoDebugger
 import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
@@ -27,8 +27,8 @@ interface GarminConnector {
     fun terminate()
 
     fun sendMessage(message: Map<String, Any>)
-    fun openWatchAppInStore()
-    fun openWatchAppOnDevice()
+    fun openWatchAppInStore(app: IQApp = defaultApp())
+    fun openWatchAppOnDevice(app: IQApp = defaultApp())
 
     val sentMessagesCounter: Int
     val acknowledgedMessagesCounter: Int
@@ -82,23 +82,24 @@ class DefaultGarminConnector(
         } ?: sendMessageOrRescheduleAsync(message)
     }
 
-    override fun openWatchAppInStore() {
+    override fun openWatchAppInStore(app: IQApp) {
+        Log.d(TAG, "Opening ${app.displayName}")
         try {
-            connectIQ.openStore(prodApp.applicationId)
+            connectIQ.openStore(app.applicationId)
         } catch (e: RuntimeException) {
             Log.e(TAG, "openStoreFailed: $e")
         }
     }
 
-    override fun openWatchAppOnDevice() {
+    override fun openWatchAppOnDevice(app: IQApp) {
         try {
             connectIQ.knownDevices.forEach { device ->
-                connectIQ.openApplication(device, prodApp) { device, app, status ->
-                    Log.d(TAG, "openApplication(${device.friendlyName}): $status")
+                connectIQ.openApplication(device, app) { device, app, status ->
+                    Log.d(TAG, "openWatchAppOnDevice(${device.friendlyName}, ${appLogName(app)}): $status")
                 }
             }
         } catch (e: RuntimeException) {
-            Log.e(TAG, "openStoreFailed: $e")
+            Log.d(TAG, "openWatchAppOnDeviceFailed(${appLogName(app)}): $e")
         }
     }
 
