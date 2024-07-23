@@ -82,8 +82,8 @@ if ! $build_for_side_loading; then
         -o "$build_dir/iq/$product_name-$dist-$type.iq" \
         -f "$jungle/type/$type.jungle;$jungle/dist/$dist.jungle;$jungle/versioning/release.jungle;$shared_jungle" \
         -y "$developer_key" \
-        -e \
-        -w
+        --package-app \
+        --warn
 else
     for device in "${dev_devices[@]}"; do
         prgWOExt="$build_dir/$device/$product_name-beta-$type-$device"
@@ -95,7 +95,7 @@ else
             -f "$jungle/type/$type.jungle;$jungle/dist/beta.jungle;$jungle/versioning/release.jungle;$shared_jungle" \
             -y "$developer_key" \
             -d "$device" \
-            -w
+            --warn
         touch "$txt"
     done
 fi
