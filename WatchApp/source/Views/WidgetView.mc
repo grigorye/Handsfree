@@ -1,5 +1,7 @@
 using Toybox.WatchUi;
 using Toybox.Lang;
+using Toybox.System;
+using Toybox.Graphics;
 import Rez.Styles;
 
 class WidgetView extends WatchUi.View {
@@ -12,7 +14,16 @@ class WidgetView extends WatchUi.View {
         View.onUpdate(dc);
 
         dump("widgetOnUpdate", { "width" => dc.getWidth(), "height" => dc.getHeight() });
-        dc.setColor(Toybox.Graphics.COLOR_WHITE, Toybox.Graphics.COLOR_TRANSPARENT);
+        var deviceSettings = System.getDeviceSettings();
+        if (deviceSettings has :isNightModeEnabled) {
+            if (deviceSettings.isNightModeEnabled) {
+                dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+            } else {
+                dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_WHITE);
+            }
+        } else {
+            dc.setColor(Toybox.Graphics.COLOR_WHITE, Toybox.Graphics.COLOR_TRANSPARENT);
+        }
 
         dump("shouldShowCallState", isShowingCallStateOnGlanceEnabled());
         var appName = "Handsfree";

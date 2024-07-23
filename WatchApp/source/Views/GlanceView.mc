@@ -1,6 +1,7 @@
 using Toybox.WatchUi;
 using Toybox.Lang;
 using Toybox.System;
+using Toybox.Graphics;
 using Rez.Styles;
 
 (:glance, :typecheck(disableBackgroundCheck))
@@ -32,6 +33,13 @@ class GlanceView extends WatchUi.GlanceView {
             font = Styles.glance_font.fontEnhanced;
         } else {
             font = Styles.glance_font.font;
+        }
+        if (deviceSettings has :isNightModeEnabled) {
+            if (deviceSettings.isNightModeEnabled) {
+                dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+            } else {
+                dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_WHITE);
+            }
         }
         if (!isShowingCallStateOnGlanceEnabled()) {
             dc.drawText(
