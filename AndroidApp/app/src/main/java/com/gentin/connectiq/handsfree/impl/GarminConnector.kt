@@ -95,7 +95,10 @@ class DefaultGarminConnector(
         try {
             connectIQ.knownDevices.forEach { device ->
                 connectIQ.openApplication(device, app) { device, app, status ->
-                    Log.d(TAG, "openWatchAppOnDevice(${device.friendlyName}, ${appLogName(app)}): $status")
+                    Log.d(
+                        TAG,
+                        "openWatchAppOnDevice(${device.friendlyName}, ${appLogName(app)}): $status"
+                    )
                 }
             }
         } catch (e: RuntimeException) {
@@ -130,15 +133,6 @@ class DefaultGarminConnector(
             "startIncomingMessageProcessing: ${device.deviceIdentifier}(${device.friendlyName})"
         )
         for (app in watchApps) {
-            connectIQ.getApplicationInfo(app.applicationId, device, object : IQApplicationInfoListener {
-                override fun onApplicationInfoReceived(p0: IQApp?) {
-                    Log.d(TAG, "appInfoReceived: ${appLogName(app)}, ${p0?.status}")
-                }
-
-                override fun onApplicationNotInstalled(p0: String?) {
-                    Log.d(TAG, "appNotInstalled: ${appLogName(app)}")
-                }
-            })
             connectIQ.registerForAppEvents(device, app) { _, _, message, _ ->
                 for (o in message) {
                     val deviceTag = "device.${device.deviceIdentifier}(${device.friendlyName})"
@@ -149,7 +143,50 @@ class DefaultGarminConnector(
         }
     }
 
-    private fun startIncomingMessageProcessing() {
+    private var notInstalledApps = mutableListOf<IQApp>()
+
+    private fun startOutgoingMessageGeneration(device: IQDevice) {
+        Log.d(
+            TAG,
+            "startOutgoingMessageGeneration: ${device.deviceIdentifier}(${device.friendlyName})"
+        )
+        for (app in watchApps) {
+            connectIQ.getApplicationInfo(
+                app.applicationId,
+                device,
+                object : IQApplicationInfoListener {
+                    override fun onApplicationInfoReceived(p0: IQApp?) {
+                        if (p0?.status == IQApp.IQAppStatus.INSTALLED) {
+                            Log.d(
+                                TAG,
+                                "appStatus(${device.friendlyName}, ${appLogName(app)}): INSTALLED"
+                            )
+                        } else {
+                            Log.d(
+                                TAG,
+                                "appInfoReceived(${device.friendlyName}): ${appLogName(app)}, ${p0?.status}"
+                            )
+                        }
+                    }
+
+                    override fun onApplicationNotInstalled(p0: String?) {
+                        Log.d(
+                            TAG,
+                            "appStatus(${device.friendlyName}, ${appLogName(app)}): NOT_INSTALLED"
+                        )
+                        notInstalledApps.add(app)
+                    }
+                })
+        }
+    }
+
+    private fun stopOutgoingMessageGeneration() {
+        notInstalledApps.clear()
+    }
+
+    private var installedAppsTrackingEnabled = false
+
+    private fun startMessageProcessing() {
         Log.d(TAG, "connectIQ: $connectIQ")
         Log.d(
             TAG,
@@ -160,6 +197,16 @@ class DefaultGarminConnector(
         )
         connectIQ.knownDevices.forEach { device ->
             startIncomingMessageProcessing(device)
+            if (installedAppsTrackingEnabled) {
+                startOutgoingMessageGeneration(device)
+            }
+        }
+    }
+
+    private fun stopMessageProcessing() {
+        Log.d(TAG, "stoppingMessageProcessing")
+        if (installedAppsTrackingEnabled) {
+            stopOutgoingMessageGeneration()
         }
     }
 
@@ -172,9 +219,10 @@ class DefaultGarminConnector(
         Log.d(TAG, "sdkReady: $sdkStartCount")
         lifecycleScope.launch(Dispatchers.Default) {
             try {
+                stopMessageProcessing()
                 stopObservingDeviceEvents()
                 startObservingDeviceEvents()
-                startIncomingMessageProcessing()
+                startMessageProcessing()
                 processPendingMessages()
                 pendingMessages = null
             } catch (e: ServiceUnavailableException) {
@@ -271,6 +319,16 @@ class DefaultGarminConnector(
     override var acknowledgedMessagesCounter = 0
         private set
 
+    private fun useOnlyInstalledAppsForSendingMessages(): Boolean {
+        return false
+    }
+
+    private fun appsForSendingMessages(): List<IQApp> {
+        return watchApps.filter {
+            !useOnlyInstalledAppsForSendingMessages() || !notInstalledApps.contains(it)
+        }
+    }
+
     private fun sendMessageSync(messageValue: Map<String, Any>) {
         sentMessagesCounter += 1
         val sdkStartCount = this.sdkStartCount
@@ -279,7 +337,7 @@ class DefaultGarminConnector(
 
         try {
             connectIQ.connectedDevices.forEach { device ->
-                watchApps.forEach { app ->
+                appsForSendingMessages().forEach { app ->
                     val appLogName = appLogName(app)
                     Log.d(
                         TAG,
