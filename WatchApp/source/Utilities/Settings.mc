@@ -51,3 +51,8 @@ function isEraseAppDataOnNextLaunchEnabled() as Lang.Boolean {
 function clearEraseAppDataOnNextLaunch() as Void {
     Application.Properties.setValue("eraseAppDataOnNextLaunch", false);
 }
+
+(:background, :glance)
+function isIncomingCallsEnabled() as Lang.Boolean {
+    return Application.Properties.getValue("incomingCallsEnabled") as Lang.Boolean;
+}
