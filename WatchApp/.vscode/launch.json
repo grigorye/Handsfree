@@ -1,0 +1,50 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "monkeyc",
+      "request": "launch",
+      "name": "Run App",
+      "stopAtLaunch": false,
+      "device": "${command:GetTargetDevice}"
+    },
+    {
+      "type": "monkeyc",
+      "request": "launch",
+      "name": "Run App on Fenix 7",
+      "stopAtLaunch": false,
+      "device": "fenix7"
+    },
+    {
+      "type": "monkeyc",
+      "request": "launch",
+      "name": "Run App on Instinct 2",
+      "stopAtLaunch": false,
+      "device": "instinct2"
+    },
+    {
+      "type": "monkeyc",
+      "request": "launch",
+      "name": "Run App on Vivoactive 4",
+      "stopAtLaunch": false,
+      "device": "vivoactive4"
+    },
+    {
+      "type": "monkeyc",
+      "request": "launch",
+      "name": "Run App on Venu 3",
+      "stopAtLaunch": false,
+      "device": "venu3"
+    },
+    {
+      "type": "monkeyc",
+      "request": "launch",
+      "name": "Run App on Forerunner 645 Music",
+      "stopAtLaunch": false,
+      "device": "fr645m"
+    }
+  ]
+}
