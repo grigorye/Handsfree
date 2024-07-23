@@ -27,13 +27,14 @@ function didSeeCompanion() as Void {
     }
     dump("sawTheCompanionFirstTime", true);
     setEverSeenCompanion(true);
-    updateForDidSeeCompanion.invoke();
+    updateForDidSeeCompanion();
 }
 
-(:background, :glance)
-var updateForDidSeeCompanion as Lang.Method = new Lang.Method($, :dummyUpdateForDidSeeCompanion);
-
-(:background, :glance)
-function dummyUpdateForDidSeeCompanion() as Void {
-    dump("dummyUpdateForDidSeeCompanion", true);
+(:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
+function updateForDidSeeCompanion() as Void {
+    dump("updateForDidSeeCompanion.activeUiKind", getActiveUiKind());
+    if (!getActiveUiKind().equals(ACTIVE_UI_APP)) {
+        return;
+    }
+    updatePhonesView();
 }
