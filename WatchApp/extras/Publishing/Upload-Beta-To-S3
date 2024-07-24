@@ -1,0 +1,21 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+wd=$(dirname "$0")
+build_dir="$wd/../../build"
+
+bucket="gentin.connectiq.handsfree.watchapp-beta"
+
+aws s3 rm "s3://$bucket"/ --recursive
+
+aws s3 cp \
+    "$build_dir" \
+    "s3://$bucket"/ \
+    --recursive \
+    --include '*.xml' \
+    --exclude '**/mir/*' \
+    --exclude '**/internal-mir/*' \
+    --exclude '*.mc' \
+    --exclude '**/gen/*'
