@@ -18,21 +18,6 @@ class CallInProgressViewDelegate extends WatchUi.ConfirmationDelegate {
 function onResponseForCallInProgressConfirmation(phone as Phone, response as WatchUi.Confirm) as Lang.Boolean {
     dump("callInProgressConfirmationResponse", { "phone" => phone, "response" => response });
     trackBackFromView();
-    if (response == WatchUi.CONFIRM_YES) {
-        hangupCallInProgress(phone);
-    } else {
-        if (isIncomingCallPhone(phone)) {
-            phone["ringing"] = false;
-            hangupCallInProgress(phone);
-            return true;
-        }
-        var callState = getCallState() as CallInProgress;
-        dumpCallState("callState", callState);
-        if (isExitToSystemAfterCallCompletionEnabled()) {
-            exitToSystemFromPhonesView();
-        } else {
-            setCallStateIgnoringRouting(new DismissedCallInProgress(callState.phone));
-        }
-    }
+    onCallInProgressActionConfirmed(phone, response == WatchUi.CONFIRM_YES);
     return true;
 }
