@@ -24,12 +24,18 @@ class CallInProgressView2Delegate extends WatchUi.Menu2InputDelegate {
                 onCallInProgressActionConfirmed(phone, true);
                 break;
             }
+            case CALL_IN_PROGRESS_ACTION_REJECT: {
+                dump("reject", true);
+                popView(WatchUi.SLIDE_IMMEDIATE);
+                onCallInProgressActionConfirmed(phone, false);
+                break;
+            }
         }
     }
 
     function onBack() {
         dump("onBackInCallInProgress", true);
         popView(WatchUi.SLIDE_IMMEDIATE);
-        onCallInProgressActionConfirmed(phone, false);
+        exitToSystemFromPhonesView();
     }
 }

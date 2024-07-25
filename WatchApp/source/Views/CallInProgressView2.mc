@@ -8,13 +8,16 @@ class CallInProgressView2 extends WatchUi.Menu2 {
             :title => texts[:title] as Lang.String
         });
 
-        var promptItem = new WatchUi.MenuItem(
-            texts[:prompt] as Lang.String, // label
-            null, // subLabel
-            texts[:action] as Lang.String, // identifier
-            null // options
-        );
-
-        addItem(promptItem);
+        var actions = texts[:actions] as Lang.Array<Lang.Dictionary<Lang.Symbol, Lang.String>>;
+        for (var i = 0; i < actions.size(); ++i) {
+            var action = actions[i] as Lang.Dictionary<Lang.Symbol, Lang.String>;
+            var item = new WatchUi.MenuItem(
+                action[:prompt] as Lang.String, // label
+                null, // subLabel
+                action[:command] as Lang.String, // identifier
+                null // options
+            );
+            addItem(item);
+        }
     }
 }

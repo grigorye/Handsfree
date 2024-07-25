@@ -1,11 +1,13 @@
 using Toybox.Lang;
 
-typedef CallInProgressTexts as Lang.Dictionary<Lang.Symbol, Lang.String>;
-
 enum CallInProgressAction {
-    CALL_IN_PROGRESS_ACTION_HANGUP = "Hangup",
-    CALL_IN_PROGRESS_ACTION_ACCEPT = "Accept"
+    CALL_IN_PROGRESS_ACTION_HANGUP = "hangup",
+    CALL_IN_PROGRESS_ACTION_ACCEPT = "accept",
+    CALL_IN_PROGRESS_ACTION_REJECT = "reject"
 }
+
+typedef CallInProgressActions as Lang.Array<Lang.Dictionary<Lang.Symbol, Lang.String or CallInProgressAction>>;
+typedef CallInProgressTexts as Lang.Dictionary<Lang.Symbol, Lang.String or CallInProgressActions>;
 
 function textsForCallInProgress(phone as Phone) as CallInProgressTexts {
     var name = phone["name"] as Lang.String or Null;
@@ -24,18 +26,24 @@ function textsForCallInProgress(phone as Phone) as CallInProgressTexts {
             prefix = "Call in progress.";
         }
     }
-    var message;
-    var action;
+    var actions = [] as CallInProgressActions;
     if (isIncomingCall) {
-        message = "Accept?";
-        action = CALL_IN_PROGRESS_ACTION_ACCEPT;
-    } else {    
-        message = "Hang up?";
-        action = CALL_IN_PROGRESS_ACTION_HANGUP;
+        actions.add({
+            :prompt => "Accept",
+            :command => CALL_IN_PROGRESS_ACTION_ACCEPT,
+        });
+        actions.add({
+            :prompt => "Reject",
+            :command => CALL_IN_PROGRESS_ACTION_REJECT
+        });
+    } else {
+        actions.add({
+            :prompt => "Hang up",
+            :command => CALL_IN_PROGRESS_ACTION_HANGUP
+        });
     }
     return {
         :title => prefix,
-        :prompt => message,
-        :action => action
+        :actions => actions
     };
 }
