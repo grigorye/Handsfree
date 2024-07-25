@@ -5,8 +5,6 @@ typedef CallState as Idle or SchedulingCall or CallInProgress or DismissedCallIn
 
 (:background, :glance)
 var callStateImp as CallState or Null;
-(:background, :glance)
-var oldCallStateImp as CallState or Null;
 
 (:background, :glance)
 class CallStateImp {
@@ -54,19 +52,6 @@ function saveCallState(callState as CallState) as Void {
     Application.Storage.setValue("callState.v1", encodeCallState(callState));
 }
 
-function getOldCallState() as CallState {
-    if (oldCallStateImp == null) {
-        oldCallStateImp = new Idle();
-    }
-    return oldCallStateImp as CallState;
-}
-
-(:background, :glance)
-function setOldCallStateImp(callState as CallState or Null) as Void {
-    dumpCallState("setOldCallStateImp", callState);
-    oldCallStateImp = callState;
-}
-
 (:background, :glance)
 function getCallState() as CallState {
     if (callStateImp == null) {
@@ -82,7 +67,6 @@ function getCallState() as CallState {
 
 (:background, :glance)
 function setCallStateImp(callState as CallState) as Void {
-    setOldCallStateImp(getCallState());
     callStateImp = callState;
     saveCallState(callState);
 }

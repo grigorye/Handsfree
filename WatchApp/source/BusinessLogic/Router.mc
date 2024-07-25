@@ -19,10 +19,11 @@ class Router {
     function updateRoute() as Void {
         updateCounter = updateCounter + 1;
         dump("updateRoute", updateCounter);
-        var oldState = getOldCallState();
+        var oldState = getRoutedCallState();
         var newState = getCallState();
         dumpCallState("routingOldState", oldState);
         dumpCallState("routingNewState", newState);
+        setRoutedCallStateImp(newState);
         switch (oldState as CallState) {
             case instanceof DismissedCallInProgress:
             case instanceof Idle:

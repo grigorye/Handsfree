@@ -46,7 +46,7 @@ function updateUIForCallState() as Void {
 function setCallStateIgnoringRouting(callState as CallState) as Void {
     dumpCallState("setCallStateIgnoringRouting", callState);
     setCallStateImp(callState);
-    setOldCallStateImp(callState);
+    setRoutedCallStateImp(callState);
 }
 
 (:typecheck(disableBackgroundCheck))
