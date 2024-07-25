@@ -6,7 +6,7 @@ set -euo pipefail
 wd=$(dirname "$0")
 build_dir="$wd/../../build"
 
-bucket="gentin.connectiq.handsfree.watchapp-beta"
+bucket="handsfree.prg.beta"
 
 aws s3 rm "s3://$bucket"/ --recursive
 
