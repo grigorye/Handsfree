@@ -62,7 +62,7 @@ class App extends Application.AppBase {
         } else {
             dump("isGlanceModeEnabled", null);
         }
-        var inWidgetMode = isWidget();
+        var inWidgetMode = isInWidgetMode();
         dump("inWidgetMode", inWidgetMode);
         setActiveUiKind(ACTIVE_UI_APP);
         if (inWidgetMode) {

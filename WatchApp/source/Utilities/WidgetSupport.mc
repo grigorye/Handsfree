@@ -7,7 +7,7 @@ function appType() as Lang.String {
 }
 
 (:glance, :background, :watchApp)
-function isWidget() as Lang.Boolean {
+function isInWidgetMode() as Lang.Boolean {
     return false;
 }
 
@@ -17,7 +17,7 @@ function appType() as Lang.String {
 }
 
 (:glance, :background, :widget)
-function isWidget() as Lang.Boolean {
+function isInWidgetMode() as Lang.Boolean {
     if (System.DeviceSettings has :isGlanceModeEnabled) {
         return false;
     } else {
