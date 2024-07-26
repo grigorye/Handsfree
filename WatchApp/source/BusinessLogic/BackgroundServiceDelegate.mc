@@ -1,6 +1,7 @@
 using Toybox.Background;
 using Toybox.System;
 using Toybox.Communications;
+using Toybox.Lang;
 
 (:background)
 class BackgroundServiceDelegate extends System.ServiceDelegate {
@@ -13,6 +14,18 @@ class BackgroundServiceDelegate extends System.ServiceDelegate {
         dump("onPhoneAppMessage", msg);
         dump("activeUiKind", getActiveUiKind());
         handleRemoteMessage(msg);
-        Background.exit("onPhoneAppMessage");
+        if (isBackgroundAppUpdateEnabled()) {
+            Background.exit("onPhoneAppMessage");
+        } else {
+            Background.exit(null);
+        }
     }
+}
+
+(:background, :glance)
+function isBackgroundAppUpdateEnabled() as Lang.Boolean {
+    if (isBuiltAsWidget() && !isInWidgetMode()) {
+        return false;
+    }
+    return true;
 }

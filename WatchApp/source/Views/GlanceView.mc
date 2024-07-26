@@ -41,7 +41,7 @@ class GlanceView extends WatchUi.GlanceView {
                 dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_WHITE);
             }
         }
-        if (!isShowingCallStateOnGlanceEnabled()) {
+        if (!isShowingCallStateOnGlanceEnabled() || !isBackgroundAppUpdateEnabled()) {
             dc.drawText(
                 0,
                 dc.getHeight() / 2,
@@ -107,7 +107,10 @@ function defaultTitle() as Lang.String {
     } else {
         customizedTitle = customTitle;
     }
-    var nonCapitalizedDefaultTitle = customizedTitle + headsetStatusSuffix();
+    var nonCapitalizedDefaultTitle = customizedTitle;
+    if (isBackgroundAppUpdateEnabled()) {
+        nonCapitalizedDefaultTitle = nonCapitalizedDefaultTitle + headsetStatusSuffix();
+    }
     var defaultTitle;
     if (Styles.glance_font.capitalize) {
         defaultTitle = nonCapitalizedDefaultTitle.toUpper();
