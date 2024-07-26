@@ -4,6 +4,15 @@ using Toybox.System;
 using Toybox.Graphics;
 import Rez.Styles;
 
+(:watchApp)
+class WidgetView extends WatchUi.View {
+    function initialize() {
+        View.initialize();
+        System.error("reachedStubForWidgetView");
+    }
+}
+
+(:widget)
 class WidgetView extends WatchUi.View {
 
     function initialize() {
