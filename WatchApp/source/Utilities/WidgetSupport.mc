@@ -25,6 +25,16 @@ function isInWidgetMode() as Lang.Boolean {
     }
 }
 
+(:glance, :background, :watchApp)
+function isBuiltAsWidget() as Lang.Boolean {
+    return false;
+}
+
+(:glance, :background, :widget)
+function isBuiltAsWidget() as Lang.Boolean {
+    return true;
+}
+
 (:glance, :background)
 function isGlanceModeEnabled() as Lang.Boolean or Null {
     if (System.DeviceSettings has :isGlanceModeEnabled) {
