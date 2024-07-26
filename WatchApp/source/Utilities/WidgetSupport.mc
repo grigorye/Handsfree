@@ -24,3 +24,12 @@ function isInWidgetMode() as Lang.Boolean {
         return true;
     }
 }
+
+(:glance, :background)
+function isGlanceModeEnabled() as Lang.Boolean or Null {
+    if (System.DeviceSettings has :isGlanceModeEnabled) {
+        return System.getDeviceSettings().isGlanceModeEnabled;
+    } else {
+        return null;
+    }
+}

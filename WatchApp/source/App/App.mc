@@ -57,11 +57,6 @@ class App extends Application.AppBase {
     function getInitialView() {
         dump("getInitialView", true);
         eraseAppDataIfNecessary();
-        if (System.DeviceSettings has :isGlanceModeEnabled) {
-            dump("isGlanceModeEnabled", System.getDeviceSettings().isGlanceModeEnabled);
-        } else {
-            dump("isGlanceModeEnabled", null);
-        }
         var inWidgetMode = isInWidgetMode();
         dump("inWidgetMode", inWidgetMode);
         setActiveUiKind(ACTIVE_UI_APP);
@@ -95,10 +90,7 @@ function deviceSettingsDumpRep(deviceSettings as System.DeviceSettings) as Lang.
         + ", "
         + Lang.format("part: $1$", [deviceSettings.partNumber])
         + ", "
-        + Lang.format(
-            "glanceMode: $1$",
-            [(deviceSettings has :isGlanceModeEnabled) ? deviceSettings.isGlanceModeEnabled : "unavailable"]
-        )
+        + Lang.format("glanceMode: $1$", [isGlanceModeEnabled()])
         + ", "
         + Lang.format(
             "enhancedReadabilityMode: $1$",
