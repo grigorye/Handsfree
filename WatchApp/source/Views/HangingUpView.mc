@@ -9,16 +9,16 @@ class HangingUpView extends WatchUi.ProgressBar {
         switch (commStatus) {
             case PENDING:
                 if (isIncomingCallPhone(phone)) {
-                    message = "Accept\npending...";
+                    message = "Accept\npending";
                 } else {
-                    message = "Hang up\npending...";
+                    message = "Hang up\npending";
                 }
                 break;
             case SUCCEEDED:
                 if (isIncomingCallPhone(phone)) {
-                    message = "Accepting...";
+                    message = "Accepting";
                 } else {
-                    message = "Hanging up...";
+                    message = "Hanging up";
                 }
                 break;
             case FAILED:

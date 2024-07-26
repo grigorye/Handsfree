@@ -58,7 +58,7 @@ class WidgetView extends WatchUi.View {
                     if (number != null) {
                         subtitle = number;
                     } else {
-                        subtitle = "Call in progress.";
+                        subtitle = "Call in progress";
                     }
                     break;
                 default:

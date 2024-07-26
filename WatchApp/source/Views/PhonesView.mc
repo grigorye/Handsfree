@@ -17,13 +17,13 @@ class PhonesView extends WatchUi.Menu2 {
         var title = "";
         switch (checkInStatus) {
             case CHECK_IN_IN_PROGRESS:
-                title = "...";
+                title = ".";
                 break;
             case CHECK_IN_SUCCEEDED:
                 title = "Idle";
                 break;
             case CHECK_IN_FAILED:
-                title = "Sync Failed";
+                title = "Sync failed";
                 break;
         }
         setTitle(title + headsetStatusSuffix());
@@ -53,7 +53,7 @@ class PhonesView extends WatchUi.Menu2 {
     function deleteExistingItems() as Void {
         var menuItemCount;
         if (oldPhones.size() == 0) {
-            menuItemCount = 1; // There should be a "No contacts", "Check Android" or "Syncing..." item
+            menuItemCount = 1; // There should be a "No contacts", "Check Android" or "Syncing" item
         } else {
             menuItemCount = oldPhones.size();
         }
@@ -96,7 +96,7 @@ class PhonesView extends WatchUi.Menu2 {
                     var title;
                     switch (getCheckInStatus()) {
                     case CHECK_IN_IN_PROGRESS:
-                        title = "Syncing...";
+                        title = "Syncing";
                         break;
                     case CHECK_IN_SUCCEEDED:
                         title = "Sync succeeded";
