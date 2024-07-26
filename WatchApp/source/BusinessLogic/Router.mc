@@ -43,7 +43,7 @@ class Router {
                         dump("routingToCallInProgress", true);
                         var phone = (newState as CallInProgress).phone;
                         dump("pushingOutPhones", true);
-                        pushView("callInProgress", newCallInProgressView(phone), newCallInProgressViewDelegate(phone), WatchUi.SLIDE_LEFT);
+                        pushView("callInProgress", new CallInProgressView(phone), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_LEFT);
                         break;
                     }
                     default:
@@ -60,7 +60,7 @@ class Router {
                     case instanceof CallInProgress: {
                         dump("routingToCallInProgress", true);
                         var phone = (newState as CallInProgress).phone;
-                        switchToView("callInProgress", newCallInProgressView(phone), newCallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
+                        switchToView("callInProgress", new CallInProgressView(phone), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof Idle: {
@@ -89,7 +89,7 @@ class Router {
                         dump("routingToNewCallInProgress", true);
                         var phone = (newState as CallInProgress).phone;
                         popView(WatchUi.SLIDE_IMMEDIATE);
-                        pushView("callInProgress", newCallInProgressView(phone), newCallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
+                        pushView("callInProgress", new CallInProgressView(phone), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     default:
@@ -106,7 +106,7 @@ class Router {
                     case instanceof CallInProgress: {
                         dump("routingToCallInProgress", true);
                         var phone = (newState as CallInProgress).phone;
-                        switchToView("callInProgress", newCallInProgressView(phone), newCallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
+                        switchToView("callInProgress", new CallInProgressView(phone), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof Idle: {
