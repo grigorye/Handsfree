@@ -78,8 +78,11 @@ sed -e "s/__SOURCE_VERSION__/$source_version/g" "$src_root"/local/source/SourceV
 sed -e "s/$beta_app_id/$prod_app_id/g" "$manifest" >"$release_source"/manifest.xml
 diff "$manifest" "$release_source"/manifest.xml && false # Check that sed did something.
 
+iq_dir="$build_dir/iq"
+prg_dir="$build_dir/prg"
+
 if ! $build_for_side_loading; then
-    iq_prefix="$build_dir/iq/$product_name-$dist-$type"
+    iq_prefix="$iq_dir/$product_name-$dist-$type"
     iq="$iq_prefix.iq"
     java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
         -jar "$sdk_root"/bin/monkeybrains.jar \
@@ -90,7 +93,7 @@ if ! $build_for_side_loading; then
         --warn
 else
     for device in "${dev_devices[@]}"; do
-        prg_prefix="$build_dir/$device/$product_name-beta-$type-$device"
+        prg_prefix="$prg_dir/$device/$product_name-beta-$type-$device"
         prg="$prg_prefix.prg"
         txt="$prg_prefix.TXT"
         java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
