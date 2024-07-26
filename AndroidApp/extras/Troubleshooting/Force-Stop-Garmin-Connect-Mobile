@@ -1,0 +1,10 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+devices=($(adb devices -l | tail +2 | sed '$d' | cut -f 1 -d ' '))
+
+for device in "${devices[@]}"; do
+    adb -s "$device" shell am force-stop com.garmin.android.apps.connectmobile
+done
