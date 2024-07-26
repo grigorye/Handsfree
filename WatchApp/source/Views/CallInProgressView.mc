@@ -1,7 +1,7 @@
 using Toybox.WatchUi;
 using Toybox.Lang;
 
-class CallInProgressView2 extends WatchUi.Menu2 {
+class CallInProgressView extends WatchUi.Menu2 {
     function initialize(phone as Phone) {
         var texts = textsForCallInProgress(phone);
         WatchUi.Menu2.initialize({
