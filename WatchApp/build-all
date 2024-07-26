@@ -54,7 +54,9 @@ release_source="$build_dir/source"
 mkdir -p "$release_source"
 
 unmatchable='736fd2e'
-source_version=$(git -C "$src_root" describe --match "$unmatchable" --dirty --always | sed 's/dirty/?/g')
+source_hash=$(git -C "$src_root" describe --match "$unmatchable" --dirty --always | sed 's/dirty/?/g')
+source_commits=$(git rev-list --count HEAD)
+source_version="$source_commits-$source_hash"
 
 case "$type" in
 app)
