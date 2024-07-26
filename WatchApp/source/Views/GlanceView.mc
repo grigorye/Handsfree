@@ -42,11 +42,15 @@ class GlanceView extends WatchUi.GlanceView {
             }
         }
         if (!isShowingCallStateOnGlanceEnabled() || !isBackgroundAppUpdateEnabled()) {
+            var suffix = "";
+            if (isShowingSourceVersionEnabled()) {
+                suffix = "\n" + sourceVersion();
+            }
             dc.drawText(
                 0,
                 dc.getHeight() / 2,
                 font,
-                defaultTitle,
+                defaultTitle + suffix,
                 Toybox.Graphics.TEXT_JUSTIFY_LEFT | Toybox.Graphics.TEXT_JUSTIFY_VCENTER
             );
         } else {
