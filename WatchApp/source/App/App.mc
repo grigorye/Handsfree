@@ -13,6 +13,7 @@ class App extends Application.AppBase {
     function initialize() {
         dump("initialize", true);
         dump("deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
+        dump("systemStats", systemStatsDumpRep());
         dump("appType", appType());
         dump("everSeenCompanion", everSeenCompanion());
         Application.AppBase.initialize();
@@ -34,6 +35,7 @@ class App extends Application.AppBase {
     function onStop(state) {
         dump("activeUiKindOnStop", getActiveUiKind());
         dump("onStop", state);
+        dump("systemStats", systemStatsDumpRep());
         Application.AppBase.onStop(state);
     }
 
@@ -117,6 +119,7 @@ function onAppDidFinishLaunching() as Void {
 (:glance, :background)
 function onBackgroundDataImp(data as Application.PersistableType) as Void {
     dump("onBackgroundData", data);
+    dump("systemStats", systemStatsDumpRep());
     switch (data) {
         case instanceof Lang.String: {
             switch (data as Lang.String) {
