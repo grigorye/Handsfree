@@ -214,7 +214,11 @@ private fun navigateToResource(
         R.id.link,
         bundleOf(
             "markdown" to resourceId,
-            "navigationLabel" to (navigationLabel ?: headerFromMarkdown(fragment.getString(resourceId))),
+            "navigationLabel" to (navigationLabel ?: headerFromMarkdown(
+                fragment.getString(
+                    resourceId
+                )
+            )),
             "preferenceTitle" to headerFromMarkdown(fragment.getString(resourceId)),
             "preferenceKey" to preferenceKey,
             "hideHeader" to true
