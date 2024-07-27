@@ -1,7 +1,6 @@
 package com.gentin.connectiq.handsfree.onboarding
 
 import android.os.Bundle
-import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
@@ -29,14 +28,14 @@ open class OnboardingStepFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<TextView>(R.id.text_view)?.apply {
-            text = markdown
+            markwon?.setMarkdown(this, preprocessedMarkdown)
             movementMethod = LinkMovementMethod.getInstance()
         }
     }
 
     fun reloadMarkdown() {
         view?.findViewById<TextView>(R.id.text_view)?.apply {
-            text = markdown
+            markwon?.setMarkdown(this, preprocessedMarkdown)
         }
     }
 
@@ -49,11 +48,6 @@ open class OnboardingStepFragment : Fragment() {
     open val preprocessedMarkdown: String
         get() {
             return preprocessMarkdown(requireActivity(), unprocessedMarkdown)
-        }
-
-    private val markdown: Spanned?
-        get() {
-            return markwon?.toMarkdown(preprocessedMarkdown)
         }
 
     private val args: OnboardingStepFragmentArgs by navArgs()
