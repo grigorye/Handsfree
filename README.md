@@ -45,7 +45,7 @@ https://s3.amazonaws.com/gentin.connectiq.handsfree/Handsfree-Demo.mp4
 
 ##### [Handsfree app](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920) for Garmin watch
 
-[<img src="badges/Connect IQ Badge-White.svg" alt="available-connect-iq-badge" height="88"/>](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920)
+[<img src="./badges/Connect-IQ/Connect-IQ-Badge_White.svg" alt="available-connect-iq-badge" height="88"/>](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920)
 
 ##### [Handsfree companion app](https://grigorye.github.io/handsfree/Installation) for Android phone
 
@@ -53,7 +53,7 @@ There're currently a couple ways to obtain the Android app.
 
 1.   **If you joined the [beta program](https://groups.google.com/g/handsfree-beta)**, you can already benefit from installing the Android app from GooglePlay:
 
-[<img src="badges/GetItOnGooglePlay_Badge_Web_color_English.png" height="80" />](https://play.google.com/store/apps/details?id=com.gentin.connectiq.handsfree) 
+[<img src="./badges/Google-Play/Get-It-On-Google-Play-Badge_en.svg" height="80" />](https://play.google.com/store/apps/details?id=com.gentin.connectiq.handsfree) 
 
 2.   If you are not a beta tester (or prefer to not depend on Google Play), you can install the latest version of the app from the page below:
 
