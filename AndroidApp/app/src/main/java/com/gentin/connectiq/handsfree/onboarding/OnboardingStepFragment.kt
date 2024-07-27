@@ -2,6 +2,7 @@ package com.gentin.connectiq.handsfree.onboarding
 
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,11 @@ import com.gentin.connectiq.handsfree.R
 import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
 import io.noties.markwon.MarkwonConfiguration
+import io.noties.markwon.html.HtmlPlugin
+import io.noties.markwon.image.ImagesPlugin
+import io.noties.markwon.image.destination.ImageDestinationProcessorAssets
+import io.noties.markwon.image.file.FileSchemeHandler
+import io.noties.markwon.image.svg.SvgMediaDecoder
 
 
 open class OnboardingStepFragment : Fragment() {
@@ -57,12 +63,28 @@ open class OnboardingStepFragment : Fragment() {
             Markwon.builder(it)
                 .usePlugin(object : AbstractMarkwonPlugin() {
                     override fun configureConfiguration(builder: MarkwonConfiguration.Builder) {
-                        builder.linkResolver { _, link ->
-                            resolveLink(link, this@OnboardingStepFragment)
+                        builder.apply {
+                            imageDestinationProcessor(ImageDestinationProcessorAssets())
+                            linkResolver { _, link ->
+                                resolveLink(link, this@OnboardingStepFragment)
+                            }
                         }
                     }
                 })
+                .usePlugin(ImagesPlugin.create { plugin ->
+                    plugin.addSchemeHandler(FileSchemeHandler.createWithAssets(it))
+                    plugin.addMediaDecoder(SvgMediaDecoder.create(it.resources))
+                    plugin.errorHandler { url, throwable ->
+                        Log.e(TAG, "imagesPluginError: $throwable, url: $url")
+                        null
+                    }
+                })
+                .usePlugin(HtmlPlugin.create())
                 .build()
         }
+    }
+
+    companion object {
+        private val TAG: String = OnboardingStepFragment::class.java.simpleName
     }
 }
