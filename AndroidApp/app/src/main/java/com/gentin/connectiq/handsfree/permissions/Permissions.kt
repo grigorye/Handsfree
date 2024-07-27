@@ -27,6 +27,14 @@ fun requestPermissions(context: Activity) {
 }
 
 fun openAppSettings(context: Context) {
+    openSettings(context, context.packageName)
+}
+
+fun openGarminConnectSettings(context: Context) {
+    openSettings(context, "com.garmin.android.apps.connectmobile")
+}
+
+fun openSettings(context: Context, packageName: String) {
     context.apply {
         startActivity(Intent().apply {
             action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
@@ -34,4 +42,3 @@ fun openAppSettings(context: Context) {
         })
     }
 }
-

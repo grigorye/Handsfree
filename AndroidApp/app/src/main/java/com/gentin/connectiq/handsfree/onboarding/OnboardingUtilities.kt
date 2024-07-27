@@ -23,6 +23,7 @@ import com.gentin.connectiq.handsfree.permissions.PermissionStatus
 import com.gentin.connectiq.handsfree.permissions.batteryOptimizationPermissionHandler
 import com.gentin.connectiq.handsfree.permissions.newManifestPermissionHandler
 import com.gentin.connectiq.handsfree.permissions.openAppSettings
+import com.gentin.connectiq.handsfree.permissions.openGarminConnectSettings
 import com.gentin.connectiq.handsfree.permissions.overlayPermissionHandler
 import com.google.android.material.snackbar.Snackbar
 import dev.doubledot.doki.ui.DokiActivity
@@ -90,6 +91,10 @@ fun resolveLink(link: String, fragment: Fragment, navigationLabel: String? = nul
 
                 "settings" -> {
                     openAppSettings(context)
+                }
+
+                "garmin-connect-settings" -> {
+                    openGarminConnectSettings(context)
                 }
 
                 "toggle-debug-mode" -> {
