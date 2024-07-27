@@ -1,0 +1,50 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+wd=$(dirname "$0")
+src_root="$wd/../.."
+
+dst_dir="$src_root/badges"
+
+bn=$(basename "$0")
+
+tmpdir=$(mktemp -d -t "$bn")
+
+connect_iq_dir="$dst_dir"/Connect-IQ
+google_play_dir="$dst_dir"/Google-Play
+android_app_badges_dir="$src_root/AndroidApp/app/src/main/assets/badges"
+
+#
+# Google Play
+#
+mkdir -p "$google_play_dir"
+google_play_badge_svg="$google_play_dir/Get-It-On-Google-Play-Badge_en.svg"
+curl https://raw.githubusercontent.com/steverichey/google-play-badge-svg/master/img/en_get.svg -o "$google_play_badge_svg"
+# Fix missing height/width as well as drop margins.
+inkscape --export-id=rect17 --export-plain-svg --export-overwrite "$google_play_badge_svg"
+# Scale up 200% (from height 40 to 80).
+patch -p1 <"$src_root/extras/Patches/Get-It-On-Google-Play-Badge.patch"
+
+#
+# Connect IQ
+#
+mkdir -p "$connect_iq_dir"
+connect_iq_brand_assets_zip="$tmpdir"/brand-assets_2024.zip
+connect_iq_brand_assets_extracted="$tmpdir"/connect-iq-brand-brand-assets
+
+curl https://developer.garmin.com/downloads/connect-iq/brand-assets_2024.zip -o "$connect_iq_brand_assets_zip"
+unzip -q "$connect_iq_brand_assets_zip" -d "$connect_iq_brand_assets_extracted"
+mv "$connect_iq_brand_assets_extracted/brand-assets/brand-assets/badges/Connect IQ Badge-White.svg" "$connect_iq_dir/Connect-IQ-Badge_White.svg"
+
+#
+# Android App
+#
+rsync \
+    -rltv \
+    --include='*/' \
+    --include='*.svg' \
+    --exclude='*' \
+    "$dst_dir"/ \
+    "$android_app_badges_dir/"

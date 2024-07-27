@@ -1,0 +1,15 @@
+diff --git forkSrcPrefix/badges/Google-Play/Get-It-On-Google-Play-Badge_en.svg forkDstPrefix/badges/Google-Play/Get-It-On-Google-Play-Badge_en.svg
+index a98a24c2df77e85bf04e48b461710d4538d34371..92b515a6128eb2628d012136e490fcdfc3731343 100644
+--- forkSrcPrefix/badges/Google-Play/Get-It-On-Google-Play-Badge_en.svg
++++ forkDstPrefix/badges/Google-Play/Get-It-On-Google-Play-Badge_en.svg
+@@ -3,8 +3,8 @@
+    viewBox="0 0 135 40"
+    version="1.1"
+    id="svg27"
+-   width="135"
+-   height="40"
++   width="270"
++   height="80"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:svg="http://www.w3.org/2000/svg">
+   <defs
