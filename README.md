@@ -51,7 +51,7 @@ https://s3.amazonaws.com/gentin.connectiq.handsfree/Handsfree-Demo.mp4
 
 There're currently a couple ways to obtain the Android app.
 
-1.   **If you joined the [beta program](https://groups.google.com/g/handsfree-beta)**, you can already benefit from installing the Android app from GooglePlay:
+1.   **If you joined the [beta program](https://groups.google.com/g/handsfree-beta)**, you can already benefit from installing the Android app from Google Play:
 
 [<img src="./badges/Google-Play/Get-It-On-Google-Play-Badge_en.svg" height="80" />](https://play.google.com/store/apps/details?id=com.gentin.connectiq.handsfree) 
 
