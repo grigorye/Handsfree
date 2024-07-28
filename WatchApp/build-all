@@ -43,6 +43,12 @@ manifest="$src_root/manifest-$type.xml"
 shared_jungle="$src_root/shared.jungle"
 
 if [[ ${#dev_devices[@]} -eq 0 ]]; then
+    build_all_devices=true
+else
+    build_all_devices=false
+fi
+
+if $build_all_devices; then
     # shellcheck disable=SC2207
     dev_devices=($(cat "$manifest" | sed 's/iq://g' | xq -r '.manifest.application.products.product.[]|.["@id"]'))
 fi
@@ -107,4 +113,6 @@ else
     done
 fi
 
-(cd "$prg_dir" && tree -H . --noreport --dirsfirst -T "Version $source_version" --charset utf-8 -I "index.html" -o "index.html" -P "*.prg|*.TXT" --prune --houtro=/dev/null)
+if $build_for_side_loading && $build_all_devices; then
+    (cd "$prg_dir" && tree -H . --noreport --dirsfirst -T "Version $source_version" --charset utf-8 -I "index.html" -o "index.html" -P "*.prg|*.TXT" --prune --houtro=/dev/null)
+fi
