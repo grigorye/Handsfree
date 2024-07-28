@@ -30,10 +30,9 @@ class PhonesView extends WatchUi.Menu2 {
     }
 
     function updateFromCallState(callState as CallState) as Void {
-        var title = "Idle" + headsetStatusSuffix();
         switch (callState) {
             case instanceof DismissedCallInProgress:
-                title = (callState as DismissedCallInProgress).phone["number"] as Lang.String;
+                var title = (callState as DismissedCallInProgress).phone["number"] as Lang.String;
                 setTitle(title);
                 break;
             default:
