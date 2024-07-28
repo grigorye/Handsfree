@@ -17,7 +17,7 @@ class PhonesView extends WatchUi.Menu2 {
         var title = "";
         switch (checkInStatus) {
             case CHECK_IN_IN_PROGRESS:
-                title = ".";
+                title = "Syncing";
                 break;
             case CHECK_IN_SUCCEEDED:
                 title = "Idle";
