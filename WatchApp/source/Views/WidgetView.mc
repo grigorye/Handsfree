@@ -46,46 +46,46 @@ class WidgetView extends WatchUi.View {
             );
         } else {
             var callState = getCallState();
-            var title;
-            var subtitle;
+            var lines = "";
             switch (callState) {
-                case instanceof CallInProgress:
+                case instanceof CallInProgress: {
                     var phone = (callState as CallInProgress).phone;
                     var isIncomingCall = isIncomingCallPhone(phone);
-                    title = phone["name"] as Lang.String or Null;
-                    if (title == null) {
-                        title = appName;
-                    }
+                    var contactName = phone["name"] as Lang.String or Null;
                     var number = phone["number"] as Lang.String or Null;
+                    var callStatusLine;
                     if (isIncomingCall) {
-                        if (number != null) {
-                            subtitle = "< " + number;
-                        } else {
-                            subtitle = "Incoming call";
-                        }
+                        callStatusLine = "Incoming call";
                     } else {
-                        if (number != null) {
-                            subtitle = number;
-                        } else {
-                            subtitle = "Call in progress";
-                        }
+                        callStatusLine = "Call in progress";
+                    }
+                    lines = lines + callStatusLine + "\n";
+
+                    if (contactName != null) {
+                        lines = lines + contactName + "\n";
+                    } else if (number != null) {
+                        lines = lines + number + "\n";
                     }
                     break;
-                default:
-                    title = appName;
+                }
+                default: {
+                    lines = lines + appName + "\n";
+                    var subtitle;
                     if (isShowingSourceVersionEnabled()) {
                         subtitle = sourceVersion();
                     } else {
                         subtitle = "Idle";
                     }
+                    lines = lines + subtitle + "\n";
                     break;
+                }
             }
-
+            lines = lines + headsetStatusForWidget();
             dc.drawText(
                 dc.getWidth() / 2,
                 dc.getHeight() / 2,
                 Styles.widget_font__title.font,
-                title + "\n" + subtitle + "\n" + headsetStatusForWidget(),
+                lines,
                 Toybox.Graphics.TEXT_JUSTIFY_CENTER | Toybox.Graphics.TEXT_JUSTIFY_VCENTER
             );
         }
