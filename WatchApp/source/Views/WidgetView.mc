@@ -50,11 +50,12 @@ class WidgetView extends WatchUi.View {
             var subtitle;
             switch (callState) {
                 case instanceof CallInProgress:
-                    title = (callState as CallInProgress).phone["name"] as Lang.String or Null;
+                    var phone = (callState as CallInProgress).phone;
+                    title = phone["name"] as Lang.String or Null;
                     if (title == null) {
                         title = appName;
                     }
-                    var number = (callState as CallInProgress).phone["number"] as Lang.String or Null;
+                    var number = phone["number"] as Lang.String or Null;
                     if (number != null) {
                         subtitle = number;
                     } else {

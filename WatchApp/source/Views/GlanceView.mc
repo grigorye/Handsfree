@@ -59,13 +59,13 @@ class GlanceView extends WatchUi.GlanceView {
             var subtitle;
             switch (callState) {
                 case instanceof CallInProgress: {
-                    var callInProgress = callState as CallInProgress;
-                    var isIncomingCall = isIncomingCallPhone(callInProgress.phone);
-                    title = callInProgress.phone["name"] as Lang.String or Null;
+                    var phone = (callState as CallInProgress).phone;
+                    var isIncomingCall = isIncomingCallPhone(phone);
+                    title = phone["name"] as Lang.String or Null;
                     if (title == null) {
                         title = defaultTitle;
                     }
-                    var number = callInProgress.phone["number"] as Lang.String or Null;
+                    var number = phone["number"] as Lang.String or Null;
                     if (isIncomingCall) {
                         if (number != null) {
                             subtitle = "< " + number;
