@@ -216,6 +216,11 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         )
         lastTrackedPhoneState = phoneState
         l.outgoingMessageDispatcher.sendPhoneState(phoneState)
+        if ((stateExtra == TelephonyManager.EXTRA_STATE_RINGING) && isOpenWatchAppOnRingingEnabled()) {
+            for (app in watchApps) {
+                l.garminConnector.openWatchAppOnDevice(app)
+            }
+        }
     }
 
     private fun availableDisplayNames(incomingNumber: String): List<String> {
@@ -247,6 +252,10 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             lastTrackedPhoneState?.incomingNumber,
             lastTrackedPhoneState?.stateExtra ?: TelephonyManager.EXTRA_STATE_IDLE
         )
+    }
+
+    private fun isOpenWatchAppOnRingingEnabled(): Boolean {
+        return false
     }
 
     companion object {
