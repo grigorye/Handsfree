@@ -1,10 +1,30 @@
-Handsfree lets you keep your phone in your pocket while you make calls, allowing you to use Garmin watch for initiating and/or controlling the calls. It's a companion application to the application that you can install on Garmin watch from [Connect IQ store](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920).
-
-[Troubleshooting](link://onboarding_troubleshooting)
-
-[Project home](https://github.com/grigorye/Handsfree)
-
 Version {{version_info}}
 
-[Install the latest version](https://grigorye.github.io/handsfree/Installation)
+Handsfree lets you keep your phone in your pocket while you make calls, allowing you to use Garmin watch (or cycling computer) for initiating and/or controlling the calls.
+
+Handsfree consists of two components:
+
+-   the main app running on Garmin device (please find the link below)
+-   the companion app (you're facing it now) that just serves the requests from the main app
+
+### [Troubleshooting](link://onboarding_troubleshooting)
+
+### [Project home](https://github.com/grigorye/Handsfree)
+
+### Handsfree app for Garmin
+
+[<img src="./badges/Connect-IQ/Connect-IQ-Badge_White.svg" max-height="160" max-width="100%" alt="Open Connect IQ"/>](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920)
+
+### Updating Handsfree companion app
+
+There're two ways to update the Android app.
+
+1.   **If you joined the [beta program](https://groups.google.com/g/handsfree-beta)**, you can already benefit from updating the Android app from Google Play.
+     
+     [<img src="./badges/Google-Play/Get-It-On-Google-Play-Badge_en.svg" max-height="160" max-width="100%" alt="Get it on Google Play"/>](https://play.google.com/store/apps/details?id=com.gentin.connectiq.handsfree) 
+     
+      
+2.   If you are not a beta tester (or prefer to not depend on Google Play), you can install the latest version of the app using the link below.
+
+     #### [Install the latest version without Google Play](https://grigorye.github.io/handsfree/Installation)
 
