@@ -19,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
 import com.gentin.connectiq.handsfree.globals.callInfoShouldBeEnabled
+import com.gentin.connectiq.handsfree.globals.watchApps
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_ON_DEVICE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
@@ -117,7 +118,9 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             }
 
             ACTIVATE_AND_OPEN_WATCH_APP_ON_DEVICE -> {
-                garminConnector.openWatchAppOnDevice()
+                for (app in watchApps) {
+                    garminConnector.openWatchAppOnDevice(app)
+                }
                 START_NOT_STICKY
             }
 
