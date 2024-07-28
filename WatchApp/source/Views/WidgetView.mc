@@ -80,7 +80,10 @@ class WidgetView extends WatchUi.View {
                     break;
                 }
             }
-            lines = lines + headsetStatusForWidget();
+            var headsetStatus = headsetStatusForWidget();
+            if (!headsetStatus.equals("")) {
+                lines = lines + "\n" + headsetStatus;
+            }
             dc.drawText(
                 dc.getWidth() / 2,
                 dc.getHeight() / 2,
