@@ -14,10 +14,12 @@ function setIsHeadsetConnected(isHeadsetConnected as Lang.Boolean) as Void {
         }
         case ACTIVE_UI_APP: {
             if (!isHeadsetConnected.equals(oldIsHeadsetConnectedImp)) {
-                if (isHeadsetConnected) {
-                    WatchUi.showToast("Headset on", null);
-                } else {
-                    WatchUi.showToast("No headset", null);
+                if (WatchUi has :showToast) {
+                    if (isHeadsetConnected) {
+                        WatchUi.showToast("Headset on", null);
+                    } else {
+                        WatchUi.showToast("No headset", null);
+                    }
                 }
             }
             return;
