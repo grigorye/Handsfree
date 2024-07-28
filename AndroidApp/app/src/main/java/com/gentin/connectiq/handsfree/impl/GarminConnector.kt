@@ -197,9 +197,6 @@ class DefaultGarminConnector(
         )
         connectIQ.knownDevices.forEach { device ->
             startIncomingMessageProcessing(device)
-            if (installedAppsTrackingEnabled) {
-                startOutgoingMessageGeneration(device)
-            }
         }
     }
 
@@ -281,6 +278,9 @@ class DefaultGarminConnector(
                     TAG,
                     "device.${device.deviceIdentifier}(${device.friendlyName}) <- status($status)"
                 )
+                if (installedAppsTrackingEnabled && (status == IQDevice.IQDeviceStatus.CONNECTED)) {
+                    startOutgoingMessageGeneration(device)
+                }
             }
         }
     }
