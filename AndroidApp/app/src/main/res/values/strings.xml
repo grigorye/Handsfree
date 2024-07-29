@@ -218,7 +218,9 @@ There're several components that should work together for normal operation of Ha
 
 **[Reconnect with the watch](do://reconnect-connectiq)** (you can tap the devices list on the Control screen to reconnect as well) - this may be worth trying, especially if you don't want to kill Garmin Connect (see above).
 
-**Reboot your phone** - yes, that may mean a lot, but it's for sure probably the simplest thing to do once in a while (it should cover all the above in the section).
+**Reboot your phone** - yes, that may mean a lot, but it's for sure probably the simplest thing to do once in a while.
+
+**Toggle bluetooth off and on the watch** - this is known to help sometimes when Handsfree does not respond to the watch and nothing of the above helps.
 
 ### May be helpful in certain situations
 
