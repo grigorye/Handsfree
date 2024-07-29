@@ -46,7 +46,7 @@ class WidgetView extends WatchUi.View {
             );
         } else {
             var callState = getCallState();
-            var lines = "";
+            var lines = [] as Lang.Array<Lang.String>;
             switch (callState) {
                 case instanceof CallInProgress: {
                     var phone = (callState as CallInProgress).phone;
@@ -59,36 +59,40 @@ class WidgetView extends WatchUi.View {
                     } else {
                         callStatusLine = "Call in progress";
                     }
-                    lines = lines + callStatusLine + "\n";
+                    lines.add(callStatusLine);
 
                     if (contactName != null) {
-                        lines = lines + contactName + "\n";
+                        lines.add(contactName);
                     } else if (number != null) {
-                        lines = lines + number + "\n";
+                        lines.add(number);
                     }
                     break;
                 }
                 default: {
-                    lines = lines + appName + "\n";
+                    lines.add(appName);
                     var subtitle;
                     if (isShowingSourceVersionEnabled()) {
                         subtitle = sourceVersion();
                     } else {
                         subtitle = "Idle";
                     }
-                    lines = lines + subtitle + "\n";
+                    lines.add(subtitle);
                     break;
                 }
             }
             var headsetStatus = headsetStatusForWidget();
             if (!headsetStatus.equals("")) {
-                lines = lines + "\n" + headsetStatus;
+                lines.add(headsetStatus);
+            }
+            var text = lines[0];
+            for (var i = 1; i < lines.size(); i++) {
+                text = text + "\n" + lines[i];
             }
             dc.drawText(
                 dc.getWidth() / 2,
                 dc.getHeight() / 2,
                 Styles.widget_font__title.font,
-                lines,
+                text,
                 Toybox.Graphics.TEXT_JUSTIFY_CENTER | Toybox.Graphics.TEXT_JUSTIFY_VCENTER
             );
         }
