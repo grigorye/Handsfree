@@ -21,9 +21,9 @@ function textsForCallInProgress(phone as Phone) as CallInProgressTexts {
         prefix = number;
     } else {
         if (isIncomingCall) {
-            prefix = "Incoming call.";
+            prefix = "Incoming call";
         } else {
-            prefix = "Call in progress.";
+            prefix = "Call in progress";
         }
     }
     var actions = [] as CallInProgressActions;
