@@ -35,7 +35,7 @@ class WidgetView extends WatchUi.View {
         }
 
         dump("shouldShowCallState", isShowingCallStateOnGlanceEnabled());
-        var appName = "Handsfree";
+        var appName = WatchUi.loadResource(Rez.Strings.AppName) as Lang.String;
         if (!isShowingCallStateOnGlanceEnabled()) {
             dc.drawText(
                 dc.getWidth() / 2,
