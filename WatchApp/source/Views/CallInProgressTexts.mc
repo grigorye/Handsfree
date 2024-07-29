@@ -33,7 +33,7 @@ function textsForCallInProgress(phone as Phone) as CallInProgressTexts {
             :command => CALL_IN_PROGRESS_ACTION_ACCEPT,
         });
         actions.add({
-            :prompt => "Reject",
+            :prompt => "Decline",
             :command => CALL_IN_PROGRESS_ACTION_REJECT
         });
     } else {
