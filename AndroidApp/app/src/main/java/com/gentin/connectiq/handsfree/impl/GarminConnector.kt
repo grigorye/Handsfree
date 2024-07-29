@@ -143,7 +143,22 @@ class DefaultGarminConnector(
         }
     }
 
-    private var notInstalledApps = mutableListOf<IQApp>()
+    private var notInstalledApps = mutableMapOf<Long, MutableList<IQApp>>()
+
+    private fun trackNotInstalledApp(device: IQDevice, app: IQApp) {
+        val key = device.deviceIdentifier
+        val apps = notInstalledApps[key] ?: mutableListOf<IQApp>()
+        apps.add(app)
+        notInstalledApps[key] = apps
+    }
+
+    private fun isNotInstalledApp(device: IQDevice, app: IQApp): Boolean {
+        return notInstalledApps[device.deviceIdentifier]?.contains(app) ?: false
+    }
+
+    private fun clearNotInstalledApps() {
+        notInstalledApps.clear()
+    }
 
     private fun startOutgoingMessageGeneration(device: IQDevice) {
         Log.d(
@@ -174,14 +189,14 @@ class DefaultGarminConnector(
                             TAG,
                             "appStatus(${device.friendlyName}, ${appLogName(app)}): NOT_INSTALLED"
                         )
-                        notInstalledApps.add(app)
+                        trackNotInstalledApp(device, app)
                     }
                 })
         }
     }
 
     private fun stopOutgoingMessageGeneration() {
-        notInstalledApps.clear()
+        clearNotInstalledApps()
     }
 
     private var installedAppsTrackingEnabled = false
@@ -323,9 +338,13 @@ class DefaultGarminConnector(
         return false
     }
 
-    private fun appsForSendingMessages(): List<IQApp> {
+    private fun appsForSendingMessages(device: IQDevice): List<IQApp> {
         return watchApps.filter {
-            !useOnlyInstalledAppsForSendingMessages() || !notInstalledApps.contains(it)
+            if (!useOnlyInstalledAppsForSendingMessages()) {
+                true
+            } else {
+                !isNotInstalledApp(device, it)
+            }
         }
     }
 
@@ -337,7 +356,7 @@ class DefaultGarminConnector(
 
         try {
             connectIQ.connectedDevices.forEach { device ->
-                appsForSendingMessages().forEach { app ->
+                appsForSendingMessages(device).forEach { app ->
                     val appLogName = appLogName(app)
                     Log.d(
                         TAG,
