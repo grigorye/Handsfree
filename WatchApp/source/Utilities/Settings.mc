@@ -56,3 +56,13 @@ function clearEraseAppDataOnNextLaunch() as Void {
 function isOpenAppOnIncomingCallEnabled() as Lang.Boolean {
     return Application.Properties.getValue("openAppOnIncomingCall") as Lang.Boolean;
 }
+
+(:background, :glance)
+function isIncomingOpenAppViaCompanionEnabled() as Lang.Boolean {
+    return Application.Properties.getValue("incomingOpenAppViaCompanion") as Lang.Boolean;
+}
+
+(:background, :glance)
+function isIncomingOpenAppViaWakeUpEnabled() as Lang.Boolean {
+    return Application.Properties.getValue("incomingOpenAppViaWakeUp") as Lang.Boolean;
+}

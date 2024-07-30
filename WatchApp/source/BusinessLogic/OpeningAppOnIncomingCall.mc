@@ -1,22 +1,45 @@
 using Toybox.Communications;
+using Toybox.Background;
+using Toybox.Lang;
 
 (:background, :glance)
-function openAppOnIncomingCallIfNecessary() as Void {
+function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
+    dump("isOpenAppOnIncomingCallEnabled", isOpenAppOnIncomingCallEnabled());
     if (!isOpenAppOnIncomingCallEnabled()) {
         return;
     }
     var activeUiKind = getActiveUiKind();
     dump("activeUiKind", activeUiKind);
     if (activeUiKind != ACTIVE_UI_APP) {
-        requestOpeningApp();
+        openAppOnIncomingCall(phone);
     }
 }
 
 (:background, :glance)
-function requestOpeningApp() as Void {
-    var msg = {
-        "cmd" => "openMe"
-    };
-    dump("outMsg", msg);
-    Communications.transmit(msg, null, new DummyCommListener("openMe"));
+function openAppOnIncomingCall(phone as Phone) as Void {
+    if (isIncomingOpenAppViaCompanionEnabled()) {
+        var msg = {
+            "cmd" => "openMe"
+        };
+        dump("outMsg", msg);
+        Communications.transmit(msg, null, new DummyCommListener("openMe"));
+    }
+    if (isIncomingOpenAppViaWakeUpEnabled()) {
+        var message = messageForApplicationWake(phone);
+        dump("requestingApplicationWake", message);
+        Background.requestApplicationWake(message);
+    }
+}
+
+(:background, :glance)
+function messageForApplicationWake(phone as Phone) as Lang.String {
+    var name = phone["name"] as Lang.String or Null;
+    if (name != null) {
+        return "< " + name;
+    }
+    var number = phone["number"] as Lang.String or Null;
+    if (number != null) {
+        return "< " + number;
+    }
+    return "Incoming call";
 }

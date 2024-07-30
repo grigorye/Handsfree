@@ -7,6 +7,14 @@
             title="@Strings.popOutOfAppInsteadOfPhones">
             <settingConfig type="boolean" />
         </setting>
+        <setting propertyKey="@Properties.incomingOpenAppViaCompanion"
+            title="@Strings.incomingOpenAppViaCompanion">
+            <settingConfig type="boolean" />
+        </setting>
+        <setting propertyKey="@Properties.incomingOpenAppViaWakeUp"
+            title="@Strings.incomingOpenAppViaWakeUp">
+            <settingConfig type="boolean" />
+        </setting>
         <setting propertyKey="@Properties.backgroundServiceEnabled"
             title="@Strings.backgroundServiceEnabled">
             <settingConfig type="boolean" />

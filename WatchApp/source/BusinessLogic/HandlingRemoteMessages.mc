@@ -87,7 +87,7 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
                 ringingPhone["name"] = ringingName as Lang.String;
             }
             setCallState(new CallInProgress(ringingPhone));
-            openAppOnIncomingCallIfNecessary();
+            openAppOnIncomingCallIfNecessary(ringingPhone);
             break;
     }
 }
