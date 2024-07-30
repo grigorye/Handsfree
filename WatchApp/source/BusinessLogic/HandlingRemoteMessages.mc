@@ -77,10 +77,6 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
         case "ringing":
             var ringingNumber = args["number"] as Lang.String;
             dump("ringingNumber", ringingNumber);
-            dump("isIncomingCallsEnabled", isIncomingCallsEnabled());
-            if (!isIncomingCallsEnabled()) {
-                break;
-            }
             var ringingPhone = {
                 "number" => ringingNumber,
                 "id" => -4,
@@ -91,6 +87,7 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
                 ringingPhone["name"] = ringingName as Lang.String;
             }
             setCallState(new CallInProgress(ringingPhone));
+            openAppOnIncomingCallIfNecessary();
             break;
     }
 }
