@@ -30,6 +30,6 @@ fun appLogName(app: IQApp): String {
         betaApp -> "beta-a"
         prodWidget -> "prod-w"
         betaWidget -> "beta-w"
-        else -> "unknown"
+        else -> "unknown(${app.applicationId})"
     }
 }
