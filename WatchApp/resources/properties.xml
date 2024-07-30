@@ -33,40 +33,15 @@
     </strings>
 
     <settings>
-        <setting propertyKey="@Properties.popOutOfAppInsteadOfPhones"
-            title="@Strings.popOutOfAppInsteadOfPhones">
-            <settingConfig type="boolean" />
-        </setting>
-        <setting propertyKey="@Properties.backgroundServiceEnabled"
-            title="@Strings.backgroundServiceEnabled">
-            <settingConfig type="boolean" />
-        </setting>
         <setting propertyKey="@Properties.openAppOnIncomingCall"
             title="@Strings.openAppOnIncomingCall">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.companionOnboardingEnabled"
-            title="@Strings.companionOnboardingEnabled">
+        <setting propertyKey="@Properties.forceLargeFonts" title="@Strings.forceLargeFonts">
             <settingConfig type="boolean" />
-        </setting>
-        <setting propertyKey="@Properties.syncCallStateOnLaunch"
-            title="@Strings.syncCallStateOnLaunch">
-            <settingConfig type="boolean" />
-        </setting>
-        <setting propertyKey="@Properties.callStateOnGlance" title="@Strings.callStateOnGlance">
-            <settingConfig type="boolean" />
-        </setting>
-        <setting propertyKey="@Properties.syncAttempts" title="@Strings.syncAttempts">
-            <settingConfig type="numeric" />
-        </setting>
-        <setting propertyKey="@Properties.secondsToCheckIn" title="@Strings.secondsToCheckIn">
-            <settingConfig type="numeric" />
         </setting>
         <setting propertyKey="@Properties.customGlanceTitle" title="@Strings.customGlanceTitle">
             <settingConfig type="alphaNumeric" />
-        </setting>
-        <setting propertyKey="@Properties.forceLargeFonts" title="@Strings.forceLargeFonts">
-            <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.eraseAppDataOnNextLaunch"
             title="@Strings.eraseAppDataOnNextLaunch">
@@ -74,6 +49,12 @@
         </setting>
         <setting propertyKey="@Properties.showSourceVersion" title="@Strings.showSourceVersion">
             <settingConfig type="boolean" />
+        </setting>
+        <setting propertyKey="@Properties.syncAttempts" title="@Strings.syncAttempts">
+            <settingConfig type="numeric" />
+        </setting>
+        <setting propertyKey="@Properties.secondsToCheckIn" title="@Strings.secondsToCheckIn">
+            <settingConfig type="numeric" />
         </setting>
         <setting propertyKey="@Properties.dummySourceVersion" title="@Strings.sourceVersion">
             <settingConfig type="alphaNumeric" readonly="true" />
