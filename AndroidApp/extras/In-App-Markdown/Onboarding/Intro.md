@@ -12,11 +12,11 @@ Handsfree lets you keep your phone in your pocket while you make calls, allowing
 
 ### Keeping Handsfree companion up to date
 
-1.   **If you joined the [beta program](https://groups.google.com/g/handsfree-beta)**, you can already benefit from updating the Android app from Google Play.
+A. **If you joined the [beta program](https://groups.google.com/g/handsfree-beta)**, you can already benefit from updating the Android app from Google Play.
 
 [<img src="./badges/Google-Play/Get-It-On-Google-Play-Badge_en.svg" max-height="160" alt="Get it on Google Play"/>](https://play.google.com/store/apps/details?id=com.gentin.connectiq.handsfree) 
 
-2.   If you are not a beta tester (or prefer to not depend on Google Play), you can install the latest version of the app using the link below:
+B. If you are not a beta tester (or prefer to not depend on Google Play), you can install the latest version of the app using the link below:
 
 #### [Install the latest version without Google Play](https://grigorye.github.io/handsfree/Installation)
 
