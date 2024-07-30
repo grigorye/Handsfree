@@ -2,7 +2,7 @@ using Toybox.Communications;
 
 (:background, :glance)
 function openAppOnIncomingCallIfNecessary() as Void {
-    if (!isIncomingCallsEnabled()) {
+    if (!isOpenAppOnIncomingCallEnabled()) {
         return;
     }
     var activeUiKind = getActiveUiKind();

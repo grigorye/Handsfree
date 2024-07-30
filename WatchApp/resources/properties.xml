@@ -3,7 +3,7 @@
     <properties>
         <property id="popOutOfAppInsteadOfPhones" type="boolean">true</property>
         <property id="backgroundServiceEnabled" type="boolean">true</property>
-        <property id="incomingCallsEnabled" type="boolean">true</property>
+        <property id="openAppOnIncomingCall" type="boolean">false</property>
         <property id="companionOnboardingEnabled" type="boolean">false</property>
         <property id="syncCallStateOnLaunch" type="boolean">false</property>
         <property id="callStateOnGlance" type="boolean">true</property>
@@ -20,7 +20,7 @@
     <strings>
         <string id="popOutOfAppInsteadOfPhones">Close app after call</string>
         <string id="backgroundServiceEnabled">Enable background service</string>
-        <string id="incomingCallsEnabled">Enable incoming calls</string>
+        <string id="openAppOnIncomingCall">Open app on incoming call</string>
         <string id="companionOnboardingEnabled">Enable companion onboarding</string>
         <string id="syncCallStateOnLaunch">Update call state on app launch.</string>
         <string id="callStateOnGlance">Show call state on glance.</string>
@@ -41,8 +41,8 @@
             title="@Strings.backgroundServiceEnabled">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.incomingCallsEnabled"
-            title="@Strings.incomingCallsEnabled">
+        <setting propertyKey="@Properties.openAppOnIncomingCall"
+            title="@Strings.openAppOnIncomingCall">
             <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.companionOnboardingEnabled"
