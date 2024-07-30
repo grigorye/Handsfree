@@ -116,3 +116,5 @@ fi
 if $build_for_side_loading && $build_all_devices; then
     (cd "$prg_dir" && tree -H . --noreport --dirsfirst -T "Version $source_version" --charset utf-8 -I "index.html" -o "index.html" -P "*.prg|*.TXT" --prune --houtro=/dev/null)
 fi
+
+echo "$source_version" >"$build_dir"/version.txt
