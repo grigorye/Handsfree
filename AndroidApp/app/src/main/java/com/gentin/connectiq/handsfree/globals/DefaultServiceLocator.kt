@@ -56,6 +56,11 @@ class DefaultServiceLocator(
             },
             syncPhonesImp = {
                 outgoingMessageDispatcher.sendPhones(availableContacts())
+            },
+            openAppImp = {
+                for (app in watchApps) {
+                    garminConnector.openWatchAppOnDevice(app)
+                }
             }
         )
     }

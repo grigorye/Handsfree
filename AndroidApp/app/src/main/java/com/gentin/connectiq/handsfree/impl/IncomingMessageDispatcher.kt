@@ -7,7 +7,8 @@ import org.json.JSONObject
 class IncomingMessageDispatcher(
     private val phoneCallService: PhoneCallService,
     private val syncImp: () -> Unit,
-    private val syncPhonesImp: () -> Unit
+    private val syncPhonesImp: () -> Unit,
+    private val openAppImp: () -> Unit
 ) {
     fun handleMessage(message: Any) {
         val pojo = message as Map<*, *>
@@ -36,6 +37,10 @@ class IncomingMessageDispatcher(
 
             "syncPhones" -> {
                 syncPhonesImp()
+            }
+
+            "openMe" -> {
+                openAppImp()
             }
 
             else -> {
