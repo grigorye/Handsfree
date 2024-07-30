@@ -15,8 +15,10 @@ class BackgroundServiceDelegate extends System.ServiceDelegate {
         dump("activeUiKind", getActiveUiKind());
         handleRemoteMessage(msg);
         if (isBackgroundAppUpdateEnabled()) {
+            dump("backgroundExit", "onPhoneAppMessage");
             Background.exit("onPhoneAppMessage");
         } else {
+            dump("backgroundExit", null);
             Background.exit(null);
         }
     }
