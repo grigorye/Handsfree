@@ -174,7 +174,7 @@ class DefaultGarminConnector(
                         if (p0?.status == IQApp.IQAppStatus.INSTALLED) {
                             Log.d(
                                 TAG,
-                                "appStatus(${device.friendlyName}, ${appLogName(app)}): INSTALLED"
+                                "appStatus(${device.friendlyName}, ${appLogName(app)}): INSTALLED (${p0.version()})"
                             )
                         } else {
                             Log.d(
