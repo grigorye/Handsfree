@@ -199,7 +199,7 @@ class DefaultGarminConnector(
         clearNotInstalledApps()
     }
 
-    private var installedAppsTrackingEnabled = false
+    private var installedAppsTrackingEnabled = true
 
     private fun startMessageProcessing() {
         Log.d(TAG, "connectIQ: $connectIQ")
