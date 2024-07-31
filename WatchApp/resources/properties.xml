@@ -13,6 +13,7 @@
         <property id="showSourceVersion" type="boolean">false</property>
         <property id="dummySourceVersion" type="string"></property>
         <property id="customGlanceTitle" type="string"></property>
+        <property id="incomingCallMessageFormat" type="string">&lt;$1$</property>
         <property id="forceLargeFonts" type="boolean">false</property>
         <property id="eraseAppDataOnNextLaunch" type="boolean">false</property>
         <property id="incomingOpenAppViaCompanion" type="boolean">false</property>
@@ -30,6 +31,8 @@
         <string id="secondsToCheckIn">Timeout for check-in (sec)</string>
         <string id="showSourceVersion">Show source verison in the app</string>
         <string id="customGlanceTitle">Custom title for glance</string>
+        <string id="incomingCallMessageFormat">Incoming call message format (use $1$ as the contact
+            name/phone number placeholder)</string>
         <string id="forceLargeFonts">Force large fonts</string>
         <string id="eraseAppDataOnNextLaunch">Erase data on next launch</string>
         <string id="incomingOpenAppViaCompanion">Open app on incoming call</string>
@@ -45,6 +48,10 @@
             <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.customGlanceTitle" title="@Strings.customGlanceTitle">
+            <settingConfig type="alphaNumeric" />
+        </setting>
+        <setting propertyKey="@Properties.incomingCallMessageFormat"
+            title="@Strings.incomingCallMessageFormat">
             <settingConfig type="alphaNumeric" />
         </setting>
         <setting propertyKey="@Properties.eraseAppDataOnNextLaunch"

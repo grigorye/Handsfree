@@ -35,11 +35,16 @@ function openAppOnIncomingCall(phone as Phone) as Void {
 function messageForApplicationWake(phone as Phone) as Lang.String {
     var name = phone["name"] as Lang.String or Null;
     if (name != null) {
-        return "< " + name;
+        return incomingCallMessage(name);
     }
     var number = phone["number"] as Lang.String or Null;
     if (number != null) {
-        return "< " + number;
+        return incomingCallMessage(number);
     }
     return "Incoming call";
+}
+
+(:background, :glance)
+function incomingCallMessage(phone as Lang.String) as Lang.String {
+    return Lang.format(incomingCallMessageFormat(), [phone]);
 }

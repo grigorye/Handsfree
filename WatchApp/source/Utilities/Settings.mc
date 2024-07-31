@@ -66,3 +66,8 @@ function isIncomingOpenAppViaCompanionEnabled() as Lang.Boolean {
 function isIncomingOpenAppViaWakeUpEnabled() as Lang.Boolean {
     return Application.Properties.getValue("incomingOpenAppViaWakeUp") as Lang.Boolean;
 }
+
+(:background, :glance)
+function incomingCallMessageFormat() as Lang.String {
+    return Application.Properties.getValue("incomingCallMessageFormat") as Lang.String;
+}

@@ -68,7 +68,7 @@ class GlanceView extends WatchUi.GlanceView {
                     var number = phone["number"] as Lang.String or Null;
                     if (isIncomingCall) {
                         if (number != null) {
-                            subtitle = "< " + number;
+                            subtitle = incomingCallMessage(number);
                         } else {
                             subtitle = "Incoming call";
                         }
