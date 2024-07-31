@@ -14,8 +14,9 @@ aws s3 cp \
     "$prg_dir" \
     "s3://$bucket"/ \
     --recursive \
-    --include '*.xml' \
-    --exclude '**/mir/*' \
-    --exclude '**/internal-mir/*' \
-    --exclude '*.mc' \
-    --exclude '**/gen/*'
+    --exclude '*' \
+    --include 'index.html' \
+    --include '**/*.prg' \
+    --include '**/*-settings.json' \
+    --include '**/*.prg.debug.xml' \
+    --include '**/Handsfree-beta-*.TXT'
