@@ -8,5 +8,5 @@ function scheduleCall(phone as Phone) as Void {
     dump("oldCallStateIsOwnedByUs", callStateIsOwnedByUs);
     callStateIsOwnedByUs = true;
     dump("newCallStateIsOwnedByUs", callStateIsOwnedByUs);
-    new CallTask(phone).launch();
+    new ScheduleCallTask(phone).launch();
 }

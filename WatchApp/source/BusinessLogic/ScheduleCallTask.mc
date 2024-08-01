@@ -1,6 +1,6 @@
 using Toybox.Communications;
 
-class CallTask extends Communications.ConnectionListener {
+class ScheduleCallTask extends Communications.ConnectionListener {
     var phone as Phone;
 
     function initialize(phone as Phone) {
@@ -16,14 +16,14 @@ class CallTask extends Communications.ConnectionListener {
             }
         };
         setCallState(new SchedulingCall(phone, PENDING));
-        transmitWithRetry("call", msg, self);
+        transmitWithRetry("scheduleCall", msg, self);
     }
 
     function onComplete() {
         var oldState = getCallState() as SchedulingCall;
         if (!(oldState instanceof SchedulingCall)) {
             // We may already go back, and hence change the call state to Idle.
-            dumpCallState("CallTask.onComplete.callStateInvalidated", oldState);
+            dumpCallState("scheduleCall.onComplete.callStateInvalidated", oldState);
             return;
         }
         var newState = oldState.clone();
@@ -35,7 +35,7 @@ class CallTask extends Communications.ConnectionListener {
         var oldState = getCallState() as SchedulingCall;
         if (!(oldState instanceof SchedulingCall)) {
             // We may already go back, and hence change the call state to Idle.
-            dumpCallState("CallTask.onError.callStateInvalidated", oldState);
+            dumpCallState("scheduleCall.onError.callStateInvalidated", oldState);
             return;
         }
         var newState = oldState.clone();
