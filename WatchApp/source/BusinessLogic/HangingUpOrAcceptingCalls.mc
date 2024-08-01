@@ -6,6 +6,6 @@ function revealCallInProgress() as Void {
     setCallState(new CallInProgress(callState.phone));
 }
 
-function hangupCallInProgress(phone as Phone) as Void {
-    new HangupCommTask(phone).launch();
+function hangupOrAcceptCall(phone as Phone) as Void {
+    new HangupOrAcceptCallTask(phone).launch();
 }

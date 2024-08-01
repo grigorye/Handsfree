@@ -1,6 +1,6 @@
 using Toybox.Communications;
 
-class HangupCommTask extends Communications.ConnectionListener {
+class HangupOrAcceptCallTask extends Communications.ConnectionListener {
     var phone as Phone;
 
     function initialize(phone as Phone) {

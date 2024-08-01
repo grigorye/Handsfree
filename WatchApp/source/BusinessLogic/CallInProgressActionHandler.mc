@@ -2,7 +2,7 @@ using Toybox.Lang;
 
 function onCallInProgressActionConfirmed(phone as Phone, confirmed as Lang.Boolean) as Void {
     if (confirmed) {
-        hangupCallInProgress(phone);
+        hangupOrAcceptCall(phone);
     } else {
         if (isIncomingCallPhone(phone)) {
             phone["ringing"] = false;
