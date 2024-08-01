@@ -5,7 +5,7 @@ function requestSync() as Void {
         "cmd" => "syncMe"
     };
     dump("outMsg", msg);
-    Communications.transmit(msg, null, new SyncCommListener());
+    transmitWithRetry("syncMe", msg, new SyncCommListener());
 }
 
 function requestPhones() as Void {
@@ -13,5 +13,5 @@ function requestPhones() as Void {
         "cmd" => "syncPhones"
     };
     dump("outMsg", msg);
-    Communications.transmit(msg, null, new SyncCommListener());
+    transmitWithRetry("syncPhones", msg, new SyncCommListener());
 }
