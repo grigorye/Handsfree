@@ -9,3 +9,13 @@ function revealCallInProgress() as Void {
 function hangupOrAcceptCall(phone as Phone) as Void {
     new HangupOrAcceptCallTask(phone).launch();
 }
+
+function hangupCallInProgress(phone as Phone) as Void {
+    assert("hangupCallInProgress", !isIncomingCallPhone(phone), "!isIncomingCallPhone(" + phone + ")");
+    hangupOrAcceptCall(phone);
+}
+
+function acceptIncomingCall(phone as Phone) as Void {
+    assert("acceptIncomingCall", isIncomingCallPhone(phone), "isIncomingCallPhone(" + phone + ")");
+    hangupOrAcceptCall(phone);
+}
