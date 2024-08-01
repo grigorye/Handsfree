@@ -10,6 +10,9 @@ function handleRemoteMessage(iqMsg as Communications.Message) as Void {
     var args = msg["args"] as Lang.Dictionary<Lang.String, Lang.Object>;
     dump("<- inCmd", cmd);
     dump("inArgs", args);
+    if (isBeepOnCommuncationEnabled()) {
+        beep(BEEP_TYPE_MESSAGE);
+    }
     switch (cmd) {
         case "syncYou":
             var phonesArgs = args["setPhones"] as Lang.Dictionary<Lang.String, Lang.Object>;

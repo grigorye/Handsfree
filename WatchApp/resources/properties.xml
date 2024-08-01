@@ -18,6 +18,7 @@
         <property id="eraseAppDataOnNextLaunch" type="boolean">false</property>
         <property id="incomingOpenAppViaCompanion" type="boolean">false</property>
         <property id="incomingOpenAppViaWakeUp" type="boolean">true</property>
+        <property id="beepOnComm" type="boolean">false</property>
     </properties>
 
     <strings>
@@ -37,6 +38,7 @@
         <string id="eraseAppDataOnNextLaunch">Erase data on next launch</string>
         <string id="incomingOpenAppViaCompanion">Open app on incoming call</string>
         <string id="incomingOpenAppViaWakeUp">Wake up app on incoming call</string>
+        <string id="beepOnComm">Beep on communication</string>
     </strings>
 
     <settings>
@@ -53,6 +55,9 @@
         <setting propertyKey="@Properties.incomingCallMessageFormat"
             title="@Strings.incomingCallMessageFormat">
             <settingConfig type="alphaNumeric" />
+        </setting>
+        <setting propertyKey="@Properties.beepOnComm" title="@Strings.beepOnComm">
+            <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.eraseAppDataOnNextLaunch"
             title="@Strings.eraseAppDataOnNextLaunch">
