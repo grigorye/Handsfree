@@ -15,7 +15,7 @@ class CallTask {
             }
         };
         dump("outMsg", msg);
-        Communications.transmit(msg, null, new CallTaskCommListener(phone));
+        transmitWithRetry("call", msg, new CallTaskCommListener(phone));
     }
 
     function launch() as Void {
