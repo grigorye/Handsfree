@@ -119,7 +119,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
 
             ACTIVATE_AND_OPEN_WATCH_APP_ON_DEVICE -> {
                 for (app in watchApps) {
-                    garminConnector.openWatchAppOnDevice(app)
+                    garminConnector.openWatchAppOnEveryDevice(app)
                 }
                 START_NOT_STICKY
             }
@@ -218,7 +218,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         l.outgoingMessageDispatcher.sendPhoneState(phoneState)
         if ((stateExtra == TelephonyManager.EXTRA_STATE_RINGING) && isOpenWatchAppOnRingingEnabled()) {
             for (app in watchApps) {
-                l.garminConnector.openWatchAppOnDevice(app)
+                l.garminConnector.openWatchAppOnEveryDevice(app)
             }
         }
     }

@@ -8,7 +8,7 @@ class IncomingMessageDispatcher(
     private val phoneCallService: PhoneCallService,
     private val syncImp: () -> Unit,
     private val syncPhonesImp: () -> Unit,
-    private val openAppImp: () -> Unit
+    private val openAppImp: (source: IncomingMessageSource) -> Unit
 ) {
     fun handleMessage(message: Any, source: IncomingMessageSource) {
         val pojo = message as Map<*, *>
@@ -40,7 +40,7 @@ class IncomingMessageDispatcher(
             }
 
             "openMe" -> {
-                openAppImp()
+                openAppImp(source)
             }
 
             else -> {

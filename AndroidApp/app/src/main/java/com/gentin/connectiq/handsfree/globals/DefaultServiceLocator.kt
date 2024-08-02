@@ -20,6 +20,7 @@ import com.gentin.connectiq.handsfree.impl.DeviceInfo
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.IncomingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.OutgoingMessage
+import com.gentin.connectiq.handsfree.impl.OutgoingMessageDestination
 import com.gentin.connectiq.handsfree.impl.OutgoingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.PhoneCallService
 import com.gentin.connectiq.handsfree.impl.RemoteMessageService
@@ -58,10 +59,8 @@ class DefaultServiceLocator(
             syncPhonesImp = {
                 outgoingMessageDispatcher.sendPhones(availableContacts())
             },
-            openAppImp = {
-                for (app in watchApps) {
-                    garminConnector.openWatchAppOnDevice(app)
-                }
+            openAppImp = { source ->
+                garminConnector.openWatchAppOnDevice(source.device, source.app)
             }
         )
     }

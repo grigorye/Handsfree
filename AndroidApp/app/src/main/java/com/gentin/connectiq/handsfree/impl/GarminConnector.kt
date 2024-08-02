@@ -28,7 +28,8 @@ interface GarminConnector {
 
     fun sendMessage(message: OutgoingMessage)
     fun openWatchAppInStore(app: IQApp = defaultApp())
-    fun openWatchAppOnDevice(app: IQApp = defaultApp())
+    fun openWatchAppOnDevice(device: IQDevice, app: IQApp)
+    fun openWatchAppOnEveryDevice(app: IQApp = defaultApp())
 
     val sentMessagesCounter: Int
     val acknowledgedMessagesCounter: Int
@@ -91,18 +92,22 @@ class DefaultGarminConnector(
         }
     }
 
-    override fun openWatchAppOnDevice(app: IQApp) {
+    override fun openWatchAppOnEveryDevice(app: IQApp) {
+        connectIQ.knownDevices.forEach { device ->
+            openWatchAppOnDevice(device, app)
+        }
+    }
+
+    override fun openWatchAppOnDevice(device: IQDevice, app: IQApp) {
         try {
-            connectIQ.knownDevices.forEach { device ->
-                connectIQ.openApplication(device, app) { _, _, status ->
-                    Log.d(
-                        TAG,
-                        "openWatchAppOnDevice(${device.friendlyName}, ${appLogName(app)}): $status"
-                    )
-                }
+            connectIQ.openApplication(device, app) { _, _, status ->
+                Log.d(
+                    TAG,
+                    "openWatchAppOnDevice(${device.friendlyName}, ${appLogName(app)}): $status"
+                )
             }
         } catch (e: RuntimeException) {
-            Log.d(TAG, "openWatchAppOnDeviceFailed(${appLogName(app)}): $e")
+            Log.d(TAG, "openWatchAppOnDeviceFailed(${device.friendlyName}, ${appLogName(app)}): $e")
         }
     }
 
