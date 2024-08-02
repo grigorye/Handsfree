@@ -42,9 +42,12 @@ class PhonesView extends WatchUi.Menu2 {
     }
 
     function updateFromPhones(phones as Phones) as Void {
+        dump("updatingFromPhones", phones);
         if (phones.size() != 0 && oldPhones.equals(phones)) {
+            dump("phonesNotChanged", true);
             return;
         }
+        dump("phonesChanged", true);
         deleteExistingItems();
         setFromPhones(phones);
     }
