@@ -104,13 +104,14 @@ class DefaultServiceLocator(
     companion object {
         private val TAG: String = DefaultServiceLocator::class.java.simpleName
         private var activeGarminConnector = MutableLiveData<GarminConnector>()
-        var knownDeviceInfos: LiveData<List<DeviceInfo>> = MediatorLiveData<List<DeviceInfo>>().apply {
-            addSource(activeGarminConnector) { garminConnector ->
-                addSource(garminConnector.knownDeviceInfos) {
-                    value = it
+        var knownDeviceInfos: LiveData<List<DeviceInfo>> =
+            MediatorLiveData<List<DeviceInfo>>().apply {
+                addSource(activeGarminConnector) { garminConnector ->
+                    addSource(garminConnector.knownDeviceInfos) {
+                        value = it
+                    }
                 }
             }
-        }
     }
 }
 
