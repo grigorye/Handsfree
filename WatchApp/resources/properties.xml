@@ -19,6 +19,7 @@
         <property id="incomingOpenAppViaCompanion" type="boolean">false</property>
         <property id="incomingOpenAppViaWakeUp" type="boolean">true</property>
         <property id="beepOnComm" type="boolean">false</property>
+        <property id="workaroundNoRedrawForMenu2" type="boolean">true</property>
     </properties>
 
     <strings>
@@ -39,6 +40,7 @@
         <string id="incomingOpenAppViaCompanion">Open app on incoming call</string>
         <string id="incomingOpenAppViaWakeUp">Wake up app on incoming call</string>
         <string id="beepOnComm">Beep on communication</string>
+        <string id="workaroundNoRedrawForMenu2">Workaround no redraw for Menu2</string>
     </strings>
 
     <settings>
