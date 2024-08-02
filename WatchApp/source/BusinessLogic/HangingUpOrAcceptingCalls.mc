@@ -1,5 +1,6 @@
 using Toybox.Communications;
 using Toybox.WatchUi;
+using Toybox.System;
 
 function revealCallInProgress() as Void {
     var callState = getCallState() as DismissedCallInProgress;
@@ -11,11 +12,15 @@ function hangupOrAcceptCall(phone as Phone) as Void {
 }
 
 function hangupCallInProgress(phone as Phone) as Void {
-    assert("hangupCallInProgress", !isIncomingCallPhone(phone), "!isIncomingCallPhone(" + phone + ")");
+    if (isIncomingCallPhone(phone)) {
+        System.error("isIncomingCallPhone: " + phone);
+    }
     hangupOrAcceptCall(phone);
 }
 
 function acceptIncomingCall(phone as Phone) as Void {
-    assert("acceptIncomingCall", isIncomingCallPhone(phone), "isIncomingCallPhone(" + phone + ")");
+    if (!isIncomingCallPhone(phone)) {
+        System.error("!isIncomingCallPhone: " + phone);
+    }
     hangupOrAcceptCall(phone);
 }
