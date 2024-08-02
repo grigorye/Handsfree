@@ -9,7 +9,7 @@ import com.gentin.connectiq.handsfree.helpers.normalizePhoneNumber
 
 interface OutgoingMessageDispatcher {
     fun sendSyncYou(contacts: List<ContactData>, phoneState: PhoneState?)
-    fun sendPhones(contacts: List<ContactData>)
+    fun sendPhones(destination: OutgoingMessageDestination, contacts: List<ContactData>)
     fun sendPhoneState(phoneState: PhoneState)
 }
 
@@ -28,12 +28,12 @@ class DefaultOutgoingMessageDispatcher(
         send(msg)
     }
 
-    override fun sendPhones(contacts: List<ContactData>) {
+    override fun sendPhones(destination: OutgoingMessageDestination, contacts: List<ContactData>) {
         val msg = mapOf(
             "cmd" to "setPhones",
             "args" to phonesArgs(contacts)
         )
-        send(msg)
+        send(OutgoingMessage(destination, msg))
     }
 
     override fun sendPhoneState(phoneState: PhoneState) {

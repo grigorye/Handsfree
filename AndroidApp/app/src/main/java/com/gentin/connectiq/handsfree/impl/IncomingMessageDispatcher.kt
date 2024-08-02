@@ -7,7 +7,7 @@ import org.json.JSONObject
 class IncomingMessageDispatcher(
     private val phoneCallService: PhoneCallService,
     private val syncImp: () -> Unit,
-    private val syncPhonesImp: () -> Unit,
+    private val syncPhonesImp: (destination: IncomingMessageSource) -> Unit,
     private val openAppImp: (source: IncomingMessageSource) -> Unit
 ) {
     fun handleMessage(message: Any, source: IncomingMessageSource) {
@@ -36,7 +36,7 @@ class IncomingMessageDispatcher(
             }
 
             "syncPhones" -> {
-                syncPhonesImp()
+                syncPhonesImp(source)
             }
 
             "openMe" -> {

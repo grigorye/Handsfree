@@ -56,8 +56,9 @@ class DefaultServiceLocator(
             syncImp = {
                 outgoingMessageDispatcher.sendSyncYou(availableContacts(), lastTrackedPhoneState)
             },
-            syncPhonesImp = {
-                outgoingMessageDispatcher.sendPhones(availableContacts())
+            syncPhonesImp = { source ->
+                val destination = OutgoingMessageDestination(source.device, source.app)
+                outgoingMessageDispatcher.sendPhones(destination, availableContacts())
             },
             openAppImp = { source ->
                 garminConnector.openWatchAppOnDevice(source.device, source.app)
