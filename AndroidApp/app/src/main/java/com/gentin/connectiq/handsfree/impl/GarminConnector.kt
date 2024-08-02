@@ -26,7 +26,7 @@ interface GarminConnector {
     fun launch()
     fun terminate()
 
-    fun sendMessage(message: Map<String, Any>)
+    fun sendMessage(message: OutgoingMessage)
     fun openWatchAppInStore(app: IQApp = defaultApp())
     fun openWatchAppOnDevice(app: IQApp = defaultApp())
 
@@ -44,7 +44,7 @@ data class DeviceInfo(
 class DefaultGarminConnector(
     base: Context?,
     private val lifecycleScope: LifecycleCoroutineScope,
-    val dispatchIncomingMessage: (Any) -> Unit
+    val dispatchIncomingMessage: (Any, IncomingMessageSource) -> Unit
 ) : ContextWrapper(base), GarminConnector {
 
     private lateinit var connectIQ: ConnectIQ
@@ -75,7 +75,7 @@ class DefaultGarminConnector(
         pendingMessages = ArrayList()
     }
 
-    override fun sendMessage(message: Map<String, Any>) {
+    override fun sendMessage(message: OutgoingMessage) {
         pendingMessages?.apply {
             Log.d(TAG, "addedPending: $message")
             add(message)
@@ -137,7 +137,7 @@ class DefaultGarminConnector(
                 for (o in message) {
                     val deviceTag = "device.${device.deviceIdentifier}(${device.friendlyName})"
                     Log.d(TAG, "$deviceTag(${appLogName(app)}) -> $o")
-                    dispatchIncomingMessage(o)
+                    dispatchIncomingMessage(o, IncomingMessageSource(device, app))
                 }
             }
         }
@@ -300,9 +300,9 @@ class DefaultGarminConnector(
         }
     }
 
-    private var pendingMessages: ArrayList<Map<String, Any>>? = ArrayList()
+    private var pendingMessages: ArrayList<OutgoingMessage>? = ArrayList()
 
-    private fun sendMessageOrRescheduleAsync(message: Map<String, Any>) {
+    private fun sendMessageOrRescheduleAsync(message: OutgoingMessage) {
         lifecycleScope.launch(Dispatchers.Default) {
             try {
                 sendMessageSync(message)
@@ -348,15 +348,27 @@ class DefaultGarminConnector(
         }
     }
 
-    private fun sendMessageSync(messageValue: Map<String, Any>) {
+    private fun sendMessageSync(messageValue: OutgoingMessage) {
         sentMessagesCounter += 1
         val sdkStartCount = this.sdkStartCount
         val id = "$sdkStartCount.$sentMessagesCounter"
-        val message = mapOf("id" to id) + messageValue
+        val message = mapOf("id" to id) + messageValue.body
+
+        val destination = messageValue.destination
+        val targetDevices = if (destination.device != null) {
+            listOf(destination.device)
+        } else {
+            connectIQ.connectedDevices
+        }
 
         try {
-            connectIQ.connectedDevices.forEach { device ->
-                appsForSendingMessages(device).forEach { app ->
+            targetDevices.forEach { device ->
+                val targetApps = if (destination.app != null) {
+                    listOf(destination.app)
+                } else {
+                    appsForSendingMessages(device)
+                }
+                targetApps.forEach { app ->
                     val appLogName = appLogName(app)
                     Log.d(
                         TAG,

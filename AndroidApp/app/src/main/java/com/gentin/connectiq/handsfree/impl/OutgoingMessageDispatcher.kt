@@ -99,8 +99,12 @@ class DefaultOutgoingMessageDispatcher(
         return stateArgs + headsetArgs
     }
 
-    private fun send(msg: Map<String, Any>) {
+    private fun send(msg: OutgoingMessage) {
         remoteMessageService.sendMessage(msg)
+    }
+
+    private fun send(msg: Map<String, Any>) {
+        send(OutgoingMessage(OutgoingMessageDestination(), msg))
     }
 
     companion object {

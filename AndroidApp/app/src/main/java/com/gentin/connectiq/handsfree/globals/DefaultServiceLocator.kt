@@ -19,6 +19,7 @@ import com.gentin.connectiq.handsfree.impl.DefaultPhoneCallService
 import com.gentin.connectiq.handsfree.impl.DeviceInfo
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.IncomingMessageDispatcher
+import com.gentin.connectiq.handsfree.impl.OutgoingMessage
 import com.gentin.connectiq.handsfree.impl.OutgoingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.PhoneCallService
 import com.gentin.connectiq.handsfree.impl.RemoteMessageService
@@ -77,7 +78,7 @@ class DefaultServiceLocator(
     private val remoteMessageService: RemoteMessageService by lazy {
 
         class CompoundRemoteMessageService : RemoteMessageService {
-            override fun sendMessage(message: Map<String, Any>) {
+            override fun sendMessage(message: OutgoingMessage) {
                 garminConnector.sendMessage(message)
             }
         }
@@ -92,8 +93,8 @@ class DefaultServiceLocator(
         DefaultGarminConnector(
             this,
             lifecycleScope = lifecycleScope,
-            dispatchIncomingMessage = { o ->
-                incomingMessageDispatcher.handleMessage(o)
+            dispatchIncomingMessage = { o, source ->
+                incomingMessageDispatcher.handleMessage(o, source)
             }
         ).apply {
             activeGarminConnector.value = this

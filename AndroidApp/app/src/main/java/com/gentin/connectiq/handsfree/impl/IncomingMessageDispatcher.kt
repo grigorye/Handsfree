@@ -10,10 +10,10 @@ class IncomingMessageDispatcher(
     private val syncPhonesImp: () -> Unit,
     private val openAppImp: () -> Unit
 ) {
-    fun handleMessage(message: Any) {
+    fun handleMessage(message: Any, source: IncomingMessageSource) {
         val pojo = message as Map<*, *>
         val string = JSONObject(pojo).toString()
-        Log.d(TAG, "incomingMsg: $string")
+        Log.d(TAG, "incomingMsg: $string, source: $source")
         val json = Json { ignoreUnknownKeys = true }
         val obj = json.decodeFromString<CommonRequest>(string)
         when (obj.cmd) {
