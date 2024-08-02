@@ -7,8 +7,8 @@
         <property id="companionOnboardingEnabled" type="boolean">false</property>
         <property id="syncCallStateOnLaunch" type="boolean">false</property>
         <property id="callStateOnGlance" type="boolean">true</property>
-        <property id="syncAttempts" type="number">1</property>
-        <property id="secondsToCheckIn" type="number">3</property>
+        <property id="syncAttempts" type="number">2</property>
+        <property id="secondsToCheckIn" type="number">5</property>
         <property id="focusedPhonesViewItemId" type="string"></property>
         <property id="showSourceVersion" type="boolean">false</property>
         <property id="dummySourceVersion" type="string"></property>
