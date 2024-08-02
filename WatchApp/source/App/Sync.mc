@@ -27,12 +27,10 @@ class Sync {
     }
 
     function checkIn() as Void {
-        dump("preCheckInCallStateIsOwnedByUs", callStateIsOwnedByUs);
-        dump("remoteResponded", remoteResponded);
         if (remoteResponded) {
-            setCheckInStatus(CHECK_IN_SUCCEEDED);
-            return;
+            System.error("remoteResponded");
         }
+        dump("preCheckInCallStateIsOwnedByUs", callStateIsOwnedByUs);
         callStateIsOwnedByUs = false;
         dump("postCheckInCallStateIsOwnedByUs", callStateIsOwnedByUs);
         dump("checkInAttemptsRemaining", checkInAttemptsRemaining);
@@ -62,7 +60,11 @@ class Sync {
         if (!remoteResponded) {
             remoteResponded = true;
             (checkInTimer as Timer.Timer).stop();
-            checkIn();
+            dump("remoteResponded", remoteResponded);
+            if (remoteResponded) {
+                setCheckInStatus(CHECK_IN_SUCCEEDED);
+                return;
+            }
             checkInTimer = null;
         }
         handleRemoteMessage(msg);
