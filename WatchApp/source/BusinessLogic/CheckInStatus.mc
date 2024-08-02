@@ -1,9 +1,9 @@
 using Toybox.WatchUi;
 
 enum CheckInStatus {
-    CHECK_IN_IN_PROGRESS = "Syncing",
-    CHECK_IN_SUCCEEDED = "Idle",
-    CHECK_IN_FAILED = "Failed"
+    CHECK_IN_IN_PROGRESS = "in-progress",
+    CHECK_IN_SUCCEEDED = "succeeded",
+    CHECK_IN_FAILED = "failed"
 }
 
 var checkInStatusImp as CheckInStatus = CHECK_IN_IN_PROGRESS;
