@@ -3,22 +3,45 @@ using Toybox.WatchUi;
 class CallActingView extends WatchUi.ProgressBar {
     function initialize(callState as CallActing) {
         var commStatus = callState.commStatus;
-        var phone = callState.phone;
         dump("commStatus", commStatus);
         var message = "";
         switch (commStatus) {
             case PENDING:
-                if (isIncomingCallPhone(phone)) {
-                    message = "Accept\npending";
-                } else {
-                    message = "Hang up\npending";
+                switch (callState) {
+                    case instanceof Accepting: {
+                        message = "Accept\npending";
+                        break;
+                    }
+                    case instanceof HangingUp: {
+                        message = "Hang up\npending";
+                        break;
+                    }
+                    case instanceof Declining: {
+                        message = "Decline\npending";
+                        break;
+                    }
+                    default: {
+                        System.error("unexpectedCallState: " + callState.dumpRep());
+                    }
                 }
                 break;
             case SUCCEEDED:
-                if (isIncomingCallPhone(phone)) {
-                    message = "Accepting";
-                } else {
-                    message = "Hanging up";
+                switch (callState) {
+                    case instanceof Accepting: {
+                        message = "Accepting";
+                        break;
+                    }
+                    case instanceof HangingUp: {
+                        message = "Hanging up";
+                        break;
+                    }
+                    case instanceof Declining: {
+                        message = "Declining";
+                        break;
+                    }
+                    default: {
+                        System.error("unexpectedCallState: " + callState.dumpRep());
+                    }
                 }
                 break;
             case FAILED:
