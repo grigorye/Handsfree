@@ -8,7 +8,7 @@ function revealCallInProgress() as Void {
 }
 
 function hangupOrAcceptCall(phone as Phone) as Void {
-    new HangupOrAcceptCallTask(phone).launch();
+    new CallActionTask(phone).launch();
 }
 
 function hangupCallInProgress(phone as Phone) as Void {
