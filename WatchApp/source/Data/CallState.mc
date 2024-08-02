@@ -1,7 +1,7 @@
 using Toybox.Application;
 using Toybox.Lang;
 
-typedef CallState as Idle or SchedulingCall or CallInProgress or DismissedCallInProgress or CallActing;
+typedef CallState as Idle or SchedulingCall or CallInProgress or DismissedCallInProgress or HangingUp or Accepting or Declining;
 
 (:background, :glance)
 var callStateImp as CallState or Null;

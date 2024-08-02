@@ -13,7 +13,8 @@ function setCallInProgress(number as Lang.String) as Void {
 }
 
 (:background, :glance)
-function setCallState(callState as CallState) as Void {
+function setCallState(callStateImp as CallState or CallActing) as Void {
+    var callState = callStateImp as CallState;
     dumpCallState("setCallState", callState);
     setCallStateImp(callState);
     updateUIForCallState();

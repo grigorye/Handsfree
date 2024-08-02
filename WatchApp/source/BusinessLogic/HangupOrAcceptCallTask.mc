@@ -2,25 +2,43 @@ using Toybox.Communications;
 
 class CallActionTask extends Communications.ConnectionListener {
     var phone as Phone;
+    var action as CallInProgressAction;
 
-    function initialize(phone as Phone) {
+    function initialize(phone as Phone, action as CallInProgressAction) {
         ConnectionListener.initialize();
         self.phone = phone;
+        self.action = action;
     }
 
     function launch() as Void {
         dump("callAction.launch", true);
+
         var cmd;
-        if (isIncomingCallPhone(phone)) {
-            cmd = "accept";
-        } else {
-            cmd = "hangup";
+        var state;
+        switch (action) {
+            case CALL_IN_PROGRESS_ACTION_ACCEPT: {
+                cmd = "accept";
+                state = new Accepting(phone, PENDING);
+                break;
+            }
+            case CALL_IN_PROGRESS_ACTION_HANGUP: {
+                cmd = "hangup";
+                state = new HangingUp(phone, PENDING);
+                break;
+            }
+            case CALL_IN_PROGRESS_ACTION_REJECT: {
+                cmd = "hangup";
+                state = new Declining(phone, PENDING);
+                break;
+            }
+            default:
+                System.error("unknownAction: " + action);
         }
         var msg = {
             "cmd" => cmd
         };
         dump("callAction.outMsg", msg);
-        setCallState(new CallActing(phone, PENDING));
+        setCallState(state as CallState);
         transmitWithRetry(cmd, msg, self);
     }
 

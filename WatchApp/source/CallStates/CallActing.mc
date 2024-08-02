@@ -1,5 +1,39 @@
 using Toybox.Lang;
 
+
+(:background, :glance)
+class HangingUp extends CallActing {
+    function initialize(phone as Phone, commStatus as CommStatus) {
+        CallActing.initialize(phone, commStatus);
+    }
+
+    function clone() as CallActing {
+        return new HangingUp(phone, commStatus);
+    }
+}
+
+(:background, :glance)
+class Declining extends CallActing {
+    function initialize(phone as Phone, commStatus as CommStatus) {
+        CallActing.initialize(phone, commStatus);
+    }
+
+    function clone() as CallActing {
+        return new Declining(phone, commStatus);
+    }
+}
+
+(:background, :glance)
+class Accepting extends CallActing {
+    function initialize(phone as Phone, commStatus as CommStatus) {
+        CallActing.initialize(phone, commStatus);
+    }
+
+    function clone() as CallActing {
+        return new Accepting(phone, commStatus);
+    }
+}
+
 (:background, :glance)
 class CallActing extends CallStateImp {
     var commStatus as CommStatus;

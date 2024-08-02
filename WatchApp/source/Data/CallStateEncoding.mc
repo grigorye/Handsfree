@@ -22,9 +22,17 @@ function encodeCallState(someCallState as CallState) as CallStateData {
             var callState = someCallState as DismissedCallInProgress;
             return { "state" => "dismissedCallInProgress", "phone" => callState.phone };
         }
-        case instanceof CallActing: {
-            var callState = someCallState as CallActing;
+        case instanceof HangingUp: {
+            var callState = someCallState as HangingUp;
             return { "state" => "hangingUp", "phone" => callState.phone, "commStatus" => callState.commStatus };
+        }
+        case instanceof Accepting: {
+            var callState = someCallState as Accepting;
+            return { "state" => "accepting", "phone" => callState.phone, "commStatus" => callState.commStatus };
+        }
+        case instanceof Declining: {
+            var callState = someCallState as Declining;
+            return { "state" => "declining", "phone" => callState.phone, "commStatus" => callState.commStatus };
         }
         default: {
             System.error("Unknown call state: " + someCallState);
@@ -53,7 +61,11 @@ function decodeCallState(callStateData as CallStateData or Null) as CallState or
         case "dismissedCallInProgress":
             return new DismissedCallInProgress(callStateData["phone"] as Phone);
         case "hangingUp":
-            return new CallActing(callStateData["phone"] as Phone, callStateData["commStatus"] as CommStatus);
+            return new HangingUp(callStateData["phone"] as Phone, callStateData["commStatus"] as CommStatus);
+        case "accepting":
+            return new Accepting(callStateData["phone"] as Phone, callStateData["commStatus"] as CommStatus);
+        case "declining":
+            return new Declining(callStateData["phone"] as Phone, callStateData["commStatus"] as CommStatus);
         default:
             System.error("Unknown call state: " + callStateData);
     }
