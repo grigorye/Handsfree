@@ -80,9 +80,9 @@ class Router {
                         popToPhones();
                         break;
                     }
-                    case instanceof HangingUp: {
-                        dump("routingToHangingUp", true);
-                        pushView("hangingUp", new HangingUpView(newState as HangingUp), new HangingUpViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                    case instanceof CallActing: {
+                        dump("routingToCallActing", true);
+                        pushView("callActing", new CallActingView(newState as CallActing), new CallActingViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof CallInProgress: {
@@ -96,11 +96,11 @@ class Router {
                         System.error("Unhandled newState");
                 }
                 break;
-            case instanceof HangingUp:
+            case instanceof CallActing:
                 switch (newState) {
-                    case instanceof HangingUp: {
-                        dump("routingToUpdatedHangingUp", true);
-                        switchToView("hangingUp", new HangingUpView(newState as HangingUp), new HangingUpViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                    case instanceof CallActing: {
+                        dump("routingToUpdatedCallActing", true);
+                        switchToView("callActing", new CallActingView(newState as CallActing), new CallActingViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof CallInProgress: {

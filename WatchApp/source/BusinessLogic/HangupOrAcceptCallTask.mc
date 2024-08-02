@@ -19,14 +19,14 @@ class CallActionTask extends Communications.ConnectionListener {
         var msg = {
             "cmd" => cmd
         };
-        setCallState(new HangingUp(phone, PENDING));
-        transmitWithRetry("hangup", msg, self);
         dump("callAction.outMsg", msg);
+        setCallState(new CallActing(phone, PENDING));
+        transmitWithRetry(cmd, msg, self);
     }
 
     function onComplete() {
-        var oldState = getCallState() as HangingUp;
-        if (!(oldState instanceof HangingUp)) {
+        var oldState = getCallState() as CallActing;
+        if (!(oldState instanceof CallActing)) {
             // We may already go back, and hence change the call state to Idle.
             dumpCallState("callAction.onComplete.callStateInvalidated", oldState);
             return;
@@ -37,8 +37,8 @@ class CallActionTask extends Communications.ConnectionListener {
     }
 
     function onError() {
-        var oldState = getCallState() as HangingUp;
-        if (!(oldState instanceof HangingUp)) {
+        var oldState = getCallState() as CallActing;
+        if (!(oldState instanceof CallActing)) {
             // We may already go back, and hence change the call state to Idle.
             dumpCallState("callAction.onError.callStateInvalidated", oldState);
             return;

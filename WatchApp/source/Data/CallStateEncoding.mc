@@ -22,8 +22,8 @@ function encodeCallState(someCallState as CallState) as CallStateData {
             var callState = someCallState as DismissedCallInProgress;
             return { "state" => "dismissedCallInProgress", "phone" => callState.phone };
         }
-        case instanceof HangingUp: {
-            var callState = someCallState as HangingUp;
+        case instanceof CallActing: {
+            var callState = someCallState as CallActing;
             return { "state" => "hangingUp", "phone" => callState.phone, "commStatus" => callState.commStatus };
         }
         default: {
@@ -53,7 +53,7 @@ function decodeCallState(callStateData as CallStateData or Null) as CallState or
         case "dismissedCallInProgress":
             return new DismissedCallInProgress(callStateData["phone"] as Phone);
         case "hangingUp":
-            return new HangingUp(callStateData["phone"] as Phone, callStateData["commStatus"] as CommStatus);
+            return new CallActing(callStateData["phone"] as Phone, callStateData["commStatus"] as CommStatus);
         default:
             System.error("Unknown call state: " + callStateData);
     }

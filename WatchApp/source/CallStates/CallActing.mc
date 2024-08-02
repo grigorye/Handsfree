@@ -1,7 +1,7 @@
 using Toybox.Lang;
 
 (:background, :glance)
-class HangingUp extends CallStateImp {
+class CallActing extends CallStateImp {
     var commStatus as CommStatus;
     var phone as Phone;
     
@@ -11,11 +11,11 @@ class HangingUp extends CallStateImp {
         self.phone = phone;
     }
 
-    function clone() as HangingUp {
-        return new HangingUp(phone, commStatus);
+    function clone() as CallActing {
+        return new CallActing(phone, commStatus);
     }
 
     function dumpRep() as Lang.String {
-        return "HangingUp(" + { "phone" => phone, "commStatus" => commStatus } + ")";
+        return "CallActing(" + { "phone" => phone, "commStatus" => commStatus } + ")";
     }
 }

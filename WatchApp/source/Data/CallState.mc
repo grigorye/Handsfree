@@ -1,7 +1,7 @@
 using Toybox.Application;
 using Toybox.Lang;
 
-typedef CallState as Idle or SchedulingCall or CallInProgress or DismissedCallInProgress or HangingUp;
+typedef CallState as Idle or SchedulingCall or CallInProgress or DismissedCallInProgress or CallActing;
 
 (:background, :glance)
 var callStateImp as CallState or Null;
@@ -35,7 +35,7 @@ function loadCallState() as CallState or Null {
     if (callState != null) {
         dump("loadedCallState", callState.dumpRep());
         switch (callState) {
-            case instanceof HangingUp: {
+            case instanceof CallActing: {
                 return dumpCallState("adjustedLoadedCallState", new Idle()) as CallState;
             }
             default: {

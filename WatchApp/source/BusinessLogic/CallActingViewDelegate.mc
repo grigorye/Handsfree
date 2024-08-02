@@ -1,5 +1,6 @@
 using Toybox.WatchUi;
-class HangingUpViewDelegate extends WatchUi.BehaviorDelegate {
+
+class CallActingViewDelegate extends WatchUi.BehaviorDelegate {
     function initialize() {
         WatchUi.BehaviorDelegate.initialize();
     }
@@ -7,8 +8,8 @@ class HangingUpViewDelegate extends WatchUi.BehaviorDelegate {
     function onBack() {
         trackBackFromView();
         var callState = getCallState();
-        dumpCallState("onBackFromHangingUp", callState);
-        if (!(callState instanceof HangingUp)) {
+        dumpCallState("onBackFromCallActing", callState);
+        if (!(callState instanceof CallActing)) {
             dumpCallState("badCallState", callState);
             System.error("badCallState");
         }

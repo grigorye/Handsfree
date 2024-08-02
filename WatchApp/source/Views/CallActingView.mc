@@ -1,7 +1,7 @@
 using Toybox.WatchUi;
 
-class HangingUpView extends WatchUi.ProgressBar {
-    function initialize(callState as HangingUp) {
+class CallActingView extends WatchUi.ProgressBar {
+    function initialize(callState as CallActing) {
         var commStatus = callState.commStatus;
         var phone = callState.phone;
         dump("commStatus", commStatus);
