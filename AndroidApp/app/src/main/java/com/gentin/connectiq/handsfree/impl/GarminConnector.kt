@@ -148,7 +148,7 @@ class DefaultGarminConnector(
         }
     }
 
-    private var notInstalledApps = mutableMapOf<Long, MutableList<IQApp>>()
+    private val notInstalledApps = mutableMapOf<Long, MutableList<IQApp>>()
 
     private fun trackNotInstalledApp(device: IQDevice, app: IQApp) {
         val key = device.deviceIdentifier
@@ -271,8 +271,8 @@ class DefaultGarminConnector(
         }
     }
 
-    private var knownDevices = MutableLiveData(mapOf<Long, DeviceInfo>())
-    private var knownDevicesAcc = mutableMapOf<Long, DeviceInfo>()
+    private val knownDevices = MutableLiveData(mapOf<Long, DeviceInfo>())
+    private val knownDevicesAcc = mutableMapOf<Long, DeviceInfo>()
 
     private fun stopObservingDeviceEvents() {
         Log.d(TAG, "stopObservingDeviceEvents: ${connectIQ.knownDevices}")

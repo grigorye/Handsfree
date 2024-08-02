@@ -16,8 +16,8 @@ data class NotificationContent(
 )
 
 class NotificationContentGenerator(
-    private var garminConnector: GarminConnector,
-    var context: Context
+    private val garminConnector: GarminConnector,
+    val context: Context
 ) {
     private fun isInDebugMode(): Boolean {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
