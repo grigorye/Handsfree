@@ -143,5 +143,5 @@ function updatePhonesView() as Void {
     }
     getPhonesView().setTitleFromCheckInStatus(getCheckInStatus());
     getPhonesView().updateFromPhones(getPhones());
-    WatchUi.requestUpdate();
+    workaroundNoRedrawForMenu2();
 }
