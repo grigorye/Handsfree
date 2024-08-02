@@ -24,3 +24,11 @@ function acceptIncomingCall(phone as Phone) as Void {
     }
     hangupOrAcceptCall(phone);
 }
+
+function rejectIncomingCall(phone as Phone) as Void {
+    if (!isIncomingCallPhone(phone)) {
+        System.error("!isIncomingCallPhone: " + phone);
+    }
+    phone["ringing"] = false;
+    hangupCallInProgress(phone);
+}
