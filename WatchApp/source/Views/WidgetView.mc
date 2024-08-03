@@ -41,12 +41,12 @@ class WidgetView extends WatchUi.View {
                 dc.getWidth() / 2,
                 dc.getHeight() / 2,
                 Styles.widget_font__title.font,
-                appName + "\n" + headsetStatusForWidget(),
+                joinComponents([appName, headsetStatusForWidget()], "\n"),
                 Toybox.Graphics.TEXT_JUSTIFY_CENTER | Toybox.Graphics.TEXT_JUSTIFY_VCENTER
             );
         } else {
             var callState = getCallState();
-            var lines = [] as Lang.Array<Lang.String>;
+            var lines = [] as Lang.Array<Lang.String or Null>;
             switch (callState) {
                 case instanceof CallInProgress: {
                     var phone = (callState as CallInProgress).phone;
@@ -80,14 +80,8 @@ class WidgetView extends WatchUi.View {
                     break;
                 }
             }
-            var headsetStatus = headsetStatusForWidget();
-            if (!headsetStatus.equals("")) {
-                lines.add(headsetStatus);
-            }
-            var text = lines[0];
-            for (var i = 1; i < lines.size(); i++) {
-                text = text + "\n" + lines[i];
-            }
+            lines.add(headsetStatusForWidget());
+            var text = joinComponents(lines, "\n");
             dc.drawText(
                 dc.getWidth() / 2,
                 dc.getHeight() / 2,
@@ -99,10 +93,10 @@ class WidgetView extends WatchUi.View {
     }
 }
 
-function headsetStatusForWidget() as Lang.String {
+function headsetStatusForWidget() as Lang.String or Null {
     if (!getIsHeadsetConnected()) {
         return "(no headset)";
     } else {
-        return "";
+        return null;
     }
 }

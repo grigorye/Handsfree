@@ -26,7 +26,7 @@ class PhonesView extends WatchUi.Menu2 {
                 title = "Sync failed";
                 break;
         }
-        setTitle(title + headsetStatusSuffix());
+        setTitle(joinComponents([title, headsetStatusRep()], " "));
     }
 
     function updateFromCallState(callState as CallState) as Void {

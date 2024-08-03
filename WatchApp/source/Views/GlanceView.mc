@@ -113,7 +113,7 @@ function defaultTitle() as Lang.String {
     }
     var nonCapitalizedDefaultTitle = customizedTitle;
     if (isBackgroundAppUpdateEnabled()) {
-        nonCapitalizedDefaultTitle = nonCapitalizedDefaultTitle + headsetStatusSuffix();
+        nonCapitalizedDefaultTitle = joinComponents([nonCapitalizedDefaultTitle, headsetStatusRep()], " ");
     }
     var defaultTitle;
     if (Styles.glance_font.capitalize) {
@@ -125,10 +125,10 @@ function defaultTitle() as Lang.String {
 }
 
 (:glance)
-function headsetStatusSuffix() as Lang.String {
+function headsetStatusRep() as Lang.String or Null {
     if (!getIsHeadsetConnected()) {
-        return " #";
+        return "#";
     } else {
-        return "";
+        return null;
     }
 }
