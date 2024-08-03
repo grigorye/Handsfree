@@ -117,6 +117,7 @@ function appDidRouteToMainUI() as Void {
     getCheckIn().launch();
 }
 
+(:widget)
 function appDidRouteFromMainUI() as Void {
     dump("appDidRouteFromMainUI", true);
     setRoutedCallStateImp(null);
@@ -128,6 +129,8 @@ function appDidRouteFromMainUI() as Void {
     setCheckInImp(null);
 }
 
+
+(:widget)
 function widgetDidShow() as Void {
     dump("widgetDidShow", true);
     if (routedToMainUI) {
