@@ -15,7 +15,7 @@ class SchedulingCallView extends WatchUi.ProgressBar {
         }
         switch (callState.commStatus) {
             case PENDING:
-                message = "Pending" + "\n" + destination;
+                message = "|Calling|" + "\n" + destination;
                 break;
             case SUCCEEDED:
                 message = "Calling" + "\n" + destination;
