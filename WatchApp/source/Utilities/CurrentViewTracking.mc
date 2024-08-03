@@ -59,7 +59,10 @@ function dumpViewStack(tag as Lang.String) as Void {
     dump("$$" + tag, viewStackTags());
 }
 
-function topView() as WatchUi.Views {
+function topView() as WatchUi.Views or Null {
+    if (viewStack.size() == 0) {
+        return null;
+    }
     return topViewStackEntry().view;
 }
 
