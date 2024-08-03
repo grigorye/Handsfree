@@ -14,7 +14,7 @@ class PhonesView extends WatchUi.Menu2 {
             setTitle(" ");
             return;
         }
-        var title = "";
+        var title;
         switch (checkInStatus) {
             case CHECK_IN_IN_PROGRESS:
                 title = "Syncing";
@@ -25,7 +25,14 @@ class PhonesView extends WatchUi.Menu2 {
             case CHECK_IN_FAILED:
                 title = "Sync failed";
                 break;
+            case CHECK_IN_NONE:
+                title = null;
+                break;
+            default: {
+                System.error("unknownCheckInStatus: " + checkInStatus);
+            }
         }
+        dump("phonesView.setTitle", title);
         setTitle(joinComponents([title, headsetStatusRep()], " "));
     }
 
