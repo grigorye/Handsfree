@@ -7,7 +7,7 @@ enum CheckInStatus {
     CHECK_IN_FAILED = "failed"
 }
 
-var checkInStatusImp as CheckInStatus = CHECK_IN_IN_PROGRESS;
+var checkInStatusImp as CheckInStatus = CHECK_IN_NONE;
 
 function getCheckInStatus() as CheckInStatus {
     return checkInStatusImp;

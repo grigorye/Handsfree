@@ -61,6 +61,7 @@ class App extends Application.AppBase {
         var inWidgetMode = isInWidgetMode();
         dump("inWidgetMode", inWidgetMode);
         setActiveUiKind(ACTIVE_UI_APP);
+        onAppDidFinishLaunching();
         if (inWidgetMode) {
             var view = new WidgetView();
             var delegate = new WidgetViewDelegate();
@@ -77,7 +78,7 @@ class App extends Application.AppBase {
     function getGlanceView() {
         dump("getGlanceView", true);
         setActiveUiKind(ACTIVE_UI_GLANCE);
-        onAppWillFinishLaunching();
+        onAppDidFinishLaunching();
         return [new GlanceView()];
     }
 }
@@ -99,19 +100,54 @@ function deviceSettingsDumpRep(deviceSettings as System.DeviceSettings) as Lang.
         );
 }
 
+function appWillRouteToMainUI() as Void {
+    dump("appWillRouteToMainUI", true);
+}
+
+var routedToMainUI as Lang.Boolean = false;
+
+function appDidRouteToMainUI() as Void {
+    if (routedToMainUI) {
+        System.error("Already routed to main UI");
+    }
+    routedToMainUI = true;
+    if (getCheckInImp() != null) {
+        System.error("getCheckInImp() != null");
+    }
+    getCheckIn().launch();
+}
+
+function appDidRouteFromMainUI() as Void {
+    dump("appDidRouteFromMainUI", true);
+    setRoutedCallStateImp(null);
+    setPhonesViewImp(null);
+    if (getCheckInImp() == null) {
+        System.error("getCheckInImp() == null");
+    }
+    getCheckIn().cancel();
+    setCheckInImp(null);
+}
+
+function widgetDidShow() as Void {
+    dump("widgetDidShow", true);
+    if (routedToMainUI) {
+        routedToMainUI = false;
+        appDidRouteFromMainUI();
+    }
+}
+
 (:glance, :typecheck(disableBackgroundCheck))
-function onAppWillFinishLaunching() as Void {
-    dump("onAppWillFinishLaunching", true);
-}
-
-function resetForWidgetRevisiting() as Void {
-    syncImp = null;
-}
-
 function onAppDidFinishLaunching() as Void {
     dump("onAppDidFinishLaunching", true);
-    resetForWidgetRevisiting();
-    getSync().checkIn();
+    (new InAppIncomingMessageDispatcher()).launch();
+}
+
+function didSeeIncomingMessageWhileRoutedToMainUI() as Void {
+    dump("didSeeIncomingMessageWhileRoutedToMainUI", true);
+    var checkIn = getCheckInImp();
+    if (checkIn != null) {
+        checkIn.remoteResponded();
+    }
 }
 
 (:glance, :background)

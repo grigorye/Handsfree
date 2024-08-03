@@ -19,6 +19,12 @@ class WidgetView extends WatchUi.View {
         View.initialize();
     }
 
+    function onShow() {
+        dump("widgetOnShow", true);
+        View.onShow();
+        widgetDidShow();
+    }
+
     function onUpdate(dc) {
         View.onUpdate(dc);
 

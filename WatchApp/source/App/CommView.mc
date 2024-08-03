@@ -16,10 +16,10 @@ class CommView extends WatchUi.View {
 
     function firstOnShow() as Void {
         dump("commView", "firstOnShow");
-        onAppWillFinishLaunching();
+        appWillRouteToMainUI();
         pushView("phones", getPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
         getRouter().updateRoute();
-        onAppDidFinishLaunching();
+        appDidRouteToMainUI();
     }
 
     function unexpectedOnShow() as Void {
