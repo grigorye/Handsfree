@@ -12,6 +12,7 @@ import com.garmin.android.connectiq.ConnectIQ
 import com.garmin.android.connectiq.ConnectIQ.IQApplicationInfoListener
 import com.garmin.android.connectiq.IQApp
 import com.garmin.android.connectiq.IQDevice
+import com.garmin.android.connectiq.exception.InvalidStateException
 import com.garmin.android.connectiq.exception.ServiceUnavailableException
 import com.gentin.connectiq.handsfree.globals.appLogName
 import com.gentin.connectiq.handsfree.globals.defaultApp
@@ -107,7 +108,9 @@ class DefaultGarminConnector(
                 )
             }
         } catch (e: RuntimeException) {
-            Log.d(TAG, "openWatchAppOnDeviceFailed(${device.friendlyName}, ${appLogName(app)}): $e")
+            Log.e(TAG, "openWatchAppOnDeviceFailed(${device.friendlyName}, ${appLogName(app)}): $e")
+        } catch (e: InvalidStateException) {
+            Log.e(TAG, "openWatchAppOnDeviceFailed(NoAdbConnection?)(${device.friendlyName}, ${appLogName(app)}): $e")
         }
     }
 
