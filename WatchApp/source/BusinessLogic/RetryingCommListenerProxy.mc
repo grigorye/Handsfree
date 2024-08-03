@@ -2,6 +2,7 @@ using Toybox.Communications;
 using Toybox.Timer;
 using Toybox.Lang;
 using Toybox.Application;
+using Toybox.System;
 
 function transmitWithRetry(tag as Lang.String, msg as Application.PersistableType, listener as Communications.ConnectionListener) as Void {
     var proxy = new RetryingCommListenerProxy(tag, msg, listener);
@@ -52,6 +53,8 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
     }
 
     function onError() {
+        dump(formatTag("onError.connectionAvailable"), System.getDeviceSettings().connectionAvailable);
+        dump(formatTag("onError.connectionInfo"), dumpConnectionInfos(System.getDeviceSettings().connectionInfo));
         if (isBeepOnCommuncationEnabled()) {
             beep(BEEP_TYPE_ERROR);
         }
@@ -64,5 +67,38 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
             return;
         }
         wrappedListener.onError();
+    }
+}
+
+function dumpConnectionInfos(connectionInfos as Lang.Dictionary<Lang.Symbol, System.ConnectionInfo>) as Lang.Object {
+    var result = {} as Lang.Dictionary<Lang.String, Lang.Object>;
+    var wifi = connectionInfos[:wifi];
+    if (wifi != null) {
+        result["wifi"] = dumpConnectionInfo(wifi);
+    }
+    var lte = connectionInfos[:lte];
+    if (lte != null) {
+        result["lte"] = dumpConnectionInfo(lte);
+    }
+    var bluetooth = connectionInfos[:bluetooth];
+    if (bluetooth != null) {
+        result["bluetooth"] = dumpConnectionInfo(bluetooth);
+    }
+    return result;
+}
+
+function dumpConnectionInfo(connectionInfo as System.ConnectionInfo) as Lang.Object {
+    switch (connectionInfo.state) {
+        case System.CONNECTION_STATE_NOT_INITIALIZED: {
+            return "NOT_INITIALIZED";
+        }
+        case System.CONNECTION_STATE_NOT_CONNECTED: {
+            return "NOT_CONNECTED";
+        }
+        case System.CONNECTION_STATE_CONNECTED: {
+            return "CONNECTED";
+        }
+        default:
+            System.error("unknownConnectionState: " + connectionInfo.state);
     }
 }
