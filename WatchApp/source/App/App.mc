@@ -104,8 +104,13 @@ function onAppWillFinishLaunching() as Void {
     dump("onAppWillFinishLaunching", true);
 }
 
+function resetForWidgetRevisiting() as Void {
+    syncImp = null;
+}
+
 function onAppDidFinishLaunching() as Void {
     dump("onAppDidFinishLaunching", true);
+    resetForWidgetRevisiting();
     getSync().checkIn();
 }
 
