@@ -38,6 +38,7 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
             beep(BEEP_TYPE_BEEP);
         }
         attemptNumber = attemptNumber + 1;
+        attemptsRemaining = attemptsRemaining - 1;
         dump(formatTag("transmit"), {"attempt" => attemptNumber, "msg" => msg});
         Communications.transmit(msg, null, self);
     }
@@ -57,7 +58,6 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
         dump(formatTag("onError.attempt"), attemptNumber);
         dump(formatTag("onError.attemptsRemaining"), attemptsRemaining);
         if (attemptsRemaining > 0) {
-            attemptsRemaining = attemptsRemaining - 1;
             var timer = new Timer.Timer();
             retransmitTimer = timer;
             retransmitTimer.start(method(:transmit), retransmitDelay, false);
