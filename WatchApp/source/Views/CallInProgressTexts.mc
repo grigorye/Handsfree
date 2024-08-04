@@ -10,22 +10,8 @@ typedef CallInProgressActions as Lang.Array<Lang.Dictionary<Lang.Symbol, Lang.St
 typedef CallInProgressTexts as Lang.Dictionary<Lang.Symbol, Lang.String or CallInProgressActions>;
 
 function textsForCallInProgress(phone as Phone) as CallInProgressTexts {
-    var name = phone["name"] as Lang.String or Null;
-    var number = phone["number"] as Lang.String or Null;
     var isIncomingCall = isIncomingCallPhone(phone);
-
-    var prefix;
-    if (name != null) {
-        prefix = name;
-    } else if (number != null) {
-        prefix = number;
-    } else {
-        if (isIncomingCall) {
-            prefix = "Incoming call";
-        } else {
-            prefix = "Call in progress";
-        }
-    }
+    var prefix = displayTextForPhone(phone);
     var actions = [] as CallInProgressActions;
     if (isIncomingCall) {
         actions.add({
