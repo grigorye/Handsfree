@@ -4,20 +4,21 @@ class CallActingView extends WatchUi.ProgressBar {
     function initialize(callState as CallActing) {
         var commStatus = callState.commStatus;
         dump("commStatus", commStatus);
-        var message = "";
+        var source = displayTextForPhone(callState.phone);
+        var message;
         switch (commStatus) {
             case PENDING:
                 switch (callState) {
                     case instanceof Accepting: {
-                        message = "|Answering|";
+                        message = "|Answering|" + "\n" + source;
                         break;
                     }
                     case instanceof HangingUp: {
-                        message = "|Hanging Up|";
+                        message = "|Hanging Up|" + "\n" + source;
                         break;
                     }
                     case instanceof Declining: {
-                        message = "|Declining|";
+                        message = "|Declining|" + "\n" + source;
                         break;
                     }
                     default: {
@@ -28,15 +29,15 @@ class CallActingView extends WatchUi.ProgressBar {
             case SUCCEEDED:
                 switch (callState) {
                     case instanceof Accepting: {
-                        message = "Answering";
+                        message = "Answering" + "\n" + source;
                         break;
                     }
                     case instanceof HangingUp: {
-                        message = "Hanging Up";
+                        message = "Hanging Up" + "\n" + source;
                         break;
                     }
                     case instanceof Declining: {
-                        message = "Declining";
+                        message = "Declining" + "\n" + source;
                         break;
                     }
                     default: {
