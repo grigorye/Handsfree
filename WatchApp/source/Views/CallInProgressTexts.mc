@@ -38,7 +38,7 @@ function textsForCallInProgress(phone as Phone) as CallInProgressTexts {
         });
     } else {
         actions.add({
-            :prompt => "Hang up",
+            :prompt => "Hang Up",
             :command => CALL_IN_PROGRESS_ACTION_HANGUP
         });
     }
