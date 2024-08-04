@@ -29,7 +29,7 @@ function textsForCallInProgress(phone as Phone) as CallInProgressTexts {
     var actions = [] as CallInProgressActions;
     if (isIncomingCall) {
         actions.add({
-            :prompt => "Accept",
+            :prompt => "Answer",
             :command => CALL_IN_PROGRESS_ACTION_ACCEPT,
         });
         actions.add({

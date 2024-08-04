@@ -9,7 +9,7 @@ class CallActingView extends WatchUi.ProgressBar {
             case PENDING:
                 switch (callState) {
                     case instanceof Accepting: {
-                        message = "|Accepting|";
+                        message = "|Answering|";
                         break;
                     }
                     case instanceof HangingUp: {
@@ -28,7 +28,7 @@ class CallActingView extends WatchUi.ProgressBar {
             case SUCCEEDED:
                 switch (callState) {
                     case instanceof Accepting: {
-                        message = "Accepting";
+                        message = "Answering";
                         break;
                     }
                     case instanceof HangingUp: {
