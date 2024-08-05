@@ -2,7 +2,7 @@ using Toybox.WatchUi;
 using Toybox.Lang;
 using Toybox.System;
 using Toybox.Graphics;
-import Rez.Styles;
+using Rez.Styles;
 
 (:watchApp)
 class WidgetView extends WatchUi.View {
