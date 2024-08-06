@@ -81,3 +81,8 @@ function isBeepOnCommuncationEnabled() as Lang.Boolean {
 function isMenu2NoRedrawWorkaroundEnabled() as Lang.Boolean {
     return Application.Properties.getValue("workaroundNoRedrawForMenu2") as Lang.Boolean;
 }
+
+(:background, :glance)
+function isCompanionOnboardingEnabled() as Lang.Boolean {
+    return Application.Properties.getValue("companionOnboardingEnabled") as Lang.Boolean;
+}

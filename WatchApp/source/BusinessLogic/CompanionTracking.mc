@@ -2,15 +2,6 @@ using Toybox.Lang;
 using Toybox.Application.Storage;
 
 (:background, :glance)
-function isCompanionOnboardingEnabled() as Lang.Boolean {
-    var storedValue = Storage.getValue("companionOnboardingEnabled") as Lang.Boolean or Null;
-    if (storedValue == null) {
-        return false;
-    }
-    return storedValue;
-}
-
-(:background, :glance)
 function everSeenCompanion() as Lang.Boolean {
     if (!isCompanionOnboardingEnabled()) {
         return true;
