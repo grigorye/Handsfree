@@ -46,7 +46,7 @@ class CallActingView extends WatchUi.ProgressBar {
                 }
                 break;
             case FAILED:
-                message = "Companion app\ndid not respond";
+                message = "Communication\nFailed";
                 break;
             default:
                 System.error("Unknown commStatus");

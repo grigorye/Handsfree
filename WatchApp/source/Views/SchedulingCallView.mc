@@ -21,7 +21,7 @@ class SchedulingCallView extends WatchUi.ProgressBar {
                 message = "Calling" + "\n" + destination;
                 break;
             case FAILED:
-                message = "Companion app\ndid not respond";
+                message = "Communication\nFailed";
                 break;
             default:
                 System.error("Unknown commStatus");
