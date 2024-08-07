@@ -54,9 +54,12 @@ class CheckIn {
             return;
         }
         dump("secondsToCheckIn", secondsToCheckIn);
-        var timer = new Timer.Timer();
-        checkInTimer = timer;
-        timer.start(method(:attemptToCheckIn), 1000 * secondsToCheckIn, false);
+        if (checkInTimer != null) {
+            checkInTimer.stop();
+        } else {
+            checkInTimer = new Timer.Timer();
+        }
+        (checkInTimer as Timer.Timer).start(method(:attemptToCheckIn), 1000 * secondsToCheckIn, false);
         checkInAttemptsRemaining -= 1;
         secondsToCheckIn *= 2;
         if (isSyncingCallStateOnCheckinEnabled()) {
