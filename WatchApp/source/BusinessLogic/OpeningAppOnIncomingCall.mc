@@ -16,16 +16,25 @@ function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
 }
 
 (:background, :glance)
+function openAppFailed(message as Lang.String) as Void {
+    dump("openAppFailed.requestingApplicationWake", message);
+    Background.requestApplicationWake(message);
+}
+
+(:background, :glance)
 function openAppOnIncomingCall(phone as Phone) as Void {
+    var message = messageForApplicationWake(phone);
     if (isIncomingOpenAppViaCompanionEnabled()) {
         var msg = {
-            "cmd" => "openMe"
+            "cmd" => "openMe",
+            "args" => {
+                "messageForWakingUp" => message
+            }
         };
         dump("outMsg", msg);
         Communications.transmit(msg, null, new DummyCommListener("openMe"));
     }
     if (isIncomingOpenAppViaWakeUpEnabled()) {
-        var message = messageForApplicationWake(phone);
         dump("requestingApplicationWake", message);
         Background.requestApplicationWake(message);
     }
