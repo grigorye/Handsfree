@@ -157,5 +157,8 @@ function exitToSystemFromCommView() as Void {
         dumpViewStack("messedUpViewStack");
         System.error("viewStackIsMessedUp");
     }
+    if (viewStackTagsEqual(["commView"])) {
+        System.exit();
+    }
     popView(WatchUi.SLIDE_IMMEDIATE);
 }
