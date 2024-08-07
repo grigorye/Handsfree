@@ -60,10 +60,14 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
         }
         dump(formatTag("onError.attempt"), attemptNumber);
         dump(formatTag("onError.attemptsRemaining"), attemptsRemaining);
+        if (retransmitTimer != null) {
+            retransmitTimer.stop();
+        }
         if (attemptsRemaining > 0) {
-            var timer = new Timer.Timer();
-            retransmitTimer = timer;
-            retransmitTimer.start(method(:transmit), retransmitDelay, false);
+            if (retransmitTimer == null) {
+                retransmitTimer = new Timer.Timer();
+            }
+            (retransmitTimer as Timer.Timer).start(method(:transmit), retransmitDelay, false);
             return;
         }
         wrappedListener.onError();
