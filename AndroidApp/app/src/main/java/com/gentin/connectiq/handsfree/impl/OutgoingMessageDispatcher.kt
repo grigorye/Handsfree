@@ -11,6 +11,7 @@ interface OutgoingMessageDispatcher {
     fun sendSyncYou(contacts: List<ContactData>, phoneState: PhoneState?)
     fun sendPhones(destination: OutgoingMessageDestination, contacts: List<ContactData>)
     fun sendPhoneState(phoneState: PhoneState)
+    fun sendOpenAppFailed(destination: OutgoingMessageDestination, args: OpenMeArgs)
 }
 
 class DefaultOutgoingMessageDispatcher(
@@ -43,6 +44,16 @@ class DefaultOutgoingMessageDispatcher(
             "args" to args
         )
         send(msg)
+    }
+
+    override fun sendOpenAppFailed(destination: OutgoingMessageDestination, args: OpenMeArgs) {
+        val msg = mapOf(
+            "cmd" to "openAppFailed",
+            "args" to mapOf(
+                "messageForWakingUp" to args.messageForWakingUp
+            )
+        )
+        send(OutgoingMessage(destination, msg))
     }
 
     private fun phonesArgs(contacts: List<ContactData>): Map<String, Any> {

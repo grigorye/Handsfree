@@ -8,7 +8,7 @@ class IncomingMessageDispatcher(
     private val phoneCallService: PhoneCallService,
     private val syncImp: () -> Unit,
     private val syncPhonesImp: (destination: IncomingMessageSource) -> Unit,
-    private val openAppImp: (source: IncomingMessageSource) -> Unit
+    private val openAppImp: (source: IncomingMessageSource, args: OpenMeArgs) -> Unit
 ) {
     fun handleMessage(message: Any, source: IncomingMessageSource) {
         val pojo = message as Map<*, *>
@@ -40,7 +40,9 @@ class IncomingMessageDispatcher(
             }
 
             "openMe" -> {
-                openAppImp(source)
+                val openMeRequest = json.decodeFromString<OpenMeRequest>(string)
+                Log.d(TAG, "openMeRequest: $openMeRequest")
+                openAppImp(source, openMeRequest.args)
             }
 
             else -> {

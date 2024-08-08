@@ -10,6 +10,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.garmin.android.connectiq.ConnectIQ
 import com.garmin.android.connectiq.ConnectIQ.IQApplicationInfoListener
+import com.garmin.android.connectiq.ConnectIQ.IQOpenApplicationStatus
 import com.garmin.android.connectiq.IQApp
 import com.garmin.android.connectiq.IQDevice
 import com.garmin.android.connectiq.exception.InvalidStateException
@@ -29,8 +30,11 @@ interface GarminConnector {
 
     fun sendMessage(message: OutgoingMessage)
     fun openWatchAppInStore(app: IQApp = defaultApp())
-    fun openWatchAppOnDevice(device: IQDevice, app: IQApp)
-    fun openWatchAppOnEveryDevice(app: IQApp = defaultApp())
+    fun openWatchAppOnDevice(device: IQDevice, app: IQApp, completion: (succeeded: Boolean) -> Unit)
+    fun openWatchAppOnEveryDevice(
+        app: IQApp = defaultApp(),
+        completion: (destination: OutgoingMessageDestination, succeeded: Boolean) -> Unit
+    )
 
     val sentMessagesCounter: Int
     val acknowledgedMessagesCounter: Int
@@ -93,15 +97,32 @@ class DefaultGarminConnector(
         }
     }
 
-    override fun openWatchAppOnEveryDevice(app: IQApp) {
+    override fun openWatchAppOnEveryDevice(
+        app: IQApp,
+        completion: (destination: OutgoingMessageDestination, succeeded: Boolean) -> Unit
+    ) {
         connectIQ.knownDevices.forEach { device ->
-            openWatchAppOnDevice(device, app)
+            openWatchAppOnDevice(device, app) { succeeded ->
+                val destination = OutgoingMessageDestination(device, app)
+                completion(destination, succeeded)
+            }
         }
     }
 
-    override fun openWatchAppOnDevice(device: IQDevice, app: IQApp) {
+    override fun openWatchAppOnDevice(
+        device: IQDevice,
+        app: IQApp,
+        completion: (succeeded: Boolean) -> Unit
+    ) {
         try {
             connectIQ.openApplication(device, app) { _, _, status ->
+                when (status) {
+                    IQOpenApplicationStatus.PROMPT_SHOWN_ON_DEVICE -> completion(true)
+                    IQOpenApplicationStatus.PROMPT_NOT_SHOWN_ON_DEVICE -> completion(false)
+                    IQOpenApplicationStatus.APP_IS_NOT_INSTALLED -> completion(false)
+                    IQOpenApplicationStatus.APP_IS_ALREADY_RUNNING -> completion(true)
+                    IQOpenApplicationStatus.UNKNOWN_FAILURE -> completion(false)
+                }
                 Log.d(
                     TAG,
                     "openWatchAppOnDevice(${device.friendlyName}, ${appLogName(app)}): $status"
@@ -109,8 +130,15 @@ class DefaultGarminConnector(
             }
         } catch (e: RuntimeException) {
             Log.e(TAG, "openWatchAppOnDeviceFailed(${device.friendlyName}, ${appLogName(app)}): $e")
+            completion(false)
         } catch (e: InvalidStateException) {
-            Log.e(TAG, "openWatchAppOnDeviceFailed(NoAdbConnection?)(${device.friendlyName}, ${appLogName(app)}): $e")
+            Log.e(
+                TAG,
+                "openWatchAppOnDeviceFailed(NoAdbConnection?)(${device.friendlyName}, ${
+                    appLogName(app)
+                }): $e"
+            )
+            completion(false)
         }
     }
 
