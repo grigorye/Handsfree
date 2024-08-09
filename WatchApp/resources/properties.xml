@@ -20,6 +20,7 @@
         <property id="incomingOpenAppViaWakeUp" type="boolean">true</property>
         <property id="beepOnComm" type="boolean">false</property>
         <property id="workaroundNoRedrawForMenu2" type="boolean">true</property>
+        <property id="incomingCallVibration" type="string">v3;p3;v3;p3</property>
     </properties>
 
     <strings>
@@ -41,6 +42,8 @@
         <string id="incomingOpenAppViaWakeUp">Wake up app on incoming call</string>
         <string id="beepOnComm">Beep on communication</string>
         <string id="workaroundNoRedrawForMenu2">Workaround no redraw for Menu2</string>
+        <string id="incomingCallVibration">Incoming call vibration pattern ('v3;p1;v3;p2'
+            means 'vibrate 3s, pause 1s, vibrate 3s, pause 2s')</string>
     </strings>
 
     <settings>
@@ -73,6 +76,10 @@
         </setting>
         <setting propertyKey="@Properties.secondsToCheckIn" title="@Strings.secondsToCheckIn">
             <settingConfig type="numeric" />
+        </setting>
+        <setting propertyKey="@Properties.incomingCallVibration"
+            title="@Strings.incomingCallVibration">
+            <settingConfig type="alphaNumeric" />
         </setting>
         <setting propertyKey="@Properties.dummySourceVersion" title="@Strings.sourceVersion">
             <settingConfig type="alphaNumeric" readonly="true" />

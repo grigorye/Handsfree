@@ -143,6 +143,13 @@ function widgetDidShow() as Void {
 function onAppDidFinishLaunching() as Void {
     dump("onAppDidFinishLaunching", true);
     (new InAppIncomingMessageDispatcher()).launch();
+    var callState = getCallState();
+    if (callState instanceof CallInProgress) {
+        var phone = (callState as CallInProgress).phone;
+        if (isIncomingCallPhone(phone)) {
+            startRequestingAttentionIfInApp();
+        }
+    }
 }
 
 function didSeeIncomingMessageWhileRoutedToMainUI() as Void {

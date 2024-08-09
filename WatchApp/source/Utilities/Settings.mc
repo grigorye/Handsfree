@@ -86,3 +86,7 @@ function isMenu2NoRedrawWorkaroundEnabled() as Lang.Boolean {
 function isCompanionOnboardingEnabled() as Lang.Boolean {
     return Application.Properties.getValue("companionOnboardingEnabled") as Lang.Boolean;
 }
+
+function incomingCallVibrationProgram() as Lang.String {
+    return Application.Properties.getValue("incomingCallVibration") as Lang.String;
+}

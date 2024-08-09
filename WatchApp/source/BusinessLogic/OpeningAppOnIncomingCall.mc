@@ -10,7 +10,9 @@ function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
     }
     var activeUiKind = getActiveUiKind();
     dump("activeUiKind", activeUiKind);
-    if (activeUiKind != ACTIVE_UI_APP) {
+    if (activeUiKind.equals(ACTIVE_UI_APP)) {
+        startRequestingAttentionIfInApp();
+    } else {
         openAppOnIncomingCall(phone);
     }
 }
