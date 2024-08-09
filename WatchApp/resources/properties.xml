@@ -38,7 +38,7 @@
             name/phone number placeholder)</string>
         <string id="forceLargeFonts">Force large fonts</string>
         <string id="eraseAppDataOnNextLaunch">Erase data on next launch</string>
-        <string id="incomingOpenAppViaCompanion">Open app on incoming call</string>
+        <string id="incomingOpenAppViaCompanion">Use companion for opening app on incoming call</string>
         <string id="incomingOpenAppViaWakeUp">Wake up app on incoming call</string>
         <string id="beepOnComm">Beep on communication</string>
         <string id="workaroundNoRedrawForMenu2">Workaround no redraw for Menu2</string>
