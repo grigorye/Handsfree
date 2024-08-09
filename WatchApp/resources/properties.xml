@@ -16,8 +16,8 @@
         <property id="incomingCallMessageFormat" type="string">&lt;$1$</property>
         <property id="forceLargeFonts" type="boolean">false</property>
         <property id="eraseAppDataOnNextLaunch" type="boolean">false</property>
-        <property id="incomingOpenAppViaCompanion" type="boolean">false</property>
-        <property id="incomingOpenAppViaWakeUp" type="boolean">true</property>
+        <property id="incomingOpenAppViaCompanion" type="boolean">true</property>
+        <property id="incomingOpenAppViaWakeUp" type="boolean">false</property>
         <property id="beepOnComm" type="boolean">false</property>
         <property id="workaroundNoRedrawForMenu2" type="boolean">true</property>
         <property id="incomingCallVibration" type="string">v3;p3;v3;p3</property>
