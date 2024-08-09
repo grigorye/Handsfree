@@ -49,7 +49,7 @@ class CallActing extends CallStateImp {
         return new CallActing(phone, commStatus);
     }
 
-    function dumpRep() as Lang.String {
+    function toString() as Lang.String {
         return "CallActing(" + { "phone" => phone, "commStatus" => commStatus } + ")";
     }
 }

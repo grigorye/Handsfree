@@ -9,7 +9,7 @@ class DismissedCallInProgress extends CallStateImp {
         self.phone = phone;
     }
 
-    function dumpRep() as Lang.String {
+    function toString() as Lang.String {
         return "DismissedCallInProgress(" + phone["number"] + ")";
     }
 }

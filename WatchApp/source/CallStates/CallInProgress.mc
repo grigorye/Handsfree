@@ -9,7 +9,7 @@ class CallInProgress extends CallStateImp {
         self.phone = phone;
     }
 
-    function dumpRep() as Lang.String {
+    function toString() as Lang.String {
         return "CallInProgress(" + phone["number"] + ")";
     }
 }

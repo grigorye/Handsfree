@@ -15,7 +15,7 @@ function setCallInProgress(number as Lang.String) as Void {
 (:background, :glance)
 function setCallState(callStateImp as CallState or CallActing) as Void {
     var callState = callStateImp as CallState;
-    dumpCallState("setCallState", callState);
+    dump("setCallState", callState);
     setCallStateImp(callState);
     updateUIForCallState();
 }
@@ -45,7 +45,7 @@ function updateUIForCallState() as Void {
 }
 
 function setCallStateIgnoringRouting(callState as CallState) as Void {
-    dumpCallState("setCallStateIgnoringRouting", callState);
+    dump("setCallStateIgnoringRouting", callState);
     setCallStateImp(callState);
     setRoutedCallStateImp(callState);
 }

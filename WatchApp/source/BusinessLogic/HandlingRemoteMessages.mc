@@ -43,7 +43,7 @@ function handleRemoteMessage(iqMsg as Communications.Message) as Void {
 (:background)
 function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
     var callState = getCallState();
-    dumpCallState("callState", callState);
+    dump("callState", callState);
     var inIsHeadsetConnected = args["isHeadsetConnected"];
     dump("inIsHeadsetConnected", inIsHeadsetConnected);
     if (inIsHeadsetConnected != null) {

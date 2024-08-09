@@ -6,7 +6,7 @@ typedef CallStateData as Lang.Dictionary<Application.PropertyKeyType, Applicatio
 
 (:background, :glance)
 function encodeCallState(someCallState as CallState) as CallStateData {
-    dumpCallState("encodingCallState", someCallState);
+    dump("encodingCallState", someCallState);
     switch (someCallState) {
         case instanceof Idle:
             return { "state" => "idle" };

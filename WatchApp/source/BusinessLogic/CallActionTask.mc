@@ -46,7 +46,7 @@ class CallActionTask extends Communications.ConnectionListener {
         var oldState = getCallState() as CallActing;
         if (!(oldState instanceof CallActing)) {
             // We may already go back, and hence change the call state to Idle.
-            dumpCallState("callAction.onComplete.callStateInvalidated", oldState);
+            dump("callAction.onComplete.callStateInvalidated", oldState);
             return;
         }
         var newState = oldState.clone();
@@ -58,7 +58,7 @@ class CallActionTask extends Communications.ConnectionListener {
         var oldState = getCallState() as CallActing;
         if (!(oldState instanceof CallActing)) {
             // We may already go back, and hence change the call state to Idle.
-            dumpCallState("callAction.onError.callStateInvalidated", oldState);
+            dump("callAction.onError.callStateInvalidated", oldState);
             return;
         }
         dump("callAction.onError", true);

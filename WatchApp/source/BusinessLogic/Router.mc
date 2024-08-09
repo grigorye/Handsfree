@@ -21,8 +21,8 @@ class Router {
         dump("updateRoute", updateCounter);
         var oldState = getRoutedCallState();
         var newState = getCallState();
-        dumpCallState("routingOldState", oldState);
-        dumpCallState("routingNewState", newState);
+        dump("routingOldState", oldState);
+        dump("routingNewState", newState);
         setRoutedCallStateImp(newState);
         switch (oldState as CallState) {
             case instanceof DismissedCallInProgress:

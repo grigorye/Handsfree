@@ -8,6 +8,6 @@ function getRoutedCallState() as CallState {
 }
 
 function setRoutedCallStateImp(callState as CallState or Null) as Void {
-    dumpCallState("setRoutedCallStateImp", callState);
+    dump("setRoutedCallStateImp", callState);
     routedCallStateImp = callState;
 }

@@ -8,19 +8,6 @@ var callStateImp as CallState or Null;
 
 (:background, :glance)
 class CallStateImp {
-    function dumpRep() as Lang.String {
-        return "" + self;
-    }
-}
-
-(:background, :glance)
-function dumpCallState(tag as Lang.String, callState as CallStateImp or Null) as CallStateImp or Null {
-    if (callState == null) {
-        dump(tag, "null");
-        return callState;
-    }
-    dump(tag, callState.dumpRep());
-    return callState;
 }
 
 (:background, :glance)
@@ -33,10 +20,10 @@ function loadCallState() as CallState or Null {
     var callStateData = Application.Storage.getValue("callState.v1") as CallStateData or Null;
     var callState = decodeCallState(callStateData);
     if (callState != null) {
-        dump("loadedCallState", callState.dumpRep());
+        dump("loadedCallState", callState);
         switch (callState) {
             case instanceof CallActing: {
-                return dumpCallState("adjustedLoadedCallState", new Idle()) as CallState;
+                return dump("adjustedLoadedCallState", new Idle()) as CallState;
             }
             default: {
                 return callState as CallState;

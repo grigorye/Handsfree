@@ -15,7 +15,7 @@ class SchedulingCall extends CallStateImp {
         return new SchedulingCall(phone, commStatus);
     }
 
-    function dumpRep() as Lang.String {
+    function toString() as Lang.String {
         return "SchedulingCall(" + phone + ", " + commStatus + ")";
     }
 }

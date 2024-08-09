@@ -6,7 +6,7 @@ class Idle extends CallStateImp {
         CallStateImp.initialize();
     }
 
-    function dumpRep() as Lang.String {
+    function toString() as Lang.String {
         return "Idle";
     }
 }

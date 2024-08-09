@@ -22,7 +22,7 @@ class CallActingView extends WatchUi.ProgressBar {
                         break;
                     }
                     default: {
-                        System.error("unexpectedCallState: " + callState.dumpRep());
+                        System.error("unexpectedCallState: " + callState);
                     }
                 }
                 break;
@@ -41,7 +41,7 @@ class CallActingView extends WatchUi.ProgressBar {
                         break;
                     }
                     default: {
-                        System.error("unexpectedCallState: " + callState.dumpRep());
+                        System.error("unexpectedCallState: " + callState);
                     }
                 }
                 break;
