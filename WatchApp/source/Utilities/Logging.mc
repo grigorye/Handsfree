@@ -4,6 +4,12 @@ using Toybox.Time;
 using Toybox.Time.Gregorian;
 
 (:glance, :background)
+class NoArgPlaceholder {}
+
+(:glance, :background)
+var noArg as NoArgPlaceholder = new NoArgPlaceholder();
+
+(:glance, :background)
 function dump(tag as Lang.String, output as Lang.Object or Null) as Void {
     var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
 
@@ -23,7 +29,11 @@ function dump(tag as Lang.String, output as Lang.Object or Null) as Void {
         info.hour.format("%02d") + ":" +
         info.min.format("%02d") + ":" +
         info.sec.format("%02d") + " ";
-    System.println(timePrefix + tag + ": " + output);
+    if (output instanceof NoArgPlaceholder) {
+        System.println(timePrefix + tag);
+    } else {
+        System.println(timePrefix + tag + ": " + output);
+    }
 }
 
 (:glance, :background)
