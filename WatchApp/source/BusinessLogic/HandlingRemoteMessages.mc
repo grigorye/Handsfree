@@ -51,6 +51,9 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
     }
     var phoneState = args["state"] as Lang.String;
     dump("inPhoneState", phoneState);
+    if (!phoneState.equals("ringing")) {
+        stopRequestingAttentionIfInApp();
+    }
     switch (phoneState) {
         case "callInProgress":
             var inProgressNumber = args["number"] as Lang.String;

@@ -9,6 +9,15 @@ function startRequestingAttentionIfInApp() as Void {
     startRequestingAttention();
 }
 
+(:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
+function stopRequestingAttentionIfInApp() as Void {
+    if (!getActiveUiKind().equals(ACTIVE_UI_APP)) {
+        dump("stopRequestingAttention.notInApp", true);
+        return;
+    }
+    stopRequestingAttention();
+}
+
 var activeVibrationLoop as VibrationLoop or Null;
 
 function startRequestingAttention() as Void {
