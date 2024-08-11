@@ -23,7 +23,9 @@ function loadCallState() as CallState or Null {
         dump("loadedCallState", callState);
         switch (callState) {
             case instanceof CallActing: {
-                return dump("adjustedLoadedCallState", new Idle()) as CallState;
+                var adjustedLoadedCallState = new Idle();
+                dump("adjustedLoadedCallState", adjustedLoadedCallState);
+                return adjustedLoadedCallState;
             }
             default: {
                 return callState as CallState;
