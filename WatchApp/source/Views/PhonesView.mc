@@ -29,6 +29,7 @@ class PhonesView extends WatchUi.Menu2 {
                 title = null;
                 break;
             default: {
+                title = null;
                 System.error("unknownCheckInStatus: " + checkInStatus);
             }
         }

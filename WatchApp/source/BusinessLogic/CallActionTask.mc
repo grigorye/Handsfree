@@ -31,8 +31,10 @@ class CallActionTask extends Communications.ConnectionListener {
                 state = new Declining(phone, PENDING);
                 break;
             }
-            default:
+            default: {
+                cmd = "";
                 System.error("unknownAction: " + action);
+            }
         }
         var msg = {
             "cmd" => cmd
