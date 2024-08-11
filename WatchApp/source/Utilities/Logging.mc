@@ -9,20 +9,7 @@ class NoArgPlaceholder {}
 (:glance, :background)
 var noArg as NoArgPlaceholder = new NoArgPlaceholder();
 
-(:glance, :background)
-class LogComponent {
-    var name as Lang.String;
-    var enabled as Lang.Boolean;
-
-    function initialize(name as Lang.String, enabled as Lang.Boolean) {
-        self.name = name;
-        self.enabled = enabled;
-    }
-
-    function toString() as Lang.String {
-        return self.name;
-    }
-}
+typedef LogComponent as Lang.String;
 
 typedef LogArgsWithValue as [LogComponent, Lang.String, Lang.Object or Null];
 typedef LogArgsWithoutValue as [LogComponent, Lang.String];
@@ -37,7 +24,7 @@ function _(info as LogArgsWithoutValue or LogArgsWithValue) as Void {
     } else {
         value = noArg as Lang.Object;
     }
-    if (!component.enabled && !isLogAllEnforced() && !isLogComponentEnforced(component)) {
+    if (!isLogAllEnforced() && !isLogComponentEnforced(component)) {
         return;
     }
     var qualifiedTag = component.toString() + "." + tag;
@@ -46,7 +33,7 @@ function _(info as LogArgsWithoutValue or LogArgsWithValue) as Void {
 
 (:glance, :background)
 function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
-    var isEnforced = forcedLogComponents().indexOf(component.name) != -1;
+    var isEnforced = forcedLogComponents().indexOf(component) != -1;
     return isEnforced;
 }
 
