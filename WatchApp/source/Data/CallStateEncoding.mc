@@ -9,30 +9,30 @@ function encodeCallState(someCallState as CallState) as CallStateData {
     dump("encodingCallState", someCallState);
     switch (someCallState) {
         case instanceof Idle:
-            return { "state" => "idle" };
+            return { "state" => "idle" } as CallStateData;
         case instanceof SchedulingCall: {
             var callState = someCallState as SchedulingCall;
-            return { "state" => "schedulingCall", "phone" => callState.phone, "commStatus" => callState.commStatus };
+            return { "state" => "schedulingCall", "phone" => callState.phone, "commStatus" => callState.commStatus } as CallStateData;
         }
         case instanceof CallInProgress: {
             var callState = someCallState as CallInProgress;
-            return { "state" => "callInProgress", "phone" => callState.phone };
+            return { "state" => "callInProgress", "phone" => callState.phone } as CallStateData;
         }
         case instanceof DismissedCallInProgress: {
             var callState = someCallState as DismissedCallInProgress;
-            return { "state" => "dismissedCallInProgress", "phone" => callState.phone };
+            return { "state" => "dismissedCallInProgress", "phone" => callState.phone } as CallStateData;
         }
         case instanceof HangingUp: {
             var callState = someCallState as HangingUp;
-            return { "state" => "hangingUp", "phone" => callState.phone, "commStatus" => callState.commStatus };
+            return { "state" => "hangingUp", "phone" => callState.phone, "commStatus" => callState.commStatus } as CallStateData;
         }
         case instanceof Accepting: {
             var callState = someCallState as Accepting;
-            return { "state" => "accepting", "phone" => callState.phone, "commStatus" => callState.commStatus };
+            return { "state" => "accepting", "phone" => callState.phone, "commStatus" => callState.commStatus } as CallStateData;
         }
         case instanceof Declining: {
             var callState = someCallState as Declining;
-            return { "state" => "declining", "phone" => callState.phone, "commStatus" => callState.commStatus };
+            return { "state" => "declining", "phone" => callState.phone, "commStatus" => callState.commStatus } as CallStateData;
         }
         default: {
             System.error("Unknown call state: " + someCallState);
