@@ -6,21 +6,34 @@ using Toybox.Lang;
 using Toybox.Communications;
 
 (:glance, :background)
+const L_APP as LogComponent = new LogComponent("app", false);
+(:glance, :background)
+const L_APP_LIFE_CYCLE as LogComponent = new LogComponent("app", false);
+(:glance, :background)
+const L_APP_INITIAL_VIEW as LogComponent = new LogComponent("app", false);
+(:glance, :background)
+const L_APP_STAT as LogComponent = new LogComponent("app", false);
+(:glance, :background)
+const L_APP_EXTRA as LogComponent = new LogComponent("app", false);
+(:glance, :background)
+const L_COMPANION_TRACK as LogComponent = new LogComponent("companionTrack", false);
+
+(:glance, :background)
 class App extends Application.AppBase {
 
     var backgroundServiceEnabled as Lang.Boolean;
     
     function initialize() {
-        dump("initialize", true);
-        dump("deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
-        dump("systemStats", systemStatsDumpRep());
-        dump("backgroundAppUpdateEnabled", isBackgroundAppUpdateEnabled());
-        dump("appType", appType());
-        dump("everSeenCompanion", everSeenCompanion());
+        _([L_APP_LIFE_CYCLE, "initialize"]);
+        _([L_APP_EXTRA, "deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings())]);
+        _([L_APP_STAT, "systemStats", systemStatsDumpRep()]);
+        _([L_APP_EXTRA, "backgroundAppUpdateEnabled", isBackgroundAppUpdateEnabled()]);
+        _([L_APP, "appType", appType()]);
+        _([L_COMPANION_TRACK, "everSeenCompanion", everSeenCompanion()]);
         Application.AppBase.initialize();
         backgroundServiceEnabled = isBackgroundServiceEnabled();
-        dump("backgroundServiceEnabled", backgroundServiceEnabled);
-        dump("getPhoneAppMessageEventRegistered", Background.getPhoneAppMessageEventRegistered());
+        _([L_APP_EXTRA, "backgroundServiceEnabled", backgroundServiceEnabled]);
+        _([L_APP_EXTRA, "getPhoneAppMessageEventRegistered", Background.getPhoneAppMessageEventRegistered()]);
         if (backgroundServiceEnabled) {
             Background.registerForPhoneAppMessageEvent();
         } else {
@@ -29,20 +42,20 @@ class App extends Application.AppBase {
     }
 
     function onStart(state as Lang.Dictionary or Null) {
-        dump("onStart", state);
+        _([L_APP, "onStart", state]);
         Application.AppBase.onStart(state);
     }
 
     function onStop(state as Lang.Dictionary or Null) {
-        dump("activeUiKindOnStop", getActiveUiKind());
-        dump("onStop", state);
-        dump("systemStats", systemStatsDumpRep());
+        _([L_APP_LIFE_CYCLE, "activeUiKindOnStop", getActiveUiKind()]);
+        _([L_APP_LIFE_CYCLE, "onStop", state]);
+        _([L_APP_STAT, "systemStats", systemStatsDumpRep()]);
         Application.AppBase.onStop(state);
     }
 
     (:background, :typecheck(disableGlanceCheck))
     function getServiceDelegate() as [System.ServiceDelegate] {
-        dump("getServiceDelegate", true);
+        _([L_APP_EXTRA, "getServiceDelegate"]);
         if (!backgroundServiceEnabled) {
             return [new DummyServiceDelegate()];
         }
@@ -56,10 +69,10 @@ class App extends Application.AppBase {
 
     (:typecheck([disableGlanceCheck, disableBackgroundCheck]))
     function getInitialView() {
-        dump("getInitialView", true);
+        _([L_APP_INITIAL_VIEW, "getInitialView"]);
         eraseAppDataIfNecessary();
         var inWidgetMode = isInWidgetMode();
-        dump("inWidgetMode", inWidgetMode);
+        _([L_APP_EXTRA, "inWidgetMode", inWidgetMode]);
         setActiveUiKind(ACTIVE_UI_APP);
         onAppDidFinishLaunching();
         if (inWidgetMode) {
@@ -76,7 +89,7 @@ class App extends Application.AppBase {
 
     (:glance)
     function getGlanceView() {
-        dump("getGlanceView", true);
+        _([L_APP_INITIAL_VIEW, "getGlanceView"]);
         setActiveUiKind(ACTIVE_UI_GLANCE);
         onAppDidFinishLaunching();
         return [new GlanceView()];
@@ -101,7 +114,7 @@ function deviceSettingsDumpRep(deviceSettings as System.DeviceSettings) as Lang.
 }
 
 function appWillRouteToMainUI() as Void {
-    dump("appWillRouteToMainUI", true);
+    _([L_APP, "appWillRouteToMainUI"]);
 }
 
 var routedToMainUI as Lang.Boolean = false;
@@ -119,7 +132,7 @@ function appDidRouteToMainUI() as Void {
 
 (:widget)
 function appDidRouteFromMainUI() as Void {
-    dump("appDidRouteFromMainUI", true);
+    _([L_APP, "appDidRouteFromMainUI"]);
     setRoutedCallStateImp(null);
     setPhonesViewImp(null);
     if (getCheckInImp() == null) {
@@ -132,7 +145,7 @@ function appDidRouteFromMainUI() as Void {
 
 (:widget)
 function widgetDidShow() as Void {
-    dump("widgetDidShow", true);
+    _([L_APP, "widgetDidShow"]);
     if (routedToMainUI) {
         routedToMainUI = false;
         appDidRouteFromMainUI();
@@ -141,7 +154,7 @@ function widgetDidShow() as Void {
 
 (:glance, :typecheck(disableBackgroundCheck))
 function onAppDidFinishLaunching() as Void {
-    dump("onAppDidFinishLaunching", true);
+    _([L_APP, "onAppDidFinishLaunching"]);
     (new InAppIncomingMessageDispatcher()).launch();
     var callState = getCallState();
     if (callState instanceof CallInProgress) {
@@ -153,7 +166,7 @@ function onAppDidFinishLaunching() as Void {
 }
 
 function didSeeIncomingMessageWhileRoutedToMainUI() as Void {
-    dump("didSeeIncomingMessageWhileRoutedToMainUI", true);
+    _([L_APP, "didSeeIncomingMessageWhileRoutedToMainUI"]);
     var checkIn = getCheckInImp();
     if (checkIn != null) {
         checkIn.remoteResponded();
@@ -162,8 +175,8 @@ function didSeeIncomingMessageWhileRoutedToMainUI() as Void {
 
 (:glance, :background)
 function onBackgroundDataImp(data as Application.PersistableType) as Void {
-    dump("onBackgroundData", data);
-    dump("systemStats", systemStatsDumpRep());
+    _([L_APP_LIFE_CYCLE, "onBackgroundData", data]);
+    _([L_APP_STAT, "systemStats", systemStatsDumpRep()]);
     switch (data) {
         case instanceof Lang.String: {
             switch (data as Lang.String) {

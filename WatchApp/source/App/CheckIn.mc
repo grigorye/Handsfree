@@ -1,6 +1,8 @@
 using Toybox.Lang;
 using Toybox.Timer;
 
+const L_CHECK_IN as LogComponent = new LogComponent("checkIn", false);
+
 function getCheckIn() as CheckIn {
     if (checkInImp == null) {
         checkInImp = new CheckIn();
@@ -30,13 +32,13 @@ class CheckIn {
     }
 
     function launch() as Void {
-        dump("checkIn.launch.originalCheckInStatus", getCheckInStatus());
+        _([L_CHECK_IN, "launch.originalCheckInStatus", getCheckInStatus()]);
         setCheckInStatus(CHECK_IN_IN_PROGRESS);
         attemptToCheckIn();
     }
 
     function cancel() as Void {
-        dump("checkIn.cancel", true);
+        _([L_CHECK_IN, "cancel"]);
         if (checkInTimer != null) {
             (checkInTimer as Timer.Timer).stop();
             checkInTimer = null;
@@ -44,16 +46,16 @@ class CheckIn {
     }
 
     function attemptToCheckIn() as Void {
-        dump("checkIn.attemptToCheckIn.remaining", checkInAttemptsRemaining);
-        dump("preCheckInCallStateIsOwnedByUs", callStateIsOwnedByUs);
+        _([L_CHECK_IN, "checkInAttemptsRemaining", checkInAttemptsRemaining]);
+        _([L_CHECK_IN, "preCheckInCallStateIsOwnedByUs", callStateIsOwnedByUs]);
         callStateIsOwnedByUs = false;
-        dump("postCheckInCallStateIsOwnedByUs", callStateIsOwnedByUs);
+        _([L_CHECK_IN, "postCheckInCallStateIsOwnedByUs", callStateIsOwnedByUs]);
         if (checkInAttemptsRemaining == 0) {
             setCheckInStatus(CHECK_IN_FAILED);
-            dump("checkInTimedOut", true);
+            _([L_CHECK_IN, "timedOut", true]);
             return;
         }
-        dump("secondsToCheckIn", secondsToCheckIn);
+        _([L_CHECK_IN, "secondsToCheckIn", secondsToCheckIn]);
         if (checkInTimer != null) {
             checkInTimer.stop();
         } else {
@@ -70,7 +72,7 @@ class CheckIn {
     }
 
     function remoteResponded() as Void {
-        dump("remoteResponded", true);
+        _([L_CHECK_IN, "remoteResponded"]);
         if (checkInTimer != null) {
             checkInTimer.stop();
             setCheckInStatus(CHECK_IN_SUCCEEDED);
