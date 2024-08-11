@@ -11,9 +11,9 @@ function displayTextForPhone(phone as Phone) as Lang.String {
         text = number;
     } else {
         if (isIncomingCall) {
-            text = "Incoming call";
+            text = "Incoming Call";
         } else {
-            text = "Call in progress";
+            text = "Call in Progress";
         }
     }
     return text;
