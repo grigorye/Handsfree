@@ -53,7 +53,7 @@ class App extends Application.AppBase {
         Application.AppBase.onStop(state);
     }
 
-    (:background, :typecheck(disableGlanceCheck))
+    (:typecheck(disableGlanceCheck))
     function getServiceDelegate() as [System.ServiceDelegate] {
         _([L_APP_EXTRA, "getServiceDelegate"]);
         if (!backgroundServiceEnabled) {
@@ -87,7 +87,7 @@ class App extends Application.AppBase {
         }
     }
 
-    (:glance)
+    (:typecheck([disableBackgroundCheck]))
     function getGlanceView() {
         _([L_APP_INITIAL_VIEW, "getGlanceView"]);
         setActiveUiKind(ACTIVE_UI_GLANCE);

@@ -7,7 +7,7 @@ using Rez.Styles;
 (:glance)
 const L_GLANCE_VIEW as LogComponent = "glanceView";
 
-(:glance, :typecheck(disableBackgroundCheck))
+(:glance)
 class GlanceView extends WatchUi.GlanceView {
 
     function initialize() {
