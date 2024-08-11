@@ -37,11 +37,17 @@ function _(info as LogArgsWithoutValue or LogArgsWithValue) as Void {
     } else {
         value = noArg as Lang.Object;
     }
-    if (!component.enabled && !isLogAllEnforced()) {
+    if (!component.enabled && !isLogAllEnforced() && !isLogComponentEnforced(component)) {
         return;
     }
     var qualifiedTag = component.toString() + "." + tag;
     dumpImp(qualifiedTag, value);
+}
+
+(:glance, :background)
+function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
+    var isEnforced = forcedLogComponents().indexOf(component.name) != -1;
+    return isEnforced;
 }
 
 (:glance, :background)
