@@ -23,3 +23,10 @@ function getPhoneNumber(phone as Phone) as Lang.String or Null {
 function dropRingingFromPhone(phone as Phone) as Void {
     phone["ringing"] = false;
 }
+
+(:background, :glance)
+function isIncomingCallPhone(phone as Phone) as Lang.Boolean {
+    var ringing = phone["ringing"] as Lang.Boolean or Null;
+    var isIncoming = (ringing != null) && (ringing as Lang.Boolean);
+    return isIncoming;
+}
