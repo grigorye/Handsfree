@@ -2,6 +2,8 @@ using Toybox.WatchUi;
 using Toybox.Lang;
 using Toybox.System;
 
+const L_VIEW_TRACKING as LogComponent = new LogComponent("$$", false);
+
 class ViewStackEntry extends Lang.Object {
 
     function initialize(tag as Lang.String, view as WatchUi.Views, delegate as Null or WatchUi.InputDelegates) {
@@ -56,7 +58,7 @@ function trackInitialView(tag as Lang.String, view as WatchUi.Views, delegate as
 }
 
 function dumpViewStack(tag as Lang.String) as Void {
-    dump("$$" + tag, viewStackTags());
+    _([L_VIEW_TRACKING, tag, viewStackTags()]);
 }
 
 function topView() as WatchUi.Views or Null {
@@ -79,7 +81,7 @@ function assertViewStackIsSane() as Void {
     for (var i = 0; i < viewStack.size(); i++) {
         if (uniqueViewTags.indexOf(viewStack[i].tag) != -1) {
             dumpViewStack("messedUp");
-            dump("nonUniqueView", viewStack[i]);
+            _([L_VIEW_TRACKING, "nonUniqueView", viewStack[i]]);
             System.error("viewStackIsMessedUp");
         }
     }

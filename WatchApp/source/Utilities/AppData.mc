@@ -2,7 +2,7 @@ using Toybox.Application;
 
 (:background, :glance)
 function eraseAppData() as Void {
-    dump("erasingAppData", true);
+    _([L_APP_LIFE_CYCLE, "erasingAppData"]);
     Application.Storage.clearValues();
 }
 

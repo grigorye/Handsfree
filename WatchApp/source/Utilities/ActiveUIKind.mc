@@ -1,6 +1,9 @@
 using Toybox.System;
 
 (:glance, :background)
+const L_UI_KIND as LogComponent = new LogComponent("uiKind", false);
+
+(:glance, :background)
 enum ActiveUiKind {
     ACTIVE_UI_NONE = "None",
     ACTIVE_UI_GLANCE = "Glance",
@@ -17,7 +20,7 @@ function getActiveUiKind() as ActiveUiKind {
 
 (:glance, :background)
 function setActiveUiKind(kind as ActiveUiKind) as Void {
-    dump("setActiveUiKind", kind);
+    _([L_UI_KIND, "setActiveUiKind", kind]);
     if (!activeUiKindImp.equals(ACTIVE_UI_NONE)) {
         System.error("Already active UI kind: " + activeUiKindImp);
     }

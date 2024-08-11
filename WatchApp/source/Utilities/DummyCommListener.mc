@@ -8,14 +8,13 @@ class DummyCommListener extends Communications.ConnectionListener {
     function initialize(tag as Lang.String) {
         self.tag = tag;
         ConnectionListener.initialize();
-        dump(tag, "initialize");
     }
 
     function onComplete() {
-        dump(tag, "complete");
+        _([L_OUT_COMM, tag + ".completed"]);
     }
 
     function onError() {
-        dump(tag, "error");
+        _([L_OUT_COMM, tag + ".failed"]);
     }
 }

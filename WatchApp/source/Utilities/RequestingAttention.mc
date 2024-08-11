@@ -1,9 +1,11 @@
 using Toybox.Attention;
 
+const L_ATTN as LogComponent = new LogComponent("attention", false);
+
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function startRequestingAttentionIfInApp() as Void {
     if (!getActiveUiKind().equals(ACTIVE_UI_APP)) {
-        dump("startRequestingAttention.notInApp", true);
+        _([L_ATTN, "startRequestingAttention", "notInApp"]);
         return;
     }
     startRequestingAttention();
@@ -12,7 +14,7 @@ function startRequestingAttentionIfInApp() as Void {
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function stopRequestingAttentionIfInApp() as Void {
     if (!getActiveUiKind().equals(ACTIVE_UI_APP)) {
-        dump("stopRequestingAttention.notInApp", true);
+        _([L_ATTN, "stopRequestingAttention", "notInApp"]);
         return;
     }
     stopRequestingAttention();
@@ -21,7 +23,7 @@ function stopRequestingAttentionIfInApp() as Void {
 var activeVibrationLoop as VibrationLoop or Null;
 
 function startRequestingAttention() as Void {
-    dump("startRequestingAttention", true);
+    _([L_ATTN, "startRequestingAttention"]);
     if (activeVibrationLoop != null) {
         activeVibrationLoop.cancel();
     }
@@ -30,7 +32,7 @@ function startRequestingAttention() as Void {
 }
 
 function stopRequestingAttention() as Void {
-    dump("stopRequestingAttention", true);
+    _([L_ATTN, "stopRequestingAttention"]);
     if (activeVibrationLoop != null) {
         activeVibrationLoop.cancel();
     }
