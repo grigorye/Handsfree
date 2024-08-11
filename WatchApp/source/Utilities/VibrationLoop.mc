@@ -35,7 +35,9 @@ class VibrationLoop {
         switch (command) {
             case "v": {
                 var duration = 1000 * (substring(instruction, 1, null).toNumber() as Lang.Number);
-                Attention.vibrate([new Attention.VibeProfile(100, duration)]);
+                if (Attention has :vibrate) {
+                    Attention.vibrate([new Attention.VibeProfile(100, duration)]);
+                }
                 _([L_VIBRA, "vibrate", duration]);
                 vibeTimer.start(method(:reduceProgram), duration, false);
                 break;
