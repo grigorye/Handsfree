@@ -29,8 +29,8 @@
         <string id="backgroundServiceEnabled">Enable background service</string>
         <string id="openAppOnIncomingCall">Open app on incoming call</string>
         <string id="companionOnboardingEnabled">Enable companion onboarding</string>
-        <string id="syncCallStateOnLaunch">Update call state on app launch.</string>
-        <string id="callStateOnGlance">Show call state on glance.</string>
+        <string id="syncCallStateOnLaunch">Update call state on app launch</string>
+        <string id="callStateOnGlance">Show call state on glance</string>
         <string id="syncAttempts">Sync attempts</string>
         <string id="secondsToCheckIn">Timeout for check-in (sec)</string>
         <string id="showSourceVersion">Show source verison in the app</string>
