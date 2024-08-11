@@ -10,6 +10,6 @@ class CallInProgress extends CallStateImp {
     }
 
     function toString() as Lang.String {
-        return "CallInProgress(" + phone["number"] + ")";
+        return "CallInProgress(" + phone +")";
     }
 }
