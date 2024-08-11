@@ -27,6 +27,6 @@ function rejectIncomingCall(phone as Phone) as Void {
         System.error("!isIncomingCallPhone: " + phone);
     }
     stopRequestingAttention();
-    phone["ringing"] = false;
+    dropRingingFromPhone(phone);
     new CallActionTask(phone, CALL_IN_PROGRESS_ACTION_REJECT).launch();
 }

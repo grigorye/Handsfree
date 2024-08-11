@@ -12,7 +12,7 @@ class ScheduleCallTask extends Communications.ConnectionListener {
         var msg = {
             "cmd" => "call",
             "args" => {
-                "number" => phone["number"]
+                "number" => getPhoneNumber(phone)
             }
         };
         setCallState(new SchedulingCall(phone, PENDING));

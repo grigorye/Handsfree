@@ -64,7 +64,7 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
                 "id" => -3
             };
             if (inProgressName != null) {
-                inProgressPhone["name"] = inProgressName as Lang.String;
+                setPhoneName(inProgressPhone, inProgressName as Lang.String);
             }
             switch (callState) {
                 case instanceof DismissedCallInProgress:
@@ -94,7 +94,7 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
             };
             var ringingName = args["name"] as Lang.String or Null;
             if (ringingName != null) {
-                ringingPhone["name"] = ringingName as Lang.String;
+                setPhoneName(ringingPhone, ringingName as Lang.String);
             }
             setCallState(new CallInProgress(ringingPhone));
             openAppOnIncomingCallIfNecessary(ringingPhone);

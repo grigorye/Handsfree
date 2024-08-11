@@ -27,7 +27,7 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
         var phones = getPhones();
         for (var i = 0; i < phones.size(); i++) {
             var phone = phones[i];
-            if ((phone["id"] as Lang.Number) == id) {
+            if (getPhoneId(phone).equals(id)) {
                 selectedPhone = phone;
                 break;
             }
@@ -35,7 +35,7 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
         if (selectedPhone == null) {
             return;
         }
-        if ((selectedPhone["name"] as Lang.String).equals("Crash Me")) {
+        if (getPhoneName(selectedPhone).equals("Crash Me")) {
             System.error("Crashing!");
         }
         scheduleCall(selectedPhone);
