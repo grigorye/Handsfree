@@ -4,10 +4,7 @@ using Toybox.Time;
 using Toybox.Time.Gregorian;
 
 (:glance, :background)
-class NoArgPlaceholder {}
-
-(:glance, :background)
-var noArg as NoArgPlaceholder = new NoArgPlaceholder();
+var noArg as Lang.Symbol = :noArg;
 
 typedef LogComponent as Lang.String;
 
@@ -57,7 +54,7 @@ function dumpImp(tag as Lang.String, output as Lang.Object or Null) as Void {
         info.hour.format("%02d") + ":" +
         info.min.format("%02d") + ":" +
         info.sec.format("%02d") + " ";
-    if (output instanceof NoArgPlaceholder) {
+    if (output == noArg) {
         System.println(timePrefix + tag);
     } else {
         System.println(timePrefix + tag + ": " + output);
