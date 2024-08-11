@@ -10,8 +10,7 @@ class CallActingViewDelegate extends WatchUi.BehaviorDelegate {
         var callState = getCallState();
         dump("onBackFromCallActing", callState);
         if (!(callState instanceof CallActing)) {
-            dump("badCallState", callState);
-            System.error("badCallState");
+            System.error("badCallState: " + callState);
         }
         setCallStateIgnoringRouting(new Idle());
         return true;
