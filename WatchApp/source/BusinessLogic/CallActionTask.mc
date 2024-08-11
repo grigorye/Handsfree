@@ -1,4 +1,6 @@
 using Toybox.Communications;
+using Toybox.Application;
+using Toybox.Lang;
 
 class CallActionTask extends Communications.ConnectionListener {
     var phone as Phone;
@@ -38,7 +40,7 @@ class CallActionTask extends Communications.ConnectionListener {
         }
         var msg = {
             "cmd" => cmd
-        };
+        } as Lang.Object as Application.PersistableType;
         dump("callAction.outMsg", msg);
         setCallState(state as CallState);
         transmitWithRetry(cmd, msg, self);

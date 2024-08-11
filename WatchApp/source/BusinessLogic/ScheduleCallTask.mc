@@ -1,4 +1,6 @@
 using Toybox.Communications;
+using Toybox.Application;
+using Toybox.Lang;
 
 class ScheduleCallTask extends Communications.ConnectionListener {
     var phone as Phone;
@@ -14,7 +16,7 @@ class ScheduleCallTask extends Communications.ConnectionListener {
             "args" => {
                 "number" => getPhoneNumber(phone)
             }
-        };
+        } as Lang.Object as Application.PersistableType;
         setCallState(new SchedulingCall(phone, PENDING));
         transmitWithRetry("scheduleCall", msg, self);
     }

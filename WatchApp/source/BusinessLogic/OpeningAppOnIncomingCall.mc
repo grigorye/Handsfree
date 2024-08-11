@@ -1,6 +1,7 @@
 using Toybox.Communications;
 using Toybox.Background;
 using Toybox.Lang;
+using Toybox.Application;
 
 (:background, :glance)
 function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
@@ -32,7 +33,7 @@ function openAppOnIncomingCall(phone as Phone) as Void {
             "args" => {
                 "messageForWakingUp" => message
             }
-        };
+        } as Lang.Object as Application.PersistableType;
         dump("outMsg", msg);
         Communications.transmit(msg, null, new DummyCommListener("openMe"));
     }
