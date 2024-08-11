@@ -1,9 +1,11 @@
 using Toybox.WatchUi;
 
+const L_CALL_ACTING_DATA as LogComponent = new LogComponent("callActing", false);
+
 class CallActingView extends WatchUi.ProgressBar {
     function initialize(callState as CallActing) {
         var commStatus = callState.commStatus;
-        dump("commStatus", commStatus);
+        _([L_CALL_ACTING_DATA, "commStatus", commStatus]);
         var source = displayTextForPhone(callState.phone);
         var message;
         switch (commStatus) {

@@ -4,6 +4,9 @@ using Toybox.System;
 using Toybox.Graphics;
 using Rez.Styles;
 
+(:glance)
+const L_GLANCE_VIEW as LogComponent = new LogComponent("glanceView", false);
+
 (:glance, :typecheck(disableBackgroundCheck))
 class GlanceView extends WatchUi.GlanceView {
 
@@ -12,17 +15,17 @@ class GlanceView extends WatchUi.GlanceView {
     }
 
     function onShow() {
-        dump("glanceOnShow", true);
+        _([L_GLANCE_VIEW, "onShow"]);
     }
 
     function onHide() {
-        dump("glanceOnHide", true);
+        _([L_GLANCE_VIEW, "onHide"]);
     }
 
     function onUpdate(dc as Graphics.Dc) {
         if (false) {
-            dump("glanceOnUpdate", { "width" => dc.getWidth(), "height" => dc.getHeight() });
-            dump("shouldShowCallState", isShowingCallStateOnGlanceEnabled());
+            _([L_GLANCE_VIEW, "onUpdate", { "width" => dc.getWidth(), "height" => dc.getHeight() }]);
+            _([L_GLANCE_VIEW, "shouldShowCallState", isShowingCallStateOnGlanceEnabled()]);
         }
         dc.setColor(Toybox.Graphics.COLOR_WHITE, Toybox.Graphics.COLOR_TRANSPARENT);
 

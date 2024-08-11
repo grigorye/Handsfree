@@ -2,6 +2,8 @@ using Toybox.WatchUi;
 using Toybox.Lang;
 using Toybox.System;
 
+const L_PHONES_VIEW as LogComponent = new LogComponent("phonesView", false);
+
 class PhonesView extends WatchUi.Menu2 {
     function initialize() {
         WatchUi.Menu2.initialize({});
@@ -33,7 +35,7 @@ class PhonesView extends WatchUi.Menu2 {
                 System.error("unknownCheckInStatus: " + checkInStatus);
             }
         }
-        dump("phonesView.setTitle", title);
+        _([L_PHONES_VIEW, "setTitle", title]);
         setTitle(joinComponents([title, headsetStatusRep()], " "));
     }
 
@@ -50,12 +52,12 @@ class PhonesView extends WatchUi.Menu2 {
     }
 
     function updateFromPhones(phones as Phones) as Void {
-        dump("updatingFromPhones", phones);
+        _([L_PHONES_VIEW, "updatingFromPhones", phones]);
         if (phones.size() != 0 && oldPhones.equals(phones)) {
-            dump("phonesNotChanged", true);
+            _([L_PHONES_VIEW, "phonesNotChanged"]);
             return;
         }
-        dump("phonesChanged", true);
+        _([L_PHONES_VIEW, "phonesChanged"]);
         deleteExistingItems();
         setFromPhones(phones);
     }
@@ -70,8 +72,7 @@ class PhonesView extends WatchUi.Menu2 {
         for (var i = 0; i < menuItemCount; i++) {
             var existed = deleteItem(0);
             if (existed == null) {
-                dump("failedIndex", i);
-                System.error("Failed to delete menu item");
+                System.error("Failed to delete menu item at index " + i);
             }
         }
     }
@@ -149,7 +150,7 @@ function specialItemForPhone(phone as Phone) as WatchUi.MenuItem | Null {
 
 function updatePhonesView() as Void {
     if (phonesViewImp == null) {
-        dump("phonesViewImp", phonesViewImp);
+        _([L_PHONES_VIEW, "phonesViewImp", phonesViewImp]);
         return;
     }
     getPhonesView().setTitleFromCheckInStatus(getCheckInStatus());

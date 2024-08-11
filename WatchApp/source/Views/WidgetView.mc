@@ -12,6 +12,8 @@ class WidgetView extends WatchUi.View {
     }
 }
 
+const L_WIDGET_VIEW as LogComponent = new LogComponent("widgetView", false);
+
 (:widget)
 class WidgetView extends WatchUi.View {
 
@@ -20,7 +22,7 @@ class WidgetView extends WatchUi.View {
     }
 
     function onShow() {
-        dump("widgetOnShow", true);
+        _([L_WIDGET_VIEW, "onShow"]);
         View.onShow();
         widgetDidShow();
     }
@@ -28,7 +30,7 @@ class WidgetView extends WatchUi.View {
     function onUpdate(dc as Graphics.Dc) {
         View.onUpdate(dc);
 
-        dump("widgetOnUpdate", { "width" => dc.getWidth(), "height" => dc.getHeight() });
+        _([L_WIDGET_VIEW, "onUpdate", { "width" => dc.getWidth(), "height" => dc.getHeight() }]);
         var deviceSettings = System.getDeviceSettings();
         if (deviceSettings has :isNightModeEnabled) {
             if (deviceSettings.isNightModeEnabled) {
@@ -40,7 +42,7 @@ class WidgetView extends WatchUi.View {
             dc.setColor(Toybox.Graphics.COLOR_WHITE, Toybox.Graphics.COLOR_TRANSPARENT);
         }
 
-        dump("shouldShowCallState", isShowingCallStateOnGlanceEnabled());
+        _([L_WIDGET_VIEW, "shouldShowCallState", isShowingCallStateOnGlanceEnabled()]);
         var appName = WatchUi.loadResource(Rez.Strings.AppName) as Lang.String;
         if (!isShowingCallStateOnGlanceEnabled()) {
             dc.drawText(

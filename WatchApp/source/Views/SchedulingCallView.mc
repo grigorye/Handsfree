@@ -1,10 +1,12 @@
 using Toybox.WatchUi;
 using Toybox.Lang;
 
+const L_SCHEDULING_CALL_VIEW as LogComponent = new LogComponent("schedulingCallView", false);
+
 class SchedulingCallView extends WatchUi.ProgressBar {
     function initialize(callState as SchedulingCall) {
         var commStatus = callState.commStatus;
-        dump("commStatus", commStatus);
+        _([L_SCHEDULING_CALL_VIEW, "commStatus", commStatus]);
         var message = "";
         var destination;
         var name = callState.phone["name"] as Lang.String or Null;
