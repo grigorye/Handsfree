@@ -6,7 +6,8 @@ enum CallInProgressAction {
     CALL_IN_PROGRESS_ACTION_REJECT = "reject"
 }
 
-typedef CallInProgressActions as Lang.Array<Lang.Dictionary<Lang.Symbol, Lang.String or CallInProgressAction>>;
+typedef CallInProgressActionSelector as Lang.Dictionary<Lang.Symbol, Lang.String or CallInProgressAction>;
+typedef CallInProgressActions as Lang.Array<CallInProgressActionSelector>;
 typedef CallInProgressTexts as Lang.Dictionary<Lang.Symbol, Lang.String or CallInProgressActions>;
 
 function textsForCallInProgress(phone as Phone) as CallInProgressTexts {
@@ -17,19 +18,20 @@ function textsForCallInProgress(phone as Phone) as CallInProgressTexts {
         actions.add({
             :prompt => "Answer",
             :command => CALL_IN_PROGRESS_ACTION_ACCEPT,
-        });
+        } as CallInProgressActionSelector);
         actions.add({
             :prompt => "Decline",
             :command => CALL_IN_PROGRESS_ACTION_REJECT
-        });
+        } as CallInProgressActionSelector);
     } else {
         actions.add({
             :prompt => "Hang Up",
             :command => CALL_IN_PROGRESS_ACTION_HANGUP
-        });
+        } as CallInProgressActionSelector);
     }
-    return {
+    var texts = {
         :title => prefix,
         :actions => actions
-    };
+    } as CallInProgressTexts;
+    return texts;
 }
