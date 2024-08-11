@@ -4,9 +4,21 @@ using Toybox.Lang;
 using Toybox.Application;
 using Toybox.System;
 
-function transmitWithRetry(tag as Lang.String, msg as Application.PersistableType, listener as Communications.ConnectionListener) as Void {
+(:background, :glance)
+const L_OUT_RETRYING as LogComponent = new LogComponent(">", false);
+
+(:background, :glance)
+const L_OUT_COMM as LogComponent = new LogComponent(">", true);
+
+function transmitWithRetry(tagLiteral as Lang.String, msg as Application.PersistableType, listener as Communications.ConnectionListener) as Void {
+    var tag = formatCommTag(tagLiteral);
     var proxy = new RetryingCommListenerProxy(tag, msg, listener);
     proxy.launch();
+}
+
+(:background, :glance)
+function formatCommTag(tag as Lang.String) as Lang.String {
+    return "'" + tag + "'";
 }
 
 class RetryingCommListenerProxy extends Communications.ConnectionListener {
@@ -25,12 +37,8 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
         self.wrappedListener = wrappedListener;
     }
 
-    function formatTag(suffix as Lang.String) as Lang.String {
-        return tag + "." + suffix;
-    }
-
     function launch() as Void {
-        dump(formatTag("launch"), true);
+        _([L_OUT_COMM, tag + ".requesting", msg]);
         transmit();
     }
 
@@ -40,7 +48,7 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
         }
         attemptNumber = attemptNumber + 1;
         attemptsRemaining = attemptsRemaining - 1;
-        dump(formatTag("transmit"), {"attempt" => attemptNumber, "msg" => msg});
+        _([L_OUT_RETRYING, tag + ".attempt." + attemptNumber]);
         Communications.transmit(msg, null, self);
     }
 
@@ -48,18 +56,24 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
         if (isBeepOnCommuncationEnabled()) {
             beep(BEEP_TYPE_SUCCESS);
         }
-        dump(formatTag("onComplete.attempt"), attemptNumber);
+        var attemptsSuffix;
+        if (attemptNumber > 1) {
+            attemptsSuffix = "(attempts: " + attemptNumber + ")";
+        } else {
+            attemptsSuffix = "";
+        }
+        _([L_OUT_COMM, tag + ".succeeded" + attemptsSuffix]);
         wrappedListener.onComplete();
     }
 
     function onError() {
-        dump(formatTag("onError.connectionAvailable"), System.getDeviceSettings().connectionAvailable);
-        dump(formatTag("onError.connectionInfo"), dumpConnectionInfos(System.getDeviceSettings().connectionInfo));
+        _([L_OUT_RETRYING, tag + ".onError.connectionAvailable", System.getDeviceSettings().connectionAvailable]);
+        _([L_OUT_RETRYING, tag + ".onError.connectionInfo", dumpConnectionInfos(System.getDeviceSettings().connectionInfo)]);
         if (isBeepOnCommuncationEnabled()) {
             beep(BEEP_TYPE_ERROR);
         }
-        dump(formatTag("onError.attempt"), attemptNumber);
-        dump(formatTag("onError.attemptsRemaining"), attemptsRemaining);
+        _([L_OUT_RETRYING, tag + ".onError.attempt", attemptNumber]);
+        _([L_OUT_RETRYING, tag + ".onError.attemptsRemaining", attemptsRemaining]);
         if (retransmitTimer != null) {
             retransmitTimer.stop();
         }
@@ -70,6 +84,7 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
             (retransmitTimer as Timer.Timer).start(method(:transmit), retransmitDelay, false);
             return;
         }
+        _([L_OUT_COMM, tag + ".failed"]);
         wrappedListener.onError();
     }
 }

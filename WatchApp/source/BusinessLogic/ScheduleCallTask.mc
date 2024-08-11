@@ -2,6 +2,8 @@ using Toybox.Communications;
 using Toybox.Application;
 using Toybox.Lang;
 
+const L_SCHEDULE_CALL as LogComponent = new LogComponent("scheduleCall", true);
+
 class ScheduleCallTask extends Communications.ConnectionListener {
     var phone as Phone;
 
@@ -18,14 +20,14 @@ class ScheduleCallTask extends Communications.ConnectionListener {
             }
         } as Lang.Object as Application.PersistableType;
         setCallState(new SchedulingCall(phone, PENDING));
-        transmitWithRetry("scheduleCall", msg, self);
+        transmitWithRetry("call", msg, self);
     }
 
     function onComplete() {
-        var oldState = getCallState() as SchedulingCall;
+        var oldState = getCallState();
         if (!(oldState instanceof SchedulingCall)) {
             // We may already go back, and hence change the call state to Idle.
-            dump("scheduleCall.onComplete.callStateInvalidated", oldState);
+            _([L_SCHEDULE_CALL, "onComplete.callStateInvalidated", oldState]);
             return;
         }
         var newState = oldState.clone();
@@ -34,10 +36,10 @@ class ScheduleCallTask extends Communications.ConnectionListener {
     }
 
     function onError() {
-        var oldState = getCallState() as SchedulingCall;
+        var oldState = getCallState();
         if (!(oldState instanceof SchedulingCall)) {
             // We may already go back, and hence change the call state to Idle.
-            dump("scheduleCall.onError.callStateInvalidated", oldState);
+            _([L_SCHEDULE_CALL, "onError.callStateInvalidated", oldState]);
             return;
         }
         var newState = oldState.clone();

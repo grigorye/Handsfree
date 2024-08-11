@@ -1,5 +1,7 @@
 using Toybox.WatchUi;
 
+const L_CHECK_IN_STATUS as LogComponent = new LogComponent("checkInStatus", false);
+
 enum CheckInStatus {
     CHECK_IN_NONE = "none",
     CHECK_IN_IN_PROGRESS = "in-progress",
@@ -14,7 +16,7 @@ function getCheckInStatus() as CheckInStatus {
 }
 
 function setCheckInStatus(checkInStatus as CheckInStatus) as Void {
-    dump("setCheckInStatus", checkInStatus);
+    _([L_CHECK_IN_STATUS, "set", checkInStatus]);
     checkInStatusImp = checkInStatus;
     if (getCallState() instanceof Idle) {
         updatePhonesView();

@@ -2,6 +2,9 @@ using Toybox.Lang;
 using Toybox.WatchUi;
 using Toybox.System;
 
+const L_CALL_STATE_MANIP as LogComponent = new LogComponent("callStateManip", false);
+const L_CALL_STATE_UI_UPDATE as LogComponent = new LogComponent("callStateUI", false);
+
 function setCallInProgress(number as Lang.String) as Void {
     var phones = getPhones();
     for (var i = 0; i < phones.size(); i++) {
@@ -15,7 +18,7 @@ function setCallInProgress(number as Lang.String) as Void {
 (:background, :glance)
 function setCallState(callStateImp as CallState or CallActing) as Void {
     var callState = callStateImp as CallState;
-    dump("setCallState", callState);
+    _([L_CALL_STATE, "set", callState]);
     setCallStateImp(callState);
     updateUIForCallState();
 }
@@ -23,7 +26,7 @@ function setCallState(callStateImp as CallState or CallActing) as Void {
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function updateUIForCallState() as Void {
     var activeUiKind = getActiveUiKind();
-    dump("activeUiKind", activeUiKind);
+    _([L_CALL_STATE_UI_UPDATE, "activeUiKind", activeUiKind]);
     switch (activeUiKind) {
         case ACTIVE_UI_NONE: {
             return;
@@ -33,7 +36,7 @@ function updateUIForCallState() as Void {
             return;
         }
         case ACTIVE_UI_APP: {
-            dumpViewStack("viewStack");
+            _([L_CALL_STATE_UI_UPDATE, "viewStack", viewStackTags()]);
             if (viewStackTagsEqual(["widget"])) {
                 WatchUi.requestUpdate();
             } else {
@@ -45,7 +48,7 @@ function updateUIForCallState() as Void {
 }
 
 function setCallStateIgnoringRouting(callState as CallState) as Void {
-    dump("setCallStateIgnoringRouting", callState);
+    _([L_CALL_STATE, "setIgnoringRouting", callState]);
     setCallStateImp(callState);
     setRoutedCallStateImp(callState);
 }

@@ -2,6 +2,8 @@ using Toybox.Communications;
 using Toybox.Application;
 using Toybox.Lang;
 
+const L_CALL_ACTION as LogComponent = new LogComponent("callAction", false);
+
 class CallActionTask extends Communications.ConnectionListener {
     var phone as Phone;
     var action as CallInProgressAction;
@@ -13,7 +15,7 @@ class CallActionTask extends Communications.ConnectionListener {
     }
 
     function launch() as Void {
-        dump("callAction.launch", true);
+        _([L_CALL_ACTION, "launch", true]);
 
         var cmd;
         var state;
@@ -41,16 +43,15 @@ class CallActionTask extends Communications.ConnectionListener {
         var msg = {
             "cmd" => cmd
         } as Lang.Object as Application.PersistableType;
-        dump("callAction.outMsg", msg);
         setCallState(state as CallState);
         transmitWithRetry(cmd, msg, self);
     }
 
     function onComplete() {
-        var oldState = getCallState() as CallActing;
+        var oldState = getCallState();
         if (!(oldState instanceof CallActing)) {
             // We may already go back, and hence change the call state to Idle.
-            dump("callAction.onComplete.callStateInvalidated", oldState);
+            _([L_CALL_ACTION, "onComplete.callStateInvalidated", oldState]);
             return;
         }
         var newState = oldState.clone();
@@ -59,13 +60,13 @@ class CallActionTask extends Communications.ConnectionListener {
     }
 
     function onError() {
-        var oldState = getCallState() as CallActing;
+        var oldState = getCallState();
         if (!(oldState instanceof CallActing)) {
             // We may already go back, and hence change the call state to Idle.
-            dump("callAction.onError.callStateInvalidated", oldState);
+            _([L_CALL_ACTION, "onError.callStateInvalidated", oldState]);
             return;
         }
-        dump("callAction.onError", true);
+        _([L_CALL_ACTION, "onError"]);
         var newState = oldState.clone();
         newState.commStatus = FAILED;
         setCallState(newState);

@@ -1,6 +1,9 @@
 using Toybox.WatchUi;
 using Toybox.Lang;
 
+const L_USER_ACTION as LogComponent = new LogComponent("userAction", true);
+const L_USER_ACTION_DEBUG as LogComponent = new LogComponent("userAction", false);
+
 class CallInProgressViewDelegate extends WatchUi.Menu2InputDelegate {
     var phone as Phone;
 
@@ -10,22 +13,22 @@ class CallInProgressViewDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onSelect(item as WatchUi.MenuItem) as Void {
-        dump("onSelectInCallInProgress", { "phone" => phone, "item" => item.getId() });
+        _([L_USER_ACTION, "callInProgress.onSelect", { "phone" => phone, "item" => item.getId() }]);
         switch (item.getId() as CallInProgressAction) {
             case CALL_IN_PROGRESS_ACTION_ACCEPT: {
-                dump("accept", true);
+                _([L_USER_ACTION_DEBUG, "accept"]);
                 popView(WatchUi.SLIDE_IMMEDIATE);
                 acceptIncomingCall(phone);
                 break;
             }
             case CALL_IN_PROGRESS_ACTION_HANGUP: {
-                dump("hangup", true);
+                _([L_USER_ACTION_DEBUG, "hangup"]);
                 popView(WatchUi.SLIDE_IMMEDIATE);
                 hangupCallInProgress(phone);
                 break;
             }
             case CALL_IN_PROGRESS_ACTION_REJECT: {
-                dump("reject", true);
+                _([L_USER_ACTION_DEBUG, "reject"]);
                 popView(WatchUi.SLIDE_IMMEDIATE);
                 rejectIncomingCall(phone);
                 break;
@@ -34,7 +37,7 @@ class CallInProgressViewDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onBack() {
-        dump("onBackInCallInProgress", true);
+        _([L_USER_ACTION, "callInProgress.onBack"]);
         popView(WatchUi.SLIDE_IMMEDIATE);
         exitToSystemFromPhonesView();
     }

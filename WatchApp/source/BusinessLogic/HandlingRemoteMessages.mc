@@ -3,13 +3,15 @@ using Toybox.Communications;
 using Toybox.System;
 
 (:background)
+const L_REMOTE_MSG as LogComponent = new LogComponent("<", true);
+
+(:background)
 function handleRemoteMessage(iqMsg as Communications.Message) as Void {
     didSeeCompanion();
     var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
+    _([L_REMOTE_MSG, "msg", msg]);
     var cmd = msg["cmd"] as Lang.String;
     var args = msg["args"] as Lang.Dictionary<Lang.String, Lang.Object>;
-    dump("<- inCmd", cmd);
-    dump("inArgs", args);
     if (isBeepOnCommuncationEnabled()) {
         beep(BEEP_TYPE_MESSAGE);
     }
@@ -24,7 +26,7 @@ function handleRemoteMessage(iqMsg as Communications.Message) as Void {
                 }
                 callStateIsOwnedByUs = true;
             } else {
-                dump("callStateIsNotOwnedByUs", true);
+                _([L_REMOTE_MSG, "callStateIsNotOwnedByUs", true]);
             }
             break;
         case "setPhones":
@@ -41,16 +43,18 @@ function handleRemoteMessage(iqMsg as Communications.Message) as Void {
 }
 
 (:background)
+const L_PHONE_STATE_CHANGED as LogComponent = new LogComponent("phoneStateChanged", false);
+
+(:background)
 function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
     var callState = getCallState();
-    dump("callState", callState);
+    _([L_PHONE_STATE_CHANGED, "oldCallState", callState]);
     var inIsHeadsetConnected = args["isHeadsetConnected"];
-    dump("inIsHeadsetConnected", inIsHeadsetConnected);
     if (inIsHeadsetConnected != null) {
         setIsHeadsetConnected(inIsHeadsetConnected as Lang.Boolean);
     }
     var phoneState = args["state"] as Lang.String;
-    dump("inPhoneState", phoneState);
+    _([L_PHONE_STATE_CHANGED, "inPhoneState", phoneState]);
     if (!phoneState.equals("ringing")) {
         stopRequestingAttentionIfInApp();
     }
@@ -58,7 +62,7 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
         case "callInProgress":
             var inProgressNumber = args["number"] as Lang.String;
             var inProgressName = args["name"] as Lang.String or Null;
-            dump("inProgressNumber", inProgressNumber);
+            _([L_PHONE_STATE_CHANGED, "inProgressNumber", inProgressNumber]);
             var inProgressPhone = {
                 "number" => inProgressNumber,
                 "id" => -3
@@ -71,7 +75,7 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
                     var dismissedCallState = callState as DismissedCallInProgress;
                     var dismissedNumber = dismissedCallState.phone["number"] as Lang.String;
                     var dismissedButChanged = !dismissedNumber.equals(inProgressNumber);
-                    dump("inDismissedButChanged", dismissedButChanged);
+                    _([L_PHONE_STATE_CHANGED, "dismissedButChanged", dismissedButChanged]);
                     if (dismissedButChanged) {
                         setCallState(new CallInProgress(inProgressPhone));
                     }
@@ -86,7 +90,7 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
             break;
         case "ringing":
             var ringingNumber = args["number"] as Lang.String;
-            dump("ringingNumber", ringingNumber);
+            _([L_PHONE_STATE_CHANGED, "inRingingNumber", ringingNumber]);
             var ringingPhone = {
                 "number" => ringingNumber,
                 "id" => -4,

@@ -3,10 +3,12 @@ using Toybox.Lang;
 (:background)
 var callStateIsOwnedByUs as Lang.Boolean = false;
 
+const L_SCHEDULE_CALL_DEBUG as LogComponent = new LogComponent("scheduleCall", false);
+
 function scheduleCall(phone as Phone) as Void {
-    dump("scheduleCallPhone", phone);
-    dump("oldCallStateIsOwnedByUs", callStateIsOwnedByUs);
+    _([L_SCHEDULE_CALL, "phone", phone]);
+    _([L_SCHEDULE_CALL_DEBUG, "oldCallStateIsOwnedByUs", callStateIsOwnedByUs]);
     callStateIsOwnedByUs = true;
-    dump("newCallStateIsOwnedByUs", callStateIsOwnedByUs);
+    _([L_SCHEDULE_CALL_DEBUG, "newCallStateIsOwnedByUs", callStateIsOwnedByUs]);
     new ScheduleCallTask(phone).launch();
 }

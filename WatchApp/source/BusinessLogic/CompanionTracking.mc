@@ -28,14 +28,14 @@ function didSeeCompanion() as Void {
     if (everSeenCompanion()) {
         return;
     }
-    dump("sawTheCompanionFirstTime", true);
+    _([L_COMPANION_TRACK, "sawTheCompanionFirstTime"]);
     setEverSeenCompanion(true);
     updateForDidSeeCompanion();
 }
 
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function updateForDidSeeCompanion() as Void {
-    dump("updateForDidSeeCompanion.activeUiKind", getActiveUiKind());
+    _([L_COMPANION_TRACK, "updateForDidSeeCompanion.activeUiKind", getActiveUiKind()]);
     if (!getActiveUiKind().equals(ACTIVE_UI_APP)) {
         return;
     }

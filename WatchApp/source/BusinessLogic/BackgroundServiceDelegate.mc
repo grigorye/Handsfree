@@ -4,6 +4,9 @@ using Toybox.Communications;
 using Toybox.Lang;
 
 (:background)
+const L_BACKGROUND_SERVICE as LogComponent = new LogComponent("backgroundService", true);
+
+(:background)
 class BackgroundServiceDelegate extends System.ServiceDelegate {
 
     function initialize() {
@@ -11,14 +14,14 @@ class BackgroundServiceDelegate extends System.ServiceDelegate {
     }
 
     function onPhoneAppMessage(msg as Communications.PhoneAppMessage) as Void {
-        dump("onPhoneAppMessage", msg);
-        dump("activeUiKind", getActiveUiKind());
+        _([L_BACKGROUND_SERVICE, "onPhoneAppMessage", msg]);
+        _([L_BACKGROUND_SERVICE, "activeUiKind", getActiveUiKind()]);
         handleRemoteMessage(msg);
         if (isBackgroundAppUpdateEnabled()) {
-            dump("backgroundExit", "onPhoneAppMessage");
+            _([L_BACKGROUND_SERVICE, "exit", "onPhoneAppMessage"]);
             Background.exit("onPhoneAppMessage");
         } else {
-            dump("backgroundExit", null);
+            _([L_BACKGROUND_SERVICE, "exit", null]);
             Background.exit(null);
         }
     }

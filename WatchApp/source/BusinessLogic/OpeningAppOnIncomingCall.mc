@@ -4,13 +4,16 @@ using Toybox.Lang;
 using Toybox.Application;
 
 (:background, :glance)
+const L_OPEN_ME as LogComponent = new LogComponent("openMe", false);
+
+(:background, :glance)
 function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
-    dump("isOpenAppOnIncomingCallEnabled", isOpenAppOnIncomingCallEnabled());
+    _([L_OPEN_ME, "isOpenAppOnIncomingCallEnabled", isOpenAppOnIncomingCallEnabled()]);
     if (!isOpenAppOnIncomingCallEnabled()) {
         return;
     }
     var activeUiKind = getActiveUiKind();
-    dump("activeUiKind", activeUiKind);
+    _([L_OPEN_ME, "activeUiKind", activeUiKind]);
     if (activeUiKind.equals(ACTIVE_UI_APP)) {
         startRequestingAttentionIfInApp();
     } else {
@@ -20,7 +23,7 @@ function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
 
 (:background, :glance)
 function openAppFailed(message as Lang.String) as Void {
-    dump("openAppFailed.requestingApplicationWake", message);
+    _([L_OPEN_ME, "openAppFailed.requestingApplicationWake", message]);
     Background.requestApplicationWake(message);
 }
 
@@ -34,11 +37,12 @@ function openAppOnIncomingCall(phone as Phone) as Void {
                 "messageForWakingUp" => message
             }
         } as Lang.Object as Application.PersistableType;
-        dump("outMsg", msg);
-        Communications.transmit(msg, null, new DummyCommListener("openMe"));
+        var tag = formatCommTag("openMe");
+        _([L_OUT_COMM, tag + ".requesting", msg]);
+        Communications.transmit(msg, null, new DummyCommListener(tag));
     }
     if (isIncomingOpenAppViaWakeUpEnabled()) {
-        dump("requestingApplicationWake", message);
+        _([L_OPEN_ME, "requestingApplicationWake", message]);
         Background.requestApplicationWake(message);
     }
 }
