@@ -25,7 +25,7 @@ class WidgetView extends WatchUi.View {
         widgetDidShow();
     }
 
-    function onUpdate(dc) {
+    function onUpdate(dc as Graphics.Dc) {
         View.onUpdate(dc);
 
         dump("widgetOnUpdate", { "width" => dc.getWidth(), "height" => dc.getHeight() });

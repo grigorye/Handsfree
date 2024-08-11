@@ -19,7 +19,7 @@ class GlanceView extends WatchUi.GlanceView {
         dump("glanceOnHide", true);
     }
 
-    function onUpdate(dc) {
+    function onUpdate(dc as Graphics.Dc) {
         if (false) {
             dump("glanceOnUpdate", { "width" => dc.getWidth(), "height" => dc.getHeight() });
             dump("shouldShowCallState", isShowingCallStateOnGlanceEnabled());

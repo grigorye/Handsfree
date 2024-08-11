@@ -28,12 +28,12 @@ class App extends Application.AppBase {
         }
     }
 
-    function onStart(state) {
+    function onStart(state as Lang.Dictionary or Null) {
         dump("onStart", state);
         Application.AppBase.onStart(state);
     }
 
-    function onStop(state) {
+    function onStop(state as Lang.Dictionary or Null) {
         dump("activeUiKindOnStop", getActiveUiKind());
         dump("onStop", state);
         dump("systemStats", systemStatsDumpRep());
