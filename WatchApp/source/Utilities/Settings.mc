@@ -90,3 +90,8 @@ function isCompanionOnboardingEnabled() as Lang.Boolean {
 function incomingCallVibrationProgram() as Lang.String {
     return Application.Properties.getValue("incomingCallVibration") as Lang.String;
 }
+
+(:background, :glance)
+function isLogAllEnforced() as Lang.Boolean {
+    return Application.Properties.getValue("forceLogAll") as Lang.Boolean;
+}

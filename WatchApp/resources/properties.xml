@@ -21,6 +21,7 @@
         <property id="beepOnComm" type="boolean">false</property>
         <property id="workaroundNoRedrawForMenu2" type="boolean">true</property>
         <property id="incomingCallVibration" type="string">v3;p3;v3;p3</property>
+        <property id="forceLogAll" type="boolean">false</property>
     </properties>
 
     <strings>
@@ -44,6 +45,7 @@
         <string id="workaroundNoRedrawForMenu2">Workaround no redraw for Menu2</string>
         <string id="incomingCallVibration">Incoming call vibration pattern ('v3;p1;v3;p2'
             means 'vibrate 3s, pause 1s, vibrate 3s, pause 2s')</string>
+        <string id="forceLogAll">Verbose logs</string>
     </strings>
 
     <settings>
@@ -80,6 +82,10 @@
         <setting propertyKey="@Properties.incomingCallVibration"
             title="@Strings.incomingCallVibration">
             <settingConfig type="alphaNumeric" />
+        </setting>
+        <setting propertyKey="@Properties.forceLogAll"
+            title="@Strings.forceLogAll">
+            <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.dummySourceVersion" title="@Strings.sourceVersion">
             <settingConfig type="alphaNumeric" readonly="true" />

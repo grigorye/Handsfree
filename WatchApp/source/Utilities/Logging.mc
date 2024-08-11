@@ -10,9 +10,6 @@ class NoArgPlaceholder {}
 var noArg as NoArgPlaceholder = new NoArgPlaceholder();
 
 (:glance, :background)
-var isLogAllEnforced as Lang.Boolean = true;
-
-(:glance, :background)
 class LogComponent {
     var name as Lang.String;
     var enabled as Lang.Boolean;
@@ -40,7 +37,7 @@ function _(info as LogArgsWithoutValue or LogArgsWithValue) as Void {
     } else {
         value = noArg as Lang.Object;
     }
-    if (!component.enabled && !isLogAllEnforced) {
+    if (!component.enabled && !isLogAllEnforced()) {
         return;
     }
     var qualifiedTag = component.toString() + "." + tag;
