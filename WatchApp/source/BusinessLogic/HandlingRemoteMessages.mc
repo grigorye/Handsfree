@@ -62,7 +62,7 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
             var inProgressPhone = {
                 "number" => inProgressNumber,
                 "id" => -3
-            };
+            } as Phone;
             if (inProgressName != null) {
                 setPhoneName(inProgressPhone, inProgressName as Lang.String);
             }
@@ -91,7 +91,7 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
                 "number" => ringingNumber,
                 "id" => -4,
                 "ringing" => true
-            };
+            } as Phone;
             var ringingName = args["name"] as Lang.String or Null;
             if (ringingName != null) {
                 setPhoneName(ringingPhone, ringingName as Lang.String);
