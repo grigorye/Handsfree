@@ -20,7 +20,7 @@ class VibrationLoop {
     function reduceProgram() as Void {
         _([L_VIBRA, "tail", tail]);
         var instructionEnd = tail.find(";");
-        var instruction = tail.substring(0, instructionEnd) as Lang.String;
+        var instruction = substring(tail, 0, instructionEnd);
         _([L_VIBRA, "instruction", instruction]);
 
         if (instructionEnd == null) {
@@ -28,20 +28,20 @@ class VibrationLoop {
             tail = program;
         } else {
             var newTailIndex = (instructionEnd as Lang.Number) + 1;
-            tail = tail.substring(newTailIndex, null) as Lang.String;
+            tail = substring(tail, newTailIndex, null);
         }
 
-        var command = instruction.substring(0, 1) as Lang.String;
+        var command = substring(instruction, 0, 1);
         switch (command) {
             case "v": {
-                var duration = 1000 * (instruction.substring(1, null) as Lang.String).toNumber() as Lang.Number;
+                var duration = 1000 * (substring(instruction, 1, null).toNumber() as Lang.Number);
                 Attention.vibrate([new Attention.VibeProfile(100, duration)]);
                 _([L_VIBRA, "vibrate", duration]);
                 vibeTimer.start(method(:reduceProgram), duration, false);
                 break;
             }
             case "p":
-                var pause = 1000 * (instruction.substring(1, null) as Lang.String).toNumber() as Lang.Number;
+                var pause = 1000 * (substring(instruction, 1, null).toNumber() as Lang.Number);
                 _([L_VIBRA, "pause", pause]);
                 vibeTimer.start(method(:reduceProgram), pause, false);
                 break;
