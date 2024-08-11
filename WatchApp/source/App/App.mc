@@ -124,10 +124,19 @@ function appDidRouteToMainUI() as Void {
         System.error("Already routed to main UI");
     }
     routedToMainUI = true;
-    if (getCheckInImp() != null) {
-        System.error("getCheckInImp() != null");
+    launchCheckInIfNecessary();
+}
+
+function launchCheckInIfNecessary() as Void {
+    var callState = getCallState();
+    if (!(callState instanceof Idle)) {
+        _([L_APP_LIFE_CYCLE, "checkInSkipped.dueToCallState", callState]);
+    } else {
+        if (getCheckInImp() != null) {
+            System.error("getCheckInImp() != null");
+        }
+        getCheckIn().launch();
     }
-    getCheckIn().launch();
 }
 
 (:widget)
@@ -135,11 +144,6 @@ function appDidRouteFromMainUI() as Void {
     _([L_APP, "appDidRouteFromMainUI"]);
     setRoutedCallStateImp(null);
     setPhonesViewImp(null);
-    if (getCheckInImp() == null) {
-        System.error("getCheckInImp() == null");
-    }
-    getCheckIn().cancel();
-    setCheckInImp(null);
 }
 
 
