@@ -7,9 +7,9 @@ const L_REMOTE_MSG as LogComponent = new LogComponent("<", true);
 
 (:background)
 function handleRemoteMessage(iqMsg as Communications.Message) as Void {
+    _([L_REMOTE_MSG, "msg", iqMsg.data]);
     didSeeCompanion();
     var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
-    _([L_REMOTE_MSG, "msg", msg]);
     var cmd = msg["cmd"] as Lang.String;
     var args = msg["args"] as Lang.Dictionary<Lang.String, Lang.Object>;
     if (isBeepOnCommuncationEnabled()) {
