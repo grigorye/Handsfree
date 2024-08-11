@@ -10,6 +10,10 @@ class HangingUp extends CallActing {
     function clone() as CallActing {
         return new HangingUp(phone, commStatus);
     }
+
+    function className() as Lang.String {
+        return "HangingUp";
+    }
 }
 
 (:background, :glance)
@@ -21,6 +25,10 @@ class Declining extends CallActing {
     function clone() as CallActing {
         return new Declining(phone, commStatus);
     }
+
+    function className() as Lang.String {
+        return "Declining";
+    }
 }
 
 (:background, :glance)
@@ -31,6 +39,10 @@ class Accepting extends CallActing {
 
     function clone() as CallActing {
         return new Accepting(phone, commStatus);
+    }
+
+    function className() as Lang.String {
+        return "Accepting";
     }
 }
 
@@ -49,7 +61,11 @@ class CallActing extends CallStateImp {
         return new CallActing(phone, commStatus);
     }
 
+    function className() as Lang.String {
+        return "CallActing";
+    }
+
     function toString() as Lang.String {
-        return "CallActing(" + { "phone" => phone, "commStatus" => commStatus } + ")";
+        return className() + "(" + { "phone" => phone, "commStatus" => commStatus } + ")";
     }
 }
