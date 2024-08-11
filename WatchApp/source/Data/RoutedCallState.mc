@@ -1,3 +1,5 @@
+const L_ROUTED_CALL_STATE as LogComponent = new LogComponent("routedCallState", true);
+
 var routedCallStateImp as CallState or Null;
 
 function getRoutedCallState() as CallState {
@@ -8,6 +10,6 @@ function getRoutedCallState() as CallState {
 }
 
 function setRoutedCallStateImp(callState as CallState or Null) as Void {
-    dump("setRoutedCallStateImp", callState);
+    _([L_ROUTED_CALL_STATE, "set", callState]);
     routedCallStateImp = callState;
 }

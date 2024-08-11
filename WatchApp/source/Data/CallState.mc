@@ -1,6 +1,9 @@
 using Toybox.Application;
 using Toybox.Lang;
 
+(:background, :glance)
+const L_CALL_STATE as LogComponent = new LogComponent("callState", true);
+
 typedef CallState as Idle or SchedulingCall or CallInProgress or DismissedCallInProgress or HangingUp or Accepting or Declining;
 
 (:background, :glance)
@@ -20,19 +23,19 @@ function loadCallState() as CallState or Null {
     var callStateData = Application.Storage.getValue("callState.v1") as CallStateData or Null;
     var callState = decodeCallState(callStateData);
     if (callState != null) {
-        dump("loadedCallState", callState);
+        _([L_CALL_STATE, "loaded", callState]);
         switch (callState) {
             case instanceof CallActing: {
-                var adjustedLoadedCallState = new Idle();
-                dump("adjustedLoadedCallState", adjustedLoadedCallState);
-                return adjustedLoadedCallState;
+                var adjustedCallState = new Idle() as CallState;
+                _([L_CALL_STATE, "adjustedLoaded", adjustedCallState]);
+                return adjustedCallState;
             }
             default: {
                 return callState as CallState;
             }
         }
     }
-    dump("loadedCallState", "null");
+    _([L_CALL_STATE, "loaded", null]);
     return null;
 }
 
