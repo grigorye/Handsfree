@@ -44,11 +44,11 @@ function _(info as LogArgsWithoutValue or LogArgsWithValue) as Void {
         return;
     }
     var qualifiedTag = component.toString() + "." + tag;
-    dump(qualifiedTag, value);
+    dumpImp(qualifiedTag, value);
 }
 
 (:glance, :background)
-function dump(tag as Lang.String, output as Lang.Object or Null) as Void {
+function dumpImp(tag as Lang.String, output as Lang.Object or Null) as Void {
     var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
 
     if (newSession) {
