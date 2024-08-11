@@ -2,8 +2,8 @@ using Toybox.Lang;
 using Toybox.WatchUi;
 using Toybox.System;
 
-const L_CALL_STATE_MANIP as LogComponent = new LogComponent("callStateManip", false);
-const L_CALL_STATE_UI_UPDATE as LogComponent = new LogComponent("callStateUI", false);
+const L_CALL_STATE_MANIP as LogComponent = "callStateManip";
+const L_CALL_STATE_UI_UPDATE as LogComponent = "callStateUI";
 
 function setCallInProgress(number as Lang.String) as Void {
     var phones = getPhones();

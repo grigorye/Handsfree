@@ -4,7 +4,7 @@ using Toybox.Communications;
 using Toybox.Lang;
 
 (:background)
-const L_BACKGROUND_SERVICE as LogComponent = new LogComponent("backgroundService", true);
+const L_BACKGROUND_SERVICE as LogComponent = "backgroundService";
 
 (:background)
 class BackgroundServiceDelegate extends System.ServiceDelegate {

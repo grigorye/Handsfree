@@ -6,17 +6,17 @@ using Toybox.Lang;
 using Toybox.Communications;
 
 (:glance, :background)
-const L_APP as LogComponent = new LogComponent("app", false);
+const L_APP as LogComponent = "app";
 (:glance, :background)
-const L_APP_LIFE_CYCLE as LogComponent = new LogComponent("app", false);
+const L_APP_LIFE_CYCLE as LogComponent = "app";
 (:glance, :background)
-const L_APP_INITIAL_VIEW as LogComponent = new LogComponent("app", false);
+const L_APP_INITIAL_VIEW as LogComponent = "app";
 (:glance, :background)
-const L_APP_STAT as LogComponent = new LogComponent("app", false);
+const L_APP_STAT as LogComponent = "app";
 (:glance, :background)
-const L_APP_EXTRA as LogComponent = new LogComponent("app", false);
+const L_APP_EXTRA as LogComponent = "app";
 (:glance, :background)
-const L_COMPANION_TRACK as LogComponent = new LogComponent("companionTrack", false);
+const L_COMPANION_TRACK as LogComponent = "companionTrack";
 
 (:glance, :background)
 class App extends Application.AppBase {

@@ -2,7 +2,7 @@ using Toybox.WatchUi;
 using Toybox.Lang;
 using Toybox.System;
 
-const L_PHONES_VIEW as LogComponent = new LogComponent("phonesView", false);
+const L_PHONES_VIEW as LogComponent = "phonesView";
 
 class PhonesView extends WatchUi.Menu2 {
     function initialize() {

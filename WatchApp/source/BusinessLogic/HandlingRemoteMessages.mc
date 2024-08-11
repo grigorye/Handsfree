@@ -3,7 +3,7 @@ using Toybox.Communications;
 using Toybox.System;
 
 (:background)
-const L_REMOTE_MSG as LogComponent = new LogComponent("<", true);
+const L_REMOTE_MSG as LogComponent = "<";
 
 (:background)
 function handleRemoteMessage(iqMsg as Communications.Message) as Void {
@@ -43,7 +43,7 @@ function handleRemoteMessage(iqMsg as Communications.Message) as Void {
 }
 
 (:background)
-const L_PHONE_STATE_CHANGED as LogComponent = new LogComponent("phoneStateChanged", false);
+const L_PHONE_STATE_CHANGED as LogComponent = "phoneStateChanged";
 
 (:background)
 function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {

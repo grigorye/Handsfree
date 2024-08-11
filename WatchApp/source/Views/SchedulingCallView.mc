@@ -1,7 +1,7 @@
 using Toybox.WatchUi;
 using Toybox.Lang;
 
-const L_SCHEDULING_CALL_VIEW as LogComponent = new LogComponent("schedulingCallView", false);
+const L_SCHEDULING_CALL_VIEW as LogComponent = "schedulingCallView";
 
 class SchedulingCallView extends WatchUi.ProgressBar {
     function initialize(callState as SchedulingCall) {

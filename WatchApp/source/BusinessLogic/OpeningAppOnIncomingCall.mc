@@ -4,7 +4,7 @@ using Toybox.Lang;
 using Toybox.Application;
 
 (:background, :glance)
-const L_OPEN_ME as LogComponent = new LogComponent("openMe", false);
+const L_OPEN_ME as LogComponent = "openMe";
 
 (:background, :glance)
 function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {

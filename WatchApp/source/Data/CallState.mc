@@ -2,7 +2,7 @@ using Toybox.Application;
 using Toybox.Lang;
 
 (:background, :glance)
-const L_CALL_STATE as LogComponent = new LogComponent("callState", true);
+const L_CALL_STATE as LogComponent = "callState";
 
 typedef CallState as Idle or SchedulingCall or CallInProgress or DismissedCallInProgress or HangingUp or Accepting or Declining;
 

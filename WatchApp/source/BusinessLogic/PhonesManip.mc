@@ -3,7 +3,7 @@ using Toybox.Application;
 using Toybox.Lang;
 
 (:background, :glance)
-const L_PHONES as LogComponent = new LogComponent("phones", false);
+const L_PHONES as LogComponent = "phones";
 
 (:background, :glance)
 var phonesImp as Phones or Null;

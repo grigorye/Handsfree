@@ -1,10 +1,10 @@
 using Toybox.Communications;
 using Toybox.Lang;
 
-const L_INCOMING as LogComponent = new LogComponent("incoming", true);
+const L_INCOMING as LogComponent = "incoming";
 
 (:glance)
-const L_INCOMING_INIT as LogComponent = new LogComponent("incoming", false);
+const L_INCOMING_INIT as LogComponent = "incoming";
 
 (:glance)
 class InAppIncomingMessageDispatcher {

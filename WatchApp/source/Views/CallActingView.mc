@@ -1,6 +1,6 @@
 using Toybox.WatchUi;
 
-const L_CALL_ACTING_DATA as LogComponent = new LogComponent("callActing", false);
+const L_CALL_ACTING_DATA as LogComponent = "callActing";
 
 class CallActingView extends WatchUi.ProgressBar {
     function initialize(callState as CallActing) {

@@ -3,9 +3,9 @@ using Toybox.Application;
 using Toybox.System;
 
 (:background, :glance)
-const L_ENCODING as LogComponent = new LogComponent("encoding", false);
+const L_ENCODING as LogComponent = "encoding";
 (:background, :glance)
-const L_DECODING as LogComponent = new LogComponent("decoding", false);
+const L_DECODING as LogComponent = "decoding";
 
 (:background, :glance)
 typedef CallStateData as Lang.Dictionary<Application.PropertyKeyType, Application.PropertyValueType>;

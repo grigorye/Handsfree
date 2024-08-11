@@ -1,6 +1,6 @@
 using Toybox.WatchUi;
 
-const L_CHECK_IN_STATUS as LogComponent = new LogComponent("checkInStatus", false);
+const L_CHECK_IN_STATUS as LogComponent = "checkInStatus";
 
 enum CheckInStatus {
     CHECK_IN_NONE = "none",

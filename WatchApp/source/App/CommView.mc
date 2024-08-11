@@ -1,7 +1,7 @@
 using Toybox.WatchUi;
 
-const L_COMM_VIEW as LogComponent = new LogComponent("commView", false);
-const L_COMM_VIEW_CRITICAL as LogComponent = new LogComponent("commView", true);
+const L_COMM_VIEW as LogComponent = "commView";
+const L_COMM_VIEW_CRITICAL as LogComponent = "commView";
 
 class CommView extends WatchUi.View {
     function initialize() {

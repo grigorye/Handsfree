@@ -1,8 +1,8 @@
 using Toybox.WatchUi;
 using Toybox.Lang;
 
-const L_USER_ACTION as LogComponent = new LogComponent("userAction", true);
-const L_USER_ACTION_DEBUG as LogComponent = new LogComponent("userAction", false);
+const L_USER_ACTION as LogComponent = "userAction";
+const L_USER_ACTION_DEBUG as LogComponent = "userAction";
 
 class CallInProgressViewDelegate extends WatchUi.Menu2InputDelegate {
     var phone as Phone;

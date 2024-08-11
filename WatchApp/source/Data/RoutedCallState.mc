@@ -1,4 +1,4 @@
-const L_ROUTED_CALL_STATE as LogComponent = new LogComponent("routedCallState", true);
+const L_ROUTED_CALL_STATE as LogComponent = "routedCallState";
 
 var routedCallStateImp as CallState or Null;
 

@@ -2,7 +2,7 @@ using Toybox.Communications;
 using Toybox.Application;
 using Toybox.Lang;
 
-const L_CALL_ACTION as LogComponent = new LogComponent("callAction", false);
+const L_CALL_ACTION as LogComponent = "callAction";
 
 class CallActionTask extends Communications.ConnectionListener {
     var phone as Phone;

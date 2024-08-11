@@ -1,7 +1,7 @@
 using Toybox.Lang;
 using Toybox.Timer;
 
-const L_CHECK_IN as LogComponent = new LogComponent("checkIn", false);
+const L_CHECK_IN as LogComponent = "checkIn";
 
 function getCheckIn() as CheckIn {
     if (checkInImp == null) {

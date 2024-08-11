@@ -12,7 +12,7 @@ class WidgetView extends WatchUi.View {
     }
 }
 
-const L_WIDGET_VIEW as LogComponent = new LogComponent("widgetView", false);
+const L_WIDGET_VIEW as LogComponent = "widgetView";
 
 (:widget)
 class WidgetView extends WatchUi.View {

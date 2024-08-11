@@ -2,7 +2,7 @@ using Toybox.Lang;
 using Toybox.Timer;
 using Toybox.Attention;
 
-const L_VIBRA = new LogComponent("vibra", false);
+const L_VIBRA as LogComponent = "vibra";
 
 class VibrationLoop {
     var program as Lang.String;

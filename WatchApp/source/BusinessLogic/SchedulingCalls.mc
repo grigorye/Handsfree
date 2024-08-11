@@ -3,7 +3,7 @@ using Toybox.Lang;
 (:background)
 var callStateIsOwnedByUs as Lang.Boolean = false;
 
-const L_SCHEDULE_CALL_DEBUG as LogComponent = new LogComponent("scheduleCall", false);
+const L_SCHEDULE_CALL_DEBUG as LogComponent = "scheduleCall";
 
 function scheduleCall(phone as Phone) as Void {
     _([L_SCHEDULE_CALL, "phone", phone]);

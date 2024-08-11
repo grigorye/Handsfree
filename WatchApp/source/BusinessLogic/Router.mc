@@ -2,7 +2,7 @@ using Toybox.WatchUi;
 using Toybox.System;
 using Toybox.Lang;
 
-const L_ROUTER as LogComponent = new LogComponent("router", false);
+const L_ROUTER as LogComponent = "router";
 
 var routerImp as Router or Null;
 

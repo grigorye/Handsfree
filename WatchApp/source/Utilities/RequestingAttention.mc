@@ -1,6 +1,6 @@
 using Toybox.Attention;
 
-const L_ATTN as LogComponent = new LogComponent("attention", false);
+const L_ATTN as LogComponent = "attention";
 
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function startRequestingAttentionIfInApp() as Void {

@@ -2,7 +2,7 @@ using Toybox.System;
 
 var phonesViewImp as PhonesView or Null;
 
-const L_PHONES_VIEW_INIT as LogComponent = new LogComponent("phonesView", false);
+const L_PHONES_VIEW_INIT as LogComponent = "phonesView";
 
 function getPhonesView() as PhonesView {
     if (phonesViewImp == null) {

@@ -1,7 +1,7 @@
 using Toybox.System;
 
 (:glance, :background)
-const L_UI_KIND as LogComponent = new LogComponent("uiKind", false);
+const L_UI_KIND as LogComponent = "uiKind";
 
 (:glance, :background)
 enum ActiveUiKind {

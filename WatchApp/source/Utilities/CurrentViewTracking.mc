@@ -2,7 +2,7 @@ using Toybox.WatchUi;
 using Toybox.Lang;
 using Toybox.System;
 
-const L_VIEW_TRACKING as LogComponent = new LogComponent("$$", false);
+const L_VIEW_TRACKING as LogComponent = "$$";
 
 class ViewStackEntry extends Lang.Object {
 
