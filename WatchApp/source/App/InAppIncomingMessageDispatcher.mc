@@ -12,12 +12,12 @@ class InAppIncomingMessageDispatcher {
 
     function launch() as Void {
         _([L_INCOMING_INIT, "registerForPhoneAppMessages"]);
-        Communications.registerForPhoneAppMessages(method(:onPhone));
+        Communications.registerForPhoneAppMessages(method(:onPhoneAppMessage));
         readyToSync = true;
     }
     
     (:typecheck(disableGlanceCheck))
-    function onPhone(msg as Communications.Message) as Void {
+    function onPhoneAppMessage(msg as Communications.Message) as Void {
         if (!readyToSync) {
             _([L_INCOMING, "flushedMsg", msg]);
             return;
