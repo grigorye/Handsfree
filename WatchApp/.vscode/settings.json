@@ -11,5 +11,7 @@
   "markdownlint.config": {
     "MD041": false,
     "MD034": false
-  }
+  },
+  "prettierMonkeyC.typeCheckLevel": "Strict",
+  "monkeyC.typeCheckLevel": "Strict"
 }
