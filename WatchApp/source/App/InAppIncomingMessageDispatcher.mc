@@ -19,7 +19,7 @@ class InAppIncomingMessageDispatcher {
     (:typecheck(disableGlanceCheck))
     function onPhoneAppMessage(msg as Communications.Message) as Void {
         if (!readyToSync) {
-            _([L_INCOMING, "flushedMsg", msg]);
+            _([L_INCOMING, "flushedMsg", msg.data]);
             return;
         }
         if (routedToMainUI) {
