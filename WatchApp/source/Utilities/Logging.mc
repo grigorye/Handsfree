@@ -4,7 +4,7 @@ using Toybox.Time;
 using Toybox.Time.Gregorian;
 
 (:glance, :background)
-var noArg as Lang.Symbol = :noArg;
+const noArg as Lang.Symbol = :noArg;
 
 typedef LogComponent as Lang.String;
 

@@ -132,8 +132,8 @@ class PhonesView extends WatchUi.Menu2 {
     }
 }
 
-var noPhonesMenuItemId as Lang.Number = -1;
-var crashMeMenuItemId as Lang.Number = -2;
+const noPhonesMenuItemId as Lang.Number = -1;
+const crashMeMenuItemId as Lang.Number = -2;
 
 function specialItemForPhone(phone as Phone) as WatchUi.MenuItem | Null {
     var phoneName = phone["name"] as Lang.String;
