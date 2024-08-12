@@ -22,32 +22,32 @@ const L_COMPANION_TRACK as LogComponent = "companionTrack";
 class App extends Application.AppBase {
 
     function initialize() {
-        _([L_APP_LIFE_CYCLE, "initialize"]);
-        _([L_APP_EXTRA, "deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings())]);
-        _([L_APP_STAT, "systemStats", systemStatsDumpRep()]);
-        _([L_APP_EXTRA, "backgroundAppUpdateEnabled", isBackgroundAppUpdateEnabled()]);
-        _([L_APP, "appType", appType()]);
-        _([L_COMPANION_TRACK, "everSeenCompanion", everSeenCompanion()]);
+        _2(L_APP_LIFE_CYCLE, "initialize");
+        _3(L_APP_EXTRA, "deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
+        _3(L_APP_STAT, "systemStats", systemStatsDumpRep());
+        _3(L_APP_EXTRA, "backgroundAppUpdateEnabled", isBackgroundAppUpdateEnabled());
+        _3(L_APP, "appType", appType());
+        _3(L_COMPANION_TRACK, "everSeenCompanion", everSeenCompanion());
         AppBase.initialize();
-        _([L_APP_EXTRA, "getPhoneAppMessageEventRegistered", Background.getPhoneAppMessageEventRegistered()]);
+        _3(L_APP_EXTRA, "getPhoneAppMessageEventRegistered", Background.getPhoneAppMessageEventRegistered());
         Background.registerForPhoneAppMessageEvent();
     }
 
     function onStart(state as Lang.Dictionary or Null) {
-        _([L_APP, "onStart", state]);
+        _3(L_APP, "onStart", state);
         AppBase.onStart(state);
     }
 
     function onStop(state as Lang.Dictionary or Null) {
-        _([L_APP_LIFE_CYCLE, "activeUiKindOnStop", getActiveUiKind()]);
-        _([L_APP_LIFE_CYCLE, "onStop", state]);
-        _([L_APP_STAT, "systemStats", systemStatsDumpRep()]);
+        _3(L_APP_LIFE_CYCLE, "activeUiKindOnStop", getActiveUiKind());
+        _3(L_APP_LIFE_CYCLE, "onStop", state);
+        _3(L_APP_STAT, "systemStats", systemStatsDumpRep());
         AppBase.onStop(state);
     }
 
     (:typecheck(disableGlanceCheck))
     function getServiceDelegate() as [System.ServiceDelegate] {
-        _([L_APP_EXTRA, "getServiceDelegate"]);
+        _2(L_APP_EXTRA, "getServiceDelegate");
         return [new BackgroundServiceDelegate()];
     }
 
@@ -70,7 +70,7 @@ class App extends Application.AppBase {
 
 (:glance)
 function getGlanceViewInApp() as [WatchUi.GlanceView] or [WatchUi.GlanceView, WatchUi.GlanceViewDelegate] or Null {
-    _([L_APP_INITIAL_VIEW, "getGlanceView"]);
+    _2(L_APP_INITIAL_VIEW, "getGlanceView");
     setActiveUiKind(ACTIVE_UI_GLANCE);
     onAppDidFinishLaunching();
     return [new GlanceView()];
@@ -78,7 +78,7 @@ function getGlanceViewInApp() as [WatchUi.GlanceView] or [WatchUi.GlanceView, Wa
 
 (:glance)
 function willReturnInitialView() as Void {
-    _([L_APP_INITIAL_VIEW, "getInitialView"]);
+    _2(L_APP_INITIAL_VIEW, "getInitialView");
     eraseAppDataIfNecessary();
     setActiveUiKind(ACTIVE_UI_APP);
     onAppDidFinishLaunching();
@@ -119,7 +119,7 @@ function deviceSettingsDumpRep(deviceSettings as System.DeviceSettings) as Lang.
 }
 
 function appWillRouteToMainUI() as Void {
-    _([L_APP, "appWillRouteToMainUI"]);
+    _2(L_APP, "appWillRouteToMainUI");
 }
 
 var routedToMainUI as Lang.Boolean = false;
@@ -135,7 +135,7 @@ function appDidRouteToMainUI() as Void {
 function launchCheckInIfNecessary() as Void {
     var callState = getCallState();
     if (!(callState instanceof Idle)) {
-        _([L_APP_LIFE_CYCLE, "checkInSkipped.dueToCallState", callState]);
+        _3(L_APP_LIFE_CYCLE, "checkInSkipped.dueToCallState", callState);
     } else {
         if (getCheckInImp() != null) {
             System.error("getCheckInImp() != null");
@@ -146,14 +146,14 @@ function launchCheckInIfNecessary() as Void {
 
 (:widget)
 function appDidRouteFromMainUI() as Void {
-    _([L_APP, "appDidRouteFromMainUI"]);
+    _2(L_APP, "appDidRouteFromMainUI");
     setRoutedCallStateImp(null);
     setPhonesViewImp(null);
 }
 
 (:widget)
 function widgetDidShow() as Void {
-    _([L_APP, "widgetDidShow"]);
+    _2(L_APP, "widgetDidShow");
     if (routedToMainUI) {
         routedToMainUI = false;
         appDidRouteFromMainUI();
@@ -162,7 +162,7 @@ function widgetDidShow() as Void {
 
 (:glance)
 function onAppDidFinishLaunching() as Void {
-    _([L_APP, "onAppDidFinishLaunching"]);
+    _2(L_APP, "onAppDidFinishLaunching");
     (new InAppIncomingMessageDispatcher()).launch();
     var callState = getCallState();
     if (callState instanceof CallInProgress) {
@@ -174,7 +174,7 @@ function onAppDidFinishLaunching() as Void {
 }
 
 function didSeeIncomingMessageWhileRoutedToMainUI() as Void {
-    _([L_APP, "didSeeIncomingMessageWhileRoutedToMainUI"]);
+    _2(L_APP, "didSeeIncomingMessageWhileRoutedToMainUI");
     var checkIn = getCheckInImp();
     if (checkIn != null) {
         checkIn.remoteResponded();
@@ -183,8 +183,8 @@ function didSeeIncomingMessageWhileRoutedToMainUI() as Void {
 
 (:glance)
 function onBackgroundDataImp(data as Application.PersistableType) as Void {
-    _([L_APP_LIFE_CYCLE, "onBackgroundData", data]);
-    _([L_APP_STAT, "systemStats", systemStatsDumpRep()]);
+    _3(L_APP_LIFE_CYCLE, "onBackgroundData", data);
+    _3(L_APP_STAT, "systemStats", systemStatsDumpRep());
     switch (data) {
         case instanceof Lang.String: {
             switch (data as Lang.String) {

@@ -23,11 +23,11 @@ function loadCallState() as CallState or Null {
     var callStateData = Application.Storage.getValue("callState.v1") as CallStateData or Null;
     var callState = decodeCallState(callStateData);
     if (callState != null) {
-        _([L_CALL_STATE, "loaded", callState]);
+        _3(L_CALL_STATE, "loaded", callState);
         switch (callState) {
             case instanceof CallActing: {
                 var adjustedCallState = new Idle() as CallState;
-                _([L_CALL_STATE, "adjustedLoaded", adjustedCallState]);
+                _3(L_CALL_STATE, "adjustedLoaded", adjustedCallState);
                 return adjustedCallState;
             }
             default: {
@@ -35,7 +35,7 @@ function loadCallState() as CallState or Null {
             }
         }
     }
-    _([L_CALL_STATE, "loaded", null]);
+    _3(L_CALL_STATE, "loaded", null);
     return null;
 }
 

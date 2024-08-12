@@ -20,31 +20,31 @@ class Router {
 
     function updateRoute() as Void {
         updateCounter = updateCounter + 1;
-        _([L_ROUTER, "updateRoute", updateCounter]);
+        _3(L_ROUTER, "updateRoute", updateCounter);
         var oldState = getRoutedCallState();
         var newState = getCallState();
-        _([L_ROUTER, "oldState", oldState]);
-        _([L_ROUTER, "newState", newState]);
+        _3(L_ROUTER, "oldState", oldState);
+        _3(L_ROUTER, "newState", newState);
         setRoutedCallStateImp(newState);
         switch (oldState as CallState) {
             case instanceof DismissedCallInProgress:
             case instanceof Idle:
                 switch (newState) {
                     case instanceof Idle: {
-                        _([L_ROUTER, "routingToNewPhones"]);
+                        _2(L_ROUTER, "routingToNewPhones");
                         switchToView("phones", updatedPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof SchedulingCall: {
-                        _([L_ROUTER, "routingToScheduling"]);
-                        _([L_ROUTER, "pushingOutPhones"]);
+                        _2(L_ROUTER, "routingToScheduling");
+                        _2(L_ROUTER, "pushingOutPhones");
                         pushView("scheduling", new SchedulingCallView(newState as SchedulingCall), new SchedulingCallViewDelegate(), WatchUi.SLIDE_LEFT);
                         break;
                     }
                     case instanceof CallInProgress: {
-                        _([L_ROUTER, "routingToCallInProgress"]);
+                        _2(L_ROUTER, "routingToCallInProgress");
                         var phone = (newState as CallInProgress).phone;
-                        _([L_ROUTER, "pushingOutPhones", true]);
+                        _3(L_ROUTER, "pushingOutPhones", true);
                         pushView("callInProgress", new CallInProgressView(phone), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_LEFT);
                         break;
                     }
@@ -55,18 +55,18 @@ class Router {
             case instanceof SchedulingCall:
                 switch (newState) {
                     case instanceof SchedulingCall: {
-                        _([L_ROUTER, "routingToUpdatedScheduledCall"]);
+                        _2(L_ROUTER, "routingToUpdatedScheduledCall");
                         switchToView("scheduling", new SchedulingCallView(newState as SchedulingCall), new SchedulingCallViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof CallInProgress: {
-                        _([L_ROUTER, "routingToCallInProgress"]);
+                        _2(L_ROUTER, "routingToCallInProgress");
                         var phone = (newState as CallInProgress).phone;
                         switchToView("callInProgress", new CallInProgressView(phone), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof Idle: {
-                        _([L_ROUTER, "poppingToPhones"]);
+                        _2(L_ROUTER, "poppingToPhones");
                         popToPhones();
                         break;
                     }
@@ -78,17 +78,17 @@ class Router {
                 switch (newState) {
                     case instanceof DismissedCallInProgress:
                     case instanceof Idle: {
-                        _([L_ROUTER, "poppingToPhones"]);
+                        _2(L_ROUTER, "poppingToPhones");
                         popToPhones();
                         break;
                     }
                     case instanceof CallActing: {
-                        _([L_ROUTER, "routingToCallActing"]);
+                        _2(L_ROUTER, "routingToCallActing");
                         pushView("callActing", new CallActingView(newState as CallActing), new CallActingViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof CallInProgress: {
-                        _([L_ROUTER, "routingToNewCallInProgress"]);
+                        _2(L_ROUTER, "routingToNewCallInProgress");
                         var phone = (newState as CallInProgress).phone;
                         popView(WatchUi.SLIDE_IMMEDIATE);
                         pushView("callInProgress", new CallInProgressView(phone), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
@@ -101,18 +101,18 @@ class Router {
             case instanceof CallActing:
                 switch (newState) {
                     case instanceof CallActing: {
-                        _([L_ROUTER, "routingToUpdatedCallActing"]);
+                        _2(L_ROUTER, "routingToUpdatedCallActing");
                         switchToView("callActing", new CallActingView(newState as CallActing), new CallActingViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof CallInProgress: {
-                        _([L_ROUTER, "routingToCallInProgress"]);
+                        _2(L_ROUTER, "routingToCallInProgress");
                         var phone = (newState as CallInProgress).phone;
                         switchToView("callInProgress", new CallInProgressView(phone), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof Idle: {
-                        _([L_ROUTER, "poppingToPhones"]);
+                        _2(L_ROUTER, "poppingToPhones");
                         popToPhones();
                         break;
                     }
@@ -144,7 +144,7 @@ class Router {
 }
 
 function exitToSystemFromPhonesView() as Void {
-    _([L_ROUTER, "exitingToSystemFromPhonesView"]);
+    _2(L_ROUTER, "exitingToSystemFromPhonesView");
     if (!topViewIs("phones")) {
         System.error("viewStackIsMessedUp: " + viewStackTags());
     }
@@ -153,7 +153,7 @@ function exitToSystemFromPhonesView() as Void {
 }
 
 function exitToSystemFromCommView() as Void {
-    _([L_ROUTER, "exitingToSystemFromCommView"]);
+    _2(L_ROUTER, "exitingToSystemFromCommView");
     if (!topViewIs("commView")) {
         dumpViewStack("messedUpViewStack");
         System.error("viewStackIsMessedUp");

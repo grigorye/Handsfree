@@ -11,7 +11,7 @@ const L_HEADSET as LogComponent = "headset";
 
 (:background, :glance)
 function setIsHeadsetConnectedImp(isHeadsetConnected as Lang.Boolean) as Void {
-    _([L_HEADSET, "isHeadsetConnected", isHeadsetConnected]);
+    _3(L_HEADSET, "isHeadsetConnected", isHeadsetConnected);
     oldIsHeadsetConnectedImp = getIsHeadsetConnected();
     isHeadsetConnectedImp = isHeadsetConnected;
     saveIsHeadsetConnected(isHeadsetConnected);

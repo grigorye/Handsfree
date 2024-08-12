@@ -5,7 +5,7 @@ const L_ATTN as LogComponent = "attention";
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function startRequestingAttentionIfInApp() as Void {
     if (!getActiveUiKind().equals(ACTIVE_UI_APP)) {
-        _([L_ATTN, "startRequestingAttention", "notInApp"]);
+        _3(L_ATTN, "startRequestingAttention", "notInApp");
         return;
     }
     startRequestingAttention();
@@ -14,7 +14,7 @@ function startRequestingAttentionIfInApp() as Void {
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function stopRequestingAttentionIfInApp() as Void {
     if (!getActiveUiKind().equals(ACTIVE_UI_APP)) {
-        _([L_ATTN, "stopRequestingAttention", "notInApp"]);
+        _3(L_ATTN, "stopRequestingAttention", "notInApp");
         return;
     }
     stopRequestingAttention();
@@ -23,7 +23,7 @@ function stopRequestingAttentionIfInApp() as Void {
 var activeVibrationLoop as VibrationLoop or Null;
 
 function startRequestingAttention() as Void {
-    _([L_ATTN, "startRequestingAttention"]);
+    _2(L_ATTN, "startRequestingAttention");
     if (activeVibrationLoop != null) {
         activeVibrationLoop.cancel();
     }
@@ -32,7 +32,7 @@ function startRequestingAttention() as Void {
 }
 
 function stopRequestingAttention() as Void {
-    _([L_ATTN, "stopRequestingAttention"]);
+    _2(L_ATTN, "stopRequestingAttention");
     if (activeVibrationLoop != null) {
         activeVibrationLoop.cancel();
     }

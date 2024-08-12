@@ -11,10 +11,10 @@ class DummyCommListener extends Communications.ConnectionListener {
     }
 
     function onComplete() {
-        _([L_OUT_COMM, tag + ".completed"]);
+        _2(L_OUT_COMM, tag + ".completed");
     }
 
     function onError() {
-        _([L_OUT_COMM, tag + ".failed"]);
+        _2(L_OUT_COMM, tag + ".failed");
     }
 }

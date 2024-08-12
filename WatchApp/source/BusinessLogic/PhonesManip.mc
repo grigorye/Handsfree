@@ -28,9 +28,9 @@ function getPhones() as Phones {
 
 (:background, :glance)
 function setPhones(phones as Phones) as Void {
-    _([L_PHONES, "setPhones", phones]);
+    _3(L_PHONES, "setPhones", phones);
     if (phones.toString().equals(getPhones().toString())) {
-        _([L_PHONES, "phonesUnchanged"]);
+        _2(L_PHONES, "phonesUnchanged");
         return;
     }
 
@@ -51,7 +51,7 @@ function updateUIForPhones() as Void {
     if ((WatchUi has :getCurrentView) && (WatchUi.getCurrentView()[0] instanceof PhonesView)) {
         // Workaround for menu items not being updated visually until it is hidden and shown again.
         // https://forums.garmin.com/developer/connect-iq/f/discussion/7382/menu2-additem-does-not-work-on-fenix-5s
-        _([L_PHONES_VIEW, "recreatingPhonesView"]);
+        _2(L_PHONES_VIEW, "recreatingPhonesView");
         var phonesView = new PhonesView();
         // Beware that some stuff like the focused item isn't "recreated" below, as it's impossible to track/get it.
         phonesView.setFromPhones(phones);
@@ -59,7 +59,7 @@ function updateUIForPhones() as Void {
         setPhonesViewImp(phonesView);
         switchToView("phones", phonesView, new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
     } else {
-        _([L_PHONES_VIEW, "updatingPhonesInPlace"]);
+        _2(L_PHONES_VIEW, "updatingPhonesInPlace");
         getPhonesView().updateFromPhones(phones);
         WatchUi.requestUpdate();
     }

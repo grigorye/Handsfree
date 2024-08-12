@@ -38,7 +38,7 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
     }
 
     function launch() as Void {
-        _([L_OUT_COMM, tag + ".requesting", msg]);
+        _3(L_OUT_COMM, tag + ".requesting", msg);
         transmit();
     }
 
@@ -48,7 +48,7 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
         }
         attemptNumber = attemptNumber + 1;
         attemptsRemaining = attemptsRemaining - 1;
-        _([L_OUT_RETRYING, tag + ".attempt." + attemptNumber]);
+        _2(L_OUT_RETRYING, tag + ".attempt." + attemptNumber);
         Communications.transmit(msg, null, self);
     }
 
@@ -62,18 +62,18 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
         } else {
             attemptsSuffix = "";
         }
-        _([L_OUT_COMM, tag + ".succeeded" + attemptsSuffix]);
+        _2(L_OUT_COMM, tag + ".succeeded" + attemptsSuffix);
         wrappedListener.onComplete();
     }
 
     function onError() {
-        _([L_OUT_RETRYING, tag + ".onError.connectionAvailable", System.getDeviceSettings().connectionAvailable]);
-        _([L_OUT_RETRYING, tag + ".onError.connectionInfo", dumpConnectionInfos(System.getDeviceSettings().connectionInfo)]);
+        _3(L_OUT_RETRYING, tag + ".onError.connectionAvailable", System.getDeviceSettings().connectionAvailable);
+        _3(L_OUT_RETRYING, tag + ".onError.connectionInfo", dumpConnectionInfos(System.getDeviceSettings().connectionInfo));
         if (isBeepOnCommuncationEnabled()) {
             beep(BEEP_TYPE_ERROR);
         }
-        _([L_OUT_RETRYING, tag + ".onError.attempt", attemptNumber]);
-        _([L_OUT_RETRYING, tag + ".onError.attemptsRemaining", attemptsRemaining]);
+        _3(L_OUT_RETRYING, tag + ".onError.attempt", attemptNumber);
+        _3(L_OUT_RETRYING, tag + ".onError.attemptsRemaining", attemptsRemaining);
         if (retransmitTimer != null) {
             retransmitTimer.stop();
         }
@@ -84,7 +84,7 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
             (retransmitTimer as Timer.Timer).start(method(:transmit), retransmitDelay, false);
             return;
         }
-        _([L_OUT_COMM, tag + ".failed"]);
+        _2(L_OUT_COMM, tag + ".failed");
         wrappedListener.onError();
     }
 }

@@ -14,13 +14,13 @@ class BackgroundServiceDelegate extends System.ServiceDelegate {
     }
 
     function onPhoneAppMessage(msg as Communications.PhoneAppMessage) as Void {
-        _([L_BACKGROUND_SERVICE, "activeUiKind", getActiveUiKind()]);
+        _3(L_BACKGROUND_SERVICE, "activeUiKind", getActiveUiKind());
         handleRemoteMessage(msg);
         if (isBackgroundAppUpdateEnabled()) {
-            _([L_BACKGROUND_SERVICE, "exit", "onPhoneAppMessage"]);
+            _3(L_BACKGROUND_SERVICE, "exit", "onPhoneAppMessage");
             Background.exit("onPhoneAppMessage");
         } else {
-            _([L_BACKGROUND_SERVICE, "exit", null]);
+            _3(L_BACKGROUND_SERVICE, "exit", null);
             Background.exit(null);
         }
     }

@@ -23,7 +23,7 @@ class WidgetView extends WatchUi.View {
     }
 
     function onShow() {
-        _([L_WIDGET_VIEW, "onShow"]);
+        _2(L_WIDGET_VIEW, "onShow");
         View.onShow();
         widgetDidShow();
     }
@@ -31,7 +31,7 @@ class WidgetView extends WatchUi.View {
     function onUpdate(dc as Graphics.Dc) {
         View.onUpdate(dc);
 
-        _([L_WIDGET_VIEW, "onUpdate", { "width" => dc.getWidth(), "height" => dc.getHeight() }]);
+        _3(L_WIDGET_VIEW, "onUpdate", { "width" => dc.getWidth(), "height" => dc.getHeight() });
         var deviceSettings = System.getDeviceSettings();
         if (deviceSettings has :isNightModeEnabled) {
             if (deviceSettings.isNightModeEnabled) {
@@ -43,7 +43,7 @@ class WidgetView extends WatchUi.View {
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         }
 
-        _([L_WIDGET_VIEW, "shouldShowCallState", isShowingCallStateOnGlanceEnabled()]);
+        _3(L_WIDGET_VIEW, "shouldShowCallState", isShowingCallStateOnGlanceEnabled());
         var appName = WatchUi.loadResource(Rez.Strings.AppName) as Lang.String;
         if (!isShowingCallStateOnGlanceEnabled()) {
             dc.drawText(

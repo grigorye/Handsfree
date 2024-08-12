@@ -18,7 +18,7 @@ function setCallInProgress(number as Lang.String) as Void {
 (:background, :glance)
 function setCallState(callStateImp as CallState or CallActing) as Void {
     var callState = callStateImp as CallState;
-    _([L_CALL_STATE, "set", callState]);
+    _3(L_CALL_STATE, "set", callState);
     setCallStateImp(callState);
     updateUIForCallState();
 }
@@ -34,7 +34,7 @@ function updateUIForCallState() as Void {
 (:glance, :typecheck(disableGlanceCheck))
 function updateUIForCallStateInForeground() as Void {
     var activeUiKind = getActiveUiKind();
-    _([L_CALL_STATE_UI_UPDATE, "activeUiKind", activeUiKind]);
+    _3(L_CALL_STATE_UI_UPDATE, "activeUiKind", activeUiKind);
     switch (activeUiKind) {
         case ACTIVE_UI_NONE: {
             return;
@@ -51,7 +51,7 @@ function updateUIForCallStateInForeground() as Void {
 }
 
 function updateUIForCallStateInApp() as Void {
-    _([L_CALL_STATE_UI_UPDATE, "viewStack", viewStackTags()]);
+    _3(L_CALL_STATE_UI_UPDATE, "viewStack", viewStackTags());
     if (viewStackTagsEqual(["widget"])) {
         WatchUi.requestUpdate();
     } else {
@@ -60,7 +60,7 @@ function updateUIForCallStateInApp() as Void {
 }
 
 function setCallStateIgnoringRouting(callState as CallState) as Void {
-    _([L_CALL_STATE, "setIgnoringRouting", callState]);
+    _3(L_CALL_STATE, "setIgnoringRouting", callState);
     setCallStateImp(callState);
     setRoutedCallStateImp(callState);
 }

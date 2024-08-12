@@ -32,13 +32,13 @@ class CheckIn {
     }
 
     function launch() as Void {
-        _([L_CHECK_IN, "launch.originalCheckInStatus", getCheckInStatus()]);
+        _3(L_CHECK_IN, "launch.originalCheckInStatus", getCheckInStatus());
         setCheckInStatus(CHECK_IN_IN_PROGRESS);
         attemptToCheckIn();
     }
 
     function cancel() as Void {
-        _([L_CHECK_IN, "cancel"]);
+        _2(L_CHECK_IN, "cancel");
         if (checkInTimer != null) {
             (checkInTimer as Timer.Timer).stop();
             checkInTimer = null;
@@ -46,16 +46,16 @@ class CheckIn {
     }
 
     function attemptToCheckIn() as Void {
-        _([L_CHECK_IN, "checkInAttemptsRemaining", checkInAttemptsRemaining]);
-        _([L_CHECK_IN, "preCheckInCallStateIsOwnedByUs", callStateIsOwnedByUs]);
+        _3(L_CHECK_IN, "checkInAttemptsRemaining", checkInAttemptsRemaining);
+        _3(L_CHECK_IN, "preCheckInCallStateIsOwnedByUs", callStateIsOwnedByUs);
         callStateIsOwnedByUs = false;
-        _([L_CHECK_IN, "postCheckInCallStateIsOwnedByUs", callStateIsOwnedByUs]);
+        _3(L_CHECK_IN, "postCheckInCallStateIsOwnedByUs", callStateIsOwnedByUs);
         if (checkInAttemptsRemaining == 0) {
             setCheckInStatus(CHECK_IN_FAILED);
-            _([L_CHECK_IN, "timedOut", true]);
+            _3(L_CHECK_IN, "timedOut", true);
             return;
         }
-        _([L_CHECK_IN, "secondsToCheckIn", secondsToCheckIn]);
+        _3(L_CHECK_IN, "secondsToCheckIn", secondsToCheckIn);
         if (checkInTimer != null) {
             checkInTimer.stop();
         } else {
@@ -72,7 +72,7 @@ class CheckIn {
     }
 
     function remoteResponded() as Void {
-        _([L_CHECK_IN, "remoteResponded"]);
+        _2(L_CHECK_IN, "remoteResponded");
         if (checkInTimer != null) {
             checkInTimer.stop();
             setCheckInStatus(CHECK_IN_SUCCEEDED);

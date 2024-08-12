@@ -9,16 +9,16 @@ class CommView extends WatchUi.View {
     }
 
     function onShow() {
-        _([L_COMM_VIEW, "onShow"]);
+        _2(L_COMM_VIEW, "onShow");
         if (topView() == self) {
             firstOnShow();
         } else {
-            _([L_COMM_VIEW_CRITICAL, "unexpectedOnShow", viewStackTags()]);
+            _3(L_COMM_VIEW_CRITICAL, "unexpectedOnShow", viewStackTags());
         }
     }
 
     function firstOnShow() as Void {
-        _([L_COMM_VIEW, "firstOnShow"]);
+        _2(L_COMM_VIEW, "firstOnShow");
         appWillRouteToMainUI();
         pushView("phones", getPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
         getRouter().updateRoute();

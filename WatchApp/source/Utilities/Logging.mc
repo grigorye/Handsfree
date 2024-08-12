@@ -8,19 +8,17 @@ const noArg as Lang.Symbol = :noArg;
 
 typedef LogComponent as Lang.String;
 
-typedef LogArgsWithValue as [LogComponent, Lang.String, Lang.Object or Null];
-typedef LogArgsWithoutValue as [LogComponent, Lang.String];
+(:glance, :background)
+function _2(component as LogComponent, tag as Lang.String) as Void {
+    if (!isLogAllEnforced() && !isLogComponentEnforced(component)) {
+        return;
+    }
+    var qualifiedTag = component.toString() + "." + tag;
+    dumpImp(qualifiedTag, :noArg);
+}
 
 (:glance, :background)
-function _(info as LogArgsWithoutValue or LogArgsWithValue) as Void {
-    var component = info[0] as LogComponent;
-    var tag = info[1] as Lang.String;
-    var value;
-    if (info.size() == 3) {
-        value = info[2] as Lang.Object or Null;
-    } else {
-        value = noArg as Lang.Object;
-    }
+function _3(component as LogComponent, tag as Lang.String, value as Lang.Object or Null) as Void {
     if (!isLogAllEnforced() && !isLogComponentEnforced(component)) {
         return;
     }

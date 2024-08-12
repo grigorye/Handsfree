@@ -20,7 +20,7 @@ function getActiveUiKind() as ActiveUiKind {
 
 (:glance)
 function setActiveUiKind(kind as ActiveUiKind) as Void {
-    _([L_UI_KIND, "setActiveUiKind", kind]);
+    _3(L_UI_KIND, "setActiveUiKind", kind);
     if (!activeUiKindImp.equals(ACTIVE_UI_NONE)) {
         System.error("Already active UI kind: " + activeUiKindImp);
     }

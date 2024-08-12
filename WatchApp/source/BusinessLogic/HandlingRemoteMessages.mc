@@ -7,7 +7,7 @@ const L_REMOTE_MSG as LogComponent = "<";
 
 (:background)
 function handleRemoteMessage(iqMsg as Communications.Message) as Void {
-    _([L_REMOTE_MSG, "msg", iqMsg.data]);
+    _3(L_REMOTE_MSG, "msg", iqMsg.data);
     didReceiveRemoteMessage();
     var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
     var cmd = msg["cmd"] as Lang.String;
@@ -23,7 +23,7 @@ function handleRemoteMessage(iqMsg as Communications.Message) as Void {
                 }
                 callStateIsOwnedByUs = true;
             } else {
-                _([L_REMOTE_MSG, "callStateIsNotOwnedByUs", true]);
+                _3(L_REMOTE_MSG, "callStateIsNotOwnedByUs", true);
             }
             break;
         case "setPhones":
@@ -45,13 +45,13 @@ const L_PHONE_STATE_CHANGED as LogComponent = "phoneStateChanged";
 (:background)
 function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
     var callState = getCallState();
-    _([L_PHONE_STATE_CHANGED, "oldCallState", callState]);
+    _3(L_PHONE_STATE_CHANGED, "oldCallState", callState);
     var inIsHeadsetConnected = args["isHeadsetConnected"];
     if (inIsHeadsetConnected != null) {
         setIsHeadsetConnected(inIsHeadsetConnected as Lang.Boolean);
     }
     var phoneState = args["state"] as Lang.String;
-    _([L_PHONE_STATE_CHANGED, "inPhoneState", phoneState]);
+    _3(L_PHONE_STATE_CHANGED, "inPhoneState", phoneState);
     if (!phoneState.equals("ringing")) {
         stopRequestingAttentionIfInApp();
     }
@@ -59,7 +59,7 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
         case "callInProgress":
             var inProgressNumber = args["number"] as Lang.String;
             var inProgressName = args["name"] as Lang.String or Null;
-            _([L_PHONE_STATE_CHANGED, "inProgressNumber", inProgressNumber]);
+            _3(L_PHONE_STATE_CHANGED, "inProgressNumber", inProgressNumber);
             var inProgressPhone = {
                 "number" => inProgressNumber,
                 "id" => -3
@@ -72,7 +72,7 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
                     var dismissedCallState = callState as DismissedCallInProgress;
                     var dismissedNumber = dismissedCallState.phone["number"] as Lang.String;
                     var dismissedButChanged = !dismissedNumber.equals(inProgressNumber);
-                    _([L_PHONE_STATE_CHANGED, "dismissedButChanged", dismissedButChanged]);
+                    _3(L_PHONE_STATE_CHANGED, "dismissedButChanged", dismissedButChanged);
                     if (dismissedButChanged) {
                         setCallState(new CallInProgress(inProgressPhone));
                     }
@@ -87,7 +87,7 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
             break;
         case "ringing":
             var ringingNumber = args["number"] as Lang.String;
-            _([L_PHONE_STATE_CHANGED, "inRingingNumber", ringingNumber]);
+            _3(L_PHONE_STATE_CHANGED, "inRingingNumber", ringingNumber);
             var ringingPhone = {
                 "number" => ringingNumber,
                 "id" => -4,

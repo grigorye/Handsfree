@@ -15,17 +15,17 @@ class GlanceView extends WatchUi.GlanceView {
     }
 
     function onShow() {
-        _([L_GLANCE_VIEW, "onShow"]);
+        _2(L_GLANCE_VIEW, "onShow");
     }
 
     function onHide() {
-        _([L_GLANCE_VIEW, "onHide"]);
+        _2(L_GLANCE_VIEW, "onHide");
     }
 
     function onUpdate(dc as Graphics.Dc) {
         if (false) {
-            _([L_GLANCE_VIEW, "onUpdate", { "width" => dc.getWidth(), "height" => dc.getHeight() }]);
-            _([L_GLANCE_VIEW, "shouldShowCallState", isShowingCallStateOnGlanceEnabled()]);
+            _3(L_GLANCE_VIEW, "onUpdate", { "width" => dc.getWidth(), "height" => dc.getHeight() });
+            _3(L_GLANCE_VIEW, "shouldShowCallState", isShowingCallStateOnGlanceEnabled());
         }
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
 

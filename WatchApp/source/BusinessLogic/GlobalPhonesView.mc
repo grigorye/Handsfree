@@ -6,7 +6,7 @@ const L_PHONES_VIEW_INIT as LogComponent = "phonesView";
 
 function getPhonesView() as PhonesView {
     if (phonesViewImp == null) {
-        _([L_PHONES_VIEW_INIT, "settingInitialView"]);
+        _2(L_PHONES_VIEW_INIT, "settingInitialView");
         var phonesView = new PhonesView();
         phonesView.updateFromCallState(getCallState());
         phonesView.setFromPhones(getPhones());

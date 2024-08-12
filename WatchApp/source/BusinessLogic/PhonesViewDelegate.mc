@@ -46,10 +46,10 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
         // when overriden, hence there's no need for trackBackFromView() here:
         // the current view is still the phones view.
         var callState = getCallState();
-        _([L_USER_ACTION, "phonesView.onBack.callState", callState]);
+        _3(L_USER_ACTION, "phonesView.onBack.callState", callState);
         switch (callState) {
             case instanceof DismissedCallInProgress: {
-                _([L_USER_ACTION, "revealingDismissedCallInProgress"]);
+                _2(L_USER_ACTION, "revealingDismissedCallInProgress");
                 var newCallState = new CallInProgress((callState as DismissedCallInProgress).phone);
                 setCallState(newCallState);
                 break;

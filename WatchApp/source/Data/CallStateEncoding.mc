@@ -12,7 +12,7 @@ typedef CallStateData as Lang.Dictionary<Application.PropertyKeyType, Applicatio
 
 (:background, :glance)
 function encodeCallState(someCallState as CallState) as CallStateData {
-    _([L_ENCODING, "callState", someCallState]);
+    _3(L_ENCODING, "callState", someCallState);
     switch (someCallState) {
         case instanceof Idle:
             return { "state" => "idle" } as CallStateData;
@@ -49,10 +49,10 @@ function encodeCallState(someCallState as CallState) as CallStateData {
 (:background, :glance)
 function decodeCallState(callStateData as CallStateData or Null) as CallState or Null {
     if (callStateData == null) {
-        _([L_DECODING, "callStateDataIsNull"]);
+        _2(L_DECODING, "callStateDataIsNull");
         return null;
     }
-    _([L_DECODING, "callStateData", callStateData]);
+    _3(L_DECODING, "callStateData", callStateData);
     var stateId = callStateData["state"] as Lang.String or Null;
     if (stateId == null) {
         System.error("Call state data missing state: " + callStateData);

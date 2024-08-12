@@ -35,7 +35,7 @@ class PhonesView extends WatchUi.Menu2 {
                 System.error("unknownCheckInStatus: " + checkInStatus);
             }
         }
-        _([L_PHONES_VIEW, "setTitle", title]);
+        _3(L_PHONES_VIEW, "setTitle", title);
         setTitle(joinComponents([title, headsetStatusRep()], " "));
     }
 
@@ -52,12 +52,12 @@ class PhonesView extends WatchUi.Menu2 {
     }
 
     function updateFromPhones(phones as Phones) as Void {
-        _([L_PHONES_VIEW, "updatingFromPhones", phones]);
+        _3(L_PHONES_VIEW, "updatingFromPhones", phones);
         if (phones.size() != 0 && oldPhones.equals(phones)) {
-            _([L_PHONES_VIEW, "phonesNotChanged"]);
+            _2(L_PHONES_VIEW, "phonesNotChanged");
             return;
         }
-        _([L_PHONES_VIEW, "phonesChanged"]);
+        _2(L_PHONES_VIEW, "phonesChanged");
         deleteExistingItems();
         setFromPhones(phones);
     }
@@ -150,7 +150,7 @@ function specialItemForPhone(phone as Phone) as WatchUi.MenuItem | Null {
 
 function updatePhonesView() as Void {
     if (phonesViewImp == null) {
-        _([L_PHONES_VIEW, "phonesViewImp", phonesViewImp]);
+        _3(L_PHONES_VIEW, "phonesViewImp", phonesViewImp);
         return;
     }
     getPhonesView().setTitleFromCheckInStatus(getCheckInStatus());

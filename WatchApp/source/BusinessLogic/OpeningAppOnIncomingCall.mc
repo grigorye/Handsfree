@@ -8,12 +8,12 @@ const L_OPEN_ME as LogComponent = "openMe";
 
 (:background, :glance)
 function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
-    _([L_OPEN_ME, "isOpenAppOnIncomingCallEnabled", isOpenAppOnIncomingCallEnabled()]);
+    _3(L_OPEN_ME, "isOpenAppOnIncomingCallEnabled", isOpenAppOnIncomingCallEnabled());
     if (!isOpenAppOnIncomingCallEnabled()) {
         return;
     }
     var activeUiKind = getActiveUiKind();
-    _([L_OPEN_ME, "activeUiKind", activeUiKind]);
+    _3(L_OPEN_ME, "activeUiKind", activeUiKind);
     if (activeUiKind.equals(ACTIVE_UI_APP)) {
         startRequestingAttentionIfInApp();
     } else {
@@ -23,7 +23,7 @@ function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
 
 (:background, :glance)
 function openAppFailed(message as Lang.String) as Void {
-    _([L_OPEN_ME, "openAppFailed.requestingApplicationWake", message]);
+    _3(L_OPEN_ME, "openAppFailed.requestingApplicationWake", message);
     Background.requestApplicationWake(message);
 }
 
@@ -38,11 +38,11 @@ function openAppOnIncomingCall(phone as Phone) as Void {
             }
         } as Lang.Object as Application.PersistableType;
         var tag = formatCommTag("openMe");
-        _([L_OUT_COMM, tag + ".requesting", msg]);
+        _3(L_OUT_COMM, tag + ".requesting", msg);
         Communications.transmit(msg, null, new DummyCommListener(tag));
     }
     if (isIncomingOpenAppViaWakeUpEnabled()) {
-        _([L_OPEN_ME, "requestingApplicationWake", message]);
+        _3(L_OPEN_ME, "requestingApplicationWake", message);
         Background.requestApplicationWake(message);
     }
 }
