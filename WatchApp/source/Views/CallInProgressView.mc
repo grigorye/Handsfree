@@ -8,9 +8,9 @@ class CallInProgressView extends WatchUi.Menu2 {
             :title => texts[:title] as Lang.String
         });
 
-        var actions = texts[:actions] as Lang.Array<Lang.Dictionary<Lang.Symbol, Lang.String>>;
+        var actions = texts[:actions] as CallInProgressActions;
         for (var i = 0; i < actions.size(); ++i) {
-            var action = actions[i] as Lang.Dictionary<Lang.Symbol, Lang.String>;
+            var action = actions[i] as CallInProgressActionSelector;
             var item = new WatchUi.MenuItem(
                 action[:prompt] as Lang.String, // label
                 null, // subLabel
