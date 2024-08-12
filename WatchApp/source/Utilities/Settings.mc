@@ -1,11 +1,6 @@
 using Toybox.Application;
 using Toybox.Lang;
 
-(:background, :glance)
-function isBackgroundServiceEnabled() as Lang.Boolean {
-    return Application.Properties.getValue("backgroundServiceEnabled") as Lang.Boolean;
-}
-
 function initialAttemptsToCheckin() as Lang.Number {
     return Application.Properties.getValue("syncAttempts") as Lang.Number;
 }

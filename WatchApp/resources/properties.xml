@@ -2,7 +2,6 @@
 
     <properties>
         <property id="popOutOfAppInsteadOfPhones" type="boolean">true</property>
-        <property id="backgroundServiceEnabled" type="boolean">true</property>
         <property id="openAppOnIncomingCall" type="boolean">false</property>
         <property id="companionOnboardingEnabled" type="boolean">false</property>
         <property id="syncCallStateOnLaunch" type="boolean">false</property>
@@ -27,7 +26,6 @@
 
     <strings>
         <string id="popOutOfAppInsteadOfPhones">Close app after call</string>
-        <string id="backgroundServiceEnabled">Enable background service</string>
         <string id="openAppOnIncomingCall">Open app on incoming call</string>
         <string id="companionOnboardingEnabled">Enable companion onboarding</string>
         <string id="syncCallStateOnLaunch">Update call state on app launch</string>

@@ -21,8 +21,6 @@ const L_COMPANION_TRACK as LogComponent = "companionTrack";
 (:glance, :background)
 class App extends Application.AppBase {
 
-    var backgroundServiceEnabled as Lang.Boolean;
-    
     function initialize() {
         _([L_APP_LIFE_CYCLE, "initialize"]);
         _([L_APP_EXTRA, "deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings())]);
@@ -31,14 +29,8 @@ class App extends Application.AppBase {
         _([L_APP, "appType", appType()]);
         _([L_COMPANION_TRACK, "everSeenCompanion", everSeenCompanion()]);
         Application.AppBase.initialize();
-        backgroundServiceEnabled = isBackgroundServiceEnabled();
-        _([L_APP_EXTRA, "backgroundServiceEnabled", backgroundServiceEnabled]);
         _([L_APP_EXTRA, "getPhoneAppMessageEventRegistered", Background.getPhoneAppMessageEventRegistered()]);
-        if (backgroundServiceEnabled) {
-            Background.registerForPhoneAppMessageEvent();
-        } else {
-            Background.deletePhoneAppMessageEvent();
-        }
+        Background.registerForPhoneAppMessageEvent();
     }
 
     function onStart(state as Lang.Dictionary or Null) {
@@ -56,9 +48,6 @@ class App extends Application.AppBase {
     (:typecheck(disableGlanceCheck))
     function getServiceDelegate() as [System.ServiceDelegate] {
         _([L_APP_EXTRA, "getServiceDelegate"]);
-        if (!backgroundServiceEnabled) {
-            return [new DummyServiceDelegate()];
-        }
         return [new BackgroundServiceDelegate()];
     }
 
@@ -145,7 +134,6 @@ function appDidRouteFromMainUI() as Void {
     setRoutedCallStateImp(null);
     setPhonesViewImp(null);
 }
-
 
 (:widget)
 function widgetDidShow() as Void {

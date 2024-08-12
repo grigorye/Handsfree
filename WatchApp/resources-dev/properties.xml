@@ -16,10 +16,6 @@
             title="@Strings.incomingOpenAppViaWakeUp">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.backgroundServiceEnabled"
-            title="@Strings.backgroundServiceEnabled">
-            <settingConfig type="boolean" />
-        </setting>
         <setting propertyKey="@Properties.companionOnboardingEnabled"
             title="@Strings.companionOnboardingEnabled">
             <settingConfig type="boolean" />
