@@ -25,6 +25,14 @@ function setCallState(callStateImp as CallState or CallActing) as Void {
 
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function updateUIForCallState() as Void {
+    if (getActiveUiKind().equals(ACTIVE_UI_NONE)) {
+        return;
+    }
+    updateUIForCallStateInForeground();
+}
+
+(:glance, :typecheck(disableGlanceCheck))
+function updateUIForCallStateInForeground() as Void {
     var activeUiKind = getActiveUiKind();
     _([L_CALL_STATE_UI_UPDATE, "activeUiKind", activeUiKind]);
     switch (activeUiKind) {
@@ -36,14 +44,18 @@ function updateUIForCallState() as Void {
             return;
         }
         case ACTIVE_UI_APP: {
-            _([L_CALL_STATE_UI_UPDATE, "viewStack", viewStackTags()]);
-            if (viewStackTagsEqual(["widget"])) {
-                WatchUi.requestUpdate();
-            } else {
-                getRouter().updateRoute();
-            }
+            updateUIForCallStateInApp();
             return;
         }
+    }
+}
+
+function updateUIForCallStateInApp() as Void {
+    _([L_CALL_STATE_UI_UPDATE, "viewStack", viewStackTags()]);
+    if (viewStackTagsEqual(["widget"])) {
+        WatchUi.requestUpdate();
+    } else {
+        getRouter().updateRoute();
     }
 }
 
