@@ -12,6 +12,7 @@ class WidgetView extends WatchUi.View {
     }
 }
 
+(:widget)
 const L_WIDGET_VIEW as LogComponent = "widgetView";
 
 (:widget)
