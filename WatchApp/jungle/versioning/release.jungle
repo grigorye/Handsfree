@@ -1,1 +1,2 @@
-base.excludeAnnotations = $(base.excludeAnnotations);nonDistOnly
+versioning_excludeAnnotations = nonDistOnly
+base.excludeAnnotations = $(base.excludeAnnotations);$(versioning_excludeAnnotations)

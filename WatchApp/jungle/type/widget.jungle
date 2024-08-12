@@ -1,2 +1,10 @@
 project.manifest = ../../manifest-widget.xml
 base.excludeAnnotations = $(base.excludeAnnotations);watchApp
+
+# When the app type is widget, on Instinct 2 only, the system uses glance
+# exposed by the app. Anecdotacally, the glance is not used if the app type is
+# watch-app. Therefore, to reflect the former, we enable the glance (vs widget)
+# builds for widget on Instinct 2.
+instinct2.excludeAnnotations = $(versioning_excludeAnnotations);widget
+instinct2s.excludeAnnotations = $(versioning_excludeAnnotations);widget
+instinct2x.excludeAnnotations = $(versioning_excludeAnnotations);widget
