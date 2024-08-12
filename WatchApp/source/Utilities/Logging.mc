@@ -36,7 +36,7 @@ function dumpImp(tag as Lang.String, output as Lang.Object or Null) as Void {
         newSession = false;
         System.println("");
         var dateFormatted =
-            (info.year as Lang.Number).format("%02d") + "/" +
+            info.year.format("%02d") + "/" +
             (info.month as Lang.Number).format("%02d") + "/" +
             info.day.format("%02d");
 
