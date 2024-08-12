@@ -14,7 +14,7 @@ class ViewStackEntry extends Lang.Object {
 
     var tag as Lang.String;
     var view as WatchUi.Views;
-    var delegate as Null or $.Toybox.WatchUi.InputDelegates;
+    var delegate as Null or WatchUi.InputDelegates;
 }
 
 typedef ViewStack as Lang.Array<ViewStackEntry>;
@@ -28,20 +28,20 @@ function viewStackTags() as Lang.Array<Lang.String> {
     return tags;
 }
 
-function switchToView(tag as Lang.String, view as $.Toybox.WatchUi.Confirmation or $.Toybox.WatchUi.Menu or $.Toybox.WatchUi.NumberPicker or $.Toybox.WatchUi.ProgressBar or $.Toybox.WatchUi.TextPicker or $.Toybox.WatchUi.View or $.Toybox.WatchUi.ViewLoop, delegate as Null or $.Toybox.WatchUi.InputDelegates, transition as $.Toybox.WatchUi.SlideType) as Void {
+function switchToView(tag as Lang.String, view as WatchUi.Confirmation or WatchUi.Menu or WatchUi.NumberPicker or WatchUi.ProgressBar or WatchUi.TextPicker or WatchUi.View or WatchUi.ViewLoop, delegate as Null or WatchUi.InputDelegates, transition as WatchUi.SlideType) as Void {
     viewStack[viewStack.size() - 1] = new ViewStackEntry(tag, view, delegate);
     dumpViewStack("switchToView");
     WatchUi.switchToView(view, delegate, transition);
 }
 
-function pushView(tag as Lang.String, view as $.Toybox.WatchUi.Confirmation or $.Toybox.WatchUi.Menu or $.Toybox.WatchUi.NumberPicker or $.Toybox.WatchUi.ProgressBar or $.Toybox.WatchUi.TextPicker or $.Toybox.WatchUi.View or $.Toybox.WatchUi.ViewLoop, delegate as Null or $.Toybox.WatchUi.InputDelegates, transition as $.Toybox.WatchUi.SlideType) as $.Toybox.Lang.Boolean {
+function pushView(tag as Lang.String, view as WatchUi.Confirmation or WatchUi.Menu or WatchUi.NumberPicker or WatchUi.ProgressBar or WatchUi.TextPicker or WatchUi.View or WatchUi.ViewLoop, delegate as Null or WatchUi.InputDelegates, transition as WatchUi.SlideType) as Lang.Boolean {
     viewStack.add(new ViewStackEntry(tag, view, delegate));
     dumpViewStack("pushView");
     assertViewStackIsSane();
     return WatchUi.pushView(view, delegate, transition);
 }
 
-function popView(transition as $.Toybox.WatchUi.SlideType) as Void {
+function popView(transition as WatchUi.SlideType) as Void {
     dumpViewStack("popView");
     viewStack = viewStack.slice(null, -1);
     WatchUi.popView(transition);
