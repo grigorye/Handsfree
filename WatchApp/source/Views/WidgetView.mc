@@ -39,7 +39,7 @@ class WidgetView extends WatchUi.View {
                 dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_WHITE);
             }
         } else {
-            dc.setColor(Toybox.Graphics.COLOR_WHITE, Toybox.Graphics.COLOR_TRANSPARENT);
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         }
 
         _([L_WIDGET_VIEW, "shouldShowCallState", isShowingCallStateOnGlanceEnabled()]);
@@ -50,7 +50,7 @@ class WidgetView extends WatchUi.View {
                 dc.getHeight() / 2,
                 Styles.widget_font__title.font,
                 joinComponents([appName, headsetStatusForWidget()], "\n"),
-                Toybox.Graphics.TEXT_JUSTIFY_CENTER | Toybox.Graphics.TEXT_JUSTIFY_VCENTER
+                Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
             );
         } else {
             var callState = getCallState();
@@ -95,7 +95,7 @@ class WidgetView extends WatchUi.View {
                 dc.getHeight() / 2,
                 Styles.widget_font__title.font,
                 text,
-                Toybox.Graphics.TEXT_JUSTIFY_CENTER | Toybox.Graphics.TEXT_JUSTIFY_VCENTER
+                Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
             );
         }
     }
