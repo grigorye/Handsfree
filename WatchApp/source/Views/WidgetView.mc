@@ -1,16 +1,7 @@
 using Toybox.WatchUi;
 using Toybox.Lang;
-using Toybox.System;
 using Toybox.Graphics;
 using Rez.Styles;
-
-(:watchApp)
-class WidgetView extends WatchUi.View {
-    function initialize() {
-        View.initialize();
-        System.error("reachedStubForWidgetView");
-    }
-}
 
 (:widget)
 const L_WIDGET_VIEW as LogComponent = "widgetView";
