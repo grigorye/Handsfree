@@ -51,6 +51,7 @@ class App extends Application.AppBase {
         return [new BackgroundServiceDelegate()];
     }
 
+    (:typecheck(disableBackgroundCheck))
     function onBackgroundData(data as Application.PersistableType) as Void {
         onBackgroundDataImp(data);
         Application.AppBase.onBackgroundData(data);
@@ -180,7 +181,7 @@ function didSeeIncomingMessageWhileRoutedToMainUI() as Void {
     }
 }
 
-(:glance, :background)
+(:glance)
 function onBackgroundDataImp(data as Application.PersistableType) as Void {
     _([L_APP_LIFE_CYCLE, "onBackgroundData", data]);
     _([L_APP_STAT, "systemStats", systemStatsDumpRep()]);
