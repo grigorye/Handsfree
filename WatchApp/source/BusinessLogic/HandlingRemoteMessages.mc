@@ -8,13 +8,10 @@ const L_REMOTE_MSG as LogComponent = "<";
 (:background)
 function handleRemoteMessage(iqMsg as Communications.Message) as Void {
     _([L_REMOTE_MSG, "msg", iqMsg.data]);
-    didSeeCompanion();
+    didReceiveRemoteMessage();
     var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
     var cmd = msg["cmd"] as Lang.String;
     var args = msg["args"] as Lang.Dictionary<Lang.String, Lang.Object>;
-    if (isBeepOnCommuncationEnabled()) {
-        beep(BEEP_TYPE_MESSAGE);
-    }
     switch (cmd) {
         case "syncYou":
             var phonesArgs = args["setPhones"] as Lang.Dictionary<Lang.String, Lang.Object>;
@@ -103,5 +100,20 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
             setCallState(new CallInProgress(ringingPhone));
             openAppOnIncomingCallIfNecessary(ringingPhone);
             break;
+    }
+}
+
+(:background, :typecheck(disableBackgroundCheck))
+function didReceiveRemoteMessage() as Void {
+    didSeeCompanion();
+
+    if (getActiveUiKind().equals(ACTIVE_UI_APP)) {
+        didReceiveRemoteMessageInForeground();
+    }
+}
+
+function didReceiveRemoteMessageInForeground() as Void {
+    if (isBeepOnCommuncationEnabled()) {
+        beep(BEEP_TYPE_MESSAGE);
     }
 }

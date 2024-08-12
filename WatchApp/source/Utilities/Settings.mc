@@ -67,7 +67,6 @@ function incomingCallMessageFormat() as Lang.String {
     return Application.Properties.getValue("incomingCallMessageFormat") as Lang.String;
 }
 
-(:background, :glance)
 function isBeepOnCommuncationEnabled() as Lang.Boolean {
     return Application.Properties.getValue("beepOnComm") as Lang.Boolean;
 }

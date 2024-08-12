@@ -1,6 +1,5 @@
 using Toybox.Attention;
 
-(:background, :glance)
 enum BeepType {
     BEEP_TYPE_BEEP,
     BEEP_TYPE_ERROR,
@@ -8,7 +7,6 @@ enum BeepType {
     BEEP_TYPE_MESSAGE
 }
 
-(:background, :glance, :typecheck(disableBackgroundCheck))
 function beep(type as BeepType) as Void {
     if (!getActiveUiKind().equals(ACTIVE_UI_APP)) {
         return;
@@ -20,7 +18,6 @@ function beep(type as BeepType) as Void {
     Attention.playTone(tone);
 }
 
-(:background, :glance, :typecheck(disableBackgroundCheck))
 function toneForBeep(type as BeepType) as Attention.Tone {
     switch (type) {
         case BEEP_TYPE_BEEP: {
