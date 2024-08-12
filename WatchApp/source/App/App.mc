@@ -28,21 +28,21 @@ class App extends Application.AppBase {
         _([L_APP_EXTRA, "backgroundAppUpdateEnabled", isBackgroundAppUpdateEnabled()]);
         _([L_APP, "appType", appType()]);
         _([L_COMPANION_TRACK, "everSeenCompanion", everSeenCompanion()]);
-        Application.AppBase.initialize();
+        AppBase.initialize();
         _([L_APP_EXTRA, "getPhoneAppMessageEventRegistered", Background.getPhoneAppMessageEventRegistered()]);
         Background.registerForPhoneAppMessageEvent();
     }
 
     function onStart(state as Lang.Dictionary or Null) {
         _([L_APP, "onStart", state]);
-        Application.AppBase.onStart(state);
+        AppBase.onStart(state);
     }
 
     function onStop(state as Lang.Dictionary or Null) {
         _([L_APP_LIFE_CYCLE, "activeUiKindOnStop", getActiveUiKind()]);
         _([L_APP_LIFE_CYCLE, "onStop", state]);
         _([L_APP_STAT, "systemStats", systemStatsDumpRep()]);
-        Application.AppBase.onStop(state);
+        AppBase.onStop(state);
     }
 
     (:typecheck(disableGlanceCheck))
@@ -54,7 +54,7 @@ class App extends Application.AppBase {
     (:typecheck(disableBackgroundCheck))
     function onBackgroundData(data as Application.PersistableType) as Void {
         onBackgroundDataImp(data);
-        Application.AppBase.onBackgroundData(data);
+        AppBase.onBackgroundData(data);
     }
 
     (:typecheck([disableGlanceCheck, disableBackgroundCheck]))
