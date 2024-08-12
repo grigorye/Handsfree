@@ -27,7 +27,7 @@ class GlanceView extends WatchUi.GlanceView {
             _([L_GLANCE_VIEW, "onUpdate", { "width" => dc.getWidth(), "height" => dc.getHeight() }]);
             _([L_GLANCE_VIEW, "shouldShowCallState", isShowingCallStateOnGlanceEnabled()]);
         }
-        dc.setColor(Toybox.Graphics.COLOR_WHITE, Toybox.Graphics.COLOR_TRANSPARENT);
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
 
         var defaultTitle = defaultTitle();
         var font;
@@ -54,7 +54,7 @@ class GlanceView extends WatchUi.GlanceView {
                 dc.getHeight() / 2,
                 font,
                 defaultTitle + suffix,
-                Toybox.Graphics.TEXT_JUSTIFY_LEFT | Toybox.Graphics.TEXT_JUSTIFY_VCENTER
+                Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER
             );
         } else {
             var callState = getCallState();
@@ -99,7 +99,7 @@ class GlanceView extends WatchUi.GlanceView {
                 dc.getHeight() / 2,
                 font,
                 title + "\n" + subtitle,
-                Toybox.Graphics.TEXT_JUSTIFY_LEFT | Toybox.Graphics.TEXT_JUSTIFY_VCENTER
+                Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER
             );
         }
     }
