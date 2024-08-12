@@ -10,11 +10,7 @@ typedef LogComponent as Lang.String;
 
 (:glance, :background)
 function _2(component as LogComponent, tag as Lang.String) as Void {
-    if (!isLogAllEnforced() && !isLogComponentEnforced(component)) {
-        return;
-    }
-    var qualifiedTag = component.toString() + "." + tag;
-    dumpImp(qualifiedTag, :noArg);
+    _3(component, tag, :noArg);
 }
 
 (:glance, :background)
