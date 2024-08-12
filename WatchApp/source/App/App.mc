@@ -9,7 +9,7 @@ using Toybox.Communications;
 const L_APP as LogComponent = "app";
 (:glance, :background)
 const L_APP_LIFE_CYCLE as LogComponent = "app";
-(:glance, :background)
+(:glance)
 const L_APP_INITIAL_VIEW as LogComponent = "app";
 (:glance, :background)
 const L_APP_STAT as LogComponent = "app";
@@ -57,32 +57,47 @@ class App extends Application.AppBase {
     }
 
     (:typecheck([disableGlanceCheck, disableBackgroundCheck]))
-    function getInitialView() {
-        _([L_APP_INITIAL_VIEW, "getInitialView"]);
-        eraseAppDataIfNecessary();
-        var inWidgetMode = isInWidgetMode();
-        _([L_APP_EXTRA, "inWidgetMode", inWidgetMode]);
-        setActiveUiKind(ACTIVE_UI_APP);
-        onAppDidFinishLaunching();
-        if (inWidgetMode) {
-            var view = new WidgetView();
-            var delegate = new WidgetViewDelegate();
-            trackInitialView("widget", view, delegate);
-            return [view, delegate];
-        } else {
-            var view = new CommView();
-            trackInitialView("commView", view, null);
-            return [view];
-        }
+    function getInitialView() as [WatchUi.Views] or [WatchUi.Views, WatchUi.InputDelegates] {
+        return getInitialViewInApp();
     }
 
     (:typecheck([disableBackgroundCheck]))
-    function getGlanceView() {
-        _([L_APP_INITIAL_VIEW, "getGlanceView"]);
-        setActiveUiKind(ACTIVE_UI_GLANCE);
-        onAppDidFinishLaunching();
-        return [new GlanceView()];
+    function getGlanceView() as [WatchUi.GlanceView] or [WatchUi.GlanceView, WatchUi.GlanceViewDelegate] or Null {
+        return getGlanceViewInApp();
     }
+}
+
+(:glance)
+function getGlanceViewInApp() as [WatchUi.GlanceView] or [WatchUi.GlanceView, WatchUi.GlanceViewDelegate] or Null {
+    _([L_APP_INITIAL_VIEW, "getGlanceView"]);
+    setActiveUiKind(ACTIVE_UI_GLANCE);
+    onAppDidFinishLaunching();
+    return [new GlanceView()];
+}
+
+(:glance)
+function willReturnInitialView() as Void {
+    _([L_APP_INITIAL_VIEW, "getInitialView"]);
+    eraseAppDataIfNecessary();
+    setActiveUiKind(ACTIVE_UI_APP);
+    onAppDidFinishLaunching();
+}
+
+(:widget)
+function getInitialViewInApp() as [WatchUi.Views] or [WatchUi.Views, WatchUi.InputDelegates] {
+    willReturnInitialView();
+    var view = new WidgetView();
+    var delegate = new WidgetViewDelegate();
+    trackInitialView("widget", view, delegate);
+    return [view, delegate];
+}
+
+(:watchApp)
+function getInitialViewInApp() as [WatchUi.Views] or [WatchUi.Views, WatchUi.InputDelegates] {
+    willReturnInitialView();
+    var view = new CommView();
+    trackInitialView("commView", view, null);
+    return [view];
 }
 
 (:glance, :background)
@@ -144,7 +159,7 @@ function widgetDidShow() as Void {
     }
 }
 
-(:glance, :typecheck(disableBackgroundCheck))
+(:glance)
 function onAppDidFinishLaunching() as Void {
     _([L_APP, "onAppDidFinishLaunching"]);
     (new InAppIncomingMessageDispatcher()).launch();
