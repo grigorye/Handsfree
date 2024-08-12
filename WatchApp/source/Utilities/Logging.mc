@@ -18,7 +18,7 @@ function _3(component as LogComponent, tag as Lang.String, value as Lang.Object 
     if (!isLogAllEnforced() && !isLogComponentEnforced(component)) {
         return;
     }
-    var qualifiedTag = component.toString() + "." + tag;
+    var qualifiedTag = component + "." + tag;
     dumpImp(qualifiedTag, value);
 }
 
