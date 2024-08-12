@@ -23,8 +23,8 @@ class App extends Application.AppBase {
 
     function initialize() {
         _2(L_APP_LIFE_CYCLE, "initialize");
-        _3(L_APP_EXTRA, "deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
         _3(L_APP_STAT, "systemStats", systemStatsDumpRep());
+        _3(L_APP_EXTRA, "deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
         _3(L_APP_EXTRA, "backgroundAppUpdateEnabled", isBackgroundAppUpdateEnabled());
         _3(L_APP, "appType", appType());
         _3(L_COMPANION_TRACK, "everSeenCompanion", everSeenCompanion());
