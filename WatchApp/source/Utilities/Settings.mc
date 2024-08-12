@@ -77,7 +77,11 @@ function isMenu2NoRedrawWorkaroundEnabled() as Lang.Boolean {
 
 (:background, :glance)
 function isCompanionOnboardingEnabled() as Lang.Boolean {
-    return Application.Properties.getValue("companionOnboardingEnabled") as Lang.Boolean;
+    if (getActiveUiKind().equals(ACTIVE_UI_NONE)) {
+        return false;
+    } else {
+        return Application.Properties.getValue("companionOnboardingEnabled") as Lang.Boolean;
+    }
 }
 
 function incomingCallVibrationProgram() as Lang.String {
@@ -86,7 +90,11 @@ function incomingCallVibrationProgram() as Lang.String {
 
 (:background, :glance)
 function isLogAllEnforced() as Lang.Boolean {
-    return Application.Properties.getValue("forceLogAll") as Lang.Boolean;
+    if (getActiveUiKind().equals(ACTIVE_UI_NONE)) {
+        return true;
+    } else {
+        return Application.Properties.getValue("forceLogAll") as Lang.Boolean;
+    }
 }
 
 (:background, :glance)
