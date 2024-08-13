@@ -24,7 +24,6 @@ class App extends Application.AppBase {
     function initialize() {
         _2(L_APP_LIFE_CYCLE, "initialize");
         _3(L_APP_STAT, "systemStats", systemStatsDumpRep());
-        _3(L_APP_EXTRA, "deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
         _3(L_APP_EXTRA, "backgroundAppUpdateEnabled", isBackgroundAppUpdateEnabled());
         _3(L_APP, "appType", appType());
         AppBase.initialize();
@@ -95,7 +94,6 @@ function getInitialViewInApp() as [WatchUi.Views] or [WatchUi.Views, WatchUi.Inp
     return [view];
 }
 
-(:glance, :background)
 function deviceSettingsDumpRep(deviceSettings as System.DeviceSettings) as Lang.String {
     return ""
         + Lang.format("monkey: $1$.$2$.$3$", deviceSettings.monkeyVersion) 
@@ -156,6 +154,7 @@ function widgetDidShow() as Void {
 
 function onAppDidFinishLaunching() as Void {
     _2(L_APP, "onAppDidFinishLaunching");
+    _3(L_APP_EXTRA, "deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
     eraseAppDataIfNecessary();
     _3(L_COMPANION_TRACK, "everSeenCompanion", everSeenCompanion());
     (new InAppIncomingMessageDispatcher()).launch();
