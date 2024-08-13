@@ -75,15 +75,6 @@ function isMenu2NoRedrawWorkaroundEnabled() as Lang.Boolean {
     return Application.Properties.getValue("workaroundNoRedrawForMenu2") as Lang.Boolean;
 }
 
-(:background)
-function isCompanionOnboardingEnabled() as Lang.Boolean {
-    if (getActiveUiKind().equals(ACTIVE_UI_NONE)) {
-        return false;
-    } else {
-        return Application.Properties.getValue("companionOnboardingEnabled") as Lang.Boolean;
-    }
-}
-
 function incomingCallVibrationProgram() as Lang.String {
     return Application.Properties.getValue("incomingCallVibration") as Lang.String;
 }

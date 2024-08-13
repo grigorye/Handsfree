@@ -10,17 +10,7 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
         var id = item.getId() as Lang.String;
         setFocusedPhonesViewItemId(id);
         if (id == noPhonesMenuItemId) {
-            if (everSeenCompanion()) {
-                requestSync();
-            } else {
-                if (!didRequestCompanionInstallation) {
-                    requestCompanionInstallation();
-                } else {
-                    requestSync();
-                    didRequestCompanionInstallation = false;
-                }
-                getPhonesView().updateFromPhones(getPhones());
-            }
+            requestSync();
             return;
         }
         var selectedPhone = null as Phone or Null;

@@ -105,8 +105,6 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
 
 (:background, :typecheck(disableBackgroundCheck))
 function didReceiveRemoteMessage() as Void {
-    didSeeCompanion();
-
     if (getActiveUiKind().equals(ACTIVE_UI_APP)) {
         didReceiveRemoteMessageInForeground();
     }

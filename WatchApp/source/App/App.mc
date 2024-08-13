@@ -15,8 +15,6 @@ const L_APP_INITIAL_VIEW as LogComponent = "app";
 const L_APP_STAT as LogComponent = "app";
 (:glance, :background)
 const L_APP_EXTRA as LogComponent = "app";
-(:background)
-const L_COMPANION_TRACK as LogComponent = "companionTrack";
 
 (:glance, :background)
 class App extends Application.AppBase {
@@ -156,7 +154,6 @@ function onAppDidFinishLaunching() as Void {
     _2(L_APP, "onAppDidFinishLaunching");
     _3(L_APP_EXTRA, "deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
     eraseAppDataIfNecessary();
-    _3(L_COMPANION_TRACK, "everSeenCompanion", everSeenCompanion());
     (new InAppIncomingMessageDispatcher()).launch();
     var callState = getCallState();
     if (callState instanceof CallInProgress) {

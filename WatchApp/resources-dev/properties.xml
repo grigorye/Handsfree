@@ -16,10 +16,6 @@
             title="@Strings.incomingOpenAppViaWakeUp">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.companionOnboardingEnabled"
-            title="@Strings.companionOnboardingEnabled">
-            <settingConfig type="boolean" />
-        </setting>
         <setting propertyKey="@Properties.syncCallStateOnLaunch"
             title="@Strings.syncCallStateOnLaunch">
             <settingConfig type="boolean" />

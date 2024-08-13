@@ -3,7 +3,6 @@
     <properties>
         <property id="popOutOfAppInsteadOfPhones" type="boolean">true</property>
         <property id="openAppOnIncomingCall" type="boolean">false</property>
-        <property id="companionOnboardingEnabled" type="boolean">false</property>
         <property id="syncCallStateOnLaunch" type="boolean">false</property>
         <property id="callStateOnGlance" type="boolean">true</property>
         <property id="syncAttempts" type="number">2</property>
@@ -27,7 +26,6 @@
     <strings>
         <string id="popOutOfAppInsteadOfPhones">Close app after call</string>
         <string id="openAppOnIncomingCall">Open app on incoming call</string>
-        <string id="companionOnboardingEnabled">Enable companion onboarding</string>
         <string id="syncCallStateOnLaunch">Update call state on app launch</string>
         <string id="callStateOnGlance">Show call state on glance</string>
         <string id="syncAttempts">Sync attempts</string>
