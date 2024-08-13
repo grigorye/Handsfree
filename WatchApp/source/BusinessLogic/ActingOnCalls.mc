@@ -2,11 +2,6 @@ using Toybox.Communications;
 using Toybox.WatchUi;
 using Toybox.System;
 
-function revealCallInProgress() as Void {
-    var callState = getCallState() as DismissedCallInProgress;
-    setCallState(new CallInProgress(callState.phone));
-}
-
 function hangupCallInProgress(phone as Phone) as Void {
     if (isIncomingCallPhone(phone)) {
         System.error("isIncomingCallPhone: " + phone);
