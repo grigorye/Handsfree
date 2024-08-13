@@ -14,19 +14,7 @@ class GlanceView extends WatchUi.GlanceView {
         GlanceView.initialize();
     }
 
-    function onShow() {
-        _2(L_GLANCE_VIEW, "onShow");
-    }
-
-    function onHide() {
-        _2(L_GLANCE_VIEW, "onHide");
-    }
-
     function onUpdate(dc as Graphics.Dc) {
-        if (false) {
-            _3(L_GLANCE_VIEW, "onUpdate", { "width" => dc.getWidth(), "height" => dc.getHeight() });
-            _3(L_GLANCE_VIEW, "shouldShowCallState", isShowingCallStateOnGlanceEnabled());
-        }
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
 
         var defaultTitle = defaultTitle();
