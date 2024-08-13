@@ -70,7 +70,6 @@ class App extends Application.AppBase {
 
 (:glance)
 function getGlanceViewInApp() as [WatchUi.GlanceView] or [WatchUi.GlanceView, WatchUi.GlanceViewDelegate] or Null {
-    _2(L_APP_INITIAL_VIEW, "getGlanceView");
     setActiveUiKind(ACTIVE_UI_GLANCE);
     onAppDidFinishLaunching();
     return [new GlanceView()];
@@ -78,7 +77,6 @@ function getGlanceViewInApp() as [WatchUi.GlanceView] or [WatchUi.GlanceView, Wa
 
 (:glance)
 function willReturnInitialView() as Void {
-    _2(L_APP_INITIAL_VIEW, "getInitialView");
     eraseAppDataIfNecessary();
     setActiveUiKind(ACTIVE_UI_APP);
     onAppDidFinishLaunching();
