@@ -77,7 +77,6 @@ function getGlanceViewInApp() as [WatchUi.GlanceView] or [WatchUi.GlanceView, Wa
 
 (:glance)
 function willReturnInitialView() as Void {
-    eraseAppDataIfNecessary();
     setActiveUiKind(ACTIVE_UI_APP);
     onAppDidFinishLaunching();
 }
@@ -161,6 +160,7 @@ function widgetDidShow() as Void {
 (:glance)
 function onAppDidFinishLaunching() as Void {
     _2(L_APP, "onAppDidFinishLaunching");
+    eraseAppDataIfNecessary();
     (new InAppIncomingMessageDispatcher()).launch();
     var callState = getCallState();
     if (callState instanceof CallInProgress) {
