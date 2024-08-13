@@ -37,15 +37,18 @@ function setPhones(phones as Phones) as Void {
     phonesImp = phones;
     Application.Storage.setValue("phones.v1", phones as [Application.PropertyValueType]);
 
-    updateUIForPhones();
+    updateUIForPhonesIfInApp();
 }
 
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
-function updateUIForPhones() as Void {
+function updateUIForPhonesIfInApp() as Void {
     if (!getActiveUiKind().equals(ACTIVE_UI_APP)){
         return;
     }
+    updateUIForPhones();
+}
 
+function updateUIForPhones() as Void {
     var phones = getPhones();
 
     if ((WatchUi has :getCurrentView) && (WatchUi.getCurrentView()[0] instanceof PhonesView)) {
