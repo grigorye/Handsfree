@@ -19,11 +19,6 @@ function setEverSeenCompanion(value as Lang.Boolean) as Void {
 }
 
 (:background, :glance)
-function hasTracesOfCompanion() as Lang.Boolean {
-    return getPhones().size() > 0;
-}
-
-(:background, :glance)
 function didSeeCompanion() as Void {
     if (everSeenCompanion()) {
         return;
