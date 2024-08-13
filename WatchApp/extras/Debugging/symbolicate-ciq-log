@@ -1,0 +1,65 @@
+#! /usr/bin/perl -w
+
+use strict;
+use warnings;
+
+sub symbolicate {
+    my ($target_pc, $debug_xml) = @_;
+    my $closest_pc = 0;
+    my $symbol;
+    my $filename;
+    my $line;
+    open STDIN, "<", $debug_xml or die "Can't open $debug_xml: $!";
+    while (<STDIN>) {
+        if (/ filename="(?<filename>[^\"]+)" id="(\d+)" lineNum="(?<line>\d+)" parent="([^\"]+)" pc="(?<pc>\d+)" symbol="(?<symbol>\w+)"/) {
+            if ($+{pc} < $target_pc && $+{pc} > $closest_pc) {
+                $closest_pc = $+{pc};
+                $symbol = $+{symbol};
+                $filename = $+{filename};
+                $line = $+{line};
+            }
+        }
+    }
+
+    return "${symbol} ${filename}:${line}";
+}
+
+sub part_number($) {
+    my ($ciq_log) = @_;
+    my $part_number;
+    open(my $fh, '<', $ciq_log) or die "Failed to open file: $ciq_log $!";
+    while (my $line = <$fh>) {
+        chomp $line;
+        if ($line =~ /^Part-Number: (?<part_number>.*)$/) {
+            $part_number = $+{part_number};
+            last;
+        }
+    }
+    close($fh);
+    return $part_number;
+}
+
+my $iq = $ARGV[0];
+shift @ARGV;
+my $ciq_log = $ARGV[0];
+shift @ARGV;
+
+my $tmpdir = `mktemp -d /tmp/demangle-ciq-log.XXXXXX`;
+chomp $tmpdir;
+
+my $part_number = part_number($ciq_log);
+
+system("unzip", "-q", $iq, "-d", "${tmpdir}/iq");
+my $debug_xml = "${tmpdir}/iq/${part_number}/debug.xml";
+
+open(my $fh, '<', $ciq_log) or die "Failed to open file: ${ciq_log} $!";
+while (my $line = <$fh>) {
+    chomp $line;
+    if ($line =~ /^  - pc: (?<hex>0x[0-9a-f]+)$/) {
+        my $symbolicated = symbolicate(hex($+{hex}), $debug_xml);
+        print "${line} ${symbolicated}\n";
+    } else {
+        print "$line\n";
+    }
+}
+close($fh);
