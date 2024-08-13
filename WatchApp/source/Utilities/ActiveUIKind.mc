@@ -1,4 +1,5 @@
 using Toybox.System;
+using Toybox.Lang;
 
 (:glance, :background)
 const L_UI_KIND as LogComponent = "uiKind";
@@ -25,4 +26,9 @@ function setActiveUiKind(kind as ActiveUiKind) as Void {
         System.error("Already active UI kind: " + activeUiKindImp);
     }
     activeUiKindImp = kind;
+}
+
+(:background, :glance)
+function isActiveUiKindApp() as Lang.Boolean {
+    return activeUiKindImp.equals(ACTIVE_UI_APP);
 }

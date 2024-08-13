@@ -42,7 +42,7 @@ function setPhones(phones as Phones) as Void {
 
 (:background, :typecheck([disableBackgroundCheck]))
 function updateUIForPhonesIfInApp() as Void {
-    if (!getActiveUiKind().equals(ACTIVE_UI_APP)){
+    if (!isActiveUiKindApp()){
         return;
     }
     updateUIForPhones();

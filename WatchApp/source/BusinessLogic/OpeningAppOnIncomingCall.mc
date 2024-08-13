@@ -12,9 +12,8 @@ function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
     if (!isOpenAppOnIncomingCallEnabled()) {
         return;
     }
-    var activeUiKind = getActiveUiKind();
-    _3(L_OPEN_ME, "activeUiKind", activeUiKind);
-    if (activeUiKind.equals(ACTIVE_UI_APP)) {
+    _3(L_OPEN_ME, "activeUiKind", getActiveUiKind());
+    if (isActiveUiKindApp()) {
         startRequestingAttentionIfInApp();
     } else {
         openAppOnIncomingCall(phone);

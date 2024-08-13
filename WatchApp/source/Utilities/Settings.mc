@@ -19,22 +19,38 @@ function isExitToSystemAfterCallCompletionEnabled() as Lang.Boolean {
 
 (:glance)
 function isShowingCallStateOnGlanceEnabled() as Lang.Boolean {
-    return Application.Properties.getValue("callStateOnGlance") as Lang.Boolean;
+    if (!isActiveUiKindApp()) {
+        return true;
+    } else {
+        return Application.Properties.getValue("callStateOnGlance") as Lang.Boolean;
+    }
 }
 
 (:glance)
 function isShowingSourceVersionEnabled() as Lang.Boolean {
-    return Application.Properties.getValue("showSourceVersion") as Lang.Boolean;
+    if (!isActiveUiKindApp()) {
+        return true;
+    } else {
+        return Application.Properties.getValue("showSourceVersion") as Lang.Boolean;
+    }
 }
 
 (:glance)
 function customGlanceTitle() as Lang.String {
-    return Application.Properties.getValue("customGlanceTitle") as Lang.String;
+    if (!isActiveUiKindApp()) {
+        return "";
+    } else {
+        return Application.Properties.getValue("customGlanceTitle") as Lang.String;
+    }
 }
 
 (:glance)
 function isLargeFontsEnforced() as Lang.Boolean {
-    return Application.Properties.getValue("forceLargeFonts") as Lang.Boolean;
+    if (!isActiveUiKindApp()) {
+        return false;
+    } else {
+        return Application.Properties.getValue("forceLargeFonts") as Lang.Boolean;
+    }
 }
 
 (:background)
@@ -81,7 +97,7 @@ function incomingCallVibrationProgram() as Lang.String {
 
 (:background, :glance)
 function isLogAllEnforced() as Lang.Boolean {
-    if (getActiveUiKind().equals(ACTIVE_UI_NONE)) {
+    if (!isActiveUiKindApp()) {
         return true;
     } else {
         return Application.Properties.getValue("forceLogAll") as Lang.Boolean;
