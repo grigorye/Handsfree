@@ -2,6 +2,16 @@
 
 use strict;
 use warnings;
+use POSIX qw( );
+use Time::Piece;
+
+sub ciq_time_to_local {
+    my ($utc_ts) = @_;
+    # 2024-08-13T21:46:21Z
+    my $utc_tp = Time::Piece->strptime($utc_ts, '%Y-%m-%dT%H:%M:%SZ');
+    my $local_tp = localtime($utc_tp->epoch);
+    return $local_tp->strftime('%Y-%m-%d %H:%M:%S');
+}
 
 sub symbolicate {
     my ($target_pc, $debug_xml) = @_;
@@ -58,6 +68,9 @@ while (my $line = <$fh>) {
     if ($line =~ /^  - pc: (?<hex>0x[0-9a-f]+)$/) {
         my $symbolicated = symbolicate(hex($+{hex}), $debug_xml);
         print "${line} ${symbolicated}\n";
+    } elsif ($line =~ /^Time: (?<ciq_time>.*)$/) {
+        my $local_time = ciq_time_to_local($+{ciq_time});
+        print "Time: ${local_time}\n";
     } else {
         print "$line\n";
     }
