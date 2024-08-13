@@ -28,6 +28,13 @@
     {
       "type": "monkeyc",
       "request": "launch",
+      "name": "Run App on Edge 540",
+      "stopAtLaunch": false,
+      "device": "edge540"
+    },
+    {
+      "type": "monkeyc",
+      "request": "launch",
       "name": "Run App on Instinct 2",
       "stopAtLaunch": false,
       "device": "instinct2"
