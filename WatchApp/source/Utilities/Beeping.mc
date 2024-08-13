@@ -8,9 +8,6 @@ enum BeepType {
 }
 
 function beep(type as BeepType) as Void {
-    if (!getActiveUiKind().equals(ACTIVE_UI_APP)) {
-        return;
-    }
     if (!(Attention has :playTone)) {
         return;
     }
