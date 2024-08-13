@@ -45,7 +45,7 @@ class GlanceView extends WatchUi.GlanceView {
                 Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER
             );
         } else {
-            var callState = getCallState();
+            var callState = loadCallState();
             var title;
             var subtitle;
             switch (callState) {

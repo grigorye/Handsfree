@@ -3,10 +3,8 @@ using Toybox.Lang;
 
 const L_INCOMING as LogComponent = "incoming";
 
-(:glance)
 const L_INCOMING_INIT as LogComponent = "incoming";
 
-(:glance)
 class InAppIncomingMessageDispatcher {
     var readyToSync as Lang.Boolean = false;
 
@@ -16,7 +14,6 @@ class InAppIncomingMessageDispatcher {
         readyToSync = true;
     }
     
-    (:typecheck(disableGlanceCheck))
     function onPhoneAppMessage(msg as Communications.Message) as Void {
         if (!readyToSync) {
             _3(L_INCOMING, "flushedMsg", msg.data);

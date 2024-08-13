@@ -6,14 +6,14 @@ const L_CALL_STATE as LogComponent = "callState";
 
 typedef CallState as Idle or SchedulingCall or CallInProgress or DismissedCallInProgress or HangingUp or Accepting or Declining;
 
-(:background, :glance)
+(:background)
 var callStateImp as CallState or Null;
 
 (:background, :glance)
 class CallStateImp {
 }
 
-(:background, :glance)
+(:background)
 function initialCallState() as CallState {
     return new Idle(); // new CallInProgress({ "number" => "1233", "name" => "VoiceMail", "id" => 23 });
 }
@@ -39,12 +39,12 @@ function loadCallState() as CallState or Null {
     return null;
 }
 
-(:background, :glance)
+(:background)
 function saveCallState(callState as CallState) as Void {
     Application.Storage.setValue("callState.v1", encodeCallState(callState));
 }
 
-(:background, :glance)
+(:background)
 function getCallState() as CallState {
     if (callStateImp == null) {
         var loadedCallState = loadCallState();
@@ -57,7 +57,7 @@ function getCallState() as CallState {
     return callStateImp as CallState;
 }
 
-(:background, :glance)
+(:background)
 function setCallStateImp(callState as CallState) as Void {
     callStateImp = callState;
     saveCallState(callState);

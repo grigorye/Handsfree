@@ -15,7 +15,7 @@ function setCallInProgress(number as Lang.String) as Void {
     }
 }
 
-(:background, :glance)
+(:background)
 function setCallState(callStateImp as CallState or CallActing) as Void {
     var callState = callStateImp as CallState;
     _3(L_CALL_STATE, "set", callState);
@@ -23,7 +23,7 @@ function setCallState(callStateImp as CallState or CallActing) as Void {
     updateUIForCallState();
 }
 
-(:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
+(:background, :typecheck([disableBackgroundCheck]))
 function updateUIForCallState() as Void {
     if (getActiveUiKind().equals(ACTIVE_UI_NONE)) {
         return;

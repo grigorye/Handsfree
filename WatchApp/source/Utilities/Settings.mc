@@ -37,27 +37,27 @@ function isLargeFontsEnforced() as Lang.Boolean {
     return Application.Properties.getValue("forceLargeFonts") as Lang.Boolean;
 }
 
-(:background, :glance)
+(:background)
 function isEraseAppDataOnNextLaunchEnabled() as Lang.Boolean {
     return Application.Properties.getValue("eraseAppDataOnNextLaunch") as Lang.Boolean;
 }
 
-(:background, :glance)
+(:background)
 function clearEraseAppDataOnNextLaunch() as Void {
     Application.Properties.setValue("eraseAppDataOnNextLaunch", false);
 }
 
-(:background, :glance)
+(:background)
 function isOpenAppOnIncomingCallEnabled() as Lang.Boolean {
     return Application.Properties.getValue("openAppOnIncomingCall") as Lang.Boolean;
 }
 
-(:background, :glance)
+(:background)
 function isIncomingOpenAppViaCompanionEnabled() as Lang.Boolean {
     return Application.Properties.getValue("incomingOpenAppViaCompanion") as Lang.Boolean;
 }
 
-(:background, :glance)
+(:background)
 function isIncomingOpenAppViaWakeUpEnabled() as Lang.Boolean {
     return Application.Properties.getValue("incomingOpenAppViaWakeUp") as Lang.Boolean;
 }
@@ -75,7 +75,7 @@ function isMenu2NoRedrawWorkaroundEnabled() as Lang.Boolean {
     return Application.Properties.getValue("workaroundNoRedrawForMenu2") as Lang.Boolean;
 }
 
-(:background, :glance)
+(:background)
 function isCompanionOnboardingEnabled() as Lang.Boolean {
     if (getActiveUiKind().equals(ACTIVE_UI_NONE)) {
         return false;

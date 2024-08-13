@@ -3,13 +3,13 @@ using Toybox.Application;
 
 (:background, :glance)
 var isHeadsetConnectedImp as Lang.Boolean or Null = null;
-(:background, :glance)
+(:background)
 var oldIsHeadsetConnectedImp as Lang.Boolean or Null = null;
 
 (:background, :glance)
 const L_HEADSET as LogComponent = "headset";
 
-(:background, :glance)
+(:background)
 function setIsHeadsetConnectedImp(isHeadsetConnected as Lang.Boolean) as Void {
     _3(L_HEADSET, "isHeadsetConnected", isHeadsetConnected);
     oldIsHeadsetConnectedImp = getIsHeadsetConnected();
@@ -22,7 +22,7 @@ function loadIsHeadsetConnected() as Lang.Boolean or Null {
     return Application.Storage.getValue("isHeadsetConnected") as Lang.Boolean or Null;
 }
 
-(:background, :glance)
+(:background)
 function saveIsHeadsetConnected(isHeadsetConnected as Lang.Boolean) as Void {
     Application.Storage.setValue("isHeadsetConnected", isHeadsetConnected);
 }

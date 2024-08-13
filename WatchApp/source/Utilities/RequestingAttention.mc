@@ -2,7 +2,7 @@ using Toybox.Attention;
 
 const L_ATTN as LogComponent = "attention";
 
-(:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
+(:background, :typecheck([disableBackgroundCheck]))
 function startRequestingAttentionIfInApp() as Void {
     if (!getActiveUiKind().equals(ACTIVE_UI_APP)) {
         return;
@@ -10,7 +10,7 @@ function startRequestingAttentionIfInApp() as Void {
     startRequestingAttention();
 }
 
-(:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
+(:background, :typecheck([disableBackgroundCheck]))
 function stopRequestingAttentionIfInApp() as Void {
     if (!getActiveUiKind().equals(ACTIVE_UI_APP)) {
         return;

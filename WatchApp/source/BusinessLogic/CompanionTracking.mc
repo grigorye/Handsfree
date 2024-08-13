@@ -1,7 +1,7 @@
 using Toybox.Lang;
 using Toybox.Application.Storage;
 
-(:background, :glance)
+(:background)
 function everSeenCompanion() as Lang.Boolean {
     if (!isCompanionOnboardingEnabled()) {
         return true;
@@ -13,12 +13,12 @@ function everSeenCompanion() as Lang.Boolean {
     return storedValue;
 }
 
-(:background, :glance)
+(:background)
 function setEverSeenCompanion(value as Lang.Boolean) as Void {
     Storage.setValue("everSeenCompanion", value);
 }
 
-(:background, :glance)
+(:background)
 function didSeeCompanion() as Void {
     if (everSeenCompanion()) {
         return;
@@ -28,7 +28,7 @@ function didSeeCompanion() as Void {
     updateForDidSeeCompanion();
 }
 
-(:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
+(:background, :typecheck([disableBackgroundCheck]))
 function updateForDidSeeCompanion() as Void {
     _3(L_COMPANION_TRACK, "updateForDidSeeCompanion.activeUiKind", getActiveUiKind());
     if (!getActiveUiKind().equals(ACTIVE_UI_APP)) {

@@ -1,7 +1,7 @@
 using Toybox.Communications;
 using Toybox.Lang;
 
-(:background, :glance)
+(:background)
 class DummyCommListener extends Communications.ConnectionListener {
     var tag as Lang.String;
     

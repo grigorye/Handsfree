@@ -15,7 +15,7 @@ const L_APP_INITIAL_VIEW as LogComponent = "app";
 const L_APP_STAT as LogComponent = "app";
 (:glance, :background)
 const L_APP_EXTRA as LogComponent = "app";
-(:glance, :background)
+(:background)
 const L_COMPANION_TRACK as LogComponent = "companionTrack";
 
 (:glance, :background)
@@ -27,7 +27,6 @@ class App extends Application.AppBase {
         _3(L_APP_EXTRA, "deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
         _3(L_APP_EXTRA, "backgroundAppUpdateEnabled", isBackgroundAppUpdateEnabled());
         _3(L_APP, "appType", appType());
-        _3(L_COMPANION_TRACK, "everSeenCompanion", everSeenCompanion());
         AppBase.initialize();
         _3(L_APP_EXTRA, "getPhoneAppMessageEventRegistered", Background.getPhoneAppMessageEventRegistered());
         Background.registerForPhoneAppMessageEvent();
@@ -51,7 +50,7 @@ class App extends Application.AppBase {
         return [new BackgroundServiceDelegate()];
     }
 
-    (:typecheck(disableBackgroundCheck))
+    (:typecheck([disableBackgroundCheck, disableGlanceCheck]))
     function onBackgroundData(data as Application.PersistableType) as Void {
         onBackgroundDataImp(data);
         AppBase.onBackgroundData(data);
@@ -71,11 +70,9 @@ class App extends Application.AppBase {
 (:glance)
 function getGlanceViewInApp() as [WatchUi.GlanceView] or [WatchUi.GlanceView, WatchUi.GlanceViewDelegate] or Null {
     setActiveUiKind(ACTIVE_UI_GLANCE);
-    onAppDidFinishLaunching();
     return [new GlanceView()];
 }
 
-(:glance)
 function willReturnInitialView() as Void {
     setActiveUiKind(ACTIVE_UI_APP);
     onAppDidFinishLaunching();
@@ -157,10 +154,10 @@ function widgetDidShow() as Void {
     }
 }
 
-(:glance)
 function onAppDidFinishLaunching() as Void {
     _2(L_APP, "onAppDidFinishLaunching");
     eraseAppDataIfNecessary();
+    _3(L_COMPANION_TRACK, "everSeenCompanion", everSeenCompanion());
     (new InAppIncomingMessageDispatcher()).launch();
     var callState = getCallState();
     if (callState instanceof CallInProgress) {
@@ -179,7 +176,7 @@ function didSeeIncomingMessageWhileRoutedToMainUI() as Void {
     }
 }
 
-(:glance)
+(:background)
 function onBackgroundDataImp(data as Application.PersistableType) as Void {
     _3(L_APP_LIFE_CYCLE, "onBackgroundData", data);
     _3(L_APP_STAT, "systemStats", systemStatsDumpRep());

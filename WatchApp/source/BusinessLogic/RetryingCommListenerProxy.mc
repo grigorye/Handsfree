@@ -4,10 +4,9 @@ using Toybox.Lang;
 using Toybox.Application;
 using Toybox.System;
 
-(:background, :glance)
 const L_OUT_RETRYING as LogComponent = ">";
 
-(:background, :glance)
+(:background)
 const L_OUT_COMM as LogComponent = ">";
 
 function transmitWithRetry(tagLiteral as Lang.String, msg as Application.PersistableType, listener as Communications.ConnectionListener) as Void {

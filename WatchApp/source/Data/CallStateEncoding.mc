@@ -2,7 +2,7 @@ using Toybox.Lang;
 using Toybox.Application;
 using Toybox.System;
 
-(:background, :glance)
+(:background)
 const L_ENCODING as LogComponent = "encoding";
 (:background, :glance)
 const L_DECODING as LogComponent = "decoding";
@@ -10,7 +10,7 @@ const L_DECODING as LogComponent = "decoding";
 (:background, :glance)
 typedef CallStateData as Lang.Dictionary<Application.PropertyKeyType, Application.PropertyValueType>;
 
-(:background, :glance)
+(:background)
 function encodeCallState(someCallState as CallState) as CallStateData {
     _3(L_ENCODING, "callState", someCallState);
     switch (someCallState) {

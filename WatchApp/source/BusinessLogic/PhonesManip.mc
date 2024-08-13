@@ -2,13 +2,13 @@ using Toybox.WatchUi;
 using Toybox.Application;
 using Toybox.Lang;
 
-(:background, :glance)
+(:background)
 const L_PHONES as LogComponent = "phones";
 
-(:background, :glance)
+(:background)
 var phonesImp as Phones or Null;
 
-(:background, :glance)
+(:background)
 function loadPhones() as Phones {
     var phones = Application.Storage.getValue("phones.v1") as Phones or Null;
     if (phones != null) {
@@ -18,7 +18,7 @@ function loadPhones() as Phones {
     }
 }
 
-(:background, :glance)
+(:background)
 function getPhones() as Phones {
     if (phonesImp == null) {
         phonesImp = loadPhones();
@@ -26,7 +26,7 @@ function getPhones() as Phones {
     return phonesImp as Phones;
 }
 
-(:background, :glance)
+(:background)
 function setPhones(phones as Phones) as Void {
     _3(L_PHONES, "setPhones", phones);
     if (phones.toString().equals(getPhones().toString())) {
@@ -40,7 +40,7 @@ function setPhones(phones as Phones) as Void {
     updateUIForPhonesIfInApp();
 }
 
-(:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
+(:background, :typecheck([disableBackgroundCheck]))
 function updateUIForPhonesIfInApp() as Void {
     if (!getActiveUiKind().equals(ACTIVE_UI_APP)){
         return;

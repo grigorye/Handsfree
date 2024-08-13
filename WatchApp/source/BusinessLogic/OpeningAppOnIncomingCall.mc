@@ -3,10 +3,10 @@ using Toybox.Background;
 using Toybox.Lang;
 using Toybox.Application;
 
-(:background, :glance)
+(:background)
 const L_OPEN_ME as LogComponent = "openMe";
 
-(:background, :glance)
+(:background)
 function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
     _3(L_OPEN_ME, "isOpenAppOnIncomingCallEnabled", isOpenAppOnIncomingCallEnabled());
     if (!isOpenAppOnIncomingCallEnabled()) {
@@ -21,13 +21,13 @@ function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
     }
 }
 
-(:background, :glance)
+(:background)
 function openAppFailed(message as Lang.String) as Void {
     _3(L_OPEN_ME, "openAppFailed.requestingApplicationWake", message);
     Background.requestApplicationWake(message);
 }
 
-(:background, :glance)
+(:background)
 function openAppOnIncomingCall(phone as Phone) as Void {
     var message = messageForApplicationWake(phone);
     if (isIncomingOpenAppViaCompanionEnabled()) {
@@ -47,7 +47,7 @@ function openAppOnIncomingCall(phone as Phone) as Void {
     }
 }
 
-(:background, :glance)
+(:background)
 function messageForApplicationWake(phone as Phone) as Lang.String {
     var name = phone["name"] as Lang.String or Null;
     if (name != null) {
