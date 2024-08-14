@@ -102,13 +102,11 @@ function isLogAllEnforced() as Lang.Boolean {
     }
 }
 
-(:background, :glance)
 function forcedLogComponentsJoined() as Lang.String {
     return Application.Properties.getValue("forcedLogComponents") as Lang.String;
 }
 
-(:background, :glance)
-function forcedLogComponents() as Lang.Array<Lang.String> {
+function logComponentsForcedInApp() as Lang.Array<Lang.String> {
     var components = stringComponentsJoinedBySeparator(forcedLogComponentsJoined(), ";");
     return components;
 }
