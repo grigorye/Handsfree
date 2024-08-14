@@ -11,8 +11,8 @@ class HangingUp extends CallActing {
         return new HangingUp(phone, commStatus);
     }
 
-    function className() as Lang.String {
-        return "HangingUp";
+    function stateId() as Lang.String {
+        return "hangingUp";
     }
 }
 
@@ -26,8 +26,8 @@ class Declining extends CallActing {
         return new Declining(phone, commStatus);
     }
 
-    function className() as Lang.String {
-        return "Declining";
+    function stateId() as Lang.String {
+        return "declining";
     }
 }
 
@@ -41,8 +41,8 @@ class Accepting extends CallActing {
         return new Accepting(phone, commStatus);
     }
 
-    function className() as Lang.String {
-        return "Accepting";
+    function stateId() as Lang.String {
+        return "accepting";
     }
 }
 
@@ -61,11 +61,12 @@ class CallActing extends CallStateImp {
         return new CallActing(phone, commStatus);
     }
 
-    function className() as Lang.String {
-        return "CallActing";
+    function stateId() as Lang.String {
+        // Align with CallStateEncoding.mc.
+        return "";
     }
 
     function toString() as Lang.String {
-        return className() + "(" + { "phone" => phone, "commStatus" => commStatus } + ")";
+        return stateId() + "(" + { "phone" => phone, "commStatus" => commStatus } + ")";
     }
 }

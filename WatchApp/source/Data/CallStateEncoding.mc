@@ -28,17 +28,9 @@ function encodeCallState(someCallState as CallState) as CallStateData {
             var callState = someCallState as DismissedCallInProgress;
             return { "state" => "dismissedCallInProgress", "phone" => callState.phone } as CallStateData;
         }
-        case instanceof HangingUp: {
-            var callState = someCallState as HangingUp;
-            return { "state" => "hangingUp", "phone" => callState.phone, "commStatus" => callState.commStatus } as CallStateData;
-        }
-        case instanceof Accepting: {
-            var callState = someCallState as Accepting;
-            return { "state" => "accepting", "phone" => callState.phone, "commStatus" => callState.commStatus } as CallStateData;
-        }
-        case instanceof Declining: {
-            var callState = someCallState as Declining;
-            return { "state" => "declining", "phone" => callState.phone, "commStatus" => callState.commStatus } as CallStateData;
+        case instanceof CallActing: {
+            var callState = someCallState as CallActing;
+            return { "state" => callState.stateId(), "phone" => callState.phone, "commStatus" => callState.commStatus } as CallStateData;
         }
         default: {
             System.error("Unknown call state: " + someCallState);
