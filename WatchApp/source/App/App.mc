@@ -45,9 +45,9 @@ class App extends Application.AppBase {
         return [new BackgroundServiceDelegate()];
     }
 
-    (:typecheck([disableBackgroundCheck, disableGlanceCheck]))
     function onBackgroundData(data as Application.PersistableType) as Void {
-        onBackgroundDataImp(data);
+        _3(L_APP_LIFE_CYCLE, "onBackgroundData", { "data" => data, "stats" => systemStatsDumpRep() });
+        updateUIFromBackgroundData();
         AppBase.onBackgroundData(data);
     }
 
@@ -170,31 +170,7 @@ function didSeeIncomingMessageWhileRoutedToMainUI() as Void {
     }
 }
 
-(:background)
-function onBackgroundDataImp(data as Application.PersistableType) as Void {
-    _3(L_APP_LIFE_CYCLE, "onBackgroundData", data);
-    _3(L_APP_STAT, "systemStats", systemStatsDumpRep());
-    switch (data) {
-        case instanceof Lang.String: {
-            switch (data as Lang.String) {
-                case "onPhoneAppMessage": {
-                    setPhones(loadPhones());
-                    var loadedCallState = loadCallState();
-                    if (loadedCallState != null) {
-                        setCallState(loadedCallState);
-                    }
-                    var loadedIsHeadsetConnected = loadIsHeadsetConnected();
-                    if (loadedIsHeadsetConnected != null) {
-                        setIsHeadsetConnected(loadedIsHeadsetConnected);
-                    }
-                    break;
-                }
-                default:
-                    System.error("Unexpected data");
-            }
-            break;
-        }
-        default:
-            System.error("Unexpected data type");
-    }
+(:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
+function updateUIFromBackgroundData() as Void {
+    WatchUi.requestUpdate();
 }
