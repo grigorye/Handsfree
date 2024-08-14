@@ -21,22 +21,18 @@ function initialCallState() as CallState {
 (:background, :glance)
 function loadCallState() as CallState or Null {
     var callStateData = Application.Storage.getValue("callState.v1") as CallStateData or Null;
-    var callState = decodeCallState(callStateData);
-    if (callState != null) {
-        _3(L_CALL_STATE, "loaded", callState);
-        switch (callState) {
-            case instanceof CallActing: {
-                var adjustedCallState = new Idle() as CallState;
-                _3(L_CALL_STATE, "adjustedLoaded", adjustedCallState);
-                return adjustedCallState;
-            }
-            default: {
-                return callState as CallState;
-            }
-        }
+    if (callStateData == null) {
+        _2(L_CALL_STATE, "callStateDataIsNull");
+        return null;
     }
-    _3(L_CALL_STATE, "loaded", null);
-    return null;
+    var callState = decodeCallState(callStateData);
+    _3(L_CALL_STATE, "loaded", callState);
+    if (callState instanceof CallActing) {
+        var adjustedCallState = new Idle() as CallState;
+        _3(L_CALL_STATE, "adjustedLoaded", adjustedCallState);
+        return adjustedCallState;
+    }
+    return callState;
 }
 
 (:background)

@@ -39,13 +39,9 @@ function encodeCallState(someCallState as CallState) as CallStateData {
 }
 
 (:background, :glance)
-function decodeCallState(callStateData as CallStateData or Null) as CallState or Null {
-    if (callStateData == null) {
-        _2(L_DECODING, "callStateDataIsNull");
-        return null;
-    }
+function decodeCallState(callStateData as CallStateData) as CallState {
     _3(L_DECODING, "callStateData", callStateData);
-    var stateId = callStateData["state"] as Lang.String or Null;
+    var stateId = callStateData["state"];
     if (stateId == null) {
         System.error("Call state data missing state: " + callStateData);
     }
