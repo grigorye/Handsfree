@@ -18,8 +18,7 @@ function _3(component as LogComponent, tag as Lang.String, value as Lang.Object 
     if (!isLogAllEnforced() && !isLogComponentEnforced(component)) {
         return;
     }
-    var qualifiedTag = component + "." + tag;
-    dumpImp(qualifiedTag, value);
+    dumpImp(component, tag, value);
 }
 
 (:glance, :background)
@@ -29,7 +28,7 @@ function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
 }
 
 (:glance, :background)
-function dumpImp(tag as Lang.String, output as Lang.Object or Null) as Void {
+function dumpImp(component as LogComponent, tag as Lang.String, output as Lang.Object or Null) as Void {
     var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
 
     if (newSession) {
@@ -48,10 +47,11 @@ function dumpImp(tag as Lang.String, output as Lang.Object or Null) as Void {
         info.hour.format("%02d") + ":" +
         info.min.format("%02d") + ":" +
         info.sec.format("%02d") + " ";
+    var prefix = timePrefix + component + "." + tag;
     if (output == noArg) {
-        System.println(timePrefix + tag);
+        System.println(prefix);
     } else {
-        System.println(timePrefix + tag + ": " + output);
+        System.println(prefix + ": " + output);
     }
 }
 
