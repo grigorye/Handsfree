@@ -1,4 +1,5 @@
 project.typecheck = strict
+project.optimization = 3z
 base.sourcePath = build/source/**.mc;source/**.mc;local/source/**.mc
 
 epix2.personality = $(epix2.personality);./resources-glances2022
