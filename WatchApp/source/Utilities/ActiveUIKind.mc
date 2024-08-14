@@ -2,7 +2,7 @@ using Toybox.System;
 using Toybox.Lang;
 
 (:glance, :background)
-const L_UI_KIND as LogComponent = "uiKind";
+const L_UI_KIND as LogComponent = "app";
 
 (:glance, :background)
 enum ActiveUiKind {
