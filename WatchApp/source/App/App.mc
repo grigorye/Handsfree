@@ -35,9 +35,7 @@ class App extends Application.AppBase {
     }
 
     function onStop(state as Lang.Dictionary or Null) {
-        _3(L_APP_LIFE_CYCLE, "activeUiKindOnStop", getActiveUiKind());
         _3(L_APP_LIFE_CYCLE, "onStop", state);
-        _3(L_APP_STAT, "systemStats", systemStatsDumpRep());
         AppBase.onStop(state);
     }
 
