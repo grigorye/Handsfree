@@ -6,7 +6,6 @@ function eraseAppData() as Void {
     Application.Storage.clearValues();
 }
 
-(:background)
 function eraseAppDataIfNecessary() as Void {
     if (!isEraseAppDataOnNextLaunchEnabled()) {
         return;

@@ -53,12 +53,10 @@ function isLargeFontsEnforced() as Lang.Boolean {
     }
 }
 
-(:background)
 function isEraseAppDataOnNextLaunchEnabled() as Lang.Boolean {
     return Application.Properties.getValue("eraseAppDataOnNextLaunch") as Lang.Boolean;
 }
 
-(:background)
 function clearEraseAppDataOnNextLaunch() as Void {
     Application.Properties.setValue("eraseAppDataOnNextLaunch", false);
 }
