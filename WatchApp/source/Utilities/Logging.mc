@@ -21,10 +21,13 @@ function _3(component as LogComponent, tag as Lang.String, value as Lang.Object 
     dumpImp(component, tag, value);
 }
 
-(:glance, :background)
+(:glance, :background, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
-    var isEnforced = forcedLogComponents().indexOf(component) != -1;
-    return isEnforced;
+    if (!isActiveUiKindApp) {
+        return [">", "<", "app"].indexOf(component) != -1;
+    } else {
+        return logComponentsForcedInApp().indexOf(component) != -1;
+    }
 }
 
 (:glance, :background)
