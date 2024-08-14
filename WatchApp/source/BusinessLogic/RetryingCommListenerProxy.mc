@@ -42,9 +42,7 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
     }
 
     function transmit() as Void {
-        if (isBeepOnCommuncationEnabled()) {
-            beep(BEEP_TYPE_BEEP);
-        }
+        beep(BEEP_TYPE_BEEP);
         attemptNumber = attemptNumber + 1;
         attemptsRemaining = attemptsRemaining - 1;
         _2(L_OUT_RETRYING, tag + ".attempt." + attemptNumber);
@@ -52,9 +50,7 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
     }
 
     function onComplete() {
-        if (isBeepOnCommuncationEnabled()) {
-            beep(BEEP_TYPE_SUCCESS);
-        }
+        beep(BEEP_TYPE_SUCCESS);
         var attemptsSuffix;
         if (attemptNumber > 1) {
             attemptsSuffix = "(attempts: " + attemptNumber + ")";
@@ -68,9 +64,7 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
     function onError() {
         _3(L_OUT_RETRYING, tag + ".onError.connectionAvailable", System.getDeviceSettings().connectionAvailable);
         _3(L_OUT_RETRYING, tag + ".onError.connectionInfo", dumpConnectionInfos(System.getDeviceSettings().connectionInfo));
-        if (isBeepOnCommuncationEnabled()) {
-            beep(BEEP_TYPE_ERROR);
-        }
+        beep(BEEP_TYPE_ERROR);
         _3(L_OUT_RETRYING, tag + ".onError.attempt", attemptNumber);
         _3(L_OUT_RETRYING, tag + ".onError.attemptsRemaining", attemptsRemaining);
         if (retransmitTimer != null) {

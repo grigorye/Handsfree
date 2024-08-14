@@ -111,7 +111,5 @@ function didReceiveRemoteMessage() as Void {
 }
 
 function didReceiveRemoteMessageInForeground() as Void {
-    if (isBeepOnCommuncationEnabled()) {
-        beep(BEEP_TYPE_MESSAGE);
-    }
+    beep(BEEP_TYPE_MESSAGE);
 }
