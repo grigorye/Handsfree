@@ -20,8 +20,7 @@ const L_APP_EXTRA as LogComponent = "app";
 class App extends Application.AppBase {
 
     function initialize() {
-        _2(L_APP_LIFE_CYCLE, "initialize");
-        _3(L_APP_STAT, "systemStats", systemStatsDumpRep());
+        _3(L_APP_LIFE_CYCLE, "initialize", { "stats" => systemStatsDumpRep() });
         _3(L_APP_EXTRA, "backgroundAppUpdateEnabled", isBackgroundAppUpdateEnabled());
         _3(L_APP, "appType", appType());
         AppBase.initialize();
