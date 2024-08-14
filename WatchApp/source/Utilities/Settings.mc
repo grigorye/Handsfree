@@ -19,7 +19,7 @@ function isExitToSystemAfterCallCompletionEnabled() as Lang.Boolean {
 
 (:glance)
 function isShowingCallStateOnGlanceEnabled() as Lang.Boolean {
-    if (!isActiveUiKindApp()) {
+    if (!isActiveUiKindApp) {
         return true;
     } else {
         return Application.Properties.getValue("callStateOnGlance") as Lang.Boolean;
@@ -28,7 +28,7 @@ function isShowingCallStateOnGlanceEnabled() as Lang.Boolean {
 
 (:glance)
 function isShowingSourceVersionEnabled() as Lang.Boolean {
-    if (!isActiveUiKindApp()) {
+    if (!isActiveUiKindApp) {
         return true;
     } else {
         return Application.Properties.getValue("showSourceVersion") as Lang.Boolean;
@@ -37,7 +37,7 @@ function isShowingSourceVersionEnabled() as Lang.Boolean {
 
 (:glance)
 function customGlanceTitle() as Lang.String {
-    if (!isActiveUiKindApp()) {
+    if (!isActiveUiKindApp) {
         return "";
     } else {
         return Application.Properties.getValue("customGlanceTitle") as Lang.String;
@@ -46,7 +46,7 @@ function customGlanceTitle() as Lang.String {
 
 (:glance)
 function isLargeFontsEnforced() as Lang.Boolean {
-    if (!isActiveUiKindApp()) {
+    if (!isActiveUiKindApp) {
         return false;
     } else {
         return Application.Properties.getValue("forceLargeFonts") as Lang.Boolean;
@@ -97,7 +97,7 @@ function incomingCallVibrationProgram() as Lang.String {
 
 (:background, :glance)
 function isLogAllEnforced() as Lang.Boolean {
-    if (!isActiveUiKindApp()) {
+    if (!isActiveUiKindApp) {
         return true;
     } else {
         return Application.Properties.getValue("forceLogAll") as Lang.Boolean;

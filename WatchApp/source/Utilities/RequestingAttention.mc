@@ -4,7 +4,7 @@ const L_ATTN as LogComponent = "attention";
 
 (:background, :typecheck([disableBackgroundCheck]))
 function startRequestingAttentionIfInApp() as Void {
-    if (!isActiveUiKindApp()) {
+    if (!isActiveUiKindApp) {
         return;
     }
     startRequestingAttention();
@@ -12,7 +12,7 @@ function startRequestingAttentionIfInApp() as Void {
 
 (:background, :typecheck([disableBackgroundCheck]))
 function stopRequestingAttentionIfInApp() as Void {
-    if (!isActiveUiKindApp()) {
+    if (!isActiveUiKindApp) {
         return;
     }
     stopRequestingAttention();

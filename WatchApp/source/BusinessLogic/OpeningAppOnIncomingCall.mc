@@ -13,7 +13,7 @@ function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
         return;
     }
     _3(L_OPEN_ME, "activeUiKind", getActiveUiKind());
-    if (isActiveUiKindApp()) {
+    if (isActiveUiKindApp) {
         startRequestingAttentionIfInApp();
     } else {
         openAppOnIncomingCall(phone);

@@ -26,9 +26,8 @@ function setActiveUiKind(kind as ActiveUiKind) as Void {
         System.error("Already active UI kind: " + activeUiKindImp);
     }
     activeUiKindImp = kind;
+    isActiveUiKindApp = activeUiKindImp.equals(ACTIVE_UI_APP);
 }
 
 (:background, :glance)
-function isActiveUiKindApp() as Lang.Boolean {
-    return activeUiKindImp.equals(ACTIVE_UI_APP);
-}
+var isActiveUiKindApp as Lang.Boolean = false;
