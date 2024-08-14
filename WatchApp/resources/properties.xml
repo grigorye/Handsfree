@@ -18,7 +18,7 @@
         <property id="beepOnComm" type="boolean">false</property>
         <property id="workaroundNoRedrawForMenu2" type="boolean">true</property>
         <property id="incomingCallVibration" type="string">v3;p3;v3;p3</property>
-        <property id="forcedLogComponents" type="string"></property>
+        <property id="forcedLogComponents" type="string">&lt;;&gt;;app</property>
         <property id="forceLogAll" type="boolean">false</property>
     </properties>
 
