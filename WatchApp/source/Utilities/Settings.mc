@@ -98,7 +98,7 @@ function incomingCallVibrationProgram() as Lang.String {
 (:background, :glance)
 function isLogAllEnforced() as Lang.Boolean {
     if (!isActiveUiKindApp) {
-        return true;
+        return false;
     } else {
         return Application.Properties.getValue("forceLogAll") as Lang.Boolean;
     }
