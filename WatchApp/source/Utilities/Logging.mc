@@ -47,12 +47,11 @@ function dumpImp(component as LogComponent, tag as Lang.String, output as Lang.O
         info.hour.format("%02d") + ":" +
         info.min.format("%02d") + ":" +
         info.sec.format("%02d") + " ";
-    var prefix = timePrefix + component + "." + tag;
-    if (output == noArg) {
-        System.println(prefix);
-    } else {
-        System.println(prefix + ": " + output);
+    var message = timePrefix + component + "." + tag;
+    if (output != noArg) {
+        message = message + ": " + output;
     }
+    System.println(message);
 }
 
 (:glance, :background)
