@@ -89,22 +89,6 @@ function getInitialViewInApp() as [WatchUi.Views] or [WatchUi.Views, WatchUi.Inp
     return [view];
 }
 
-function deviceSettingsDumpRep(deviceSettings as System.DeviceSettings) as Lang.String {
-    return ""
-        + Lang.format("monkey: $1$.$2$.$3$", deviceSettings.monkeyVersion) 
-        + ", "
-        + Lang.format("firmware: $1$", deviceSettings.firmwareVersion)
-        + ", "
-        + Lang.format("part: $1$", [deviceSettings.partNumber])
-        + ", "
-        + Lang.format("glanceMode: $1$", [isGlanceModeEnabled()])
-        + ", "
-        + Lang.format(
-            "enhancedReadabilityMode: $1$",
-            [(deviceSettings has :isEnhancedReadabilityModeEnabled) ? deviceSettings.isEnhancedReadabilityModeEnabled : "unavailable"]
-        );
-}
-
 function appWillRouteToMainUI() as Void {
     _2(L_APP, "appWillRouteToMainUI");
 }
@@ -149,7 +133,6 @@ function widgetDidShow() as Void {
 
 function onAppDidFinishLaunching() as Void {
     _2(L_APP, "onAppDidFinishLaunching");
-    _3(L_APP_EXTRA, "deviceSettings", deviceSettingsDumpRep(System.getDeviceSettings()));
     eraseAppDataIfNecessary();
     (new InAppIncomingMessageDispatcher()).launch();
     var callState = getCallState();
