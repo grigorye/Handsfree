@@ -64,12 +64,3 @@ function setCallStateIgnoringRouting(callState as CallState) as Void {
     setCallStateImp(callState);
     setRoutedCallStateImp(callState);
 }
-
-(:typecheck(disableBackgroundCheck))
-function updateUIForCallStateIgnoringRouting() as Void {
-    if (getActiveUiKind().equals(ACTIVE_UI_NONE)) {
-        return;
-    }
-    getPhonesView().updateFromCallState(getCallState());
-    WatchUi.requestUpdate();
-}
