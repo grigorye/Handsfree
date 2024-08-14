@@ -1,4 +1,3 @@
-using Toybox.Communications;
 using Toybox.Application;
 using Toybox.Lang;
 
