@@ -8,7 +8,7 @@ const L_CALL_STATE_UI_UPDATE as LogComponent = "callStateUI";
 function setCallInProgress(number as Lang.String) as Void {
     var phones = getPhones();
     for (var i = 0; i < phones.size(); i++) {
-        if((phones[i]["number"] as Lang.String) == number) {
+        if ((phones[i]["number"] as Lang.String) == number) {
             setCallState(new CallInProgress(phones[i]));
             return;
         }
