@@ -15,7 +15,7 @@ function transmitWithRetry(tagLiteral as Lang.String, msg as Application.Persist
     proxy.launch();
 }
 
-(:background, :glance)
+(:background)
 function formatCommTag(tag as Lang.String) as Lang.String {
     return "'" + tag + "'";
 }

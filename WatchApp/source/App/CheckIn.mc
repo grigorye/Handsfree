@@ -18,7 +18,6 @@ function setCheckInImp(imp as CheckIn or Null) as Void {
     checkInImp = imp;
 }
 
-(:glance)
 var checkInImp as CheckIn or Null;
 
 class CheckIn {
