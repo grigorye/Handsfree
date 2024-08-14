@@ -36,14 +36,11 @@ class PhonesView extends WatchUi.Menu2 {
     }
 
     function updateFromCallState(callState as CallState) as Void {
-        switch (callState) {
-            case instanceof DismissedCallInProgress:
-                var title = (callState as DismissedCallInProgress).phone["number"] as Lang.String;
-                setTitle(title);
-                break;
-            default:
-                setTitleFromCheckInStatus(getCheckInStatus());
-                break;
+        if (callState instanceof DismissedCallInProgress) {
+            var title = callState.phone["number"] as Lang.String;
+            setTitle(title);
+        } else {
+            setTitleFromCheckInStatus(getCheckInStatus());
         }
     }
 

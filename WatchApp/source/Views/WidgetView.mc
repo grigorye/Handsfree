@@ -47,38 +47,33 @@ class WidgetView extends WatchUi.View {
         } else {
             var callState = getCallState();
             var lines = [] as Lang.Array<Lang.String or Null>;
-            switch (callState) {
-                case instanceof CallInProgress: {
-                    var phone = (callState as CallInProgress).phone;
-                    var isIncomingCall = isIncomingCallPhone(phone);
-                    var contactName = phone["name"] as Lang.String or Null;
-                    var number = phone["number"] as Lang.String or Null;
-                    var callStatusLine;
-                    if (isIncomingCall) {
-                        callStatusLine = "Incoming call";
-                    } else {
-                        callStatusLine = "Call in progress";
-                    }
-                    lines.add(callStatusLine);
+            if (callState instanceof CallInProgress) {
+                var phone = callState.phone;
+                var isIncomingCall = isIncomingCallPhone(phone);
+                var contactName = phone["name"] as Lang.String or Null;
+                var number = phone["number"] as Lang.String or Null;
+                var callStatusLine;
+                if (isIncomingCall) {
+                    callStatusLine = "Incoming call";
+                } else {
+                    callStatusLine = "Call in progress";
+                }
+                lines.add(callStatusLine);
 
-                    if (contactName != null) {
-                        lines.add(contactName);
-                    } else if (number != null) {
-                        lines.add(number);
-                    }
-                    break;
+                if (contactName != null) {
+                    lines.add(contactName);
+                } else if (number != null) {
+                    lines.add(number);
                 }
-                default: {
-                    lines.add(appName);
-                    var subtitle;
-                    if (isShowingSourceVersionEnabled()) {
-                        subtitle = sourceVersion();
-                    } else {
-                        subtitle = "Idle";
-                    }
-                    lines.add(subtitle);
-                    break;
+            } else {
+                lines.add(appName);
+                var subtitle;
+                if (isShowingSourceVersionEnabled()) {
+                    subtitle = sourceVersion();
+                } else {
+                    subtitle = "Idle";
                 }
+                lines.add(subtitle);
             }
             lines.add(headsetStatusForWidget());
             var text = joinComponents(lines, "\n");

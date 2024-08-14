@@ -37,16 +37,12 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
         // the current view is still the phones view.
         var callState = getCallState();
         _3(L_USER_ACTION, "phonesView.onBack.callState", callState);
-        switch (callState) {
-            case instanceof DismissedCallInProgress: {
-                _2(L_USER_ACTION, "revealingDismissedCallInProgress");
-                var newCallState = new CallInProgress((callState as DismissedCallInProgress).phone);
-                setCallState(newCallState);
-                break;
-            }
-            default: {
-                exitToSystemFromPhonesView();
-            }
+        if (callState instanceof DismissedCallInProgress) {
+            _2(L_USER_ACTION, "revealingDismissedCallInProgress");
+            var newCallState = new CallInProgress(callState.phone);
+            setCallState(newCallState);
+        } else {
+            exitToSystemFromPhonesView();
         }
     }
 }

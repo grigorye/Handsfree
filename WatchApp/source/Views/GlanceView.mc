@@ -48,38 +48,34 @@ class GlanceView extends WatchUi.GlanceView {
             var callState = loadCallState();
             var title;
             var subtitle;
-            switch (callState) {
-                case instanceof CallInProgress: {
-                    var phone = (callState as CallInProgress).phone;
-                    var isIncomingCall = isIncomingCallPhone(phone);
-                    title = phone["name"] as Lang.String or Null;
-                    if (title == null) {
-                        title = defaultTitle;
-                    }
-                    var number = phone["number"] as Lang.String or Null;
-                    if (isIncomingCall) {
-                        if (number != null) {
-                            subtitle = incomingCallMessage(number);
-                        } else {
-                            subtitle = "Incoming call";
-                        }
-                    } else {
-                        if (number != null) {
-                            subtitle = number;
-                        } else {
-                            subtitle = "Call in progress";
-                        }
-                    }
-                    break;
-                }
-                default:
+            if (callState instanceof CallInProgress) {
+                var phone = callState.phone;
+                var isIncomingCall = isIncomingCallPhone(phone);
+                title = phone["name"] as Lang.String or Null;
+                if (title == null) {
                     title = defaultTitle;
-                    if (isShowingSourceVersionEnabled()) {
-                        subtitle = sourceVersion();
+                }
+                var number = phone["number"] as Lang.String or Null;
+                if (isIncomingCall) {
+                    if (number != null) {
+                        subtitle = incomingCallMessage(number);
                     } else {
-                        subtitle = "Idle";
+                        subtitle = "Incoming call";
                     }
-                    break;
+                } else {
+                    if (number != null) {
+                        subtitle = number;
+                    } else {
+                        subtitle = "Call in progress";
+                    }
+                }
+            } else {
+                title = defaultTitle;
+                if (isShowingSourceVersionEnabled()) {
+                    subtitle = sourceVersion();
+                } else {
+                    subtitle = "Idle";
+                }
             }
 
             dc.drawText(

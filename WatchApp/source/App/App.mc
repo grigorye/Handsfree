@@ -137,8 +137,7 @@ function onAppDidFinishLaunching() as Void {
     (new InAppIncomingMessageDispatcher()).launch();
     var callState = getCallState();
     if (callState instanceof CallInProgress) {
-        var phone = (callState as CallInProgress).phone;
-        if (isIncomingCallPhone(phone)) {
+        if (isIncomingCallPhone(callState.phone)) {
             startRequestingAttentionIfInApp();
         }
     }

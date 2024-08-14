@@ -43,15 +43,16 @@ function saveCallState(callState as CallState) as Void {
 
 (:background)
 function getCallState() as CallState {
-    if (callStateImp == null) {
-        var loadedCallState = loadCallState();
-        if (loadedCallState != null) {
-            callStateImp = loadedCallState;
-        } else {
-            callStateImp = initialCallState();
-        }
+    if (callStateImp != null) {
+        return callStateImp;
     }
-    return callStateImp as CallState;
+    var loadedCallState = loadCallState();
+    if (loadedCallState != null) {
+        callStateImp = loadedCallState;
+        return loadedCallState;
+    }
+    callStateImp = initialCallState();
+    return callStateImp;
 }
 
 (:background)
