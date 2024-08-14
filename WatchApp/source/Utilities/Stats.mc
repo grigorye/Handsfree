@@ -5,8 +5,8 @@ using Toybox.Lang;
 function systemStatsDumpRep() as Lang.Dictionary {
     var stats = System.getSystemStats();
     return {
-        "freeMemory" => stats.freeMemory,
-        "totalMemory" => stats.totalMemory,
-        "usedMemory" => stats.usedMemory
+        "f" => stats.freeMemory,
+        "t" => stats.totalMemory,
+        "u" => stats.usedMemory
     };
 }
