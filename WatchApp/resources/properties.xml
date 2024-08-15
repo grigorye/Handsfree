@@ -9,6 +9,7 @@
         <property id="secondsToCheckIn" type="number">5</property>
         <property id="showSourceVersion" type="boolean">false</property>
         <property id="dummySourceVersion" type="string"></property>
+        <property id="flushIncomingMessagesOnLaunch" type="boolean">false</property>
         <property id="customGlanceTitle" type="string"></property>
         <property id="incomingCallMessageFormat" type="string">&lt;$1$</property>
         <property id="forceLargeFonts" type="boolean">false</property>
@@ -43,6 +44,7 @@
         <string id="incomingCallVibration">Incoming call vibration pattern ('v3;p1;v3;p2'
             means 'vibrate 3s, pause 1s, vibrate 3s, pause 2s')</string>
         <string id="forceLogAll">Verbose logs</string>
+        <string id="flushIncomingMessagesOnLaunch">Flush incoming messages on launch</string>
     </strings>
 
     <settings>

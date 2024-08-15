@@ -16,8 +16,12 @@ class InAppIncomingMessageDispatcher {
     
     function onPhoneAppMessage(msg as Communications.Message) as Void {
         if (!readyToSync) {
-            _3(L_INCOMING, "flushedMsg", msg.data);
-            return;
+            if (AppSettings.isFlushIncomingMessagesOnLaunchEnabled) {
+                _3(L_INCOMING, "flushedMsg", msg.data);
+                return;
+            } else {
+                _3(L_INCOMING, "flushableMsg", msg.data);
+            }
         }
         if (routedToMainUI) {
             didSeeIncomingMessageWhileRoutedToMainUI();

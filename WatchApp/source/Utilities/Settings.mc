@@ -20,6 +20,8 @@ module AppSettings {
     const incomingCallVibrationProgram as Lang.String = Application.Properties.getValue("incomingCallVibration") as Lang.String;
     const forcedLogComponentsJoined as Lang.String = Application.Properties.getValue("forcedLogComponents") as Lang.String;
 
+    const isFlushIncomingMessagesOnLaunchEnabled as Lang.Boolean = Application.Properties.getValue("flushIncomingMessagesOnLaunch") as Lang.Boolean;
+
     const isEraseAppDataOnNextLaunchEnabled as Lang.Boolean = Application.Properties.getValue("eraseAppDataOnNextLaunch") as Lang.Boolean;
     function clearEraseAppDataOnNextLaunch() as Void {
         Application.Properties.setValue("eraseAppDataOnNextLaunch", false);
