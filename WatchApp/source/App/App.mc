@@ -28,16 +28,6 @@ class App extends Application.AppBase {
         Background.registerForPhoneAppMessageEvent();
     }
 
-    function onStart(state as Lang.Dictionary or Null) {
-        _3(L_APP, "onStart", state);
-        AppBase.onStart(state);
-    }
-
-    function onStop(state as Lang.Dictionary or Null) {
-        _3(LX_APP_LIFE_CYCLE, "onStop", state);
-        AppBase.onStop(state);
-    }
-
     (:typecheck(disableGlanceCheck))
     function getServiceDelegate() as [System.ServiceDelegate] {
         _2(L_APP_EXTRA, "getServiceDelegate");
