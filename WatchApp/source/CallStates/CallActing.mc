@@ -63,7 +63,7 @@ class CallActing extends CallStateImp {
 
     function stateId() as Lang.String {
         // Align with CallStateEncoding.mc.
-        return "";
+        System.error("CallActing.stateId() must be overridden");
     }
 
     function toString() as Lang.String {
