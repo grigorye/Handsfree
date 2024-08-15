@@ -28,13 +28,13 @@ function viewStackTags() as Lang.Array<Lang.String> {
     return tags;
 }
 
-function switchToView(tag as Lang.String, view as WatchUi.Confirmation or WatchUi.Menu or WatchUi.NumberPicker or WatchUi.ProgressBar or WatchUi.TextPicker or WatchUi.View or WatchUi.ViewLoop, delegate as Null or WatchUi.InputDelegates, transition as WatchUi.SlideType) as Void {
+function switchToView(tag as Lang.String, view as WatchUi.Views, delegate as WatchUi.InputDelegates or Null, transition as WatchUi.SlideType) as Void {
     viewStack[viewStack.size() - 1] = new ViewStackEntry(tag, view, delegate);
     dumpViewStack("switchToView");
     WatchUi.switchToView(view, delegate, transition);
 }
 
-function pushView(tag as Lang.String, view as WatchUi.Confirmation or WatchUi.Menu or WatchUi.NumberPicker or WatchUi.ProgressBar or WatchUi.TextPicker or WatchUi.View or WatchUi.ViewLoop, delegate as Null or WatchUi.InputDelegates, transition as WatchUi.SlideType) as Lang.Boolean {
+function pushView(tag as Lang.String, view as WatchUi.Views, delegate as WatchUi.InputDelegates or Null, transition as WatchUi.SlideType) as Lang.Boolean {
     viewStack.add(new ViewStackEntry(tag, view, delegate));
     dumpViewStack("pushView");
     assertViewStackIsSane();
