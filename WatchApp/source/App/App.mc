@@ -47,14 +47,9 @@ class App extends Application.AppBase {
 
     (:typecheck([disableBackgroundCheck]))
     function getGlanceView() as [WatchUi.GlanceView] or [WatchUi.GlanceView, WatchUi.GlanceViewDelegate] or Null {
-        return getGlanceViewInApp();
+        setActiveUiKind(ACTIVE_UI_GLANCE);
+        return [new GlanceView()];
     }
-}
-
-(:glance)
-function getGlanceViewInApp() as [WatchUi.GlanceView] or [WatchUi.GlanceView, WatchUi.GlanceViewDelegate] or Null {
-    setActiveUiKind(ACTIVE_UI_GLANCE);
-    return [new GlanceView()];
 }
 
 function willReturnInitialView() as Void {
