@@ -5,14 +5,15 @@ var phonesViewImp as PhonesView or Null;
 const L_PHONES_VIEW_INIT as LogComponent = "phonesView";
 
 function getPhonesView() as PhonesView {
-    if (phonesViewImp == null) {
-        _2(L_PHONES_VIEW_INIT, "settingInitialView");
-        var phonesView = new PhonesView();
-        phonesView.updateFromCallState(getCallState());
-        phonesView.setFromPhones(getPhones());
-        phonesViewImp = phonesView;
+    if (phonesViewImp != null) {
+        return phonesViewImp;
     }
-    return phonesViewImp as PhonesView;
+    _2(L_PHONES_VIEW_INIT, "settingInitialView");
+    var phonesView = new PhonesView();
+    phonesView.updateFromCallState(getCallState());
+    phonesView.setFromPhones(getPhones());
+    phonesViewImp = phonesView;
+    return phonesView;
 }
 
 function setPhonesView(phonesView as PhonesView) as Void {
