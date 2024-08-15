@@ -26,7 +26,6 @@ import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.HeadsetConnectionMonitor
-import com.gentin.connectiq.handsfree.impl.OpenMeArgs
 import com.gentin.connectiq.handsfree.impl.PhoneState
 import java.util.Date
 
@@ -122,10 +121,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
                 for (app in watchApps) {
                     garminConnector.openWatchAppOnEveryDevice(app) { destination, succeeded ->
                         if (!succeeded) {
-                            l.outgoingMessageDispatcher.sendOpenAppFailed(
-                                destination,
-                                OpenMeArgs(messageForWakingUp = "Open ${destination.app?.displayName}")
-                            )
+                            l.outgoingMessageDispatcher.sendOpenAppFailed(destination)
                         }
                     }
                 }
@@ -228,10 +224,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             for (app in watchApps) {
                 l.garminConnector.openWatchAppOnEveryDevice(app) { destination, succeeded ->
                     if (!succeeded) {
-                        l.outgoingMessageDispatcher.sendOpenAppFailed(
-                            destination,
-                            OpenMeArgs(messageForWakingUp = "Open ${destination.app?.displayName}")
-                        )
+                        l.outgoingMessageDispatcher.sendOpenAppFailed(destination)
                     }
                 }
             }
