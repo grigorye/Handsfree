@@ -7,7 +7,7 @@ using Toybox.System;
 const L_OUT_RETRYING as LogComponent = ">";
 
 (:background)
-const L_OUT_COMM as LogComponent = ">";
+const LX_OUT_COMM as LogComponent = ">";
 
 function transmitWithRetry(tagLiteral as Lang.String, msg as Application.PersistableType, listener as Communications.ConnectionListener) as Void {
     var tag = formatCommTag(tagLiteral);
@@ -37,7 +37,7 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
     }
 
     function launch() as Void {
-        _3(L_OUT_COMM, tag + ".requesting", msg);
+        _3(LX_OUT_COMM, tag + ".requesting", msg);
         transmit();
     }
 
@@ -57,7 +57,7 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
         } else {
             attemptsSuffix = "";
         }
-        _2(L_OUT_COMM, tag + ".succeeded" + attemptsSuffix);
+        _2(LX_OUT_COMM, tag + ".succeeded" + attemptsSuffix);
         wrappedListener.onComplete();
     }
 
@@ -77,7 +77,7 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
             (retransmitTimer as Timer.Timer).start(method(:transmit), retransmitDelay, false);
             return;
         }
-        _2(L_OUT_COMM, tag + ".failed");
+        _2(LX_OUT_COMM, tag + ".failed");
         wrappedListener.onError();
     }
 }

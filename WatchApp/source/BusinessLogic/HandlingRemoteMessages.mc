@@ -3,11 +3,11 @@ using Toybox.Communications;
 using Toybox.System;
 
 (:background)
-const L_REMOTE_MSG as LogComponent = "<";
+const LX_REMOTE_MSG as LogComponent = "<";
 
 (:background)
 function handleRemoteMessage(iqMsg as Communications.Message) as Void {
-    _3(L_REMOTE_MSG, "msg", iqMsg.data);
+    _3(LX_REMOTE_MSG, "msg", iqMsg.data);
     didReceiveRemoteMessage();
     var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
     var cmd = msg["cmd"] as Lang.String;
@@ -23,7 +23,7 @@ function handleRemoteMessage(iqMsg as Communications.Message) as Void {
                 }
                 callStateIsOwnedByUs = true;
             } else {
-                _3(L_REMOTE_MSG, "callStateIsNotOwnedByUs", true);
+                _3(LX_REMOTE_MSG, "callStateIsNotOwnedByUs", true);
             }
             break;
         case "setPhones":
