@@ -46,9 +46,9 @@ const L_PHONE_STATE_CHANGED as LogComponent = "phoneStateChanged";
 function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
     var callState = getCallState();
     _3(L_PHONE_STATE_CHANGED, "oldCallState", callState);
-    var inIsHeadsetConnected = args["isHeadsetConnected"];
+    var inIsHeadsetConnected = args["isHeadsetConnected"] as Lang.Boolean or Null;
     if (inIsHeadsetConnected != null) {
-        setIsHeadsetConnected(inIsHeadsetConnected as Lang.Boolean);
+        setIsHeadsetConnected(inIsHeadsetConnected);
     }
     var phoneState = args["state"] as Lang.String;
     _3(L_PHONE_STATE_CHANGED, "inPhoneState", phoneState);
