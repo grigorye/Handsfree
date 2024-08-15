@@ -67,19 +67,15 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
             if (inProgressName != null) {
                 setPhoneName(inProgressPhone, inProgressName as Lang.String);
             }
-            switch (callState) {
-                case instanceof DismissedCallInProgress:
-                    var dismissedCallState = callState as DismissedCallInProgress;
-                    var dismissedNumber = dismissedCallState.phone["number"] as Lang.String;
-                    var dismissedButChanged = !dismissedNumber.equals(inProgressNumber);
-                    _3(L_PHONE_STATE_CHANGED, "dismissedButChanged", dismissedButChanged);
-                    if (dismissedButChanged) {
-                        setCallState(new CallInProgress(inProgressPhone));
-                    }
-                    break;
-                default:
+            if (callState instanceof DismissedCallInProgress) {
+                var dismissedNumber = callState.phone["number"] as Lang.String;
+                var dismissedButChanged = !dismissedNumber.equals(inProgressNumber);
+                _3(L_PHONE_STATE_CHANGED, "dismissedButChanged", dismissedButChanged);
+                if (dismissedButChanged) {
                     setCallState(new CallInProgress(inProgressPhone));
-                    break;
+                }
+            } else {
+                setCallState(new CallInProgress(inProgressPhone));
             }
             break;
         case "noCallInProgress":
