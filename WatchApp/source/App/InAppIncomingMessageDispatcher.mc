@@ -6,7 +6,7 @@ const L_INCOMING as LogComponent = "incoming";
 const L_INCOMING_INIT as LogComponent = "incoming";
 
 class InAppIncomingMessageDispatcher {
-    var readyToSync as Lang.Boolean = false;
+    private var readyToSync as Lang.Boolean = false;
 
     function launch() as Void {
         _2(L_INCOMING_INIT, "registerForPhoneAppMessages");

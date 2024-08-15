@@ -9,7 +9,7 @@ class PhonesView extends WatchUi.Menu2 {
         WatchUi.Menu2.initialize({});
     }
 
-    var oldPhones as Phones = [] as Phones;
+    private var oldPhones as Phones = [] as Phones;
 
     function setTitleFromCheckInStatus(checkInStatus as CheckInStatus) as Void {
         var title;

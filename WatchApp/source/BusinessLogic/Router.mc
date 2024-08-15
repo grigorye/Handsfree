@@ -16,7 +16,7 @@ function getRouter() as Router {
 class Router {
     function initialize() {}
 
-    var updateCounter as Lang.Number = 0;
+    private var updateCounter as Lang.Number = 0;
 
     function updateRoute() as Void {
         updateCounter = updateCounter + 1;

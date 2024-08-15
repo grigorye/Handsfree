@@ -21,13 +21,13 @@ function formatCommTag(tag as Lang.String) as Lang.String {
 }
 
 class RetryingCommListenerProxy extends Communications.ConnectionListener {
-    var tag as Lang.String;
-    var msg as Application.PersistableType;
-    var attemptsRemaining as Lang.Number = 3;
-    var attemptNumber as Lang.Number = 0;
-    var wrappedListener as Communications.ConnectionListener;
-    var retransmitDelay as Lang.Number = 500;
-    var retransmitTimer as Timer.Timer or Null = null;
+    private var tag as Lang.String;
+    private var msg as Application.PersistableType;
+    private var attemptsRemaining as Lang.Number = 3;
+    private var attemptNumber as Lang.Number = 0;
+    private var wrappedListener as Communications.ConnectionListener;
+    private var retransmitDelay as Lang.Number = 500;
+    private var retransmitTimer as Timer.Timer or Null = null;
 
     function initialize(tag as Lang.String, msg as Application.PersistableType, wrappedListener as Communications.ConnectionListener) {
         Communications.ConnectionListener.initialize();

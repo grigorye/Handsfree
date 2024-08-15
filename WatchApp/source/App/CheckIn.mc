@@ -21,9 +21,9 @@ function setCheckInImp(imp as CheckIn or Null) as Void {
 var checkInImp as CheckIn or Null;
 
 class CheckIn {
-    var checkInAttemptsRemaining as Lang.Number;
-    var secondsToCheckIn as Lang.Number;
-    var checkInTimer as Timer.Timer or Null = null;
+    private var checkInAttemptsRemaining as Lang.Number;
+    private var secondsToCheckIn as Lang.Number;
+    private var checkInTimer as Timer.Timer or Null = null;
 
     function initialize() {
         checkInAttemptsRemaining = initialAttemptsToCheckin();

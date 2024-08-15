@@ -5,7 +5,7 @@ using Toybox.Lang;
 const L_SCHEDULE_CALL as LogComponent = "scheduleCall";
 
 class ScheduleCallTask extends Communications.ConnectionListener {
-    var phone as Phone;
+    private var phone as Phone;
 
     function initialize(phone as Phone) {
         ConnectionListener.initialize();

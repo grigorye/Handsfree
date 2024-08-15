@@ -5,8 +5,8 @@ using Toybox.Lang;
 const L_CALL_ACTION as LogComponent = "callAction";
 
 class CallActionTask extends Communications.ConnectionListener {
-    var phone as Phone;
-    var action as CallInProgressAction;
+    private var phone as Phone;
+    private var action as CallInProgressAction;
 
     function initialize(phone as Phone, action as CallInProgressAction) {
         ConnectionListener.initialize();
