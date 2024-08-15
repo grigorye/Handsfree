@@ -3,24 +3,24 @@ using Toybox.Lang;
 
 (:glance)
 module GlanceSettings {
-    var isShowingCallStateOnGlanceEnabled as Lang.Boolean = Application.Properties.getValue("callStateOnGlance") as Lang.Boolean;
-    var isShowingSourceVersionEnabled as Lang.Boolean = Application.Properties.getValue("showSourceVersion") as Lang.Boolean;
-    var customGlanceTitle as Lang.String = Application.Properties.getValue("customGlanceTitle") as Lang.String;
-    var isLargeFontsEnforced as Lang.Boolean = Application.Properties.getValue("forceLargeFonts") as Lang.Boolean;
+    const isShowingCallStateOnGlanceEnabled as Lang.Boolean = Application.Properties.getValue("callStateOnGlance") as Lang.Boolean;
+    const isShowingSourceVersionEnabled as Lang.Boolean = Application.Properties.getValue("showSourceVersion") as Lang.Boolean;
+    const customGlanceTitle as Lang.String = Application.Properties.getValue("customGlanceTitle") as Lang.String;
+    const isLargeFontsEnforced as Lang.Boolean = Application.Properties.getValue("forceLargeFonts") as Lang.Boolean;
 }
 
 module AppSettings {
-    var initialAttemptsToCheckin as Lang.Number = Application.Properties.getValue("syncAttempts") as Lang.Number;
-    var initialSecondsToCheckin as Lang.Number = Application.Properties.getValue("secondsToCheckIn") as Lang.Number;
-    var isSyncingCallStateOnCheckinEnabled as Lang.Boolean = Application.Properties.getValue("syncCallStateOnLaunch") as Lang.Boolean;
-    var isExitToSystemAfterCallCompletionEnabled as Lang.Boolean = Application.Properties.getValue("popOutOfAppInsteadOfPhones") as Lang.Boolean;
+    const initialAttemptsToCheckin as Lang.Number = Application.Properties.getValue("syncAttempts") as Lang.Number;
+    const initialSecondsToCheckin as Lang.Number = Application.Properties.getValue("secondsToCheckIn") as Lang.Number;
+    const isSyncingCallStateOnCheckinEnabled as Lang.Boolean = Application.Properties.getValue("syncCallStateOnLaunch") as Lang.Boolean;
+    const isExitToSystemAfterCallCompletionEnabled as Lang.Boolean = Application.Properties.getValue("popOutOfAppInsteadOfPhones") as Lang.Boolean;
 
-    var isBeepOnCommuncationEnabled as Lang.Boolean = Application.Properties.getValue("beepOnComm") as Lang.Boolean;
-    var isMenu2NoRedrawWorkaroundEnabled as Lang.Boolean = Application.Properties.getValue("workaroundNoRedrawForMenu2") as Lang.Boolean;
-    var incomingCallVibrationProgram as Lang.String = Application.Properties.getValue("incomingCallVibration") as Lang.String;
-    var forcedLogComponentsJoined as Lang.String = Application.Properties.getValue("forcedLogComponents") as Lang.String;
+    const isBeepOnCommuncationEnabled as Lang.Boolean = Application.Properties.getValue("beepOnComm") as Lang.Boolean;
+    const isMenu2NoRedrawWorkaroundEnabled as Lang.Boolean = Application.Properties.getValue("workaroundNoRedrawForMenu2") as Lang.Boolean;
+    const incomingCallVibrationProgram as Lang.String = Application.Properties.getValue("incomingCallVibration") as Lang.String;
+    const forcedLogComponentsJoined as Lang.String = Application.Properties.getValue("forcedLogComponents") as Lang.String;
 
-    var isEraseAppDataOnNextLaunchEnabled as Lang.Boolean = Application.Properties.getValue("eraseAppDataOnNextLaunch") as Lang.Boolean;
+    const isEraseAppDataOnNextLaunchEnabled as Lang.Boolean = Application.Properties.getValue("eraseAppDataOnNextLaunch") as Lang.Boolean;
     function clearEraseAppDataOnNextLaunch() as Void {
         Application.Properties.setValue("eraseAppDataOnNextLaunch", false);
     }
@@ -28,14 +28,14 @@ module AppSettings {
 
 (:background)
 module BackgroundSettings {
-    var isOpenAppOnIncomingCallEnabled as Lang.Boolean = Application.Properties.getValue("openAppOnIncomingCall") as Lang.Boolean;
-    var isIncomingOpenAppViaCompanionEnabled as Lang.Boolean = Application.Properties.getValue("incomingOpenAppViaCompanion") as Lang.Boolean;
-    var isIncomingOpenAppViaWakeUpEnabled as Lang.Boolean = Application.Properties.getValue("incomingOpenAppViaWakeUp") as Lang.Boolean;
+    const isOpenAppOnIncomingCallEnabled as Lang.Boolean = Application.Properties.getValue("openAppOnIncomingCall") as Lang.Boolean;
+    const isIncomingOpenAppViaCompanionEnabled as Lang.Boolean = Application.Properties.getValue("incomingOpenAppViaCompanion") as Lang.Boolean;
+    const isIncomingOpenAppViaWakeUpEnabled as Lang.Boolean = Application.Properties.getValue("incomingOpenAppViaWakeUp") as Lang.Boolean;
 }
 
 (:background, :glance)
 module CommonSettings {
-    var incomingCallMessageFormat as Lang.String = Application.Properties.getValue("incomingCallMessageFormat") as Lang.String;
+    const incomingCallMessageFormat as Lang.String = Application.Properties.getValue("incomingCallMessageFormat") as Lang.String;
 }
 
 (:background, :glance)
