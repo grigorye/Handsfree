@@ -63,9 +63,7 @@ class DefaultServiceLocator(
             openAppImp = { source, args ->
                 garminConnector.openWatchAppOnDevice(source.device, source.app) { succeeded ->
                     val destination = OutgoingMessageDestination(source.device, source.app)
-                    if (!succeeded) {
-                        outgoingMessageDispatcher.sendOpenAppFailed(destination, args)
-                    }
+                    outgoingMessageDispatcher.sendOpenMeCompleted(destination, args, succeeded)
                 }
             }
         )
