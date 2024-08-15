@@ -55,7 +55,7 @@ function openAppOnIncomingCall(phone as Phone) as Void {
             }
         } as Lang.Object as Application.PersistableType;
         var tag = formatCommTag("openMe");
-        _3(L_OUT_COMM, tag + ".requesting", msg);
+        _3(LX_OUT_COMM, tag + ".requesting", msg);
         Communications.transmit(msg, null, new DummyCommListener(tag));
     }
     if (BackgroundSettings.isIncomingOpenAppViaWakeUpEnabled) {

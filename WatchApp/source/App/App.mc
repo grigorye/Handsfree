@@ -8,7 +8,7 @@ using Toybox.Communications;
 (:glance, :background)
 const L_APP as LogComponent = "app";
 (:glance, :background)
-const L_APP_LIFE_CYCLE as LogComponent = "app";
+const LX_APP_LIFE_CYCLE as LogComponent = "app";
 (:glance)
 const L_APP_INITIAL_VIEW as LogComponent = "app";
 (:glance, :background)
@@ -20,7 +20,7 @@ const L_APP_EXTRA as LogComponent = "app";
 class App extends Application.AppBase {
 
     function initialize() {
-        _3(L_APP_LIFE_CYCLE, "initialize", { "stats" => systemStatsDumpRep() });
+        _3(LX_APP_LIFE_CYCLE, "initialize", { "stats" => systemStatsDumpRep() });
         _3(L_APP_EXTRA, "backgroundAppUpdateEnabled", isBackgroundAppUpdateEnabled());
         _3(L_APP, "appType", appType());
         AppBase.initialize();
@@ -34,7 +34,7 @@ class App extends Application.AppBase {
     }
 
     function onStop(state as Lang.Dictionary or Null) {
-        _3(L_APP_LIFE_CYCLE, "onStop", state);
+        _3(LX_APP_LIFE_CYCLE, "onStop", state);
         AppBase.onStop(state);
     }
 
@@ -45,7 +45,7 @@ class App extends Application.AppBase {
     }
 
     function onBackgroundData(data as Application.PersistableType) as Void {
-        _3(L_APP_LIFE_CYCLE, "onBackgroundData", { "data" => data, "stats" => systemStatsDumpRep() });
+        _3(LX_APP_LIFE_CYCLE, "onBackgroundData", { "data" => data, "stats" => systemStatsDumpRep() });
         updateUIFromBackgroundData();
         AppBase.onBackgroundData(data);
     }
@@ -106,7 +106,7 @@ function appDidRouteToMainUI() as Void {
 function launchCheckInIfNecessary() as Void {
     var callState = getCallState();
     if (!(callState instanceof Idle)) {
-        _3(L_APP_LIFE_CYCLE, "checkInSkipped.dueToCallState", callState);
+        _3(LX_APP_LIFE_CYCLE, "checkInSkipped.dueToCallState", callState);
     } else {
         if (getCheckInImp() != null) {
             System.error("getCheckInImp() != null");

@@ -2,7 +2,7 @@ using Toybox.System;
 using Toybox.Lang;
 
 (:glance, :background)
-const L_UI_KIND as LogComponent = "app";
+const LX_UI_KIND as LogComponent = "app";
 
 (:glance, :background)
 enum ActiveUiKind {
@@ -17,7 +17,7 @@ var activeUiKind as ActiveUiKind = ACTIVE_UI_NONE;
 
 (:glance)
 function setActiveUiKind(kind as ActiveUiKind) as Void {
-    _3(L_UI_KIND, "setActiveUiKind", kind);
+    _3(LX_UI_KIND, "setActiveUiKind", kind);
     if (!activeUiKind.equals(ACTIVE_UI_NONE)) {
         System.error("Already active UI kind: " + activeUiKind);
     }
