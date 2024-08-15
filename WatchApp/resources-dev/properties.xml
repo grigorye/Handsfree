@@ -23,6 +23,10 @@
         <setting propertyKey="@Properties.callStateOnGlance" title="@Strings.callStateOnGlance">
             <settingConfig type="boolean" />
         </setting>
+        <setting propertyKey="@Properties.flushIncomingMessagesOnLaunch"
+            title="@Strings.flushIncomingMessagesOnLaunch">
+            <settingConfig type="boolean" />
+        </setting>
         <setting propertyKey="@Properties.workaroundNoRedrawForMenu2"
             title="@Strings.workaroundNoRedrawForMenu2">
             <settingConfig type="boolean" />
