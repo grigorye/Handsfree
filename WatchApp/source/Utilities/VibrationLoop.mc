@@ -5,11 +5,9 @@ using Toybox.Attention;
 const L_VIBRA as LogComponent = "vibra";
 
 class VibrationLoop {
-    var program as Lang.String;
-    var tail as Lang.String;
-    var ip as Lang.Number = 0;
-    var vibeTimer as Timer.Timer;
-    var shouldCancel as Lang.Boolean = false;
+    private var program as Lang.String;
+    private var tail as Lang.String;
+    private var vibeTimer as Timer.Timer;
     
     function initialize(program as Lang.String) {
         self.program = program.toLower() as Lang.String;
@@ -59,7 +57,6 @@ class VibrationLoop {
 
     function cancel() as Void {
         _3(L_VIBRA, "cancel", true);
-        shouldCancel = true;
         vibeTimer.stop();
     }
 }
