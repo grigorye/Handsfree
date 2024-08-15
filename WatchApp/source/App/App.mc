@@ -135,12 +135,6 @@ function onAppDidFinishLaunching() as Void {
     _2(L_APP, "onAppDidFinishLaunching");
     eraseAppDataIfNecessary();
     (new InAppIncomingMessageDispatcher()).launch();
-    var callState = getCallState();
-    if (callState instanceof CallInProgress) {
-        if (isIncomingCallPhone(callState.phone)) {
-            startRequestingAttentionIfInApp();
-        }
-    }
 }
 
 function didSeeIncomingMessageWhileRoutedToMainUI() as Void {

@@ -21,8 +21,26 @@ function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
 }
 
 (:background)
-function openAppFailed(message as Lang.String) as Void {
-    _3(L_OPEN_ME, "openAppFailed.requestingApplicationWake", message);
+function handleOpenMeCompleted(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
+    _3(L_OPEN_ME, "handleOpenMeCompleted", args);
+    var succeeded = args["succeeded"] as Lang.Boolean;
+    if (succeeded) {
+        openMeSucceeded();
+    } else {
+        var message = args["messageForWakingUp"] as Lang.String;
+        openMeFailed(message);
+    }
+}
+
+(:background)
+function openMeSucceeded() as Void {
+    _2(L_OPEN_ME, "openMeSucceeded");
+    startRequestingAttentionIfInApp();
+}
+
+(:background)
+function openMeFailed(message as Lang.String) as Void {
+    _3(L_OPEN_ME, "openMeFailed.requestingApplicationWake", message);
     Background.requestApplicationWake(message);
 }
 
