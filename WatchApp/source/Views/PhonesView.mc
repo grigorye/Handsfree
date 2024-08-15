@@ -110,7 +110,7 @@ function specialItemForPhone(phone as Phone) as WatchUi.MenuItem | Null {
     if (phoneName.equals("Crash Me")) {
         return new WatchUi.MenuItem(
             phoneName, // label
-            sourceVersion(), // subLabel
+            sourceVersion, // subLabel
             phone["id"] as Lang.Number, // identifier
             {}
         );

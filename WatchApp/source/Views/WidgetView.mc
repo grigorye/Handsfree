@@ -69,7 +69,7 @@ class WidgetView extends WatchUi.View {
                 lines.add(appName);
                 var subtitle;
                 if (GlanceSettings.isShowingSourceVersionEnabled) {
-                    subtitle = sourceVersion();
+                    subtitle = sourceVersion;
                 } else {
                     subtitle = "Idle";
                 }

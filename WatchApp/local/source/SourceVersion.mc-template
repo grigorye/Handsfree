@@ -1,6 +1,4 @@
 using Toybox.Lang;
 
 (:background, :glance, :distOnly)
-function sourceVersion() as Lang.String {
-    return "__SOURCE_VERSION__";
-}
+const sourceVersion as Lang.String = "__SOURCE_VERSION__";

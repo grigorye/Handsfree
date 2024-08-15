@@ -35,7 +35,7 @@ class GlanceView extends WatchUi.GlanceView {
         if (!GlanceSettings.isShowingCallStateOnGlanceEnabled || !isBackgroundAppUpdateEnabled()) {
             var suffix = "";
             if (GlanceSettings.isShowingSourceVersionEnabled) {
-                suffix = "\n" + sourceVersion();
+                suffix = "\n" + sourceVersion;
             }
             dc.drawText(
                 0,
@@ -72,7 +72,7 @@ class GlanceView extends WatchUi.GlanceView {
             } else {
                 title = defaultTitle;
                 if (GlanceSettings.isShowingSourceVersionEnabled) {
-                    subtitle = sourceVersion();
+                    subtitle = sourceVersion;
                 } else {
                     subtitle = "Idle";
                 }
