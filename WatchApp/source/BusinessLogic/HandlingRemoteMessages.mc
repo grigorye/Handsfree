@@ -7,6 +7,19 @@ const LX_REMOTE_MSG as LogComponent = "<";
 
 (:background)
 function handleRemoteMessage(iqMsg as Communications.Message) as Void {
+    if (iqMsg == null) {
+        _3(LX_REMOTE_MSG, "msg", "isNull!");
+        return;
+    }
+    if (!(iqMsg instanceof Communications.Message)) {
+        _3(LX_REMOTE_MSG, "msg", "isNotMessage!");
+        _3(LX_REMOTE_MSG, "msg", iqMsg);
+        return;
+    }
+    if (!(iqMsg.data instanceof Lang.Object)) {
+        _3(LX_REMOTE_MSG, "msg", "dataIsNotObject!");
+        return;
+    }
     _3(LX_REMOTE_MSG, "msg", iqMsg.data);
     didReceiveRemoteMessage();
     var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
