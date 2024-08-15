@@ -25,7 +25,7 @@ function setCallState(callStateImp as CallState or CallActing) as Void {
 
 (:background, :typecheck([disableBackgroundCheck]))
 function updateUIForCallState() as Void {
-    if (getActiveUiKind().equals(ACTIVE_UI_NONE)) {
+    if (activeUiKind.equals(ACTIVE_UI_NONE)) {
         return;
     }
     updateUIForCallStateInForeground();
@@ -33,7 +33,6 @@ function updateUIForCallState() as Void {
 
 (:glance, :typecheck(disableGlanceCheck))
 function updateUIForCallStateInForeground() as Void {
-    var activeUiKind = getActiveUiKind();
     _3(L_CALL_STATE_UI_UPDATE, "activeUiKind", activeUiKind);
     switch (activeUiKind) {
         case ACTIVE_UI_NONE: {

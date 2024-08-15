@@ -4,7 +4,7 @@ using Toybox.WatchUi;
 (:background, :typecheck(disableBackgroundCheck))
 function setIsHeadsetConnected(isHeadsetConnected as Lang.Boolean) as Void {
     setIsHeadsetConnectedImp(isHeadsetConnected);
-    switch (getActiveUiKind()) {
+    switch (activeUiKind) {
         case ACTIVE_UI_NONE: {
             return;
         }

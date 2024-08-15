@@ -11,23 +11,20 @@ enum ActiveUiKind {
     ACTIVE_UI_APP = "App",
 }
 
+// Exposed for direct read-only access for (code space) optimization, set by setActiveUiKind.
 (:glance, :background)
-var activeUiKindImp as ActiveUiKind = ACTIVE_UI_NONE;
-
-(:glance, :background)
-function getActiveUiKind() as ActiveUiKind {
-    return activeUiKindImp;
-}
+var activeUiKind as ActiveUiKind = ACTIVE_UI_NONE;
 
 (:glance)
 function setActiveUiKind(kind as ActiveUiKind) as Void {
     _3(L_UI_KIND, "setActiveUiKind", kind);
-    if (!activeUiKindImp.equals(ACTIVE_UI_NONE)) {
-        System.error("Already active UI kind: " + activeUiKindImp);
+    if (!activeUiKind.equals(ACTIVE_UI_NONE)) {
+        System.error("Already active UI kind: " + activeUiKind);
     }
-    activeUiKindImp = kind;
-    isActiveUiKindApp = activeUiKindImp.equals(ACTIVE_UI_APP);
+    activeUiKind = kind;
+    isActiveUiKindApp = activeUiKind.equals(ACTIVE_UI_APP);
 }
 
+// Exposed for direct read-only access for (code space) optimization, set by setActiveUiKind.
 (:background, :glance)
 var isActiveUiKindApp as Lang.Boolean = false;
