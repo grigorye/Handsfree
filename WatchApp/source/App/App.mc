@@ -21,10 +21,8 @@ class App extends Application.AppBase {
 
     function initialize() {
         _3(LX_APP_LIFE_CYCLE, "initialize", { "stats" => systemStatsDumpRep() });
-        _3(L_APP_EXTRA, "backgroundAppUpdateEnabled", isBackgroundAppUpdateEnabled());
         _3(L_APP, "appType", appType());
         AppBase.initialize();
-        _3(L_APP_EXTRA, "getPhoneAppMessageEventRegistered", Background.getPhoneAppMessageEventRegistered());
         Background.registerForPhoneAppMessageEvent();
     }
 
