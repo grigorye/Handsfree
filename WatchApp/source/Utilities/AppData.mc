@@ -7,9 +7,9 @@ function eraseAppData() as Void {
 }
 
 function eraseAppDataIfNecessary() as Void {
-    if (!isEraseAppDataOnNextLaunchEnabled()) {
+    if (!AppSettings.isEraseAppDataOnNextLaunchEnabled) {
         return;
     }
     eraseAppData();
-    clearEraseAppDataOnNextLaunch();
+    AppSettings.clearEraseAppDataOnNextLaunch();
 }

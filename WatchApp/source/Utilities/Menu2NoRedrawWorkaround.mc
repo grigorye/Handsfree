@@ -1,7 +1,7 @@
 using Toybox.WatchUi;
 
 function workaroundNoRedrawForMenu2() as Void {
-    if (!isMenu2NoRedrawWorkaroundEnabled()) {
+    if (!AppSettings.isMenu2NoRedrawWorkaroundEnabled) {
         WatchUi.requestUpdate();
     } else {
         var autoPoppingView = new AutoPoppingView();

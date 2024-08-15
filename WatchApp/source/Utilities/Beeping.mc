@@ -8,7 +8,7 @@ enum BeepType {
 }
 
 function beep(type as BeepType) as Void {
-    if (!isBeepOnCommuncationEnabled()) {
+    if (!AppSettings.isBeepOnCommuncationEnabled) {
         return;
     }
     if (!(Attention has :playTone)) {

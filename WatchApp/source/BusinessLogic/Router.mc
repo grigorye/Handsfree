@@ -133,7 +133,7 @@ class Router {
     }
 
     function popToPhones() as Void {
-        if (isExitToSystemAfterCallCompletionEnabled()) {
+        if (AppSettings.isExitToSystemAfterCallCompletionEnabled) {
             popView(WatchUi.SLIDE_IMMEDIATE);
             exitToSystemFromPhonesView();
         } else {

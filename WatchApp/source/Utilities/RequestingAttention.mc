@@ -25,7 +25,7 @@ function startRequestingAttention() as Void {
     if (activeVibrationLoop != null) {
         activeVibrationLoop.cancel();
     }
-    activeVibrationLoop = new VibrationLoop(incomingCallVibrationProgram());
+    activeVibrationLoop = new VibrationLoop(AppSettings.incomingCallVibrationProgram);
     activeVibrationLoop.launch();
 }
 

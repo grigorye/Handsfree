@@ -20,7 +20,7 @@ class GlanceView extends WatchUi.GlanceView {
         var defaultTitle = defaultTitle();
         var font;
         var deviceSettings = System.getDeviceSettings();
-        if (isLargeFontsEnforced() || ((deviceSettings has :isEnhancedReadabilityModeEnabled) && deviceSettings.isEnhancedReadabilityModeEnabled)) {
+        if (GlanceSettings.isLargeFontsEnforced || ((deviceSettings has :isEnhancedReadabilityModeEnabled) && deviceSettings.isEnhancedReadabilityModeEnabled)) {
             font = Styles.glance_font.fontEnhanced;
         } else {
             font = Styles.glance_font.font;
@@ -32,9 +32,9 @@ class GlanceView extends WatchUi.GlanceView {
                 dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_WHITE);
             }
         }
-        if (!isShowingCallStateOnGlanceEnabled() || !isBackgroundAppUpdateEnabled()) {
+        if (!GlanceSettings.isShowingCallStateOnGlanceEnabled || !isBackgroundAppUpdateEnabled()) {
             var suffix = "";
-            if (isShowingSourceVersionEnabled()) {
+            if (GlanceSettings.isShowingSourceVersionEnabled) {
                 suffix = "\n" + sourceVersion();
             }
             dc.drawText(
@@ -71,7 +71,7 @@ class GlanceView extends WatchUi.GlanceView {
                 }
             } else {
                 title = defaultTitle;
-                if (isShowingSourceVersionEnabled()) {
+                if (GlanceSettings.isShowingSourceVersionEnabled) {
                     subtitle = sourceVersion();
                 } else {
                     subtitle = "Idle";
@@ -91,14 +91,14 @@ class GlanceView extends WatchUi.GlanceView {
 
 (:glance)
 function defaultTitle() as Lang.String {
-    var customTitle = customGlanceTitle();
-    var customizedTitle;
+    var customTitle = GlanceSettings.customGlanceTitle;
+    var adjustedTitle;
     if (customTitle.equals("")) {
-        customizedTitle = WatchUi.loadResource(Rez.Strings.AppName) as Lang.String;
+        adjustedTitle = WatchUi.loadResource(Rez.Strings.AppName) as Lang.String;
     } else {
-        customizedTitle = customTitle;
+        adjustedTitle = customTitle;
     }
-    var nonCapitalizedDefaultTitle = customizedTitle;
+    var nonCapitalizedDefaultTitle = adjustedTitle;
     if (isBackgroundAppUpdateEnabled()) {
         nonCapitalizedDefaultTitle = joinComponents([nonCapitalizedDefaultTitle, headsetStatusRep()], " ");
     }

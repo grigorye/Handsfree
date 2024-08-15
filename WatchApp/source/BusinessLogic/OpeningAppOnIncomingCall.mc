@@ -8,8 +8,8 @@ const L_OPEN_ME as LogComponent = "openMe";
 
 (:background)
 function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
-    _3(L_OPEN_ME, "isOpenAppOnIncomingCallEnabled", isOpenAppOnIncomingCallEnabled());
-    if (!isOpenAppOnIncomingCallEnabled()) {
+    _3(L_OPEN_ME, "isOpenAppOnIncomingCallEnabled", BackgroundSettings.isOpenAppOnIncomingCallEnabled);
+    if (!BackgroundSettings.isOpenAppOnIncomingCallEnabled) {
         return;
     }
     _3(L_OPEN_ME, "activeUiKind", activeUiKind);
@@ -29,7 +29,7 @@ function openAppFailed(message as Lang.String) as Void {
 (:background)
 function openAppOnIncomingCall(phone as Phone) as Void {
     var message = messageForApplicationWake(phone);
-    if (isIncomingOpenAppViaCompanionEnabled()) {
+    if (BackgroundSettings.isIncomingOpenAppViaCompanionEnabled) {
         var msg = {
             "cmd" => "openMe",
             "args" => {
@@ -40,7 +40,7 @@ function openAppOnIncomingCall(phone as Phone) as Void {
         _3(L_OUT_COMM, tag + ".requesting", msg);
         Communications.transmit(msg, null, new DummyCommListener(tag));
     }
-    if (isIncomingOpenAppViaWakeUpEnabled()) {
+    if (BackgroundSettings.isIncomingOpenAppViaWakeUpEnabled) {
         _3(L_OPEN_ME, "requestingApplicationWake", message);
         Background.requestApplicationWake(message);
     }
@@ -61,5 +61,5 @@ function messageForApplicationWake(phone as Phone) as Lang.String {
 
 (:background, :glance)
 function incomingCallMessage(phone as Lang.String) as Lang.String {
-    return Lang.format(incomingCallMessageFormat(), [phone]);
+    return Lang.format(CommonSettings.incomingCallMessageFormat, [phone]);
 }

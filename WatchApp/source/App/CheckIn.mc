@@ -26,8 +26,8 @@ class CheckIn {
     private var checkInTimer as Timer.Timer or Null = null;
 
     function initialize() {
-        checkInAttemptsRemaining = initialAttemptsToCheckin();
-        secondsToCheckIn = initialSecondsToCheckin();
+        checkInAttemptsRemaining = AppSettings.initialAttemptsToCheckin;
+        secondsToCheckIn = AppSettings.initialSecondsToCheckin;
     }
 
     function launch() as Void {
@@ -63,7 +63,7 @@ class CheckIn {
         (checkInTimer as Timer.Timer).start(method(:attemptToCheckIn), 1000 * secondsToCheckIn, false);
         checkInAttemptsRemaining -= 1;
         secondsToCheckIn *= 2;
-        if (isSyncingCallStateOnCheckinEnabled()) {
+        if (AppSettings.isSyncingCallStateOnCheckinEnabled) {
             requestSync();
         } else {
             requestPhones();
