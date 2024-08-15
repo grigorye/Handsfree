@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8"/>
+  </head>
+  <body>
+    <ul id="0oLfVMGY">
+      <li id="u2">
+        <p>Incoming call is registered in Companion</p>
+      </li>
+      <li id="yr">
+        <p>Watch App receives the “ringing” message from Companion</p>
+        <ul>
+          <li id="lx">
+            <p>Watch App updates the local call state to “ringing”</p>
+          </li>
+          <li id="s5">
+            <p>If the Watch App is active (open):</p>
+            <ul>
+              <li id="vt">
+                <p>Watch App starts the vibration</p>
+              </li>
+            </ul>
+          </li>
+          <li id="hB">
+            <p>If Watch App is in the background:</p>
+            <ul>
+              <li id="r1">
+                <p>Watch app sends “openMe” message to Companion</p>
+              </li>
+              <li id="Pp">
+                <p>Companion sends a system command to open the app, to the watch</p>
+                <ul>
+                  <li id="b8">
+                    <p>If the system command fails (e.g. because there’s activity open or Watch App' glance is visible):</p>
+                    <ul>
+                      <li id="2p">
+                        <p>Companion sends “openAppFailed” message to Watch App</p>
+                      </li>
+                      <li id="AM">
+                        <p>Watch App prompts User to open the app for incoming call</p>
+                      </li>
+                      <li id="mI">
+                        <p>If User accepts the prompt:</p>
+                        <ul>
+                          <li id="5ba">
+                            <p>Watch App gets open, finds the “ringing” call state and, based on that, starts vibration</p>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li id="Ka">
+                    <p>If the system command succeeds:</p>
+                    <ul>
+                      <li id="We">
+                        <p>Watch App gets open, finds the “ringing” call state and, based on that, starts vibration</p>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li id="Ho">
+        <p/>
+      </li>
+    </ul>
+  </body>
+</html>
