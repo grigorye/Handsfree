@@ -33,8 +33,10 @@ function handleRemoteMessage(iqMsg as Communications.Message) as Void {
             handlePhoneStateChanged(args);
             break;
         case "openAppFailed":
-            var message = args["messageForWakingUp"] as Lang.String;
-            openAppFailed(message);
+            openAppFailed();
+            break;
+        case "openMeCompleted":
+            handleOpenMeCompleted(args);            
             break;
     }
 }
