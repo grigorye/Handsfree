@@ -54,7 +54,9 @@ function updateUIForCallStateInApp() as Void {
     if (viewStackTagsEqual(["widget"])) {
         WatchUi.requestUpdate();
     } else {
-        getRouter().updateRoute();
+        if (routerImp != null) {
+            routerImp.updateRoute();
+        }
     }
 }
 
