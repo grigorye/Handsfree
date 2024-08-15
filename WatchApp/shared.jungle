@@ -17,3 +17,4 @@ fenix7xpronowifi.personality = $(fenix7xpronowifi.personality);./resources-glanc
 instinct2.personality = $(instinct2.personality);./resources-glances2022
 instinct2s.personality = $(instinct2s.personality);./resources-glances2022
 instinct2x.personality = $(instinct2x.personality);./resources-glances2022
+edge540.personality = $(edge540.personality);./resources-glances2022
