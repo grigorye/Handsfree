@@ -43,10 +43,15 @@ class App extends Application.AppBase {
         return getInitialViewInApp();
     }
 
-    (:typecheck([disableBackgroundCheck]))
+    (:typecheck([disableBackgroundCheck]), :watchApp)
     function getGlanceView() as [WatchUi.GlanceView] or [WatchUi.GlanceView, WatchUi.GlanceViewDelegate] or Null {
         setActiveUiKind(ACTIVE_UI_GLANCE);
         return [new GlanceView()];
+    }
+
+    (:typecheck([disableBackgroundCheck]), :widget)
+    function getGlanceView() as [WatchUi.GlanceView] or [WatchUi.GlanceView, WatchUi.GlanceViewDelegate] or Null {
+        System.error("getGlanceView() should not be called for widget");
     }
 }
 
