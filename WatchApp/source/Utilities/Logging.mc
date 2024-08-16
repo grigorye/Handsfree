@@ -45,7 +45,7 @@ function dumpImp(component as LogComponent, tag as Lang.String, output as Lang.O
             info.day.format("%02d");
 
         //             "23:57:28 "
-        System.println("-------- " + dateFormatted + " (" + sourceVersion + ")");
+        System.println("-------- " + dateFormatted + " (" + sourceVersion + ") [" + targetUiType + "]");
     }
 
     var timePrefix =
