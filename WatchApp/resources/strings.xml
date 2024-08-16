@@ -1,4 +1,3 @@
 <resources>
     <string id="listAppName" scope="glance">Handsfree</string>
-    <string id="AppName" scope="glance">Handsfree</string>
 </resources>
