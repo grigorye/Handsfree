@@ -7,3 +7,7 @@ glance_font {
 widget_font__title {
     font: Graphics.FONT_MEDIUM;
 }
+
+glance_live_update {
+    enabled: true;
+}

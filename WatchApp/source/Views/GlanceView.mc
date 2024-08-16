@@ -38,7 +38,7 @@ class GlanceView extends WatchUi.GlanceView {
 
         var title;
         var subtitle = null;
-        if (!GlanceLikeSettings.isShowingCallStateOnGlanceEnabled || !isBackgroundAppUpdateEnabled()) {
+        if (!GlanceLikeSettings.isShowingCallStateOnGlanceEnabled || !Styles.glance_live_update.enabled) {
             title = defaultTitle;
             if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
                 subtitle = sourceVersion;
@@ -101,7 +101,7 @@ function defaultTitle() as Lang.String {
         adjustedTitle = customTitle;
     }
     var nonCapitalizedDefaultTitle = adjustedTitle;
-    if (isBackgroundAppUpdateEnabled()) {
+    if (Styles.glance_live_update.enabled) {
         nonCapitalizedDefaultTitle = joinComponents([nonCapitalizedDefaultTitle, headsetStatusRep()], " ");
     }
     var defaultTitle;
