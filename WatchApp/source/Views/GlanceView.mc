@@ -12,8 +12,6 @@ class GlanceView extends WatchUi.GlanceView {
     }
 
     function onUpdate(dc as Graphics.Dc) {
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-
         var defaultTitle = defaultTitle();
         var font;
         var deviceSettings = System.getDeviceSettings();
@@ -22,34 +20,38 @@ class GlanceView extends WatchUi.GlanceView {
         } else {
             font = Styles.glance_font.font;
         }
+        var foregroundColor;
+        var backgroundColor;
         if (deviceSettings has :isNightModeEnabled) {
             if (deviceSettings.isNightModeEnabled) {
-                dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+                foregroundColor = Graphics.COLOR_WHITE;
+                backgroundColor = Graphics.COLOR_BLACK;
             } else {
-                dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_WHITE);
+                foregroundColor = Graphics.COLOR_BLACK;
+                backgroundColor = Graphics.COLOR_WHITE;
             }
+        } else {
+            foregroundColor = Graphics.COLOR_WHITE;
+            backgroundColor = Graphics.COLOR_TRANSPARENT;
         }
+        dc.setColor(foregroundColor, backgroundColor);
+
+        var title;
+        var subtitle = null;
         if (!GlanceLikeSettings.isShowingCallStateOnGlanceEnabled || !isBackgroundAppUpdateEnabled()) {
-            var suffix = "";
+            title = defaultTitle;
             if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
-                suffix = "\n" + sourceVersion;
+                subtitle = sourceVersion;
             }
-            dc.drawText(
-                0,
-                dc.getHeight() / 2,
-                font,
-                defaultTitle + suffix,
-                Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER
-            );
         } else {
             var callState = loadCallState();
-            var title;
-            var subtitle;
             if (callState instanceof CallInProgress) {
                 var phone = callState.phone;
                 var isIncomingCall = isIncomingCallPhone(phone);
-                title = phone["name"] as Lang.String or Null;
-                if (title == null) {
+                var phoneName = phone["name"] as Lang.String or Null;
+                if (phoneName != null) {
+                    title = phoneName;
+                } else {
                     title = defaultTitle;
                 }
                 var number = phone["number"] as Lang.String or Null;
@@ -74,15 +76,18 @@ class GlanceView extends WatchUi.GlanceView {
                     subtitle = "Idle";
                 }
             }
-
-            dc.drawText(
-                0,
-                dc.getHeight() / 2,
-                font,
-                title + "\n" + subtitle,
-                Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER
-            );
         }
+        var text = title;
+        if (subtitle != null) {
+            text = text + "\n" + subtitle;
+        }
+        dc.drawText(
+            0,
+            dc.getHeight() / 2,
+            font,
+            text,
+            Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER
+        );
     }
 }
 
