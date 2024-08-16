@@ -28,8 +28,5 @@ class BackgroundServiceDelegate extends System.ServiceDelegate {
 
 (:background, :glance)
 function isBackgroundAppUpdateEnabled() as Lang.Boolean {
-    if (isBuiltAsWidget() && !isInWidgetMode()) {
-        return false;
-    }
-    return true;
+    return !isBuiltAsWidget || isInWidgetMode();
 }

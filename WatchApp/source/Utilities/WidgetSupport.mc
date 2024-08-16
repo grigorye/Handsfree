@@ -2,9 +2,7 @@ using Toybox.Lang;
 using Toybox.System;
 
 (:glance, :background, :watchApp)
-function appType() as Lang.String {
-    return "watchApp";
-}
+const appType as Lang.String = "watchApp";
 
 (:glance, :background, :watchApp)
 function isInWidgetMode() as Lang.Boolean {
@@ -12,28 +10,17 @@ function isInWidgetMode() as Lang.Boolean {
 }
 
 (:glance, :background, :widget)
-function appType() as Lang.String {
-    return "widget";
-}
+const appType as Lang.String = "widget";
 
 (:glance, :background, :widget)
 function isInWidgetMode() as Lang.Boolean {
-    if (System.DeviceSettings has :isGlanceModeEnabled) {
-        return false;
-    } else {
-        return true;
-    }
+    return !(System.DeviceSettings has :isGlanceModeEnabled);
 }
 
 (:glance, :background, :watchApp)
-function isBuiltAsWidget() as Lang.Boolean {
-    return false;
-}
-
+const isBuiltAsWidget as Lang.Boolean = false;
 (:glance, :background, :widget)
-function isBuiltAsWidget() as Lang.Boolean {
-    return true;
-}
+const isBuiltAsWidget as Lang.Boolean = true;
 
 (:glance, :background)
 function isGlanceModeEnabled() as Lang.Boolean or Null {
