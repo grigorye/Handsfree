@@ -5,9 +5,6 @@ using Toybox.Graphics;
 using Rez.Styles;
 
 (:glance, :watchApp)
-const L_GLANCE_VIEW as LogComponent = "glanceView";
-
-(:glance, :watchApp)
 class GlanceView extends WatchUi.GlanceView {
 
     function initialize() {
