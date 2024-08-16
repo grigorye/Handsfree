@@ -35,19 +35,6 @@ function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
 (:glance, :background)
 function dumpImp(component as LogComponent, tag as Lang.String, output as Lang.Object or Null) as Void {
     var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-
-    if (newSession) {
-        newSession = false;
-        System.println("");
-        var dateFormatted =
-            info.year.format("%02d") + "/" +
-            (info.month as Lang.Number).format("%02d") + "/" +
-            info.day.format("%02d");
-
-        //             "23:57:28 "
-        System.println("-------- " + dateFormatted + " (" + sourceVersion + ") [" + targetUiType + "]");
-    }
-
     var timePrefix =
         info.hour.format("%02d") + ":" +
         info.min.format("%02d") + ":" +
@@ -60,4 +47,19 @@ function dumpImp(component as LogComponent, tag as Lang.String, output as Lang.O
 }
 
 (:glance, :background)
-var newSession as Lang.Boolean = true;
+function _preamble() as Void {
+    var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+    System.println("");
+    var dateFormatted =
+        info.year.format("%02d") + "/" +
+        (info.month as Lang.Number).format("%02d") + "/" +
+        info.day.format("%02d");
+    var stats = System.getSystemStats();
+    var statsRep = {
+        "f" => stats.freeMemory,
+        "t" => stats.totalMemory,
+        "u" => stats.usedMemory
+    };
+    //             "23:57:28 "
+    System.println("-------- " + dateFormatted + " (" + sourceVersion + ") (" + targetUiType + ") (" + statsRep + ")");
+}
