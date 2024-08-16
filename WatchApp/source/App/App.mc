@@ -20,7 +20,7 @@ const L_APP_EXTRA as LogComponent = "app";
 class App extends Application.AppBase {
 
     function initialize() {
-        _3(LX_APP_LIFE_CYCLE, "initialize", { "stats" => systemStatsDumpRep() });
+        _preamble();
         AppBase.initialize();
         Background.registerForPhoneAppMessageEvent();
     }
@@ -32,7 +32,7 @@ class App extends Application.AppBase {
     }
 
     function onBackgroundData(data as Application.PersistableType) as Void {
-        _3(LX_APP_LIFE_CYCLE, "onBackgroundData", { "data" => data, "stats" => systemStatsDumpRep() });
+        _3(LX_APP_LIFE_CYCLE, "onBackgroundData", { "data" => data });
         updateUIFromBackgroundData();
         AppBase.onBackgroundData(data);
     }
