@@ -4,15 +4,15 @@ using Toybox.Lang;
 using Toybox.Application;
 
 (:background)
-const L_OPEN_ME as LogComponent = "openMe";
+const LX_OPEN_ME as LogComponent = "openMe";
 
 (:background)
 function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
-    _3(L_OPEN_ME, "isOpenAppOnIncomingCallEnabled", BackgroundSettings.isOpenAppOnIncomingCallEnabled);
+    _3(LX_OPEN_ME, "isOpenAppOnIncomingCallEnabled", BackgroundSettings.isOpenAppOnIncomingCallEnabled);
     if (!BackgroundSettings.isOpenAppOnIncomingCallEnabled) {
         return;
     }
-    _3(L_OPEN_ME, "activeUiKind", activeUiKind);
+    _3(LX_OPEN_ME, "activeUiKind", activeUiKind);
     if (isActiveUiKindApp) {
         startRequestingAttentionIfInApp();
     } else {
@@ -22,7 +22,7 @@ function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
 
 (:background)
 function handleOpenMeCompleted(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
-    _3(L_OPEN_ME, "handleOpenMeCompleted", args);
+    _3(LX_OPEN_ME, "handleOpenMeCompleted", args);
     var succeeded = args["succeeded"] as Lang.Boolean;
     if (succeeded) {
         openMeSucceeded();
@@ -34,13 +34,13 @@ function handleOpenMeCompleted(args as Lang.Dictionary<Lang.String, Lang.Object>
 
 (:background)
 function openMeSucceeded() as Void {
-    _2(L_OPEN_ME, "openMeSucceeded");
+    _2(LX_OPEN_ME, "openMeSucceeded");
     startRequestingAttentionIfInApp();
 }
 
 (:background)
 function openMeFailed(message as Lang.String) as Void {
-    _3(L_OPEN_ME, "openMeFailed.requestingApplicationWake", message);
+    _3(LX_OPEN_ME, "openMeFailed.requestingApplicationWake", message);
     Background.requestApplicationWake(message);
 }
 
@@ -59,7 +59,7 @@ function openAppOnIncomingCall(phone as Phone) as Void {
         Communications.transmit(msg, null, new DummyCommListener(tag));
     }
     if (BackgroundSettings.isIncomingOpenAppViaWakeUpEnabled) {
-        _3(L_OPEN_ME, "requestingApplicationWake", message);
+        _3(LX_OPEN_ME, "requestingApplicationWake", message);
         Background.requestApplicationWake(message);
     }
 }
