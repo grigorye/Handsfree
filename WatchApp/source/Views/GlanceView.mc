@@ -4,10 +4,10 @@ using Toybox.System;
 using Toybox.Graphics;
 using Rez.Styles;
 
-(:glance)
+(:glance, :watchApp)
 const L_GLANCE_VIEW as LogComponent = "glanceView";
 
-(:glance)
+(:glance, :watchApp)
 class GlanceView extends WatchUi.GlanceView {
 
     function initialize() {
@@ -32,9 +32,9 @@ class GlanceView extends WatchUi.GlanceView {
                 dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_WHITE);
             }
         }
-        if (!GlanceSettings.isShowingCallStateOnGlanceEnabled || !isBackgroundAppUpdateEnabled()) {
+        if (!GlanceLikeSettings.isShowingCallStateOnGlanceEnabled || !isBackgroundAppUpdateEnabled()) {
             var suffix = "";
-            if (GlanceSettings.isShowingSourceVersionEnabled) {
+            if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
                 suffix = "\n" + sourceVersion;
             }
             dc.drawText(
@@ -71,7 +71,7 @@ class GlanceView extends WatchUi.GlanceView {
                 }
             } else {
                 title = defaultTitle;
-                if (GlanceSettings.isShowingSourceVersionEnabled) {
+                if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
                     subtitle = sourceVersion;
                 } else {
                     subtitle = "Idle";
@@ -89,7 +89,7 @@ class GlanceView extends WatchUi.GlanceView {
     }
 }
 
-(:glance)
+(:glance, :watchApp)
 function defaultTitle() as Lang.String {
     var customTitle = GlanceSettings.customGlanceTitle;
     var adjustedTitle;

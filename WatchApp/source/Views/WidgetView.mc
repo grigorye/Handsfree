@@ -34,9 +34,9 @@ class WidgetView extends WatchUi.View {
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         }
 
-        _3(L_WIDGET_VIEW, "shouldShowCallState", GlanceSettings.isShowingCallStateOnGlanceEnabled);
+        _3(L_WIDGET_VIEW, "shouldShowCallState", GlanceLikeSettings.isShowingCallStateOnGlanceEnabled);
         var appName = WatchUi.loadResource(Rez.Strings.AppName) as Lang.String;
-        if (!GlanceSettings.isShowingCallStateOnGlanceEnabled) {
+        if (!GlanceLikeSettings.isShowingCallStateOnGlanceEnabled) {
             dc.drawText(
                 dc.getWidth() / 2,
                 dc.getHeight() / 2,
@@ -68,7 +68,7 @@ class WidgetView extends WatchUi.View {
             } else {
                 lines.add(appName);
                 var subtitle;
-                if (GlanceSettings.isShowingSourceVersionEnabled) {
+                if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
                     subtitle = sourceVersion;
                 } else {
                     subtitle = "Idle";

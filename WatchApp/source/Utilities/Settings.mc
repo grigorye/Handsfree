@@ -1,12 +1,16 @@
 using Toybox.Application;
 using Toybox.Lang;
 
-(:glance)
+(:glance, :watchApp)
 module GlanceSettings {
-    const isShowingCallStateOnGlanceEnabled as Lang.Boolean = Application.Properties.getValue("callStateOnGlance") as Lang.Boolean;
-    const isShowingSourceVersionEnabled as Lang.Boolean = Application.Properties.getValue("showSourceVersion") as Lang.Boolean;
     const customGlanceTitle as Lang.String = Application.Properties.getValue("customGlanceTitle") as Lang.String;
     const isLargeFontsEnforced as Lang.Boolean = Application.Properties.getValue("forceLargeFonts") as Lang.Boolean;
+}
+
+(:glance)
+module GlanceLikeSettings {
+    const isShowingCallStateOnGlanceEnabled as Lang.Boolean = Application.Properties.getValue("callStateOnGlance") as Lang.Boolean;
+    const isShowingSourceVersionEnabled as Lang.Boolean = Application.Properties.getValue("showSourceVersion") as Lang.Boolean;
 }
 
 module AppSettings {
