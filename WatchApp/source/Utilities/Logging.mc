@@ -25,7 +25,7 @@ function _3(component as LogComponent, tag as Lang.String, value as Lang.Object 
 function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
     var forcedComponents;
     if (!isActiveUiKindApp) {
-        forcedComponents = [">", "<", "app"];
+        forcedComponents = [">", "<", "app", "openMe"];
     } else {
         forcedComponents = logComponentsForcedInApp();
     }
