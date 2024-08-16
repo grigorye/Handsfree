@@ -94,7 +94,7 @@ function defaultTitle() as Lang.String {
     var customTitle = GlanceSettings.customGlanceTitle;
     var adjustedTitle;
     if (customTitle.equals("")) {
-        adjustedTitle = WatchUi.loadResource(Rez.Strings.AppName) as Lang.String;
+        adjustedTitle = "Handsfree";
     } else {
         adjustedTitle = customTitle;
     }
