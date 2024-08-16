@@ -103,6 +103,7 @@ function appDidRouteFromMainUI() as Void {
     _2(L_APP, "appDidRouteFromMainUI");
     setRoutedCallStateImp(null);
     setPhonesViewImp(null);
+    setCheckInImp(null);
 }
 
 (:widget)
