@@ -122,6 +122,7 @@ class DefaultGarminConnector(
                     IQOpenApplicationStatus.APP_IS_NOT_INSTALLED -> completion(false)
                     IQOpenApplicationStatus.APP_IS_ALREADY_RUNNING -> completion(true)
                     IQOpenApplicationStatus.UNKNOWN_FAILURE -> completion(false)
+                    null -> completion(false)
                 }
                 Log.d(
                     TAG,
