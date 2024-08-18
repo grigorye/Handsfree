@@ -11,6 +11,10 @@ class HangingUp extends CallActing {
         return new HangingUp(phone, commStatus);
     }
 
+    function wouldBeNextState() as CallState {
+        return new Idle();
+    }
+
     function stateId() as Lang.String {
         return "hangingUp";
     }
@@ -26,6 +30,10 @@ class Declining extends CallActing {
         return new Declining(phone, commStatus);
     }
 
+    function wouldBeNextState() as CallState {
+        return new Idle();
+    }
+
     function stateId() as Lang.String {
         return "declining";
     }
@@ -39,6 +47,10 @@ class Accepting extends CallActing {
 
     function clone() as CallActing {
         return new Accepting(phone, commStatus);
+    }
+
+    function wouldBeNextState() as CallState {
+        return new CallInProgress(phone);
     }
 
     function stateId() as Lang.String {
@@ -58,7 +70,11 @@ class CallActing extends CallStateImp {
     }
 
     function clone() as CallActing {
-        return new CallActing(phone, commStatus);
+        System.error("CallActing.clone() must be overridden");
+    }
+
+    function wouldBeNextState() as CallState {
+        System.error("CallActing.wouldBeNextState() must be overridden");
     }
 
     function stateId() as Lang.String {

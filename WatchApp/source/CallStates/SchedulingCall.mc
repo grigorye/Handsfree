@@ -15,6 +15,10 @@ class SchedulingCall extends CallStateImp {
         return new SchedulingCall(phone, commStatus);
     }
 
+    function wouldBeNextState() as CallInProgress {
+        return new CallInProgress(phone);
+    }
+
     function toString() as Lang.String {
         return "SchedulingCall(" + phone + ", " + commStatus + ")";
     }

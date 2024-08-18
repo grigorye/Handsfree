@@ -21,6 +21,7 @@
         <property id="incomingCallVibration" type="string">v3;p3;v3;p3</property>
         <property id="forcedLogComponents" type="string">&lt;;&gt;;app</property>
         <property id="forceLogAll" type="boolean">false</property>
+        <property id="optimisticCallHandling" type="boolean">true</property>
     </properties>
 
     <strings>
@@ -45,6 +46,7 @@
             means 'vibrate 3s, pause 1s, vibrate 3s, pause 2s')</string>
         <string id="forceLogAll">Verbose logs</string>
         <string id="flushIncomingMessagesOnLaunch">Flush incoming messages on launch</string>
+        <string id="optimisticCallHandling">Optimistic call handling</string>
     </strings>
 
     <settings>
@@ -61,6 +63,10 @@
         <setting propertyKey="@Properties.incomingCallMessageFormat"
             title="@Strings.incomingCallMessageFormat">
             <settingConfig type="alphaNumeric" />
+        </setting>
+        <setting propertyKey="@Properties.optimisticCallHandling"
+            title="@Strings.optimisticCallHandling">
+            <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.beepOnComm" title="@Strings.beepOnComm">
             <settingConfig type="boolean" />
