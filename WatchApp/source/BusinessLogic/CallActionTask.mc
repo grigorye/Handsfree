@@ -54,8 +54,13 @@ class CallActionTask extends Communications.ConnectionListener {
             _3(L_CALL_ACTION, "onComplete.callStateInvalidated", oldState);
             return;
         }
-        var newState = oldState.clone();
-        newState.commStatus = SUCCEEDED;
+        var newState;
+        if (AppSettings.isOptimisticCallHandlingEnabled) {
+            newState = oldState.wouldBeNextState();
+        } else {
+            newState = oldState.clone();
+            newState.commStatus = SUCCEEDED;
+        }
         setCallState(newState);
     }
 

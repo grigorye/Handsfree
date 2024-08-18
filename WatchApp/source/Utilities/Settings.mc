@@ -17,6 +17,7 @@ module AppSettings {
     const initialAttemptsToCheckin as Lang.Number = Application.Properties.getValue("syncAttempts") as Lang.Number;
     const initialSecondsToCheckin as Lang.Number = Application.Properties.getValue("secondsToCheckIn") as Lang.Number;
     const isSyncingCallStateOnCheckinEnabled as Lang.Boolean = Application.Properties.getValue("syncCallStateOnLaunch") as Lang.Boolean;
+    const isOptimisticCallHandlingEnabled as Lang.Boolean = Application.Properties.getValue("optimisticCallHandling") as Lang.Boolean;
     const isExitToSystemAfterCallCompletionEnabled as Lang.Boolean = Application.Properties.getValue("popOutOfAppInsteadOfPhones") as Lang.Boolean;
 
     const isBeepOnCommuncationEnabled as Lang.Boolean = Application.Properties.getValue("beepOnComm") as Lang.Boolean;

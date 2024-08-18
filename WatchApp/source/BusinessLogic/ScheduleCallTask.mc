@@ -30,8 +30,7 @@ class ScheduleCallTask extends Communications.ConnectionListener {
             _3(L_SCHEDULE_CALL, "onComplete.callStateInvalidated", oldState);
             return;
         }
-        var newState = oldState.clone();
-        newState.commStatus = SUCCEEDED;
+        var newState = oldState.wouldBeNextState();
         setCallState(newState);
     }
 
