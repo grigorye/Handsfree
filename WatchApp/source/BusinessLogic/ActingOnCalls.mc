@@ -14,6 +14,7 @@ function acceptIncomingCall(phone as Phone) as Void {
         System.error("!isIncomingCallPhone: " + phone);
     }
     stopRequestingAttention();
+    dropRingingFromPhone(phone);
     new CallActionTask(phone, CALL_IN_PROGRESS_ACTION_ACCEPT).launch();
 }
 
