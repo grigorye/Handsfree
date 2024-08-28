@@ -184,7 +184,7 @@ class DefaultGarminConnector(
 
     private fun trackNotInstalledApp(device: IQDevice, app: IQApp) {
         val key = device.deviceIdentifier
-        val apps = notInstalledApps[key] ?: mutableListOf<IQApp>()
+        val apps = notInstalledApps[key] ?: mutableListOf()
         apps.add(app)
         notInstalledApps[key] = apps
     }
