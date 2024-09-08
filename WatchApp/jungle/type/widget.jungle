@@ -5,6 +5,16 @@ base.excludeAnnotations = $(base.excludeAnnotations);watchApp
 # exposed by the app. Anecdotacally, the glance is not used if the app type is
 # watch-app. Therefore, to reflect the former, we enable the glance (vs widget)
 # builds for widget on Instinct 2.
-instinct2.excludeAnnotations = $(versioning_excludeAnnotations);widget
-instinct2s.excludeAnnotations = $(versioning_excludeAnnotations);widget
-instinct2x.excludeAnnotations = $(versioning_excludeAnnotations);widget
+#
+# Also for Instinct 2, widget memory is super limited. Hence we had to employ
+# low-memory implementations.
+instinct_excludeAnnotations_extras = widget;noLowMemory
+instinct_sourcePath_extras = ./source-LowMemory
+
+instinct2.excludeAnnotations = $(versioning_excludeAnnotations);$(instinct_excludeAnnotations_extras)
+instinct2s.excludeAnnotations = $(versioning_excludeAnnotations);$(instinct_excludeAnnotations_extras)
+instinct2x.excludeAnnotations = $(versioning_excludeAnnotations);$(instinct_excludeAnnotations_extras)
+
+instinct2.sourcePath = $(instinct2.sourcePath);$(instinct_sourcePath_extras)
+instinct2s.sourcePath = $(instinct2s.sourcePath);$(instinct_sourcePath_extras)
+instinct2x.sourcePath = $(instinct2x.sourcePath);$(instinct_sourcePath_extras)

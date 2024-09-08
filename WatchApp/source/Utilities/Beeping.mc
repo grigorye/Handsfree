@@ -1,5 +1,6 @@
 using Toybox.Attention;
 
+(:noLowMemory)
 enum BeepType {
     BEEP_TYPE_BEEP,
     BEEP_TYPE_ERROR,
@@ -7,6 +8,7 @@ enum BeepType {
     BEEP_TYPE_MESSAGE
 }
 
+(:noLowMemory)
 function beep(type as BeepType) as Void {
     if (!AppSettings.isBeepOnCommuncationEnabled) {
         return;
@@ -18,6 +20,7 @@ function beep(type as BeepType) as Void {
     Attention.playTone(tone);
 }
 
+(:noLowMemory)
 function toneForBeep(type as BeepType) as Attention.Tone {
     switch (type) {
         case BEEP_TYPE_BEEP: {

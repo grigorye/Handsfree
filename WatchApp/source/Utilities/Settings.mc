@@ -3,12 +3,15 @@ using Toybox.Lang;
 
 (:glance, :watchApp)
 module GlanceSettings {
+    (:noLowMemory)
     const customGlanceTitle as Lang.String = Application.Properties.getValue("customGlanceTitle") as Lang.String;
+    (:noLowMemory)
     const isLargeFontsEnforced as Lang.Boolean = Application.Properties.getValue("forceLargeFonts") as Lang.Boolean;
 }
 
 (:glance)
 module GlanceLikeSettings {
+    (:noLowMemory)
     const isShowingCallStateOnGlanceEnabled as Lang.Boolean = Application.Properties.getValue("callStateOnGlance") as Lang.Boolean;
     const isShowingSourceVersionEnabled as Lang.Boolean = Application.Properties.getValue("showSourceVersion") as Lang.Boolean;
 }

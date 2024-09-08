@@ -4,7 +4,7 @@ using Toybox.System;
 using Toybox.Graphics;
 using Rez.Styles;
 
-(:glance, :watchApp)
+(:glance, :watchApp, :noLowMemory)
 class GlanceView extends WatchUi.GlanceView {
 
     function initialize() {
@@ -85,7 +85,7 @@ class GlanceView extends WatchUi.GlanceView {
     }
 }
 
-(:glance, :watchApp)
+(:glance, :watchApp, :noLowMemory)
 function defaultTitle() as Lang.String {
     var customTitle = GlanceSettings.customGlanceTitle;
     var adjustedTitle;
@@ -105,13 +105,4 @@ function defaultTitle() as Lang.String {
         defaultTitle = nonCapitalizedDefaultTitle;
     }
     return defaultTitle;
-}
-
-(:glance)
-function headsetStatusRep() as Lang.String or Null {
-    if (!getIsHeadsetConnected()) {
-        return "#";
-    } else {
-        return null;
-    }
 }
