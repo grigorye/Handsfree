@@ -44,6 +44,9 @@ function handleRemoteMessage(iqMsg as Communications.Message) as Void {
         case "setPhones":
             setPhones(args["phones"] as Phones);
             break;
+        case "recentsChanged":
+            setRecents(args["recents"] as Recents);
+            break;
         case "acceptQueryResult":
             handleAcceptQueryResult(args);
             break;
