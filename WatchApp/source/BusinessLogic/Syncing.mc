@@ -11,7 +11,10 @@ function requestSync() as Void {
 
 function requestPhones() as Void {
     var msg = {
-        "cmd" => "syncPhones"
+        "cmd" => "query",
+        "args" => {
+            "subjects" => ["phones", "recents"]
+        }
     } as Lang.Object as Application.PersistableType;
     transmitWithRetry("syncPhones", msg, new Communications.ConnectionListener());
 }

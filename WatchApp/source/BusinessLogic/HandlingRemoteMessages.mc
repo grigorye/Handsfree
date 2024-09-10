@@ -44,6 +44,9 @@ function handleRemoteMessage(iqMsg as Communications.Message) as Void {
         case "setPhones":
             setPhones(args["phones"] as Phones);
             break;
+        case "acceptQueryResult":
+            handleAcceptQueryResult(args);
+            break;
         case "phoneStateChanged":
             handlePhoneStateChanged(args);
             break;
@@ -58,6 +61,18 @@ function handleRemoteMessage(iqMsg as Communications.Message) as Void {
 
 (:background)
 const L_PHONE_STATE_CHANGED as LogComponent = "phoneStateChanged";
+
+(:background)
+function handleAcceptQueryResult(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
+    var recents = args["recents"] as Recents or Null;
+    if (recents != null) {
+        setRecents(recents);
+    }
+    var phones = args["phones"] as Phones or Null;
+    if (phones != null) {
+        setPhones(phones);
+    }
+}
 
 (:background)
 function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
