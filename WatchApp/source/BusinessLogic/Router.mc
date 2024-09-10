@@ -31,8 +31,7 @@ class Router {
             case instanceof Idle:
                 switch (newState) {
                     case instanceof Idle: {
-                        _2(L_ROUTER, "routingToNewPhones");
-                        switchToView("phones", updatedPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        _2(L_ROUTER, "fakeRoutingToNewPhones");
                         break;
                     }
                     case instanceof SchedulingCall: {
@@ -125,18 +124,10 @@ class Router {
         }
     }
 
-    function updatedPhonesView() as PhonesView {
-        var phonesView = getPhonesView();
-        phonesView.updateFromCallState(getCallState());
-        WatchUi.requestUpdate();
-        return phonesView;
-    }
-
     function popFromCallView() as Void {
         if (AppSettings.isExitToSystemAfterCallCompletionEnabled) {
             exitToSystemFromCurrentView();
         } else {
-            updatedPhonesView();
             popView(WatchUi.SLIDE_RIGHT);
         }
     }
