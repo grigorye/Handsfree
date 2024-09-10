@@ -23,7 +23,7 @@ class CheckIn {
     }
 
     function launch() as Void {
-        _3(L_CHECK_IN, "launch.originalCheckInStatus", getCheckInStatus());
+        _3(L_CHECK_IN, "launch.originalCheckInStatus", checkInStatusImp);
         setCheckInStatus(CHECK_IN_IN_PROGRESS);
         attemptToCheckIn();
     }

@@ -11,10 +11,6 @@ enum CheckInStatus {
 
 var checkInStatusImp as CheckInStatus = CHECK_IN_NONE;
 
-function getCheckInStatus() as CheckInStatus {
-    return checkInStatusImp;
-}
-
 function setCheckInStatus(checkInStatus as CheckInStatus) as Void {
     _3(L_CHECK_IN_STATUS, "set", checkInStatus);
     checkInStatusImp = checkInStatus;
