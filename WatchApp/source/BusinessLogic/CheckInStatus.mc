@@ -18,7 +18,5 @@ function getCheckInStatus() as CheckInStatus {
 function setCheckInStatus(checkInStatus as CheckInStatus) as Void {
     _3(L_CHECK_IN_STATUS, "set", checkInStatus);
     checkInStatusImp = checkInStatus;
-    if (getCallState() instanceof Idle) {
-        updatePhonesView();
-    }
+    updateForCheckInStatus();
 }

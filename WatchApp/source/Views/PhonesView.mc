@@ -5,64 +5,34 @@ using Toybox.System;
 const L_PHONES_VIEW as LogComponent = "phonesView";
 
 class PhonesView extends WatchUi.Menu2 {
-    function initialize() {
+    function initialize(phones as Phones) {
         WatchUi.Menu2.initialize({
             :title => "Favorites"
         });
+        setFromPhones(phones);
     }
 
     private var oldPhones as Phones = [] as Phones;
 
-    function setTitleFromCheckInStatus(checkInStatus as CheckInStatus) as Void {
-        var title;
-        switch (checkInStatus) {
-            case CHECK_IN_IN_PROGRESS:
-                title = "Syncing";
-                break;
-            case CHECK_IN_SUCCEEDED:
-                title = "Idle";
-                break;
-            case CHECK_IN_FAILED:
-                title = "Sync failed";
-                break;
-            case CHECK_IN_NONE:
-                title = null;
-                break;
-            default: {
-                title = null;
-                System.error("unknownCheckInStatus: " + checkInStatus);
-            }
-        }
-        _3(L_PHONES_VIEW, "setTitle", title);
-        setTitle(joinComponents([title, headsetStatusRep()], " "));
-    }
-
-    function updateFromCallState(callState as CallState) as Void {
-        if (callState instanceof DismissedCallInProgress) {
-            var title = callState.phone["number"] as Lang.String;
-            setTitle(title);
-        } else {
-            setTitleFromCheckInStatus(getCheckInStatus());
-        }
-    }
-
     function updateFromPhones(phones as Phones) as Void {
         _3(L_PHONES_VIEW, "updatingFromPhones", phones);
-        if (phones.size() != 0 && oldPhones.equals(phones)) {
+        if (oldPhones.toString().equals(phones.toString())) {
             _2(L_PHONES_VIEW, "phonesNotChanged");
             return;
         }
         _2(L_PHONES_VIEW, "phonesChanged");
         deleteExistingItems();
         setFromPhones(phones);
+        workaroundNoRedrawForMenu2(self);
     }
 
-    function deleteExistingItems() as Void {
+    private function deleteExistingItems() as Void {
+        var oldPhonesCount = oldPhones.size();
         var menuItemCount;
-        if (oldPhones.size() == 0) {
+        if (oldPhonesCount == 0) {
             menuItemCount = 1; // There should be a "No contacts", "Check Android" or "Syncing" item
         } else {
-            menuItemCount = oldPhones.size();
+            menuItemCount = oldPhonesCount;
         }
         for (var i = 0; i < menuItemCount; i++) {
             var existed = deleteItem(0);
@@ -72,11 +42,12 @@ class PhonesView extends WatchUi.Menu2 {
         }
     }
 
-    function setFromPhones(phones as Phones) as Void {
+    private function setFromPhones(phones as Phones) as Void {
         var focusedItemId = getFocusedPhonesViewItemId();
-        var focus = null as Lang.Number | Null;
-        if (phones.size() > 0) {
-            for (var i = 0; i < phones.size(); i++) {
+        var focus = null as Lang.Number or Null;
+        var phonesCount = phones.size();
+        if (phonesCount > 0) {
+            for (var i = 0; i < phonesCount; i++) {
                 var phone = phones[i];
                 var specialItem = specialItemForPhone(phone);
                 if (specialItem != null) {
@@ -84,12 +55,12 @@ class PhonesView extends WatchUi.Menu2 {
                     continue;
                 }
                 var item = new WatchUi.MenuItem(
-                    phone["name"] as Lang.String, // label
-                    phone["number"] as Lang.String, // subLabel
-                    phone["id"] as Lang.Number, // identifier
+                    getPhoneName(phone), // label
+                    getPhoneNumber(phone), // subLabel
+                    phone, // identifier
                     {}
                 );
-                if (item.getId() == focusedItemId) {
+                if (getPhoneId(phone) == focusedItemId) {
                     focus = i;
                 }
                 addItem(item);
@@ -113,19 +84,9 @@ function specialItemForPhone(phone as Phone) as WatchUi.MenuItem | Null {
         return new WatchUi.MenuItem(
             phoneName, // label
             sourceVersion, // subLabel
-            phone["id"] as Lang.Number, // identifier
+            phone, // identifier
             {}
         );
     }
     return null;
-}
-
-function updatePhonesView() as Void {
-    if (phonesViewImp == null) {
-        _3(L_PHONES_VIEW, "phonesViewImp", phonesViewImp);
-        return;
-    }
-    getPhonesView().setTitleFromCheckInStatus(getCheckInStatus());
-    getPhonesView().updateFromPhones(getPhones());
-    workaroundNoRedrawForMenu2();
 }
