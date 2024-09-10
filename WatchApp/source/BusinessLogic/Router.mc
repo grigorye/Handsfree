@@ -66,8 +66,8 @@ class Router {
                         break;
                     }
                     case instanceof Idle: {
-                        _2(L_ROUTER, "poppingToPhones");
-                        popToPhones();
+                        _2(L_ROUTER, "poppingFromCallView");
+                        popFromCallView();
                         break;
                     }
                     default:
@@ -78,8 +78,8 @@ class Router {
                 switch (newState) {
                     case instanceof DismissedCallInProgress:
                     case instanceof Idle: {
-                        _2(L_ROUTER, "poppingToPhones");
-                        popToPhones();
+                        _2(L_ROUTER, "poppingFromCallView");
+                        popFromCallView();
                         break;
                     }
                     case instanceof CallActing: {
@@ -112,8 +112,8 @@ class Router {
                         break;
                     }
                     case instanceof Idle: {
-                        _2(L_ROUTER, "poppingToPhones");
-                        popToPhones();
+                        _2(L_ROUTER, "poppingFromCallView");
+                        popFromCallView();
                         break;
                     }
                     default:
@@ -132,10 +132,9 @@ class Router {
         return phonesView;
     }
 
-    function popToPhones() as Void {
+    function popFromCallView() as Void {
         if (AppSettings.isExitToSystemAfterCallCompletionEnabled) {
-            popView(WatchUi.SLIDE_IMMEDIATE);
-            exitToSystemFromPhonesView();
+            exitToSystemFromCurrentView();
         } else {
             updatedPhonesView();
             popView(WatchUi.SLIDE_RIGHT);
@@ -143,10 +142,19 @@ class Router {
     }
 }
 
-function exitToSystemFromPhonesView() as Void {
-    _2(L_ROUTER, "exitingToSystemFromPhonesView");
-    if (!topViewIs("phones")) {
-        System.error("viewStackIsMessedUp: " + viewStackTags());
+function exitToSystemFromCurrentView() as Void {
+    _3(L_ROUTER, "exitingToSystemFromCurrentView", viewStackTags());
+    while (!topViewIs("mainMenu")) {
+        popView(WatchUi.SLIDE_IMMEDIATE);
+    }
+    exitToSystemFromMainMenu();
+}
+
+function exitToSystemFromMainMenu() as Void {
+    _2(L_ROUTER, "exitingToSystemFromMainMenu");
+    if (!topViewIs("mainMenu")) {
+        dumpViewStack("messedUpViewStack");
+        System.error("viewStackIsMessedUp");
     }
     popView(WatchUi.SLIDE_IMMEDIATE);
     exitToSystemFromCommView();

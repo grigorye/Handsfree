@@ -38,7 +38,6 @@ class CallInProgressViewDelegate extends WatchUi.Menu2InputDelegate {
 
     function onBack() {
         _2(L_USER_ACTION, "callInProgress.onBack");
-        popView(WatchUi.SLIDE_IMMEDIATE);
-        exitToSystemFromPhonesView();
+        exitToSystemFromCurrentView();
     }
 }
