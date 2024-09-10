@@ -10,14 +10,6 @@ function getCheckIn() as CheckIn {
     return checkInImp as CheckIn;
 }
 
-function getCheckInImp() as CheckIn or Null {
-    return checkInImp;
-}
-
-function setCheckInImp(imp as CheckIn or Null) as Void {
-    checkInImp = imp;
-}
-
 var checkInImp as CheckIn or Null;
 
 class CheckIn {

@@ -95,8 +95,8 @@ function launchCheckInIfNecessary() as Void {
     if (!(callState instanceof Idle)) {
         _3(LX_APP_LIFE_CYCLE, "checkInSkipped.dueToCallState", callState);
     } else {
-        if (getCheckInImp() != null) {
-            System.error("getCheckInImp() != null");
+        if (checkInImp != null) {
+            System.error("checkInImp != null");
         }
         getCheckIn().launch();
     }
@@ -107,7 +107,7 @@ function appDidRouteFromMainUI() as Void {
     _2(L_APP, "appDidRouteFromMainUI");
     setRoutedCallStateImp(null);
     setPhonesViewImp(null);
-    setCheckInImp(null);
+    checkInImp = null;
 }
 
 (:widget)
@@ -127,9 +127,8 @@ function onAppDidFinishLaunching() as Void {
 
 function didSeeIncomingMessageWhileRoutedToMainUI() as Void {
     _2(L_APP, "didSeeIncomingMessageWhileRoutedToMainUI");
-    var checkIn = getCheckInImp();
-    if (checkIn != null) {
-        checkIn.remoteResponded();
+    if (checkInImp != null) {
+        checkInImp.remoteResponded();
     }
 }
 
