@@ -6,7 +6,9 @@ const L_PHONES_VIEW as LogComponent = "phonesView";
 
 class PhonesView extends WatchUi.Menu2 {
     function initialize() {
-        WatchUi.Menu2.initialize({});
+        WatchUi.Menu2.initialize({
+            :title => "Favorites"
+        });
     }
 
     private var oldPhones as Phones = [] as Phones;
