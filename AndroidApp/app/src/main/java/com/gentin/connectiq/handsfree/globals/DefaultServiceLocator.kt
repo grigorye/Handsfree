@@ -1,12 +1,18 @@
 package com.gentin.connectiq.handsfree.globals
 
+import android.app.DownloadManager.Query
 import android.content.Context
 import android.content.ContextWrapper
+import android.telecom.Call
 import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.gentin.connectiq.handsfree.calllogs.CallLogEntry
+import com.gentin.connectiq.handsfree.calllogs.CallLogsRepository
+import com.gentin.connectiq.handsfree.calllogs.CallLogsRepositoryImpl
+import com.gentin.connectiq.handsfree.calllogs.recentsFromCallLog
 import com.gentin.connectiq.handsfree.contacts.ContactData
 import com.gentin.connectiq.handsfree.contacts.ContactsRepository
 import com.gentin.connectiq.handsfree.contacts.ContactsRepositoryImpl
@@ -23,6 +29,9 @@ import com.gentin.connectiq.handsfree.impl.OutgoingMessage
 import com.gentin.connectiq.handsfree.impl.OutgoingMessageDestination
 import com.gentin.connectiq.handsfree.impl.OutgoingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.PhoneCallService
+import com.gentin.connectiq.handsfree.impl.QueryArgs
+import com.gentin.connectiq.handsfree.impl.QueryRequest
+import com.gentin.connectiq.handsfree.impl.QueryResult
 import com.gentin.connectiq.handsfree.impl.RemoteMessageService
 import com.gentin.connectiq.handsfree.services.lastTrackedPhoneState
 
@@ -50,6 +59,10 @@ class DefaultServiceLocator(
         }
     }
 
+    private val callLogRepository: CallLogsRepository by lazy {
+        CallLogsRepositoryImpl(this)
+    }
+
     private val incomingMessageDispatcher: IncomingMessageDispatcher by lazy {
         IncomingMessageDispatcher(
             phoneCallService,
@@ -60,6 +73,11 @@ class DefaultServiceLocator(
                 val destination = OutgoingMessageDestination(source.device, source.app)
                 outgoingMessageDispatcher.sendPhones(destination, availableContacts())
             },
+            queryImp = { source, args ->
+                val destination = OutgoingMessageDestination(source.device, source.app)
+                val result = query(args)
+                outgoingMessageDispatcher.sendQueryResult(destination, result)
+            },
             openAppImp = { source, args ->
                 garminConnector.openWatchAppOnDevice(source.device, source.app) { succeeded ->
                     val destination = OutgoingMessageDestination(source.device, source.app)
@@ -69,6 +87,17 @@ class DefaultServiceLocator(
         )
     }
 
+    private fun query(args: QueryArgs): QueryResult {
+        var queryResult = QueryResult()
+        if (args.subjects.contains("phones")) {
+            queryResult.phones = availableContacts();
+        }
+        if (args.subjects.contains("recents")) {
+            queryResult.recents = recents();
+        }
+        return queryResult
+    }
+
     private fun availableContacts(): List<ContactData> {
         return try {
             contactsRepository.contacts()
@@ -76,6 +105,19 @@ class DefaultServiceLocator(
             Log.e(TAG, "contactsRetrievalFailed: $e")
             listOf()
         }
+    }
+
+    private fun callLog(): List<CallLogEntry> {
+        return try {
+            callLogRepository.callLog()
+        } catch (e: java.lang.RuntimeException) {
+            Log.e(TAG, "callLogRetrievalFailed: $e")
+            listOf()
+        }
+    }
+
+    fun recents(): List<CallLogEntry> {
+        return recentsFromCallLog(callLog())
     }
 
     private val remoteMessageService: RemoteMessageService by lazy {

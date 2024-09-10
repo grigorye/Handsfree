@@ -6,6 +6,7 @@ import org.json.JSONObject
 
 class IncomingMessageDispatcher(
     private val phoneCallService: PhoneCallService,
+    private val queryImp: (source: IncomingMessageSource, args: QueryArgs) -> Unit,
     private val syncImp: () -> Unit,
     private val syncPhonesImp: (destination: IncomingMessageSource) -> Unit,
     private val openAppImp: (source: IncomingMessageSource, args: OpenMeArgs) -> Unit
@@ -37,6 +38,12 @@ class IncomingMessageDispatcher(
 
             "syncPhones" -> {
                 syncPhonesImp(source)
+            }
+
+            "query" -> {
+                val queryRequest = json.decodeFromString<QueryRequest>(string)
+                Log.d(TAG, "callRequest: $queryRequest")
+                queryImp(source, queryRequest.args)
             }
 
             "openMe" -> {

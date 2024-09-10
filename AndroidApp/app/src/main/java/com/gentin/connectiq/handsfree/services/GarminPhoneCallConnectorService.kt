@@ -220,6 +220,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         )
         lastTrackedPhoneState = phoneState
         l.outgoingMessageDispatcher.sendPhoneState(phoneState)
+        l.outgoingMessageDispatcher.sendRecents(l.recents())
         if ((stateExtra == TelephonyManager.EXTRA_STATE_RINGING) && isOpenWatchAppOnRingingEnabled()) {
             for (app in watchApps) {
                 l.garminConnector.openWatchAppOnEveryDevice(app) { destination, succeeded ->

@@ -13,6 +13,11 @@ data class CallRequest(
 )
 
 @Serializable
+data class QueryRequest(
+    val args: QueryArgs
+)
+
+@Serializable
 data class OpenMeRequest(
     val args: OpenMeArgs
 )
@@ -25,4 +30,9 @@ data class OpenMeArgs(
 @Serializable
 data class CallArgs(
     val number: String
+)
+
+@Serializable
+data class QueryArgs(
+    val subjects: List<String>
 )
