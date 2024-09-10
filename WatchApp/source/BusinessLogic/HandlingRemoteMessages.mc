@@ -20,7 +20,9 @@ function handleRemoteMessage(iqMsg as Communications.Message) as Void {
         _3(LX_REMOTE_MSG, "msg", "dataIsNotObject!");
         return;
     }
-    _3(LX_REMOTE_MSG, "msg", iqMsg.data);
+    if (!lowMemory) {
+        _3(LX_REMOTE_MSG, "msg", iqMsg.data);
+    }
     didReceiveRemoteMessage();
     var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
     var cmd = msg["cmd"] as Lang.String;
