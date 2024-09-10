@@ -102,3 +102,12 @@ function viewStackTagsEqual(other as Lang.Array<Lang.String>) as Lang.Boolean {
     }
     return true;
 }
+
+function viewWithTag(tag as Lang.String) as WatchUi.Views or Null {
+    for (var i = 0; i < viewStack.size(); i++) {
+        if (viewStack[i].tag.equals(tag)) {
+            return viewStack[i].view;
+        }
+    }
+    return null;
+}
