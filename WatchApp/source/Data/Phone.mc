@@ -12,8 +12,8 @@ function getPhoneName(phone as Phone) as Lang.String {
     return phone["name"] as Lang.String;
 }
 
-function getPhoneId(phone as Phone) as Lang.Number {
-    return phone["id"] as Lang.Number;
+function getPhoneId(phone as Phone) as Lang.String {
+    return phone["id"] as Lang.String;
 }
 
 function getPhoneNumber(phone as Phone) as Lang.String or Null {
