@@ -56,6 +56,8 @@ function updateUIForCallStateInApp() as Void {
     } else {
         if (routerImp != null) {
             routerImp.updateRoute();
+        } else {
+            _2(L_CALL_STATE_UI_UPDATE, "routerImpIsNull");
         }
     }
 }
