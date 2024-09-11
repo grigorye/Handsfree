@@ -89,15 +89,34 @@ function defaultTitle() as Lang.String {
 }
 
 (:glance, :watchApp, :noLowMemory)
-function glanceFont() as Graphics.FontDefinition {
+function glanceFont() as Graphics.FontDefinition or Graphics.VectorFont {
     var font;
     var deviceSettings = System.getDeviceSettings();
     if (GlanceSettings.isLargeFontsEnforced || ((deviceSettings has :isEnhancedReadabilityModeEnabled) && deviceSettings.isEnhancedReadabilityModeEnabled)) {
         font = Styles.glance_font.fontEnhanced;
     } else {
+        var fontScale = glanceFontScale();
+        if (Graphics has :getVectorFont) {
+            var vectorFont = Graphics.getVectorFont({
+                :face => ["RobotoCondensedBold"],
+                :size => 26 * fontScale
+            });
+            if (vectorFont != null) {
+                return vectorFont;
+            }
+        }
         font = Styles.glance_font.font;
     }
     return font;
+}
+
+(:glance, :watchApp, :noLowMemory)
+function glanceFontScale() as Lang.Float {
+    var deviceSettings = System.getDeviceSettings();
+    if (deviceSettings has :fontScale) {
+        return deviceSettings.fontScale;
+    }
+    return 1.0;
 }
 
 (:glance, :watchApp, :noLowMemory)
