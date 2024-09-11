@@ -14,7 +14,9 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
         }
         var phone = id as Phone;
         setFocusedPhonesViewItemId(getPhoneId(phone));
-        preprocessSpecialPhone(phone);
+        if (preprocessSpecialPhone(phone)) {
+            return;
+        }
         scheduleCall(phone);
     }
 
