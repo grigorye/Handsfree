@@ -13,28 +13,9 @@ class GlanceView extends WatchUi.GlanceView {
 
     function onUpdate(dc as Graphics.Dc) {
         var defaultTitle = defaultTitle();
-        var font;
-        var deviceSettings = System.getDeviceSettings();
-        if (GlanceSettings.isLargeFontsEnforced || ((deviceSettings has :isEnhancedReadabilityModeEnabled) && deviceSettings.isEnhancedReadabilityModeEnabled)) {
-            font = Styles.glance_font.fontEnhanced;
-        } else {
-            font = Styles.glance_font.font;
-        }
-        var foregroundColor;
-        var backgroundColor;
-        if (deviceSettings has :isNightModeEnabled) {
-            if (deviceSettings.isNightModeEnabled) {
-                foregroundColor = Graphics.COLOR_WHITE;
-                backgroundColor = Graphics.COLOR_BLACK;
-            } else {
-                foregroundColor = Graphics.COLOR_BLACK;
-                backgroundColor = Graphics.COLOR_WHITE;
-            }
-        } else {
-            foregroundColor = Graphics.COLOR_WHITE;
-            backgroundColor = Graphics.COLOR_TRANSPARENT;
-        }
-        dc.setColor(foregroundColor, backgroundColor);
+        var font = glanceFont();
+        var colors = glanceColors();
+        dc.setColor(colors[0], colors[1]);
 
         var title;
         var subtitle = null;
@@ -105,4 +86,36 @@ function defaultTitle() as Lang.String {
         defaultTitle = nonCapitalizedDefaultTitle;
     }
     return defaultTitle;
+}
+
+(:glance, :watchApp, :noLowMemory)
+function glanceFont() as Graphics.FontDefinition {
+    var font;
+    var deviceSettings = System.getDeviceSettings();
+    if (GlanceSettings.isLargeFontsEnforced || ((deviceSettings has :isEnhancedReadabilityModeEnabled) && deviceSettings.isEnhancedReadabilityModeEnabled)) {
+        font = Styles.glance_font.fontEnhanced;
+    } else {
+        font = Styles.glance_font.font;
+    }
+    return font;
+}
+
+(:glance, :watchApp, :noLowMemory)
+function glanceColors() as Lang.Array<Graphics.ColorValue> {
+    var foregroundColor;
+    var backgroundColor;
+    var deviceSettings = System.getDeviceSettings();
+    if (deviceSettings has :isNightModeEnabled) {
+        if (deviceSettings.isNightModeEnabled) {
+            foregroundColor = Graphics.COLOR_WHITE;
+            backgroundColor = Graphics.COLOR_BLACK;
+        } else {
+            foregroundColor = Graphics.COLOR_BLACK;
+            backgroundColor = Graphics.COLOR_WHITE;
+        }
+    } else {
+        foregroundColor = Graphics.COLOR_WHITE;
+        backgroundColor = Graphics.COLOR_TRANSPARENT;
+    }
+    return [foregroundColor, backgroundColor];
 }
