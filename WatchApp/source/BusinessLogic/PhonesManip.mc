@@ -7,6 +7,18 @@ const L_STORAGE as LogComponent = "app";
 
 const L_PHONES_UI as LogComponent = "phonesUI";
 
+(:background)
+function setPhonesVersion(version as Version) as Void {
+    _3(L_STORAGE, "savePhonesVersion", version);
+    Application.Storage.setValue("phonesVersion.v1", version);
+}
+
+(:background)
+function getPhonesVersion() as Version or Null {
+    var phonesVersion = Application.Storage.getValue("phonesVersion.v1") as Version or Null;
+    return phonesVersion;
+}
+
 function getPhones() as Phones {
     var phones = Application.Storage.getValue("phones.v1") as Phones or Null;
     if (phones != null) {

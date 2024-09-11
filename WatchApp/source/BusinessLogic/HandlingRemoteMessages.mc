@@ -65,15 +65,39 @@ function handleRemoteMessage(iqMsg as Communications.Message) as Void {
 (:background)
 const L_PHONE_STATE_CHANGED as LogComponent = "phoneStateChanged";
 
+typedef Version as Lang.String;
+
 (:background)
 function handleAcceptQueryResult(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
-    var recents = args["recents"] as Recents or Null;
-    if (recents != null) {
-        setRecents(recents);
-    }
-    var phones = args["phones"] as Phones or Null;
-    if (phones != null) {
-        setPhones(phones);
+    var subjects = args["subjects"] as Lang.Dictionary<Lang.String, Lang.Dictionary<Lang.String, Lang.Object>>;
+    var names = subjects.keys() as Lang.Array<Lang.String>;
+    var namesCount = names.size();
+    for (var i = 0; i < namesCount; i++) {
+        var name = names[i];
+        var subject = subjects[name] as Lang.Dictionary<Lang.String, Lang.Object>;
+        var version = subject["version"] as Version;
+        switch (name) {
+            case "phones": {
+                if (!version.equals(getPhonesVersion())) {
+                    var phones = subject["value"] as Phones;
+                    setPhones(phones);
+                    setPhonesVersion(version);
+                } else {
+                    _3(LX_REMOTE_MSG, "phonesHit", version);
+                }
+                break;
+            }
+            case "recents": {
+                if (!version.equals(getRecentsVersion())) {
+                    var recents = subject["value"] as Recents;
+                    setRecents(recents);
+                    setRecentsVersion(version);
+                } else {
+                    _3(LX_REMOTE_MSG, "recentsHit", version);
+                }
+                break;
+            }
+        }
     }
 }
 

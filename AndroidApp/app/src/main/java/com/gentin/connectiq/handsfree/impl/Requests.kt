@@ -34,5 +34,11 @@ data class CallArgs(
 
 @Serializable
 data class QueryArgs(
-    val subjects: List<String>
+    val subjects: List<SubjectQuery>
+)
+
+@Serializable
+data class SubjectQuery(
+    val name: String,
+    val version: String?
 )

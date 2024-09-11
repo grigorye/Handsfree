@@ -13,7 +13,10 @@ function requestPhones() as Void {
     var msg = {
         "cmd" => "query",
         "args" => {
-            "subjects" => ["phones", "recents"]
+            "subjects" => [
+                { "name" => "phones", "version" => getPhonesVersion() }, 
+                { "name" => "recents", "version" => getRecentsVersion() }
+            ]
         }
     } as Lang.Object as Application.PersistableType;
     transmitWithRetry("syncPhones", msg, new Communications.ConnectionListener());

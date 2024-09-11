@@ -6,12 +6,39 @@ import android.util.Log
 import com.gentin.connectiq.handsfree.calllogs.CallLogEntry
 import com.gentin.connectiq.handsfree.contacts.ContactData
 import com.gentin.connectiq.handsfree.helpers.normalizePhoneNumber
+import java.security.MessageDigest
+
+typealias Version = String
 
 data class QueryResult(
-    var phones: List<ContactData>? = null,
     var phoneState: PhoneState? = null,
-    var recents: List<CallLogEntry>? = null
+    var phones: VersionedPojo? = null,
+    var recents: VersionedPojo? = null
 )
+
+data class VersionedPojo(
+    val version: Version,
+    val pojo: Any?
+)
+
+fun strippedVersionedPojo(hitVersion: Version?, pojo: Any?): VersionedPojo {
+    val version = "$pojo".md5()
+    return VersionedPojo(
+        version = version,
+        pojo = if (version == hitVersion) {
+            null
+        } else {
+            pojo
+        }
+    )
+}
+
+@OptIn(ExperimentalStdlibApi::class)
+fun String.md5(): String {
+    val md = MessageDigest.getInstance("MD5")
+    val digest = md.digest(this.toByteArray())
+    return digest.toHexString()
+}
 
 interface OutgoingMessageDispatcher {
     fun sendSyncYou(contacts: List<ContactData>, phoneState: PhoneState?)
@@ -42,17 +69,28 @@ class DefaultOutgoingMessageDispatcher(
         send(msg)
     }
 
-    override fun sendQueryResult(destination: OutgoingMessageDestination, queryResult: QueryResult) {
-        var args = mutableMapOf<String, Any>()
-        queryResult.recents?.apply {
-            args["recents"] = recentsPojo(this)
-        }
+    override fun sendQueryResult(
+        destination: OutgoingMessageDestination,
+        queryResult: QueryResult
+    ) {
+        var subjects = mutableMapOf<String, Any>()
         queryResult.phones?.apply {
-            args["phones"] = phonesPojo(this)
+            subjects["phones"] = mapOf(
+                "version" to version,
+                "value" to pojo
+            )
+        }
+        queryResult.recents?.apply {
+            subjects["recents"] = mapOf(
+                "version" to version,
+                "value" to pojo
+            )
         }
         val msg = mapOf(
             "cmd" to "acceptQueryResult",
-            "args" to args
+            "args" to mapOf(
+                "subjects" to subjects
+            )
         )
         send(OutgoingMessage(destination, msg))
     }
@@ -107,42 +145,10 @@ class DefaultOutgoingMessageDispatcher(
         send(OutgoingMessage(destination, msg))
     }
 
-    private fun phonesPojo(contacts: List<ContactData>): Any {
-        val pojo = ArrayList<Any>()
-        for (contact in contacts) {
-            pojo.add(
-                mapOf(
-                    "number" to contact.number,
-                    "name" to contact.name,
-                    "id" to contact.id
-                )
-            )
-        }
-        return pojo
-    }
-
     private fun phonesArgs(contacts: List<ContactData>): Map<String, Any> {
         return mapOf(
             "phones" to phonesPojo(contacts)
         )
-    }
-
-    private fun recentsPojo(recents: List<CallLogEntry>): Any {
-        val pojo = ArrayList<Any>()
-        for (entry in recents) {
-            pojo.add(
-                mapOf(
-                    "number" to entry.number,
-                    "name" to entry.name,
-                    "date" to entry.date,
-                    "duration" to entry.duration,
-                    "type" to entry.type,
-                    "isNew" to entry.isNew
-                )
-            )
-        }
-
-        return pojo
     }
 
     private fun phoneStateChangedArgs(phoneState: PhoneState): Map<String, Any?> {
@@ -197,4 +203,36 @@ class DefaultOutgoingMessageDispatcher(
 
 private fun dispatchedPhoneNumber(context: Context, incomingNumber: String?): String? {
     return incomingNumber?.let { normalizePhoneNumber(context, it) }
+}
+
+fun phonesPojo(contacts: List<ContactData>): Any {
+    val pojo = ArrayList<Any>()
+    for (contact in contacts) {
+        pojo.add(
+            mapOf(
+                "number" to contact.number,
+                "name" to contact.name,
+                "id" to contact.id
+            )
+        )
+    }
+    return pojo
+}
+
+fun recentsPojo(recents: List<CallLogEntry>): Any {
+    val pojo = ArrayList<Any>()
+    for (entry in recents) {
+        pojo.add(
+            mapOf(
+                "number" to entry.number,
+                "name" to entry.name,
+                "date" to entry.date,
+                "duration" to entry.duration,
+                "type" to entry.type,
+                "isNew" to entry.isNew
+            )
+        )
+    }
+
+    return pojo
 }

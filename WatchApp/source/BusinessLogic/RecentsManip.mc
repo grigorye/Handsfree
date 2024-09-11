@@ -2,6 +2,18 @@ using Toybox.WatchUi;
 using Toybox.Application;
 using Toybox.Lang;
 
+(:background)
+function setRecentsVersion(version as Version) as Void {
+    _3(L_STORAGE, "saveRecentsVersion", version);
+    Application.Storage.setValue("recentsVersion.v1", version);
+}
+
+(:background)
+function getRecentsVersion() as Version {
+    var recentsVersion = Application.Storage.getValue("recentsVersion.v1") as Version;
+    return recentsVersion;
+}
+
 function getRecents() as Recents {
     var recents = Application.Storage.getValue("recents.v1") as Recents or Null;
     if (recents != null) {
