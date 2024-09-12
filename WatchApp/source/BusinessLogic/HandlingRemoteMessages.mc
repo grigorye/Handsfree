@@ -6,7 +6,7 @@ using Toybox.System;
 const LX_REMOTE_MSG as LogComponent = "<";
 
 (:background)
-function handleRemoteMessage(iqMsg as Communications.Message) as Void {
+function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
     if (iqMsg == null) {
         _3(LX_REMOTE_MSG, "msg", "isNull!");
         return;
