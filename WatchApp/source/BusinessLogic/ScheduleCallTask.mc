@@ -33,6 +33,7 @@ class ScheduleCallTask extends Communications.ConnectionListener {
         var newState;
         if (AppSettings.isOptimisticCallHandlingEnabled) {
             newState = oldState.wouldBeNextState();
+            newState.optimistic = true;
         } else {
             newState = oldState.clone();
             newState.commStatus = SUCCEEDED;

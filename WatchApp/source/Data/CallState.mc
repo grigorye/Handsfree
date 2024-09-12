@@ -11,6 +11,7 @@ var callStateImp as CallState or Null;
 
 (:background, :glance)
 class CallStateImp {
+    var optimistic as Lang.Boolean = false;
 }
 
 (:background)

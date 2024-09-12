@@ -2,10 +2,14 @@ using Toybox.WatchUi;
 using Toybox.Lang;
 
 class CallInProgressView extends WatchUi.Menu2 {
-    function initialize(phone as Phone) {
+    function initialize(phone as Phone, optimistic as Lang.Boolean) {
         var texts = textsForCallInProgress(phone);
+        var title = texts[:title] as Lang.String;
+        if (optimistic) {
+            title = "|" + title + "|";
+        }
         WatchUi.Menu2.initialize({
-            :title => texts[:title] as Lang.String
+            :title => title
         });
 
         var actions = texts[:actions] as CallInProgressActions;
