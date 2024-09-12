@@ -79,6 +79,7 @@ function handleAcceptQueryResult(args as Lang.Dictionary<Lang.String, Lang.Objec
 function handleSubjectsChanged(subjects as SubjectsChanged) as Void {
     var names = subjects.keys() as Lang.Array<Lang.String>;
     var namesCount = names.size();
+    var isHit = true;
     for (var i = 0; i < namesCount; i++) {
         var name = names[i];
         var subject = subjects[name] as Lang.Dictionary<Lang.String, Lang.Object>;
@@ -89,6 +90,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Void {
                     var phones = subject["value"] as Phones;
                     setPhones(phones);
                     setPhonesVersion(version);
+                    isHit = false;
                 } else {
                     _3(LX_REMOTE_MSG, "phonesHit", version);
                 }
@@ -99,6 +101,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Void {
                     var recents = subject["value"] as Recents;
                     setRecents(recents);
                     setRecentsVersion(version);
+                    isHit = false;
                 } else {
                     _3(LX_REMOTE_MSG, "recentsHit", version);
                 }
@@ -106,6 +109,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Void {
             }
         }
     }
+    trackHits(isHit);
 }
 
 (:background)
