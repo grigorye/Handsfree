@@ -77,7 +77,7 @@ function defaultTitle() as Lang.String {
     }
     var nonCapitalizedDefaultTitle = adjustedTitle;
     if (Styles.glance_live_update.enabled) {
-        nonCapitalizedDefaultTitle = joinComponents([nonCapitalizedDefaultTitle, headsetStatusRep()], " ");
+        nonCapitalizedDefaultTitle = joinComponents([nonCapitalizedDefaultTitle, hitsCountRep(), headsetStatusRep()], " ");
     }
     var defaultTitle;
     if (Styles.glance_font.capitalize) {

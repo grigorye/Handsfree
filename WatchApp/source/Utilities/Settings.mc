@@ -7,6 +7,8 @@ module GlanceSettings {
     const customGlanceTitle as Lang.String = Application.Properties.getValue("customGlanceTitle") as Lang.String;
     (:noLowMemory)
     const isLargeFontsEnforced as Lang.Boolean = Application.Properties.getValue("forceLargeFonts") as Lang.Boolean;
+    (:noLowMemory)
+    const isHitsCountTrackingEnabled as Lang.Boolean = Application.Properties.getValue("hitsCountTracking") as Lang.Boolean;
 }
 
 (:glance)

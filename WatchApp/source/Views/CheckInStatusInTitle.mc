@@ -7,9 +7,10 @@ function titleFromCheckInStatus(checkInStatus as CheckInStatus) as Lang.String {
         case CHECK_IN_IN_PROGRESS:
             title = "Syncing";
             break;
-        case CHECK_IN_SUCCEEDED:
-            title = "Idle";
+        case CHECK_IN_SUCCEEDED: {
+            title = joinComponents(["Idle", hitsCountRep()], " ");
             break;
+        }
         case CHECK_IN_FAILED:
             title = "Sync failed";
             break;
