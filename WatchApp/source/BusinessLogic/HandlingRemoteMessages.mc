@@ -44,8 +44,8 @@ function handleRemoteMessage(iqMsg as Communications.Message) as Void {
         case "setPhones":
             setPhones(args["phones"] as Phones);
             break;
-        case "recentsChanged":
-            setRecents(args["recents"] as Recents);
+        case "subjectsChanged":
+            handleSubjectsChanged(args["subjects"] as SubjectsChanged);
             break;
         case "acceptQueryResult":
             handleAcceptQueryResult(args);
@@ -67,9 +67,16 @@ const L_PHONE_STATE_CHANGED as LogComponent = "phoneStateChanged";
 
 typedef Version as Lang.String;
 
+typedef SubjectsChanged as Lang.Dictionary<Lang.String, Lang.Dictionary<Lang.String, Lang.Object>>;
+
 (:background)
 function handleAcceptQueryResult(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
-    var subjects = args["subjects"] as Lang.Dictionary<Lang.String, Lang.Dictionary<Lang.String, Lang.Object>>;
+    var subjects = args["subjects"] as SubjectsChanged;
+    handleSubjectsChanged(subjects);
+}
+
+(:background)
+function handleSubjectsChanged(subjects as SubjectsChanged) as Void {
     var names = subjects.keys() as Lang.Array<Lang.String>;
     var namesCount = names.size();
     for (var i = 0; i < namesCount; i++) {

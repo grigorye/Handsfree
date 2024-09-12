@@ -104,11 +104,16 @@ class DefaultOutgoingMessageDispatcher(
     }
 
     override fun sendRecents(recents: List<CallLogEntry>) {
-        val recentsPojo = recentsPojo(recents)
+        val versionedPojo = strippedVersionedPojo(null, recentsPojo(recents))
         val msg = mapOf(
-            "cmd" to "recentsChanged",
+            "cmd" to "subjectsChanged",
             "args" to mapOf(
-                "recents" to recentsPojo
+                "subjects" to mapOf(
+                    "recents" to mapOf(
+                        "version" to versionedPojo.version,
+                        "value" to versionedPojo.pojo
+                    )
+                )
             )
         )
         send(msg)
