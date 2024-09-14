@@ -2,7 +2,7 @@ project.typecheck = strict
 project.optimization = 3z
 base.sourcePath = build/source/**.mc;source/**.mc;local/source/**.mc
 
-fenix7_personality_extras = ./resources-glances2022
+fenix7_personality_extras = ./resources-glances2022;./resources-auto-open
 epix2.personality = $(epix2.personality);$(fenix7_personality_extras)
 epix2pro42mm.personality = $(epix2pro42mm.personality);$(fenix7_personality_extras)
 epix2pro47mm.personality = $(epix2pro47mm.personality);$(fenix7_personality_extras)
@@ -17,16 +17,12 @@ fenix7xpro.personality = $(fenix7xpro.personality);$(fenix7_personality_extras)
 fenix7xpronowifi.personality = $(fenix7xpronowifi.personality);$(fenix7_personality_extras)
 
 instinct_presonality_extras = ./resources-glances2022;./resources-static-glances
-instinct_resourcePath_extras = ./resources-no-auto-open
 instinct2.personality = $(instinct2.personality);$(instinct_presonality_extras)
 instinct2s.personality = $(instinct2s.personality);$(instinct_presonality_extras)
 instinct2x.personality = $(instinct2x.personality);$(instinct_presonality_extras)
-instinct2.resourcePath = $(instinct2.resourcePath);$(instinct_resourcePath_extras)
-instinct2s.resourcePath = $(instinct2s.resourcePath);$(instinct_resourcePath_extras)
-instinct2x.resourcePath = $(instinct2x.resourcePath);$(instinct_resourcePath_extras)
 
 edge_personality_extras = ./resources-glances2022
-edge_resourcePath_extras = ./resources-edge;./resources-no-auto-open
+edge_resourcePath_extras = ./resources-edge
 edge530.personality = $(edge530.personality);$(edge_personality_extras)
 edge530.resourcePath = $(edge530.resourcePath);$(edge_resourcePath_extras)
 edge540.personality = $(edge540.personality);$(edge_personality_extras)
