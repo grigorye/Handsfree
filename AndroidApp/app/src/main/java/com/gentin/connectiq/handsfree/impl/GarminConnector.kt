@@ -372,7 +372,7 @@ class DefaultGarminConnector(
         private set
 
     private fun useOnlyInstalledAppsForSendingMessages(): Boolean {
-        return false
+        return true
     }
 
     private fun appsForSendingMessages(device: IQDevice): List<IQApp> {
