@@ -2,7 +2,6 @@ using Toybox.Lang;
 using Toybox.WatchUi;
 using Toybox.System;
 
-const L_CALL_STATE_MANIP as LogComponent = "callStateManip";
 const L_CALL_STATE_UI_UPDATE as LogComponent = "callStateUI";
 
 (:background)
@@ -18,25 +17,7 @@ function updateUIForCallState() as Void {
     if (activeUiKind.equals(ACTIVE_UI_NONE)) {
         return;
     }
-    updateUIForCallStateInForeground();
-}
-
-(:glance, :typecheck(disableGlanceCheck))
-function updateUIForCallStateInForeground() as Void {
-    _3(L_CALL_STATE_UI_UPDATE, "activeUiKind", activeUiKind);
-    switch (activeUiKind) {
-        case ACTIVE_UI_NONE: {
-            return;
-        }
-        case ACTIVE_UI_GLANCE: {
-            WatchUi.requestUpdate();
-            return;
-        }
-        case ACTIVE_UI_APP: {
-            updateUIForCallStateInApp();
-            return;
-        }
-    }
+    updateUIForCallStateInApp();
 }
 
 function updateUIForCallStateInApp() as Void {
