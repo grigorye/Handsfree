@@ -45,7 +45,7 @@ module BackgroundSettings {
     const isIncomingOpenAppViaWakeUpEnabled as Lang.Boolean = Application.Properties.getValue("incomingOpenAppViaWakeUp") as Lang.Boolean;
 }
 
-(:background, :glance)
+(:background)
 module CommonSettings {
     const incomingCallMessageFormat as Lang.String = Application.Properties.getValue("incomingCallMessageFormat") as Lang.String;
 }

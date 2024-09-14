@@ -77,7 +77,7 @@ function messageForApplicationWake(phone as Phone) as Lang.String {
     return "Incoming call";
 }
 
-(:background, :glance)
+(:background)
 function incomingCallMessage(phone as Lang.String) as Lang.String {
     return Lang.format(CommonSettings.incomingCallMessageFormat, [phone]);
 }
