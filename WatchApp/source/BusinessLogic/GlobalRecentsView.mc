@@ -1,3 +1,3 @@
 function newRecentsView() as RecentsView {
-    return new RecentsView(getRecents());
+    return new RecentsView(getLastRecentsCheckDate());
 }

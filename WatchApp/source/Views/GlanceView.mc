@@ -45,10 +45,15 @@ class GlanceView extends WatchUi.GlanceView {
                 }
             } else {
                 title = defaultTitle;
-                if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
-                    subtitle = sourceVersion;
+                var missedCallsCount = getMissedCallsCount();
+                if (missedCallsCount > 0) {
+                    subtitle = missedCallsCount + " missed";
                 } else {
-                    subtitle = "Idle";
+                    if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
+                        subtitle = sourceVersion;
+                    } else {
+                        subtitle = "Idle";
+                    }
                 }
             }
         }

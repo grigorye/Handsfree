@@ -16,6 +16,7 @@ class MainMenuDelegate extends WatchUi.Menu2InputDelegate {
             }
             case :recents: {
                 pushView("recents", newRecentsView(), new RecentsViewDelegate(), SLIDE_LEFT);
+                recentsDidOpen();
                 break;
             }
         }

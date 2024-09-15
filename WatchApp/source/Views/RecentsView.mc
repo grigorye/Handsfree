@@ -6,21 +6,26 @@ using Toybox.Time;
 const L_RECENTS_VIEW as LogComponent = "recentsView";
 
 class RecentsView extends WatchUi.Menu2 {
-    function initialize(recents as Recents) {
-        WatchUi.Menu2.initialize({ :title => "Recents" });
-        setFromRecents(recents);
+    function initialize(lastRecentsCheckDate as Lang.Number) {
+        WatchUi.Menu2.initialize({});
+        self.lastRecentsCheckDate = lastRecentsCheckDate;
+        setTitleFromRecents();
+        addMenuItemsFromRecents();
     }
 
     private var oldRecents as Recents = [] as Recents;
+    private var lastRecentsCheckDate as Lang.Number;
 
-    function updateFromRecents(recents as Recents) as Void {
-        _3(L_RECENTS_VIEW, "updatingFromRecents", recents);
+    function update() as Void {
+        var recents = getRecents();
+        _2(L_RECENTS_VIEW, "update");
         if (oldRecents.toString().equals(recents.toString())) {
             _2(L_RECENTS_VIEW, "recentsNotChanged");
             return;
         }
+        setTitleFromRecents();
         deleteExistingItems();
-        setFromRecents(recents);
+        addMenuItemsFromRecents();
         workaroundNoRedrawForMenu2(self);
     }
 
@@ -40,10 +45,22 @@ class RecentsView extends WatchUi.Menu2 {
         }
     }
 
-    function setFromRecents(recents as Recents) as Void {
-        _3(L_RECENTS_VIEW, "settingFromRecents", recents);
+    function setTitleFromRecents() as Void {
+        var missedCallsCount = getMissedCallsCount();
+        if (missedCallsCount == 0) {
+            setTitle("Recents");
+        } else {
+            setTitle(missedCallsCount + " missed");
+        }
+    }
+
+    function addMenuItemsFromRecents() as Void {
+        var recents = getRecents();
+        _2(L_RECENTS_VIEW, "addMenuItemsFromRecents");
         var recentsCount = recents.size();
-        if (recentsCount > 0) {
+        if (recentsCount == 0) {
+            addItem(new WatchUi.MenuItem("No recents", "", noRecentsMenuItemId, {}));
+        } else {
             for (var i = 0; i < recentsCount; i++) {
                 var recent = recents[i];
                 var name = getRecentName(recent);
@@ -53,8 +70,15 @@ class RecentsView extends WatchUi.Menu2 {
                 } else {
                     label = name;
                 }
-                var dateFormatted = formatDate(getRecentDate(recent) / 1000);
-                var typeFormatted = formatRecentType(getRecentType(recent));
+                var recentDate = getRecentDate(recent) / 1000;
+                var dateFormatted = formatDate(recentDate);
+                var typeFormatted;
+                var type = getRecentType(recent);
+                if (type == 3 && recentDate > lastRecentsCheckDate && getRecentIsNew(recent) > 0) {
+                    typeFormatted = "!"; // missed
+                } else {
+                    typeFormatted = formatRecentType(type);
+                }
                 var durationFormatted = formatDuration(getRecentDuration(recent));
                 var subLabel = joinComponents([typeFormatted + " " + dateFormatted, durationFormatted], ", ");
                 var item = new WatchUi.MenuItem(
@@ -65,8 +89,6 @@ class RecentsView extends WatchUi.Menu2 {
                 );
                 addItem(item);
             }
-        } else {
-            addItem(new WatchUi.MenuItem("No recents", "", noRecentsMenuItemId, {}));
         }
         oldRecents = recents;
     }
