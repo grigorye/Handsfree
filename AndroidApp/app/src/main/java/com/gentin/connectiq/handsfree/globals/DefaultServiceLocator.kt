@@ -59,7 +59,7 @@ class DefaultServiceLocator(
         }
     }
 
-    private val callLogRepository: CallLogsRepository by lazy {
+    val callLogRepository: CallLogsRepository by lazy {
         CallLogsRepositoryImpl(this)
     }
 

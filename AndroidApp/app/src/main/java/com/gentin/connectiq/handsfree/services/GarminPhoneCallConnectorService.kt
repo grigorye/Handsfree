@@ -9,7 +9,10 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
+import android.database.ContentObserver
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.telephony.TelephonyManager
 import android.util.Log
 import androidx.core.app.ActivityCompat
@@ -56,6 +59,16 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         PreferenceManager.getDefaultSharedPreferences(this)
     }
 
+    private val callLogObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
+        override fun onChange(selfChange: Boolean) {
+            Log.d(TAG, "callLogDidChange")
+            if (lastTrackedPhoneState?.stateExtra == TelephonyManager.EXTRA_STATE_IDLE) {
+                l.outgoingMessageDispatcher.sendRecents(l.recents())
+            }
+            super.onChange(selfChange)
+        }
+    }
+
     override fun onCreate() {
         Log.d(TAG, "onCreate")
         super.onCreate()
@@ -64,12 +77,14 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             ensureForegroundService()
         }
         headPhoneConnectionMonitor.start()
+        l.callLogRepository.subscribe(callLogObserver)
         sharedPreferences.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
     }
 
     override fun onDestroy() {
         Log.d(TAG, "onDestroy")
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(preferenceChangeListener)
+        l.callLogRepository.unsubscribe(callLogObserver)
         headPhoneConnectionMonitor.stop()
         garminConnector.terminate()
         super.onDestroy()
@@ -220,9 +235,6 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         )
         lastTrackedPhoneState = phoneState
         l.outgoingMessageDispatcher.sendPhoneState(phoneState)
-        if (phoneState.stateExtra == TelephonyManager.EXTRA_STATE_IDLE) {
-            l.outgoingMessageDispatcher.sendRecents(l.recents())
-        }
         if ((stateExtra == TelephonyManager.EXTRA_STATE_RINGING) && isOpenWatchAppOnRingingEnabled()) {
             for (app in watchApps) {
                 l.garminConnector.openWatchAppOnEveryDevice(app) { destination, succeeded ->

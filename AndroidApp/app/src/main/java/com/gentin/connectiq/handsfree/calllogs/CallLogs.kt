@@ -3,6 +3,7 @@ package com.gentin.connectiq.handsfree.calllogs
 import android.content.ContentResolver
 import android.content.Context
 import android.content.ContextWrapper
+import android.database.ContentObserver
 import android.database.Cursor
 import android.net.Uri
 import android.provider.CallLog
@@ -17,6 +18,8 @@ data class CallLogEntry(
 )
 
 interface CallLogsRepository {
+    fun subscribe(observer: ContentObserver)
+    fun unsubscribe(observer: ContentObserver)
     fun callLog(): List<CallLogEntry>
 }
 
@@ -24,9 +27,18 @@ class CallLogsRepositoryImpl(
     base: Context?
 ) : ContextWrapper(base), CallLogsRepository {
 
+    private val callUri = Uri.parse("content://call_log/calls")
+
+    override fun subscribe(observer: ContentObserver) {
+        contentResolver.registerContentObserver(callUri, true, observer)
+    }
+
+    override fun unsubscribe(observer: ContentObserver) {
+        contentResolver.unregisterContentObserver(observer)
+    }
+
     private fun cursor(contentResolver: ContentResolver): Cursor? {
         val sortOrder = CallLog.Calls.DATE
-        val callUri = Uri.parse("content://call_log/calls")
         val curCallLogs = contentResolver.query(callUri, null, null, null, sortOrder)
 
         return curCallLogs
