@@ -94,12 +94,16 @@ function launchCheckInIfNecessary() as Void {
     var callState = getCallState();
     if (!(callState instanceof Idle)) {
         _3(LX_APP_LIFE_CYCLE, "checkInSkipped.dueToCallState", callState);
-    } else {
-        if (checkInImp != null) {
-            System.error("checkInImp != null");
-        }
-        getCheckIn().launch();
+        return;
     }
+    if (!AppSettings.isCheckInEnabled) {
+        _2(LX_APP_LIFE_CYCLE, "checkInSkipped.dueToSettings");
+        return;
+    }
+    if (checkInImp != null) {
+        System.error("checkInImp != null");
+    }
+    getCheckIn().launch();
 }
 
 (:widget)

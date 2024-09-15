@@ -19,6 +19,7 @@ module GlanceLikeSettings {
 }
 
 module AppSettings {
+    const isCheckInEnabled as Lang.Boolean = Application.Properties.getValue("forceCheckIn") as Lang.Boolean;
     const initialAttemptsToCheckin as Lang.Number = Application.Properties.getValue("syncAttempts") as Lang.Number;
     const initialSecondsToCheckin as Lang.Number = Application.Properties.getValue("secondsToCheckIn") as Lang.Number;
     const isSyncingCallStateOnCheckinEnabled as Lang.Boolean = Application.Properties.getValue("syncCallStateOnLaunch") as Lang.Boolean;

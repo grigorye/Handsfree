@@ -5,6 +5,7 @@
         <property id="openAppOnIncomingCall" type="boolean">false</property>
         <property id="syncCallStateOnLaunch" type="boolean">false</property>
         <property id="callStateOnGlance" type="boolean">true</property>
+        <property id="forceCheckIn" type="boolean">true</property>
         <property id="syncAttempts" type="number">2</property>
         <property id="secondsToCheckIn" type="number">5</property>
         <property id="showSourceVersion" type="boolean">false</property>
@@ -30,6 +31,7 @@
         <string id="openAppOnIncomingCall">Open app on incoming call</string>
         <string id="syncCallStateOnLaunch">Update call state on app launch</string>
         <string id="callStateOnGlance">Show call state on glance</string>
+        <string id="forceCheckIn">Check-in</string>
         <string id="syncAttempts">Sync attempts</string>
         <string id="secondsToCheckIn">Timeout for check-in (sec)</string>
         <string id="showSourceVersion">Show source verison in the app</string>
@@ -81,6 +83,9 @@
             <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.showSourceVersion" title="@Strings.showSourceVersion">
+            <settingConfig type="boolean" />
+        </setting>
+        <setting propertyKey="@Properties.forceCheckIn" title="@Strings.forceCheckIn">
             <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.syncAttempts" title="@Strings.syncAttempts">
