@@ -35,7 +35,7 @@ function saveRecents(recents as Recents) as Void {
 function setRecents(recents as Recents) as Void {
     saveRecents(recents);
     updateUIForRecentsIfInApp(recents);
-    updateMissedCallsCount();
+    updateMissedRecents();
 }
 
 (:background, :typecheck([disableBackgroundCheck]))
@@ -67,6 +67,6 @@ function updateMainMenu() as Void {
 
 function recentsDidOpen() as Void {
     setLastRecentsCheckDate(Time.now().value());
-    updateMissedCallsCount();
+    updateMissedRecents();
     updateMainMenu();
 }

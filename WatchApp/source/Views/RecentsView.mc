@@ -46,12 +46,8 @@ class RecentsView extends WatchUi.Menu2 {
     }
 
     function setTitleFromRecents() as Void {
-        var missedCallsCount = getMissedCallsCount();
-        if (missedCallsCount == 0) {
-            setTitle("Recents");
-        } else {
-            setTitle(missedCallsCount + " missed");
-        }
+        var title = joinComponents(["Recents", missedCallsRep()], " ");
+        setTitle(title);
     }
 
     function addMenuItemsFromRecents() as Void {

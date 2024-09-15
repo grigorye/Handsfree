@@ -2,23 +2,23 @@ using Toybox.Lang;
 using Toybox.Application;
 
 (:glance, :background)
-function getMissedCallsCount() as Lang.Number {
-    var missedCallsCount = Application.Storage.getValue("missedCallsCount") as Lang.Number;
-    if (missedCallsCount != null) {
-        return missedCallsCount;
+function getMissedRecents() as Recents {
+    var missedRecents = Application.Storage.getValue("missedRecents") as Recents or Null;
+    if (missedRecents != null) {
+        return missedRecents;
     } else {
-        return 0;
+        return [] as Recents;
     }
 }
 
 (:background)
-function setMissedCallsCount(missedCallsCount as Lang.Number) as Void {
-    Application.Storage.setValue("missedCallsCount", missedCallsCount);
-    updateUIForMissedCallsCountIfInApp();
+function setMissedRecents(missedRecents as Recents) as Void {
+    Application.Storage.setValue("missedRecents", missedRecents as [Application.PropertyValueType]);
+    updateUIForMissedRecentsIfInApp();
 }
 
 (:background, :typecheck([disableBackgroundCheck]))
-function updateUIForMissedCallsCountIfInApp() as Void {
+function updateUIForMissedRecentsIfInApp() as Void {
     if (!isActiveUiKindApp) {
         return;
     }

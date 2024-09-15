@@ -36,11 +36,17 @@ class GlanceView extends WatchUi.GlanceView {
                     title = "Call in Progress";
                 }
             } else {
-                title = defaultTitle;
-                var missedCallsCount = getMissedCallsCount();
-                if (missedCallsCount > 0) {
-                    subtitle = missedCallsCount + " missed";
+                var missedRecents = getMissedRecents();
+                var missedRecentsCount = missedRecents.size();
+                if (missedRecentsCount > 0) {
+                    title = "Missed Calls";
+                    if (missedRecentsCount == 1) {
+                        subtitle = getPhoneRep(missedRecents[0]);
+                    } else {
+                        subtitle = missedRecentsCount + " contacts";
+                    }
                 } else {
+                    title = defaultTitle;
                     if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
                         subtitle = sourceVersion;
                     } else {
@@ -49,7 +55,12 @@ class GlanceView extends WatchUi.GlanceView {
                 }
             }
         }
-        var text = title;
+        var text;
+        if (title != null) {
+            text = title;
+        } else {
+            text = defaultTitle;
+        }
         if (subtitle != null) {
             text = text + "\n" + subtitle;
         }

@@ -1,30 +1,32 @@
 using Toybox.Lang;
 
 (:background)
-function updateMissedCallsCount() as Void {
-    var missedCallsCount = missedCallsCountFromRecents(getRecents(), getLastRecentsCheckDate());
-    if (missedCallsCount != getMissedCallsCount()) {
-        setMissedCallsCount(missedCallsCount);
+function updateMissedRecents() as Void {
+    var missedRecents = missedRecents(getRecents(), getLastRecentsCheckDate());
+    if (missedRecents.toString().equals(getMissedRecents().toString())) {
+        return;
     }
+    setMissedRecents(missedRecents);
 }
 
 (:background)
-function missedCallsCountFromRecents(recents as Recents, lastRecentCheckDate as Lang.Number) as Lang.Number {
+function missedRecents(recents as Recents, lastRecentCheckDate as Lang.Number) as Recents {
     var recentsCount = recents.size();
-    var missedCallsCount = 0;
+    var missedRecents = [] as Recents;
     for (var i = 0; i < recentsCount; i++) {
         var recent = recents[i];
         if (getRecentIsNew(recent) > 0 && getRecentType(recent) == 3 && (getRecentDate(recent) / 1000) > lastRecentCheckDate) {
-            missedCallsCount += 1;
+            missedRecents.add(recent);
         }
     }
-    return missedCallsCount;
+    _3(L_APP, "missedRecents", missedRecents);
+    return missedRecents;
 }
 
 function missedCallsRep() as Lang.String or Null {
-    var missedCallsCount = getMissedCallsCount();
-    if (missedCallsCount == 0) {
+    var missedRecents = getMissedRecents();
+    if (missedRecents.size() == 0) {
         return null;
     }
-    return "(" + missedCallsCount + ")";
+    return "(" + missedRecents.size() + ")";
 }
