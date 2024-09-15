@@ -33,11 +33,7 @@ class CallLogsRepositoryImpl(
     }
 
     override fun callLog(): List<CallLogEntry> {
-        val cursor = cursor(contentResolver)
-        if (cursor == null) {
-            throw AssertionError("callLogs are not accessible")
-            return listOf()
-        }
+        val cursor = cursor(contentResolver) ?: throw AssertionError("callLogs are not accessible")
         val entries = ArrayList<CallLogEntry>()
         while (cursor.moveToNext()) {
             val entry = callLogEntry(cursor)
