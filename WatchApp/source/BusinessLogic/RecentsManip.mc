@@ -49,6 +49,7 @@ function updateUIForRecentsIfInApp(recents as Recents) as Void {
 function updateUIForRecents(recents as Recents) as Void {
     updateMainMenu();
     updateRecentsView();
+    WatchUi.requestUpdate();
 }
 
 function updateRecentsView() as Void {

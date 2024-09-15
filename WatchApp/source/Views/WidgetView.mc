@@ -66,14 +66,27 @@ class WidgetView extends WatchUi.View {
                     lines.add(number);
                 }
             } else {
-                lines.add(appName);
-                var subtitle;
-                if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
-                    subtitle = sourceVersion;
+                var missedRecents = getMissedRecents();
+                var missedRecentsCount = missedRecents.size();
+                if (missedRecentsCount > 0) {
+                    lines.add("Missed Calls");
+                    var subtitle;
+                    if (missedRecentsCount == 1) {
+                        subtitle = getPhoneRep(missedRecents[0]);
+                    } else {
+                        subtitle = missedRecentsCount + " contacts";
+                    }
+                    lines.add(subtitle);
                 } else {
-                    subtitle = "Idle";
+                    lines.add(appName);
+                    var subtitle;
+                    if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
+                        subtitle = sourceVersion;
+                    } else {
+                        subtitle = "Idle";
+                    }
+                    lines.add(subtitle);
                 }
-                lines.add(subtitle);
             }
             lines.add(headsetStatusForWidget());
             var text = joinComponents(lines, "\n");
