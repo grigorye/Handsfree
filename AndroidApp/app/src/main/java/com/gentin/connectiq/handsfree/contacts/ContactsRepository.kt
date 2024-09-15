@@ -2,6 +2,7 @@ package com.gentin.connectiq.handsfree.contacts
 
 import android.content.Context
 import android.content.ContextWrapper
+import android.database.ContentObserver
 import android.net.Uri
 import android.provider.BaseColumns
 import android.provider.ContactsContract
@@ -28,6 +29,8 @@ data class ContactData(
 )
 
 interface ContactsRepository {
+    fun subscribe(observer: ContentObserver)
+    fun unsubscribe(observer: ContentObserver)
     fun contacts(): List<ContactData>
     fun displayNamesForPhoneNumber(phoneNumber: String): List<String>
 }
@@ -36,6 +39,19 @@ class ContactsRepositoryImpl(
     base: Context?,
     val iterateOverContacts: ((contactId: Int, displayName: String) -> Unit) -> Unit
 ) : ContextWrapper(base), ContactsRepository {
+
+    override fun subscribe(observer: ContentObserver) {
+        contentResolver.registerContentObserver(Phone.CONTENT_URI, true, observer)
+        contentResolver.registerContentObserver(
+            ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
+            true,
+            observer
+        )
+    }
+
+    override fun unsubscribe(observer: ContentObserver) {
+        contentResolver.unregisterContentObserver(observer)
+    }
 
     private fun numbersForContact(contactId: Int): ArrayList<String> {
         val numbers = ArrayList<String>()

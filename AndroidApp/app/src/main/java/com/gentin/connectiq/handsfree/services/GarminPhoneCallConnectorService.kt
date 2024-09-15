@@ -21,6 +21,7 @@ import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import com.gentin.connectiq.handsfree.calllogs.CallLogEntry
+import com.gentin.connectiq.handsfree.contacts.ContactData
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
 import com.gentin.connectiq.handsfree.globals.callInfoShouldBeEnabled
 import com.gentin.connectiq.handsfree.globals.watchApps
@@ -30,6 +31,7 @@ import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.HeadsetConnectionMonitor
+import com.gentin.connectiq.handsfree.impl.OutgoingMessageDestination
 import com.gentin.connectiq.handsfree.impl.PhoneState
 import java.util.Date
 
@@ -50,6 +52,7 @@ var lastTrackedPhoneState: PhoneState? = null
     private set
 
 var lastRecentsSentOnChange: List<CallLogEntry>? = null
+var lastContactsSentOnChange: List<ContactData>? = null
 
 class GarminPhoneCallConnectorService : LifecycleService() {
 
@@ -81,6 +84,20 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         }
     }
 
+    private val contactsObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
+        override fun onChange(selfChange: Boolean) {
+            super.onChange(selfChange)
+            val contacts = l.availableContacts()
+            if (contacts == lastContactsSentOnChange) {
+                Log.d(TAG, "contactsDidChange.ignoredDueToNoChanges")
+                return
+            }
+            Log.d(TAG, "contactsDidChange.sendingChanges")
+            l.outgoingMessageDispatcher.sendContacts(contacts)
+            lastContactsSentOnChange = contacts
+        }
+    }
+
     override fun onCreate() {
         Log.d(TAG, "onCreate")
         super.onCreate()
@@ -90,6 +107,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         }
         headPhoneConnectionMonitor.start()
         l.callLogRepository.subscribe(callLogObserver)
+        l.contactsRepository.subscribe(contactsObserver)
         sharedPreferences.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
     }
 

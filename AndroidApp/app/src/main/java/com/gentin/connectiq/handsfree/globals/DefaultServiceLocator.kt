@@ -105,7 +105,7 @@ class DefaultServiceLocator(
         return queryResult
     }
 
-    private fun availableContacts(): List<ContactData> {
+    fun availableContacts(): List<ContactData> {
         return try {
             contactsRepository.contacts()
         } catch (e: java.lang.RuntimeException) {

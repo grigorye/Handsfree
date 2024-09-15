@@ -44,6 +44,7 @@ interface OutgoingMessageDispatcher {
     fun sendSyncYou(contacts: List<ContactData>, phoneState: PhoneState?)
     fun sendQueryResult(destination: OutgoingMessageDestination, queryResult: QueryResult)
     fun sendPhones(destination: OutgoingMessageDestination, contacts: List<ContactData>)
+    fun sendContacts(contacts: List<ContactData>)
     fun sendRecents(recents: List<CallLogEntry>)
     fun sendPhoneState(phoneState: PhoneState)
     fun sendOpenAppFailed(destination: OutgoingMessageDestination)
@@ -101,6 +102,22 @@ class DefaultOutgoingMessageDispatcher(
             "args" to phonesArgs(contacts)
         )
         send(OutgoingMessage(destination, msg))
+    }
+
+    override fun sendContacts(contacts: List<ContactData>) {
+        val versionedPojo = strippedVersionedPojo(null, phonesPojo(contacts))
+        val msg = mapOf(
+            "cmd" to "subjectsChanged",
+            "args" to mapOf(
+                "subjects" to mapOf(
+                    "phones" to mapOf(
+                        "version" to versionedPojo.version,
+                        "value" to versionedPojo.pojo
+                    )
+                )
+            )
+        )
+        send(msg)
     }
 
     override fun sendRecents(recents: List<CallLogEntry>) {
