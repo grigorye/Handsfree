@@ -29,15 +29,7 @@ class GlanceView extends WatchUi.GlanceView {
             if (callState instanceof CallInProgress) {
                 var phone = callState.phone;
                 var isIncomingCall = isIncomingCallPhone(phone);
-                var phoneName = phone["name"] as Lang.String or Null;
-                var number = phone["number"] as Lang.String or Null;
-                if (phoneName != null) {
-                    subtitle = phoneName;
-                } else if (number != null) {
-                    subtitle = number;
-                } else {
-                    subtitle = null;
-                }
+                subtitle = getPhoneRep(phone);
                 if (isIncomingCall) {
                     title = "Incoming Call";
                 } else {
