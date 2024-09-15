@@ -20,6 +20,7 @@ import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
+import com.gentin.connectiq.handsfree.calllogs.CallLogEntry
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
 import com.gentin.connectiq.handsfree.globals.callInfoShouldBeEnabled
 import com.gentin.connectiq.handsfree.globals.watchApps
@@ -48,6 +49,8 @@ var startStats = StartStats()
 var lastTrackedPhoneState: PhoneState? = null
     private set
 
+var lastRecentsSentOnChange: List<CallLogEntry>? = null
+
 class GarminPhoneCallConnectorService : LifecycleService() {
 
     private val preferenceChangeListener =
@@ -61,11 +64,20 @@ class GarminPhoneCallConnectorService : LifecycleService() {
 
     private val callLogObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
         override fun onChange(selfChange: Boolean) {
-            Log.d(TAG, "callLogDidChange")
-            if (lastTrackedPhoneState?.stateExtra == TelephonyManager.EXTRA_STATE_IDLE) {
-                l.outgoingMessageDispatcher.sendRecents(l.recents())
-            }
             super.onChange(selfChange)
+            val stateExtra = lastTrackedPhoneState?.stateExtra
+            if (stateExtra != TelephonyManager.EXTRA_STATE_IDLE) {
+                Log.d(TAG, "callLogDidChange.ignoredDuePhoneStateExtra: $stateExtra")
+                return
+            }
+            val recents = l.recents()
+            if (recents == lastRecentsSentOnChange) {
+                Log.d(TAG, "callLogDidChange.ignoredDueNoChangeInRecents")
+                return
+            }
+            Log.d(TAG, "callLogDidChange.recentsDidChangeToo")
+            l.outgoingMessageDispatcher.sendRecents(recents)
+            lastRecentsSentOnChange = recents
         }
     }
 
