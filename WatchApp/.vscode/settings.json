@@ -13,5 +13,6 @@
     "MD034": false
   },
   "prettierMonkeyC.typeCheckLevel": "Strict",
-  "monkeyC.typeCheckLevel": "Strict"
+  "monkeyC.typeCheckLevel": "Strict",
+  "monkeyC.compilerOptions": "--build-stats 0"
 }
