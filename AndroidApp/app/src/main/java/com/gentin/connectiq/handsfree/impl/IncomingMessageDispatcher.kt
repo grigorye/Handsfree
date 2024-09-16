@@ -9,6 +9,7 @@ class IncomingMessageDispatcher(
     private val queryImp: (source: IncomingMessageSource, args: QueryArgs) -> Unit,
     private val syncImp: () -> Unit,
     private val syncPhonesImp: (destination: IncomingMessageSource) -> Unit,
+    private val didFirstLaunchImp: (destination: IncomingMessageSource) -> Unit,
     private val openAppImp: (source: IncomingMessageSource, args: OpenMeArgs) -> Unit
 ) {
     fun handleMessage(message: Any, source: IncomingMessageSource) {
@@ -50,6 +51,10 @@ class IncomingMessageDispatcher(
                 val openMeRequest = json.decodeFromString<OpenMeRequest>(string)
                 Log.d(TAG, "openMeRequest: $openMeRequest")
                 openAppImp(source, openMeRequest.args)
+            }
+
+            "didFirstLaunch" -> {
+                didFirstLaunchImp(source)
             }
 
             else -> {

@@ -36,6 +36,8 @@ interface GarminConnector {
         completion: (destination: OutgoingMessageDestination, succeeded: Boolean) -> Unit
     )
 
+    fun trackFirstAppLaunch(device: IQDevice, app: IQApp)
+
     val sentMessagesCounter: Int
     val acknowledgedMessagesCounter: Int
 
@@ -50,7 +52,8 @@ data class DeviceInfo(
 class DefaultGarminConnector(
     base: Context?,
     private val lifecycleScope: LifecycleCoroutineScope,
-    val dispatchIncomingMessage: (Any, IncomingMessageSource) -> Unit
+    val dispatchIncomingMessage: (Any, IncomingMessageSource) -> Unit,
+    val appDataMayBeInvalidated: (IQDevice, IQApp) -> Unit
 ) : ContextWrapper(base), GarminConnector {
 
     private lateinit var connectIQ: ConnectIQ
@@ -143,6 +146,10 @@ class DefaultGarminConnector(
         }
     }
 
+    override fun trackFirstAppLaunch(device: IQDevice, app: IQApp) {
+        trackInstalledApp(device, app)
+    }
+
     private var shuttingDownSDK = false
 
     private fun shutdownSDK() {
@@ -189,6 +196,13 @@ class DefaultGarminConnector(
         notInstalledApps[key] = apps
     }
 
+    private fun trackInstalledApp(device: IQDevice, app: IQApp) {
+        val key = device.deviceIdentifier
+        val apps = notInstalledApps[key] ?: mutableListOf()
+        apps.removeIf { x -> x.applicationId == app.applicationId }
+        notInstalledApps[key] = apps
+    }
+
     private fun isNotInstalledApp(device: IQDevice, app: IQApp): Boolean {
         return notInstalledApps[device.deviceIdentifier]?.contains(app) ?: false
     }
@@ -213,6 +227,7 @@ class DefaultGarminConnector(
                                 TAG,
                                 "appStatus(${device.friendlyName}, ${appLogName(app)}): INSTALLED (${p0.version()})"
                             )
+                            appDataMayBeInvalidated(device, app)
                         } else {
                             Log.d(
                                 TAG,

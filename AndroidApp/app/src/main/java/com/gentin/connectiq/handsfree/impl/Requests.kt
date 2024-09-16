@@ -37,6 +37,11 @@ data class QueryArgs(
     val subjects: List<SubjectQuery>
 )
 
+val allSubjectNames = listOf(
+    "phones",
+    "recents"
+)
+
 @Serializable
 data class SubjectQuery(
     val name: String,

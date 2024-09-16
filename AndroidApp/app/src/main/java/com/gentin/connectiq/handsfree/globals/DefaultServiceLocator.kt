@@ -30,6 +30,8 @@ import com.gentin.connectiq.handsfree.impl.PhoneCallService
 import com.gentin.connectiq.handsfree.impl.QueryArgs
 import com.gentin.connectiq.handsfree.impl.QueryResult
 import com.gentin.connectiq.handsfree.impl.RemoteMessageService
+import com.gentin.connectiq.handsfree.impl.SubjectQuery
+import com.gentin.connectiq.handsfree.impl.allSubjectNames
 import com.gentin.connectiq.handsfree.impl.phonesPojo
 import com.gentin.connectiq.handsfree.impl.recentsPojo
 import com.gentin.connectiq.handsfree.impl.strippedVersionedPojo
@@ -83,6 +85,16 @@ class DefaultServiceLocator(
                     val destination = OutgoingMessageDestination(source.device, source.app)
                     outgoingMessageDispatcher.sendOpenMeCompleted(destination, args, succeeded)
                 }
+            },
+            didFirstLaunchImp = { source ->
+                garminConnector.trackFirstAppLaunch(source.device, source.app)
+                val subjects = allSubjectNames.map { name ->
+                    SubjectQuery(name = name, version = null)
+                }
+                val args = QueryArgs(subjects)
+                val result = query(args)
+                val destination = OutgoingMessageDestination(source.device, source.app)
+                outgoingMessageDispatcher.sendQueryResult(destination, result)
             }
         )
     }
@@ -90,6 +102,7 @@ class DefaultServiceLocator(
     private fun query(args: QueryArgs): QueryResult {
         var queryResult = QueryResult()
         for (subject in args.subjects) {
+            assert(allSubjectNames.contains(subject.name), { "Unknown subject: ${subject.name}" })
             when (subject.name) {
                 "phones" -> {
                     queryResult.phones =
@@ -147,6 +160,15 @@ class DefaultServiceLocator(
             lifecycleScope = lifecycleScope,
             dispatchIncomingMessage = { o, source ->
                 incomingMessageDispatcher.handleMessage(o, source)
+            },
+            appDataMayBeInvalidated = { device, app ->
+                val subjects = allSubjectNames.map { name ->
+                    SubjectQuery(name = name, version = null)
+                }
+                val args = QueryArgs(subjects)
+                val result = query(args)
+                val destination = OutgoingMessageDestination(device, app)
+                outgoingMessageDispatcher.sendQueryResult(destination, result)
             }
         ).apply {
             activeGarminConnector.value = this
