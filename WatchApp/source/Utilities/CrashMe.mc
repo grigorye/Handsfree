@@ -15,7 +15,7 @@ function crashMe() as Void {
         "monkeyVersion" => deviceSettings.monkeyVersion
     };
 
-    var menu = new WatchUi.Menu2({});
+    var menu = new WatchUi.Menu2({ :title => "Debug" });
     for (var i = 0; i < info.size(); ++i) {
         var key = info.keys()[i] as Lang.String;
         var value = Lang.format("$1$", [info[key]]);
