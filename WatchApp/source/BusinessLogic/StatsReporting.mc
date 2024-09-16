@@ -13,7 +13,7 @@ function statsDidChange() as Void {
 
 (:glance, :noLowMemory)
 function statsRep() as Lang.String or Null {
-    if (!GlanceLikeSettings.isHitsCountTrackingEnabled) {
+    if (!GlanceLikeSettings.isStatsTrackingEnabled) {
         return null;
     }
     var hitsCount = getHitsCount();

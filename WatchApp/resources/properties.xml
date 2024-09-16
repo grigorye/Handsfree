@@ -18,7 +18,7 @@
         <property id="incomingOpenAppViaCompanion" type="boolean">false</property>
         <property id="incomingOpenAppViaWakeUp" type="boolean">true</property>
         <property id="beepOnComm" type="boolean">false</property>
-        <property id="hitsCountTracking" type="boolean">false</property>
+        <property id="statsTracking" type="boolean">false</property>
         <property id="workaroundNoRedrawForMenu2" type="boolean">true</property>
         <property id="incomingCallVibration" type="string">v1;p1;v1;p1</property>
         <property id="forcedLogComponents" type="string">&lt;;&gt;;app</property>
@@ -43,7 +43,7 @@
         <string id="incomingOpenAppViaCompanion">Use companion for opening app on incoming call</string>
         <string id="incomingOpenAppViaWakeUp">Wake up app on incoming call</string>
         <string id="beepOnComm">Beep on communication</string>
-        <string id="hitsCountTracking">Show sync hits</string>
+        <string id="statsTracking">Show stats</string>
         <string id="workaroundNoRedrawForMenu2">Workaround no redraw for Menu2</string>
         <string id="forcedLogComponents">Force log components</string>
         <string id="incomingCallVibration">Incoming call vibration pattern ('v3;p1;v3;p2'
@@ -75,7 +75,7 @@
         <setting propertyKey="@Properties.beepOnComm" title="@Strings.beepOnComm">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.hitsCountTracking" title="@Strings.hitsCountTracking">
+        <setting propertyKey="@Properties.statsTracking" title="@Strings.statsTracking">
             <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.eraseAppDataOnNextLaunch"
