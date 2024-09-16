@@ -11,7 +11,7 @@ function trackHits(isHit as Lang.Boolean) as Void {
 }
 
 (:background, :typecheck([disableBackgroundCheck]), :noLowMemory)
-function hitsCountDidChange() as Void {
+function statsDidChange() as Void {
     if (!isActiveUiKindApp) {
         return;
     }
@@ -22,7 +22,7 @@ function hitsCountDidChange() as Void {
 }
 
 (:glance, :noLowMemory)
-function hitsCountRep() as Lang.String or Null {
+function statsRep() as Lang.String or Null {
     if (!GlanceLikeSettings.isHitsCountTrackingEnabled) {
         return null;
     }

@@ -79,13 +79,17 @@ function defaultTitle() as Lang.String {
     var customTitle = GlanceSettings.customGlanceTitle;
     var adjustedTitle;
     if (customTitle.equals("")) {
-        adjustedTitle = "Handsfree";
+        if (GlanceLikeSettings.isHitsCountTrackingEnabled) {
+            adjustedTitle = "Hfree";
+        } else {
+            adjustedTitle = "Handsfree";
+        }
     } else {
         adjustedTitle = customTitle;
     }
     var nonCapitalizedDefaultTitle = adjustedTitle;
     if (Styles.glance_live_update.enabled) {
-        nonCapitalizedDefaultTitle = joinComponents([nonCapitalizedDefaultTitle, hitsCountRep(), headsetStatusRep()], " ");
+        nonCapitalizedDefaultTitle = joinComponents([nonCapitalizedDefaultTitle, joinComponents([headsetStatusRep(), statsRep()], "")], " ");
     }
     var defaultTitle;
     if (Styles.glance_font.capitalize) {

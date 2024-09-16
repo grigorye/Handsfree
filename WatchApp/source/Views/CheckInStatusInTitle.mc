@@ -8,19 +8,19 @@ function titleFromCheckInStatus(checkInStatus as CheckInStatus) as Lang.String {
             title = "Syncing";
             break;
         case CHECK_IN_SUCCEEDED: {
-            title = joinComponents(["Idle", hitsCountRep()], " ");
+            title = "Synced";
             break;
         }
         case CHECK_IN_FAILED:
             title = "Sync failed";
             break;
         case CHECK_IN_NONE:
-            title = null;
+            title = "Idle";
             break;
         default: {
             title = null;
             System.error("unknownCheckInStatus: " + checkInStatus);
         }
     }
-    return joinComponents([title, headsetStatusRep()], " ");
+    return joinComponents([title, joinComponents([headsetStatusRep(), statsRep()], "")], " ");
 }

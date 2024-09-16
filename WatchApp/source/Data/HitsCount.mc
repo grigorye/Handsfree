@@ -4,7 +4,7 @@ using Toybox.Application;
 (:background, :noLowMemory)
 function setHitsCount(hitsCount as Lang.Number) as Void {
     saveHitsCount(hitsCount);
-    hitsCountDidChange();
+    statsDidChange();
 }
 
 (:background, :glance, :noLowMemory)
