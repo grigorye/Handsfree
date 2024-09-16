@@ -27,6 +27,7 @@ class App extends Application.AppBase {
 
     (:typecheck(disableGlanceCheck))
     function getServiceDelegate() as [System.ServiceDelegate] {
+        trackFirstLaunch();
         _2(L_APP_EXTRA, "getServiceDelegate");
         return [new BackgroundServiceDelegate()];
     }
