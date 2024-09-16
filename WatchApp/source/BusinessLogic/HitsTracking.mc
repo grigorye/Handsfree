@@ -27,9 +27,14 @@ function statsRep() as Lang.String or Null {
         return null;
     }
     var hitsCount = getHitsCount();
+    var hitsCountRep;
     if (hitsCount == 0) {
-        return null;
+        hitsCountRep = null;
     } else {
-        return "@" + hitsCount;
+        hitsCountRep = hitsCount.toString();
     }
+    var validMessagesCount = getValidRemoteMessagesCount();
+    var rawMessagesCount = getRawRemoteMessagesCount();
+    var messagesCountRep = validMessagesCount + "." + (rawMessagesCount - validMessagesCount);
+    return joinComponents([messagesCountRep, hitsCountRep], ".");
 }

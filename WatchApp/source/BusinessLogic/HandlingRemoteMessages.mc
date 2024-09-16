@@ -7,6 +7,7 @@ const LX_REMOTE_MSG as LogComponent = "<";
 
 (:background)
 function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
+    trackRawRemoteMessageReceived();
     if (iqMsg == null) {
         _3(LX_REMOTE_MSG, "msg", "isNull!");
         return;
@@ -171,6 +172,7 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
 
 (:background, :typecheck(disableBackgroundCheck))
 function didReceiveRemoteMessage() as Void {
+    trackValidRemoteMessageReceived();
     if (isActiveUiKindApp) {
         didReceiveRemoteMessageInForeground();
     }
