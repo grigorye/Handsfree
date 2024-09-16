@@ -89,6 +89,9 @@ class WidgetView extends WatchUi.View {
                 }
             }
             lines.add(headsetStatusForWidget());
+            if (GlanceLikeSettings.isStatsTrackingEnabled) {
+                lines.add(statsRep());
+            }
             var text = joinComponents(lines, "\n");
             dc.drawText(
                 dc.getWidth() / 2,
