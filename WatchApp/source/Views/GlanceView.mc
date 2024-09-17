@@ -4,6 +4,9 @@ using Toybox.System;
 using Toybox.Graphics;
 using Rez.Styles;
 
+(:glance)
+const L_GLANCE as LogComponent = "glance";
+
 (:glance, :watchApp, :noLowMemory)
 class GlanceView extends WatchUi.GlanceView {
 
@@ -26,6 +29,7 @@ class GlanceView extends WatchUi.GlanceView {
             }
         } else {
             var callState = loadCallState();
+            _3(L_GLANCE, "callState", callState);
             if (callState instanceof CallInProgress) {
                 var phone = callState.phone;
                 var isIncomingCall = isIncomingCallPhone(phone);
@@ -61,6 +65,7 @@ class GlanceView extends WatchUi.GlanceView {
         } else {
             text = defaultTitle;
         }
+        _3(L_GLANCE, "text", [text, subtitle]);
         if (subtitle != null) {
             text = text + "\n" + subtitle;
         }

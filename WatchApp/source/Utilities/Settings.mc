@@ -16,6 +16,7 @@ module GlanceLikeSettings {
     (:noLowMemory)
     const isStatsTrackingEnabled as Lang.Boolean = Application.Properties.getValue("statsTracking") as Lang.Boolean;
     const isShowingSourceVersionEnabled as Lang.Boolean = Application.Properties.getValue("showSourceVersion") as Lang.Boolean;
+    const isGlanceLoggingEnabled as Lang.Boolean = Application.Properties.getValue("glanceLogging") as Lang.Boolean;
 }
 
 module AppSettings {

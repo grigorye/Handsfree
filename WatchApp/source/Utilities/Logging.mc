@@ -24,6 +24,9 @@ function _3(component as LogComponent, tag as Lang.String, value as Lang.Object 
 (:glance, :background, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
     var forcedComponents;
+    if (component.equals(L_GLANCE) && GlanceLikeSettings.isGlanceLoggingEnabled) {
+        return true;
+    }
     if (!isActiveUiKindApp) {
         forcedComponents = [">", "<", "app", "openMe"];
     } else {
