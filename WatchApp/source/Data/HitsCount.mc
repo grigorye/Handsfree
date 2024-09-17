@@ -1,6 +1,9 @@
 using Toybox.Lang;
 using Toybox.Application;
 
+(:background)
+const L_HITS_STORAGE as LogComponent = "hits";
+
 (:background, :noLowMemory)
 function setHitsCount(hitsCount as Lang.Number) as Void {
     saveHitsCount(hitsCount);
@@ -19,6 +22,6 @@ function getHitsCount() as Lang.Number {
 
 (:background)
 function saveHitsCount(hitsCount as Lang.Number) as Void {
-    _3(L_STORAGE, "saveHitsCount", hitsCount);
+    _3(L_HITS_STORAGE, "saveHitsCount", hitsCount);
     Application.Storage.setValue("hitsCount.v1", hitsCount);
 }

@@ -4,8 +4,11 @@ using Toybox.Lang;
 using Toybox.Time;
 
 (:background)
+const L_RECENTS_STORAGE as LogComponent = "recents";
+
+(:background)
 function setRecentsVersion(version as Version) as Void {
-    _3(L_STORAGE, "saveRecentsVersion", version);
+    _3(L_RECENTS_STORAGE, "saveRecentsVersion", version);
     Application.Storage.setValue("recentsVersion.v1", version);
 }
 
@@ -27,7 +30,7 @@ function getRecents() as Recents {
 
 (:background)
 function saveRecents(recents as Recents) as Void {
-    _3(L_STORAGE, "saveRecents", recents);
+    _3(L_RECENTS_STORAGE, "saveRecents", recents);
     Application.Storage.setValue("recents.v1", recents as [Application.PropertyValueType]);
 }
 

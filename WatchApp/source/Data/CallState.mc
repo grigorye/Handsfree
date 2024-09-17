@@ -38,7 +38,7 @@ function loadCallState() as CallState or Null {
 
 (:background)
 function saveCallState(callState as CallState) as Void {
-    _3(L_STORAGE, "saveCallState", callState);
+    _3(L_CALL_STATE, "saveCallState", callState);
     Application.Storage.setValue("callState.v1", encodeCallState(callState));
 }
 

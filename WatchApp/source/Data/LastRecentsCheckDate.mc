@@ -12,6 +12,6 @@ function getLastRecentsCheckDate() as Lang.Number {
 }
 
 function setLastRecentsCheckDate(lastRecentsCheckDate as Lang.Number) as Void {
-    _3(L_STORAGE, "setLastRecentsCheckDate", lastRecentsCheckDate);
+    _3(L_RECENTS_STORAGE, "setLastRecentsCheckDate", lastRecentsCheckDate);
     Application.Storage.setValue("lastRecentsCheckDate", lastRecentsCheckDate);
 }
