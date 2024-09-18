@@ -88,7 +88,7 @@ function defaultTitle() as Lang.String {
     var adjustedTitle;
     if (customTitle.equals("")) {
         if (GlanceLikeSettings.isStatsTrackingEnabled) {
-            adjustedTitle = "Hfree";
+            adjustedTitle = "HFree";
         } else {
             adjustedTitle = "Handsfree";
         }
