@@ -428,10 +428,9 @@ class DefaultGarminConnector(
                     )
                     connectIQ.sendMessage(device, app, message) { _, _, status ->
                         acknowledgedMessagesCounter += 1
-                        val receivedId = "$sdkStartCount.$acknowledgedMessagesCounter"
                         Log.d(
                             TAG,
-                            "device.${device.deviceIdentifier}(${device.friendlyName})($appLogName) -> ack(${status}, msg.$receivedId)"
+                            "device.${device.deviceIdentifier}(${device.friendlyName})($appLogName) -> ack(${status}, msg.$id) [$acknowledgedMessagesCounter]"
                         )
                     }
                 }
