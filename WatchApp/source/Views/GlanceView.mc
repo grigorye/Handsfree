@@ -37,7 +37,7 @@ class GlanceView extends WatchUi.GlanceView {
                 if (isIncomingCall) {
                     title = "Incoming Call";
                 } else {
-                    title = "Call in Progress";
+                    title = "In Progress";
                 }
             } else {
                 var missedRecents = getMissedRecents();
