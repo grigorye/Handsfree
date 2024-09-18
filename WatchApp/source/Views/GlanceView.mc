@@ -65,6 +65,9 @@ class GlanceView extends WatchUi.GlanceView {
         } else {
             text = defaultTitle;
         }
+        if (Styles.glance_font.capitalize) {
+            text = text.toUpper();
+        }
         _3(L_GLANCE, "text", [text, subtitle]);
         if (subtitle != null) {
             text = text + "\n" + subtitle;
@@ -92,15 +95,9 @@ function defaultTitle() as Lang.String {
     } else {
         adjustedTitle = customTitle;
     }
-    var nonCapitalizedDefaultTitle = adjustedTitle;
+    var defaultTitle = adjustedTitle;
     if (Styles.glance_live_update.enabled) {
-        nonCapitalizedDefaultTitle = joinComponents([nonCapitalizedDefaultTitle, joinComponents([headsetStatusRep(), statsRep()], "")], " ");
-    }
-    var defaultTitle;
-    if (Styles.glance_font.capitalize) {
-        defaultTitle = nonCapitalizedDefaultTitle.toUpper();
-    } else {
-        defaultTitle = nonCapitalizedDefaultTitle;
+        defaultTitle = joinComponents([defaultTitle, joinComponents([headsetStatusRep(), statsRep()], "")], " ");
     }
     return defaultTitle;
 }
