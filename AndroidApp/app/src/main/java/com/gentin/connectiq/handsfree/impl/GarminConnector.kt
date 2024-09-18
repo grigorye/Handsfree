@@ -17,6 +17,7 @@ import com.garmin.android.connectiq.exception.InvalidStateException
 import com.garmin.android.connectiq.exception.ServiceUnavailableException
 import com.gentin.connectiq.handsfree.globals.appLogName
 import com.gentin.connectiq.handsfree.globals.defaultApp
+import com.gentin.connectiq.handsfree.globals.simApp
 import com.gentin.connectiq.handsfree.globals.watchApps
 import com.gentin.connectiq.handsfree.helpers.breakIntoDebugger
 import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
@@ -222,17 +223,29 @@ class DefaultGarminConnector(
                 device,
                 object : IQApplicationInfoListener {
                     override fun onApplicationInfoReceived(p0: IQApp?) {
-                        if (p0?.status == IQApp.IQAppStatus.INSTALLED) {
-                            Log.d(
-                                TAG,
-                                "appStatus(${device.friendlyName}, ${appLogName(app)}): INSTALLED (${p0.version()})"
-                            )
-                            appDataMayBeInvalidated(device, app)
-                        } else {
-                            Log.d(
-                                TAG,
-                                "appInfoReceived(${device.friendlyName}): ${appLogName(app)}, ${p0?.status}"
-                            )
+                        when {
+                            p0?.status == IQApp.IQAppStatus.INSTALLED -> {
+                                Log.d(
+                                    TAG,
+                                    "appStatus(${device.friendlyName}, ${appLogName(app)}): INSTALLED (${p0.version()})"
+                                )
+                                appDataMayBeInvalidated(device, app)
+                            }
+
+                            p0?.status == IQApp.IQAppStatus.UNKNOWN && p0?.applicationId == simApp.applicationId -> {
+                                Log.d(
+                                    TAG,
+                                    "appStatus(${device.friendlyName}, ${appLogName(app)}): INSTALLED (${p0.version()})"
+                                )
+                                appDataMayBeInvalidated(device, app)
+                            }
+
+                            else -> {
+                                Log.d(
+                                    TAG,
+                                    "appInfoReceived(${device.friendlyName}): ${appLogName(app)}, ${p0?.status}"
+                                )
+                            }
                         }
                     }
 
