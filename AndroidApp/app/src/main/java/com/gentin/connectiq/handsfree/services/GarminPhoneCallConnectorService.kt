@@ -31,7 +31,6 @@ import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.HeadsetConnectionMonitor
-import com.gentin.connectiq.handsfree.impl.OutgoingMessageDestination
 import com.gentin.connectiq.handsfree.impl.PhoneState
 import java.util.Date
 
