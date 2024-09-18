@@ -5,7 +5,7 @@
         <property id="openAppOnIncomingCall" type="boolean">false</property>
         <property id="syncCallStateOnLaunch" type="boolean">false</property>
         <property id="callStateOnGlance" type="boolean">true</property>
-        <property id="forceCheckIn" type="boolean">true</property>
+        <property id="forceCheckIn" type="boolean">false</property>
         <property id="syncAttempts" type="number">2</property>
         <property id="secondsToCheckIn" type="number">5</property>
         <property id="showSourceVersion" type="boolean">false</property>
