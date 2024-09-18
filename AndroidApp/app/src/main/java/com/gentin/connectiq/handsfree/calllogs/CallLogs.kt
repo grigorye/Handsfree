@@ -7,6 +7,7 @@ import android.database.ContentObserver
 import android.database.Cursor
 import android.net.Uri
 import android.provider.CallLog
+import android.util.Log
 
 data class CallLogEntry(
     val number: String,
@@ -29,8 +30,16 @@ class CallLogsRepositoryImpl(
 
     private val callUri = Uri.parse("content://call_log/calls")
 
+    companion object {
+        private val TAG = CallLogsRepositoryImpl::class.java.simpleName
+    }
+
     override fun subscribe(observer: ContentObserver) {
-        contentResolver.registerContentObserver(callUri, true, observer)
+        try {
+            contentResolver.registerContentObserver(callUri, true, observer)
+        } catch (e: SecurityException) {
+            Log.e(TAG, "callLogObserverRegistrationFailed: $e")
+        }
     }
 
     override fun unsubscribe(observer: ContentObserver) {
