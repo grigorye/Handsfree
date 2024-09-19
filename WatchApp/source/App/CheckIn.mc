@@ -1,8 +1,10 @@
 using Toybox.Lang;
 using Toybox.Timer;
 
+(:noLowMemory)
 const L_CHECK_IN as LogComponent = "checkIn";
 
+(:noLowMemory)
 function getCheckIn() as CheckIn {
     if (checkInImp == null) {
         checkInImp = new CheckIn();
@@ -10,8 +12,10 @@ function getCheckIn() as CheckIn {
     return checkInImp as CheckIn;
 }
 
+(:noLowMemory)
 var checkInImp as CheckIn or Null;
 
+(:noLowMemory)
 class CheckIn {
     private var checkInAttemptsRemaining as Lang.Number;
     private var secondsToCheckIn as Lang.Number;

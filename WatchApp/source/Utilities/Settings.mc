@@ -20,21 +20,29 @@ module GlanceLikeSettings {
 }
 
 module AppSettings {
+    (:noLowMemory)
     const isCheckInEnabled as Lang.Boolean = Application.Properties.getValue("forceCheckIn") as Lang.Boolean;
+    (:noLowMemory)
     const initialAttemptsToCheckin as Lang.Number = Application.Properties.getValue("syncAttempts") as Lang.Number;
+    (:noLowMemory)
     const initialSecondsToCheckin as Lang.Number = Application.Properties.getValue("secondsToCheckIn") as Lang.Number;
+    (:noLowMemory)
     const isSyncingCallStateOnCheckinEnabled as Lang.Boolean = Application.Properties.getValue("syncCallStateOnLaunch") as Lang.Boolean;
     const isOptimisticCallHandlingEnabled as Lang.Boolean = Application.Properties.getValue("optimisticCallHandling") as Lang.Boolean;
     const isExitToSystemAfterCallCompletionEnabled as Lang.Boolean = Application.Properties.getValue("popOutOfAppInsteadOfPhones") as Lang.Boolean;
 
+    (:noLowMemory)
     const isBeepOnCommuncationEnabled as Lang.Boolean = Application.Properties.getValue("beepOnComm") as Lang.Boolean;
     const isMenu2NoRedrawWorkaroundEnabled as Lang.Boolean = Application.Properties.getValue("workaroundNoRedrawForMenu2") as Lang.Boolean;
+    (:noLowMemory)
     const incomingCallVibrationProgram as Lang.String = Application.Properties.getValue("incomingCallVibration") as Lang.String;
     const forcedLogComponentsJoined as Lang.String = Application.Properties.getValue("forcedLogComponents") as Lang.String;
 
     const isFlushIncomingMessagesOnLaunchEnabled as Lang.Boolean = Application.Properties.getValue("flushIncomingMessagesOnLaunch") as Lang.Boolean;
 
+    (:noLowMemory)
     const isEraseAppDataOnNextLaunchEnabled as Lang.Boolean = Application.Properties.getValue("eraseAppDataOnNextLaunch") as Lang.Boolean;
+    (:noLowMemory)
     function clearEraseAppDataOnNextLaunch() as Void {
         Application.Properties.setValue("eraseAppDataOnNextLaunch", false);
     }
@@ -61,6 +69,7 @@ function isLogAllEnforced() as Lang.Boolean {
     }
 }
 
+(:noLowMemory)
 function logComponentsForcedInApp() as Lang.Array<Lang.String> {
     var components = stringComponentsJoinedBySeparator(AppSettings.forcedLogComponentsJoined, ";");
     return components;

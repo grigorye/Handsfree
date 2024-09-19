@@ -1,6 +1,7 @@
 using Toybox.Lang;
 using Toybox.System;
 
+(:noLowMemory)
 function titleFromCheckInStatus(checkInStatus as CheckInStatus) as Lang.String {
     var title;
     switch (checkInStatus) {

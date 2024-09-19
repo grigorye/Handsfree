@@ -91,6 +91,7 @@ function appDidRouteToMainUI() as Void {
     launchCheckInIfNecessary();
 }
 
+(:noLowMemory)
 function launchCheckInIfNecessary() as Void {
     var callState = getCallState();
     if (!(callState instanceof Idle)) {
@@ -131,6 +132,11 @@ function onAppDidFinishLaunching() as Void {
 
 function didSeeIncomingMessageWhileRoutedToMainUI() as Void {
     _2(L_APP, "didSeeIncomingMessageWhileRoutedToMainUI");
+    trackCheckRemoteMessageForCheckIn();
+}
+
+(:noLowMemory)
+function trackCheckRemoteMessageForCheckIn() as Void {
     if (checkInImp != null) {
         checkInImp.remoteResponded();
     }

@@ -1,8 +1,9 @@
 using Toybox.Attention;
 
+(:noLowMemory)
 const L_ATTN as LogComponent = "attention";
 
-(:background, :typecheck([disableBackgroundCheck]))
+(:background, :typecheck([disableBackgroundCheck]), :noLowMemory)
 function startRequestingAttentionIfInApp() as Void {
     if (!isActiveUiKindApp) {
         return;
@@ -10,7 +11,7 @@ function startRequestingAttentionIfInApp() as Void {
     startRequestingAttention();
 }
 
-(:background, :typecheck([disableBackgroundCheck]))
+(:background, :typecheck([disableBackgroundCheck]), :noLowMemory)
 function stopRequestingAttentionIfInApp() as Void {
     if (!isActiveUiKindApp) {
         return;
@@ -20,6 +21,7 @@ function stopRequestingAttentionIfInApp() as Void {
 
 var activeVibrationLoop as VibrationLoop or Null;
 
+(:noLowMemory)
 function startRequestingAttention() as Void {
     _2(L_ATTN, "startRequestingAttention");
     if (activeVibrationLoop != null) {
@@ -29,6 +31,7 @@ function startRequestingAttention() as Void {
     activeVibrationLoop.launch();
 }
 
+(:noLowMemory)
 function stopRequestingAttention() as Void {
     _2(L_ATTN, "stopRequestingAttention");
     if (activeVibrationLoop != null) {

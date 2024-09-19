@@ -2,8 +2,10 @@ using Toybox.Lang;
 using Toybox.Timer;
 using Toybox.Attention;
 
+(:noLowMemory)
 const L_VIBRA as LogComponent = "vibra";
 
+(:noLowMemory)
 class VibrationLoop {
     private var program as Lang.String;
     private var tail as Lang.String;
