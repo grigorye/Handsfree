@@ -9,20 +9,16 @@ class RecentsView extends WatchUi.Menu2 {
     function initialize(lastRecentsCheckDate as Lang.Number) {
         WatchUi.Menu2.initialize({});
         self.lastRecentsCheckDate = lastRecentsCheckDate;
+        self.oldRecentsCount = 0;
         setTitleFromRecents();
         addMenuItemsFromRecents();
     }
 
-    private var oldRecents as Recents = [] as Recents;
+    private var oldRecentsCount as Lang.Number;
     private var lastRecentsCheckDate as Lang.Number;
 
     function update() as Void {
-        var recents = getRecents();
         _2(L_RECENTS_VIEW, "update");
-        if (oldRecents.toString().equals(recents.toString())) {
-            _2(L_RECENTS_VIEW, "recentsNotChanged");
-            return;
-        }
         setTitleFromRecents();
         deleteExistingItems();
         addMenuItemsFromRecents();
@@ -30,7 +26,6 @@ class RecentsView extends WatchUi.Menu2 {
     }
 
     function deleteExistingItems() as Void {
-        var oldRecentsCount = oldRecents.size();
         var menuItemCount;
         if (oldRecentsCount == 0) {
             menuItemCount = 1; // There should be a "No recents" item
@@ -86,7 +81,7 @@ class RecentsView extends WatchUi.Menu2 {
                 addItem(item);
             }
         }
-        oldRecents = recents;
+        oldRecentsCount = recentsCount;
     }
 }
 
