@@ -20,6 +20,11 @@ module GlanceLikeSettings {
 }
 
 module AppSettings {
+    function toggle(key as Lang.String) as Void {
+        var value = Application.Properties.getValue(key) as Lang.Boolean;
+        Application.Properties.setValue(key, !value);
+    }
+    
     (:noLowMemory)
     const isCheckInEnabled as Lang.Boolean = Application.Properties.getValue("forceCheckIn") as Lang.Boolean;
     (:noLowMemory)

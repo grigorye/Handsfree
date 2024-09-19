@@ -19,6 +19,10 @@ class MainMenuDelegate extends WatchUi.Menu2InputDelegate {
                 recentsDidOpen();
                 break;
             }
+            case :settings: {
+                pushView("settings", newSettingsView(), new SettingsViewDelegate(), SLIDE_LEFT);
+                break;
+            }
         }
     }
 

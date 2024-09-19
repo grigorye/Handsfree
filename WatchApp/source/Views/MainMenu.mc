@@ -5,6 +5,7 @@ class MainMenu extends WatchUi.Menu2 {
         Menu2.initialize({});
         addItem(new MenuItem("Favorites", null, :favorites, null));
         addItem(new MenuItem(joinComponents(["Recents", missedCallsRep()], " "), null, :recents, null));
+        addItem(new MenuItem("Settings", null, :settings, null));
     }
 
     function update() as Void {
