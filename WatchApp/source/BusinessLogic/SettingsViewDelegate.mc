@@ -1,3 +1,4 @@
+using Toybox.Application;
 using Toybox.WatchUi;
 using Toybox.Lang;
 
@@ -11,6 +12,10 @@ class SettingsViewDelegate extends WatchUi.Menu2InputDelegate {
         switch (id) {
             case :openAppOnIncomingCall: {
                 AppSettings.toggle("openAppOnIncomingCall");
+                break;
+            }
+            case :more: {
+                Application.getApp().openAppSettingsEditor();
                 break;
             }
         }
