@@ -1,6 +1,7 @@
 package com.gentin.connectiq.handsfree.impl
 
 import android.util.Log
+import com.gentin.connectiq.handsfree.globals.simApp
 import kotlinx.serialization.json.Json
 import org.json.JSONObject
 
@@ -18,6 +19,7 @@ class IncomingMessageDispatcher(
         Log.d(TAG, "incomingMsg: $string, source: $source")
         val json = Json { ignoreUnknownKeys = true }
         val obj = json.decodeFromString<CommonRequest>(string)
+        simulateCommDelay(source)
         when (obj.cmd) {
             "call" -> {
                 val callRequest = json.decodeFromString<CallRequest>(string)
@@ -61,6 +63,16 @@ class IncomingMessageDispatcher(
                 Log.e(TAG, "unknownMsg: $string")
             }
         }
+    }
+
+    private fun simulateCommDelay(source: IncomingMessageSource) {
+        if (commDelaySimulationEnabled(source)) {
+            Thread.sleep(5000)
+        }
+    }
+
+    private fun commDelaySimulationEnabled(source: IncomingMessageSource): Boolean {
+        return source.app == simApp
     }
 
     companion object {
