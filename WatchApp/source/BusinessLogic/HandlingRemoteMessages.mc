@@ -128,7 +128,7 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
     }
     switch (phoneState) {
         case "callInProgress":
-            var inProgressNumber = args["number"] as Lang.String;
+            var inProgressNumber = args["number"] as Lang.String or Null;
             var inProgressName = args["name"] as Lang.String or Null;
             _3(L_PHONE_STATE_CHANGED, "inProgressNumber", inProgressNumber);
             var inProgressPhone = {
