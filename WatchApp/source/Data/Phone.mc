@@ -16,6 +16,7 @@ function getPhoneId(phone as Phone) as Lang.String {
     return phone["id"] as Lang.String;
 }
 
+(:background)
 function getPhoneNumber(phone as Phone) as Lang.String or Null {
     return phone["number"] as Lang.String or Null;
 }

@@ -1,0 +1,85 @@
+using Toybox.Application;
+using Toybox.System;
+using Toybox.Lang;
+
+typedef CallStates as Lang.Array<CallStateImp>;
+
+(:background)
+function getOptimisticCallStates() as CallStates {
+    var encodedCallStates = Application.Storage.getValue("optimisticCallStates.v1") as [Lang.Dictionary<Lang.String, Lang.Object>] or Null;
+    if (encodedCallStates != null) {
+        return decodeOptimisticCallStates(encodedCallStates);
+    } else {
+        return [] as CallStates;
+    }
+}
+
+(:background)
+function setOptimisticCallStates(callStates as CallStates) as Void {
+    _3(L_CALL_STATE, "setOptimisticCallStates", callStates);
+    Application.Storage.setValue("optimisticCallStates.v1", encodeOptimisticCallStates(callStates));
+}
+
+(:background)
+function encodeOptimisticCallStates(callStates as CallStates) as [Application.PropertyValueType] {
+    var encoded = [];
+    var callStatesCount = callStates.size();
+    for (var i = 0; i < callStatesCount; i++) {
+        encoded.add(encodeOptimisticCallState(callStates[i]));
+    }
+    return encoded as [Application.PropertyValueType];
+}
+
+(:background)
+function encodeOptimisticCallState(callState as CallStateImp) as Application.PropertyValueType {
+    var encoded;
+    switch (callState) {
+        case instanceof Idle: {
+            encoded = {
+                "type" => "Idle"
+            };
+            break;
+        }
+        case instanceof CallInProgress: {
+            encoded = {
+                "type" => "CallInProgress",
+                "phone" => (callState as CallInProgress).phone
+            };
+            break;
+        }
+        default:
+            System.error("encodeOptimisticCallState.unexpectedCallState: " + callState);
+    }
+    return encoded as Application.PropertyValueType;
+}
+
+(:background)
+function decodeOptimisticCallState(encoded as Lang.Dictionary<Lang.String, Lang.Object>) as CallStateImp {
+    var type = encoded["type"] as Lang.String;
+    var decoded;
+    switch (type) {
+        case "Idle": {
+            decoded = new Idle();
+            break;
+        }
+        case "CallInProgress": {
+            decoded = new CallInProgress(encoded["phone"] as Phone);
+            break;
+        }
+        default:
+            decoded = null;
+            System.error("decodeOptimisticCallState.unexpectedType: " + type);
+    }
+    decoded.optimistic = true;
+    return decoded;
+}
+
+(:background)
+function decodeOptimisticCallStates(encoded as [Lang.Dictionary<Lang.String, Lang.Object>]) as CallStates {
+    var decoded = [] as CallStates;
+    var encodedCount = encoded.size();
+    for (var i = 0; i < encodedCount; i++) {
+        decoded.add(decodeOptimisticCallState(encoded[i]));
+    }
+    return decoded;
+}

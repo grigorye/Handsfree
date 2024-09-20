@@ -126,11 +126,29 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
     if (!phoneState.equals("ringing")) {
         stopRequestingAttentionIfInApp();
     }
+    var optimisticCallState = nextOptimisticCallState();
     switch (phoneState) {
         case "callInProgress":
             var inProgressNumber = args["number"] as Lang.String or Null;
             var inProgressName = args["name"] as Lang.String or Null;
             _3(L_PHONE_STATE_CHANGED, "inProgressNumber", inProgressNumber);
+            if (optimisticCallState != null) {
+                if (optimisticCallState instanceof CallInProgress) {
+                    var phoneNumber = getPhoneNumber(optimisticCallState.phone);
+                    if (((phoneNumber != null) && phoneNumber.equals(inProgressNumber)) || (inProgressNumber == null /* no permission in companion */)) {
+                        _3(L_PHONE_STATE_CHANGED, "optimisticCallStateHit", optimisticCallState);
+                        var isCurrent = getCallState().toString().equals(optimisticCallState.toString());
+                        untrackOptimisticCallState(optimisticCallState);
+                        if (isCurrent) {
+                            setCallState(optimisticCallState);
+                            updateUIForCallState();
+                        }
+                        return;
+                    }
+                }
+                _3(L_PHONE_STATE_CHANGED, "resetOptimisticCallStatesDueTo", optimisticCallState);
+                resetOptimisticCallStates();
+            }
             var inProgressPhone = {
                 "number" => inProgressNumber,
                 "id" => -3
@@ -150,6 +168,16 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
             }
             break;
         case "noCallInProgress":
+            if (optimisticCallState != null) {
+                if (optimisticCallState instanceof Idle) {
+                    _3(L_PHONE_STATE_CHANGED, "optimisticCallStateHit", optimisticCallState);
+                    untrackOptimisticCallState(optimisticCallState);
+                    updateUIForCallState();
+                    return;
+                }
+                _3(L_PHONE_STATE_CHANGED, "resetOptimisticCallStatesDueTo", optimisticCallState);
+                resetOptimisticCallStates();
+            }
             setCallState(new Idle());
             break;
         case "ringing":
@@ -164,6 +192,7 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
             if (ringingName != null) {
                 setPhoneName(ringingPhone, ringingName as Lang.String);
             }
+            resetOptimisticCallStates();
             setCallState(new CallInProgress(ringingPhone));
             openAppOnIncomingCallIfNecessary(ringingPhone);
             break;

@@ -10,6 +10,12 @@ class CallInProgress extends CallStateImp {
     }
 
     function toString() as Lang.String {
-        return "CallInProgress(" + phone +")";
+        var optimisticElement;
+        if (optimistic) {
+            optimisticElement = ", optimistic";
+        } else {
+            optimisticElement = "";
+        }
+        return "CallInProgress(" + phone + optimisticElement + ")";
     }
 }

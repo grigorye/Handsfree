@@ -44,7 +44,7 @@ class Router {
                         _2(L_ROUTER, "routingToCallInProgress");
                         var phone = (newState as CallInProgress).phone;
                         _3(L_ROUTER, "pushingOutPhones", true);
-                        pushView("callInProgress", new CallInProgressView(phone, newState.optimistic), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_LEFT);
+                        pushView("callInProgress", new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_LEFT);
                         break;
                     }
                     default:
@@ -61,7 +61,7 @@ class Router {
                     case instanceof CallInProgress: {
                         _2(L_ROUTER, "routingToCallInProgress");
                         var phone = (newState as CallInProgress).phone;
-                        switchToView("callInProgress", new CallInProgressView(phone, newState.optimistic), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
+                        switchToView("callInProgress", new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof Idle: {
@@ -90,7 +90,7 @@ class Router {
                         _2(L_ROUTER, "routingToNewCallInProgress");
                         var phone = (newState as CallInProgress).phone;
                         popView(WatchUi.SLIDE_IMMEDIATE);
-                        pushView("callInProgress", new CallInProgressView(phone, newState.optimistic), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
+                        pushView("callInProgress", new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     default:
@@ -107,7 +107,7 @@ class Router {
                     case instanceof CallInProgress: {
                         _2(L_ROUTER, "routingToCallInProgress");
                         var phone = (newState as CallInProgress).phone;
-                        switchToView("callInProgress", new CallInProgressView(phone, newState.optimistic), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
+                        switchToView("callInProgress", new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof Idle: {
