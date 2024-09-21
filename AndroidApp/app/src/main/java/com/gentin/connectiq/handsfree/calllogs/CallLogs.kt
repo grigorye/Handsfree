@@ -1,13 +1,16 @@
 package com.gentin.connectiq.handsfree.calllogs
 
+import android.Manifest
 import android.content.ContentResolver
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.pm.PackageManager
 import android.database.ContentObserver
 import android.database.Cursor
 import android.net.Uri
 import android.provider.CallLog
 import android.util.Log
+import androidx.core.app.ActivityCompat
 
 data class CallLogEntry(
     val number: String,
@@ -35,11 +38,16 @@ class CallLogsRepositoryImpl(
     }
 
     override fun subscribe(observer: ContentObserver) {
-        try {
-            contentResolver.registerContentObserver(callUri, true, observer)
-        } catch (e: SecurityException) {
-            Log.e(TAG, "callLogObserverRegistrationFailed: $e")
+        val hasPermission = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.READ_CALL_LOG
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (!hasPermission) {
+            Log.e(TAG, "notPermittedToReadCallLog")
+            return
         }
+        contentResolver.registerContentObserver(callUri, true, observer)
     }
 
     override fun unsubscribe(observer: ContentObserver) {
