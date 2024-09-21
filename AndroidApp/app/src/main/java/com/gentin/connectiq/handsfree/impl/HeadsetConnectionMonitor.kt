@@ -7,6 +7,7 @@ import android.media.AudioDeviceCallback
 import android.media.AudioDeviceInfo
 import android.media.AudioManager
 import android.os.Build
+import android.provider.MediaStore.Audio
 
 class HeadsetConnectionMonitor(
     base: Context,
@@ -18,25 +19,6 @@ class HeadsetConnectionMonitor(
 
     fun stop() {
         audioManager.unregisterAudioDeviceCallback(audioDeviceCallback)
-    }
-
-    fun isHeadsetConnected(): Boolean {
-        val audioDevices = audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS)
-        val headsetDeviceTypes = mutableListOf(
-            AudioDeviceInfo.TYPE_WIRED_HEADSET,
-            AudioDeviceInfo.TYPE_HEARING_AID,
-            AudioDeviceInfo.TYPE_BLUETOOTH_SCO
-        ).apply {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                add(AudioDeviceInfo.TYPE_BLE_HEADSET)
-            }
-        }.toList()
-        for (deviceInfo in audioDevices) {
-            if (headsetDeviceTypes.contains(deviceInfo.type)) {
-                return true
-            }
-        }
-        return false
     }
 
     private val audioDeviceCallback = object : AudioDeviceCallback() {
@@ -51,5 +33,32 @@ class HeadsetConnectionMonitor(
         }
     }
 
-    private val audioManager by lazy { getSystemService(Service.AUDIO_SERVICE) as AudioManager }
+    fun isHeadsetConnected(): Boolean {
+        return isHeadsetConnected(audioManager)
+    }
+
+    private val audioManager by lazy { audioManager(this) }
+}
+
+fun audioManager(context: Context): AudioManager {
+    return context.getSystemService(Service.AUDIO_SERVICE) as AudioManager
+}
+
+fun isHeadsetConnected(audioManager: AudioManager): Boolean {
+    val audioDevices = audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS)
+    val headsetDeviceTypes = mutableListOf(
+        AudioDeviceInfo.TYPE_WIRED_HEADSET,
+        AudioDeviceInfo.TYPE_HEARING_AID,
+        AudioDeviceInfo.TYPE_BLUETOOTH_SCO
+    ).apply {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            add(AudioDeviceInfo.TYPE_BLE_HEADSET)
+        }
+    }.toList()
+    for (deviceInfo in audioDevices) {
+        if (headsetDeviceTypes.contains(deviceInfo.type)) {
+            return true
+        }
+    }
+    return false
 }

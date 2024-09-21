@@ -5,6 +5,7 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -32,6 +33,8 @@ import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.HeadsetConnectionMonitor
 import com.gentin.connectiq.handsfree.impl.PhoneState
+import com.gentin.connectiq.handsfree.impl.audioManager
+import com.gentin.connectiq.handsfree.impl.isHeadsetConnected
 import java.util.Date
 
 
@@ -49,6 +52,17 @@ var startStats = StartStats()
 
 var lastTrackedPhoneState: PhoneState? = null
     private set
+
+fun fallbackPhoneState(context: Context): PhoneState {
+    return PhoneState(
+        null,
+        listOf(),
+        TelephonyManager.EXTRA_STATE_IDLE,
+        isHeadsetConnected(
+            audioManager(context)
+        )
+    )
+}
 
 var lastRecentsSentOnChange: List<CallLogEntry>? = null
 var lastContactsSentOnChange: List<ContactData>? = null

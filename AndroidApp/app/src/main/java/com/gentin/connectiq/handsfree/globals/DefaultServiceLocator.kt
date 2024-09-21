@@ -35,6 +35,7 @@ import com.gentin.connectiq.handsfree.impl.allSubjectNames
 import com.gentin.connectiq.handsfree.impl.phonesPojo
 import com.gentin.connectiq.handsfree.impl.recentsPojo
 import com.gentin.connectiq.handsfree.impl.strippedVersionedPojo
+import com.gentin.connectiq.handsfree.services.fallbackPhoneState
 import com.gentin.connectiq.handsfree.services.lastTrackedPhoneState
 
 class DefaultServiceLocator(
@@ -43,7 +44,14 @@ class DefaultServiceLocator(
 ) : ContextWrapper(base) {
 
     private val phoneCallService: PhoneCallService by lazy {
-        DefaultPhoneCallService(this)
+        DefaultPhoneCallService(
+            this,
+            makeCallFailed = {
+                outgoingMessageDispatcher.sendPhoneState(
+                    lastTrackedPhoneState ?: fallbackPhoneState(this)
+                )
+            }
+        )
     }
 
     private val targetContactsGroupName: String? = null // e.g. "Handsfree", null for Favorites
