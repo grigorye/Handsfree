@@ -59,12 +59,7 @@ class GlanceView extends WatchUi.GlanceView {
                 }
             }
         }
-        var text;
-        if (title != null) {
-            text = title;
-        } else {
-            text = defaultTitle;
-        }
+        var text = title;
         if (Styles.glance_font.capitalize) {
             text = text.toUpper();
         }
