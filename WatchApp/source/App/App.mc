@@ -91,6 +91,27 @@ function appDidRouteToMainUI() as Void {
     launchCheckInIfNecessary();
 }
 
+function openLandingScreenFromMainMenu() as Void {
+    var landingScreenID = AppSettings.landingScreenID;
+    _3(L_APP, "landingScreenID", landingScreenID);
+    switch (landingScreenID) {
+        case 0: {
+            break;
+        }
+        case 1: {
+            openFavoritesView();
+            break;
+        }
+        case 2: {
+            openRecentsView();
+            break;
+        }
+        default: {
+            System.error("Unknown landingScreenID: " + landingScreenID);
+        }
+    }
+}
+
 (:noLowMemory)
 function launchCheckInIfNecessary() as Void {
     var callState = getCallState();

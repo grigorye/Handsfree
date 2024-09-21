@@ -21,6 +21,7 @@ class CommView extends WatchUi.View {
         _2(L_COMM_VIEW, "firstOnShow");
         appWillRouteToMainUI();
         pushView("mainMenu", newMainMenu(), new MainMenuDelegate(), SLIDE_IMMEDIATE);
+        openLandingScreenFromMainMenu();
         getRouter().updateRoute();
         appDidRouteToMainUI();
     }

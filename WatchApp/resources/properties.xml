@@ -25,6 +25,7 @@
         <property id="forcedLogComponents" type="string">&lt;;&gt;;app</property>
         <property id="forceLogAll" type="boolean">false</property>
         <property id="optimisticCallHandling" type="boolean">false</property>
+        <property id="landingScreenID" type="number">0</property>
     </properties>
 
     <strings>
@@ -53,9 +54,22 @@
         <string id="forceLogAll">Verbose logs</string>
         <string id="flushIncomingMessagesOnLaunch">Flush incoming messages on launch</string>
         <string id="optimisticCallHandling">Optimistic call handling</string>
+        <string id="landingScreen">Launch on screen</string>
+        <string id="landingScreenPrompt">Select screen</string>
+        <string id="mainScreen">Main</string>
+        <string id="favoritesScreen">Favorites</string>
+        <string id="recentsScreen">Recents</string>
     </strings>
 
     <settings>
+        <setting propertyKey="@Properties.landingScreenID" title="@Strings.landingScreen"
+            prompt="@Strings.landingScreenPrompt">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.mainScreen</listEntry>
+                <listEntry value="1">@Strings.favoritesScreen</listEntry>
+                <listEntry value="2">@Strings.recentsScreen</listEntry>
+            </settingConfig>
+        </setting>    
         <setting propertyKey="@Properties.openAppOnIncomingCall"
             title="@Strings.openAppOnIncomingCall">
             <settingConfig type="boolean" />

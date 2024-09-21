@@ -36,6 +36,8 @@ module AppSettings {
     const isOptimisticCallHandlingEnabled as Lang.Boolean = Application.Properties.getValue("optimisticCallHandling") as Lang.Boolean;
     const isExitToSystemAfterCallCompletionEnabled as Lang.Boolean = Application.Properties.getValue("popOutOfAppInsteadOfPhones") as Lang.Boolean;
 
+    const landingScreenID as Lang.Number = Application.Properties.getValue("landingScreenID") as Lang.Number;
+    
     (:noLowMemory)
     const isBeepOnCommuncationEnabled as Lang.Boolean = Application.Properties.getValue("beepOnComm") as Lang.Boolean;
     const isMenu2NoRedrawWorkaroundEnabled as Lang.Boolean = Application.Properties.getValue("workaroundNoRedrawForMenu2") as Lang.Boolean;

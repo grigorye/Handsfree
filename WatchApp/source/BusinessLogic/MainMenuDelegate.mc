@@ -11,16 +11,15 @@ class MainMenuDelegate extends WatchUi.Menu2InputDelegate {
         var id = item.getId() as Lang.Symbol;
         switch (id) {
             case :favorites: {
-                pushView("phones", newPhonesView(), new PhonesViewDelegate(), SLIDE_LEFT);
+                openFavoritesView();
                 break;
             }
             case :recents: {
-                pushView("recents", newRecentsView(), new RecentsViewDelegate(), SLIDE_LEFT);
-                recentsDidOpen();
+                openRecentsView();
                 break;
             }
             case :settings: {
-                pushView("settings", newSettingsView(), new SettingsViewDelegate(), SLIDE_LEFT);
+                openSettingsView();
                 break;
             }
         }
@@ -32,4 +31,17 @@ class MainMenuDelegate extends WatchUi.Menu2InputDelegate {
         // the current view is still the main menu.
         exitToSystemFromMainMenu();
     }
+}
+
+function openFavoritesView() as Void {
+    pushView("phones", newPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_LEFT);
+}
+
+function openRecentsView() as Void {
+    pushView("recents", newRecentsView(), new RecentsViewDelegate(), WatchUi.SLIDE_LEFT);
+    recentsDidOpen();
+}
+
+function openSettingsView() as Void {
+    pushView("settings", newSettingsView(), new SettingsViewDelegate(), WatchUi.SLIDE_LEFT);
 }
