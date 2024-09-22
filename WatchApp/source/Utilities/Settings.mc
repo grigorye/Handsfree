@@ -67,13 +67,9 @@ module CommonSettings {
     const incomingCallMessageFormat as Lang.String = Application.Properties.getValue("incomingCallMessageFormat") as Lang.String;
 }
 
-(:background, :glance)
+(:background, :glance, :noLowMemory)
 function isLogAllEnforced() as Lang.Boolean {
-    if (!isActiveUiKindApp) {
-        return false;
-    } else {
-        return Application.Properties.getValue("forceLogAll") as Lang.Boolean;
-    }
+    return Application.Properties.getValue("forceLogAll") as Lang.Boolean;
 }
 
 (:noLowMemory)
