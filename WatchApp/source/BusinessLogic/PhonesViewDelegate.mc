@@ -7,7 +7,15 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onSelect(item as WatchUi.MenuItem) as Void {
-        var id = item.getId() as Lang.Number or Phone;
+        var id = item.getId() as Lang.Object;
+        if (id == :recents) {
+            openRecentsView();
+            return;
+        }
+        if (id == :settings) {
+            openSettingsView();
+            return;
+        }
         if (id.equals(noPhonesMenuItemId)) {
             requestSync();
             return;

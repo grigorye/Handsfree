@@ -5,6 +5,16 @@ using Toybox.System;
 const L_PHONES_VIEW as LogComponent = "phonesView";
 
 class PhonesView extends WatchUi.Menu2 {
+
+    function predefinedItems() as Lang.Array<WatchUi.MenuItem> {
+        return [
+            recentsMenuItem("• "),
+            settingsMenuItem("• ")
+        ];
+    }
+
+    var predefinedItemsCount as Lang.Number = predefinedItems().size();
+
     function initialize(phones as Phones) {
         WatchUi.Menu2.initialize({
             :title => "Favorites"
@@ -32,7 +42,7 @@ class PhonesView extends WatchUi.Menu2 {
         if (oldPhonesCount == 0) {
             menuItemCount = 1; // There should be a "No contacts", "Check Android" or "Syncing" item
         } else {
-            menuItemCount = oldPhonesCount;
+            menuItemCount = oldPhonesCount + predefinedItems().size();
         }
         for (var i = 0; i < menuItemCount; i++) {
             var existed = deleteItem(0);
@@ -68,6 +78,12 @@ class PhonesView extends WatchUi.Menu2 {
         } else {
             addItem(new WatchUi.MenuItem("No contacts selected", "", noPhonesMenuItemId, {}));
         }
+
+        var predefinedItems = predefinedItems();
+        for (var i = 0; i < predefinedItemsCount; i++) {
+            addItem(predefinedItems[i]);
+        }
+        
         if (focus != null) {
            setFocus(focus);
         }

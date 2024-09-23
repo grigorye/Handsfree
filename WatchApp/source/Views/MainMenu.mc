@@ -1,11 +1,12 @@
 using Toybox.WatchUi;
+using Toybox.Lang;
 
 class MainMenu extends WatchUi.Menu2 {
     function initialize() {
         Menu2.initialize({});
-        addItem(new MenuItem("Favorites", null, :favorites, null));
-        addItem(new MenuItem(joinComponents(["Recents", missedCallsRep()], " "), null, :recents, null));
-        addItem(new MenuItem("Settings", null, :settings, null));
+        addItem(favoritesMenuItem(""));
+        addItem(recentsMenuItem(""));
+        addItem(settingsMenuItem(""));
     }
 
     function update() as Void {
@@ -20,4 +21,16 @@ class MainMenu extends WatchUi.Menu2 {
         }
         workaroundNoRedrawForMenu2(self);
     }
+}
+
+function favoritesMenuItem(titlePrefix as Lang.String) as WatchUi.MenuItem {
+    return new WatchUi.MenuItem(titlePrefix + "Favorites", null, :favorites, null);
+}
+
+function recentsMenuItem(titlePrefix as Lang.String) as WatchUi.MenuItem {
+    return new WatchUi.MenuItem(joinComponents([titlePrefix + "Recents", missedCallsRep()], " "), null, :recents, null);
+}
+
+function settingsMenuItem(titlePrefix as Lang.String) as WatchUi.MenuItem {
+    return new WatchUi.MenuItem(titlePrefix + "Settings", null, :settings, null);
 }
