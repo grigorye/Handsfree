@@ -1,5 +1,6 @@
 using Toybox.Application;
 using Toybox.Lang;
+using Toybox.System;
 
 (:glance, :watchApp)
 module GlanceSettings {
@@ -37,6 +38,15 @@ module AppSettings {
     const isExitToSystemAfterCallCompletionEnabled as Lang.Boolean = Application.Properties.getValue("popOutOfAppInsteadOfPhones") as Lang.Boolean;
 
     const landingScreenID as Lang.Number = Application.Properties.getValue("landingScreenID") as Lang.Number;
+
+    function landingScreen() as Lang.Symbol {
+        switch (landingScreenID) {
+            case 0: return :mainMenu;
+            case 1: return :favorites;
+            case 2: return :recents;
+        }
+        System.error("Unknown landingScreenID: " + landingScreenID);
+    }
     
     (:noLowMemory)
     const isBeepOnCommuncationEnabled as Lang.Boolean = Application.Properties.getValue("beepOnComm") as Lang.Boolean;

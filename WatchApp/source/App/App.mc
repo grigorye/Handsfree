@@ -94,15 +94,15 @@ function appDidRouteToMainUI() as Void {
 function openLandingScreenFromMainMenu() as Void {
     var landingScreenID = AppSettings.landingScreenID;
     _3(L_APP, "landingScreenID", landingScreenID);
-    switch (landingScreenID) {
-        case 0: {
+    switch (AppSettings.landingScreen()) {
+        case :mainMenu: {
             break;
         }
-        case 1: {
+        case :favorites: {
             openFavoritesView();
             break;
         }
-        case 2: {
+        case :recents: {
             openRecentsView();
             break;
         }
