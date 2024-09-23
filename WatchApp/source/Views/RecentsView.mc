@@ -57,7 +57,12 @@ class RecentsView extends WatchUi.Menu2 {
                 var name = getRecentName(recent);
                 var label;
                 if (name == null || name.equals("")) {
-                    label = getRecentNumber(recent);
+                    var number = getRecentNumber(recent);
+                    if (number.equals("")) {
+                        label = "Private Number";
+                    } else {
+                        label = getRecentNumber(recent);
+                    }
                 } else {
                     label = name;
                 }
