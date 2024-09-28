@@ -1,12 +1,16 @@
 package com.gentin.connectiq.handsfree.contacts
 
+import android.Manifest
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.pm.PackageManager
 import android.database.ContentObserver
 import android.net.Uri
 import android.provider.BaseColumns
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds.Phone
+import android.util.Log
+import androidx.core.app.ActivityCompat
 import com.gentin.connectiq.handsfree.helpers.formatPhoneNumber
 import kotlinx.serialization.Serializable
 
@@ -40,7 +44,20 @@ class ContactsRepositoryImpl(
     val iterateOverContacts: ((contactId: Int, displayName: String) -> Unit) -> Unit
 ) : ContextWrapper(base), ContactsRepository {
 
+    companion object {
+        private val TAG = ContactsRepositoryImpl::class.java.simpleName
+    }
+
     override fun subscribe(observer: ContentObserver) {
+        val hasPermission = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.READ_CONTACTS
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (!hasPermission) {
+            Log.e(TAG, "notPermittedToReadContacts")
+            return
+        }
         contentResolver.registerContentObserver(Phone.CONTENT_URI, true, observer)
         contentResolver.registerContentObserver(
             ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
