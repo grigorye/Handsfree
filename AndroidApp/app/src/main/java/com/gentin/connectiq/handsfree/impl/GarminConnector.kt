@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.os.Looper
 import android.util.Log
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -413,6 +415,8 @@ class DefaultGarminConnector(
         }
     }
 
+    private val gson = Gson()
+
     private fun sendMessageSync(messageValue: OutgoingMessage) {
         sentMessagesCounter += 1
         val sdkStartCount = this.sdkStartCount
@@ -437,7 +441,7 @@ class DefaultGarminConnector(
                     val appLogName = appLogName(app)
                     Log.d(
                         TAG,
-                        "device.${device.deviceIdentifier}(${device.friendlyName})($appLogName) <- msg.$id$messageValue"
+                        "device.${device.deviceIdentifier}(${device.friendlyName})($appLogName) <- msg.$id(${gson.toJson(message)})"
                     )
                     connectIQ.sendMessage(device, app, message) { _, _, status ->
                         acknowledgedMessagesCounter += 1
