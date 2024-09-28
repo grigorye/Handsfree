@@ -62,7 +62,7 @@ class CheckIn {
         if (AppSettings.isSyncingCallStateOnCheckinEnabled) {
             requestSync();
         } else {
-            requestPhones();
+            requestAllSubjects();
         }
     }
 

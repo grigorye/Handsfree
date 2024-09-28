@@ -9,7 +9,7 @@ function requestSync() as Void {
     transmitWithRetry("syncMe", msg, new Communications.ConnectionListener());
 }
 
-function requestPhones() as Void {
+function requestAllSubjects() as Void {
     var msg = {
         "cmd" => "query",
         "args" => {
