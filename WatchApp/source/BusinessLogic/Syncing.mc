@@ -21,3 +21,22 @@ function requestPhones() as Void {
     } as Lang.Object as Application.PersistableType;
     transmitWithRetry("syncPhones", msg, new Communications.ConnectionListener());
 }
+
+(:background)
+function requestSubjects(subjects as Lang.Array<Lang.String>) as Void {
+    var subjectsArg = [];
+    var subjectsCount = subjects.size();
+    for (var i = 0; i < subjectsCount; i++) {
+        var name = subjects[i];
+        subjectsArg.add({ "name" => name });
+    }
+    var msg = {
+        "cmd" => "query",
+        "args" => {
+            "subjects" => subjectsArg
+        }
+    } as Lang.Object as Application.PersistableType;
+    var tag = formatCommTag("syncSubjects");
+    _3(LX_OUT_COMM, tag + ".requesting", msg);
+    Communications.transmit(msg, null, new DummyCommListener(tag));
+}

@@ -73,11 +73,15 @@ typedef SubjectsChanged as Lang.Dictionary<Lang.String, Lang.Dictionary<Lang.Str
 (:background)
 function handleAcceptQueryResult(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
     var subjects = args["subjects"] as SubjectsChanged;
-    handleSubjectsChanged(subjects);
+    var subjectsInvalidated = handleSubjectsChanged(subjects);
+    if (subjectsInvalidated.size() > 0) {
+        requestSubjects(subjectsInvalidated);
+    }
 }
 
 (:background)
-function handleSubjectsChanged(subjects as SubjectsChanged) as Void {
+function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.String> {
+    var subjectsInvalidated = [];
     var names = subjects.keys() as Lang.Array<Lang.String>;
     var namesCount = names.size();
     var isHit = true;
@@ -88,10 +92,14 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Void {
         switch (name) {
             case "phones": {
                 if (!version.equals(getPhonesVersion())) {
-                    var phones = subject["value"] as Phones;
-                    setPhones(phones);
-                    setPhonesVersion(version);
-                    isHit = false;
+                    var phones = subject["value"] as Phones or Null;
+                    if (phones == null) {
+                        subjectsInvalidated.add(name);
+                    } else {
+                        setPhones(phones);
+                        setPhonesVersion(version);
+                        isHit = false;
+                    }
                 } else {
                     _3(LX_REMOTE_MSG, "phonesHit", version);
                 }
@@ -99,10 +107,14 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Void {
             }
             case "recents": {
                 if (!version.equals(getRecentsVersion())) {
-                    var recents = subject["value"] as Recents;
-                    setRecents(recents);
-                    setRecentsVersion(version);
-                    isHit = false;
+                    var recents = subject["value"] as Recents or Null;
+                    if (recents == null) {
+                        subjectsInvalidated.add(name);
+                    } else {
+                        setRecents(recents);
+                        setRecentsVersion(version);
+                        isHit = false;
+                    }
                 } else {
                     _3(LX_REMOTE_MSG, "recentsHit", version);
                 }
@@ -111,6 +123,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Void {
         }
     }
     trackHits(isHit);
+    return subjectsInvalidated;
 }
 
 (:background)
