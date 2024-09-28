@@ -107,19 +107,19 @@ class DefaultServiceLocator(
         )
     }
 
-    private fun query(args: QueryArgs): QueryResult {
+    private fun query(args: QueryArgs, metadataOnly: Boolean = false): QueryResult {
         var queryResult = QueryResult()
         for (subject in args.subjects) {
-            assert(allSubjectNames.contains(subject.name), { "Unknown subject: ${subject.name}" })
+            assert(allSubjectNames.contains(subject.name)) { "Unknown subject: ${subject.name}" }
             when (subject.name) {
                 "phones" -> {
                     queryResult.phones =
-                        strippedVersionedPojo(subject.version, phonesPojo(availableContacts()))
+                        strippedVersionedPojo(subject.version, phonesPojo(availableContacts()), metadataOnly)
                 }
 
                 "recents" -> {
                     queryResult.recents =
-                        strippedVersionedPojo(subject.version, recentsPojo(recents()))
+                        strippedVersionedPojo(subject.version, recentsPojo(recents()), metadataOnly)
                 }
             }
         }
@@ -174,7 +174,7 @@ class DefaultServiceLocator(
                     SubjectQuery(name = name, version = null)
                 }
                 val args = QueryArgs(subjects)
-                val result = query(args)
+                val result = query(args, metadataOnly = true)
                 val destination = OutgoingMessageDestination(device, app)
                 outgoingMessageDispatcher.sendQueryResult(destination, result)
             }

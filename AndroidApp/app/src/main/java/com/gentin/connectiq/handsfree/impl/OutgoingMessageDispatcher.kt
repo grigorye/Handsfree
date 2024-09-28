@@ -21,11 +21,11 @@ data class VersionedPojo(
     val pojo: Any?
 )
 
-fun strippedVersionedPojo(hitVersion: Version?, pojo: Any?): VersionedPojo {
+fun strippedVersionedPojo(hitVersion: Version?, pojo: Any?, metadataOnly: Boolean = false): VersionedPojo {
     val version = "$pojo".md5()
     return VersionedPojo(
         version = version,
-        pojo = if (version == hitVersion) {
+        pojo = if (version == hitVersion || metadataOnly) {
             null
         } else {
             pojo
