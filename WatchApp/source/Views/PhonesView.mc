@@ -42,8 +42,9 @@ class PhonesView extends WatchUi.Menu2 {
         if (oldPhonesCount == 0) {
             menuItemCount = 1; // There should be a "No contacts", "Check Android" or "Syncing" item
         } else {
-            menuItemCount = oldPhonesCount + predefinedItems().size();
+            menuItemCount = oldPhonesCount;
         }
+        menuItemCount += predefinedItems().size();
         for (var i = 0; i < menuItemCount; i++) {
             var existed = deleteItem(0);
             if (existed == null) {
