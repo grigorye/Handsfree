@@ -6,14 +6,12 @@ const L_PHONES_VIEW as LogComponent = "phonesView";
 
 class PhonesView extends WatchUi.Menu2 {
 
-    function predefinedItems() as Lang.Array<WatchUi.MenuItem> {
-        return [
-            recentsMenuItem("• "),
-            settingsMenuItem("• ")
-        ];
-    }
+    const predefinedItems as Lang.Array<WatchUi.MenuItem> = [
+        recentsMenuItem("• "),
+        settingsMenuItem("• ")
+    ];
 
-    var predefinedItemsCount as Lang.Number = predefinedItems().size();
+    const predefinedItemsCount as Lang.Number = predefinedItems.size();
 
     function initialize(phones as Phones) {
         Menu2.initialize({
@@ -44,7 +42,7 @@ class PhonesView extends WatchUi.Menu2 {
         } else {
             menuItemCount = oldPhonesCount;
         }
-        menuItemCount += predefinedItems().size();
+        menuItemCount += predefinedItemsCount;
         for (var i = 0; i < menuItemCount; i++) {
             var existed = deleteItem(0);
             if (existed == null) {
@@ -80,7 +78,6 @@ class PhonesView extends WatchUi.Menu2 {
             addItem(new WatchUi.MenuItem("No contacts selected", "", noPhonesMenuItemId, {}));
         }
 
-        var predefinedItems = predefinedItems();
         for (var i = 0; i < predefinedItemsCount; i++) {
             addItem(predefinedItems[i]);
         }
