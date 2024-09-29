@@ -9,7 +9,7 @@ var oldIsHeadsetConnectedImp as Lang.Boolean or Null = null;
 (:background, :glance)
 const L_HEADSET as LogComponent = "headset";
 
-(:background)
+(:inline, :background)
 function setIsHeadsetConnectedImp(isHeadsetConnected as Lang.Boolean) as Void {
     if (debug) { _3(L_HEADSET, "isHeadsetConnected", isHeadsetConnected); }
     oldIsHeadsetConnectedImp = getIsHeadsetConnected();
@@ -17,12 +17,12 @@ function setIsHeadsetConnectedImp(isHeadsetConnected as Lang.Boolean) as Void {
     saveIsHeadsetConnected(isHeadsetConnected);
 }
 
-(:background, :glance)
+(:inline, :background, :glance)
 function loadIsHeadsetConnected() as Lang.Boolean or Null {
     return Storage.getValue("isHeadsetConnected") as Lang.Boolean or Null;
 }
 
-(:background)
+(:inline, :background)
 function saveIsHeadsetConnected(isHeadsetConnected as Lang.Boolean) as Void {
     Storage.setValue("isHeadsetConnected", isHeadsetConnected);
 }
