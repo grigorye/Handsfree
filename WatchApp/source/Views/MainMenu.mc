@@ -23,14 +23,17 @@ class MainMenu extends WatchUi.Menu2 {
     }
 }
 
+(:inline)
 function favoritesMenuItem(titlePrefix as Lang.String) as WatchUi.MenuItem {
     return new WatchUi.MenuItem(titlePrefix + "Favorites", null, :favorites, null);
 }
 
+(:inline)
 function recentsMenuItem(titlePrefix as Lang.String) as WatchUi.MenuItem {
     return new WatchUi.MenuItem(joinComponents([titlePrefix + "Recents", missedCallsRep()], " "), null, :recents, null);
 }
 
+(:inline)
 function settingsMenuItem(titlePrefix as Lang.String) as WatchUi.MenuItem {
     return new WatchUi.MenuItem(titlePrefix + "Settings", null, :settings, null);
 }
