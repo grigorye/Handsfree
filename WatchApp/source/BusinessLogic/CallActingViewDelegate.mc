@@ -8,7 +8,7 @@ class CallActingViewDelegate extends WatchUi.BehaviorDelegate {
     function onBack() {
         trackBackFromView();
         var callState = getCallState();
-        _3(L_USER_ACTION, "callActing.onBack.callState", callState);
+        if (debug) { _3(L_USER_ACTION, "callActing.onBack.callState", callState); }
         if (!(callState instanceof CallActing)) {
             System.error("badCallState: " + callState);
         }

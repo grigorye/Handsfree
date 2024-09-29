@@ -28,12 +28,12 @@ class App extends Application.AppBase {
     (:typecheck(disableGlanceCheck))
     function getServiceDelegate() as [System.ServiceDelegate] {
         trackFirstLaunch();
-        _2(L_APP_EXTRA, "getServiceDelegate");
+        if (debug) { _2(L_APP_EXTRA, "getServiceDelegate"); }
         return [new BackgroundServiceDelegate()];
     }
 
     function onBackgroundData(data as Application.PersistableType) as Void {
-        _3(LX_APP_LIFE_CYCLE, "onBackgroundData", { "data" => data });
+        if (debug) { _3(LX_APP_LIFE_CYCLE, "onBackgroundData", { "data" => data }); }
         updateUIFromBackgroundData();
         AppBase.onBackgroundData(data);
     }
@@ -78,7 +78,7 @@ function getInitialViewInApp() as [WatchUi.Views] or [WatchUi.Views, WatchUi.Inp
 }
 
 function appWillRouteToMainUI() as Void {
-    _2(L_APP, "appWillRouteToMainUI");
+    if (debug) { _2(L_APP, "appWillRouteToMainUI"); }
 }
 
 var routedToMainUI as Lang.Boolean = false;
@@ -93,7 +93,7 @@ function appDidRouteToMainUI() as Void {
 
 function openLandingScreenFromMainMenu() as Void {
     var landingScreenID = AppSettings.landingScreenID;
-    _3(L_APP, "landingScreenID", landingScreenID);
+    if (debug) { _3(L_APP, "landingScreenID", landingScreenID); }
     switch (AppSettings.landingScreen()) {
         case :mainMenu: {
             break;
@@ -116,11 +116,11 @@ function openLandingScreenFromMainMenu() as Void {
 function launchCheckInIfNecessary() as Void {
     var callState = getCallState();
     if (!(callState instanceof Idle)) {
-        _3(LX_APP_LIFE_CYCLE, "checkInSkipped.dueToCallState", callState);
+        if (debug) { _3(LX_APP_LIFE_CYCLE, "checkInSkipped.dueToCallState", callState); }
         return;
     }
     if (!AppSettings.isCheckInEnabled) {
-        _2(LX_APP_LIFE_CYCLE, "checkInSkipped.dueToSettings");
+        if (debug) { _2(LX_APP_LIFE_CYCLE, "checkInSkipped.dueToSettings"); }
         return;
     }
     if (checkInImp != null) {
@@ -131,14 +131,14 @@ function launchCheckInIfNecessary() as Void {
 
 (:widget)
 function appDidRouteFromMainUI() as Void {
-    _2(L_APP, "appDidRouteFromMainUI");
+    if (debug) { _2(L_APP, "appDidRouteFromMainUI"); }
     setRoutedCallStateImp(null);
     checkInImp = null;
 }
 
 (:widget)
 function widgetDidShow() as Void {
-    _2(L_APP, "widgetDidShow");
+    if (debug) { _2(L_APP, "widgetDidShow"); }
     if (routedToMainUI) {
         routedToMainUI = false;
         appDidRouteFromMainUI();
@@ -146,13 +146,13 @@ function widgetDidShow() as Void {
 }
 
 function onAppDidFinishLaunching() as Void {
-    _2(L_APP, "onAppDidFinishLaunching");
+    if (debug) { _2(L_APP, "onAppDidFinishLaunching"); }
     eraseAppDataIfNecessary();
     (new InAppIncomingMessageDispatcher()).launch();
 }
 
 function didSeeIncomingMessageWhileRoutedToMainUI() as Void {
-    _2(L_APP, "didSeeIncomingMessageWhileRoutedToMainUI");
+    if (debug) { _2(L_APP, "didSeeIncomingMessageWhileRoutedToMainUI"); }
     trackCheckRemoteMessageForCheckIn();
 }
 

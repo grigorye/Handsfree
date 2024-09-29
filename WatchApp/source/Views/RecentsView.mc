@@ -18,7 +18,7 @@ class RecentsView extends WatchUi.Menu2 {
     private var lastRecentsCheckDate as Lang.Number;
 
     function update() as Void {
-        _2(L_RECENTS_VIEW, "update");
+        if (debug) { _2(L_RECENTS_VIEW, "update"); }
         setTitleFromRecents();
         deleteExistingItems();
         addMenuItemsFromRecents();
@@ -47,7 +47,7 @@ class RecentsView extends WatchUi.Menu2 {
 
     function addMenuItemsFromRecents() as Void {
         var recents = getRecents();
-        _2(L_RECENTS_VIEW, "addMenuItemsFromRecents");
+        if (debug) { _2(L_RECENTS_VIEW, "addMenuItemsFromRecents"); }
         var recentsCount = recents.size();
         if (recentsCount == 0) {
             addItem(new WatchUi.MenuItem("No recents", "", noRecentsMenuItemId, {}));

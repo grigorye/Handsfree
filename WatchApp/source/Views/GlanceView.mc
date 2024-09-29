@@ -29,7 +29,7 @@ class GlanceView extends WatchUi.GlanceView {
             }
         } else {
             var callState = loadCallState();
-            _3(L_GLANCE, "callState", callState);
+            if (debug) { _3(L_GLANCE, "callState", callState); }
             if (callState instanceof CallInProgress) {
                 var phone = callState.phone;
                 var isIncomingCall = isIncomingCallPhone(phone);
@@ -63,7 +63,7 @@ class GlanceView extends WatchUi.GlanceView {
         if (Styles.glance_font.capitalize) {
             text = text.toUpper();
         }
-        _3(L_GLANCE, "text", [text, subtitle]);
+        if (debug) { _3(L_GLANCE, "text", [text, subtitle]); }
         if (subtitle != null) {
             text = text + "\n" + subtitle;
         }

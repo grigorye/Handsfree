@@ -9,7 +9,7 @@ class InAppIncomingMessageDispatcher {
     private var readyToSync as Lang.Boolean = false;
 
     function launch() as Void {
-        _2(L_INCOMING_INIT, "registerForPhoneAppMessages");
+        if (debug) { _2(L_INCOMING_INIT, "registerForPhoneAppMessages"); }
         Communications.registerForPhoneAppMessages(method(:onPhoneAppMessage));
         readyToSync = true;
     }
@@ -17,10 +17,10 @@ class InAppIncomingMessageDispatcher {
     function onPhoneAppMessage(msg as Communications.PhoneAppMessage) as Void {
         if (!readyToSync) {
             if (AppSettings.isFlushIncomingMessagesOnLaunchEnabled) {
-                _3(L_INCOMING, "flushedMsg", msg.data);
+                if (debug) { _3(L_INCOMING, "flushedMsg", msg.data); }
                 return;
             } else {
-                _3(L_INCOMING, "flushableMsg", msg.data);
+                if (debug) { _3(L_INCOMING, "flushableMsg", msg.data); }
             }
         }
         if (routedToMainUI) {

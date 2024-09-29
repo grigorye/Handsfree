@@ -9,20 +9,20 @@ const LX_REMOTE_MSG as LogComponent = "<";
 function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
     trackRawRemoteMessageReceived();
     if (iqMsg == null) {
-        _3(LX_REMOTE_MSG, "msg", "isNull!");
+        if (debug) { _3(LX_REMOTE_MSG, "msg", "isNull!"); }
         return;
     }
     if (!(iqMsg instanceof Communications.Message)) {
-        _3(LX_REMOTE_MSG, "msg", "isNotMessage!");
-        _3(LX_REMOTE_MSG, "msg", iqMsg);
+        if (debug) { _3(LX_REMOTE_MSG, "msg", "isNotMessage!"); }
+        if (debug) { _3(LX_REMOTE_MSG, "msg", iqMsg); }
         return;
     }
     if (!(iqMsg.data instanceof Lang.Object)) {
-        _3(LX_REMOTE_MSG, "msg", "dataIsNotObject!");
+        if (debug) { _3(LX_REMOTE_MSG, "msg", "dataIsNotObject!"); }
         return;
     }
     if (!lowMemory) {
-        _3(LX_REMOTE_MSG, "msg", iqMsg.data);
+        if (debug) { _3(LX_REMOTE_MSG, "msg", iqMsg.data); }
     }
     didReceiveRemoteMessage();
     var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
@@ -39,7 +39,7 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
                 }
                 callStateIsOwnedByUs = true;
             } else {
-                _3(LX_REMOTE_MSG, "callStateIsNotOwnedByUs", true);
+                if (debug) { _3(LX_REMOTE_MSG, "callStateIsNotOwnedByUs", true); }
             }
             break;
         case "setPhones":
@@ -101,7 +101,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
                         isHit = false;
                     }
                 } else {
-                    _3(LX_REMOTE_MSG, "phonesHit", version);
+                    if (debug) { _3(LX_REMOTE_MSG, "phonesHit", version); }
                 }
                 break;
             }
@@ -116,7 +116,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
                         isHit = false;
                     }
                 } else {
-                    _3(LX_REMOTE_MSG, "recentsHit", version);
+                    if (debug) { _3(LX_REMOTE_MSG, "recentsHit", version); }
                 }
                 break;
             }
@@ -129,13 +129,13 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
 (:background)
 function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
     var callState = getCallState();
-    _3(L_PHONE_STATE_CHANGED, "oldCallState", callState);
+    if (debug) { _3(L_PHONE_STATE_CHANGED, "oldCallState", callState); }
     var inIsHeadsetConnected = args["isHeadsetConnected"] as Lang.Boolean or Null;
     if (inIsHeadsetConnected != null) {
         setIsHeadsetConnected(inIsHeadsetConnected);
     }
     var phoneState = args["state"] as Lang.String;
-    _3(L_PHONE_STATE_CHANGED, "inPhoneState", phoneState);
+    if (debug) { _3(L_PHONE_STATE_CHANGED, "inPhoneState", phoneState); }
     if (!phoneState.equals("ringing")) {
         stopRequestingAttentionIfInApp();
     }
@@ -144,12 +144,12 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
         case "callInProgress":
             var inProgressNumber = args["number"] as Lang.String or Null;
             var inProgressName = args["name"] as Lang.String or Null;
-            _3(L_PHONE_STATE_CHANGED, "inProgressNumber", inProgressNumber);
+            if (debug) { _3(L_PHONE_STATE_CHANGED, "inProgressNumber", inProgressNumber); }
             if (optimisticCallState != null) {
                 if (optimisticCallState instanceof CallInProgress) {
                     var phoneNumber = getPhoneNumber(optimisticCallState.phone);
                     if (((phoneNumber != null) && phoneNumber.equals(inProgressNumber)) || (inProgressNumber == null /* no permission in companion */)) {
-                        _3(L_PHONE_STATE_CHANGED, "optimisticCallStateHit", optimisticCallState);
+                        if (debug) { _3(L_PHONE_STATE_CHANGED, "optimisticCallStateHit", optimisticCallState); }
                         var isCurrent = getCallState().toString().equals(optimisticCallState.toString());
                         untrackOptimisticCallState(optimisticCallState);
                         if (isCurrent) {
@@ -159,7 +159,7 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
                         return;
                     }
                 }
-                _3(L_PHONE_STATE_CHANGED, "resetOptimisticCallStatesDueTo", optimisticCallState);
+                if (debug) { _3(L_PHONE_STATE_CHANGED, "resetOptimisticCallStatesDueTo", optimisticCallState); }
                 resetOptimisticCallStates();
             }
             var inProgressPhone = {
@@ -172,7 +172,7 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
             if (callState instanceof DismissedCallInProgress) {
                 var dismissedNumber = callState.phone["number"] as Lang.String;
                 var dismissedButChanged = !dismissedNumber.equals(inProgressNumber);
-                _3(L_PHONE_STATE_CHANGED, "dismissedButChanged", dismissedButChanged);
+                if (debug) { _3(L_PHONE_STATE_CHANGED, "dismissedButChanged", dismissedButChanged); }
                 if (dismissedButChanged) {
                     setCallState(new CallInProgress(inProgressPhone));
                 }
@@ -183,19 +183,19 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
         case "noCallInProgress":
             if (optimisticCallState != null) {
                 if (optimisticCallState instanceof Idle) {
-                    _3(L_PHONE_STATE_CHANGED, "optimisticCallStateHit", optimisticCallState);
+                    if (debug) { _3(L_PHONE_STATE_CHANGED, "optimisticCallStateHit", optimisticCallState); }
                     untrackOptimisticCallState(optimisticCallState);
                     updateUIForCallState();
                     return;
                 }
-                _3(L_PHONE_STATE_CHANGED, "resetOptimisticCallStatesDueTo", optimisticCallState);
+                if (debug) { _3(L_PHONE_STATE_CHANGED, "resetOptimisticCallStatesDueTo", optimisticCallState); }
                 resetOptimisticCallStates();
             }
             setCallState(new Idle());
             break;
         case "ringing":
             var ringingNumber = args["number"] as Lang.String;
-            _3(L_PHONE_STATE_CHANGED, "inRingingNumber", ringingNumber);
+            if (debug) { _3(L_PHONE_STATE_CHANGED, "inRingingNumber", ringingNumber); }
             var ringingPhone = {
                 "number" => ringingNumber,
                 "id" => -4,

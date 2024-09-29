@@ -8,11 +8,11 @@ const LX_OPEN_ME as LogComponent = "openMe";
 
 (:background)
 function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
-    _3(LX_OPEN_ME, "isOpenAppOnIncomingCallEnabled", BackgroundSettings.isOpenAppOnIncomingCallEnabled);
+    if (debug) { _3(LX_OPEN_ME, "isOpenAppOnIncomingCallEnabled", BackgroundSettings.isOpenAppOnIncomingCallEnabled); }
     if (!BackgroundSettings.isOpenAppOnIncomingCallEnabled) {
         return;
     }
-    _3(LX_OPEN_ME, "activeUiKind", activeUiKind);
+    if (debug) { _3(LX_OPEN_ME, "activeUiKind", activeUiKind); }
     if (isActiveUiKindApp) {
         startRequestingAttentionIfInApp();
     } else {
@@ -22,7 +22,7 @@ function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
 
 (:background)
 function handleOpenMeCompleted(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
-    _3(LX_OPEN_ME, "handleOpenMeCompleted", args);
+    if (debug) { _3(LX_OPEN_ME, "handleOpenMeCompleted", args); }
     var succeeded = args["succeeded"] as Lang.Boolean;
     if (succeeded) {
         openMeSucceeded();
@@ -34,13 +34,13 @@ function handleOpenMeCompleted(args as Lang.Dictionary<Lang.String, Lang.Object>
 
 (:background)
 function openMeSucceeded() as Void {
-    _2(LX_OPEN_ME, "openMeSucceeded");
+    if (debug) { _2(LX_OPEN_ME, "openMeSucceeded"); }
     startRequestingAttentionIfInApp();
 }
 
 (:background)
 function openMeFailed(message as Lang.String) as Void {
-    _3(LX_OPEN_ME, "openMeFailed.requestingApplicationWake", message);
+    if (debug) { _3(LX_OPEN_ME, "openMeFailed.requestingApplicationWake", message); }
     Background.requestApplicationWake(message);
 }
 
@@ -55,11 +55,11 @@ function openAppOnIncomingCall(phone as Phone) as Void {
             }
         } as Lang.Object as Application.PersistableType;
         var tag = formatCommTag("openMe");
-        _3(LX_OUT_COMM, tag + ".requesting", msg);
+        if (debug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
         Communications.transmit(msg, null, new DummyCommListener(tag));
     }
     if (BackgroundSettings.isIncomingOpenAppViaWakeUpEnabled) {
-        _3(LX_OPEN_ME, "requestingApplicationWake", message);
+        if (debug) { _3(LX_OPEN_ME, "requestingApplicationWake", message); }
         Background.requestApplicationWake(message);
     }
 }

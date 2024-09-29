@@ -14,7 +14,7 @@ class WidgetView extends WatchUi.View {
     }
 
     function onShow() {
-        _2(L_WIDGET_VIEW, "onShow");
+        if (debug) { _2(L_WIDGET_VIEW, "onShow"); }
         View.onShow();
         widgetDidShow();
     }
@@ -22,7 +22,7 @@ class WidgetView extends WatchUi.View {
     function onUpdate(dc as Graphics.Dc) {
         View.onUpdate(dc);
 
-        _3(L_WIDGET_VIEW, "onUpdate", { "width" => dc.getWidth(), "height" => dc.getHeight() });
+        if (debug) { _3(L_WIDGET_VIEW, "onUpdate", { "width" => dc.getWidth(), "height" => dc.getHeight() }); }
         var deviceSettings = System.getDeviceSettings();
         if (deviceSettings has :isNightModeEnabled) {
             if (deviceSettings.isNightModeEnabled) {
@@ -34,7 +34,7 @@ class WidgetView extends WatchUi.View {
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         }
 
-        _3(L_WIDGET_VIEW, "shouldShowCallState", GlanceLikeSettings.isShowingCallStateOnGlanceEnabled);
+        if (debug) { _3(L_WIDGET_VIEW, "shouldShowCallState", GlanceLikeSettings.isShowingCallStateOnGlanceEnabled); }
         var appName = "Handsfree";
         if (!GlanceLikeSettings.isShowingCallStateOnGlanceEnabled) {
             dc.drawText(

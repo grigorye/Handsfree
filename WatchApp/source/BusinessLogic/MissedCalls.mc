@@ -19,7 +19,7 @@ function missedRecents(recents as Recents, lastRecentCheckDate as Lang.Number) a
             missedRecents.add(recent);
         }
     }
-    _3(L_APP, "missedRecents", missedRecents);
+    if (debug) { _3(L_APP, "missedRecents", missedRecents); }
     return missedRecents;
 }
 

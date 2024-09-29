@@ -23,14 +23,14 @@ function initialCallState() as CallState {
 function loadCallState() as CallState or Null {
     var callStateData = Application.Storage.getValue("callState.v1") as CallStateData or Null;
     if (callStateData == null) {
-        _2(L_CALL_STATE, "callStateDataIsNull");
+        if (debug) { _2(L_CALL_STATE, "callStateDataIsNull"); }
         return null;
     }
     var callState = decodeCallState(callStateData);
-    _3(L_CALL_STATE, "loaded", callState);
+    if (debug) { _3(L_CALL_STATE, "loaded", callState); }
     if (callState instanceof CallActing) {
         var adjustedCallState = new Idle() as CallState;
-        _3(L_CALL_STATE, "adjustedLoaded", adjustedCallState);
+        if (debug) { _3(L_CALL_STATE, "adjustedLoaded", adjustedCallState); }
         return adjustedCallState;
     }
     return callState;
@@ -38,7 +38,7 @@ function loadCallState() as CallState or Null {
 
 (:background)
 function saveCallState(callState as CallState) as Void {
-    _3(L_CALL_STATE, "saveCallState", callState);
+    if (debug) { _3(L_CALL_STATE, "saveCallState", callState); }
     Application.Storage.setValue("callState.v1", encodeCallState(callState));
 }
 

@@ -18,13 +18,13 @@ class VibrationLoop {
     }
 
     function reduceProgram() as Void {
-        _3(L_VIBRA, "tail", tail);
+        if (debug) { _3(L_VIBRA, "tail", tail); }
         var instructionEnd = tail.find(";");
         var instruction = substring(tail, 0, instructionEnd);
-        _3(L_VIBRA, "instruction", instruction);
+        if (debug) { _3(L_VIBRA, "instruction", instruction); }
 
         if (instructionEnd == null) {
-            _2(L_VIBRA, "rewind");
+            if (debug) { _2(L_VIBRA, "rewind"); }
             tail = program;
         } else {
             var newTailIndex = (instructionEnd as Lang.Number) + 1;
@@ -38,13 +38,13 @@ class VibrationLoop {
                 if (Attention has :vibrate) {
                     Attention.vibrate([new Attention.VibeProfile(100, duration)]);
                 }
-                _3(L_VIBRA, "vibrate", duration);
+                if (debug) { _3(L_VIBRA, "vibrate", duration); }
                 vibeTimer.start(method(:reduceProgram), duration, false);
                 break;
             }
             case "p":
                 var pause = 1000 * (substring(instruction, 1, null).toNumber() as Lang.Number);
-                _3(L_VIBRA, "pause", pause);
+                if (debug) { _3(L_VIBRA, "pause", pause); }
                 vibeTimer.start(method(:reduceProgram), pause, false);
                 break;
             default:
@@ -53,12 +53,12 @@ class VibrationLoop {
     }
 
     function launch() as Void {
-        _3(L_VIBRA, "launch", program);
+        if (debug) { _3(L_VIBRA, "launch", program); }
         reduceProgram();
     }
 
     function cancel() as Void {
-        _3(L_VIBRA, "cancel", true);
+        if (debug) { _3(L_VIBRA, "cancel", true); }
         vibeTimer.stop();
     }
 }

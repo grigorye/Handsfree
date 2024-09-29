@@ -9,7 +9,7 @@ const L_PHONES_UI as LogComponent = "phonesUI";
 
 (:background)
 function setPhonesVersion(version as Version) as Void {
-    _3(L_PHONES_STORAGE, "savePhonesVersion", version);
+    if (debug) { _3(L_PHONES_STORAGE, "savePhonesVersion", version); }
     Application.Storage.setValue("phonesVersion.v1", version);
 }
 
@@ -30,7 +30,7 @@ function getPhones() as Phones {
 
 (:background)
 function savePhones(phones as Phones) as Void {
-    _3(L_PHONES_STORAGE, "savePhones", phones);
+    if (debug) { _3(L_PHONES_STORAGE, "savePhones", phones); }
     Application.Storage.setValue("phones.v1", phones as [Application.PropertyValueType]);
 }
 

@@ -16,7 +16,7 @@ function getOptimisticCallStates() as CallStates {
 
 (:background)
 function setOptimisticCallStates(callStates as CallStates) as Void {
-    _3(L_CALL_STATE, "setOptimisticCallStates", callStates);
+    if (debug) { _3(L_CALL_STATE, "setOptimisticCallStates", callStates); }
     Application.Storage.setValue("optimisticCallStates.v1", encodeOptimisticCallStates(callStates));
 }
 

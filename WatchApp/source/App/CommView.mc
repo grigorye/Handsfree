@@ -9,16 +9,16 @@ class CommView extends WatchUi.View {
     }
 
     function onShow() {
-        _2(L_COMM_VIEW, "onShow");
+        if (debug) { _2(L_COMM_VIEW, "onShow"); }
         if (topView() == self) {
             firstOnShow();
         } else {
-            _3(L_COMM_VIEW_CRITICAL, "unexpectedOnShow", viewStackTags());
+            if (debug) { _3(L_COMM_VIEW_CRITICAL, "unexpectedOnShow", viewStackTags()); }
         }
     }
 
     function firstOnShow() as Void {
-        _2(L_COMM_VIEW, "firstOnShow");
+        if (debug) { _2(L_COMM_VIEW, "firstOnShow"); }
         appWillRouteToMainUI();
         pushView("mainMenu", newMainMenu(), new MainMenuDelegate(), SLIDE_IMMEDIATE);
         openLandingScreenFromMainMenu();

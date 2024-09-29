@@ -13,22 +13,22 @@ class CallInProgressViewDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onSelect(item as WatchUi.MenuItem) as Void {
-        _3(L_USER_ACTION, "callInProgress.onSelect", { "phone" => phone, "item" => item.getId() });
+        if (debug) { _3(L_USER_ACTION, "callInProgress.onSelect", { "phone" => phone, "item" => item.getId() }); }
         switch (item.getId() as CallInProgressAction) {
             case CALL_IN_PROGRESS_ACTION_ACCEPT: {
-                _2(L_USER_ACTION_DEBUG, "accept");
+                if (debug) { _2(L_USER_ACTION_DEBUG, "accept"); }
                 popView(WatchUi.SLIDE_IMMEDIATE);
                 acceptIncomingCall(phone);
                 break;
             }
             case CALL_IN_PROGRESS_ACTION_HANGUP: {
-                _2(L_USER_ACTION_DEBUG, "hangup");
+                if (debug) { _2(L_USER_ACTION_DEBUG, "hangup"); }
                 popView(WatchUi.SLIDE_IMMEDIATE);
                 hangupCallInProgress(phone);
                 break;
             }
             case CALL_IN_PROGRESS_ACTION_REJECT: {
-                _2(L_USER_ACTION_DEBUG, "reject");
+                if (debug) { _2(L_USER_ACTION_DEBUG, "reject"); }
                 popView(WatchUi.SLIDE_IMMEDIATE);
                 rejectIncomingCall(phone);
                 break;
@@ -37,7 +37,7 @@ class CallInProgressViewDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onBack() {
-        _2(L_USER_ACTION, "callInProgress.onBack");
+        if (debug) { _2(L_USER_ACTION, "callInProgress.onBack"); }
         exitToSystemFromCurrentView();
     }
 }

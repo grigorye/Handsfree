@@ -25,12 +25,12 @@ class PhonesView extends WatchUi.Menu2 {
     private var oldPhones as Phones = [] as Phones;
 
     function updateFromPhones(phones as Phones) as Void {
-        _3(L_PHONES_VIEW, "updatingFromPhones", phones);
+        if (debug) { _3(L_PHONES_VIEW, "updatingFromPhones", phones); }
         if (oldPhones.toString().equals(phones.toString())) {
-            _2(L_PHONES_VIEW, "phonesNotChanged");
+            if (debug) { _2(L_PHONES_VIEW, "phonesNotChanged"); }
             return;
         }
-        _2(L_PHONES_VIEW, "phonesChanged");
+        if (debug) { _2(L_PHONES_VIEW, "phonesChanged"); }
         deleteExistingItems();
         setFromPhones(phones);
         workaroundNoRedrawForMenu2(self);

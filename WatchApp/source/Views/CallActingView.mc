@@ -5,7 +5,7 @@ const L_CALL_ACTING_DATA as LogComponent = "callActing";
 class CallActingView extends WatchUi.ProgressBar {
     function initialize(callState as CallActing) {
         var commStatus = callState.commStatus;
-        _3(L_CALL_ACTING_DATA, "commStatus", commStatus);
+        if (debug) { _3(L_CALL_ACTING_DATA, "commStatus", commStatus); }
         var source = displayTextForPhone(callState.phone);
         var message;
         switch (commStatus) {

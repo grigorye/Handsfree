@@ -22,6 +22,6 @@ function getHitsCount() as Lang.Number {
 
 (:background)
 function saveHitsCount(hitsCount as Lang.Number) as Void {
-    _3(L_HITS_STORAGE, "saveHitsCount", hitsCount);
+    if (debug) { _3(L_HITS_STORAGE, "saveHitsCount", hitsCount); }
     Application.Storage.setValue("hitsCount.v1", hitsCount);
 }

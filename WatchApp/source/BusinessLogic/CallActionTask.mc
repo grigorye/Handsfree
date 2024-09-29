@@ -15,7 +15,7 @@ class CallActionTask extends Communications.ConnectionListener {
     }
 
     function launch() as Void {
-        _3(L_CALL_ACTION, "launch", true);
+        if (debug) { _3(L_CALL_ACTION, "launch", true); }
 
         var cmd;
         var state;
@@ -51,7 +51,7 @@ class CallActionTask extends Communications.ConnectionListener {
         var oldState = getCallState();
         if (!(oldState instanceof CallActing)) {
             // We may already go back, and hence change the call state to Idle.
-            _3(L_CALL_ACTION, "onComplete.callStateInvalidated", oldState);
+            if (debug) { _3(L_CALL_ACTION, "onComplete.callStateInvalidated", oldState); }
             return;
         }
         var newState;
@@ -69,10 +69,10 @@ class CallActionTask extends Communications.ConnectionListener {
         var oldState = getCallState();
         if (!(oldState instanceof CallActing)) {
             // We may already go back, and hence change the call state to Idle.
-            _3(L_CALL_ACTION, "onError.callStateInvalidated", oldState);
+            if (debug) { _3(L_CALL_ACTION, "onError.callStateInvalidated", oldState); }
             return;
         }
-        _2(L_CALL_ACTION, "onError");
+        if (debug) { _2(L_CALL_ACTION, "onError"); }
         var newState = oldState.clone();
         newState.commStatus = FAILED;
         setCallState(newState);

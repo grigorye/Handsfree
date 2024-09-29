@@ -14,9 +14,9 @@ class BackgroundServiceDelegate extends System.ServiceDelegate {
     }
 
     function onPhoneAppMessage(msg as Communications.PhoneAppMessage) as Void {
-        _3(L_BACKGROUND_SERVICE, "activeUiKind", activeUiKind);
+        if (debug) { _3(L_BACKGROUND_SERVICE, "activeUiKind", activeUiKind); }
         handleRemoteMessage(msg);
-        _3(L_BACKGROUND_SERVICE, "exit", "onPhoneAppMessage");
+        if (debug) { _3(L_BACKGROUND_SERVICE, "exit", "onPhoneAppMessage"); }
         Background.exit("onPhoneAppMessage");
     }
 }

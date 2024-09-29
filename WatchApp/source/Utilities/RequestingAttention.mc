@@ -23,7 +23,7 @@ var activeVibrationLoop as VibrationLoop or Null;
 
 (:noLowMemory)
 function startRequestingAttention() as Void {
-    _2(L_ATTN, "startRequestingAttention");
+    if (debug) { _2(L_ATTN, "startRequestingAttention"); }
     if (activeVibrationLoop != null) {
         activeVibrationLoop.cancel();
     }
@@ -33,7 +33,7 @@ function startRequestingAttention() as Void {
 
 (:noLowMemory)
 function stopRequestingAttention() as Void {
-    _2(L_ATTN, "stopRequestingAttention");
+    if (debug) { _2(L_ATTN, "stopRequestingAttention"); }
     if (activeVibrationLoop != null) {
         activeVibrationLoop.cancel();
     }

@@ -12,7 +12,7 @@ enum CheckInStatus {
 var checkInStatusImp as CheckInStatus = CHECK_IN_NONE;
 
 function setCheckInStatus(checkInStatus as CheckInStatus) as Void {
-    _3(L_CHECK_IN_STATUS, "set", checkInStatus);
+    if (debug) { _3(L_CHECK_IN_STATUS, "set", checkInStatus); }
     checkInStatusImp = checkInStatus;
     updateForCheckInStatus();
 }

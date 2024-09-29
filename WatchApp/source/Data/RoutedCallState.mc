@@ -10,6 +10,6 @@ function getRoutedCallState() as CallState {
 }
 
 function setRoutedCallStateImp(callState as CallState or Null) as Void {
-    _3(L_ROUTED_CALL_STATE, "set", callState);
+    if (debug) { _3(L_ROUTED_CALL_STATE, "set", callState); }
     routedCallStateImp = callState;
 }
