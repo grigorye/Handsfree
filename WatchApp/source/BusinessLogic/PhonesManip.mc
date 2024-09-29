@@ -7,13 +7,13 @@ const L_PHONES_STORAGE as LogComponent = "phones";
 
 const L_PHONES_UI as LogComponent = "phonesUI";
 
-(:background)
+(:inline, :background)
 function setPhonesVersion(version as Version) as Void {
     if (debug) { _3(L_PHONES_STORAGE, "savePhonesVersion", version); }
     Storage.setValue("phonesVersion.v1", version);
 }
 
-(:background)
+(:inline, :background)
 function getPhonesVersion() as Version or Null {
     var phonesVersion = Storage.getValue("phonesVersion.v1") as Version or Null;
     return phonesVersion;
@@ -28,24 +28,23 @@ function getPhones() as Phones {
     }
 }
 
-(:background)
+(:inline, :background)
 function savePhones(phones as Phones) as Void {
     if (debug) { _3(L_PHONES_STORAGE, "savePhones", phones); }
     Storage.setValue("phones.v1", phones as [Application.PropertyValueType]);
 }
 
-(:background)
+(:inline, :background)
 function setPhones(phones as Phones) as Void {
     savePhones(phones);
     updateUIForPhonesIfInApp(phones);
 }
 
-(:background, :typecheck([disableBackgroundCheck]))
+(:inline, :background, :typecheck([disableBackgroundCheck]))
 function updateUIForPhonesIfInApp(phones as Phones) as Void {
-    if (!isActiveUiKindApp) {
-        return;
+    if (isActiveUiKindApp) {
+        updateUIForPhones(phones);
     }
-    updateUIForPhones(phones);
 }
 
 function updateUIForPhones(phones as Phones) as Void {
