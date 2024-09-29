@@ -1,6 +1,7 @@
 import Toybox.Communications;
 import Toybox.WatchUi;
 import Toybox.System;
+import Toybox.Lang;
 
 function hangupCallInProgress(phone as Phone) as Void {
     if (isIncomingCallPhone(phone)) {

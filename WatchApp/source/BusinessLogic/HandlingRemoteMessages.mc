@@ -1,6 +1,7 @@
 import Toybox.Lang;
 import Toybox.Communications;
 import Toybox.System;
+import Toybox.Application;
 
 (:background)
 const LX_REMOTE_MSG as LogComponent = "<";
