@@ -1,6 +1,9 @@
 import Toybox.Lang;
 import Toybox.Application;
 
+(:background, :glance)
+const debug = false;
+
 (:background)
 function logComponentsForcedInApp() as Lang.Array<Lang.String> {
     return [];

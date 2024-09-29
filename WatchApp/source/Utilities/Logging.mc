@@ -3,8 +3,8 @@ import Toybox.Lang;
 import Toybox.Time;
 import Toybox.Time.Gregorian;
 
-(:background, :glance)
-const debug = false;
+(:background, :glance, :noLowMemory)
+const debug = true;
 
 (:glance, :background)
 const noArg as Lang.Symbol = :noArg;
