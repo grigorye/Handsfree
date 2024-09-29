@@ -19,6 +19,7 @@ function stopRequestingAttentionIfInApp() as Void {
     stopRequestingAttention();
 }
 
+(:noLowMemory)
 var activeVibrationLoop as VibrationLoop or Null;
 
 (:noLowMemory)
