@@ -1,9 +1,9 @@
-using Toybox.WatchUi;
+import Toybox.WatchUi;
 
 (:widget)
 class WidgetViewDelegate extends WatchUi.BehaviorDelegate {
     function initialize() {
-        WatchUi.BehaviorDelegate.initialize();
+        BehaviorDelegate.initialize();
     }
 
     function onSelect() {

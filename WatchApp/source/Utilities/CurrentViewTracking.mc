@@ -1,6 +1,6 @@
-using Toybox.WatchUi;
-using Toybox.Lang;
-using Toybox.System;
+import Toybox.WatchUi;
+import Toybox.Lang;
+import Toybox.System;
 
 const L_VIEW_TRACKING as LogComponent = "$$";
 

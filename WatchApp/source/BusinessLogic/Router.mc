@@ -1,6 +1,6 @@
-using Toybox.WatchUi;
-using Toybox.System;
-using Toybox.Lang;
+import Toybox.WatchUi;
+import Toybox.System;
+import Toybox.Lang;
 
 const L_ROUTER as LogComponent = "router";
 

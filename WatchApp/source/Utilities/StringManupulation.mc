@@ -1,4 +1,4 @@
-using Toybox.Lang;
+import Toybox.Lang;
 
 (:glance)
 function joinComponents(components as Lang.Array<Lang.String or Null>, separator as Lang.String) as Lang.String {

@@ -1,5 +1,5 @@
-using Toybox.Lang;
-using Toybox.Application;
+import Toybox.Lang;
+import Toybox.Application;
 
 (:background)
 function logComponentsForcedInApp() as Lang.Array<Lang.String> {
@@ -11,6 +11,6 @@ function isLogAllEnforced() as Lang.Boolean {
     if (!isActiveUiKindApp) {
         return false;
     } else {
-        return Application.Properties.getValue("forceLogAll") as Lang.Boolean;
+        return Properties.getValue("forceLogAll") as Lang.Boolean;
     }
 }

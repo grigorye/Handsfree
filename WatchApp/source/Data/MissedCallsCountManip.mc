@@ -1,9 +1,9 @@
-using Toybox.Lang;
-using Toybox.Application;
+import Toybox.Lang;
+import Toybox.Application;
 
 (:glance, :background)
 function getMissedRecents() as Recents {
-    var missedRecents = Application.Storage.getValue("missedRecents") as Recents or Null;
+    var missedRecents = Storage.getValue("missedRecents") as Recents or Null;
     if (missedRecents != null) {
         return missedRecents;
     } else {
@@ -13,7 +13,7 @@ function getMissedRecents() as Recents {
 
 (:background)
 function setMissedRecents(missedRecents as Recents) as Void {
-    Application.Storage.setValue("missedRecents", missedRecents as [Application.PropertyValueType]);
+    Storage.setValue("missedRecents", missedRecents as [Application.PropertyValueType]);
     updateUIForMissedRecentsIfInApp();
 }
 

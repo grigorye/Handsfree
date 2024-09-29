@@ -1,4 +1,4 @@
-using Toybox.System;
+import Toybox.System;
 
 function crashMe() as Void {
     System.error("Crashing!");

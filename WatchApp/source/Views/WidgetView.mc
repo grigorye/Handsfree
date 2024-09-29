@@ -1,7 +1,7 @@
-using Toybox.WatchUi;
-using Toybox.Lang;
-using Toybox.Graphics;
-using Rez.Styles;
+import Toybox.WatchUi;
+import Toybox.Lang;
+import Toybox.Graphics;
+import Rez.Styles;
 
 (:widget)
 const L_WIDGET_VIEW as LogComponent = "widgetView";

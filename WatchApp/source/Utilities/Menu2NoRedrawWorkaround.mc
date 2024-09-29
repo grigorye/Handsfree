@@ -1,4 +1,4 @@
-using Toybox.WatchUi;
+import Toybox.WatchUi;
 
 function workaroundNoRedrawForMenu2(menu as WatchUi.Menu2) as Void {
     if (topView() != menu) {

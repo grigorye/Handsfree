@@ -1,5 +1,5 @@
-using Toybox.WatchUi;
-using Toybox.Lang;
+import Toybox.WatchUi;
+import Toybox.Lang;
 
 class CallInProgressView extends WatchUi.Menu2 {
     function initialize(phone as Phone, optimistic as Lang.Boolean) {
@@ -8,7 +8,7 @@ class CallInProgressView extends WatchUi.Menu2 {
         if (optimistic) {
             title = "|" + title + "|";
         }
-        WatchUi.Menu2.initialize({
+        Menu2.initialize({
             :title => title
         });
 

@@ -1,4 +1,4 @@
-using Toybox.WatchUi;
+import Toybox.WatchUi;
 
 class SettingsView extends WatchUi.Menu2 {
     function initialize() {

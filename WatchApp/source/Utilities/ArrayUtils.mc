@@ -1,4 +1,4 @@
-using Toybox.Lang;
+import Toybox.Lang;
 
 (:background)
 function firstElement(array as Lang.Array) as Lang.Object or Null {

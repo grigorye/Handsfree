@@ -1,5 +1,5 @@
-using Toybox.WatchUi;
-using Toybox.Lang;
+import Toybox.WatchUi;
+import Toybox.Lang;
 
 class RecentsViewDelegate extends WatchUi.Menu2InputDelegate {
     function initialize() {

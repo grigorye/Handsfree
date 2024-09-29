@@ -1,4 +1,4 @@
-using Toybox.Lang;
+import Toybox.Lang;
 
 (:background, :glance, :distOnly)
 const sourceVersion as Lang.String = "__SOURCE_VERSION__";

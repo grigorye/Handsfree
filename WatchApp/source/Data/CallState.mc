@@ -1,5 +1,5 @@
-using Toybox.Application;
-using Toybox.Lang;
+import Toybox.Application;
+import Toybox.Lang;
 
 (:background, :glance)
 const L_CALL_STATE as LogComponent = "callState";
@@ -21,7 +21,7 @@ function initialCallState() as CallState {
 
 (:background, :glance)
 function loadCallState() as CallState or Null {
-    var callStateData = Application.Storage.getValue("callState.v1") as CallStateData or Null;
+    var callStateData = Storage.getValue("callState.v1") as CallStateData or Null;
     if (callStateData == null) {
         if (debug) { _2(L_CALL_STATE, "callStateDataIsNull"); }
         return null;
@@ -39,7 +39,7 @@ function loadCallState() as CallState or Null {
 (:background)
 function saveCallState(callState as CallState) as Void {
     if (debug) { _3(L_CALL_STATE, "saveCallState", callState); }
-    Application.Storage.setValue("callState.v1", encodeCallState(callState));
+    Storage.setValue("callState.v1", encodeCallState(callState));
 }
 
 (:background)

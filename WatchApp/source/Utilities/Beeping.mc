@@ -1,4 +1,4 @@
-using Toybox.Attention;
+import Toybox.Attention;
 
 (:noLowMemory)
 enum BeepType {

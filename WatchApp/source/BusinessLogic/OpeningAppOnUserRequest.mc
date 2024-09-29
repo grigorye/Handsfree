@@ -1,4 +1,4 @@
-using Toybox.Background;
+import Toybox.Background;
 
 (:background)
 const L_OPEN_APP as LogComponent = "openApp";

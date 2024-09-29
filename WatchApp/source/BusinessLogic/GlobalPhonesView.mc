@@ -1,4 +1,4 @@
-using Toybox.System;
+import Toybox.System;
 
 function newPhonesView() as PhonesView {
     return new PhonesView(getPhones());

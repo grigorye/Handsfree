@@ -1,5 +1,5 @@
-using Toybox.Lang;
-using Toybox.WatchUi;
+import Toybox.Lang;
+import Toybox.WatchUi;
 
 (:background, :typecheck(disableBackgroundCheck))
 function setIsHeadsetConnected(isHeadsetConnected as Lang.Boolean) as Void {

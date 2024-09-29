@@ -1,4 +1,4 @@
-using Toybox.Lang;
+import Toybox.Lang;
 
 (:background, :glance)
 class SchedulingCall extends CallStateImp {

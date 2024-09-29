@@ -1,4 +1,4 @@
-using Toybox.Lang;
+import Toybox.Lang;
 
 (:background)
 const lowMemory as Lang.Boolean = true;

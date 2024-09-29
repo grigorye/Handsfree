@@ -1,6 +1,6 @@
-using Toybox.Application;
-using Toybox.Lang;
-using Toybox.Communications;
+import Toybox.Application;
+import Toybox.Lang;
+import Toybox.Communications;
 
 function requestSync() as Void {
     var msg = {

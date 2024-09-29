@@ -1,7 +1,7 @@
-using Toybox.WatchUi;
-using Toybox.Application;
-using Toybox.Lang;
-using Toybox.Time;
+import Toybox.WatchUi;
+import Toybox.Application;
+import Toybox.Lang;
+import Toybox.Time;
 
 (:background)
 const L_RECENTS_STORAGE as LogComponent = "recents";
@@ -9,18 +9,18 @@ const L_RECENTS_STORAGE as LogComponent = "recents";
 (:background)
 function setRecentsVersion(version as Version) as Void {
     if (debug) { _3(L_RECENTS_STORAGE, "saveRecentsVersion", version); }
-    Application.Storage.setValue("recentsVersion.v1", version);
+    Storage.setValue("recentsVersion.v1", version);
 }
 
 (:background)
 function getRecentsVersion() as Version {
-    var recentsVersion = Application.Storage.getValue("recentsVersion.v1") as Version;
+    var recentsVersion = Storage.getValue("recentsVersion.v1") as Version;
     return recentsVersion;
 }
 
 (:background)
 function getRecents() as Recents {
-    var recents = Application.Storage.getValue("recents.v1") as Recents or Null;
+    var recents = Storage.getValue("recents.v1") as Recents or Null;
     if (recents != null) {
         return recents;
     } else {
@@ -31,7 +31,7 @@ function getRecents() as Recents {
 (:background)
 function saveRecents(recents as Recents) as Void {
     if (debug) { _3(L_RECENTS_STORAGE, "saveRecents", recents); }
-    Application.Storage.setValue("recents.v1", recents as [Application.PropertyValueType]);
+    Storage.setValue("recents.v1", recents as [Application.PropertyValueType]);
 }
 
 (:background)

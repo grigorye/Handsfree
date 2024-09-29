@@ -1,4 +1,4 @@
-using Toybox.Lang;
+import Toybox.Lang;
 
 function displayTextForPhone(phone as Phone) as Lang.String {
     var name = phone["name"] as Lang.String or Null;

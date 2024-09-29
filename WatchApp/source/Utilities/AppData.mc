@@ -1,9 +1,9 @@
-using Toybox.Application;
+import Toybox.Application;
 
 (:background, :noLowMemory)
 function eraseAppData() as Void {
     if (debug) { _2(L_APP, "erasingAppData"); }
-    Application.Storage.clearValues();
+    Storage.clearValues();
 }
 
 (:noLowMemory)

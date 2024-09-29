@@ -1,4 +1,4 @@
-using Toybox.Attention;
+import Toybox.Attention;
 
 (:noLowMemory)
 const L_ATTN as LogComponent = "attention";

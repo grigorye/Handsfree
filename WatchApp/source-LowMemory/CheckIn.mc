@@ -1,4 +1,4 @@
-using Toybox.Lang;
+import Toybox.Lang;
 
 function titleFromCheckInStatus(checkInStatus as CheckInStatus) as Lang.String {
     return "";

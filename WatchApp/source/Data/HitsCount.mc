@@ -1,5 +1,5 @@
-using Toybox.Lang;
-using Toybox.Application;
+import Toybox.Lang;
+import Toybox.Application;
 
 (:background)
 const L_HITS_STORAGE as LogComponent = "hits";
@@ -12,7 +12,7 @@ function setHitsCount(hitsCount as Lang.Number) as Void {
 
 (:background, :glance, :noLowMemory)
 function getHitsCount() as Lang.Number {
-    var hitsCount = Application.Storage.getValue("hitsCount.v1") as Lang.Number or Null;
+    var hitsCount = Storage.getValue("hitsCount.v1") as Lang.Number or Null;
     if (hitsCount != null) {
         return hitsCount;
     } else {
@@ -23,5 +23,5 @@ function getHitsCount() as Lang.Number {
 (:background)
 function saveHitsCount(hitsCount as Lang.Number) as Void {
     if (debug) { _3(L_HITS_STORAGE, "saveHitsCount", hitsCount); }
-    Application.Storage.setValue("hitsCount.v1", hitsCount);
+    Storage.setValue("hitsCount.v1", hitsCount);
 }

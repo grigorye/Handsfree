@@ -1,7 +1,7 @@
-using Toybox.Background;
-using Toybox.System;
-using Toybox.Communications;
-using Toybox.Lang;
+import Toybox.Background;
+import Toybox.System;
+import Toybox.Communications;
+import Toybox.Lang;
 
 (:background)
 const L_BACKGROUND_SERVICE as LogComponent = "backgroundService";

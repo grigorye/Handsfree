@@ -1,13 +1,13 @@
-using Toybox.WatchUi;
-using Toybox.Lang;
-using Toybox.System;
-using Toybox.Time;
+import Toybox.WatchUi;
+import Toybox.Lang;
+import Toybox.System;
+import Toybox.Time;
 
 const L_RECENTS_VIEW as LogComponent = "recentsView";
 
 class RecentsView extends WatchUi.Menu2 {
     function initialize(lastRecentsCheckDate as Lang.Number) {
-        WatchUi.Menu2.initialize({});
+        Menu2.initialize({});
         self.lastRecentsCheckDate = lastRecentsCheckDate;
         self.oldRecentsCount = 0;
         setTitleFromRecents();

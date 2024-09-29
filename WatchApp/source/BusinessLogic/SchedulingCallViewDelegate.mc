@@ -1,8 +1,8 @@
-using Toybox.WatchUi;
+import Toybox.WatchUi;
 
 class SchedulingCallViewDelegate extends WatchUi.BehaviorDelegate {
     function initialize() {
-        WatchUi.BehaviorDelegate.initialize();
+        BehaviorDelegate.initialize();
     }
 
     function onBack() {

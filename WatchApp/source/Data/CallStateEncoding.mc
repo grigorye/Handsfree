@@ -1,6 +1,6 @@
-using Toybox.Lang;
-using Toybox.Application;
-using Toybox.System;
+import Toybox.Lang;
+import Toybox.Application;
+import Toybox.System;
 
 (:background)
 const L_ENCODING as LogComponent = "encoding";

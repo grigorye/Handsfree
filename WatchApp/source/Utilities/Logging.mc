@@ -1,7 +1,7 @@
-using Toybox.System;
-using Toybox.Lang;
-using Toybox.Time;
-using Toybox.Time.Gregorian;
+import Toybox.System;
+import Toybox.Lang;
+import Toybox.Time;
+import Toybox.Time.Gregorian;
 
 (:background, :glance)
 const debug = false;

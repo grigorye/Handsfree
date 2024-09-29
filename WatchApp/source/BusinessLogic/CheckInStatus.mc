@@ -1,4 +1,4 @@
-using Toybox.WatchUi;
+import Toybox.WatchUi;
 
 const L_CHECK_IN_STATUS as LogComponent = "checkInStatus";
 

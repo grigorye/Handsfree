@@ -1,5 +1,5 @@
-using Toybox.WatchUi;
-using Toybox.Lang;
+import Toybox.WatchUi;
+import Toybox.Lang;
 
 const L_SCHEDULING_CALL_VIEW as LogComponent = "schedulingCallView";
 
@@ -28,6 +28,6 @@ class SchedulingCallView extends WatchUi.ProgressBar {
             default:
                 System.error("Unknown commStatus");
         }
-        WatchUi.ProgressBar.initialize(message, 0.0);
+        ProgressBar.initialize(message, 0.0);
     }
 }

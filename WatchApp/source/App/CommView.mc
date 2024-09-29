@@ -1,4 +1,4 @@
-using Toybox.WatchUi;
+import Toybox.WatchUi;
 
 const L_COMM_VIEW as LogComponent = "commView";
 const L_COMM_VIEW_CRITICAL as LogComponent = "commView";

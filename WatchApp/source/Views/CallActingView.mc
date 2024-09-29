@@ -1,4 +1,4 @@
-using Toybox.WatchUi;
+import Toybox.WatchUi;
 
 const L_CALL_ACTING_DATA as LogComponent = "callActing";
 
@@ -56,6 +56,6 @@ class CallActingView extends WatchUi.ProgressBar {
                 message = "";
                 System.error("Unknown commStatus");
         }
-        WatchUi.ProgressBar.initialize(message, 0.0);
+        ProgressBar.initialize(message, 0.0);
     }
 }

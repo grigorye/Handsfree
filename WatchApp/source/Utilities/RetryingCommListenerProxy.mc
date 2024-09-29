@@ -1,8 +1,8 @@
-using Toybox.Communications;
-using Toybox.Timer;
-using Toybox.Lang;
-using Toybox.Application;
-using Toybox.System;
+import Toybox.Communications;
+import Toybox.Timer;
+import Toybox.Lang;
+import Toybox.Application;
+import Toybox.System;
 
 const L_OUT_RETRYING as LogComponent = ">";
 
@@ -30,7 +30,7 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
     private var retransmitTimer as Timer.Timer or Null = null;
 
     function initialize(tag as Lang.String, msg as Application.PersistableType, wrappedListener as Communications.ConnectionListener) {
-        Communications.ConnectionListener.initialize();
+        ConnectionListener.initialize();
         self.tag = tag;
         self.msg = msg;
         self.wrappedListener = wrappedListener;

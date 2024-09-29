@@ -1,6 +1,6 @@
-using Toybox.Communications;
-using Toybox.Application;
-using Toybox.Lang;
+import Toybox.Communications;
+import Toybox.Application;
+import Toybox.Lang;
 
 const L_SCHEDULE_CALL as LogComponent = "scheduleCall";
 

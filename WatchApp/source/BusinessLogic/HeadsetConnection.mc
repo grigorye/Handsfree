@@ -1,5 +1,5 @@
-using Toybox.Lang;
-using Toybox.Application;
+import Toybox.Lang;
+import Toybox.Application;
 
 (:background, :glance)
 var isHeadsetConnectedImp as Lang.Boolean or Null = null;
@@ -19,12 +19,12 @@ function setIsHeadsetConnectedImp(isHeadsetConnected as Lang.Boolean) as Void {
 
 (:background, :glance)
 function loadIsHeadsetConnected() as Lang.Boolean or Null {
-    return Application.Storage.getValue("isHeadsetConnected") as Lang.Boolean or Null;
+    return Storage.getValue("isHeadsetConnected") as Lang.Boolean or Null;
 }
 
 (:background)
 function saveIsHeadsetConnected(isHeadsetConnected as Lang.Boolean) as Void {
-    Application.Storage.setValue("isHeadsetConnected", isHeadsetConnected);
+    Storage.setValue("isHeadsetConnected", isHeadsetConnected);
 }
 
 (:background, :glance)

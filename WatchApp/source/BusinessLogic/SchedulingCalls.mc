@@ -1,4 +1,4 @@
-using Toybox.Lang;
+import Toybox.Lang;
 
 (:background)
 var callStateIsOwnedByUs as Lang.Boolean = false;

@@ -1,8 +1,8 @@
-using Toybox.WatchUi;
-using Toybox.Lang;
-using Toybox.System;
-using Toybox.Graphics;
-using Rez.Styles;
+import Toybox.WatchUi;
+import Toybox.Lang;
+import Toybox.System;
+import Toybox.Graphics;
+import Rez.Styles;
 
 (:glance)
 const L_GLANCE as LogComponent = "glance";

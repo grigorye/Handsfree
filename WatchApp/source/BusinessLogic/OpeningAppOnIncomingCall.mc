@@ -1,7 +1,7 @@
-using Toybox.Communications;
-using Toybox.Background;
-using Toybox.Lang;
-using Toybox.Application;
+import Toybox.Communications;
+import Toybox.Background;
+import Toybox.Lang;
+import Toybox.Application;
 
 (:background)
 const LX_OPEN_ME as LogComponent = "openMe";

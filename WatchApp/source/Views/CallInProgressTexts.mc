@@ -1,4 +1,4 @@
-using Toybox.Lang;
+import Toybox.Lang;
 
 enum CallInProgressAction {
     CALL_IN_PROGRESS_ACTION_HANGUP = "hangup",

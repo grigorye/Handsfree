@@ -1,6 +1,6 @@
-using Toybox.System;
-using Toybox.WatchUi;
-using Toybox.Lang;
+import Toybox.System;
+import Toybox.WatchUi;
+import Toybox.Lang;
 
 (:noLowMemory)
 function crashMe() as Void {

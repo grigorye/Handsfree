@@ -1,12 +1,12 @@
-using Toybox.Application;
-using Toybox.Communications;
-using Toybox.Lang;
+import Toybox.Application;
+import Toybox.Communications;
+import Toybox.Lang;
 
 (:background)
 function trackFirstLaunch() as Void {
-    var everLaunched = Application.Storage.getValue("everLaunched.v1") as Lang.Boolean or Null;
+    var everLaunched = Storage.getValue("everLaunched.v1") as Lang.Boolean or Null;
     if (everLaunched == null) {
-        Application.Storage.setValue("everLaunched.v1", true);
+        Storage.setValue("everLaunched.v1", true);
         didFirstLaunch();
     }
 }

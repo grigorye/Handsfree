@@ -1,6 +1,6 @@
-using Toybox.WatchUi;
-using Toybox.Lang;
-using Toybox.System;
+import Toybox.WatchUi;
+import Toybox.Lang;
+import Toybox.System;
 
 const L_PHONES_VIEW as LogComponent = "phonesView";
 
@@ -16,7 +16,7 @@ class PhonesView extends WatchUi.Menu2 {
     var predefinedItemsCount as Lang.Number = predefinedItems().size();
 
     function initialize(phones as Phones) {
-        WatchUi.Menu2.initialize({
+        Menu2.initialize({
             :title => "Favorites"
         });
         setFromPhones(phones);

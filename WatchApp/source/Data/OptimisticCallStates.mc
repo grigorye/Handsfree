@@ -1,12 +1,12 @@
-using Toybox.Application;
-using Toybox.System;
-using Toybox.Lang;
+import Toybox.Application;
+import Toybox.System;
+import Toybox.Lang;
 
 typedef CallStates as Lang.Array<CallStateImp>;
 
 (:background)
 function getOptimisticCallStates() as CallStates {
-    var encodedCallStates = Application.Storage.getValue("optimisticCallStates.v1") as [Lang.Dictionary<Lang.String, Lang.Object>] or Null;
+    var encodedCallStates = Storage.getValue("optimisticCallStates.v1") as [Lang.Dictionary<Lang.String, Lang.Object>] or Null;
     if (encodedCallStates != null) {
         return decodeOptimisticCallStates(encodedCallStates);
     } else {
@@ -17,7 +17,7 @@ function getOptimisticCallStates() as CallStates {
 (:background)
 function setOptimisticCallStates(callStates as CallStates) as Void {
     if (debug) { _3(L_CALL_STATE, "setOptimisticCallStates", callStates); }
-    Application.Storage.setValue("optimisticCallStates.v1", encodeOptimisticCallStates(callStates));
+    Storage.setValue("optimisticCallStates.v1", encodeOptimisticCallStates(callStates));
 }
 
 (:background)

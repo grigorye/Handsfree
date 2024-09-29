@@ -1,5 +1,5 @@
-using Toybox.Lang;
-using Toybox.Timer;
+import Toybox.Lang;
+import Toybox.Timer;
 
 (:noLowMemory)
 const L_CHECK_IN as LogComponent = "checkIn";

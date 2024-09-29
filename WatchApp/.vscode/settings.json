@@ -14,5 +14,6 @@
   },
   "prettierMonkeyC.typeCheckLevel": "Strict",
   "monkeyC.typeCheckLevel": "Strict",
-  "monkeyC.compilerOptions": "--build-stats 0"
+  "monkeyC.compilerOptions": "--build-stats 0",
+  "prettierMonkeyC.checkCompilerLookupRules": "OFF"
 }

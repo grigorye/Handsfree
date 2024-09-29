@@ -1,6 +1,6 @@
-using Toybox.Application;
-using Toybox.WatchUi;
-using Toybox.Lang;
+import Toybox.Application;
+import Toybox.WatchUi;
+import Toybox.Lang;
 
 class SettingsViewDelegate extends WatchUi.Menu2InputDelegate {
     function initialize() {

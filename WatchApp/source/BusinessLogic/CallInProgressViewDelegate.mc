@@ -1,5 +1,5 @@
-using Toybox.WatchUi;
-using Toybox.Lang;
+import Toybox.WatchUi;
+import Toybox.Lang;
 
 const L_USER_ACTION as LogComponent = "userAction";
 const L_USER_ACTION_DEBUG as LogComponent = "userAction";

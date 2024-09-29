@@ -1,6 +1,6 @@
-using Toybox.Lang;
-using Toybox.Timer;
-using Toybox.Attention;
+import Toybox.Lang;
+import Toybox.Timer;
+import Toybox.Attention;
 
 (:noLowMemory)
 const L_VIBRA as LogComponent = "vibra";

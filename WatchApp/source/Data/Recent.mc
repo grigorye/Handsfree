@@ -1,4 +1,4 @@
-using Toybox.Lang;
+import Toybox.Lang;
 
 typedef Recent as Lang.Dictionary<Lang.String, Lang.String or Lang.Number or Lang.Boolean>;
 typedef Recents as Lang.Array<Recent>;

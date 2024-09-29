@@ -1,4 +1,4 @@
-using Toybox.Lang;
+import Toybox.Lang;
 
 (:glance, :background, :watchApp)
 const targetUiType as Lang.String = "watchApp";

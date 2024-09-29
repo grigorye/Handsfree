@@ -1,6 +1,6 @@
-using Toybox.Lang;
-using Toybox.WatchUi;
-using Toybox.System;
+import Toybox.Lang;
+import Toybox.WatchUi;
+import Toybox.System;
 
 const L_CALL_STATE_UI_UPDATE as LogComponent = "callStateUI";
 

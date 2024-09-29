@@ -1,5 +1,5 @@
-using Toybox.WatchUi;
-using Toybox.Lang;
+import Toybox.WatchUi;
+import Toybox.Lang;
 
 class MainMenu extends WatchUi.Menu2 {
     function initialize() {

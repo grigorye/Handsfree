@@ -1,9 +1,9 @@
-using Toybox.Application;
-using Toybox.Background;
-using Toybox.WatchUi;
-using Toybox.System;
-using Toybox.Lang;
-using Toybox.Communications;
+import Toybox.Application;
+import Toybox.Background;
+import Toybox.WatchUi;
+import Toybox.System;
+import Toybox.Lang;
+import Toybox.Communications;
 
 (:glance, :background)
 const L_APP as LogComponent = "app";

@@ -1,5 +1,5 @@
-using Toybox.Communications;
-using Toybox.Lang;
+import Toybox.Communications;
+import Toybox.Lang;
 
 const L_INCOMING as LogComponent = "incoming";
 

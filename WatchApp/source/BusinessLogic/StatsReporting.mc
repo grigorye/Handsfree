@@ -1,4 +1,4 @@
-using Toybox.Lang;
+import Toybox.Lang;
 
 (:background, :typecheck([disableBackgroundCheck]), :noLowMemory)
 function statsDidChange() as Void {
