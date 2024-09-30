@@ -87,28 +87,67 @@ diff "$manifest" "$release_source"/manifest.xml && false # Check that sed did so
 iq_dir="$build_dir/iq"
 prg_dir="$build_dir/prg"
 
-if ! $build_for_side_loading; then
-    iq_prefix="$iq_dir/$product_name-$dist-$type"
-    iq="$iq_prefix.iq"
+### .iq
+
+default_build_iq() {
     java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
         -jar "$sdk_root"/bin/monkeybrains.jar \
         -o "$iq" \
-        -f "$jungle/type/$type.jungle;$jungle/dist/$dist.jungle;$jungle/versioning/release.jungle;$shared_jungle" \
+        -f "$jungles" \
         -y "$developer_key" \
         --package-app \
         --warn
+}
+
+optimized_build_iq() {
+    node optimize.mjs "$iq" "$jungles" "$developer_key"
+}
+
+### .prg
+
+build_iq() {
+    if true; then
+        default_build_iq
+    else
+        optimized_build_iq
+    fi
+}
+
+default_build_prg() {
+    java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
+        -jar "$sdk_root"/bin/monkeybrains.jar \
+        -o "$prg" \
+        -f "$jungles" \
+        -y "$developer_key" \
+        -d "$device" \
+        --warn
+}
+
+optimized_build_iq() {
+    node optimize.mjs "$iq" "$jungles" "$developer_key"
+}
+
+build_prg() {
+    if true; then
+        default_build_prg
+    else
+        optimized_build_prg
+    fi
+}
+###
+
+if ! $build_for_side_loading; then
+    iq_prefix="$iq_dir/$product_name-$dist-$type"
+    iq="$iq_prefix.iq"
+    jungles="$jungle/type/$type.jungle;$jungle/dist/$dist.jungle;$jungle/versioning/release.jungle;$shared_jungle"
+    build_iq
 else
     for device in "${dev_devices[@]}"; do
         prg_prefix="$prg_dir/$device/$product_name-beta-$type-$device"
         prg="$prg_prefix.prg"
         txt="$prg_prefix.TXT"
-        java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true \
-            -jar "$sdk_root"/bin/monkeybrains.jar \
-            -o "$prg" \
-            -f "$jungle/type/$type.jungle;$jungle/dist/beta.jungle;$jungle/versioning/release.jungle;$shared_jungle" \
-            -y "$developer_key" \
-            -d "$device" \
-            --warn
+        jungles="$jungle/type/$type.jungle;$jungle/dist/beta.jungle;$jungle/versioning/release.jungle;$shared_jungle"
+        build_prg
         touch "$txt"
     done
 fi
