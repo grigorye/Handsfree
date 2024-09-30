@@ -1,14 +1,16 @@
 import Toybox.Lang;
+import Toybox.Application;
 
 (:background)
 function updateMissedRecents() as Void {
     var recents = getRecents();
     var lastRecentCheckDate = getLastRecentsCheckDate();
-    var missedRecents = missedRecents(recents, lastRecentCheckDate);
-    if (missedRecents.toString().equals(getMissedRecents().toString())) {
+    var newMissedRecents = missedRecents(recents, lastRecentCheckDate);
+    var oldMissedRecents = getMissedRecents();
+    if (newMissedRecents.toString().equals(oldMissedRecents.toString())) {
         return;
     }
-    setMissedRecents(missedRecents);
+    setMissedRecents(newMissedRecents);
 }
 
 (:background)
