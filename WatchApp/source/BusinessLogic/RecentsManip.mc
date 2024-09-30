@@ -6,29 +6,28 @@ import Toybox.Time;
 (:background)
 const L_RECENTS_STORAGE as LogComponent = "recents";
 
-(:background)
+(:inline, :background)
 function setRecentsVersion(version as Version) as Void {
     if (debug) { _3(L_RECENTS_STORAGE, "saveRecentsVersion", version); }
     Storage.setValue("recentsVersion.v1", version);
 }
 
-(:background)
+(:inline, :background)
 function getRecentsVersion() as Version {
     var recentsVersion = Storage.getValue("recentsVersion.v1") as Version;
     return recentsVersion;
 }
 
-(:background)
+(:inline, :background)
 function getRecents() as Recents {
     var recents = Storage.getValue("recents.v1") as Recents or Null;
-    if (recents != null) {
-        return recents;
-    } else {
-        return [] as Recents;
+    if (recents == null) {
+        recents = [] as Recents;
     }
+    return recents;
 }
 
-(:background)
+(:inline, :background)
 function saveRecents(recents as Recents) as Void {
     if (debug) { _3(L_RECENTS_STORAGE, "saveRecents", recents); }
     Storage.setValue("recents.v1", recents as [Application.PropertyValueType]);
@@ -55,6 +54,7 @@ function updateUIForRecents(recents as Recents) as Void {
     WatchUi.requestUpdate();
 }
 
+(:inline)
 function updateRecentsView() as Void {
     var recentsView = viewWithTag("recents") as RecentsView or Null;
     if (recentsView != null) {
