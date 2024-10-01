@@ -22,7 +22,13 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
         if (minDebug) { _3(LX_REMOTE_MSG, "msg", "dataIsNotObject!"); }
         return;
     }
-    if (minDebug) { _3(LX_REMOTE_MSG, "msg", iqMsg.data); }
+    if (minDebug) { 
+        if (isActiveUiKindApp || !lowMemory) {
+            _3(LX_REMOTE_MSG, "msg", iqMsg.data);
+        } else {
+            _3(LX_REMOTE_MSG, "msg", "<redacted-for-low-memory>");
+        }
+    }
     didReceiveRemoteMessage();
     var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
     var cmd = msg["cmd"] as Lang.String;
