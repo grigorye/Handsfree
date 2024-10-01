@@ -22,16 +22,20 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
         if (minDebug) { _3(LX_REMOTE_MSG, "msg", "dataIsNotObject!"); }
         return;
     }
+    var lowMemoryDebug = minDebug && !isActiveUiKindApp && lowMemory;
     if (minDebug) { 
-        if (isActiveUiKindApp || !lowMemory) {
-            _3(LX_REMOTE_MSG, "msg", iqMsg.data);
-        } else {
+        if (lowMemoryDebug) {
             _3(LX_REMOTE_MSG, "msg", "<redacted-for-low-memory>");
+        } else {
+            _3(LX_REMOTE_MSG, "msg", iqMsg.data);
         }
     }
     didReceiveRemoteMessage();
     var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
     var cmd = msg["cmd"] as Lang.String;
+    if (lowMemoryDebug) {
+        _3(LX_REMOTE_MSG, "msg.cmd", cmd);
+    }
     var args = msg["args"] as Lang.Dictionary<Lang.String, Lang.Object>;
     switch (cmd) {
         case "syncYou":
@@ -66,6 +70,9 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
             handleOpenMeCompleted(args);            
             break;
     }
+    if (minDebug) {
+        _2(LX_REMOTE_MSG, "msg.committed");
+    }
 }
 
 (:background)
@@ -90,6 +97,9 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
     var names = subjects.keys() as Lang.Array<Lang.String>;
     var namesCount = names.size();
     var isHit = true;
+    if (minDebug) {
+        _3(LX_REMOTE_MSG, "subjectsReceived", names);
+    }
     for (var i = 0; i < namesCount; i++) {
         var name = names[i];
         var subject = subjects[name] as Lang.Dictionary<Lang.String, Lang.Object>;
@@ -126,6 +136,9 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
                 break;
             }
         }
+    }
+    if (minDebug) {
+        _3(LX_REMOTE_MSG, "invalidation", { "pending" => subjectsInvalidated, "isHit" => isHit });
     }
     trackHits(isHit);
     return subjectsInvalidated;
