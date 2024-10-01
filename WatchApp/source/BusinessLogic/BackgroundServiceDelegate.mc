@@ -10,6 +10,7 @@ const L_BACKGROUND_SERVICE as LogComponent = "backgroundService";
 class BackgroundServiceDelegate extends System.ServiceDelegate {
 
     function initialize() {
+        saveBackgroundSystemStats();
         ServiceDelegate.initialize();
     }
 
