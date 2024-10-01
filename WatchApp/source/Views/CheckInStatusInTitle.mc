@@ -1,6 +1,15 @@
 import Toybox.Lang;
 import Toybox.System;
 
+function updateStatusMenu() as Void {
+    var menu = statusMenu();
+    if (menu != null) {
+        var title = titleFromCheckInStatus(checkInStatusImp);
+        menu.setTitle(title);
+        workaroundNoRedrawForMenu2(menu);
+    }
+}
+
 (:noLowMemory)
 function titleFromCheckInStatus(checkInStatus as CheckInStatus) as Lang.String {
     var title;

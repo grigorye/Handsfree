@@ -7,16 +7,14 @@ const L_PHONES_VIEW as LogComponent = "phonesView";
 class PhonesView extends WatchUi.Menu2 {
 
     const predefinedItems as Lang.Array<WatchUi.MenuItem> = [
-        recentsMenuItem("• "),
-        settingsMenuItem("• ")
+        newRecentsMenuItem(),
+        newSettingsMenuItem()
     ];
 
     const predefinedItemsCount as Lang.Number = predefinedItems.size();
 
     function initialize(phones as Phones) {
-        Menu2.initialize({
-            :title => "Favorites"
-        });
+        Menu2.initialize({});
         setFromPhones(phones);
     }
 

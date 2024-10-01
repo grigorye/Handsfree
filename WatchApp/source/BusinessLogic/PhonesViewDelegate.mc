@@ -29,10 +29,9 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onBack() {
-        if (AppSettings.landingScreen() == :favorites) {
-            popView(SLIDE_IMMEDIATE);
-            exitToSystemFromMainMenu();
+        popView(SLIDE_IMMEDIATE);
+        if (topViewIs("commView")) {
+            exitToSystemFromCommView();
         }
-        popView(SLIDE_RIGHT);
     }
 }

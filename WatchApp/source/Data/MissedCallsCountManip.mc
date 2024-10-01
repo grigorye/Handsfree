@@ -19,9 +19,7 @@ function setMissedRecents(missedRecents as Recents) as Void {
 (:inline, :background, :typecheck([disableBackgroundCheck]))
 function updateUIForMissedRecentsIfInApp() as Void {
     if (isActiveUiKindApp) {
-        var mainMenu = viewWithTag("mainMenu") as MainMenu or Null;
-        if (mainMenu != null) {
-            mainMenu.update();
-        }
+        updateRecentsMenuItem();
+        updateRecentsView();
     }
 }

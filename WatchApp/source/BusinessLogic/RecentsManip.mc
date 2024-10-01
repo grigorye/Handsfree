@@ -49,7 +49,7 @@ function updateUIForRecentsIfInApp(recents as Recents) as Void {
 }
 
 function updateUIForRecents(recents as Recents) as Void {
-    updateMainMenu();
+    updateRecentsMenuItem();
     updateRecentsView();
     WatchUi.requestUpdate();
 }
@@ -62,15 +62,8 @@ function updateRecentsView() as Void {
     }
 }
 
-function updateMainMenu() as Void {
-    var mainMenu = viewWithTag("mainMenu") as MainMenu or Null;
-    if (mainMenu != null) {
-        mainMenu.update();
-    }
-}
-
 function recentsDidOpen() as Void {
     setLastRecentsCheckDate(Time.now().value());
     updateMissedRecents();
-    updateMainMenu();
+    updateRecentsMenuItem();
 }

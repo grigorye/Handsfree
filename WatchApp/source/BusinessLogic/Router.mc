@@ -135,19 +135,9 @@ class Router {
 
 function exitToSystemFromCurrentView() as Void {
     if (debug) { _3(L_ROUTER, "exitingToSystemFromCurrentView", viewStackTags()); }
-    while (!topViewIs("mainMenu")) {
+    while (!topViewIs("commView")) {
         popView(WatchUi.SLIDE_IMMEDIATE);
     }
-    exitToSystemFromMainMenu();
-}
-
-function exitToSystemFromMainMenu() as Void {
-    if (debug) { _2(L_ROUTER, "exitingToSystemFromMainMenu"); }
-    if (!topViewIs("mainMenu")) {
-        dumpViewStack("messedUpViewStack");
-        System.error("viewStackIsMessedUp");
-    }
-    popView(WatchUi.SLIDE_IMMEDIATE);
     exitToSystemFromCommView();
 }
 

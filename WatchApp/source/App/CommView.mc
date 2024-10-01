@@ -20,15 +20,8 @@ class CommView extends WatchUi.View {
     function firstOnShow() as Void {
         if (debug) { _2(L_COMM_VIEW, "firstOnShow"); }
         appWillRouteToMainUI();
-        pushView("mainMenu", newMainMenu(), new MainMenuDelegate(), SLIDE_IMMEDIATE);
-        openLandingScreenFromMainMenu();
+        openFavoritesView();
         getRouter().updateRoute();
         appDidRouteToMainUI();
     }
-}
-
-function newMainMenu() as MainMenu {
-    var mainMenu = new MainMenu();
-    mainMenu.update();
-    return mainMenu;
 }

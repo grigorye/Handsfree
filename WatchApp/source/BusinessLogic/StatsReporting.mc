@@ -5,10 +5,7 @@ function statsDidChange() as Void {
     if (!isActiveUiKindApp) {
         return;
     }
-    var mainMenu = viewWithTag("mainMenu") as MainMenu or Null;
-    if (mainMenu != null) {
-        mainMenu.update();
-    }
+    updateStatusMenu();
 }
 
 (:glance, :noLowMemory)
