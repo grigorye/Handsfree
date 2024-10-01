@@ -1,0 +1,2 @@
+function requestSync() as Void {
+}

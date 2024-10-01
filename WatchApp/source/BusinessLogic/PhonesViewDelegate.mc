@@ -16,9 +16,11 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
             openSettingsView();
             return;
         }
-        if (id.equals(noPhonesMenuItemId)) {
-            requestSync();
-            return;
+        if (!lowMemory) {
+            if (id.equals(noPhonesMenuItemId)) {
+                requestSync();
+                return;
+            }
         }
         var phone = id as Phone;
         setFocusedPhonesViewItemId(getPhoneId(phone));

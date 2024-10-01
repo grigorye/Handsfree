@@ -2,6 +2,7 @@ import Toybox.Application;
 import Toybox.Lang;
 import Toybox.Communications;
 
+(:noLowMemory)
 function requestSync() as Void {
     var msg = {
         "cmd" => "syncMe"
@@ -9,6 +10,7 @@ function requestSync() as Void {
     transmitWithRetry("syncMe", msg, new Communications.ConnectionListener());
 }
 
+(:noLowMemory)
 function requestAllSubjects() as Void {
     var msg = {
         "cmd" => "query",

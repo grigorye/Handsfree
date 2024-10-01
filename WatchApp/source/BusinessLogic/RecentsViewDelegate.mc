@@ -8,9 +8,11 @@ class RecentsViewDelegate extends WatchUi.Menu2InputDelegate {
 
     function onSelect(item as WatchUi.MenuItem) as Void {
         var id = item.getId() as Lang.Number or Recent;
-        if (id.equals(noRecentsMenuItemId)) {
-            requestSync();
-            return;
+        if (!lowMemory) {
+            if (id.equals(noRecentsMenuItemId)) {
+                requestSync();
+                return;
+            }
         }
         var selectedRecent = id as Recent;
         scheduleCall(selectedRecent);

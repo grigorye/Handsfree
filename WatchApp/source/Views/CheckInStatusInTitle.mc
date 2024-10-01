@@ -1,6 +1,7 @@
 import Toybox.Lang;
 import Toybox.System;
 
+(:noLowMemory)
 function updateStatusMenu() as Void {
     var menu = statusMenu();
     if (menu != null) {
