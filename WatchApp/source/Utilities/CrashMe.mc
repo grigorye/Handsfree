@@ -4,8 +4,12 @@ import Toybox.Lang;
 
 function crashMe() as Void {
     var deviceSettings = System.getDeviceSettings();
+    var stats = System.getSystemStats();
     var infos = [
         ["crashMe", null],
+        ["freeMemory", stats.freeMemory],
+        ["totalMemory", stats.totalMemory],
+        ["usedMemory", stats.usedMemory],
         ["fontScale", deviceSettings has :fontScale ? deviceSettings.fontScale : null],
         ["isEnhancedReadabilityModeEnabled", deviceSettings has :isEnhancedReadabilityModeEnabled ? deviceSettings.isEnhancedReadabilityModeEnabled : null],
         ["isGlanceModeEnabled", System.DeviceSettings has :isGlanceModeEnabled ? deviceSettings.isGlanceModeEnabled : null],
