@@ -103,8 +103,8 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
                     } else {
                         setPhones(phones);
                         setPhonesVersion(version);
-                        isHit = false;
                     }
+                    isHit = false;
                 } else {
                     if (debug) { _3(LX_REMOTE_MSG, "phonesHit", version); }
                 }
@@ -118,8 +118,8 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
                     } else {
                         setRecents(recents);
                         setRecentsVersion(version);
-                        isHit = false;
                     }
+                    isHit = false;
                 } else {
                     if (debug) { _3(LX_REMOTE_MSG, "recentsHit", version); }
                 }
