@@ -28,12 +28,12 @@ class App extends Application.AppBase {
     (:typecheck(disableGlanceCheck))
     function getServiceDelegate() as [System.ServiceDelegate] {
         trackFirstLaunch();
-        if (debug) { _2(L_APP_EXTRA, "getServiceDelegate"); }
+        if (minDebug) { _2(L_APP_EXTRA, "getServiceDelegate"); }
         return [new BackgroundServiceDelegate()];
     }
 
     function onBackgroundData(data as Application.PersistableType) as Void {
-        if (debug) { _3(LX_APP_LIFE_CYCLE, "onBackgroundData", { "data" => data }); }
+        if (minDebug) { _3(LX_APP_LIFE_CYCLE, "onBackgroundData", { "data" => data }); }
         updateUIFromBackgroundData();
         AppBase.onBackgroundData(data);
     }

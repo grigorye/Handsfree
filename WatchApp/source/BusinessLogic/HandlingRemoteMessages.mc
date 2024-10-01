@@ -10,7 +10,7 @@ const LX_REMOTE_MSG as LogComponent = "<";
 function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
     trackRawRemoteMessageReceived();
     if (iqMsg == null) {
-        if (debug) { _3(LX_REMOTE_MSG, "msg", "isNull!"); }
+        if (minDebug) { _3(LX_REMOTE_MSG, "msg", "isNull!"); }
         return;
     }
     if (!(iqMsg instanceof Communications.Message)) {
@@ -19,12 +19,10 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
         return;
     }
     if (!(iqMsg.data instanceof Lang.Object)) {
-        if (debug) { _3(LX_REMOTE_MSG, "msg", "dataIsNotObject!"); }
+        if (minDebug) { _3(LX_REMOTE_MSG, "msg", "dataIsNotObject!"); }
         return;
     }
-    if (!lowMemory) {
-        if (debug) { _3(LX_REMOTE_MSG, "msg", iqMsg.data); }
-    }
+    if (minDebug) { _3(LX_REMOTE_MSG, "msg", iqMsg.data); }
     didReceiveRemoteMessage();
     var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
     var cmd = msg["cmd"] as Lang.String;

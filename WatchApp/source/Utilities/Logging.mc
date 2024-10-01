@@ -6,6 +6,9 @@ import Toybox.Time.Gregorian;
 (:background, :glance, :noLowMemory)
 const debug = true;
 
+(:background, :glance)
+const minDebug = true;
+
 (:glance, :background)
 const noArg as Lang.Symbol = :noArg;
 

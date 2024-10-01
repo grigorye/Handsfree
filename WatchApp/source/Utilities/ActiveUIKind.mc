@@ -17,7 +17,7 @@ var activeUiKind as ActiveUiKind = ACTIVE_UI_NONE;
 
 (:glance)
 function setActiveUiKind(kind as ActiveUiKind) as Void {
-    if (debug) { _3(LX_UI_KIND, "activeUiKind", kind); }
+    if (minDebug) { _3(LX_UI_KIND, "activeUiKind", kind); }
     if (!activeUiKind.equals(ACTIVE_UI_NONE)) {
         System.error("Already active UI kind: " + activeUiKind);
     }

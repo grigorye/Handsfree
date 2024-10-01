@@ -6,7 +6,7 @@ const debug = false;
 
 (:background)
 function logComponentsForcedInApp() as Lang.Array<Lang.String> {
-    return [];
+    return [">", "<", "app", "openMe"];
 }
 
 (:background, :glance)

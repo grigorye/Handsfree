@@ -37,7 +37,7 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
     }
 
     function launch() as Void {
-        if (debug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
+        if (minDebug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
         transmit();
     }
 
@@ -57,7 +57,7 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
         } else {
             attemptsSuffix = "";
         }
-        if (debug) { _2(LX_OUT_COMM, tag + ".succeeded" + attemptsSuffix); }
+        if (minDebug) { _2(LX_OUT_COMM, tag + ".succeeded" + attemptsSuffix); }
         wrappedListener.onComplete();
     }
 
@@ -77,7 +77,7 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
             (retransmitTimer as Timer.Timer).start(method(:transmit), retransmitDelay, false);
             return;
         }
-        if (debug) { _2(LX_OUT_COMM, tag + ".failed"); }
+        if (minDebug) { _2(LX_OUT_COMM, tag + ".failed"); }
         wrappedListener.onError();
     }
 }

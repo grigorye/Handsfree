@@ -18,6 +18,6 @@ function didFirstLaunch() as Void {
         "cmd" => "didFirstLaunch"
     } as Lang.Object as Application.PersistableType;
     var tag = formatCommTag("didFirstLaunch");
-    if (debug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
+    if (minDebug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
     Communications.transmit(msg, null, new DummyCommListener(tag));
 }
