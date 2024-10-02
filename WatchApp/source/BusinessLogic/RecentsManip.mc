@@ -18,8 +18,21 @@ function getRecentsVersion() as Version {
     return recentsVersion;
 }
 
-(:inline, :background)
+(:background)
+var recentsImp as Recents | Null = null;
+
+(:background)
 function getRecents() as Recents {
+    if (recentsImp != null) {
+        return recentsImp;
+    }
+    var recents = loadRecents();
+    recentsImp = recents;
+    return recents;
+}
+
+(:inline, :background)
+function loadRecents() as Recents {
     var recents = Storage.getValue("recents.v1") as Recents or Null;
     if (recents == null) {
         recents = [] as Recents;
@@ -36,6 +49,7 @@ function saveRecents(recents as Recents) as Void {
 (:background)
 function setRecents(recents as Recents) as Void {
     saveRecents(recents);
+    recentsImp = recents;
     updateUIForRecentsIfInApp(recents);
     updateMissedRecents();
 }
