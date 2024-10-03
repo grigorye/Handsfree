@@ -108,7 +108,7 @@ class DefaultServiceLocator(
     }
 
     private fun query(args: QueryArgs, metadataOnly: Boolean = false): QueryResult {
-        var queryResult = QueryResult()
+        val queryResult = QueryResult()
         for (subject in args.subjects) {
             assert(allSubjectNames.contains(subject.name)) { "Unknown subject: ${subject.name}" }
             when (subject.name) {
