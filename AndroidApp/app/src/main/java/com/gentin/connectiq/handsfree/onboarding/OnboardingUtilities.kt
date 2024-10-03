@@ -2,6 +2,7 @@ package com.gentin.connectiq.handsfree.onboarding
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
@@ -25,6 +26,7 @@ import com.gentin.connectiq.handsfree.permissions.newManifestPermissionHandler
 import com.gentin.connectiq.handsfree.permissions.openAppSettings
 import com.gentin.connectiq.handsfree.permissions.openGarminConnectSettings
 import com.gentin.connectiq.handsfree.permissions.overlayPermissionHandler
+import com.gentin.connectiq.handsfree.services.GarminPhoneCallConnectorService
 import com.google.android.material.snackbar.Snackbar
 import dev.doubledot.doki.ui.DokiActivity
 
@@ -93,6 +95,10 @@ fun resolveLink(link: String, fragment: Fragment, navigationLabel: String? = nul
                     openAppSettings(context)
                 }
 
+                "restart-service" -> {
+                    restartGarminPhoneCallConnectorService(context)
+                }
+
                 "garmin-connect-settings" -> {
                     openGarminConnectSettings(context)
                 }
@@ -129,6 +135,11 @@ fun resolveLink(link: String, fragment: Fragment, navigationLabel: String? = nul
             Log.e(tag, "unknownScheme: ${uri.scheme}")
         }
     }
+}
+
+private fun restartGarminPhoneCallConnectorService(context: Context) {
+    context.stopService(Intent(context, GarminPhoneCallConnectorService::class.java))
+    context.startService(Intent(context, GarminPhoneCallConnectorService::class.java))
 }
 
 fun requestPermissionsWithRationale(
