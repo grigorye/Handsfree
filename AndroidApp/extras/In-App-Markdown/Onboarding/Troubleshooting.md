@@ -24,5 +24,7 @@ There're several components that should work together for normal operation of Ha
 
 **[Toggle debug mode](do://toggle-debug-mode)** - only if asked, or you want to see the internal stats instead of the usual notification content.
 
+**[Restart the service](do://restart-service)** - as an alternative to force stopping the app.
+
 **[Open app on the watch](do://open-watch-app)** - just to check that it's there.
 
