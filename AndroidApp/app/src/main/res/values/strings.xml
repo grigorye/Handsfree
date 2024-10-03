@@ -226,6 +226,8 @@ There're several components that should work together for normal operation of Ha
 
 **[Toggle debug mode](do://toggle-debug-mode)** - only if asked, or you want to see the internal stats instead of the usual notification content.
 
+**[Restart the service](do://restart-service)** - as an alternative to force stopping the app.
+
 **[Open app on the watch](do://open-watch-app)** - just to check that it's there.
 
 "</string>
@@ -240,4 +242,17 @@ There're several components that should work together for normal operation of Ha
     <string name="device_label_not_connected">"Not Connected"</string>
     <string name="no_devices_preference_title">"No devices are registered."</string>
     <string name="no_devices_preference_summary"></string>
+    <string name="onboarding_incoming_calls">"# Alert on incoming calls
+
+By default, Handsfree (passively) shows incoming calls on your Garmin devices, ignoring any alerting and favoring the Garmin standard handling of incoming calls.
+
+You can opt-in into Handsfree's own handling of incoming calls, employing vibration and (automatic) prompting you to accept or decline the call on the watch. If you go this route, it's probably worth disabling the standard alerts on incoming calls.
+
+Beware that vibration is employed only on when the watch is idle - if you get an incoming call during an activity or while interacting with the watch, the watch will ask you to confirm opening Handsfree to handle the call, without vibration.
+
+Also note that (due to what looks like a firmware limitation) the automatic prompt is available only on the specific models of the watches, namely Fenix 7 like devices, while on the most of the old/low-power watches/bike computers incoming calls trigger the confirmation to open Handsfree, without vibration.
+"</string>
+    <string name="settings_incoming_calls">"Incoming calls"</string>
+    <string name="settings_incoming_calls_off">"Show incoming call on glance"</string>
+    <string name="settings_incoming_calls_on">"Effective only if call control is enabled."</string>
 </resources>
