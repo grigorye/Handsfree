@@ -7,5 +7,5 @@ fun recentsFromCallLog(callLog: List<CallLogEntry>): List<CallLogEntry> {
         } else {
             acc + callLogEntry
         }
-    }
+    }.take(10)
 }
