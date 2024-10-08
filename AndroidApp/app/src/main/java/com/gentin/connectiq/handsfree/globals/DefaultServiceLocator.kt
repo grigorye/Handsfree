@@ -117,7 +117,11 @@ class DefaultServiceLocator(
             when (subject.name) {
                 "phones" -> {
                     queryResult.phones =
-                        strippedVersionedPojo(subject.version, phonesPojo(availableContacts()), metadataOnly)
+                        strippedVersionedPojo(
+                            subject.version,
+                            phonesPojo(availableContacts()),
+                            metadataOnly
+                        )
                 }
 
                 "recents" -> {
