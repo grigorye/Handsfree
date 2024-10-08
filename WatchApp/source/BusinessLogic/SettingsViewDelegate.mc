@@ -15,7 +15,7 @@ class SettingsViewDelegate extends WatchUi.Menu2InputDelegate {
                 break;
             }
             case :more: {
-                Application.getApp().openAppSettingsEditor();
+                openAppInConnectIQ();
                 break;
             }
         }
