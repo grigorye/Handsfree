@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.os.Looper
 import android.util.Log
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -23,6 +21,7 @@ import com.gentin.connectiq.handsfree.globals.simApp
 import com.gentin.connectiq.handsfree.globals.watchApps
 import com.gentin.connectiq.handsfree.helpers.breakIntoDebugger
 import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -441,7 +440,11 @@ class DefaultGarminConnector(
                     val appLogName = appLogName(app)
                     Log.d(
                         TAG,
-                        "device.${device.deviceIdentifier}(${device.friendlyName})($appLogName) <- msg.$id(${gson.toJson(message)})"
+                        "device.${device.deviceIdentifier}(${device.friendlyName})($appLogName) <- msg.$id(${
+                            gson.toJson(
+                                message
+                            )
+                        })"
                     )
                     connectIQ.sendMessage(device, app, message) { _, _, status ->
                         acknowledgedMessagesCounter += 1
