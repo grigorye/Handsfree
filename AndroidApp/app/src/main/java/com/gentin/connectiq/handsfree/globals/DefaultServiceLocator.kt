@@ -103,6 +103,9 @@ class DefaultServiceLocator(
                 val result = query(args)
                 val destination = OutgoingMessageDestination(source.device, source.app)
                 outgoingMessageDispatcher.sendQueryResult(destination, result)
+            },
+            openAppInStoreImp = { source ->
+                garminConnector.openWatchAppInStore(source.app)
             }
         )
     }
