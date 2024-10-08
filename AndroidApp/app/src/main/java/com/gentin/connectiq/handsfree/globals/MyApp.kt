@@ -9,6 +9,15 @@ private val betaApp = IQApp("a3d8da80-e013-41f9-aca4-f66bb38fad3f", "Handsfree-B
 private val prodWidget = IQApp("4241a52e-81db-4356-ac43-c8dfeb7d0be0", "Handsfree", 0)
 private val betaWidget = IQApp("cdc225d9-bc88-4d9e-a8a6-ce7dffdd0714", "Handsfree-B", 0)
 
+fun storeID(app: IQApp): String? {
+    return when (app) {
+        prodApp -> "73107243-f322-4cf2-bb3d-78f2a4ee8920"
+        betaApp -> "debb75b5-1c5e-4bd3-bff3-3a2a8b3e7fbf"
+        betaWidget -> "a9a847b7-d15f-493d-8242-efadbdd9cdf2"
+        else -> null
+    }
+}
+
 fun defaultApp(): IQApp {
     return if (isRunningInEmulator()) {
         simApp

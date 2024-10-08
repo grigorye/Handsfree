@@ -18,6 +18,7 @@ import com.garmin.android.connectiq.exception.ServiceUnavailableException
 import com.gentin.connectiq.handsfree.globals.appLogName
 import com.gentin.connectiq.handsfree.globals.defaultApp
 import com.gentin.connectiq.handsfree.globals.simApp
+import com.gentin.connectiq.handsfree.globals.storeID
 import com.gentin.connectiq.handsfree.globals.watchApps
 import com.gentin.connectiq.handsfree.helpers.breakIntoDebugger
 import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
@@ -96,7 +97,8 @@ class DefaultGarminConnector(
     override fun openWatchAppInStore(app: IQApp) {
         Log.d(TAG, "Opening ${app.displayName}")
         try {
-            connectIQ.openStore(app.applicationId)
+            val succeeded = connectIQ.openStore(storeID(app))
+            Log.d(TAG, "openStoreSucceeded: $succeeded")
         } catch (e: RuntimeException) {
             Log.e(TAG, "openStoreFailed: $e")
         }
