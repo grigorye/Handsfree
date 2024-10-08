@@ -28,3 +28,5 @@ There're several components that should work together for normal operation of Ha
 
 **[Open app on the watch](do://open-watch-app)** - just to check that it's there.
 
+**[Open app in Connect IQ](do://open-app-in-store)** - e.g. to check the latest version (it does not work reliably, though)
+
