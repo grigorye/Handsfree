@@ -33,6 +33,11 @@ class CallInProgressViewDelegate extends WatchUi.Menu2InputDelegate {
                 rejectIncomingCall(phone);
                 break;
             }
+            case CALL_IN_PROGRESS_ACTION_SPEAKER: {
+                if (debug) { _2(L_USER_ACTION_DEBUG, "speaker"); }
+                toggleSpeaker();
+                break;
+            }
         }
     }
 
