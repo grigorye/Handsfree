@@ -411,7 +411,7 @@ class DefaultGarminConnector(
         while (pendingMessages!!.isNotEmpty()) {
             val message = pendingMessages!![0]
             sendMessageSync(message)
-            pendingMessages!!.removeFirst()
+            pendingMessages!!.removeAt(0)
         }
         pendingMessages = null
     }
