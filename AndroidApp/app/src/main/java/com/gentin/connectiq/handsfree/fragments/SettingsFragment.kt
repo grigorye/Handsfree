@@ -10,6 +10,8 @@ import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
 import com.gentin.connectiq.handsfree.impl.DeviceInfo
 import com.gentin.connectiq.handsfree.impl.formattedDeviceInfos
+import com.gentin.connectiq.handsfree.impl.messageForDeviceInfos
+import com.gentin.connectiq.handsfree.impl.refreshMessage
 import com.gentin.connectiq.handsfree.onboarding.resolveLink
 import com.gentin.connectiq.handsfree.permissions.isPermissionRequested
 
@@ -62,7 +64,9 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
             Log.d(TAG, "knownDeviceInfosDidChange: $it")
             devicesPreference?.apply {
                 if (it.count() > 1) {
-                    title = formattedDeviceInfos(it)
+                    val message = messageForDeviceInfos(it)
+                    val suffix = if (message != "") { "\n\n" + message } else { "" }
+                    title = formattedDeviceInfos(it) + "\n\n" + refreshMessage + suffix
                     summary = null
                 } else {
                     val deviceInfo = it?.lastOrNull()

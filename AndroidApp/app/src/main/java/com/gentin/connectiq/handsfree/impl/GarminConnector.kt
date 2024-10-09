@@ -49,8 +49,12 @@ interface GarminConnector {
 
 data class DeviceInfo(
     val name: String,
-    val connected: Boolean
-)
+    val connected: Boolean,
+    var installedAppsCount: Int
+) {
+    val displayName: String
+        get() = name.replace(" ", " ")
+}
 
 class DefaultGarminConnector(
     base: Context?,
@@ -232,6 +236,14 @@ class DefaultGarminConnector(
                                     TAG,
                                     "appStatus(${device.friendlyName}, ${appLogName(app)}): INSTALLED (${p0.version()})"
                                 )
+                                val deviceInfo = knownDevicesAcc[device.deviceIdentifier]
+                                if (deviceInfo == null) {
+                                    assert(false)
+                                } else {
+                                    deviceInfo.installedAppsCount += 1
+                                    knownDevicesAcc[device.deviceIdentifier] = deviceInfo
+                                    knownDevices.postValue(knownDevicesAcc)
+                                }
                                 appDataMayBeInvalidated(device, app)
                             }
 
@@ -354,7 +366,11 @@ class DefaultGarminConnector(
             device.status = connectIQ.getDeviceStatus(device)
             connectIQ.registerForDeviceEvents(device) { _, status ->
                 knownDevicesAcc[device.deviceIdentifier] =
-                    DeviceInfo(device.friendlyName, status == IQDevice.IQDeviceStatus.CONNECTED)
+                    DeviceInfo(
+                        device.friendlyName,
+                        connected = status == IQDevice.IQDeviceStatus.CONNECTED,
+                        installedAppsCount = 0
+                    )
                 Log.d(TAG, "postingNewKnownDevices: $knownDevicesAcc")
                 knownDevices.postValue(knownDevicesAcc)
                 Log.d(
