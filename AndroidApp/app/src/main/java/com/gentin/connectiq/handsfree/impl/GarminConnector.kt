@@ -230,8 +230,12 @@ class DefaultGarminConnector(
                 device,
                 object : IQApplicationInfoListener {
                     override fun onApplicationInfoReceived(p0: IQApp?) {
+                        if (p0 == null) {
+                            assert(false)
+                            return
+                        }
                         when {
-                            p0?.status == IQApp.IQAppStatus.INSTALLED -> {
+                            p0.status == IQApp.IQAppStatus.INSTALLED -> {
                                 Log.d(
                                     TAG,
                                     "appStatus(${device.friendlyName}, ${appLogName(app)}): INSTALLED (${p0.version()})"
@@ -247,7 +251,7 @@ class DefaultGarminConnector(
                                 appDataMayBeInvalidated(device, app)
                             }
 
-                            p0?.status == IQApp.IQAppStatus.UNKNOWN && p0?.applicationId == simApp.applicationId -> {
+                            p0.status == IQApp.IQAppStatus.UNKNOWN && p0.applicationId == simApp.applicationId -> {
                                 Log.d(
                                     TAG,
                                     "appStatus(${device.friendlyName}, ${appLogName(app)}): INSTALLED (${p0.version()})"
@@ -258,7 +262,7 @@ class DefaultGarminConnector(
                             else -> {
                                 Log.d(
                                     TAG,
-                                    "appInfoReceived(${device.friendlyName}): ${appLogName(app)}, ${p0?.status}"
+                                    "appInfoReceived(${device.friendlyName}): ${appLogName(app)}, ${p0.status}"
                                 )
                             }
                         }
