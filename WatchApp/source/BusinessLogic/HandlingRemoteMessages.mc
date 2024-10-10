@@ -152,6 +152,10 @@ function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Objec
     if (inIsHeadsetConnected != null) {
         setIsHeadsetConnected(inIsHeadsetConnected);
     }
+    var relVolume = args["audioVolume"] as RelVolume or Null;
+    if (relVolume != null) {
+        setLastSelectedAudioVolume(relVolume);
+    }
     var phoneState = args["state"] as Lang.String;
     if (debug) { _3(L_PHONE_STATE_CHANGED, "inPhoneState", phoneState); }
     if (!phoneState.equals("ringing")) {

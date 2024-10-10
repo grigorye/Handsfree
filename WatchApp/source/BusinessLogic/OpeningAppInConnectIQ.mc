@@ -19,3 +19,30 @@ function toggleSpeaker() as Void {
     if (debug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
     Communications.transmit(msg, null, new DummyCommListener(tag));
 }
+
+function mute(on as Lang.Boolean) as Void {
+    var msg = {
+        "cmd" => "mute",
+        "args" => {
+            "on" => on
+        }
+    } as Lang.Object as Application.PersistableType;
+    var tag = formatCommTag("mute");
+    if (debug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
+    Communications.transmit(msg, null, new DummyCommListener(tag));
+}
+
+typedef RelVolume as Lang.Float;
+
+function setAudioVolume(relVolume as RelVolume) as Void {
+    var msg = {
+        "cmd" => "setAudioVolume",
+        "args" => {
+            "relVolume" => relVolume
+        }
+    } as Lang.Object as Application.PersistableType;
+    setLastSelectedAudioVolume(relVolume);
+    var tag = formatCommTag("setAudioVolume");
+    if (debug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
+    Communications.transmit(msg, null, new DummyCommListener(tag));
+}

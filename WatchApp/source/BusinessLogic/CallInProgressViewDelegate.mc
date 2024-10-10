@@ -36,6 +36,14 @@ class CallInProgressViewDelegate extends WatchUi.Menu2InputDelegate {
                 toggleSpeaker();
                 break;
             }
+            case CALL_IN_PROGRESS_ACTION_MUTE: {
+                mute(true);
+                break;
+            }
+            case CALL_IN_PROGRESS_ACTION_AUDIO_VOLUME: {
+                selectAudioVolume();
+                break;
+            }
         }
     }
 

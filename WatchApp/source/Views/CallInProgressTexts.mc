@@ -4,7 +4,9 @@ enum CallInProgressAction {
     CALL_IN_PROGRESS_ACTION_HANGUP = "hangup",
     CALL_IN_PROGRESS_ACTION_ACCEPT = "accept",
     CALL_IN_PROGRESS_ACTION_REJECT = "reject",
-    CALL_IN_PROGRESS_ACTION_SPEAKER = "speaker"
+    CALL_IN_PROGRESS_ACTION_SPEAKER = "speaker",
+    CALL_IN_PROGRESS_ACTION_MUTE = "mute",
+    CALL_IN_PROGRESS_ACTION_AUDIO_VOLUME = "audioVolume",
 }
 
 typedef CallInProgressActionSelector as Lang.Dictionary<Lang.Symbol, Lang.String or CallInProgressAction>;
@@ -28,6 +30,14 @@ function textsForCallInProgress(phone as Phone) as CallInProgressTexts {
         actions.add({
             :prompt => "Hang Up",
             :command => CALL_IN_PROGRESS_ACTION_HANGUP
+        } as CallInProgressActionSelector);
+        actions.add({
+            :prompt => "Volume",
+            :command => CALL_IN_PROGRESS_ACTION_AUDIO_VOLUME
+        } as CallInProgressActionSelector);
+        actions.add({
+            :prompt => "Mute",
+            :command => CALL_IN_PROGRESS_ACTION_MUTE
         } as CallInProgressActionSelector);
         actions.add({
             :prompt => "Speaker",
