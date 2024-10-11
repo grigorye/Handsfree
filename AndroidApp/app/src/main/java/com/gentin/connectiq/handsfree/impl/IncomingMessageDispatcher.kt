@@ -12,7 +12,10 @@ class IncomingMessageDispatcher(
     private val syncPhonesImp: (destination: IncomingMessageSource) -> Unit,
     private val didFirstLaunchImp: (destination: IncomingMessageSource) -> Unit,
     private val openAppImp: (source: IncomingMessageSource, args: OpenMeArgs) -> Unit,
-    private val openAppInStoreImp: (source: IncomingMessageSource) -> Unit
+    private val openAppInStoreImp: (source: IncomingMessageSource) -> Unit,
+    private val toggleSpeakerImp: () -> Unit,
+    private val setAudioVolumeImp: (RelVolume) -> Unit,
+    private val muteImp: (Boolean) -> Unit
 ) {
     fun handleMessage(message: Any, source: IncomingMessageSource) {
         val pojo = message as Map<*, *>
@@ -62,6 +65,22 @@ class IncomingMessageDispatcher(
 
             "didFirstLaunch" -> {
                 didFirstLaunchImp(source)
+            }
+
+            "toggleSpeaker" -> {
+                toggleSpeakerImp()
+            }
+
+            "setAudioVolume" -> {
+                val request = json.decodeFromString<SetAudioVolumeRequest>(string)
+                Log.d(TAG, "setAudioVolumeRequest: $request")
+                setAudioVolumeImp(request.args.relVolume)
+            }
+
+            "mute" -> {
+                val request = json.decodeFromString<MuteRequest>(string)
+                Log.d(TAG, "muteRequest: $request")
+                muteImp(request.args.on)
             }
 
             else -> {

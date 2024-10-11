@@ -17,6 +17,8 @@ import com.gentin.connectiq.handsfree.contacts.ContactsRepositoryImpl
 import com.gentin.connectiq.handsfree.contacts.contactsGroupId
 import com.gentin.connectiq.handsfree.contacts.forEachContactInGroup
 import com.gentin.connectiq.handsfree.contacts.forEachContactWithPhoneNumberInFavorites
+import com.gentin.connectiq.handsfree.impl.AudioControl
+import com.gentin.connectiq.handsfree.impl.AudioControlImp
 import com.gentin.connectiq.handsfree.impl.DefaultGarminConnector
 import com.gentin.connectiq.handsfree.impl.DefaultOutgoingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.DefaultPhoneCallService
@@ -106,6 +108,15 @@ class DefaultServiceLocator(
             },
             openAppInStoreImp = { source ->
                 garminConnector.openWatchAppInStore(source.app)
+            },
+            toggleSpeakerImp = {
+                audioControl.toggleSpeaker(true)
+            },
+            setAudioVolumeImp = { relVolume ->
+                audioControl.setAudioVolume(relVolume)
+            },
+            muteImp = { on ->
+                audioControl.mute(on)
             }
         )
     }
@@ -169,6 +180,10 @@ class DefaultServiceLocator(
         DefaultOutgoingMessageDispatcher(this, remoteMessageService)
     }
 
+    val audioControl: AudioControl by lazy {
+        AudioControlImp(this)
+    }
+
     val garminConnector: GarminConnector by lazy {
         DefaultGarminConnector(
             this,
@@ -203,4 +218,3 @@ class DefaultServiceLocator(
             }
     }
 }
-

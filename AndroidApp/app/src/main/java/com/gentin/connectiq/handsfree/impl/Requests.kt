@@ -23,6 +23,28 @@ data class OpenMeRequest(
 )
 
 @Serializable
+data class SetAudioVolumeRequest(
+    val args: SetAudioVolumeRequestArgs
+)
+
+@Serializable
+data class MuteRequest(
+    val args: MuteRequestArgs
+)
+
+@Serializable
+data class MuteRequestArgs(
+    val on: Boolean
+)
+
+typealias RelVolume = Double
+
+@Serializable
+data class SetAudioVolumeRequestArgs(
+    val relVolume: RelVolume
+)
+
+@Serializable
 data class OpenMeArgs(
     val messageForWakingUp: String?
 )

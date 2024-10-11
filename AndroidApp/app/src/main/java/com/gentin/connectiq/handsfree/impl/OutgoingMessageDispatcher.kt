@@ -204,10 +204,12 @@ class DefaultOutgoingMessageDispatcher(
                 )
             }
         }
-        val headsetArgs = mapOf(
-            "isHeadsetConnected" to phoneState.isHeadsetConnected
+        val audioArgs = mapOf(
+            "isHeadsetConnected" to phoneState.isHeadsetConnected,
+            "isMuted" to phoneState.isMuted,
+            "audioVolume" to phoneState.audioRelVolume
         )
-        return stateArgs + headsetArgs
+        return stateArgs + audioArgs
     }
 
     private fun send(msg: OutgoingMessage) {

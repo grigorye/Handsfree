@@ -60,7 +60,9 @@ fun fallbackPhoneState(context: Context): PhoneState {
         TelephonyManager.EXTRA_STATE_IDLE,
         isHeadsetConnected(
             audioManager(context)
-        )
+        ),
+        false,
+        0.0
     )
 }
 
@@ -274,7 +276,9 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             sentIncomingNumber,
             sentIncomingDisplayNames,
             stateExtra,
-            isHeadsetConnected
+            isHeadsetConnected,
+            isMuted = l.audioControl.isMuted(),
+            audioRelVolume = l.audioControl.audioVolume()
         )
         lastTrackedPhoneState = phoneState
         l.outgoingMessageDispatcher.sendPhoneState(phoneState)
