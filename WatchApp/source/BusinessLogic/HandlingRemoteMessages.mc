@@ -135,6 +135,25 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
                 }
                 break;
             }
+            case "audioState": {
+                if (!version.equals(getAudioStateVersion())) {
+                    var audioState = subject["value"] as AudioState or Null;
+                    if (audioState == null) {
+                        subjectsInvalidated.add(name);
+                    } else {
+                        setAudioState(audioState);
+                        setAudioStateVersion(version);
+                    }
+                    isHit = false;
+                } else {
+                    if (debug) { _3(LX_REMOTE_MSG, "audioStateHit", version); }
+                }
+                break;
+            }
+            default: {
+                if (debug) { _3(LX_REMOTE_MSG, "unknownSubject", name); }
+                break;
+            }
         }
     }
     if (minDebug) {
@@ -148,14 +167,6 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
 function handlePhoneStateChanged(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
     var callState = getCallState();
     if (debug) { _3(L_PHONE_STATE_CHANGED, "oldCallState", callState); }
-    var inIsHeadsetConnected = args["isHeadsetConnected"] as Lang.Boolean or Null;
-    if (inIsHeadsetConnected != null) {
-        setIsHeadsetConnected(inIsHeadsetConnected);
-    }
-    var relVolume = args["audioVolume"] as RelVolume or Null;
-    if (relVolume != null) {
-        setLastSelectedAudioVolume(relVolume);
-    }
     var phoneState = args["state"] as Lang.String;
     if (debug) { _3(L_PHONE_STATE_CHANGED, "inPhoneState", phoneState); }
     if (!phoneState.equals("ringing")) {
