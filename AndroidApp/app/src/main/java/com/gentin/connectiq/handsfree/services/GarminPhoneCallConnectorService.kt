@@ -221,6 +221,12 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         Log.d(TAG, "incomingNumber: $incomingNumber")
 
         accountPhoneState(incomingNumber, stateExtra)
+
+        // Workaround audio route not yet up to date.
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed({
+            sendHeadsetState()
+        }, 1000)
     }
 
     private fun ensureForegroundService() {
