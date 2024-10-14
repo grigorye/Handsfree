@@ -1,3 +1,5 @@
+@file:Suppress("EmptyMethod")
+
 package com.gentin.connectiq.handsfree.services
 
 import android.Manifest
@@ -32,10 +34,7 @@ import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.AudioState
 import com.gentin.connectiq.handsfree.impl.GarminConnector
-import com.gentin.connectiq.handsfree.impl.HeadsetConnectionMonitor
 import com.gentin.connectiq.handsfree.impl.PhoneState
-import com.gentin.connectiq.handsfree.impl.audioManager
-import com.gentin.connectiq.handsfree.impl.isHeadsetConnected
 import java.util.Date
 
 
@@ -60,16 +59,6 @@ fun fallbackPhoneState(context: Context): PhoneState {
         null,
         listOf(),
         TelephonyManager.EXTRA_STATE_IDLE
-    )
-}
-
-fun fallbackAudioState(context: Context): AudioState {
-    return AudioState(
-        isHeadsetConnected(
-            audioManager(context)
-        ),
-        false,
-        0.0
     )
 }
 
