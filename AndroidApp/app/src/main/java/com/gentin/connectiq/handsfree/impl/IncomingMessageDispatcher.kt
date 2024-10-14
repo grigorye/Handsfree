@@ -6,7 +6,9 @@ import kotlinx.serialization.json.Json
 import org.json.JSONObject
 
 class IncomingMessageDispatcher(
-    private val phoneCallService: PhoneCallService,
+    private val makeCallImp: (phoneNumber: String) -> Unit,
+    private val hangupCallImp: () -> Unit,
+    private val acceptCallImp: () -> Unit,
     private val queryImp: (source: IncomingMessageSource, args: QueryArgs) -> Unit,
     private val syncImp: () -> Unit,
     private val syncPhonesImp: (destination: IncomingMessageSource) -> Unit,
@@ -28,15 +30,15 @@ class IncomingMessageDispatcher(
             "call" -> {
                 val callRequest = json.decodeFromString<CallRequest>(string)
                 Log.d(TAG, "callRequest: $callRequest")
-                phoneCallService.makeCall(callRequest.args.number)
+                makeCallImp(callRequest.args.number)
             }
 
             "hangup" -> {
-                phoneCallService.hangupCall()
+                hangupCallImp()
             }
 
             "accept" -> {
-                phoneCallService.acceptCall()
+                acceptCallImp()
             }
 
             "syncMe" -> {

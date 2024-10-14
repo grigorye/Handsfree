@@ -81,7 +81,15 @@ class DefaultServiceLocator(
 
     private val incomingMessageDispatcher: IncomingMessageDispatcher by lazy {
         IncomingMessageDispatcher(
-            phoneCallService,
+            makeCallImp = {
+                phoneCallService.makeCall(it)
+            },
+            hangupCallImp = {
+                phoneCallService.hangupCall()
+            },
+            acceptCallImp = {
+                phoneCallService.acceptCall()
+            },
             syncImp = {
                 outgoingMessageDispatcher.sendSyncYou(availableContacts(), lastTrackedPhoneState)
             },
