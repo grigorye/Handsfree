@@ -31,8 +31,9 @@ function textsForCallInProgress(phone as Phone) as CallInProgressTexts {
             :prompt => "Hang Up",
             :command => CALL_IN_PROGRESS_ACTION_HANGUP
         } as CallInProgressActionSelector);
+        var volumeSuffix = ": " + (getAudioVolume(getAudioState()) * 100).toNumber().toLong() + "%";
         actions.add({
-            :prompt => "Volume",
+            :prompt => "Volume" + volumeSuffix,
             :command => CALL_IN_PROGRESS_ACTION_AUDIO_VOLUME
         } as CallInProgressActionSelector);
         var muteLabel = isMuted(getAudioState()) ? "Unmute" : "Mute";
