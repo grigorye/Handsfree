@@ -7,7 +7,6 @@ import android.media.AudioDeviceCallback
 import android.media.AudioDeviceInfo
 import android.media.AudioManager
 import android.os.Build
-import android.provider.MediaStore.Audio
 
 class HeadsetConnectionMonitor(
     base: Context,
