@@ -7,6 +7,7 @@ import android.media.AudioDeviceInfo
 import android.media.AudioManager
 import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 
 interface AudioControl {
     fun toggleSpeaker(on: Boolean)
@@ -29,6 +30,7 @@ class AudioControlImp(base: Context?) : ContextWrapper(base), AudioControl {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     private fun toggleSpeakerNew(on: Boolean) {
         val audioManager = getSystemService(Service.AUDIO_SERVICE) as AudioManager
         Log.d(TAG, "audioMode: ${audioManager.mode}")
