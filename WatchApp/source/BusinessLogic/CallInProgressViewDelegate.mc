@@ -37,7 +37,7 @@ class CallInProgressViewDelegate extends WatchUi.Menu2InputDelegate {
                 break;
             }
             case CALL_IN_PROGRESS_ACTION_MUTE: {
-                sendMute(true);
+                sendMute(!isMuted(getAudioState()));
                 break;
             }
             case CALL_IN_PROGRESS_ACTION_AUDIO_VOLUME: {

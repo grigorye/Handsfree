@@ -35,8 +35,9 @@ function textsForCallInProgress(phone as Phone) as CallInProgressTexts {
             :prompt => "Volume",
             :command => CALL_IN_PROGRESS_ACTION_AUDIO_VOLUME
         } as CallInProgressActionSelector);
+        var muteLabel = isMuted(getAudioState()) ? "Unmute" : "Mute";
         actions.add({
-            :prompt => "Mute",
+            :prompt => muteLabel,
             :command => CALL_IN_PROGRESS_ACTION_MUTE
         } as CallInProgressActionSelector);
         actions.add({
