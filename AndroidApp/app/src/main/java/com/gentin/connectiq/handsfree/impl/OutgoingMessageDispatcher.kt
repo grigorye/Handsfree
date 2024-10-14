@@ -76,7 +76,7 @@ class DefaultOutgoingMessageDispatcher(
         destination: OutgoingMessageDestination,
         queryResult: QueryResult
     ) {
-        var subjects = mutableMapOf<String, Any>()
+        val subjects = mutableMapOf<String, Any>()
         queryResult.phones?.apply {
             subjects["phones"] = mapOf(
                 "version" to version,
