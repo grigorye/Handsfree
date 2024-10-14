@@ -1,6 +1,6 @@
 import Toybox.Lang;
 
-(:glance)
+(:glance, :noLowMemory)
 function headsetStatusRep() as Lang.String or Null {
     if (!getIsHeadsetConnected(getAudioState())) {
         return "#";
