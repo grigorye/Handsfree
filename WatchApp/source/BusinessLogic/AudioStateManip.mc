@@ -14,6 +14,13 @@ function setAudioState(audioState as AudioState) as Void {
             return;
         }
         case ACTIVE_UI_APP: {
+            var callInProgressView = viewWithTag("callInProgress") as CallInProgressView | Null;
+            if (callInProgressView != null) {
+                var callInProgressState = getCallState() as CallInProgress | Null;
+                if (callInProgressState != null) {
+                    callInProgressView.updateFromPhone(callInProgressState.phone, isOptimisticCallState(callInProgressState));
+                }
+            }
             var isHeadsetConnected = getIsHeadsetConnected(audioState);
             if ((oldAudioStateImp == null) || !isHeadsetConnected.equals(getIsHeadsetConnected(oldAudioStateImp))) {
                 if (WatchUi has :showToast) {
