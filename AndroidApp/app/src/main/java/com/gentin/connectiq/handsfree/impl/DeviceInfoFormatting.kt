@@ -76,5 +76,5 @@ fun messageForDeviceInfos(deviceInfos: List<DeviceInfo>): String {
     return message.joinToString("\n\n")
 }
 
-private val nbsp = " "
-val refreshMessage = "🔄${nbsp}Refresh"
+private const val nbsp = " "
+const val refreshMessage = "🔄${nbsp}Refresh"
