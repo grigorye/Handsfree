@@ -231,15 +231,6 @@ class DefaultOutgoingMessageDispatcher(
         return args
     }
 
-    private fun audioStateChangedArgs(state: AudioState): Map<String, Any?> {
-        val args = mapOf(
-            "isHeadsetConnected" to state.isHeadsetConnected,
-            "isMuted" to state.isMuted,
-            "audioVolume" to state.audioRelVolume
-        )
-        return args
-    }
-
     private fun send(msg: OutgoingMessage) {
         remoteMessageService.sendMessage(msg)
     }
