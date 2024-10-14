@@ -36,7 +36,11 @@ function getAudioState() as AudioState {
         if (loadedAudioState != null) {
             audioStateImp = loadedAudioState;
         } else {
-            audioStateImp = {} as AudioState;
+            audioStateImp = {
+                "isHeadsetConnected" => false,
+                "isMuted" => false,
+                "audioVolume" => 0.5
+            } as AudioState;
         }
     }
     return audioStateImp as AudioState;

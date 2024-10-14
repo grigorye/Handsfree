@@ -35,13 +35,15 @@ function mute(on as Lang.Boolean) as Void {
 typedef RelVolume as Lang.Float;
 
 function setAudioVolume(relVolume as RelVolume) as Void {
+    var audioState = getAudioState();
+    audioState["audioVolume"] = relVolume;
+    setAudioState(audioState);
     var msg = {
         "cmd" => "setAudioVolume",
         "args" => {
             "relVolume" => relVolume
         }
     } as Lang.Object as Application.PersistableType;
-    setLastSelectedAudioVolume(relVolume);
     var tag = formatCommTag("setAudioVolume");
     if (debug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
     Communications.transmit(msg, null, new DummyCommListener(tag));

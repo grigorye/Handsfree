@@ -3,7 +3,6 @@ import Toybox.Lang;
 import Toybox.Graphics;
 
 const maxAudioLevel = 14;
-var lastSelectedVolumeLevel as Lang.Number = 0;
 
 (:audioVolumeView)
 class AudioVolumeView extends WatchUi.View {
@@ -24,14 +23,15 @@ class AudioVolumeView extends WatchUi.View {
         } else {
             line1 = "SPKR";
         }
-        var line2 = 100 * lastSelectedVolumeLevel / maxAudioLevel;
+        var audioLevel = getAudioLevel(getAudioState());
+        var line2 = 100 * audioLevel / maxAudioLevel;
         var text = line1 + "\n" + line2;
 
         var x = dc.getWidth() / 2;
         var y = dc.getHeight() / 2;
         var r = dc.getWidth() / 4;
         var start = 90;
-        var end = 90 - 360 * lastSelectedVolumeLevel / maxAudioLevel - 0.1;
+        var end = 90 - 360 * audioLevel / maxAudioLevel - 0.1;
         dc.setPenWidth(1);
         dc.drawCircle(x, y, r - 1);
         dc.setPenWidth(6);

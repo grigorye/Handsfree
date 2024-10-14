@@ -5,7 +5,6 @@ import Toybox.Application;
 (:background, :typecheck(disableBackgroundCheck))
 function setAudioState(audioState as AudioState) as Void {
     setAudioStateImp(audioState);
-    setLastSelectedAudioVolume(audioState["audioVolume"] as RelVolume);
     switch (activeUiKind) {
         case ACTIVE_UI_NONE: {
             return;
@@ -39,6 +38,13 @@ function getIsHeadsetConnected(audioState as AudioState) as Lang.Boolean {
         return isHeadsetConnected;
     }
     return false;
+}
+
+(:inline)
+function getAudioLevel(audioState as AudioState) as Lang.Number {
+    var relVolume = audioState["audioVolume"] as RelVolume;
+    var audioLevel = (relVolume * maxAudioLevel).toNumber();
+    return audioLevel;
 }
 
 (:inline, :background)
