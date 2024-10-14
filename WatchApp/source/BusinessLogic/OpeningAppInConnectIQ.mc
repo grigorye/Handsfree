@@ -20,7 +20,7 @@ function toggleSpeaker() as Void {
     Communications.transmit(msg, null, new DummyCommListener(tag));
 }
 
-function mute(on as Lang.Boolean) as Void {
+function sendMute(on as Lang.Boolean) as Void {
     var msg = {
         "cmd" => "mute",
         "args" => {
