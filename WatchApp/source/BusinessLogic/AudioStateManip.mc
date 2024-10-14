@@ -41,8 +41,14 @@ function getIsHeadsetConnected(audioState as AudioState) as Lang.Boolean {
 }
 
 (:inline)
+function getAudioVolume(audioState as AudioState) as RelVolume {
+    var audioVolume = audioState["audioVolume"] as RelVolume;
+    return audioVolume;
+}
+
+(:inline)
 function getAudioLevel(audioState as AudioState) as Lang.Number {
-    var relVolume = audioState["audioVolume"] as RelVolume;
+    var relVolume = getAudioVolume(audioState);
     var audioLevel = (relVolume * maxAudioLevel).toNumber();
     return audioLevel;
 }
