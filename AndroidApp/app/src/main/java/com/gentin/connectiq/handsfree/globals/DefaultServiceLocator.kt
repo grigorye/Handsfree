@@ -234,7 +234,7 @@ class DefaultServiceLocator(
         DefaultOutgoingMessageDispatcher(this, remoteMessageService)
     }
 
-    val audioControl: AudioControl by lazy {
+    private val audioControl: AudioControl by lazy {
         AudioControlImp(this)
     }
 
