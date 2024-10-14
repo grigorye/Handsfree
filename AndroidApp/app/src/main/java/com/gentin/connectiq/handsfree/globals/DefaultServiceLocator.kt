@@ -81,8 +81,9 @@ class DefaultServiceLocator(
 
     private val incomingMessageDispatcher: IncomingMessageDispatcher by lazy {
         IncomingMessageDispatcher(
-            makeCallImp = {
-                phoneCallService.makeCall(it)
+            makeCallImp = { phoneNumber ->
+                val withSpeakerPhone = !headPhoneConnectionMonitor.isHeadsetConnected()
+                phoneCallService.makeCall(phoneNumber, withSpeakerPhone)
             },
             hangupCallImp = {
                 phoneCallService.hangupCall()
