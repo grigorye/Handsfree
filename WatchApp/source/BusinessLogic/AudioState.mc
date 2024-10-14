@@ -47,6 +47,6 @@ function getAudioState() as AudioState {
 }
 
 (:inline)
-function isMuted(state as AudioState) as Lang.Boolean {
+function getIsMuted(state as AudioState) as Lang.Boolean {
     return state["isMuted"] as Lang.Boolean;
 }

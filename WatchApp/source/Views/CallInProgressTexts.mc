@@ -31,12 +31,13 @@ function textsForCallInProgress(phone as Phone) as CallInProgressTexts {
             :prompt => "Hang Up",
             :command => CALL_IN_PROGRESS_ACTION_HANGUP
         } as CallInProgressActionSelector);
-        var volumeSuffix = ": " + (getAudioVolume(getAudioState()) * 100).toNumber().toLong() + "%";
+        var audioVolume = getAudioVolume(getAudioState());
+        var volumeSuffix = ": " + (audioVolume * 100).toLong() + "%";
         actions.add({
             :prompt => "Volume" + volumeSuffix,
             :command => CALL_IN_PROGRESS_ACTION_AUDIO_VOLUME
         } as CallInProgressActionSelector);
-        var muteLabel = isMuted(getAudioState()) ? "Unmute" : "Mute";
+        var muteLabel = getIsMuted(getAudioState()) ? "Unmute" : "Mute";
         actions.add({
             :prompt => muteLabel,
             :command => CALL_IN_PROGRESS_ACTION_MUTE
