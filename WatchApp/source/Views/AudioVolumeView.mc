@@ -18,6 +18,15 @@ class AudioVolumeView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         dc.clear();
 
+        var line1;
+        if (getIsHeadsetConnected(getAudioState())) {
+            line1 = "HSET";
+        } else {
+            line1 = "SPKR";
+        }
+        var line2 = 100 * lastSelectedVolumeLevel / maxAudioLevel;
+        var text = line1 + "\n" + line2;
+
         var x = dc.getWidth() / 2;
         var y = dc.getHeight() / 2;
         var r = dc.getWidth() / 4;
@@ -31,7 +40,7 @@ class AudioVolumeView extends WatchUi.View {
             x,
             y,
             Graphics.FONT_SYSTEM_MEDIUM,
-            100 * lastSelectedVolumeLevel / maxAudioLevel,
+            text,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
         );
     }
