@@ -2,6 +2,7 @@ package com.gentin.connectiq.handsfree.globals
 
 import android.content.Context
 import android.content.ContextWrapper
+import android.telephony.TelephonyManager
 import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LiveData
@@ -104,9 +105,16 @@ class DefaultServiceLocator(
                 outgoingMessageDispatcher.sendQueryResult(destination, result)
             },
             openAppImp = { source, args ->
-                garminConnector.openWatchAppOnDevice(source.device, source.app) { succeeded ->
-                    val destination = OutgoingMessageDestination(source.device, source.app)
-                    outgoingMessageDispatcher.sendOpenMeCompleted(destination, args, succeeded)
+                if (lastTrackedPhoneState?.stateExtra != TelephonyManager.EXTRA_STATE_RINGING) {
+                    Log.d(
+                        TAG,
+                        "ignoringOpenAppDueToNotRinging: ${lastTrackedPhoneState?.stateExtra}"
+                    )
+                } else {
+                    garminConnector.openWatchAppOnDevice(source.device, source.app) { succeeded ->
+                        val destination = OutgoingMessageDestination(source.device, source.app)
+                        outgoingMessageDispatcher.sendOpenMeCompleted(destination, args, succeeded)
+                    }
                 }
             },
             didFirstLaunchImp = { source ->
