@@ -21,6 +21,9 @@ function toggleSpeaker() as Void {
 }
 
 function sendMute(on as Lang.Boolean) as Void {
+    var audioState = getAudioState();
+    audioState["isMuted"] = on;
+    setAudioState(audioState);
     var msg = {
         "cmd" => "mute",
         "args" => {
