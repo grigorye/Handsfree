@@ -61,7 +61,8 @@ data class QueryArgs(
 
 val allSubjectNames = listOf(
     "phones",
-    "recents"
+    "recents",
+    "audioState"
 )
 
 @Serializable

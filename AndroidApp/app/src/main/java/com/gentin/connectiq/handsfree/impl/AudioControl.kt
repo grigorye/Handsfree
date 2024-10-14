@@ -69,6 +69,7 @@ class AudioControlImp(base: Context?) : ContextWrapper(base), AudioControl {
     }
 
     override fun setAudioVolume(relVolume: RelVolume) {
+        Log.d(TAG, "settingAudioVolume: $relVolume")
         val audioManager = getSystemService(Service.AUDIO_SERVICE) as AudioManager
         val stream = communicationAudioStream(audioManager)
         Log.d(TAG, "stream: $stream")
@@ -81,6 +82,7 @@ class AudioControlImp(base: Context?) : ContextWrapper(base), AudioControl {
     }
 
     override fun audioVolume(): RelVolume {
+        Log.d(TAG, "queryingAudioVolume")
         val audioManager = getSystemService(Service.AUDIO_SERVICE) as AudioManager
         val stream = communicationAudioStream(audioManager)
         Log.d(TAG, "stream: $stream")

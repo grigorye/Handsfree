@@ -12,6 +12,7 @@ typealias Version = String
 
 data class QueryResult(
     var phoneState: PhoneState? = null,
+    var audioState: VersionedPojo? = null,
     var phones: VersionedPojo? = null,
     var recents: VersionedPojo? = null
 )
@@ -47,6 +48,7 @@ interface OutgoingMessageDispatcher {
     fun sendContacts(contacts: List<ContactData>)
     fun sendRecents(recents: List<CallLogEntry>)
     fun sendPhoneState(phoneState: PhoneState)
+    fun sendAudioState(state: AudioState)
     fun sendOpenAppFailed(destination: OutgoingMessageDestination)
     fun sendOpenMeCompleted(
         destination: OutgoingMessageDestination,
@@ -83,6 +85,12 @@ class DefaultOutgoingMessageDispatcher(
         }
         queryResult.recents?.apply {
             subjects["recents"] = mapOf(
+                "version" to version,
+                "value" to pojo
+            )
+        }
+        queryResult.audioState?.apply {
+            subjects["audioState"] = mapOf(
                 "version" to version,
                 "value" to pojo
             )
@@ -136,6 +144,22 @@ class DefaultOutgoingMessageDispatcher(
         send(msg)
     }
 
+    override fun sendAudioState(state: AudioState) {
+        val versionedPojo = strippedVersionedPojo(null, audioStatePojo(state))
+        val msg = mapOf(
+            "cmd" to "subjectsChanged",
+            "args" to mapOf(
+                "subjects" to mapOf(
+                    "audioState" to mapOf(
+                        "version" to versionedPojo.version,
+                        "value" to versionedPojo.pojo
+                    )
+                )
+            )
+        )
+        send(msg)
+    }
+
     override fun sendPhoneState(phoneState: PhoneState) {
         val args = phoneStateChangedArgs(phoneState)
         val msg = mapOf(
@@ -173,8 +197,8 @@ class DefaultOutgoingMessageDispatcher(
         )
     }
 
-    private fun phoneStateChangedArgs(phoneState: PhoneState): Map<String, Any?> {
-        val stateArgs = when (phoneState.stateExtra) {
+    private fun phoneStateChangedArgs(state: PhoneState): Map<String, Any?> {
+        val args = when (state.stateExtra) {
             TelephonyManager.EXTRA_STATE_IDLE -> {
                 mapOf(
                     "state" to "noCallInProgress"
@@ -184,32 +208,36 @@ class DefaultOutgoingMessageDispatcher(
             TelephonyManager.EXTRA_STATE_OFFHOOK -> {
                 mapOf(
                     "state" to "callInProgress",
-                    "number" to dispatchedPhoneNumber(context, phoneState.incomingNumber),
-                    "name" to phoneState.incomingDisplayNames.firstOrNull()
+                    "number" to dispatchedPhoneNumber(context, state.incomingNumber),
+                    "name" to state.incomingDisplayNames.firstOrNull()
                 )
             }
 
             TelephonyManager.EXTRA_STATE_RINGING -> {
                 mapOf(
                     "state" to "ringing",
-                    "number" to dispatchedPhoneNumber(context, phoneState.incomingNumber),
-                    "name" to phoneState.incomingDisplayNames.firstOrNull()
+                    "number" to dispatchedPhoneNumber(context, state.incomingNumber),
+                    "name" to state.incomingDisplayNames.firstOrNull()
                 )
             }
 
             else -> {
-                Log.e(TAG, "unknownPhoneStateExtra: ${phoneState.stateExtra}")
+                Log.e(TAG, "unknownPhoneStateExtra: ${state.stateExtra}")
                 return mapOf(
-                    "unknownState" to phoneState.stateExtra,
+                    "unknownState" to state.stateExtra,
                 )
             }
         }
-        val audioArgs = mapOf(
-            "isHeadsetConnected" to phoneState.isHeadsetConnected,
-            "isMuted" to phoneState.isMuted,
-            "audioVolume" to phoneState.audioRelVolume
+        return args
+    }
+
+    private fun audioStateChangedArgs(state: AudioState): Map<String, Any?> {
+        val args = mapOf(
+            "isHeadsetConnected" to state.isHeadsetConnected,
+            "isMuted" to state.isMuted,
+            "audioVolume" to state.audioRelVolume
         )
-        return stateArgs + audioArgs
+        return args
     }
 
     private fun send(msg: OutgoingMessage) {
@@ -227,6 +255,15 @@ class DefaultOutgoingMessageDispatcher(
 
 private fun dispatchedPhoneNumber(context: Context, incomingNumber: String?): String? {
     return incomingNumber?.let { normalizePhoneNumber(context, it) }
+}
+
+fun audioStatePojo(state: AudioState): Any {
+    val pojo = mapOf(
+        "isHeadsetConnected" to state.isHeadsetConnected,
+        "isMuted" to state.isMuted,
+        "audioVolume" to state.audioRelVolume
+    )
+    return pojo
 }
 
 fun phonesPojo(contacts: List<ContactData>): Any {

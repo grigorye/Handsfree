@@ -19,11 +19,13 @@ import com.gentin.connectiq.handsfree.contacts.forEachContactInGroup
 import com.gentin.connectiq.handsfree.contacts.forEachContactWithPhoneNumberInFavorites
 import com.gentin.connectiq.handsfree.impl.AudioControl
 import com.gentin.connectiq.handsfree.impl.AudioControlImp
+import com.gentin.connectiq.handsfree.impl.AudioState
 import com.gentin.connectiq.handsfree.impl.DefaultGarminConnector
 import com.gentin.connectiq.handsfree.impl.DefaultOutgoingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.DefaultPhoneCallService
 import com.gentin.connectiq.handsfree.impl.DeviceInfo
 import com.gentin.connectiq.handsfree.impl.GarminConnector
+import com.gentin.connectiq.handsfree.impl.HeadsetConnectionMonitor
 import com.gentin.connectiq.handsfree.impl.IncomingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.OutgoingMessage
 import com.gentin.connectiq.handsfree.impl.OutgoingMessageDestination
@@ -34,10 +36,12 @@ import com.gentin.connectiq.handsfree.impl.QueryResult
 import com.gentin.connectiq.handsfree.impl.RemoteMessageService
 import com.gentin.connectiq.handsfree.impl.SubjectQuery
 import com.gentin.connectiq.handsfree.impl.allSubjectNames
+import com.gentin.connectiq.handsfree.impl.audioStatePojo
 import com.gentin.connectiq.handsfree.impl.phonesPojo
 import com.gentin.connectiq.handsfree.impl.recentsPojo
 import com.gentin.connectiq.handsfree.impl.strippedVersionedPojo
 import com.gentin.connectiq.handsfree.services.fallbackPhoneState
+import com.gentin.connectiq.handsfree.services.lastTrackedAudioState
 import com.gentin.connectiq.handsfree.services.lastTrackedPhoneState
 
 class DefaultServiceLocator(
@@ -139,6 +143,11 @@ class DefaultServiceLocator(
                     queryResult.recents =
                         strippedVersionedPojo(subject.version, recentsPojo(recents()), metadataOnly)
                 }
+
+                "audioState" -> {
+                    queryResult.audioState =
+                        strippedVersionedPojo(subject.version, audioStatePojo(audioState()), metadataOnly)
+                }
             }
         }
         return queryResult
@@ -164,6 +173,30 @@ class DefaultServiceLocator(
 
     fun recents(): List<CallLogEntry> {
         return recentsFromCallLog(callLog())
+    }
+
+    private fun audioState(): AudioState {
+        val isHeadsetConnected = headPhoneConnectionMonitor.isHeadsetConnected()
+        val state = AudioState(
+            isHeadsetConnected,
+            isMuted = audioControl.isMuted(),
+            audioRelVolume = audioControl.audioVolume()
+        )
+        return state
+    }
+
+    val headPhoneConnectionMonitor = HeadsetConnectionMonitor(this) {
+        sendHeadsetState()
+    }
+
+    private fun sendHeadsetState() {
+        accountAudioState()
+    }
+
+    fun accountAudioState() {
+        val state = audioState()
+        lastTrackedAudioState = state
+        outgoingMessageDispatcher.sendAudioState(state)
     }
 
     private val remoteMessageService: RemoteMessageService by lazy {

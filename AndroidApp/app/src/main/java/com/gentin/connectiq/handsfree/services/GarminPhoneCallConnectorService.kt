@@ -30,6 +30,7 @@ import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_ON_DEVICE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
+import com.gentin.connectiq.handsfree.impl.AudioState
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.HeadsetConnectionMonitor
 import com.gentin.connectiq.handsfree.impl.PhoneState
@@ -52,12 +53,18 @@ var startStats = StartStats()
 
 var lastTrackedPhoneState: PhoneState? = null
     private set
+var lastTrackedAudioState: AudioState? = null
 
 fun fallbackPhoneState(context: Context): PhoneState {
     return PhoneState(
         null,
         listOf(),
-        TelephonyManager.EXTRA_STATE_IDLE,
+        TelephonyManager.EXTRA_STATE_IDLE
+    )
+}
+
+fun fallbackAudioState(context: Context): AudioState {
+    return AudioState(
         isHeadsetConnected(
             audioManager(context)
         ),
@@ -120,7 +127,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         garminConnector.knownDeviceInfos.observe(this) {
             ensureForegroundService()
         }
-        headPhoneConnectionMonitor.start()
+        l.headPhoneConnectionMonitor.start()
         l.callLogRepository.subscribe(callLogObserver)
         l.contactsRepository.subscribe(contactsObserver)
         sharedPreferences.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
@@ -130,7 +137,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         Log.d(TAG, "onDestroy")
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(preferenceChangeListener)
         l.callLogRepository.unsubscribe(callLogObserver)
-        headPhoneConnectionMonitor.stop()
+        l.headPhoneConnectionMonitor.stop()
         garminConnector.terminate()
         super.onDestroy()
     }
@@ -221,12 +228,6 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         Log.d(TAG, "incomingNumber: $incomingNumber")
 
         accountPhoneState(incomingNumber, stateExtra)
-
-        // Workaround audio route not yet up to date.
-        val handler = Handler(Looper.getMainLooper())
-        handler.postDelayed({
-            sendHeadsetState()
-        }, 1000)
     }
 
     private fun ensureForegroundService() {
@@ -277,17 +278,22 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         val sentIncomingDisplayNames = sentIncomingNumber?.let {
             availableDisplayNames(it)
         } ?: listOf()
-        val isHeadsetConnected = headPhoneConnectionMonitor.isHeadsetConnected()
         val phoneState = PhoneState(
             sentIncomingNumber,
             sentIncomingDisplayNames,
-            stateExtra,
-            isHeadsetConnected,
-            isMuted = l.audioControl.isMuted(),
-            audioRelVolume = l.audioControl.audioVolume()
+            stateExtra
         )
         lastTrackedPhoneState = phoneState
         l.outgoingMessageDispatcher.sendPhoneState(phoneState)
+
+        if (stateExtra == TelephonyManager.EXTRA_STATE_OFFHOOK) {
+            // Workaround audio route not yet up to date.
+            val handler = Handler(Looper.getMainLooper())
+            handler.postDelayed({
+                l.accountAudioState()
+            }, 1000)
+        }
+
         if ((stateExtra == TelephonyManager.EXTRA_STATE_RINGING) && isOpenWatchAppOnRingingEnabled()) {
             for (app in watchApps) {
                 l.garminConnector.openWatchAppOnEveryDevice(app) { destination, succeeded ->
@@ -318,17 +324,6 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     }
 
     private val garminConnector: GarminConnector by lazy { l.garminConnector }
-
-    private val headPhoneConnectionMonitor = HeadsetConnectionMonitor(this) {
-        sendHeadsetState()
-    }
-
-    private fun sendHeadsetState() {
-        accountPhoneState(
-            lastTrackedPhoneState?.incomingNumber,
-            lastTrackedPhoneState?.stateExtra ?: TelephonyManager.EXTRA_STATE_IDLE
-        )
-    }
 
     private fun isOpenWatchAppOnRingingEnabled(): Boolean {
         return false
