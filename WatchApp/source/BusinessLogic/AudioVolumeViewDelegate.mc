@@ -52,7 +52,7 @@ class AudioVolumeViewDelegate extends WatchUi.InputDelegate {
             newAudioLevel = maxAudioLevel;
         }
         var newAudioVolume = 1.0 * newAudioLevel / maxAudioLevel;
-        setAudioVolume(newAudioVolume);
+        sendAudioVolume(newAudioVolume);
         WatchUi.requestUpdate();
     }
 }

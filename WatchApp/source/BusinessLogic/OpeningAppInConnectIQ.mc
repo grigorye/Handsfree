@@ -34,7 +34,7 @@ function mute(on as Lang.Boolean) as Void {
 
 typedef RelVolume as Lang.Float;
 
-function setAudioVolume(relVolume as RelVolume) as Void {
+function sendAudioVolume(relVolume as RelVolume) as Void {
     var audioState = getAudioState();
     audioState["audioVolume"] = relVolume;
     setAudioState(audioState);
