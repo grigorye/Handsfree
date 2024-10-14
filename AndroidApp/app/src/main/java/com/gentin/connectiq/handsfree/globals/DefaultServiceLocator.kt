@@ -163,7 +163,11 @@ class DefaultServiceLocator(
 
                 "audioState" -> {
                     queryResult.audioState =
-                        strippedVersionedPojo(subject.version, audioStatePojo(audioState()), metadataOnly)
+                        strippedVersionedPojo(
+                            subject.version,
+                            audioStatePojo(audioState()),
+                            metadataOnly
+                        )
                 }
             }
         }
