@@ -22,7 +22,14 @@ function setAudioState(audioState as AudioState) as Void {
                 }
             }
             var isHeadsetConnected = getIsHeadsetConnected(audioState);
-            if ((oldAudioStateImp == null) || !isHeadsetConnected.equals(getIsHeadsetConnected(oldAudioStateImp))) {
+            var needToast;
+            if (oldAudioStateImp != null) {
+                var oldIsHeadsetConnected = getIsHeadsetConnected(oldAudioStateImp);
+                needToast = isHeadsetConnected != oldIsHeadsetConnected;
+            } else {
+                needToast = true;
+            }
+            if (needToast) {
                 if (WatchUi has :showToast) {
                     if (isHeadsetConnected && oldAudioStateImp == null) {
                         // do nothing
@@ -41,10 +48,7 @@ function setAudioState(audioState as AudioState) as Void {
 (:inline, :background, :glance)
 function getIsHeadsetConnected(audioState as AudioState) as Lang.Boolean {
     var isHeadsetConnected = audioState["isHeadsetConnected"] as Lang.Boolean | Null;
-    if (isHeadsetConnected != null) {
-        return isHeadsetConnected;
-    }
-    return false;
+    return (isHeadsetConnected != null) ? isHeadsetConnected : false;
 }
 
 (:inline)
