@@ -1,6 +1,7 @@
 import Toybox.WatchUi;
 import Toybox.Lang;
 import Toybox.Graphics;
+import Rez.Styles;
 
 const maxAudioLevel = 14;
 
@@ -35,13 +36,9 @@ class AudioVolumeView extends WatchUi.View {
 
         var x = dc.getWidth() / 2;
         var y = dc.getHeight() / 2;
-        var r = dc.getWidth() / 4;
+        var r = dc.getWidth() * 2 / 7;
         var start = 90;
         var end = 90 - 360 * audioLevel / maxAudioLevel - 0.1;
-        dc.setPenWidth(1);
-        dc.drawCircle(x, y, r - 1);
-        dc.setPenWidth(6);
-        dc.drawArc(x, y, r, Graphics.ARC_CLOCKWISE, start, end);
         dc.drawText(
             x,
             y,
@@ -49,5 +46,10 @@ class AudioVolumeView extends WatchUi.View {
             text,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
         );
+        dc.setPenWidth(2);
+        dc.drawCircle(x, y, r - 1);
+        dc.setColor(Styles.audio_volume.foreground, Graphics.COLOR_BLACK);
+        dc.setPenWidth(6);
+        dc.drawArc(x, y, r, Graphics.ARC_CLOCKWISE, start, end);
     }
 }

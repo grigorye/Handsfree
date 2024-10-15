@@ -11,3 +11,7 @@ widget_font__title {
 glance_live_update {
     enabled: true;
 }
+
+audio_volume {
+    foreground: Graphics.COLOR_WHITE;
+}
