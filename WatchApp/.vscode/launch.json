@@ -21,6 +21,13 @@
     {
       "type": "monkeyc",
       "request": "launch",
+      "name": "Run App on MARQ Driver",
+      "stopAtLaunch": false,
+      "device": "marqdriver"
+    },
+    {
+      "type": "monkeyc",
+      "request": "launch",
       "name": "Run App on Edge 530",
       "stopAtLaunch": false,
       "device": "edge530"
