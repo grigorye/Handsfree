@@ -3,6 +3,8 @@ import Toybox.Application;
 
 typedef AudioState as Lang.Dictionary<String, Application.PropertyValueType>;
 
+module AudioStateImp {
+
 (:background, :glance)
 var audioStateImp as AudioState or Null = null;
 (:background)
@@ -10,8 +12,6 @@ var oldAudioStateImp as AudioState or Null = null;
 
 (:background, :glance)
 const L_AUDIO_STATE as LogComponent = "audioState";
-
-module AudioStateImp {
 
 (:inline, :background)
 function setAudioStateImp(audioState as AudioState) as Void {
@@ -31,17 +31,26 @@ function saveAudioState(audioState as AudioState) as Void {
     Storage.setValue("audioState.v1", audioState as Application.PropertyValueType);
 }
 
+(:inline, :background)
+function clearAudioState() as Void {
+    Storage.deleteValue("audioState.v1");
+    Storage.deleteValue("audioStateVersion.v1");
+}
+
 (:background, :glance)
 function getAudioState() as AudioState {
-    if (audioStateImp == null) {
+    var audioState;
+    if (audioStateImp != null) {
+        audioState = audioStateImp;
+    } else {
         var loadedAudioState = loadAudioState();
         if (loadedAudioState != null) {
-            audioStateImp = loadedAudioState;
+            audioState = loadedAudioState;
         } else {
-            audioStateImp = defaultAudioState();
+            audioState = defaultAudioState();
         }
     }
-    return audioStateImp as AudioState;
+    return audioState;
 }
 
 (:background, :glance)
@@ -57,4 +66,22 @@ function defaultAudioState() as AudioState {
 function getIsMuted(state as AudioState) as Lang.Boolean {
     return state["isMuted"] as Lang.Boolean;
 }
+
+(:background)
+var pendingAudioStateImp as AudioState | Null = null;
+
+(:background)
+function getPendingAudioState() as AudioState {
+    return pendingAudioStateImp != null ? pendingAudioStateImp : getAudioState();
+}
+
+(:background, :inline)
+function clone(state as AudioState) as AudioState {
+    return {
+        "isHeadsetConnected" => state["isHeadsetConnected"],
+        "audioVolume" => state["audioVolume"],
+        "isMuted" => state["isMuted"]
+    } as AudioState;
+}
+
 }

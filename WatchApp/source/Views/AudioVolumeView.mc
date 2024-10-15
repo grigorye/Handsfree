@@ -17,14 +17,20 @@ class AudioVolumeView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         dc.clear();
 
+        var audioState = AudioStateImp.getPendingAudioState();
         var line1;
-        if (AudioStateManip.getIsHeadsetConnected(AudioStateImp.getAudioState())) {
+        if (AudioStateManip.getIsHeadsetConnected(audioState)) {
             line1 = "HSET";
         } else {
             line1 = "SPKR";
         }
-        var audioLevel = AudioStateManip.getAudioLevel(AudioStateImp.getAudioState());
+        var audioLevel = AudioStateManip.getAudioLevel(audioState);
         var line2 = 100 * audioLevel / maxAudioLevel;
+        var lastKnownAudioLevel = AudioStateManip.getAudioLevel(AudioStateImp.getAudioState());
+        var isUpToDate = (lastKnownAudioLevel == audioLevel);
+        if (!isUpToDate) {
+            line2 = "|" + line2 + "|";
+        }
         var text = line1 + "\n" + line2;
 
         var x = dc.getWidth() / 2;

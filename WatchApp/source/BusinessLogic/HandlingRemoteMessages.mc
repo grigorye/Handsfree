@@ -141,6 +141,9 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
                     if (audioState == null) {
                         subjectsInvalidated.add(name);
                     } else {
+                        if (AudioStateImp.pendingAudioStateImp == null) {
+                            AudioStateImp.pendingAudioStateImp = audioState;
+                        }
                         AudioStateManip.setAudioState(audioState);
                         AudioStateManip.setAudioStateVersion(version);
                     }

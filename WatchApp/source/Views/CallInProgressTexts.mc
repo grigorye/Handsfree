@@ -31,25 +31,49 @@ function textsForCallInProgress(phone as Phone) as CallInProgressTexts {
             :prompt => "Hang Up",
             :command => CALL_IN_PROGRESS_ACTION_HANGUP
         } as CallInProgressActionSelector);
-        var audioVolume = AudioStateManip.getAudioVolume(AudioStateImp.getAudioState());
-        var volumeSuffix = ": " + (audioVolume * 100).toLong() + "%";
-        actions.add({
-            :prompt => "Volume" + volumeSuffix,
-            :command => CALL_IN_PROGRESS_ACTION_AUDIO_VOLUME
-        } as CallInProgressActionSelector);
-        var muteLabel = AudioStateImp.getIsMuted(AudioStateImp.getAudioState()) ? "Unmute" : "Mute";
-        actions.add({
-            :prompt => muteLabel,
-            :command => CALL_IN_PROGRESS_ACTION_MUTE
-        } as CallInProgressActionSelector);
-        actions.add({
-            :prompt => "Speaker",
-            :command => CALL_IN_PROGRESS_ACTION_SPEAKER
-        } as CallInProgressActionSelector);
+        addAudioActions(actions);
     }
     var texts = {
         :title => prefix,
         :actions => actions
     } as CallInProgressTexts;
     return texts;
+}
+
+function addAudioActions(actions as CallInProgressActions) as Void {
+    var audioState = AudioStateImp.getPendingAudioState();
+    var lastKnownAudioState = AudioStateImp.getAudioState();
+
+    var audioVolume = AudioStateManip.getAudioVolume(audioState);
+    var percents = toPercents(audioVolume) + "%";
+    var lastKnownAudioVolume = AudioStateManip.getAudioVolume(lastKnownAudioState);
+    var audioVolumeIsUpToDate = toPercents(audioVolume) == toPercents(lastKnownAudioVolume);
+    if (!audioVolumeIsUpToDate) {
+        percents = "|" + percents + "|";
+    }
+    actions.add({
+        :prompt => "Volume: " + percents,
+        :command => CALL_IN_PROGRESS_ACTION_AUDIO_VOLUME
+    } as CallInProgressActionSelector);
+
+    var isMuted = AudioStateImp.getIsMuted(audioState);
+    var muteLabel = isMuted ? "Unmute" : "Mute";
+    var isMutedIsUpToDate = isMuted != AudioStateImp.getIsMuted(lastKnownAudioState);
+    if (isMutedIsUpToDate) {
+        muteLabel = "|" + muteLabel + "|";
+    }
+    actions.add({
+        :prompt => muteLabel,
+        :command => CALL_IN_PROGRESS_ACTION_MUTE
+    } as CallInProgressActionSelector);
+
+    actions.add({
+        :prompt => "Speaker",
+        :command => CALL_IN_PROGRESS_ACTION_SPEAKER
+    } as CallInProgressActionSelector);
+}
+
+(:inline)
+function toPercents(value as Float) as Lang.Long {
+    return (value * 100).toLong();
 }

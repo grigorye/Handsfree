@@ -16,15 +16,11 @@ function setAudioState(audioState as AudioState) as Void {
             return;
         }
         case ACTIVE_UI_APP: {
-            var callInProgressView = viewWithTag("callInProgress") as CallInProgressView | Null;
-            if (callInProgressView != null) {
-                var callInProgressState = getCallState() as CallInProgress | Null;
-                if (callInProgressState != null) {
-                    callInProgressView.updateFromPhone(callInProgressState.phone, isOptimisticCallState(callInProgressState));
-                }
-            }
+            updateCallInProgressView();
+            WatchUi.requestUpdate();
             var isHeadsetConnected = getIsHeadsetConnected(audioState);
             var needToast;
+            var oldAudioStateImp = AudioStateImp.oldAudioStateImp;
             if (oldAudioStateImp != null) {
                 var oldIsHeadsetConnected = getIsHeadsetConnected(oldAudioStateImp);
                 needToast = isHeadsetConnected != oldIsHeadsetConnected;
@@ -45,6 +41,11 @@ function setAudioState(audioState as AudioState) as Void {
             return;
         }
     }
+}
+
+function setPendingAudioState(state as AudioState) as Void {
+    AudioStateImp.pendingAudioStateImp = state;
+    updateCallInProgressView();
 }
 
 (:inline, :background, :glance)
@@ -77,4 +78,15 @@ function getAudioStateVersion() as Version {
     var version = Storage.getValue("audioStateVersion.v1") as Version;
     return version;
 }
+
+function updateCallInProgressView() as Void {
+    var callInProgressView = viewWithTag("callInProgress") as CallInProgressView | Null;
+    if (callInProgressView != null) {
+        var callInProgressState = getCallState() as CallInProgress | Null;
+        if (callInProgressState != null) {
+            callInProgressView.updateFromPhone(callInProgressState.phone, isOptimisticCallState(callInProgressState));
+        }
+    }
+}
+
 }
