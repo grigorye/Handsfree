@@ -38,14 +38,19 @@ function getAudioState() as AudioState {
         if (loadedAudioState != null) {
             audioStateImp = loadedAudioState;
         } else {
-            audioStateImp = {
-                "isHeadsetConnected" => false,
-                "isMuted" => false,
-                "audioVolume" => 0.5
-            } as AudioState;
+            audioStateImp = defaultAudioState();
         }
     }
     return audioStateImp as AudioState;
+}
+
+(:background, :glance)
+function defaultAudioState() as AudioState {
+    return {
+        "isHeadsetConnected" => false,
+        "audioVolume" => 0.5,
+        "isMuted" => false
+    } as AudioState;
 }
 
 (:inline)
