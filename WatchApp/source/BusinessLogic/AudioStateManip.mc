@@ -2,9 +2,11 @@ import Toybox.Lang;
 import Toybox.WatchUi;
 import Toybox.Application;
 
+module AudioStateManip {
+
 (:background, :typecheck(disableBackgroundCheck))
 function setAudioState(audioState as AudioState) as Void {
-    setAudioStateImp(audioState);
+    AudioStateImp.setAudioStateImp(audioState);
     switch (activeUiKind) {
         case ACTIVE_UI_NONE: {
             return;
@@ -74,4 +76,5 @@ function setAudioStateVersion(version as Version) as Void {
 function getAudioStateVersion() as Version {
     var version = Storage.getValue("audioStateVersion.v1") as Version;
     return version;
+}
 }

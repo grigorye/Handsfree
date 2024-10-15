@@ -5,7 +5,7 @@ import Toybox.Lang;
 function crashMe() as Void {
     var deviceSettings = System.getDeviceSettings();
     var stats = System.getSystemStats();
-    var backgroundStats = getBackgroundSystemStats();
+    var backgroundStats = BackgroundSystemStats.getBackgroundSystemStats();
     var infos = [
         ["crashMe", null],
         ["freeMemory", [stats.freeMemory, backgroundStats["f"]]],

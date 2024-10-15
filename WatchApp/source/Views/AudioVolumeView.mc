@@ -18,12 +18,12 @@ class AudioVolumeView extends WatchUi.View {
         dc.clear();
 
         var line1;
-        if (getIsHeadsetConnected(getAudioState())) {
+        if (AudioStateManip.getIsHeadsetConnected(AudioStateImp.getAudioState())) {
             line1 = "HSET";
         } else {
             line1 = "SPKR";
         }
-        var audioLevel = getAudioLevel(getAudioState());
+        var audioLevel = AudioStateManip.getAudioLevel(AudioStateImp.getAudioState());
         var line2 = 100 * audioLevel / maxAudioLevel;
         var text = line1 + "\n" + line2;
 

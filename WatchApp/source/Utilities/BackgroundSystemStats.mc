@@ -2,6 +2,8 @@ import Toybox.System;
 import Toybox.Application;
 import Toybox.Lang;
 
+module BackgroundSystemStats {
+
 (:background)
 function saveBackgroundSystemStats() as Void {
     var stats = System.getSystemStats();
@@ -23,4 +25,5 @@ function getBackgroundSystemStats() as Lang.Dictionary<Lang.String, Lang.Number>
         } as Lang.Dictionary<Lang.String, Lang.Number>;
     }
     return savedStats; 
+}
 }

@@ -136,13 +136,13 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
                 break;
             }
             case "audioState": {
-                if (!version.equals(getAudioStateVersion())) {
+                if (!version.equals(AudioStateManip.getAudioStateVersion())) {
                     var audioState = subject["value"] as AudioState or Null;
                     if (audioState == null) {
                         subjectsInvalidated.add(name);
                     } else {
-                        setAudioState(audioState);
-                        setAudioStateVersion(version);
+                        AudioStateManip.setAudioState(audioState);
+                        AudioStateManip.setAudioStateVersion(version);
                     }
                     isHit = false;
                 } else {

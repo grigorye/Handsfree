@@ -42,8 +42,8 @@ class AudioVolumeViewDelegate extends WatchUi.InputDelegate {
     }
 
     function adjustAudioLevel(delta as Lang.Number) as Void {
-        var audioState = getAudioState();
-        var audioLevel = getAudioLevel(audioState);
+        var audioState = AudioStateImp.getAudioState();
+        var audioLevel = AudioStateManip.getAudioLevel(audioState);
         var newAudioLevel = audioLevel + delta;
         if (newAudioLevel <= 0) {
             newAudioLevel = 0;

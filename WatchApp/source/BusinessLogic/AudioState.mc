@@ -11,6 +11,8 @@ var oldAudioStateImp as AudioState or Null = null;
 (:background, :glance)
 const L_AUDIO_STATE as LogComponent = "audioState";
 
+module AudioStateImp {
+
 (:inline, :background)
 function setAudioStateImp(audioState as AudioState) as Void {
     if (debug) { _3(L_AUDIO_STATE, "audioState", audioState); }
@@ -49,4 +51,5 @@ function getAudioState() as AudioState {
 (:inline)
 function getIsMuted(state as AudioState) as Lang.Boolean {
     return state["isMuted"] as Lang.Boolean;
+}
 }

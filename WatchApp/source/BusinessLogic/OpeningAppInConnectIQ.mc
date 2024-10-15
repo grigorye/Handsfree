@@ -21,9 +21,9 @@ function toggleSpeaker() as Void {
 }
 
 function sendMute(on as Lang.Boolean) as Void {
-    var audioState = getAudioState();
+    var audioState = AudioStateImp.getAudioState();
     audioState["isMuted"] = on;
-    setAudioState(audioState);
+    AudioStateManip.setAudioState(audioState);
     var msg = {
         "cmd" => "mute",
         "args" => {
@@ -38,9 +38,9 @@ function sendMute(on as Lang.Boolean) as Void {
 typedef RelVolume as Lang.Float;
 
 function sendAudioVolume(relVolume as RelVolume) as Void {
-    var audioState = getAudioState();
+    var audioState = AudioStateImp.getAudioState();
     audioState["audioVolume"] = relVolume;
-    setAudioState(audioState);
+    AudioStateManip.setAudioState(audioState);
     var msg = {
         "cmd" => "setAudioVolume",
         "args" => {
