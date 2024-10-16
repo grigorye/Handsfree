@@ -36,7 +36,7 @@ class AudioVolumeView extends WatchUi.View {
 
         var x = dc.getWidth() / 2;
         var y = dc.getHeight() / 2;
-        var r = dc.getWidth() * 2 / 7;
+        var r = (dc.getWidth() * 2 / 7).toLong();
         var start = 90;
         var end = 90 - 360 * audioLevel / maxAudioLevel - 0.1;
         dc.drawText(
@@ -46,10 +46,11 @@ class AudioVolumeView extends WatchUi.View {
             text,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
         );
-        dc.setPenWidth(2);
-        dc.drawCircle(x, y, r - 1);
+        dc.setPenWidth(1);
+        var progressStrokeHalfWidth = 4;
+        dc.drawCircle(x, y, r - progressStrokeHalfWidth);
         dc.setColor(Styles.audio_volume.foreground, Graphics.COLOR_BLACK);
-        dc.setPenWidth(6);
-        dc.drawArc(x, y, r, Graphics.ARC_CLOCKWISE, start, end);
+        dc.setPenWidth(progressStrokeHalfWidth * 2);
+        dc.drawArc(x, y, r - progressStrokeHalfWidth, Graphics.ARC_CLOCKWISE, start, end);
     }
 }
