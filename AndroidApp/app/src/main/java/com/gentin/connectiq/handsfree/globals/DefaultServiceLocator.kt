@@ -135,9 +135,13 @@ class DefaultServiceLocator(
             },
             setAudioVolumeImp = { relVolume ->
                 audioControl.setAudioVolume(relVolume)
+                var audioState = audioState()
+                audioState.audioRelVolume = relVolume
+                outgoingMessageDispatcher.sendAudioState(audioState)
             },
             muteImp = { on ->
                 audioControl.mute(on)
+                outgoingMessageDispatcher.sendAudioState(audioState())
             }
         )
     }
