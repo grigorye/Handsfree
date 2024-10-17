@@ -3,8 +3,6 @@ import Toybox.Lang;
 import Toybox.Graphics;
 import Rez.Styles;
 
-const maxAudioLevel = 14;
-
 (:audioVolumeView)
 class AudioVolumeView extends WatchUi.View {
     function initialize() {
@@ -25,10 +23,12 @@ class AudioVolumeView extends WatchUi.View {
         } else {
             line1 = "SPKR";
         }
-        var audioLevel = AudioStateManip.getAudioLevel(audioState);
-        var line2 = 100 * audioLevel / maxAudioLevel;
-        var lastKnownAudioLevel = AudioStateManip.getAudioLevel(AudioStateImp.getAudioState());
-        var isUpToDate = (lastKnownAudioLevel == audioLevel);
+        var audioVolume = AudioStateManip.getAudioVolume(audioState);
+        var volumeIndex = audioVolume["index"] as Lang.Integer;
+        var maxVolumeIndex = audioVolume["max"] as Lang.Integer;
+        var line2 = 100 * volumeIndex / maxVolumeIndex;
+        var lastKnownAudioVolume = AudioStateManip.getAudioVolume(AudioStateImp.getAudioState());
+        var isUpToDate = objectsEqual(lastKnownAudioVolume, audioVolume);
         if (!isUpToDate) {
             line2 = "|" + line2 + "|";
         }
@@ -38,7 +38,7 @@ class AudioVolumeView extends WatchUi.View {
         var y = dc.getHeight() / 2;
         var r = (dc.getWidth() * 2 / 7).toLong();
         var start = 90;
-        var end = 90 - 360 * audioLevel / maxAudioLevel - 0.1;
+        var end = 90 - 360 * volumeIndex / maxVolumeIndex - 0.1;
         dc.drawText(
             x,
             y,

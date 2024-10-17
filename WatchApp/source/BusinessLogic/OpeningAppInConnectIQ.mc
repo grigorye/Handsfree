@@ -35,7 +35,7 @@ function sendMute(on as Lang.Boolean) as Void {
     Communications.transmit(msg, null, new DummyCommListener(tag));
 }
 
-typedef RelVolume as Lang.Float;
+typedef RelVolume as Lang.Dictionary<Lang.String, Lang.Number>;
 
 function sendAudioVolume(relVolume as RelVolume) as Void {
     var audioState = AudioStateImp.clone(AudioStateImp.getPendingAudioState());

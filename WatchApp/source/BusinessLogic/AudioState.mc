@@ -57,7 +57,10 @@ function getAudioState() as AudioState {
 function defaultAudioState() as AudioState {
     return {
         "isHeadsetConnected" => false,
-        "audioVolume" => 0.5,
+        "audioVolume" => {
+            "index" => 5,
+            "max" => 10
+        },
         "isMuted" => false
     } as AudioState;
 }
@@ -77,9 +80,13 @@ function getPendingAudioState() as AudioState {
 
 (:background, :inline)
 function clone(state as AudioState) as AudioState {
+    var audioVolume = state["audioVolume"] as RelVolume;
     return {
         "isHeadsetConnected" => state["isHeadsetConnected"],
-        "audioVolume" => state["audioVolume"],
+        "audioVolume" => {
+            "index" => audioVolume["index"],
+            "max" => audioVolume["max"]
+        },
         "isMuted" => state["isMuted"]
     } as AudioState;
 }

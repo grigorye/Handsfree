@@ -74,6 +74,8 @@ function addAudioActions(actions as CallInProgressActions) as Void {
 }
 
 (:inline)
-function toPercents(value as Float) as Lang.Long {
-    return (value * 100).toLong();
+function toPercents(volume as RelVolume) as Lang.Integer {
+    var value = volume["index"] as Lang.Integer;
+    var max = volume["max"] as Lang.Integer;
+    return value * 100 / max;
 }

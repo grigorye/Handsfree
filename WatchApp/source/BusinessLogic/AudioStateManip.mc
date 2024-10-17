@@ -60,13 +60,6 @@ function getAudioVolume(audioState as AudioState) as RelVolume {
     return audioVolume;
 }
 
-(:inline)
-function getAudioLevel(audioState as AudioState) as Lang.Number {
-    var relVolume = getAudioVolume(audioState);
-    var audioLevel = (relVolume * maxAudioLevel).toNumber();
-    return audioLevel;
-}
-
 (:inline, :background)
 function setAudioStateVersion(version as Version) as Void {
     if (debug) { _3(L_RECENTS_STORAGE, "setAudioStateVersion", version); }
