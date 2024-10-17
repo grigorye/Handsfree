@@ -7,7 +7,7 @@ function updateMissedRecents() as Void {
     var lastRecentCheckDate = getLastRecentsCheckDate();
     var newMissedRecents = missedRecents(recents, lastRecentCheckDate);
     var oldMissedRecents = getMissedRecents();
-    if (newMissedRecents.toString().equals(oldMissedRecents.toString())) {
+    if (objectsEqual(newMissedRecents, oldMissedRecents)) {
         return;
     }
     setMissedRecents(newMissedRecents);

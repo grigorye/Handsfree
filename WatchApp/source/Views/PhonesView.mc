@@ -22,7 +22,7 @@ class PhonesView extends WatchUi.Menu2 {
 
     function updateFromPhones(phones as Phones) as Void {
         if (debug) { _3(L_PHONES_VIEW, "updatingFromPhones", phones); }
-        if (oldPhones.toString().equals(phones.toString())) {
+        if (objectsEqual(oldPhones, phones)) {
             if (debug) { _2(L_PHONES_VIEW, "phonesNotChanged"); }
             return;
         }

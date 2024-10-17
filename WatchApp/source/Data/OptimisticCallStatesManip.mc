@@ -11,7 +11,7 @@ function trackOptimisticCallState(callState as CallStateImp) as Void {
 (:background)
 function untrackOptimisticCallState(callState as CallStateImp) as Void {
     var optimisticCallStates = getOptimisticCallStates();
-    if (!("" + nextOptimisticCallState()).equals("" + callState)) {
+    if (!objectsEqual(nextOptimisticCallState(), callState)) {
         System.error("untrack.unexpectedOptimisticCallState: " + callState + ", " + optimisticCallStates);
     }
     callState.optimistic = false;
