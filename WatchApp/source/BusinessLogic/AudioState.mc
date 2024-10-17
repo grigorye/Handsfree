@@ -32,9 +32,10 @@ function saveAudioState(audioState as AudioState) as Void {
 }
 
 (:inline, :background)
-function clearAudioState() as Void {
-    Storage.deleteValue("audioState.v1");
-    Storage.deleteValue("audioStateVersion.v1");
+function resetAudioState() as Void {
+    var audioState = defaultAudioState();
+    audioState["isHeadsetConnected"] = AudioStateManip.getIsHeadsetConnected(getAudioState());
+    AudioStateManip.setAudioState(audioState);
 }
 
 (:background, :glance)
