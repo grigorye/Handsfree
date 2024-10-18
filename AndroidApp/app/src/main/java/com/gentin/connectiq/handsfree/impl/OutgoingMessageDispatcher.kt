@@ -252,7 +252,10 @@ fun audioStatePojo(state: AudioState): Any {
     val pojo = mapOf(
         "isHeadsetConnected" to state.isHeadsetConnected,
         "isMuted" to state.isMuted,
-        "audioVolume" to state.audioRelVolume
+        "audioVolume" to mapOf(
+            "index" to state.audioRelVolume.index,
+            "max" to state.audioRelVolume.max
+        )
     )
     return pojo
 }

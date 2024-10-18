@@ -78,7 +78,7 @@ class AudioControlImp(base: Context?) : ContextWrapper(base), AudioControl {
         val maxVolume = audioManager.getStreamMaxVolume(stream)
         val minVolume = 1 // audioManager.getStreamMinVolume(stream)
         Log.d(TAG, "volumeRange: $minVolume...$maxVolume")
-        val volume = minVolume + (relVolume * (maxVolume - minVolume)).toInt()
+        val volume = minVolume + ((relVolume.index.toFloat() / relVolume.max) * (maxVolume - minVolume)).toInt()
         Log.d(TAG, "volume: $volume")
         audioManager.setStreamVolume(stream, volume, AudioManager.FLAG_SHOW_UI)
     }
@@ -88,11 +88,10 @@ class AudioControlImp(base: Context?) : ContextWrapper(base), AudioControl {
         val audioManager = getSystemService(Service.AUDIO_SERVICE) as AudioManager
         val stream = communicationAudioStream(audioManager)
         Log.d(TAG, "stream: $stream")
-        val maxVolume = audioManager.getStreamMaxVolume(stream)
-        val minVolume = 1 // audioManager.getStreamMinVolume(stream)
-        val volume = audioManager.getStreamVolume(stream)
-        Log.d(TAG, "volume: $volume of ($minVolume...$maxVolume)")
-        val relVolume = (volume - minVolume).toDouble() / (maxVolume - minVolume)
+        val relVolume = RelVolume(
+            audioManager.getStreamVolume(stream),
+            audioManager.getStreamMaxVolume(stream)
+        )
         Log.d(TAG, "relVolume: $relVolume")
         return relVolume
     }

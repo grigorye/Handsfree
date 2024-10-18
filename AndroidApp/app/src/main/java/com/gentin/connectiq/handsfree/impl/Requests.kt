@@ -37,7 +37,11 @@ data class MuteRequestArgs(
     val on: Boolean
 )
 
-typealias RelVolume = Double
+@Serializable
+data class RelVolume(
+    val index: Int,
+    val max: Int
+)
 
 @Serializable
 data class SetAudioVolumeRequestArgs(
