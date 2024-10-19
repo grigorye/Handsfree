@@ -4,7 +4,6 @@ enum CallInProgressAction {
     CALL_IN_PROGRESS_ACTION_HANGUP = "hangup",
     CALL_IN_PROGRESS_ACTION_ACCEPT = "accept",
     CALL_IN_PROGRESS_ACTION_REJECT = "reject",
-    CALL_IN_PROGRESS_ACTION_SPEAKER = "speaker",
     CALL_IN_PROGRESS_ACTION_MUTE = "mute",
     CALL_IN_PROGRESS_ACTION_AUDIO_VOLUME = "audioVolume",
 }
@@ -65,11 +64,6 @@ function addAudioActions(actions as CallInProgressActions) as Void {
     actions.add({
         :prompt => muteLabel,
         :command => CALL_IN_PROGRESS_ACTION_MUTE
-    } as CallInProgressActionSelector);
-
-    actions.add({
-        :prompt => "Speaker",
-        :command => CALL_IN_PROGRESS_ACTION_SPEAKER
     } as CallInProgressActionSelector);
 }
 
