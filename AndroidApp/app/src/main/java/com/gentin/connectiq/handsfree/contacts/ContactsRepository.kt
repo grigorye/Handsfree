@@ -29,7 +29,6 @@ data class ContactData(
     val id: Int,
     var name: String,
     var number: String,
-    var phoneDataList: List<PhoneData> = ArrayList()
 )
 
 interface ContactsRepository {
