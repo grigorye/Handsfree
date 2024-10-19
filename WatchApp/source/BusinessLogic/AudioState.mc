@@ -33,8 +33,8 @@ function saveAudioState(audioState as AudioState) as Void {
 
 (:inline, :background)
 function resetAudioState() as Void {
-    var audioState = defaultAudioState();
-    audioState["isHeadsetConnected"] = AudioStateManip.getIsHeadsetConnected(getAudioState());
+    var audioState = getAudioState();
+    audioState["isMuted"] = false;
     AudioStateManip.setAudioState(audioState);
 }
 
