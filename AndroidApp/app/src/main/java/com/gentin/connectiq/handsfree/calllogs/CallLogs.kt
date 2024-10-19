@@ -11,7 +11,9 @@ import android.net.Uri
 import android.provider.CallLog
 import android.util.Log
 import androidx.core.app.ActivityCompat
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class CallLogEntry(
     val number: String,
     val name: String?,
