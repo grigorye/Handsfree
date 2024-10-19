@@ -77,6 +77,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.8.3")
     implementation("androidx.preference:preference-ktx:1.2.1")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.0")
 
