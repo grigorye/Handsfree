@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class AudioState(
     val isHeadsetConnected: Boolean,
     val isMuted: Boolean,
-    var audioRelVolume: RelVolume
+    var volume: RelVolume
 )

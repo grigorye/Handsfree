@@ -45,7 +45,7 @@ data class RelVolume(
 
 @Serializable
 data class SetAudioVolumeRequestArgs(
-    val relVolume: RelVolume
+    val volume: RelVolume
 )
 
 @Serializable

@@ -136,7 +136,7 @@ class DefaultServiceLocator(
             setAudioVolumeImp = { relVolume ->
                 audioControl.setAudioVolume(relVolume)
                 var audioState = audioState()
-                audioState.audioRelVolume = relVolume
+                audioState.volume = relVolume
                 outgoingMessageDispatcher.sendAudioState(audioState)
             },
             muteImp = { on ->
@@ -205,7 +205,7 @@ class DefaultServiceLocator(
         val state = AudioState(
             isHeadsetConnected,
             isMuted = audioControl.isMuted(),
-            audioRelVolume = audioControl.audioVolume()
+            volume = audioControl.audioVolume()
         )
         return state
     }

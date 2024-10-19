@@ -76,7 +76,7 @@ class IncomingMessageDispatcher(
             "setAudioVolume" -> {
                 val request = json.decodeFromString<SetAudioVolumeRequest>(string)
                 Log.d(TAG, "setAudioVolumeRequest: $request")
-                setAudioVolumeImp(request.args.relVolume)
+                setAudioVolumeImp(request.args.volume)
             }
 
             "mute" -> {
