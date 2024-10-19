@@ -39,12 +39,12 @@ typedef RelVolume as Lang.Dictionary<Lang.String, Lang.Number>;
 
 function sendAudioVolume(relVolume as RelVolume) as Void {
     var audioState = AudioStateImp.clone(AudioStateImp.getPendingAudioState());
-    audioState["audioVolume"] = relVolume;
+    audioState["volume"] = relVolume;
     AudioStateManip.setPendingAudioState(audioState);
     var msg = {
         "cmd" => "setAudioVolume",
         "args" => {
-            "relVolume" => relVolume
+            "volume" => relVolume
         }
     } as Lang.Object as Application.PersistableType;
     var tag = formatCommTag("setAudioVolume");

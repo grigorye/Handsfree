@@ -56,7 +56,7 @@ function getIsHeadsetConnected(audioState as AudioState) as Lang.Boolean {
 
 (:inline)
 function getAudioVolume(audioState as AudioState) as RelVolume {
-    var audioVolume = audioState["audioVolume"] as RelVolume;
+    var audioVolume = audioState["volume"] as RelVolume;
     return audioVolume;
 }
 
