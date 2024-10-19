@@ -6,6 +6,8 @@ import android.util.Log
 import com.gentin.connectiq.handsfree.calllogs.CallLogEntry
 import com.gentin.connectiq.handsfree.contacts.ContactData
 import com.gentin.connectiq.handsfree.helpers.normalizePhoneNumber
+import com.gentin.connectiq.handsfree.helpers.pojoList
+import com.gentin.connectiq.handsfree.helpers.pojoMap
 import java.security.MessageDigest
 
 typealias Version = String
@@ -22,7 +24,11 @@ data class VersionedPojo(
     val pojo: Any?
 )
 
-fun strippedVersionedPojo(hitVersion: Version?, pojo: Any?, metadataOnly: Boolean = false): VersionedPojo {
+fun strippedVersionedPojo(
+    hitVersion: Version?,
+    pojo: Any?,
+    metadataOnly: Boolean = false
+): VersionedPojo {
     val version = "$pojo".md5()
     return VersionedPojo(
         version = version,
@@ -249,45 +255,13 @@ private fun dispatchedPhoneNumber(context: Context, incomingNumber: String?): St
 }
 
 fun audioStatePojo(state: AudioState): Any {
-    val pojo = mapOf(
-        "isHeadsetConnected" to state.isHeadsetConnected,
-        "isMuted" to state.isMuted,
-        "audioVolume" to mapOf(
-            "index" to state.audioRelVolume.index,
-            "max" to state.audioRelVolume.max
-        )
-    )
-    return pojo
+    return pojoMap(state)
 }
 
 fun phonesPojo(contacts: List<ContactData>): Any {
-    val pojo = ArrayList<Any>()
-    for (contact in contacts) {
-        pojo.add(
-            mapOf(
-                "number" to contact.number,
-                "name" to contact.name,
-                "id" to contact.id
-            )
-        )
-    }
-    return pojo
+    return pojoList(contacts)
 }
 
 fun recentsPojo(recents: List<CallLogEntry>): Any {
-    val pojo = ArrayList<Any>()
-    for (entry in recents) {
-        pojo.add(
-            mapOf(
-                "number" to entry.number,
-                "name" to entry.name,
-                "date" to entry.date,
-                "duration" to entry.duration,
-                "type" to entry.type,
-                "isNew" to entry.isNew
-            )
-        )
-    }
-
-    return pojo
+    return pojoList(recents)
 }
