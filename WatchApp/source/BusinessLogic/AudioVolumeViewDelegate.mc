@@ -43,8 +43,8 @@ class AudioVolumeViewDelegate extends WatchUi.InputDelegate {
 
     function adjustAudioLevel(delta as Lang.Number) as Void {
         var audioVolume = AudioStateManip.getAudioVolume(AudioStateImp.getPendingAudioState());
-        var newVolumeIndex = audioVolume["index"] as Lang.Integer + delta;
-        var maxVolumeIndex = audioVolume["max"] as Lang.Integer;
+        var newVolumeIndex = audioVolume["index"] as Lang.Number + delta;
+        var maxVolumeIndex = audioVolume["max"] as Lang.Number;
         if (newVolumeIndex < 0) {
             newVolumeIndex = 0;
         }
