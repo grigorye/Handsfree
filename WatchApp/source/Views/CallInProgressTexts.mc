@@ -43,16 +43,16 @@ function textsForCallInProgress(phone as Phone) as CallInProgressTexts {
 function addAudioActions(actions as CallInProgressActions) as Void {
     var audioState = AudioStateImp.getPendingAudioState();
     var lastKnownAudioState = AudioStateImp.getAudioState();
-
     var audioVolume = AudioStateManip.getAudioVolume(audioState);
-    var percents = toPercents(audioVolume) + "%";
+    var percents = toPercents(audioVolume);
     var lastKnownAudioVolume = AudioStateManip.getAudioVolume(lastKnownAudioState);
-    var audioVolumeIsUpToDate = toPercents(audioVolume) == toPercents(lastKnownAudioVolume);
+    var audioVolumeIsUpToDate = percents == toPercents(lastKnownAudioVolume);
+    var volumeSuffix = percents + "%";
     if (!audioVolumeIsUpToDate) {
-        percents = "|" + percents + "|";
+        volumeSuffix = "|" + volumeSuffix + "|";
     }
     actions.add({
-        :prompt => "Volume: " + percents,
+        :prompt => "Volume: " + volumeSuffix,
         :command => CALL_IN_PROGRESS_ACTION_AUDIO_VOLUME
     } as CallInProgressActionSelector);
 
@@ -74,8 +74,8 @@ function addAudioActions(actions as CallInProgressActions) as Void {
 }
 
 (:inline)
-function toPercents(volume as RelVolume) as Lang.Integer {
-    var value = volume["index"] as Lang.Integer;
-    var max = volume["max"] as Lang.Integer;
+function toPercents(volume as RelVolume) as Lang.Number {
+    var value = volume["index"] as Lang.Number;
+    var max = volume["max"] as Lang.Number;
     return value * 100 / max;
 }
