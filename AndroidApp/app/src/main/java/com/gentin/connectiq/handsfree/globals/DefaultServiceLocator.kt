@@ -135,7 +135,7 @@ class DefaultServiceLocator(
             },
             setAudioVolumeImp = { relVolume ->
                 audioControl.setAudioVolume(relVolume)
-                var audioState = audioState()
+                val audioState = audioState()
                 audioState.volume = relVolume
                 outgoingMessageDispatcher.sendAudioState(audioState)
             },
