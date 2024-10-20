@@ -1,6 +1,5 @@
-import Toybox.Lang;
-
-function launchCheckInIfNecessary() as Void {
+function launchCheckIn() as Void {
+    requestAllSubjects();
 }
 
 function trackCheckRemoteMessageForCheckIn() as Void {

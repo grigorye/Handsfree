@@ -26,7 +26,6 @@ module AppSettings {
         Properties.setValue(key, !value);
     }
     
-    (:noLowMemory)
     const isCheckInEnabled as Lang.Boolean = Properties.getValue("forceCheckIn") as Lang.Boolean;
     (:noLowMemory)
     const initialAttemptsToCheckin as Lang.Number = Properties.getValue("syncAttempts") as Lang.Number;

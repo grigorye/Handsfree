@@ -91,7 +91,6 @@ function appDidRouteToMainUI() as Void {
     launchCheckInIfNecessary();
 }
 
-(:noLowMemory)
 function launchCheckInIfNecessary() as Void {
     var callState = getCallState();
     if (!(callState instanceof Idle)) {
@@ -102,6 +101,11 @@ function launchCheckInIfNecessary() as Void {
         if (debug) { _2(LX_APP_LIFE_CYCLE, "checkInSkipped.dueToSettings"); }
         return;
     }
+    launchCheckIn();
+}
+
+(:noLowMemory)
+function launchCheckIn() as Void {
     if (checkInImp != null) {
         System.error("checkInImp != null");
     }

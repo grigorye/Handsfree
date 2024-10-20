@@ -10,7 +10,6 @@ function requestSync() as Void {
     transmitWithRetry("syncMe", msg, new Communications.ConnectionListener());
 }
 
-(:noLowMemory)
 function requestAllSubjects() as Void {
     var msg = {
         "cmd" => "query",
