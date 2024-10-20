@@ -150,7 +150,17 @@ function exitToSystemFromCommView() as Void {
         System.error("viewStackIsMessedUp");
     }
     if (viewStackTagsEqual(["commView"])) {
-        System.exit();
+        if (debug) { _2(L_ROUTER, "willSystemExit"); }
+        if (tweakingForSystemExit) {
+            System.exit();
+        }
+        if (debug) { _2(L_ROUTER, "systemExitDidNotExit"); }
+        exiting = true;
+    } else {
+        if (debug) { _3(L_ROUTER, "poppingUpAsCommViewIsNotTop", viewStackTags()); }
     }
     popView(WatchUi.SLIDE_IMMEDIATE);
 }
+
+// Workaround for System.exit() treated as non-returning (while it is, in some cases).
+var tweakingForSystemExit as Lang.Boolean = true;
