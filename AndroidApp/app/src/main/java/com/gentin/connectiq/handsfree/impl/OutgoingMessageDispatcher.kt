@@ -48,6 +48,7 @@ fun String.md5(): String {
 }
 
 interface OutgoingMessageDispatcher {
+    fun sendPing()
     fun sendSyncYou(contacts: List<ContactData>, phoneState: PhoneState?)
     fun sendQueryResult(destination: OutgoingMessageDestination, queryResult: QueryResult)
     fun sendPhones(destination: OutgoingMessageDestination, contacts: List<ContactData>)
@@ -67,6 +68,10 @@ class DefaultOutgoingMessageDispatcher(
     val context: Context,
     private val remoteMessageService: RemoteMessageService
 ) : OutgoingMessageDispatcher {
+    override fun sendPing() {
+        send(pingBody)
+    }
+
     override fun sendSyncYou(contacts: List<ContactData>, phoneState: PhoneState?) {
         val msg = mapOf(
             "cmd" to "syncYou",

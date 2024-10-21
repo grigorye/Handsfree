@@ -26,6 +26,7 @@ import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+val pingBody = mapOf("cmd" to "ping")
 
 interface GarminConnector {
     fun launch()
@@ -460,20 +461,33 @@ class DefaultGarminConnector(
                 }
                 targetApps.forEach { app ->
                     val appLogName = appLogName(app)
-                    Log.d(
-                        TAG,
-                        "device.${device.deviceIdentifier}(${device.friendlyName})($appLogName) <- msg.$id(${
-                            gson.toJson(
-                                message
-                            )
-                        })"
-                    )
-                    connectIQ.sendMessage(device, app, message) { _, _, status ->
-                        acknowledgedMessagesCounter += 1
+                    if (messageValue.body == pingBody) {
                         Log.d(
                             TAG,
-                            "device.${device.deviceIdentifier}(${device.friendlyName})($appLogName) -> ack(${status}, msg.$id) [$acknowledgedMessagesCounter]"
+                            "device.${device.deviceIdentifier}(${device.friendlyName})($appLogName) <- msg-ping.$id"
                         )
+                        connectIQ.sendMessage(device, app, "ping".toByteArray()) { _, _, status ->
+                            Log.d(
+                                TAG,
+                                "device.${device.deviceIdentifier}(${device.friendlyName})($appLogName) -> ack-ping(${status}, msg.$id) [$sentMessagesCounter]"
+                            )
+                        }
+                    } else {
+                        Log.d(
+                            TAG,
+                            "device.${device.deviceIdentifier}(${device.friendlyName})($appLogName) <- msg.$id(${
+                                gson.toJson(
+                                    message
+                                )
+                            })"
+                        )
+                        connectIQ.sendMessage(device, app, message) { _, _, status ->
+                            acknowledgedMessagesCounter += 1
+                            Log.d(
+                                TAG,
+                                "device.${device.deviceIdentifier}(${device.friendlyName})($appLogName) -> ack(${status}, msg.$id) [$acknowledgedMessagesCounter]"
+                            )
+                        }
                     }
                 }
             }
