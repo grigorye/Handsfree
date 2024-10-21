@@ -119,51 +119,15 @@ class DefaultOutgoingMessageDispatcher(
     }
 
     override fun sendContacts(contacts: List<ContactData>) {
-        val versionedPojo = strippedVersionedPojo(null, phonesPojo(contacts))
-        val msg = mapOf(
-            "cmd" to "subjectsChanged",
-            "args" to mapOf(
-                "subjects" to mapOf(
-                    "phones" to mapOf(
-                        "version" to versionedPojo.version,
-                        "value" to versionedPojo.pojo
-                    )
-                )
-            )
-        )
-        send(msg)
+        sendSubject("phones", strippedVersionedPojo(null, phonesPojo(contacts)))
     }
 
     override fun sendRecents(recents: List<CallLogEntry>) {
-        val versionedPojo = strippedVersionedPojo(null, recentsPojo(recents))
-        val msg = mapOf(
-            "cmd" to "subjectsChanged",
-            "args" to mapOf(
-                "subjects" to mapOf(
-                    "recents" to mapOf(
-                        "version" to versionedPojo.version,
-                        "value" to versionedPojo.pojo
-                    )
-                )
-            )
-        )
-        send(msg)
+        sendSubject("recents", strippedVersionedPojo(null, recentsPojo(recents)))
     }
 
     override fun sendAudioState(state: AudioState) {
-        val versionedPojo = strippedVersionedPojo(null, audioStatePojo(state))
-        val msg = mapOf(
-            "cmd" to "subjectsChanged",
-            "args" to mapOf(
-                "subjects" to mapOf(
-                    "audioState" to mapOf(
-                        "version" to versionedPojo.version,
-                        "value" to versionedPojo.pojo
-                    )
-                )
-            )
-        )
-        send(msg)
+        sendSubject("audioState", strippedVersionedPojo(null, audioStatePojo(state)))
     }
 
     override fun sendPhoneState(phoneState: PhoneState) {
@@ -235,6 +199,21 @@ class DefaultOutgoingMessageDispatcher(
             }
         }
         return args
+    }
+
+    private fun sendSubject(subject: String, versionedPojo: VersionedPojo) {
+        val msg = mapOf(
+            "cmd" to "subjectsChanged",
+            "args" to mapOf(
+                "subjects" to mapOf(
+                    subject to mapOf(
+                        "version" to versionedPojo.version,
+                        "value" to versionedPojo.pojo
+                    )
+                )
+            )
+        )
+        send(msg)
     }
 
     private fun send(msg: OutgoingMessage) {
