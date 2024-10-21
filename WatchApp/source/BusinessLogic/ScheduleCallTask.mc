@@ -14,8 +14,8 @@ class ScheduleCallTask extends Communications.ConnectionListener {
 
     function launch() as Void {
         var msg = {
-            "cmd" => "call",
-            "args" => {
+            cmdK => "call",
+            argsK => {
                 "number" => getPhoneNumber(phone)
             }
         } as Lang.Object as Application.PersistableType;

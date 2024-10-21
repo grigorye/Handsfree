@@ -5,19 +5,19 @@ import Toybox.Communications;
 (:noLowMemory)
 function requestSync() as Void {
     var msg = {
-        "cmd" => "syncMe"
+        cmdK => "syncMe"
     } as Lang.Object as Application.PersistableType;
     transmitWithRetry("syncMe", msg, new Communications.ConnectionListener());
 }
 
 function requestAllSubjects() as Void {
     var msg = {
-        "cmd" => "query",
-        "args" => {
-            "subjects" => [
-                { "name" => "phones", "version" => getPhonesVersion() }, 
-                { "name" => "recents", "version" => getRecentsVersion() },
-                { "name" => "audioState", "version" => AudioStateManip.getAudioStateVersion() }
+        cmdK => "query",
+        argsK => {
+            subjectsK => [
+                { "name" => "phones", versionK => getPhonesVersion() }, 
+                { "name" => "recents", versionK => getRecentsVersion() },
+                { "name" => "audioState", versionK => AudioStateManip.getAudioStateVersion() }
             ]
         }
     } as Lang.Object as Application.PersistableType;
@@ -33,9 +33,9 @@ function requestSubjects(subjects as Lang.Array<Lang.String>) as Void {
         subjectsArg.add({ "name" => name });
     }
     var msg = {
-        "cmd" => "query",
-        "args" => {
-            "subjects" => subjectsArg
+        cmdK => "query",
+        argsK => {
+            subjectsK => subjectsArg
         }
     } as Lang.Object as Application.PersistableType;
     var tag = formatCommTag("syncSubjects");

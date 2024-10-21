@@ -37,11 +37,11 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
         return;
     }
     var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
-    var cmd = msg["cmd"] as Lang.String;
+    var cmd = msg[cmdK] as Lang.String;
     if (lowMemoryDebug) {
         _3(LX_REMOTE_MSG, "msg.cmd", cmd);
     }
-    var args = msg["args"] as Lang.Dictionary<Lang.String, Lang.Object>;
+    var args = msg[argsK] as Lang.Dictionary<Lang.String, Lang.Object>;
     switch (cmd) {
         case "syncYou":
             var phonesArgs = args["setPhones"] as Lang.Dictionary<Lang.String, Lang.Object>;
@@ -60,7 +60,7 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
             setPhones(args["phones"] as Phones);
             break;
         case "subjectsChanged":
-            handleSubjectsChanged(args["subjects"] as SubjectsChanged);
+            handleSubjectsChanged(args[subjectsK] as SubjectsChanged);
             break;
         case "acceptQueryResult":
             handleAcceptQueryResult(args);
@@ -89,7 +89,7 @@ typedef SubjectsChanged as Lang.Dictionary<Lang.String, Lang.Dictionary<Lang.Str
 
 (:background)
 function handleAcceptQueryResult(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
-    var subjects = args["subjects"] as SubjectsChanged;
+    var subjects = args[subjectsK] as SubjectsChanged;
     var subjectsInvalidated = handleSubjectsChanged(subjects);
     if (subjectsInvalidated.size() > 0) {
         requestSubjects(subjectsInvalidated);
@@ -108,11 +108,11 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
     for (var i = 0; i < namesCount; i++) {
         var name = names[i];
         var subject = subjects[name] as Lang.Dictionary<Lang.String, Lang.Object>;
-        var version = subject["version"] as Version;
+        var version = subject[versionK] as Version;
         switch (name) {
             case "phones": {
                 if (!version.equals(getPhonesVersion())) {
-                    var phones = subject["value"] as Phones or Null;
+                    var phones = subject[valueK] as Phones or Null;
                     if (phones == null) {
                         subjectsInvalidated.add(name);
                     } else {
@@ -127,7 +127,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
             }
             case "recents": {
                 if (!version.equals(getRecentsVersion())) {
-                    var recents = subject["value"] as Recents or Null;
+                    var recents = subject[valueK] as Recents or Null;
                     if (recents == null) {
                         subjectsInvalidated.add(name);
                     } else {
@@ -142,7 +142,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
             }
             case "audioState": {
                 if (!version.equals(AudioStateManip.getAudioStateVersion())) {
-                    var audioState = subject["value"] as AudioState or Null;
+                    var audioState = subject[valueK] as AudioState or Null;
                     if (audioState == null) {
                         subjectsInvalidated.add(name);
                     } else {

@@ -10,3 +10,15 @@ const isMutedK as Lang.String = "m";
 const maxK as Lang.String = "m";
 (:inline, :background, :glance)
 const indexK as Lang.String = "i";
+
+(:inline, :background, :glance)
+const versionK as Lang.String = "v";
+(:inline, :background, :glance)
+const valueK as Lang.String = "l";
+
+(:inline, :background, :glance)
+const subjectsK as Lang.String = "s";
+(:inline, :background, :glance)
+const cmdK as Lang.String = "c";
+(:inline, :background, :glance)
+const argsK as Lang.String = "a";

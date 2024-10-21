@@ -7,8 +7,8 @@ function sendMute(on as Lang.Boolean) as Void {
     audioState[isMutedK] = on;
     AudioStateManip.setPendingAudioState(audioState);
     var msg = {
-        "cmd" => "mute",
-        "args" => {
+        cmdK => "mute",
+        argsK => {
             "on" => on
         }
     } as Lang.Object as Application.PersistableType;
@@ -24,8 +24,8 @@ function sendAudioVolume(relVolume as RelVolume) as Void {
     audioState[volumeK] = relVolume;
     AudioStateManip.setPendingAudioState(audioState);
     var msg = {
-        "cmd" => "setAudioVolume",
-        "args" => {
+        cmdK => "setAudioVolume",
+        argsK => {
             volumeK => relVolume
         }
     } as Lang.Object as Application.PersistableType;

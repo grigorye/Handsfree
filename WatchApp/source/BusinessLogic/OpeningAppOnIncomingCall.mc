@@ -49,8 +49,8 @@ function openAppOnIncomingCall(phone as Phone) as Void {
     var message = messageForApplicationWake(phone);
     if (BackgroundSettings.isIncomingOpenAppViaCompanionEnabled) {
         var msg = {
-            "cmd" => "openMe",
-            "args" => {
+            cmdK => "openMe",
+            argsK => {
                 "messageForWakingUp" => message
             }
         } as Lang.Object as Application.PersistableType;
