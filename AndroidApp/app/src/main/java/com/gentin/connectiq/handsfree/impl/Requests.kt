@@ -1,5 +1,6 @@
 package com.gentin.connectiq.handsfree.impl
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -39,13 +40,13 @@ data class MuteRequestArgs(
 
 @Serializable
 data class RelVolume(
-    val index: Int,
-    val max: Int
+    @SerialName("i") val index: Int,
+    @SerialName("m") val max: Int
 )
 
 @Serializable
 data class SetAudioVolumeRequestArgs(
-    val volume: RelVolume
+    @SerialName("v") val volume: RelVolume
 )
 
 @Serializable
