@@ -1,6 +1,6 @@
 package com.gentin.connectiq.handsfree.calllogs
 
-private const val maxRecentsCount = 10
+private const val maxRecentsCount = 5
 
 fun recentsFromCallLog(callLog: List<CallLogEntry>): List<CallLogEntry> {
     return callLog.fold(listOf<CallLogEntry>()) { acc, callLogEntry ->
