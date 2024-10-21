@@ -18,7 +18,8 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
         if (debug) { _3(LX_REMOTE_MSG, "msg", iqMsg); }
         return;
     }
-    if (!(iqMsg.data instanceof Lang.Object)) {
+    var data = iqMsg.data;
+    if (!(data instanceof Lang.Object)) {
         if (minDebug) { _3(LX_REMOTE_MSG, "msg", "dataIsNotObject!"); }
         return;
     }
@@ -31,6 +32,10 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
         }
     }
     didReceiveRemoteMessage();
+    if (data.equals("ping")) {
+        if (minDebug) { _3(LX_REMOTE_MSG, "msg.data", "gotPing"); }
+        return;
+    }
     var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
     var cmd = msg["cmd"] as Lang.String;
     if (lowMemoryDebug) {
