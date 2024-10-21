@@ -34,7 +34,7 @@ function saveAudioState(audioState as AudioState) as Void {
 (:inline, :background)
 function resetAudioState() as Void {
     var audioState = getAudioState();
-    audioState["isMuted"] = false;
+    audioState[isMutedK] = false;
     AudioStateManip.setAudioState(audioState);
 }
 
@@ -57,18 +57,18 @@ function getAudioState() as AudioState {
 (:background, :glance)
 function defaultAudioState() as AudioState {
     return {
-        "isHeadsetConnected" => false,
-        "volume" => {
-            "index" => 5,
-            "max" => 10
+        isHeadsetConnectedK => false,
+        volumeK => {
+            indexK => 5,
+            maxK => 10
         },
-        "isMuted" => false
+        isMutedK => false
     } as AudioState;
 }
 
 (:inline)
 function getIsMuted(state as AudioState) as Lang.Boolean {
-    return state["isMuted"] as Lang.Boolean;
+    return state[isMutedK] as Lang.Boolean;
 }
 
 (:background)
@@ -81,14 +81,14 @@ function getPendingAudioState() as AudioState {
 
 (:background, :inline)
 function clone(state as AudioState) as AudioState {
-    var volume = state["volume"] as RelVolume;
+    var volume = state[volumeK] as RelVolume;
     return {
-        "isHeadsetConnected" => state["isHeadsetConnected"],
-        "volume" => {
-            "index" => volume["index"],
-            "max" => volume["max"]
+        isHeadsetConnectedK => state[isHeadsetConnectedK],
+        volumeK => {
+            indexK => volume[indexK],
+            maxK => volume[maxK]
         },
-        "isMuted" => state["isMuted"]
+        isMutedK => state[isMutedK]
     } as AudioState;
 }
 

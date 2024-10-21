@@ -24,8 +24,8 @@ class AudioVolumeView extends WatchUi.View {
             line1 = "SPKR";
         }
         var audioVolume = AudioStateManip.getAudioVolume(audioState);
-        var volumeIndex = audioVolume["index"] as Lang.Integer;
-        var maxVolumeIndex = audioVolume["max"] as Lang.Integer;
+        var volumeIndex = audioVolume[indexK] as Lang.Integer;
+        var maxVolumeIndex = audioVolume[maxK] as Lang.Integer;
         var line2 = 100 * volumeIndex / maxVolumeIndex;
         var lastKnownAudioVolume = AudioStateManip.getAudioVolume(AudioStateImp.getAudioState());
         var isUpToDate = objectsEqual(lastKnownAudioVolume, audioVolume);

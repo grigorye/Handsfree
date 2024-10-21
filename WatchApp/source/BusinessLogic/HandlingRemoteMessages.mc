@@ -20,7 +20,7 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
     }
     var data = iqMsg.data;
     if (!(data instanceof Lang.Object)) {
-        if (minDebug) { _3(LX_REMOTE_MSG, "msg", "dataIsNotObject!"); }
+        if (minDebug) { _3(LX_REMOTE_MSG, "msg", "dataIsNotObject: " + data); }
         return;
     }
     var lowMemoryDebug = minDebug && !isActiveUiKindApp && lowMemory;

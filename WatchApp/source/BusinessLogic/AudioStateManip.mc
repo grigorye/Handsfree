@@ -50,13 +50,13 @@ function setPendingAudioState(state as AudioState) as Void {
 
 (:inline, :background, :glance)
 function getIsHeadsetConnected(audioState as AudioState) as Lang.Boolean {
-    var isHeadsetConnected = audioState["isHeadsetConnected"] as Lang.Boolean | Null;
+    var isHeadsetConnected = audioState[isHeadsetConnectedK] as Lang.Boolean | Null;
     return (isHeadsetConnected != null) ? isHeadsetConnected : false;
 }
 
 (:inline)
 function getAudioVolume(audioState as AudioState) as RelVolume {
-    var audioVolume = audioState["volume"] as RelVolume;
+    var audioVolume = audioState[volumeK] as RelVolume;
     return audioVolume;
 }
 
