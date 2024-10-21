@@ -29,6 +29,7 @@ class DefaultPhoneCallService(
     override fun makeCall(number: String, withSpeakerPhone: Boolean) {
         Log.d(TAG, "outgoingCallsShouldBeEnabled: ${outgoingCallsShouldBeEnabled(this)}")
         if (!outgoingCallsShouldBeEnabled(this)) {
+            makeCallFailed()
             return
         }
         if (!canMakeCalls()) {
