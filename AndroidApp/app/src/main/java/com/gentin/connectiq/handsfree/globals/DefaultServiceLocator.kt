@@ -2,6 +2,7 @@ package com.gentin.connectiq.handsfree.globals
 
 import android.content.Context
 import android.content.ContextWrapper
+import android.media.AudioManager
 import android.telephony.TelephonyManager
 import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
@@ -262,6 +263,21 @@ class DefaultServiceLocator(
             activeGarminConnector.value = this
         }
     }
+
+    private var lastObservedAudioState: AudioState? = null
+
+    val communicationDeviceChangedListener: AudioManager.OnCommunicationDeviceChangedListener by lazy {
+        AudioManager.OnCommunicationDeviceChangedListener { device ->
+            Log.d(TAG, "audioDeviceDidChange: ${device?.type}")
+            val audioState = audioState()
+            if (lastObservedAudioState != audioState) {
+                outgoingMessageDispatcher.sendAudioState(audioState)
+                lastObservedAudioState = audioState
+            }
+        }
+    }
+
+    val audioManager by lazy { getSystemService(Context.AUDIO_SERVICE) as AudioManager }
 
     companion object {
         private val TAG: String = DefaultServiceLocator::class.java.simpleName

@@ -120,10 +120,21 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         l.callLogRepository.subscribe(callLogObserver)
         l.contactsRepository.subscribe(contactsObserver)
         sharedPreferences.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            l.audioManager.addOnCommunicationDeviceChangedListener(
+                mainExecutor,
+                l.communicationDeviceChangedListener
+            )
+        }
     }
 
     override fun onDestroy() {
         Log.d(TAG, "onDestroy")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            l.audioManager.removeOnCommunicationDeviceChangedListener(
+                l.communicationDeviceChangedListener
+            )
+        }
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(preferenceChangeListener)
         l.callLogRepository.unsubscribe(callLogObserver)
         l.headPhoneConnectionMonitor.stop()
@@ -275,12 +286,14 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         lastTrackedPhoneState = phoneState
         l.outgoingMessageDispatcher.sendPhoneState(phoneState)
 
-        if (stateExtra == TelephonyManager.EXTRA_STATE_OFFHOOK) {
-            // Workaround audio route not yet up to date.
-            val handler = Handler(Looper.getMainLooper())
-            handler.postDelayed({
-                l.accountAudioState()
-            }, 1000)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+            if (stateExtra == TelephonyManager.EXTRA_STATE_OFFHOOK) {
+                // Workaround audio route not yet up to date.
+                val handler = Handler(Looper.getMainLooper())
+                handler.postDelayed({
+                    l.accountAudioState()
+                }, 1000)
+            }
         }
 
         if ((stateExtra == TelephonyManager.EXTRA_STATE_RINGING) && isOpenWatchAppOnRingingEnabled()) {
