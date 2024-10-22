@@ -17,7 +17,7 @@ function requestAllSubjects() as Void {
             subjectsK => [
                 { "name" => "phones", versionK => getPhonesVersion() }, 
                 { "name" => "recents", versionK => getRecentsVersion() },
-                { "name" => "audioState", versionK => AudioStateManip.getAudioStateVersion() }
+                { "name" => audioStateSubject, versionK => AudioStateManip.getAudioStateVersion() }
             ]
         }
     } as Lang.Object as Application.PersistableType;

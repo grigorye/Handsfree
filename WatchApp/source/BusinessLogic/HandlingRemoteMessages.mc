@@ -37,11 +37,11 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
         return;
     }
     var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
-    var cmd = msg[cmdK] as Lang.String;
+    var cmd = msg[cmdMsgField] as Lang.String;
     if (lowMemoryDebug) {
         _3(LX_REMOTE_MSG, "msg.cmd", cmd);
     }
-    var args = msg[argsK] as Lang.Dictionary<Lang.String, Lang.Object>;
+    var args = msg[argsMsgField] as Lang.Dictionary<Lang.String, Lang.Object>;
     switch (cmd) {
         case "syncYou":
             var phonesArgs = args["setPhones"] as Lang.Dictionary<Lang.String, Lang.Object>;
@@ -59,7 +59,7 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
         case "setPhones":
             setPhones(args["phones"] as Phones);
             break;
-        case "subjectsChanged":
+        case subjectsChangedInCmd:
             handleSubjectsChanged(args[subjectsK] as SubjectsChanged);
             break;
         case "acceptQueryResult":
@@ -83,7 +83,7 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
 (:background)
 const L_PHONE_STATE_CHANGED as LogComponent = "phoneStateChanged";
 
-typedef Version as Lang.String;
+typedef Version as Lang.Number;
 
 typedef SubjectsChanged as Lang.Dictionary<Lang.String, Lang.Dictionary<Lang.String, Lang.Object>>;
 
@@ -140,7 +140,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
                 }
                 break;
             }
-            case "audioState": {
+            case audioStateSubject: {
                 if (!version.equals(AudioStateManip.getAudioStateVersion())) {
                     var audioState = subject[valueK] as AudioState or Null;
                     if (audioState == null) {

@@ -2,14 +2,16 @@ import Toybox.Communications;
 import Toybox.Lang;
 import Toybox.Application;
 
+const onArg as Lang.String = "o";
+
 function sendMute(on as Lang.Boolean) as Void {
     var audioState = AudioStateImp.clone(AudioStateImp.getPendingAudioState());
     audioState[isMutedK] = on;
     AudioStateManip.setPendingAudioState(audioState);
     var msg = {
-        cmdK => "mute",
+        cmdK => muteCmd,
         argsK => {
-            "on" => on
+            onArg => on
         }
     } as Lang.Object as Application.PersistableType;
     var tag = formatCommTag("mute");
@@ -24,7 +26,7 @@ function sendAudioVolume(relVolume as RelVolume) as Void {
     audioState[volumeK] = relVolume;
     AudioStateManip.setPendingAudioState(audioState);
     var msg = {
-        cmdK => "setAudioVolume",
+        cmdK => setAudioVolumeCmd,
         argsK => {
             volumeK => relVolume
         }

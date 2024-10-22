@@ -22,3 +22,21 @@ const subjectsK as Lang.String = "s";
 const cmdK as Lang.String = "c";
 (:inline, :background, :glance)
 const argsK as Lang.String = "a";
+
+(:inline, :background, :glance)
+const subjectsChangedInCmd as Lang.String = "s";
+
+(:inline, :background, :glance)
+const muteCmd as Lang.String = "m";
+(:inline, :background, :glance)
+const setAudioVolumeCmd as Lang.String = "v";
+
+(:inline, :background, :glance)
+const audioStateSubject as Lang.String = "a";
+
+(:inline, :background, :glance)
+const idMsgField = "i";
+(:inline, :background, :glance)
+const cmdMsgField = "c";
+(:inline, :background, :glance)
+const argsMsgField = "a";
