@@ -262,11 +262,18 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         val notificationManager = getSystemService(NotificationManager::class.java)
         notificationManager.createNotificationChannel(channel)
 
-        startForeground(
-            /* id = */ 100,
-            /* notification = */ notification,
-            /* foregroundServiceType = */ ServiceInfo.FOREGROUND_SERVICE_TYPE_MANIFEST
-        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            startForeground(
+                /* id = */ 100,
+                /* notification = */ notification,
+                /* foregroundServiceType = */ ServiceInfo.FOREGROUND_SERVICE_TYPE_MANIFEST
+            )
+        } else {
+            startForeground(
+                /* id = */ 100,
+                /* notification = */ notification
+            )
+        }
     }
 
     private fun accountPhoneState(incomingNumber: String?, stateExtra: String) {
