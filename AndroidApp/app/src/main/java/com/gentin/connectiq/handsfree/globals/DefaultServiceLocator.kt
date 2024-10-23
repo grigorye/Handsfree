@@ -37,7 +37,6 @@ import com.gentin.connectiq.handsfree.impl.QueryArgs
 import com.gentin.connectiq.handsfree.impl.QueryResult
 import com.gentin.connectiq.handsfree.impl.RemoteMessageService
 import com.gentin.connectiq.handsfree.impl.SubjectQuery
-import com.gentin.connectiq.handsfree.impl.allSubjectNames
 import com.gentin.connectiq.handsfree.impl.audioStatePojo
 import com.gentin.connectiq.handsfree.impl.phonesPojo
 import com.gentin.connectiq.handsfree.impl.recentsPojo
@@ -45,6 +44,8 @@ import com.gentin.connectiq.handsfree.impl.strippedVersionedPojo
 import com.gentin.connectiq.handsfree.services.fallbackPhoneState
 import com.gentin.connectiq.handsfree.services.lastTrackedAudioState
 import com.gentin.connectiq.handsfree.services.lastTrackedPhoneState
+import com.gentin.connectiq.handsfree.terms.allSubjectNames
+import com.gentin.connectiq.handsfree.terms.audioStateSubject
 
 class DefaultServiceLocator(
     base: Context?,
@@ -166,7 +167,7 @@ class DefaultServiceLocator(
                         strippedVersionedPojo(subject.version, recentsPojo(recents()), metadataOnly)
                 }
 
-                "audioState" -> {
+                audioStateSubject -> {
                     queryResult.audioState =
                         strippedVersionedPojo(
                             subject.version,

@@ -22,11 +22,12 @@ import com.gentin.connectiq.handsfree.globals.storeID
 import com.gentin.connectiq.handsfree.globals.watchApps
 import com.gentin.connectiq.handsfree.helpers.breakIntoDebugger
 import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
+import com.gentin.connectiq.handsfree.terms.cmdMsgField
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-val pingBody = mapOf("cmd" to "ping")
+val pingBody = mapOf(cmdMsgField to "ping")
 
 interface GarminConnector {
     fun launch()
