@@ -66,10 +66,14 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
             retransmitTimer.stop();
         }
         if (attemptsRemaining > 0) {
-            if (retransmitTimer == null) {
-                retransmitTimer = new Timer.Timer();
+            var timer;
+            if (retransmitTimer != null) {
+                timer = retransmitTimer;
+            } else {
+                timer = new Timer.Timer();
+                retransmitTimer = timer;
             }
-            (retransmitTimer as Timer.Timer).start(method(:transmit), retransmitDelay, false);
+            timer.start(method(:transmit), retransmitDelay, false);
             return;
         }
         if (minDebug) { _2(LX_OUT_COMM, tag + ".failed"); }
