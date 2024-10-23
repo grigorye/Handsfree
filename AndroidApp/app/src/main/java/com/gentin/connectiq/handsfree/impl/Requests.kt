@@ -73,5 +73,5 @@ val allSubjectNames = listOf(
 @Serializable
 data class SubjectQuery(
     val name: String,
-    val version: String? = null
+    val version: Version? = null
 )

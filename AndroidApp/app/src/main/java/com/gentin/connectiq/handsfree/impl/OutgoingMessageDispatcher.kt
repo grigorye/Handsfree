@@ -10,7 +10,7 @@ import com.gentin.connectiq.handsfree.helpers.pojoList
 import com.gentin.connectiq.handsfree.helpers.pojoMap
 import java.security.MessageDigest
 
-typealias Version = String
+typealias Version = Int
 
 data class QueryResult(
     var phoneState: PhoneState? = null,
@@ -24,12 +24,13 @@ data class VersionedPojo(
     val pojo: Any?
 )
 
+@OptIn(ExperimentalStdlibApi::class)
 fun strippedVersionedPojo(
     hitVersion: Version?,
     pojo: Any?,
     metadataOnly: Boolean = false
 ): VersionedPojo {
-    val version = "$pojo".md5()
+    val version = "$pojo".md5().takeLast(4).hexToInt()
     return VersionedPojo(
         version = version,
         pojo = if (version == hitVersion || metadataOnly) {
