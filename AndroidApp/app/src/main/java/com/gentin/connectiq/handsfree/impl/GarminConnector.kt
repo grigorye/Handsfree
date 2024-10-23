@@ -438,12 +438,13 @@ class DefaultGarminConnector(
     }
 
     private val gson = Gson()
+    private val tagMessages = false
 
     private fun sendMessageSync(messageValue: OutgoingMessage) {
         sentMessagesCounter += 1
         val sdkStartCount = this.sdkStartCount
         val id = "$sdkStartCount.$sentMessagesCounter"
-        val message = mapOf("id" to id) + messageValue.body
+        val message = if (tagMessages) { mapOf("id" to id) + messageValue.body } else { messageValue.body }
 
         val destination = messageValue.destination
         val targetDevices = if (destination.device != null) {
