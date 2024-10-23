@@ -4,7 +4,6 @@ import Toybox.Application;
 import Toybox.Timer;
 
 const simulatedCommDelay = false ? 2000 : 0;
-const followUpDelay = 200;
 
 class LifoCommProxy extends Communications.ConnectionListener {
     private var tag as Lang.String | Null;
@@ -101,7 +100,7 @@ class LifoCommProxy extends Communications.ConnectionListener {
             }
             var timer = new Timer.Timer();
             followUpTimer = timer;
-            timer.start(method(:transmitNext), followUpDelay, false);
+            timer.start(method(:transmitNext), AppSettings.followUpCommDelay, false);
         } else {
             if (minDebug) { _2(LX_OUT_COMM, "queueIsEmpty"); }
         }

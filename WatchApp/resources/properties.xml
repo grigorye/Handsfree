@@ -25,6 +25,7 @@
         <property id="forcedLogComponents" type="string">&lt;;&gt;;app</property>
         <property id="forceLogAll" type="boolean">false</property>
         <property id="optimisticCallHandling" type="boolean">false</property>
+        <property id="followUpCommDelay" type="number">300</property>
     </properties>
 
     <strings>
@@ -56,6 +57,7 @@
         <string id="mainScreen">Main</string>
         <string id="favoritesScreen">Favorites</string>
         <string id="recentsScreen">Recents</string>
+        <string id="followUpCommDelay">Comm delay on follow-up</string>
     </strings>
 
     <settings>
@@ -100,6 +102,9 @@
             <settingConfig type="numeric" />
         </setting>
         <setting propertyKey="@Properties.secondsToCheckIn" title="@Strings.secondsToCheckIn">
+            <settingConfig type="numeric" />
+        </setting>
+        <setting propertyKey="@Properties.followUpCommDelay" title="@Strings.followUpCommDelay">
             <settingConfig type="numeric" />
         </setting>
         <setting propertyKey="@Properties.incomingCallVibration"

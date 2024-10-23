@@ -31,6 +31,7 @@ module AppSettings {
     const initialAttemptsToCheckin as Lang.Number = Properties.getValue("syncAttempts") as Lang.Number;
     (:noLowMemory)
     const initialSecondsToCheckin as Lang.Number = Properties.getValue("secondsToCheckIn") as Lang.Number;
+    const followUpCommDelay as Lang.Number = Properties.getValue("followUpCommDelay") as Lang.Number;
     (:noLowMemory)
     const isSyncingCallStateOnCheckinEnabled as Lang.Boolean = Properties.getValue("syncCallStateOnLaunch") as Lang.Boolean;
     const isOptimisticCallHandlingEnabled as Lang.Boolean = Properties.getValue("optimisticCallHandling") as Lang.Boolean;
