@@ -10,14 +10,14 @@ class CommView extends WatchUi.View {
     }
 
     function onShow() {
-        if (debug) { _2(L_COMM_VIEW, "onShow"); }
+        if (viewDebug) { _2(L_COMM_VIEW, "onShow"); }
         if (topView() == self) {
             firstOnShow();
         } else {
-            if (debug) {
+            if (viewDebug) {
                 _3(L_COMM_VIEW_CRITICAL, "unexpectedOnShow", viewStackTags());
                 if (exiting) {
-                    if (debug) { _2(L_COMM_VIEW_CRITICAL, "poppingUpDueToExiting"); }
+                    if (viewDebug) { _2(L_COMM_VIEW_CRITICAL, "poppingUpDueToExiting"); }
                     WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
                 }
             }

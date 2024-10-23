@@ -58,7 +58,7 @@ function trackInitialView(tag as Lang.String, view as WatchUi.Views, delegate as
 }
 
 function dumpViewStack(tag as Lang.String) as Void {
-    if (debug) { _3(L_VIEW_TRACKING, tag, viewStackTags()); }
+    if (viewDebug) { _3(L_VIEW_TRACKING, tag, viewStackTags()); }
 }
 
 function topView() as WatchUi.Views or Null {
@@ -81,7 +81,7 @@ function assertViewStackIsSane() as Void {
     for (var i = 0; i < viewStack.size(); i++) {
         if (uniqueViewTags.indexOf(viewStack[i].tag) != -1) {
             dumpViewStack("messedUp");
-            if (debug) { _3(L_VIEW_TRACKING, "nonUniqueView", viewStack[i]); }
+            if (viewDebug) { _3(L_VIEW_TRACKING, "nonUniqueView", viewStack[i]); }
             System.error("viewStackIsMessedUp");
         }
     }
