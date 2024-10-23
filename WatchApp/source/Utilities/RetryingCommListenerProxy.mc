@@ -15,11 +15,6 @@ function transmitWithRetry(tagLiteral as Lang.String, msg as Application.Persist
     proxy.launch();
 }
 
-(:background)
-function formatCommTag(tag as Lang.String) as Lang.String {
-    return "'" + tag + "'";
-}
-
 class RetryingCommListenerProxy extends Communications.ConnectionListener {
     private var tag as Lang.String;
     private var msg as Application.PersistableType;
