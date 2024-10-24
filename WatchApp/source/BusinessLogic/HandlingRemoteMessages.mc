@@ -74,6 +74,9 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
         case InCmd.openMeCompleted:
             handleOpenMeCompleted(args);            
             break;
+        default:
+            _3(LX_REMOTE_MSG, "unknownCmd", cmd);
+            break;
     }
     if (minDebug) {
         _2(LX_REMOTE_MSG, "msg.committed");
