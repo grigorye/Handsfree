@@ -5,7 +5,21 @@ import com.gentin.connectiq.handsfree.calllogs.CallLogEntry
 import com.gentin.connectiq.handsfree.contacts.ContactData
 import com.gentin.connectiq.handsfree.helpers.pojoList
 import com.gentin.connectiq.handsfree.helpers.pojoMap
-import com.gentin.connectiq.handsfree.terms.*
+import com.gentin.connectiq.handsfree.terms.acceptQueryResultCmd
+import com.gentin.connectiq.handsfree.terms.argsMsgField
+import com.gentin.connectiq.handsfree.terms.audioStateSubject
+import com.gentin.connectiq.handsfree.terms.cmdMsgField
+import com.gentin.connectiq.handsfree.terms.openAppFailedCmd
+import com.gentin.connectiq.handsfree.terms.openMeCompletedCmd
+import com.gentin.connectiq.handsfree.terms.phoneStateChangedCmd
+import com.gentin.connectiq.handsfree.terms.phonesSubject
+import com.gentin.connectiq.handsfree.terms.recentsSubject
+import com.gentin.connectiq.handsfree.terms.setPhonesCmdV1
+import com.gentin.connectiq.handsfree.terms.subjectValue
+import com.gentin.connectiq.handsfree.terms.subjectVersion
+import com.gentin.connectiq.handsfree.terms.subjectsArg
+import com.gentin.connectiq.handsfree.terms.subjectsChangedCmd
+import com.gentin.connectiq.handsfree.terms.syncYouCmd
 import java.security.MessageDigest
 
 typealias Version = Int
@@ -48,9 +62,9 @@ fun String.md5(): String {
 
 interface OutgoingMessageDispatcher {
     fun sendPing()
-    fun sendSyncYou(contacts: List<ContactData>, phoneState: PhoneState?)
+    fun sendSyncYouV1(contacts: List<ContactData>, phoneState: PhoneState?)
     fun sendQueryResult(destination: OutgoingMessageDestination, queryResult: QueryResult)
-    fun sendPhones(destination: OutgoingMessageDestination, contacts: List<ContactData>)
+    fun sendPhonesV1(destination: OutgoingMessageDestination, contacts: List<ContactData>)
     fun sendContacts(contacts: List<ContactData>)
     fun sendRecents(recents: List<CallLogEntry>)
     fun sendPhoneState(destination: OutgoingMessageDestination, phoneState: PhoneState)
@@ -71,12 +85,12 @@ class DefaultOutgoingMessageDispatcher(
         send(pingBody)
     }
 
-    override fun sendSyncYou(contacts: List<ContactData>, phoneState: PhoneState?) {
+    override fun sendSyncYouV1(contacts: List<ContactData>, phoneState: PhoneState?) {
         val msg = mapOf(
             cmdMsgField to syncYouCmd,
             argsMsgField to mapOf(
-                "setPhones" to phonesArgs(contacts),
-                "phoneStateChanged" to phoneState?.let { phoneStateChangedArgs(it) }
+                "setPhones" to phonesArgsV1(contacts),
+                "phoneStateChanged" to phoneState?.let { phoneStateChangedArgsV1(it) }
             )
         )
         send(msg)
@@ -114,10 +128,13 @@ class DefaultOutgoingMessageDispatcher(
         send(OutgoingMessage(destination, msg))
     }
 
-    override fun sendPhones(destination: OutgoingMessageDestination, contacts: List<ContactData>) {
+    override fun sendPhonesV1(
+        destination: OutgoingMessageDestination,
+        contacts: List<ContactData>
+    ) {
         val msg = mapOf(
-            cmdMsgField to setPhonesCmd,
-            argsMsgField to phonesArgs(contacts)
+            cmdMsgField to setPhonesCmdV1,
+            argsMsgField to phonesArgsV1(contacts)
         )
         send(OutgoingMessage(destination, msg))
     }
@@ -135,12 +152,21 @@ class DefaultOutgoingMessageDispatcher(
     }
 
     override fun sendPhoneState(destination: OutgoingMessageDestination, phoneState: PhoneState) {
-        val args = phoneStateChangedArgs(phoneState)
-        val msg = mapOf(
+        val destinationV1 = destination.copy(matchV1 = true)
+        val argsV1 = phoneStateChangedArgsV1(phoneState)
+        val msgV1 = mapOf(
             cmdMsgField to phoneStateChangedCmd,
-            argsMsgField to args
+            argsMsgField to argsV1
         )
-        send(OutgoingMessage(destination, msg))
+        send(OutgoingMessage(destinationV1, msgV1))
+
+        val destinationV2 = destination.copy(matchV1 = false)
+        val argsV2 = phoneStateChangedArgsV1(phoneState)
+        val msgV2 = mapOf(
+            cmdMsgField to phoneStateChangedCmd,
+            argsMsgField to argsV2
+        )
+        send(OutgoingMessage(destinationV2, msgV2))
     }
 
     override fun sendOpenAppFailed(destination: OutgoingMessageDestination) {
@@ -165,13 +191,13 @@ class DefaultOutgoingMessageDispatcher(
         send(OutgoingMessage(destination, msg))
     }
 
-    private fun phonesArgs(contacts: List<ContactData>): Map<String, Any> {
+    private fun phonesArgsV1(contacts: List<ContactData>): Map<String, Any> {
         return mapOf(
-            "phones" to phonesPojo(contacts)
+            "phones" to phonesPojoV1(contacts)
         )
     }
 
-    private fun phoneStateChangedArgs(state: PhoneState): Map<String, Any?> {
+    private fun phoneStateChangedArgsV1(state: PhoneState): Map<String, Any?> {
         val args = when (state.stateId) {
             PhoneStateId.Idle -> {
                 mapOf(
@@ -238,6 +264,20 @@ fun audioStatePojo(state: AudioState): Any {
 
 fun phonesPojo(contacts: List<ContactData>): Any {
     return pojoList(contacts)
+}
+
+fun phonesPojoV1(contacts: List<ContactData>): Any {
+    val pojo = ArrayList<Any>()
+    for (contact in contacts) {
+        pojo.add(
+            mapOf(
+                "number" to contact.number,
+                "name" to contact.name,
+                "id" to contact.id
+            )
+        )
+    }
+    return pojo
 }
 
 fun recentsPojo(recents: List<CallLogEntry>): Any {

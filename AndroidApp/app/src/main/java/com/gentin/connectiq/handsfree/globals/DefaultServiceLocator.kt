@@ -93,12 +93,12 @@ class DefaultServiceLocator(
             acceptCallImp = {
                 phoneCallService.acceptCall()
             },
-            syncImp = {
-                outgoingMessageDispatcher.sendSyncYou(availableContacts(), lastTrackedPhoneState)
+            syncV1Imp = {
+                outgoingMessageDispatcher.sendSyncYouV1(availableContacts(), lastTrackedPhoneState)
             },
-            syncPhonesImp = { source ->
+            syncPhonesV1Imp = { source ->
                 val destination = OutgoingMessageDestination(source.device, source.app)
-                outgoingMessageDispatcher.sendPhones(destination, availableContacts())
+                outgoingMessageDispatcher.sendPhonesV1(destination, availableContacts())
             },
             queryImp = { source, args ->
                 val destination = OutgoingMessageDestination(source.device, source.app)

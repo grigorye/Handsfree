@@ -13,8 +13,8 @@ class IncomingMessageDispatcher(
     private val hangupCallImp: () -> Unit,
     private val acceptCallImp: () -> Unit,
     private val queryImp: (source: IncomingMessageSource, args: QueryArgs) -> Unit,
-    private val syncImp: () -> Unit,
-    private val syncPhonesImp: (destination: IncomingMessageSource) -> Unit,
+    private val syncV1Imp: () -> Unit,
+    private val syncPhonesV1Imp: (destination: IncomingMessageSource) -> Unit,
     private val didFirstLaunchImp: (destination: IncomingMessageSource) -> Unit,
     private val openAppImp: (source: IncomingMessageSource, args: OpenMeArgs) -> Unit,
     private val openAppInStoreImp: (source: IncomingMessageSource) -> Unit,
@@ -45,11 +45,13 @@ class IncomingMessageDispatcher(
             }
 
             "syncMe" -> {
-                syncImp()
+                assert(source.app.version() == 1)
+                syncV1Imp()
             }
 
             "syncPhones" -> {
-                syncPhonesImp(source)
+                assert(source.app.version() == 1)
+                syncPhonesV1Imp(source)
             }
 
             "query" -> {

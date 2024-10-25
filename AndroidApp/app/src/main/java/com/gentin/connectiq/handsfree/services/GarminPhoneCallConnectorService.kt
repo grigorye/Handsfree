@@ -36,6 +36,7 @@ import com.gentin.connectiq.handsfree.impl.AudioState
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.PhoneState
 import com.gentin.connectiq.handsfree.impl.PhoneStateId
+import com.gentin.connectiq.handsfree.impl.everywhere
 import com.gentin.connectiq.handsfree.impl.phoneState
 import java.util.Date
 
@@ -290,7 +291,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             sentIncomingDisplayNames
         )
         lastTrackedPhoneState = phoneState
-        l.outgoingMessageDispatcher.sendPhoneState(phoneState)
+        l.outgoingMessageDispatcher.sendPhoneState(everywhere, phoneState)
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             if (stateExtra == TelephonyManager.EXTRA_STATE_OFFHOOK) {

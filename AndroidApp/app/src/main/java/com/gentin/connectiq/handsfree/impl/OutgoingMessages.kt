@@ -12,10 +12,12 @@ data class OutgoingMessage(
         return "{$destination, $body}"
     }
 }
+val everywhere = OutgoingMessageDestination()
 
 data class OutgoingMessageDestination(
     val device: IQDevice? = null,
-    val app: IQApp? = null
+    val app: IQApp? = null,
+    val matchV1: Boolean? = null
 ) {
     override fun toString(): String {
         val deviceRep = if (device != null) {
@@ -28,6 +30,11 @@ data class OutgoingMessageDestination(
         } else {
             "every-app"
         }
-        return "{$deviceRep, $appRep}"
+        val matchV1Rep = when (matchV1) {
+            true -> "v1"
+            false -> "!v1"
+            null -> null
+        }
+        return listOf(deviceRep, appRep, matchV1Rep).joinToString(prefix = "{", postfix = "}")
     }
 }

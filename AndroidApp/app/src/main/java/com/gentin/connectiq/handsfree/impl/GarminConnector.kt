@@ -462,6 +462,11 @@ class DefaultGarminConnector(
                     appsForSendingMessages(device)
                 }
                 targetApps.forEach { app ->
+                    when (destination.matchV1) {
+                        true -> if (app.version() != 1) return@forEach
+                        false -> if (app.version() == 1) return@forEach
+                        null -> Unit
+                    }
                     val appLogName = appLogName(app)
                     if (messageValue.body == pingBody) {
                         Log.d(
