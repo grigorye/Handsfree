@@ -35,6 +35,8 @@ import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.AudioState
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.PhoneState
+import com.gentin.connectiq.handsfree.impl.PhoneStateId
+import com.gentin.connectiq.handsfree.impl.phoneState
 import java.util.Date
 
 
@@ -55,11 +57,7 @@ var lastTrackedPhoneState: PhoneState? = null
 var lastTrackedAudioState: AudioState? = null
 
 fun fallbackPhoneState(context: Context): PhoneState {
-    return PhoneState(
-        null,
-        listOf(),
-        TelephonyManager.EXTRA_STATE_IDLE
-    )
+    return PhoneState(PhoneStateId.Idle)
 }
 
 var lastRecentsSentOnChange: List<CallLogEntry>? = null
@@ -79,9 +77,9 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     private val callLogObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
         override fun onChange(selfChange: Boolean) {
             super.onChange(selfChange)
-            val stateExtra = lastTrackedPhoneState?.stateExtra
-            if (stateExtra != TelephonyManager.EXTRA_STATE_IDLE) {
-                Log.d(TAG, "callLogDidChange.ignoredDuePhoneStateExtra: $stateExtra")
+            val stateId = lastTrackedPhoneState?.stateId
+            if (stateId != PhoneStateId.Idle) {
+                Log.d(TAG, "callLogDidChange.ignoredDuePhoneStateId: $stateId")
                 return
             }
             val recents = l.recents()
@@ -285,10 +283,11 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         val sentIncomingDisplayNames = sentIncomingNumber?.let {
             availableDisplayNames(it)
         } ?: listOf()
-        val phoneState = PhoneState(
+        val phoneState = phoneState(
+            this,
+            stateExtra,
             sentIncomingNumber,
-            sentIncomingDisplayNames,
-            stateExtra
+            sentIncomingDisplayNames
         )
         lastTrackedPhoneState = phoneState
         l.outgoingMessageDispatcher.sendPhoneState(phoneState)

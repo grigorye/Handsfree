@@ -3,7 +3,6 @@ package com.gentin.connectiq.handsfree.globals
 import android.content.Context
 import android.content.ContextWrapper
 import android.media.AudioManager
-import android.telephony.TelephonyManager
 import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LiveData
@@ -33,6 +32,7 @@ import com.gentin.connectiq.handsfree.impl.OutgoingMessage
 import com.gentin.connectiq.handsfree.impl.OutgoingMessageDestination
 import com.gentin.connectiq.handsfree.impl.OutgoingMessageDispatcher
 import com.gentin.connectiq.handsfree.impl.PhoneCallService
+import com.gentin.connectiq.handsfree.impl.PhoneStateId
 import com.gentin.connectiq.handsfree.impl.QueryArgs
 import com.gentin.connectiq.handsfree.impl.QueryResult
 import com.gentin.connectiq.handsfree.impl.RemoteMessageService
@@ -104,10 +104,10 @@ class DefaultServiceLocator(
                 outgoingMessageDispatcher.sendQueryResult(destination, result)
             },
             openAppImp = { source, args ->
-                if (lastTrackedPhoneState?.stateExtra != TelephonyManager.EXTRA_STATE_RINGING) {
+                if (lastTrackedPhoneState?.stateId != PhoneStateId.Ringing) {
                     Log.d(
                         TAG,
-                        "ignoringOpenAppDueToNotRinging: ${lastTrackedPhoneState?.stateExtra}"
+                        "ignoringOpenAppDueToNotRinging: ${lastTrackedPhoneState?.stateId}"
                     )
                 } else {
                     garminConnector.openWatchAppOnDevice(source.device, source.app) { succeeded ->
@@ -266,7 +266,7 @@ class DefaultServiceLocator(
 
     val communicationDeviceChangedListener: AudioManager.OnCommunicationDeviceChangedListener by lazy {
         AudioManager.OnCommunicationDeviceChangedListener { device ->
-            if (lastTrackedPhoneState?.stateExtra == TelephonyManager.EXTRA_STATE_IDLE) {
+            if (lastTrackedPhoneState?.stateId == PhoneStateId.Idle) {
                 Log.d(TAG, "audioDeviceDidChangeWhileIdle: ${device?.type}")
             } else {
                 Log.d(TAG, "audioDeviceDidChangeInCall: ${device?.type}")

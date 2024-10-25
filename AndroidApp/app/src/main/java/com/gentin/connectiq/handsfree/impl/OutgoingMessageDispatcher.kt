@@ -1,11 +1,8 @@
 package com.gentin.connectiq.handsfree.impl
 
 import android.content.Context
-import android.telephony.TelephonyManager
-import android.util.Log
 import com.gentin.connectiq.handsfree.calllogs.CallLogEntry
 import com.gentin.connectiq.handsfree.contacts.ContactData
-import com.gentin.connectiq.handsfree.helpers.normalizePhoneNumber
 import com.gentin.connectiq.handsfree.helpers.pojoList
 import com.gentin.connectiq.handsfree.helpers.pojoMap
 import com.gentin.connectiq.handsfree.terms.*
@@ -175,33 +172,32 @@ class DefaultOutgoingMessageDispatcher(
     }
 
     private fun phoneStateChangedArgs(state: PhoneState): Map<String, Any?> {
-        val args = when (state.stateExtra) {
-            TelephonyManager.EXTRA_STATE_IDLE -> {
+        val args = when (state.stateId) {
+            PhoneStateId.Idle -> {
                 mapOf(
                     "state" to "noCallInProgress"
                 )
             }
 
-            TelephonyManager.EXTRA_STATE_OFFHOOK -> {
+            PhoneStateId.OffHook -> {
                 mapOf(
                     "state" to "callInProgress",
-                    "number" to dispatchedPhoneNumber(context, state.incomingNumber),
-                    "name" to state.incomingDisplayNames.firstOrNull()
+                    "number" to state.number,
+                    "name" to state.name
                 )
             }
 
-            TelephonyManager.EXTRA_STATE_RINGING -> {
+            PhoneStateId.Ringing -> {
                 mapOf(
                     "state" to "ringing",
-                    "number" to dispatchedPhoneNumber(context, state.incomingNumber),
-                    "name" to state.incomingDisplayNames.firstOrNull()
+                    "number" to state.number,
+                    "name" to state.name
                 )
             }
 
-            else -> {
-                Log.e(TAG, "unknownPhoneStateExtra: ${state.stateExtra}")
+            PhoneStateId.Unknown -> {
                 return mapOf(
-                    "unknownState" to state.stateExtra,
+                    "unknownState" to null
                 )
             }
         }
@@ -234,10 +230,6 @@ class DefaultOutgoingMessageDispatcher(
     companion object {
         private val TAG: String = DefaultOutgoingMessageDispatcher::class.java.simpleName
     }
-}
-
-private fun dispatchedPhoneNumber(context: Context, incomingNumber: String?): String? {
-    return incomingNumber?.let { normalizePhoneNumber(context, it) }
 }
 
 fun audioStatePojo(state: AudioState): Any {
