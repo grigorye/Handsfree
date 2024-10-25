@@ -77,10 +77,12 @@ class DefaultServiceLocator(
 
     private val incomingMessageDispatcher: IncomingMessageDispatcher by lazy {
         IncomingMessageDispatcher(
-            makeCallImp = { phoneNumber ->
+            makeCallImp = { source, phoneNumber ->
                 val withSpeakerPhone = !headPhoneConnectionMonitor.isHeadsetConnected()
                 if (!phoneCallService.makeCall(phoneNumber, withSpeakerPhone)) {
+                    val destination = OutgoingMessageDestination(source.device, source.app)
                     outgoingMessageDispatcher.sendPhoneState(
+                        destination,
                         lastTrackedPhoneState ?: fallbackPhoneState(this)
                     )
                 }

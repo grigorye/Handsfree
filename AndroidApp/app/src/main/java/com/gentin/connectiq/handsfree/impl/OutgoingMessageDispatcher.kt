@@ -53,7 +53,7 @@ interface OutgoingMessageDispatcher {
     fun sendPhones(destination: OutgoingMessageDestination, contacts: List<ContactData>)
     fun sendContacts(contacts: List<ContactData>)
     fun sendRecents(recents: List<CallLogEntry>)
-    fun sendPhoneState(phoneState: PhoneState)
+    fun sendPhoneState(destination: OutgoingMessageDestination, phoneState: PhoneState)
     fun sendAudioState(state: AudioState)
     fun sendOpenAppFailed(destination: OutgoingMessageDestination)
     fun sendOpenMeCompleted(
@@ -134,13 +134,13 @@ class DefaultOutgoingMessageDispatcher(
         sendSubject(audioStateSubject, strippedVersionedPojo(null, audioStatePojo(state)))
     }
 
-    override fun sendPhoneState(phoneState: PhoneState) {
+    override fun sendPhoneState(destination: OutgoingMessageDestination, phoneState: PhoneState) {
         val args = phoneStateChangedArgs(phoneState)
         val msg = mapOf(
             cmdMsgField to phoneStateChangedCmd,
             argsMsgField to args
         )
-        send(msg)
+        send(OutgoingMessage(destination, msg))
     }
 
     override fun sendOpenAppFailed(destination: OutgoingMessageDestination) {

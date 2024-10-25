@@ -9,7 +9,7 @@ private const val muteCmd = "mute"
 private const val setAudioVolumeCmd = "setAudioVolume"
 
 class IncomingMessageDispatcher(
-    private val makeCallImp: (phoneNumber: String) -> Unit,
+    private val makeCallImp: (source: IncomingMessageSource, phoneNumber: String) -> Unit,
     private val hangupCallImp: () -> Unit,
     private val acceptCallImp: () -> Unit,
     private val queryImp: (source: IncomingMessageSource, args: QueryArgs) -> Unit,
@@ -33,7 +33,7 @@ class IncomingMessageDispatcher(
             "call" -> {
                 val callRequest = json.decodeFromString<CallRequest>(string)
                 Log.d(TAG, "callRequest: $callRequest")
-                makeCallImp(callRequest.args.number)
+                makeCallImp(source, callRequest.args.number)
             }
 
             "hangup" -> {
