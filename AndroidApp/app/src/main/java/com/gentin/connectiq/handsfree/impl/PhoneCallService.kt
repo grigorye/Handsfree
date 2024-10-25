@@ -16,25 +16,22 @@ import androidx.core.app.ActivityCompat
 import com.gentin.connectiq.handsfree.globals.outgoingCallsShouldBeEnabled
 
 interface PhoneCallService {
-    fun makeCall(number: String, withSpeakerPhone: Boolean)
+    fun makeCall(number: String, withSpeakerPhone: Boolean): Boolean
     fun hangupCall()
     fun acceptCall()
     fun canMakeCalls(): Boolean
 }
 
 class DefaultPhoneCallService(
-    base: Context?,
-    val makeCallFailed: () -> Unit
+    base: Context?
 ) : ContextWrapper(base), PhoneCallService {
-    override fun makeCall(number: String, withSpeakerPhone: Boolean) {
+    override fun makeCall(number: String, withSpeakerPhone: Boolean): Boolean {
         Log.d(TAG, "outgoingCallsShouldBeEnabled: ${outgoingCallsShouldBeEnabled(this)}")
         if (!outgoingCallsShouldBeEnabled(this)) {
-            makeCallFailed()
-            return
+            return false
         }
         if (!canMakeCalls()) {
-            makeCallFailed()
-            return
+            return false
         }
         val intent = Intent(Intent.ACTION_CALL)
         intent.setData(Uri.parse("tel:${number}"))
@@ -45,6 +42,7 @@ class DefaultPhoneCallService(
         }
         Log.d(TAG, "actionCallIntent: $intent")
         startActivity(intent)
+        return true
     }
 
     override fun hangupCall() {

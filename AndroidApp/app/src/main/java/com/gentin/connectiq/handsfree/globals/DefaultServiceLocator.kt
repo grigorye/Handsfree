@@ -53,14 +53,7 @@ class DefaultServiceLocator(
 ) : ContextWrapper(base) {
 
     private val phoneCallService: PhoneCallService by lazy {
-        DefaultPhoneCallService(
-            this,
-            makeCallFailed = {
-                outgoingMessageDispatcher.sendPhoneState(
-                    lastTrackedPhoneState ?: fallbackPhoneState(this)
-                )
-            }
-        )
+        DefaultPhoneCallService(this)
     }
 
     private val targetContactsGroupName: String? = null // e.g. "Handsfree", null for Favorites
@@ -86,7 +79,11 @@ class DefaultServiceLocator(
         IncomingMessageDispatcher(
             makeCallImp = { phoneNumber ->
                 val withSpeakerPhone = !headPhoneConnectionMonitor.isHeadsetConnected()
-                phoneCallService.makeCall(phoneNumber, withSpeakerPhone)
+                if (!phoneCallService.makeCall(phoneNumber, withSpeakerPhone)) {
+                    outgoingMessageDispatcher.sendPhoneState(
+                        lastTrackedPhoneState ?: fallbackPhoneState(this)
+                    )
+                }
             },
             hangupCallImp = {
                 phoneCallService.hangupCall()
