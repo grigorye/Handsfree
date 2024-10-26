@@ -2,12 +2,6 @@ import Toybox.System;
 import Toybox.Lang;
 import Toybox.Time;
 
-(:background, :glance, :noLowMemory)
-const debug = true;
-
-(:background, :glance)
-const minDebug = true;
-
 (:glance, :background)
 const noArg as Lang.Symbol = :noArg;
 
