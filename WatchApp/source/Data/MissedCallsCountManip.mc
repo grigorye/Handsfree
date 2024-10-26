@@ -20,6 +20,6 @@ function setMissedRecents(missedRecents as Recents) as Void {
 function updateUIForMissedRecentsIfInApp() as Void {
     if (isActiveUiKindApp) {
         updateRecentsMenuItem();
-        updateRecentsView();
+        RecentsManip.updateRecentsView();
     }
 }

@@ -46,7 +46,7 @@ class RecentsView extends WatchUi.Menu2 {
     }
 
     function addMenuItemsFromRecents() as Void {
-        var recents = getRecents();
+        var recents = RecentsManip.getRecents();
         if (debug) { _2(L_RECENTS_VIEW, "addMenuItemsFromRecents"); }
         var recentsCount = recents.size();
         if (recentsCount == 0) {

@@ -6,6 +6,8 @@ import Toybox.Time;
 (:background)
 const L_RECENTS_STORAGE as LogComponent = "recents";
 
+module RecentsManip {
+
 (:inline, :background)
 function setRecentsVersion(version as Version) as Void {
     if (debug) { _3(L_RECENTS_STORAGE, "saveRecentsVersion", version); }
@@ -80,4 +82,6 @@ function recentsDidOpen() as Void {
     setLastRecentsCheckDate(Time.now().value());
     updateMissedRecents();
     updateRecentsMenuItem();
+}
+
 }

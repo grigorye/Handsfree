@@ -129,13 +129,13 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
                 break;
             }
             case recentsSubject: {
-                if (!version.equals(getRecentsVersion())) {
+                if (!version.equals(RecentsManip.getRecentsVersion())) {
                     var recents = subject[valueK] as Recents or Null;
                     if (recents == null) {
                         subjectsInvalidated.add(name);
                     } else {
-                        setRecents(recents);
-                        setRecentsVersion(version);
+                        RecentsManip.setRecents(recents);
+                        RecentsManip.setRecentsVersion(version);
                     }
                     isHit = false;
                 } else {

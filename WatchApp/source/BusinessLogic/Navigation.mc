@@ -8,7 +8,7 @@ function openFavoritesView() as Void {
 (:inline)
 function openRecentsView() as Void {
     pushView("recents", newRecentsView(), new RecentsViewDelegate(), WatchUi.SLIDE_LEFT);
-    recentsDidOpen();
+    RecentsManip.recentsDidOpen();
 }
 
 (:inline)
