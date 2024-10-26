@@ -19,8 +19,11 @@ function getPhonesVersion() as Version or Null {
     return phonesVersion;
 }
 
+(:background)
+const phonesStorageK as Lang.String = "phones.v1";
+
 function getPhones() as Phones {
-    var phones = Storage.getValue("phones.v1") as Phones or Null;
+    var phones = Storage.getValue(phonesStorageK) as Phones or Null;
     if (phones != null) {
         return phones;
     } else {
@@ -31,7 +34,7 @@ function getPhones() as Phones {
 (:inline, :background)
 function savePhones(phones as Phones) as Void {
     if (debug) { _3(L_PHONES_STORAGE, "savePhones", phones); }
-    Storage.setValue("phones.v1", phones as [Application.PropertyValueType]);
+    Storage.setValue(phonesStorageK, phones as [Application.PropertyValueType]);
 }
 
 (:inline, :background)
