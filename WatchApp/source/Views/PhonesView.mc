@@ -91,7 +91,7 @@ const noPhonesMenuItemId as Lang.Number = -1;
 const crashMeMenuItemId as Lang.Number = -2;
 
 function specialItemForPhone(phone as Phone) as WatchUi.MenuItem | Null {
-    var phoneName = phone["name"] as Lang.String;
+    var phoneName = getPhoneName(phone);
     if (phoneName.equals("Crash Me")) {
         return new WatchUi.MenuItem(
             phoneName, // label

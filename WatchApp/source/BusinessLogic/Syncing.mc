@@ -12,12 +12,12 @@ function requestSync() as Void {
 
 function requestAllSubjects() as Void {
     var msg = {
-        cmdK => "query",
+        cmdK => Cmd.query,
         argsK => {
-            subjectsK => [
-                { "name" => "phones", versionK => getPhonesVersion() }, 
-                { "name" => "recents", versionK => getRecentsVersion() },
-                { "name" => audioStateSubject, versionK => AudioStateManip.getAudioStateVersion() }
+            QueryArgsK.subjects => [
+                { QueryArgsK.subjectNameK => phonesSubject, QueryArgsK.subjectVersionK => getPhonesVersion() },
+                { QueryArgsK.subjectNameK => recentsSubject, QueryArgsK.subjectVersionK => getRecentsVersion() },
+                { QueryArgsK.subjectNameK => audioStateSubject, QueryArgsK.subjectVersionK => AudioStateManip.getAudioStateVersion() }
             ]
         }
     } as Lang.Object as Application.PersistableType;
@@ -30,10 +30,10 @@ function requestSubjects(subjects as Lang.Array<Lang.String>) as Void {
     var subjectsCount = subjects.size();
     for (var i = 0; i < subjectsCount; i++) {
         var name = subjects[i];
-        subjectsArg.add({ "name" => name });
+        subjectsArg.add({ QueryArgsK.subjectNameK => name });
     }
     var msg = {
-        cmdK => "query",
+        cmdK => Cmd.query,
         argsK => {
             subjectsK => subjectsArg
         }

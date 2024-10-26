@@ -9,7 +9,7 @@ function sendMute(on as Lang.Boolean) as Void {
     audioState[isMutedK] = on;
     AudioStateManip.setPendingAudioState(audioState);
     var msg = {
-        cmdK => muteCmd,
+        cmdK => Cmd.mute,
         argsK => {
             onArg => on
         }
@@ -26,7 +26,7 @@ function sendAudioVolume(relVolume as RelVolume) as Void {
     audioState[volumeK] = relVolume;
     AudioStateManip.setPendingAudioState(audioState);
     var msg = {
-        cmdK => setAudioVolumeCmd,
+        cmdK => Cmd.setAudioVolume,
         argsK => {
             volumeK => relVolume
         }

@@ -14,9 +14,9 @@ class ScheduleCallTask extends Communications.ConnectionListener {
 
     function launch() as Void {
         var msg = {
-            cmdK => "call",
+            cmdK => Cmd.call,
             argsK => {
-                "number" => getPhoneNumber(phone)
+                CallArgsK.number => getPhoneNumber(phone)
             }
         } as Lang.Object as Application.PersistableType;
         resetOptimisticCallStates();

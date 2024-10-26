@@ -21,17 +21,17 @@ class CallActionTask extends Communications.ConnectionListener {
         var state;
         switch (action) {
             case CALL_IN_PROGRESS_ACTION_ACCEPT: {
-                cmd = "accept";
+                cmd = Cmd.accept;
                 state = new Accepting(phone, PENDING);
                 break;
             }
             case CALL_IN_PROGRESS_ACTION_HANGUP: {
-                cmd = "hangup";
+                cmd = Cmd.hangup;
                 state = new HangingUp(phone, PENDING);
                 break;
             }
             case CALL_IN_PROGRESS_ACTION_REJECT: {
-                cmd = "hangup";
+                cmd = Cmd.hangup;
                 state = new Declining(phone, PENDING);
                 break;
             }

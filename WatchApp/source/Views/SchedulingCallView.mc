@@ -9,11 +9,11 @@ class SchedulingCallView extends WatchUi.ProgressBar {
         if (debug) { _3(L_SCHEDULING_CALL_VIEW, "commStatus", commStatus); }
         var message = "";
         var destination;
-        var name = callState.phone["name"] as Lang.String or Null;
+        var name = callState.phone[PhoneField.name] as Lang.String or Null;
         if (name != null && !name.equals("")) {
             destination = name;
         } else {
-            destination = callState.phone["number"];
+            destination = callState.phone[PhoneField.number];
         }
         switch (callState.commStatus) {
             case PENDING:

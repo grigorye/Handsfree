@@ -50,8 +50,8 @@ class WidgetView extends WatchUi.View {
             if (callState instanceof CallInProgress) {
                 var phone = callState.phone;
                 var isIncomingCall = isIncomingCallPhone(phone);
-                var contactName = phone["name"] as Lang.String or Null;
-                var number = phone["number"] as Lang.String or Null;
+                var contactName = phone[PhoneField.name] as Lang.String or Null;
+                var number = phone[PhoneField.number] as Lang.String or Null;
                 var callStatusLine;
                 if (isIncomingCall) {
                     callStatusLine = "Incoming call";
