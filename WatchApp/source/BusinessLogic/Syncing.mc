@@ -21,7 +21,7 @@ function requestAllSubjects() as Void {
             ]
         }
     } as Lang.Object as Application.PersistableType;
-    transmitWithRetry("syncPhones", msg, new Communications.ConnectionListener());
+    transmitWithRetry("reqAllSubjects", msg, new Communications.ConnectionListener());
 }
 
 (:background)
