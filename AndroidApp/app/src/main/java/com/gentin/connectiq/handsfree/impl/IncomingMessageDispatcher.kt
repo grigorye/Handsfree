@@ -2,11 +2,10 @@ package com.gentin.connectiq.handsfree.impl
 
 import android.util.Log
 import com.gentin.connectiq.handsfree.globals.simApp
+import com.gentin.connectiq.handsfree.terms.muteInCmd
+import com.gentin.connectiq.handsfree.terms.setAudioVolumeInCmd
 import kotlinx.serialization.json.Json
 import org.json.JSONObject
-
-private const val muteCmd = "mute"
-private const val setAudioVolumeCmd = "setAudioVolume"
 
 class IncomingMessageDispatcher(
     private val makeCallImp: (source: IncomingMessageSource, phoneNumber: String) -> Unit,
@@ -78,13 +77,13 @@ class IncomingMessageDispatcher(
                 toggleSpeakerImp()
             }
 
-            setAudioVolumeCmd -> {
+            setAudioVolumeInCmd -> {
                 val request = json.decodeFromString<SetAudioVolumeRequest>(string)
                 Log.d(TAG, "setAudioVolumeRequest: $request")
                 setAudioVolumeImp(request.args.volume)
             }
 
-            muteCmd -> {
+            muteInCmd -> {
                 val request = json.decodeFromString<MuteRequest>(string)
                 Log.d(TAG, "muteRequest: $request")
                 muteImp(request.args.on)
