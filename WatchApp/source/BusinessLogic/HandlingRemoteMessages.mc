@@ -45,7 +45,7 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
     switch (cmd) {
         case InCmd.syncYou:
             var phonesArgs = args["setPhones"] as Lang.Dictionary<Lang.String, Lang.Object>;
-            setPhones(phonesArgs["phones"] as Phones);
+            PhonesManip.setPhones(phonesArgs["phones"] as Phones);
             if (!callStateIsOwnedByUs) {
                 var phoneStateChangedArgs = args["phoneStateChanged"] as Lang.Dictionary<Lang.String, Lang.Object> or Null;
                 if (phoneStateChangedArgs != null) {
@@ -57,7 +57,7 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
             }
             break;
         case InCmd.setPhones:
-            setPhones(args["phones"] as Phones);
+            PhonesManip.setPhones(args["phones"] as Phones);
             break;
         case InCmd.subjectsChanged:
             handleSubjectsChanged(args[subjectsK] as SubjectsChanged);
@@ -114,13 +114,13 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
         var version = subject[versionK] as Version;
         switch (name) {
             case phonesSubject: {
-                if (!version.equals(getPhonesVersion())) {
+                if (!version.equals(PhonesManip.getPhonesVersion())) {
                     var phones = subject[valueK] as Phones or Null;
                     if (phones == null) {
                         subjectsInvalidated.add(name);
                     } else {
-                        setPhones(phones);
-                        setPhonesVersion(version);
+                        PhonesManip.setPhones(phones);
+                        PhonesManip.setPhonesVersion(version);
                     }
                     isHit = false;
                 } else {

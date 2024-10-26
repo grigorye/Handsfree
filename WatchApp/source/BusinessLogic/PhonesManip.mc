@@ -7,6 +7,8 @@ const L_PHONES_STORAGE as LogComponent = "phones";
 
 const L_PHONES_UI as LogComponent = "phonesUI";
 
+module PhonesManip {
+
 (:inline, :background)
 function setPhonesVersion(version as Version) as Void {
     if (debug) { _3(L_PHONES_STORAGE, "savePhonesVersion", version); }
@@ -55,4 +57,6 @@ function updateUIForPhones(phones as Phones) as Void {
     if (phonesView != null) {
         phonesView.updateFromPhones(phones);
     }
+}
+
 }

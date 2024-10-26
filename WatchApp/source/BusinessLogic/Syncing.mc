@@ -15,7 +15,7 @@ function requestAllSubjects() as Void {
         cmdK => Cmd.query,
         argsK => {
             QueryArgsK.subjects => [
-                { QueryArgsK.subjectNameK => phonesSubject, QueryArgsK.subjectVersionK => getPhonesVersion() },
+                { QueryArgsK.subjectNameK => phonesSubject, QueryArgsK.subjectVersionK => PhonesManip.getPhonesVersion() },
                 { QueryArgsK.subjectNameK => recentsSubject, QueryArgsK.subjectVersionK => getRecentsVersion() },
                 { QueryArgsK.subjectNameK => audioStateSubject, QueryArgsK.subjectVersionK => AudioStateManip.getAudioStateVersion() }
             ]
