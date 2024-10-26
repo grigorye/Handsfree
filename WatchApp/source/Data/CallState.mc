@@ -16,7 +16,7 @@ class CallStateImp {
 
 (:background)
 function initialCallState() as CallState {
-    return new Idle(); // new CallInProgress({ "number" => "1233", "name" => "VoiceMail", "id" => 23 });
+    return new Idle();
 }
 
 (:background, :glance)
