@@ -24,14 +24,6 @@ const cmdK as Lang.String = "c";
 const argsK as Lang.String = "a";
 
 (:inline, :background, :glance)
-const muteCmd as Lang.String = "m";
-(:inline, :background, :glance)
-const setAudioVolumeCmd as Lang.String = "v";
-
-(:inline, :background, :glance)
-const audioStateSubject as Lang.String = "a";
-
-(:inline, :background, :glance)
 const idMsgField = "i";
 (:inline, :background, :glance)
 const cmdMsgField = "c";
