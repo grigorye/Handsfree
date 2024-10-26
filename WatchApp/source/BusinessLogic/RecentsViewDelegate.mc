@@ -15,10 +15,19 @@ class RecentsViewDelegate extends WatchUi.Menu2InputDelegate {
             }
         }
         var selectedRecent = id as Recent;
-        scheduleCall(selectedRecent);
+        scheduleCall(phoneFromRecent(selectedRecent));
     }
 
     function onBack() {
         popView(SLIDE_RIGHT);
     }
+}
+
+(:inline)
+function phoneFromRecent(recent as Recent) as Phone {
+    return {
+        PhoneField.id => recent[RecentField.date],
+        PhoneField.name => recent[RecentField.name],
+        PhoneField.number => recent[RecentField.number]
+    } as Phone;
 }
