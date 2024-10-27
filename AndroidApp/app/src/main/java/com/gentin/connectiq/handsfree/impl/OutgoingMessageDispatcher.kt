@@ -149,11 +149,19 @@ class DefaultOutgoingMessageDispatcher(
     }
 
     override fun sendRecents(recents: List<CallLogEntry>) {
-        sendSubject(recentsSubject, strippedVersionedPojo(null, recentsPojo(recents)))
+        sendSubject(
+            recentsSubject,
+            strippedVersionedPojo(null, recentsPojo(recents)),
+            OutgoingMessageDestination().copy(matchV1 = false)
+        )
     }
 
     override fun sendAudioState(state: AudioState) {
-        sendSubject(audioStateSubject, strippedVersionedPojo(null, audioStatePojo(state)))
+        sendSubject(
+            audioStateSubject,
+            strippedVersionedPojo(null, audioStatePojo(state)),
+            OutgoingMessageDestination().copy(matchV1 = false)
+        )
     }
 
     override fun sendPhoneState(destination: OutgoingMessageDestination, phoneState: PhoneState) {
@@ -235,7 +243,11 @@ class DefaultOutgoingMessageDispatcher(
         return args
     }
 
-    private fun sendSubject(subject: String, versionedPojo: VersionedPojo) {
+    private fun sendSubject(
+        subject: String,
+        versionedPojo: VersionedPojo,
+        destination: OutgoingMessageDestination = OutgoingMessageDestination()
+    ) {
         val msg = mapOf(
             cmdMsgField to subjectsChangedCmd,
             argsMsgField to mapOf(
@@ -247,7 +259,7 @@ class DefaultOutgoingMessageDispatcher(
                 )
             )
         )
-        send(msg)
+        send(OutgoingMessage(destination, msg))
     }
 
     private fun send(msg: OutgoingMessage) {
