@@ -42,26 +42,40 @@ class IncomingMessageDispatcher(
         val obj = json.decodeFromString<CommonRequest>(string)
         simulateCommDelay(source)
         when (obj.cmd) {
+            callV1InCmd -> {
+                val callRequest = json.decodeFromString<CallRequestV1>(string)
+                Log.d(TAG, "callRequest: $callRequest")
+                makeCallImp(source, callRequest.args.number)
+            }
+
             callInCmd -> {
                 val callRequest = json.decodeFromString<CallRequest>(string)
                 Log.d(TAG, "callRequest: $callRequest")
                 makeCallImp(source, callRequest.args.number)
             }
 
-            "hangup" -> {
+            hangUpV1InCmd -> {
                 hangupCallImp()
+            }
+
+            hangUpInCmd -> {
+                hangupCallImp()
+            }
+
+            acceptV1InCmd -> {
+                acceptCallImp()
             }
 
             acceptInCmd -> {
                 acceptCallImp()
             }
 
-            "syncMe" -> {
+            syncMeV1InCmd -> {
                 assert(source.app.version() == 1)
                 syncV1Imp()
             }
 
-            "syncPhones" -> {
+            syncPhonesV1InCmd -> {
                 assert(source.app.version() == 1)
                 syncPhonesV1Imp(source)
             }
