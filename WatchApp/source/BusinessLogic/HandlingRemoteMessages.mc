@@ -43,19 +43,6 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
     }
     var args = msg[argsMsgField] as Lang.Dictionary<Lang.String, Lang.Object>;
     switch (cmd) {
-        case InCmd.syncYou:
-            var phonesArgs = args["setPhones"] as Lang.Dictionary<Lang.String, Lang.Object>;
-            PhonesManip.setPhones(phonesArgs["phones"] as Phones);
-            if (!callStateIsOwnedByUs) {
-                var phoneStateChangedArgs = args["phoneStateChanged"] as Lang.Dictionary<Lang.String, Lang.Object> or Null;
-                if (phoneStateChangedArgs != null) {
-                    handlePhoneStateChanged(phoneStateChangedArgs);
-                }
-                callStateIsOwnedByUs = true;
-            } else {
-                if (debug) { _3(LX_REMOTE_MSG, "callStateIsNotOwnedByUs", true); }
-            }
-            break;
         case InCmd.subjectsChanged:
             handleSubjectsChanged(args[subjectsK] as SubjectsChanged);
             break;

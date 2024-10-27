@@ -2,7 +2,6 @@ import Toybox.Lang;
 
 (:inline, :background, :glance)
 module InCmd {
-    const syncYou as Lang.String = "syncYou";
     const subjectsChanged as Lang.String = "s";
     const acceptQueryResult as Lang.String = "a";
     const phoneStateChanged as Lang.String = "p";

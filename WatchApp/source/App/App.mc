@@ -88,35 +88,12 @@ function appDidRouteToMainUI() as Void {
         System.error("Already routed to main UI");
     }
     routedToMainUI = true;
-    launchCheckInIfNecessary();
-}
-
-function launchCheckInIfNecessary() as Void {
-    var callState = getCallState();
-    if (!(callState instanceof Idle)) {
-        if (debug) { _3(LX_APP_LIFE_CYCLE, "checkInSkipped.dueToCallState", callState); }
-        return;
-    }
-    if (!AppSettings.isCheckInEnabled) {
-        if (debug) { _2(LX_APP_LIFE_CYCLE, "checkInSkipped.dueToSettings"); }
-        return;
-    }
-    launchCheckIn();
-}
-
-(:noLowMemory)
-function launchCheckIn() as Void {
-    if (checkInImp != null) {
-        System.error("checkInImp != null");
-    }
-    getCheckIn().launch();
 }
 
 (:widget)
 function appDidRouteFromMainUI() as Void {
     if (debug) { _2(L_APP, "appDidRouteFromMainUI"); }
     setRoutedCallStateImp(null);
-    checkInImp = null;
 }
 
 (:widget)
@@ -136,14 +113,6 @@ function onAppDidFinishLaunching() as Void {
 
 function didSeeIncomingMessageWhileRoutedToMainUI() as Void {
     if (debug) { _2(L_APP, "didSeeIncomingMessageWhileRoutedToMainUI"); }
-    trackCheckRemoteMessageForCheckIn();
-}
-
-(:noLowMemory)
-function trackCheckRemoteMessageForCheckIn() as Void {
-    if (checkInImp != null) {
-        checkInImp.remoteResponded();
-    }
 }
 
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
