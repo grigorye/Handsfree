@@ -79,6 +79,9 @@ class DefaultServiceLocator(
 
     private val incomingMessageDispatcher: IncomingMessageDispatcher by lazy {
         IncomingMessageDispatcher(
+            appVersionImp = { source ->
+                garminConnector.appVersion(source.device, source.app)
+            },
             makeCallImp = { source, phoneNumber ->
                 val withSpeakerPhone = !headPhoneConnectionMonitor.isHeadsetConnected()
                 if (!phoneCallService.makeCall(phoneNumber, withSpeakerPhone)) {
@@ -175,6 +178,10 @@ class DefaultServiceLocator(
                             audioStatePojo(audioState()),
                             metadataOnly
                         )
+                }
+
+                else -> {
+                    Log.e(TAG, "Unknown subject: ${subject.name}")
                 }
             }
         }

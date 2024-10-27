@@ -21,6 +21,7 @@ import kotlinx.serialization.json.Json
 import org.json.JSONObject
 
 class IncomingMessageDispatcher(
+    private val appVersionImp: (source: IncomingMessageSource) -> Int?,
     private val makeCallImp: (source: IncomingMessageSource, phoneNumber: String) -> Unit,
     private val hangupCallImp: () -> Unit,
     private val acceptCallImp: () -> Unit,
@@ -71,12 +72,12 @@ class IncomingMessageDispatcher(
             }
 
             syncMeV1InCmd -> {
-                assert(source.app.version() == 1)
+                assert(appVersionImp(source) == 1, { "wrongAppVersion: ${appVersionImp(source)}" })
                 syncV1Imp()
             }
 
             syncPhonesV1InCmd -> {
-                assert(source.app.version() == 1)
+                assert(appVersionImp(source) == 1, { "wrongAppVersion: ${appVersionImp(source)}" })
                 syncPhonesV1Imp(source)
             }
 
