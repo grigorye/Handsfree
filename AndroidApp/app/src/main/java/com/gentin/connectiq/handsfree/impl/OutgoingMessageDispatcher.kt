@@ -257,10 +257,6 @@ class DefaultOutgoingMessageDispatcher(
     private fun send(msg: Map<String, Any>) {
         send(OutgoingMessage(OutgoingMessageDestination(), msg))
     }
-
-    companion object {
-        private val TAG: String = DefaultOutgoingMessageDispatcher::class.java.simpleName
-    }
 }
 
 fun audioStatePojo(state: AudioState): Any {
