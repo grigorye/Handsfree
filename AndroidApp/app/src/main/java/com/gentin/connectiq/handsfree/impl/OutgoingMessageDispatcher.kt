@@ -7,18 +7,23 @@ import com.gentin.connectiq.handsfree.helpers.pojoList
 import com.gentin.connectiq.handsfree.helpers.pojoMap
 import com.gentin.connectiq.handsfree.terms.acceptQueryResultCmd
 import com.gentin.connectiq.handsfree.terms.argsMsgField
+import com.gentin.connectiq.handsfree.terms.argsV1MsgField
 import com.gentin.connectiq.handsfree.terms.audioStateSubject
 import com.gentin.connectiq.handsfree.terms.cmdMsgField
+import com.gentin.connectiq.handsfree.terms.cmdV1MsgField
+import com.gentin.connectiq.handsfree.terms.messageForWakingUpArg
 import com.gentin.connectiq.handsfree.terms.openAppFailedCmd
 import com.gentin.connectiq.handsfree.terms.openMeCompletedCmd
 import com.gentin.connectiq.handsfree.terms.phoneStateChangedCmd
+import com.gentin.connectiq.handsfree.terms.phoneStateChangedV1Cmd
 import com.gentin.connectiq.handsfree.terms.phonesSubject
 import com.gentin.connectiq.handsfree.terms.recentsSubject
-import com.gentin.connectiq.handsfree.terms.setPhonesCmdV1
+import com.gentin.connectiq.handsfree.terms.setPhonesV1Cmd
 import com.gentin.connectiq.handsfree.terms.subjectValue
 import com.gentin.connectiq.handsfree.terms.subjectVersion
 import com.gentin.connectiq.handsfree.terms.subjectsArg
 import com.gentin.connectiq.handsfree.terms.subjectsChangedCmd
+import com.gentin.connectiq.handsfree.terms.succeededArg
 import com.gentin.connectiq.handsfree.terms.syncYouCmd
 import java.security.MessageDigest
 
@@ -87,10 +92,10 @@ class DefaultOutgoingMessageDispatcher(
 
     override fun sendSyncYouV1(contacts: List<ContactData>, phoneState: PhoneState?) {
         val msg = mapOf(
-            cmdMsgField to syncYouCmd,
-            argsMsgField to mapOf(
-                "setPhones" to phonesArgsV1(contacts),
-                "phoneStateChanged" to phoneState?.let { phoneStateChangedArgsV1(it) }
+            cmdV1MsgField to syncYouCmd,
+            argsV1MsgField to mapOf(
+                setPhonesV1Cmd to phonesArgsV1(contacts),
+                phoneStateChangedV1Cmd to phoneState?.let { phoneStateChangedArgsV1(it) }
             )
         )
         send(msg)
@@ -133,8 +138,8 @@ class DefaultOutgoingMessageDispatcher(
         contacts: List<ContactData>
     ) {
         val msg = mapOf(
-            cmdMsgField to setPhonesCmdV1,
-            argsMsgField to phonesArgsV1(contacts)
+            cmdV1MsgField to setPhonesV1Cmd,
+            argsV1MsgField to phonesArgsV1(contacts)
         )
         send(OutgoingMessage(destination, msg))
     }
@@ -155,8 +160,8 @@ class DefaultOutgoingMessageDispatcher(
         val destinationV1 = destination.copy(matchV1 = true)
         val argsV1 = phoneStateChangedArgsV1(phoneState)
         val msgV1 = mapOf(
-            cmdMsgField to phoneStateChangedCmd,
-            argsMsgField to argsV1
+            cmdV1MsgField to phoneStateChangedV1Cmd,
+            argsV1MsgField to argsV1
         )
         send(OutgoingMessage(destinationV1, msgV1))
 
@@ -184,8 +189,8 @@ class DefaultOutgoingMessageDispatcher(
         val msg = mapOf(
             cmdMsgField to openMeCompletedCmd,
             argsMsgField to mapOf(
-                "messageForWakingUp" to args.messageForWakingUp,
-                "succeeded" to succeeded
+                messageForWakingUpArg to args.messageForWakingUp,
+                succeededArg to succeeded
             )
         )
         send(OutgoingMessage(destination, msg))
