@@ -33,6 +33,7 @@ interface GarminConnector {
     fun launch()
     fun terminate()
 
+    fun appVersion(device: IQDevice, app: IQApp): Int?
     fun sendMessage(message: OutgoingMessage)
     fun openWatchAppInStore(app: IQApp = defaultApp())
     fun openWatchAppOnDevice(device: IQDevice, app: IQApp, completion: (succeeded: Boolean) -> Unit)
@@ -198,27 +199,47 @@ class DefaultGarminConnector(
     }
 
     private val notInstalledApps = mutableMapOf<Long, MutableList<IQApp>>()
+    private val installedApps = mutableMapOf<Long, MutableList<IQApp>>()
 
     private fun trackNotInstalledApp(device: IQDevice, app: IQApp) {
         val key = device.deviceIdentifier
-        val apps = notInstalledApps[key] ?: mutableListOf()
-        apps.add(app)
-        notInstalledApps[key] = apps
+        run {
+            val apps = notInstalledApps[key] ?: mutableListOf()
+            apps.add(app)
+            notInstalledApps[key] = apps
+        }
+        run {
+            val apps = installedApps[key] ?: mutableListOf()
+            apps.removeIf { x -> x.applicationId == app.applicationId }
+            installedApps[key] = apps
+        }
     }
 
     private fun trackInstalledApp(device: IQDevice, app: IQApp) {
         val key = device.deviceIdentifier
-        val apps = notInstalledApps[key] ?: mutableListOf()
-        apps.removeIf { x -> x.applicationId == app.applicationId }
-        notInstalledApps[key] = apps
+        run {
+            val apps = notInstalledApps[key] ?: mutableListOf()
+            apps.removeIf { x -> x.applicationId == app.applicationId }
+            notInstalledApps[key] = apps
+        }
+        run {
+            val apps = installedApps[key] ?: mutableListOf()
+            apps.add(app)
+            installedApps[key] = apps
+        }
     }
 
     private fun isNotInstalledApp(device: IQDevice, app: IQApp): Boolean {
         return notInstalledApps[device.deviceIdentifier]?.contains(app) ?: false
     }
 
+    override fun appVersion(device: IQDevice, app: IQApp): Int? {
+        return installedApps[device.deviceIdentifier]?.find { x -> x.applicationId == app.applicationId }?.version()
+    }
+
     private fun clearNotInstalledApps() {
         notInstalledApps.clear()
+        installedApps.clear()
     }
 
     private fun startOutgoingMessageGeneration(device: IQDevice) {
@@ -250,6 +271,7 @@ class DefaultGarminConnector(
                                     knownDevicesAcc[device.deviceIdentifier] = deviceInfo
                                     knownDevices.postValue(knownDevicesAcc)
                                 }
+                                trackInstalledApp(device, p0)
                                 appDataMayBeInvalidated(device, app)
                             }
 
@@ -258,6 +280,7 @@ class DefaultGarminConnector(
                                     TAG,
                                     "appStatus(${device.friendlyName}, ${appLogName(app)}): INSTALLED (${p0.version()})"
                                 )
+                                trackInstalledApp(device, p0)
                                 appDataMayBeInvalidated(device, app)
                             }
 
@@ -461,10 +484,10 @@ class DefaultGarminConnector(
                 } else {
                     appsForSendingMessages(device)
                 }
-                targetApps.forEach { app ->
+                for (app in targetApps) {
                     when (destination.matchV1) {
-                        true -> if (app.version() != 1) return@forEach
-                        false -> if (app.version() == 1) return@forEach
+                        true -> if (appVersion(device, app) != 1) continue
+                        false -> if (appVersion(device, app) == 1) continue
                         null -> Unit
                     }
                     val appLogName = appLogName(app)
