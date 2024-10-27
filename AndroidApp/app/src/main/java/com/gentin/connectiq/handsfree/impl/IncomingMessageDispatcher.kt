@@ -2,8 +2,21 @@ package com.gentin.connectiq.handsfree.impl
 
 import android.util.Log
 import com.gentin.connectiq.handsfree.globals.simApp
+import com.gentin.connectiq.handsfree.terms.acceptInCmd
+import com.gentin.connectiq.handsfree.terms.acceptV1InCmd
+import com.gentin.connectiq.handsfree.terms.callInCmd
+import com.gentin.connectiq.handsfree.terms.callV1InCmd
+import com.gentin.connectiq.handsfree.terms.didFirstLaunchInCmd
+import com.gentin.connectiq.handsfree.terms.hangUpInCmd
+import com.gentin.connectiq.handsfree.terms.hangUpV1InCmd
 import com.gentin.connectiq.handsfree.terms.muteInCmd
+import com.gentin.connectiq.handsfree.terms.openAppInStoreInCmd
+import com.gentin.connectiq.handsfree.terms.openMeInCmd
+import com.gentin.connectiq.handsfree.terms.queryInCmd
 import com.gentin.connectiq.handsfree.terms.setAudioVolumeInCmd
+import com.gentin.connectiq.handsfree.terms.syncMeV1InCmd
+import com.gentin.connectiq.handsfree.terms.syncPhonesV1InCmd
+import com.gentin.connectiq.handsfree.terms.toggleSpeakerInCmd
 import kotlinx.serialization.json.Json
 import org.json.JSONObject
 
@@ -29,7 +42,7 @@ class IncomingMessageDispatcher(
         val obj = json.decodeFromString<CommonRequest>(string)
         simulateCommDelay(source)
         when (obj.cmd) {
-            "call" -> {
+            callInCmd -> {
                 val callRequest = json.decodeFromString<CallRequest>(string)
                 Log.d(TAG, "callRequest: $callRequest")
                 makeCallImp(source, callRequest.args.number)
@@ -39,7 +52,7 @@ class IncomingMessageDispatcher(
                 hangupCallImp()
             }
 
-            "accept" -> {
+            acceptInCmd -> {
                 acceptCallImp()
             }
 
@@ -53,27 +66,27 @@ class IncomingMessageDispatcher(
                 syncPhonesV1Imp(source)
             }
 
-            "query" -> {
+            queryInCmd -> {
                 val queryRequest = json.decodeFromString<QueryRequest>(string)
                 Log.d(TAG, "callRequest: $queryRequest")
                 queryImp(source, queryRequest.args)
             }
 
-            "openMe" -> {
+            openMeInCmd -> {
                 val openMeRequest = json.decodeFromString<OpenMeRequest>(string)
                 Log.d(TAG, "openMeRequest: $openMeRequest")
                 openAppImp(source, openMeRequest.args)
             }
 
-            "openAppInStore" -> {
+            openAppInStoreInCmd -> {
                 openAppInStoreImp(source)
             }
 
-            "didFirstLaunch" -> {
+            didFirstLaunchInCmd -> {
                 didFirstLaunchImp(source)
             }
 
-            "toggleSpeaker" -> {
+            toggleSpeakerInCmd -> {
                 toggleSpeakerImp()
             }
 
