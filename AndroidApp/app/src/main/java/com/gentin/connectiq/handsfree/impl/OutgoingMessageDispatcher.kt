@@ -166,7 +166,7 @@ class DefaultOutgoingMessageDispatcher(
         send(OutgoingMessage(destinationV1, msgV1))
 
         val destinationV2 = destination.copy(matchV1 = false)
-        val argsV2 = phoneStateChangedArgsV1(phoneState)
+        val argsV2 = pojoMap(phoneState)
         val msgV2 = mapOf(
             cmdMsgField to phoneStateChangedCmd,
             argsMsgField to argsV2
