@@ -27,8 +27,6 @@ module AppSettings {
     }
     
     const followUpCommDelay as Lang.Number = Properties.getValue("followUpCommDelay") as Lang.Number;
-    (:noLowMemory)
-    const isSyncingCallStateOnCheckinEnabled as Lang.Boolean = Properties.getValue("syncCallStateOnLaunch") as Lang.Boolean;
     const isOptimisticCallHandlingEnabled as Lang.Boolean = Properties.getValue("optimisticCallHandling") as Lang.Boolean;
     const isExitToSystemAfterCallCompletionEnabled as Lang.Boolean = Properties.getValue("popOutOfAppInsteadOfPhones") as Lang.Boolean;
 

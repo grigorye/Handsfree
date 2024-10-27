@@ -3,7 +3,6 @@
     <properties>
         <property id="popOutOfAppInsteadOfPhones" type="boolean">true</property>
         <property id="openAppOnIncomingCall" type="boolean">false</property>
-        <property id="syncCallStateOnLaunch" type="boolean">false</property>
         <property id="callStateOnGlance" type="boolean">true</property>
         <property id="showSourceVersion" type="boolean">false</property>
         <property id="dummySourceVersion" type="string"></property>
@@ -28,7 +27,6 @@
     <strings>
         <string id="popOutOfAppInsteadOfPhones">Close app after call</string>
         <string id="openAppOnIncomingCall">Open app on incoming call</string>
-        <string id="syncCallStateOnLaunch">Update call state on app launch</string>
         <string id="callStateOnGlance">Show call state on glance</string>
         <string id="forceCheckIn">Check-in</string>
         <string id="secondsToCheckIn">Timeout for check-in (sec)</string>

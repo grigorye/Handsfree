@@ -16,10 +16,6 @@
             title="@Strings.incomingOpenAppViaWakeUp">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.syncCallStateOnLaunch"
-            title="@Strings.syncCallStateOnLaunch">
-            <settingConfig type="boolean" />
-        </setting>
         <setting propertyKey="@Properties.callStateOnGlance" title="@Strings.callStateOnGlance">
             <settingConfig type="boolean" />
         </setting>
