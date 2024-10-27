@@ -56,9 +56,6 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
                 if (debug) { _3(LX_REMOTE_MSG, "callStateIsNotOwnedByUs", true); }
             }
             break;
-        case InCmd.setPhones:
-            PhonesManip.setPhones(args["phones"] as Phones);
-            break;
         case InCmd.subjectsChanged:
             handleSubjectsChanged(args[subjectsK] as SubjectsChanged);
             break;
