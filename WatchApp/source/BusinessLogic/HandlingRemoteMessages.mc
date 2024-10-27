@@ -194,7 +194,7 @@ function handlePhoneStateChanged(state as Lang.Dictionary<Lang.String, Lang.Obje
                     var phoneNumber = getPhoneNumber(optimisticCallState.phone);
                     if (((phoneNumber != null) && phoneNumber.equals(inProgressNumber)) || (inProgressNumber == null /* no permission in companion */)) {
                         if (debug) { _3(L_PHONE_STATE_CHANGED, "optimisticCallStateHit", optimisticCallState); }
-                        var isCurrent = objectsEqual(getCallState(), optimisticCallState);
+                        var isCurrent = objectsEqual(callState, optimisticCallState);
                         untrackOptimisticCallState(optimisticCallState);
                         if (isCurrent) {
                             setCallState(optimisticCallState);
