@@ -13,5 +13,6 @@ inline fun <reified T> pojoMap(o: T): Any {
 }
 
 inline fun <reified T> pojoList(o: T): Any {
-    return mapper.convertValue(o, List::class.java)
+    val string = Json.encodeToString(o)
+    return mapper.readValue(string, List::class.java)
 }
