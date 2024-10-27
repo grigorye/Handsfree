@@ -234,7 +234,11 @@ class DefaultGarminConnector(
     }
 
     override fun appVersion(device: IQDevice, app: IQApp): Int? {
-        return installedApps[device.deviceIdentifier]?.find { x -> x.applicationId == app.applicationId }?.version()
+        val version = installedApps[device.deviceIdentifier]?.find { x -> x.applicationId == app.applicationId }?.version()
+        if (version == 0) {
+            return null
+        }
+        return version
     }
 
     private fun clearNotInstalledApps() {
