@@ -46,6 +46,8 @@ import com.gentin.connectiq.handsfree.services.lastTrackedAudioState
 import com.gentin.connectiq.handsfree.services.lastTrackedPhoneState
 import com.gentin.connectiq.handsfree.terms.allSubjectNames
 import com.gentin.connectiq.handsfree.terms.audioStateSubject
+import com.gentin.connectiq.handsfree.terms.phonesSubject
+import com.gentin.connectiq.handsfree.terms.recentsSubject
 
 class DefaultServiceLocator(
     base: Context?,
@@ -152,7 +154,7 @@ class DefaultServiceLocator(
         for (subject in args.subjects) {
             assert(allSubjectNames.contains(subject.name)) { "Unknown subject: ${subject.name}" }
             when (subject.name) {
-                "phones" -> {
+                phonesSubject -> {
                     queryResult.phones =
                         strippedVersionedPojo(
                             subject.version,
@@ -161,7 +163,7 @@ class DefaultServiceLocator(
                         )
                 }
 
-                "recents" -> {
+                recentsSubject -> {
                     queryResult.recents =
                         strippedVersionedPojo(subject.version, recentsPojo(recents()), metadataOnly)
                 }
