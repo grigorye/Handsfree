@@ -40,9 +40,15 @@ class IncomingMessageDispatcher(
         val string = JSONObject(pojo).toString()
         Log.d(TAG, "incomingMsg: $string, source: $source")
         val json = Json { ignoreUnknownKeys = true }
-        val obj = json.decodeFromString<CommonRequest>(string)
+        val cmd = try {
+            val obj = json.decodeFromString<CommonRequest>(string)
+            obj.cmd
+        } catch (e: Exception) {
+            val obj = json.decodeFromString<CommonRequestV1>(string)
+            obj.cmd
+        }
         simulateCommDelay(source)
-        when (obj.cmd) {
+        when (cmd) {
             callV1InCmd -> {
                 val callRequest = json.decodeFromString<CallRequestV1>(string)
                 Log.d(TAG, "callRequest: $callRequest")
