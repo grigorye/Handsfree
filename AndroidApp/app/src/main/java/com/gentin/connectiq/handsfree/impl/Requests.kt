@@ -5,37 +5,47 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CommonRequest(
+    @SerialName("c") val cmd: String
+)
+
+@Serializable
+data class CommonRequestV1(
     val cmd: String
 )
 
 @Serializable
 data class CallRequest(
-    val args: CallArgs
+    @SerialName("a") val args: CallArgs
+)
+
+@Serializable
+data class CallRequestV1(
+    val args: CallArgsV1
 )
 
 @Serializable
 data class QueryRequest(
-    val args: QueryArgs
+    @SerialName("a") val args: QueryArgs
 )
 
 @Serializable
 data class OpenMeRequest(
-    val args: OpenMeArgs
+    @SerialName("a") val args: OpenMeArgs
 )
 
 @Serializable
 data class SetAudioVolumeRequest(
-    val args: SetAudioVolumeRequestArgs
+    @SerialName("a") val args: SetAudioVolumeRequestArgs
 )
 
 @Serializable
 data class MuteRequest(
-    val args: MuteRequestArgs
+    @SerialName("a") val args: MuteRequestArgs
 )
 
 @Serializable
 data class MuteRequestArgs(
-    val on: Boolean
+    @SerialName("o") val on: Boolean
 )
 
 @Serializable
@@ -51,21 +61,26 @@ data class SetAudioVolumeRequestArgs(
 
 @Serializable
 data class OpenMeArgs(
-    val messageForWakingUp: String?
+    @SerialName("m") val messageForWakingUp: String?
 )
 
 @Serializable
 data class CallArgs(
+    @SerialName("n") val number: String
+)
+
+@Serializable
+data class CallArgsV1(
     val number: String
 )
 
 @Serializable
 data class QueryArgs(
-    val subjects: List<SubjectQuery>
+    @SerialName("s") val subjects: List<SubjectQuery>
 )
 
 @Serializable
 data class SubjectQuery(
-    val name: String,
-    val version: Version? = null
+    @SerialName("n") val name: String,
+    @SerialName("v") val version: Version? = null
 )

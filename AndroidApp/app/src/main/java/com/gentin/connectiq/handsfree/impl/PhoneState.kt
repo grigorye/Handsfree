@@ -4,18 +4,22 @@ import android.content.Context
 import android.telephony.TelephonyManager
 import android.util.Log
 import com.gentin.connectiq.handsfree.helpers.normalizePhoneNumber
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class PhoneState(
-    val stateId: PhoneStateId,
-    val number: String? = null,
-    val name: String? = null
+    @SerialName("d") val stateId: PhoneStateId,
+    @SerialName("n") val number: String? = null,
+    @SerialName("m") val name: String? = null
 )
 
+@Serializable
 enum class PhoneStateId {
-    Unknown,
-    Idle,
-    OffHook,
-    Ringing
+    @SerialName("u") Unknown,
+    @SerialName("i") Idle,
+    @SerialName("h") OffHook,
+    @SerialName("r") Ringing
 }
 
 fun phoneState(

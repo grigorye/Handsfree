@@ -1,4 +1,4 @@
 package com.gentin.connectiq.handsfree.terms
 
-const val subjectValue = "value"
-const val subjectVersion = "version"
+const val subjectVersion = "v"
+const val subjectValue = "l"

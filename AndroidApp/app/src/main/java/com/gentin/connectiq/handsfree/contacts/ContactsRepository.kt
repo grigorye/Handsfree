@@ -12,6 +12,7 @@ import android.provider.ContactsContract.CommonDataKinds.Phone
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import com.gentin.connectiq.handsfree.helpers.formatPhoneNumber
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
@@ -26,9 +27,9 @@ data class PhoneData(
 
 @Serializable
 data class ContactData(
-    val id: Int,
-    var name: String,
-    var number: String,
+    @SerialName("i") val id: Int,
+    @SerialName("m") var name: String,
+    @SerialName("n") var number: String,
 )
 
 interface ContactsRepository {

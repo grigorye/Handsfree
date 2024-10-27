@@ -1,8 +1,8 @@
 package com.gentin.connectiq.handsfree.terms
 
-const val audioStateSubject = "audioState"
-const val phonesSubject = "phones"
-const val recentsSubject = "recents"
+const val audioStateSubject = "a"
+const val phonesSubject = "p"
+const val recentsSubject = "r"
 
 val allSubjectNames = listOf(
     phonesSubject,

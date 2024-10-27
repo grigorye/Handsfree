@@ -11,16 +11,17 @@ import android.net.Uri
 import android.provider.CallLog
 import android.util.Log
 import androidx.core.app.ActivityCompat
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class CallLogEntry(
-    val number: String,
-    val name: String?,
-    val type: Int,
-    val date: Long,
-    val duration: Long,
-    val isNew: Int
+    @SerialName("n") val number: String,
+    @SerialName("m") val name: String?,
+    @SerialName("t") val type: Int,
+    @SerialName("d") val date: Long,
+    @SerialName("r") val duration: Long,
+    @SerialName("w") val isNew: Int
 )
 
 interface CallLogsRepository {
