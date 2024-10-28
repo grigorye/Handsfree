@@ -44,7 +44,7 @@ class Router {
                         if (debug) { _2(L_ROUTER, "routingToCallInProgress"); }
                         var phone = (newState as CallInProgress).phone;
                         if (debug) { _3(L_ROUTER, "pushingOutPhones", true); }
-                        pushView("callInProgress", new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_LEFT);
+                        pushView(V.callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_LEFT);
                         break;
                     }
                     default:
@@ -61,7 +61,7 @@ class Router {
                     case instanceof CallInProgress: {
                         if (debug) { _2(L_ROUTER, "routingToCallInProgress"); }
                         var phone = (newState as CallInProgress).phone;
-                        switchToView("callInProgress", new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
+                        switchToView(V.callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof Idle: {
@@ -83,13 +83,13 @@ class Router {
                     }
                     case instanceof CallActing: {
                         if (debug) { _2(L_ROUTER, "routingToCallActing"); }
-                        pushView("callActing", new CallActingView(newState as CallActing), new CallActingViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        pushView(V.callActing, new CallActingView(newState as CallActing), new CallActingViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof CallInProgress: {
                         if (debug) { _2(L_ROUTER, "updatingForNewCallInProgress"); }
                         var phone = (newState as CallInProgress).phone;
-                        var view = viewWithTag("callInProgress") as CallInProgressView | Null;
+                        var view = viewWithTag(V.callInProgress) as CallInProgressView | Null;
                         if (view != null) {
                             view.updateFromPhone(phone, isOptimisticCallState(newState));
                         }
@@ -103,13 +103,13 @@ class Router {
                 switch (newState) {
                     case instanceof CallActing: {
                         if (debug) { _2(L_ROUTER, "routingToUpdatedCallActing"); }
-                        switchToView("callActing", new CallActingView(newState as CallActing), new CallActingViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        switchToView(V.callActing, new CallActingView(newState as CallActing), new CallActingViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof CallInProgress: {
                         if (debug) { _2(L_ROUTER, "routingToCallInProgress"); }
                         var phone = (newState as CallInProgress).phone;
-                        switchToView("callInProgress", new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
+                        switchToView(V.callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof Idle: {
@@ -137,7 +137,7 @@ class Router {
 
 function exitToSystemFromCurrentView() as Void {
     if (debug) { _3(L_ROUTER, "exitingToSystemFromCurrentView", viewStackTags()); }
-    while (!topViewIs("commView")) {
+    while (!topViewIs(V.comm)) {
         popView(WatchUi.SLIDE_IMMEDIATE);
     }
     exitToSystemFromCommView();
@@ -145,11 +145,11 @@ function exitToSystemFromCurrentView() as Void {
 
 function exitToSystemFromCommView() as Void {
     if (viewDebug) { _2(L_ROUTER, "exitingToSystemFromCommView"); }
-    if (!topViewIs("commView")) {
+    if (!topViewIs(V.comm)) {
         dumpViewStack("messedUpViewStack");
         System.error("viewStackIsMessedUp");
     }
-    if (viewStackTagsEqual(["commView"])) {
+    if (viewStackTagsEqual([V.comm])) {
         if (viewDebug) { _2(L_ROUTER, "willSystemExit"); }
         if (tweakingForSystemExit) {
             System.exit();

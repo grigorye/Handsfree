@@ -53,7 +53,7 @@ function updateUIForPhonesIfInApp(phones as Phones) as Void {
 }
 
 function updateUIForPhones(phones as Phones) as Void {
-    var phonesView = viewWithTag("phones") as PhonesView or Null;
+    var phonesView = viewWithTag(V.phones) as PhonesView or Null;
     if (phonesView != null) {
         phonesView.updateFromPhones(phones);
     }

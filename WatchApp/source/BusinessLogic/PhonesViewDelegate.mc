@@ -32,7 +32,7 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
 
     function onBack() {
         popView(SLIDE_IMMEDIATE);
-        if (topViewIs("commView")) {
+        if (topViewIs(V.comm)) {
             exitToSystemFromCommView();
         }
     }

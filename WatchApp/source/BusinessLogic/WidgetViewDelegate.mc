@@ -8,7 +8,7 @@ class WidgetViewDelegate extends WatchUi.BehaviorDelegate {
 
     function onSelect() {
         if (debug) { _2(L_USER_ACTION, "widget.onSelect"); }
-        pushView("commView", new CommView(), null, WatchUi.SLIDE_BLINK);
+        pushView(V.comm, new CommView(), null, WatchUi.SLIDE_BLINK);
         return true;
     }
 }

@@ -73,7 +73,7 @@ function getInitialViewInApp() as [WatchUi.Views] or [WatchUi.Views, WatchUi.Inp
 function getInitialViewInApp() as [WatchUi.Views] or [WatchUi.Views, WatchUi.InputDelegates] {
     willReturnInitialView();
     var view = new CommView();
-    trackInitialView("commView", view, null);
+    trackInitialView(V.comm, view, null);
     return [view];
 }
 

@@ -73,7 +73,7 @@ function getAudioStateVersion() as Version {
 }
 
 function updateCallInProgressView() as Void {
-    var callInProgressView = viewWithTag("callInProgress") as CallInProgressView | Null;
+    var callInProgressView = viewWithTag(V.callInProgress) as CallInProgressView | Null;
     if (callInProgressView != null) {
         var callInProgressState = getCallState() as CallInProgress | Null;
         if (callInProgressState != null) {
