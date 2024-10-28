@@ -4,15 +4,16 @@ import Toybox.System;
 
 const L_VIEW_TRACKING as LogComponent = "$$";
 
+typedef ViewTag as Lang.String;
 class ViewStackEntry extends Lang.Object {
 
-    function initialize(tag as Lang.String, view as WatchUi.Views, delegate as Null or WatchUi.InputDelegates) {
+    function initialize(tag as ViewTag, view as WatchUi.Views, delegate as Null or WatchUi.InputDelegates) {
         self.tag = tag;
         self.view = view;
         self.delegate = delegate;
     }
 
-    var tag as Lang.String;
+    var tag as ViewTag;
     var view as WatchUi.Views;
     var delegate as Null or WatchUi.InputDelegates;
 }
@@ -20,21 +21,21 @@ class ViewStackEntry extends Lang.Object {
 typedef ViewStack as Lang.Array<ViewStackEntry>;
 var viewStack as ViewStack = [];
 
-function viewStackTags() as Lang.Array<Lang.String> {
-    var tags = [] as Lang.Array<Lang.String>;
+function viewStackTags() as Lang.Array<ViewTag> {
+    var tags = [] as Lang.Array<ViewTag>;
     for (var i = 0; i < viewStack.size(); i++) {
         tags.add(viewStack[i].tag);
     }
     return tags;
 }
 
-function switchToView(tag as Lang.String, view as WatchUi.Views, delegate as WatchUi.InputDelegates or Null, transition as WatchUi.SlideType) as Void {
+function switchToView(tag as ViewTag, view as WatchUi.Views, delegate as WatchUi.InputDelegates or Null, transition as WatchUi.SlideType) as Void {
     viewStack[viewStack.size() - 1] = new ViewStackEntry(tag, view, delegate);
     dumpViewStack("switchToView");
     WatchUi.switchToView(view, delegate, transition);
 }
 
-function pushView(tag as Lang.String, view as WatchUi.Views, delegate as WatchUi.InputDelegates or Null, transition as WatchUi.SlideType) as Lang.Boolean {
+function pushView(tag as ViewTag, view as WatchUi.Views, delegate as WatchUi.InputDelegates or Null, transition as WatchUi.SlideType) as Lang.Boolean {
     viewStack.add(new ViewStackEntry(tag, view, delegate));
     dumpViewStack("pushView");
     assertViewStackIsSane();
@@ -52,7 +53,7 @@ function trackBackFromView() as Void {
     dumpViewStack("backFromView");
 }
 
-function trackInitialView(tag as Lang.String, view as WatchUi.Views, delegate as Null or WatchUi.InputDelegates) as Void {
+function trackInitialView(tag as ViewTag, view as WatchUi.Views, delegate as Null or WatchUi.InputDelegates) as Void {
     viewStack.add(new ViewStackEntry(tag, view, delegate));
     dumpViewStack("initialView");
 }
@@ -68,7 +69,7 @@ function topView() as WatchUi.Views or Null {
     return topViewStackEntry().view;
 }
 
-function topViewIs(tag as Lang.String) as Lang.Boolean {
+function topViewIs(tag as ViewTag) as Lang.Boolean {
     return topViewStackEntry().tag.equals(tag);
 }
 
@@ -77,7 +78,7 @@ function topViewStackEntry() as ViewStackEntry {
 }
 
 function assertViewStackIsSane() as Void {
-    var uniqueViewTags = [] as Lang.Array<Lang.String>;
+    var uniqueViewTags = [] as Lang.Array<ViewTag>;
     for (var i = 0; i < viewStack.size(); i++) {
         if (uniqueViewTags.indexOf(viewStack[i].tag) != -1) {
             dumpViewStack("messedUp");
@@ -91,7 +92,7 @@ function viewStackSize() as Lang.Number {
     return viewStack.size();
 }
 
-function viewStackTagsEqual(other as Lang.Array<Lang.String>) as Lang.Boolean {
+function viewStackTagsEqual(other as Lang.Array<ViewTag>) as Lang.Boolean {
     if (viewStack.size() != other.size()) {
         return false;
     }
@@ -103,7 +104,7 @@ function viewStackTagsEqual(other as Lang.Array<Lang.String>) as Lang.Boolean {
     return true;
 }
 
-function viewWithTag(tag as Lang.String) as WatchUi.Views or Null {
+function viewWithTag(tag as ViewTag) as WatchUi.Views or Null {
     for (var i = 0; i < viewStack.size(); i++) {
         if (viewStack[i].tag.equals(tag)) {
             return viewStack[i].view;
