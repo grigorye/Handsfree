@@ -89,7 +89,7 @@ class IncomingMessageDispatcher(
 
             queryInCmd -> {
                 val queryRequest = json.decodeFromString<QueryRequest>(string)
-                Log.d(TAG, "callRequest: $queryRequest")
+                Log.d(TAG, "queryRequest: $queryRequest")
                 queryImp(source, queryRequest.args)
             }
 
