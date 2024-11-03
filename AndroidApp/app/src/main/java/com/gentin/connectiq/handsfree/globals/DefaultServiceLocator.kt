@@ -88,7 +88,7 @@ class DefaultServiceLocator(
                     val destination = OutgoingMessageDestination(source.device, source.app)
                     outgoingMessageDispatcher.sendPhoneState(
                         destination,
-                        lastTrackedPhoneState ?: fallbackPhoneState(this)
+                        lastTrackedPhoneState ?: fallbackPhoneState()
                     )
                 }
             },
