@@ -33,6 +33,7 @@ data class ContactData(
 )
 
 interface ContactsRepository {
+    fun invalidatePermissions()
     fun subscribe(observer: ContentObserver)
     fun unsubscribe(observer: ContentObserver)
     fun contacts(): List<ContactData>
@@ -48,6 +49,22 @@ class ContactsRepositoryImpl(
         private val TAG = ContactsRepositoryImpl::class.java.simpleName
     }
 
+    private val delayedObservers = ArrayList<ContentObserver>()
+
+    override fun invalidatePermissions() {
+        val hasPermission = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.READ_CONTACTS
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (hasPermission) {
+            for (observer in delayedObservers) {
+                subscribeIgnoringPermissions(observer)
+            }
+            delayedObservers.clear()
+        }
+    }
+
     override fun subscribe(observer: ContentObserver) {
         val hasPermission = ActivityCompat.checkSelfPermission(
             this,
@@ -55,9 +72,14 @@ class ContactsRepositoryImpl(
         ) == PackageManager.PERMISSION_GRANTED
 
         if (!hasPermission) {
+            delayedObservers.add(observer)
             Log.e(TAG, "notPermittedToReadContacts")
             return
         }
+        subscribeIgnoringPermissions(observer)
+    }
+
+    private fun subscribeIgnoringPermissions(observer: ContentObserver) {
         contentResolver.registerContentObserver(Phone.CONTENT_URI, true, observer)
         contentResolver.registerContentObserver(
             ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
@@ -67,6 +89,7 @@ class ContactsRepositoryImpl(
     }
 
     override fun unsubscribe(observer: ContentObserver) {
+        delayedObservers.remove(observer)
         contentResolver.unregisterContentObserver(observer)
     }
 
