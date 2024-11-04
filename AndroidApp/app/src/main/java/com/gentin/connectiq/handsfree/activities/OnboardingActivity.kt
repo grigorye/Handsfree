@@ -90,6 +90,8 @@ class OnboardingActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissi
                 grantResults.joinToString(", ")
             }"
         )
+
+        invalidatePermissions(this, permissions, grantResults)
     }
 
     override fun onSupportNavigateUp(): Boolean {
