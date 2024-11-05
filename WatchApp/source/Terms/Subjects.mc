@@ -1,10 +1,10 @@
 using Toybox.Lang;
 
 (:inline, :background, :glance)
-const audioStateSubject as Lang.String = "a";
+const audioStateSubject = "a";
 
 (:inline, :background, :glance)
-const recentsSubject as Lang.String = "r";
+const recentsSubject = "r";
 
 (:inline, :background, :glance)
-const phonesSubject as Lang.String = "p";
+const phonesSubject = "p";

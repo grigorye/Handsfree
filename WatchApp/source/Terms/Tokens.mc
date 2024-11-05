@@ -1,27 +1,27 @@
 using Toybox.Lang;
 
 (:inline, :background, :glance)
-const isHeadsetConnectedK as Lang.String = "h";
+const isHeadsetConnectedK = "h";
 (:inline, :background, :glance)
-const volumeK as Lang.String = "v";
+const volumeK = "v";
 (:inline, :background, :glance)
-const isMutedK as Lang.String = "m";
+const isMutedK = "m";
 (:inline, :background, :glance)
-const maxK as Lang.String = "m";
+const maxK = "m";
 (:inline, :background, :glance)
-const indexK as Lang.String = "i";
+const indexK = "i";
 
 (:inline, :background, :glance)
-const versionK as Lang.String = "v";
+const versionK = "v";
 (:inline, :background, :glance)
-const valueK as Lang.String = "l";
+const valueK = "l";
 
 (:inline, :background, :glance)
-const subjectsK as Lang.String = "s";
+const subjectsK = "s";
 (:inline, :background, :glance)
-const cmdK as Lang.String = "c";
+const cmdK = "c";
 (:inline, :background, :glance)
-const argsK as Lang.String = "a";
+const argsK = "a";
 
 (:inline, :background, :glance)
 const idMsgField = "i";
