@@ -34,6 +34,7 @@ function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
     didReceiveRemoteMessage();
     if (data.equals("ping")) {
         if (minDebug) { _3(LX_REMOTE_MSG, "msg.data", "gotPing"); }
+        handlePing();
         return;
     }
     var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
