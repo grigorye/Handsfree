@@ -1,4 +1,5 @@
 import Toybox.WatchUi;
+import Toybox.System;
 
 const L_CALL_ACTING_DATA as LogComponent = "callActing";
 
@@ -50,7 +51,12 @@ class CallActingView extends WatchUi.ProgressBar {
                 }
                 break;
             case FAILED:
-                message = "Communication\nFailed";
+                var deviceSettings = System.getDeviceSettings();
+                if (deviceSettings.phoneConnected) {
+                    message = "Communication\nFailed";
+                } else {
+                    message = "No Connection";
+                }
                 break;
             default:
                 message = "";
