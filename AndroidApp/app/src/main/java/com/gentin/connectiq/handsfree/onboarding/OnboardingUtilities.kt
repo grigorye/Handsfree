@@ -13,6 +13,7 @@ import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.contacts.openFavorites
 import com.gentin.connectiq.handsfree.globals.isInDebugMode
 import com.gentin.connectiq.handsfree.globals.setIsInDebugMode
+import com.gentin.connectiq.handsfree.helpers.shareLog
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_ON_DEVICE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
@@ -128,6 +129,10 @@ fun resolveLink(link: String, fragment: Fragment, navigationLabel: String? = nul
 
                 "open-app-in-store" -> {
                     startConnector(context, ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE)
+                }
+
+                "share-log" -> {
+                    shareLog(context)
                 }
 
                 else -> {

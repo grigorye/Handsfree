@@ -1,5 +1,6 @@
 package com.gentin.connectiq.handsfree.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -14,6 +15,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.databinding.ActivityOnboardingBinding
+import com.gentin.connectiq.handsfree.helpers.REQUEST_CODE_SHARE_LOG
+import com.gentin.connectiq.handsfree.helpers.saveLog
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.startConnector
 import com.gentin.connectiq.handsfree.onboarding.OnboardingStepFragment
@@ -29,6 +32,16 @@ class OnboardingActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissi
             R.id.settings_home
         )
     )
+
+    override fun onActivityResult(
+        requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (requestCode == REQUEST_CODE_SHARE_LOG && resultCode == RESULT_OK) {
+            resultData?.data?.also { uri ->
+                saveLog(this, uri)
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG, "onCreate")
