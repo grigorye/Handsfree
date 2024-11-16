@@ -500,7 +500,7 @@ class DefaultGarminConnector(
                             TAG,
                             "device.${device.deviceIdentifier}(${device.friendlyName})($appLogName) <- msg-ping.$id"
                         )
-                        connectIQ.sendMessage(device, app, "ping".toByteArray()) { _, _, status ->
+                        connectIQ.sendMessage(device, app, "ping") { _, _, status ->
                             Log.d(
                                 TAG,
                                 "device.${device.deviceIdentifier}(${device.friendlyName})($appLogName) -> ack-ping(${status}, msg.$id) [$sentMessagesCounter]"
