@@ -16,6 +16,7 @@ import com.gentin.connectiq.handsfree.globals.setIsInDebugMode
 import com.gentin.connectiq.handsfree.helpers.shareLog
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_ON_DEVICE
+import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_PING
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.knownDevicesMarkdown
 import com.gentin.connectiq.handsfree.impl.startConnector
@@ -125,6 +126,20 @@ fun resolveLink(link: String, fragment: Fragment, navigationLabel: String? = nul
 
                 "open-watch-app" -> {
                     startConnector(context, ACTIVATE_AND_OPEN_WATCH_APP_ON_DEVICE)
+                }
+
+                "ping" -> {
+                    startConnector(context, ACTIVATE_AND_PING)
+                    val contextView = fragment.view
+                    contextView?.apply {
+                        Snackbar
+                            .make(
+                                this,
+                                "Pinging...",
+                                Snackbar.LENGTH_SHORT
+                            )
+                            .show()
+                    }
                 }
 
                 "open-app-in-store" -> {
