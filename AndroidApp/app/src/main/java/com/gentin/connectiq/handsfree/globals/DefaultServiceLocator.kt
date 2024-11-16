@@ -41,6 +41,7 @@ import com.gentin.connectiq.handsfree.impl.audioStatePojo
 import com.gentin.connectiq.handsfree.impl.phonesPojo
 import com.gentin.connectiq.handsfree.impl.recentsPojo
 import com.gentin.connectiq.handsfree.impl.strippedVersionedPojo
+import com.gentin.connectiq.handsfree.notifications.showPongNotification
 import com.gentin.connectiq.handsfree.services.fallbackPhoneState
 import com.gentin.connectiq.handsfree.services.lastTrackedAudioState
 import com.gentin.connectiq.handsfree.services.lastTrackedPhoneState
@@ -148,6 +149,10 @@ class DefaultServiceLocator(
             muteImp = { on ->
                 audioControl.mute(on)
                 outgoingMessageDispatcher.sendAudioState(audioState())
+            },
+            pongImp = { source ->
+                Log.d(TAG, "Pong: $source")
+                showPongNotification(this, source)
             }
         )
     }

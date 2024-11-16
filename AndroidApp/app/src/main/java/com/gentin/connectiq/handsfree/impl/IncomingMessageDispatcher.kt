@@ -12,6 +12,7 @@ import com.gentin.connectiq.handsfree.terms.hangUpV1InCmd
 import com.gentin.connectiq.handsfree.terms.muteInCmd
 import com.gentin.connectiq.handsfree.terms.openAppInStoreInCmd
 import com.gentin.connectiq.handsfree.terms.openMeInCmd
+import com.gentin.connectiq.handsfree.terms.pongInCmd
 import com.gentin.connectiq.handsfree.terms.queryInCmd
 import com.gentin.connectiq.handsfree.terms.setAudioVolumeInCmd
 import com.gentin.connectiq.handsfree.terms.syncMeV1InCmd
@@ -33,7 +34,8 @@ class IncomingMessageDispatcher(
     private val openAppInStoreImp: (source: IncomingMessageSource) -> Unit,
     private val toggleSpeakerImp: () -> Unit,
     private val setAudioVolumeImp: (RelVolume) -> Unit,
-    private val muteImp: (Boolean) -> Unit
+    private val muteImp: (Boolean) -> Unit,
+    private val pongImp: (source: IncomingMessageSource) -> Unit
 ) {
     fun handleMessage(message: Any, source: IncomingMessageSource) {
         val pojo = message as Map<*, *>
@@ -121,6 +123,10 @@ class IncomingMessageDispatcher(
                 val request = json.decodeFromString<MuteRequest>(string)
                 Log.d(TAG, "muteRequest: $request")
                 muteImp(request.args.on)
+            }
+
+            pongInCmd -> {
+                pongImp(source)
             }
 
             else -> {
