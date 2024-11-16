@@ -8,6 +8,7 @@ module Cmd {
     const mute = "m";
     const setAudioVolume = "v";
     const didFirstLaunch = "l";
+    const pong = "g";
     const query = "q";
     const openMe = "o";
     const openAppInStore = "r";
