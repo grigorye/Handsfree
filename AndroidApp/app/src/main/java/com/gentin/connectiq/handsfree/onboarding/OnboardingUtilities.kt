@@ -11,8 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.contacts.openFavorites
-import com.gentin.connectiq.handsfree.globals.isInDebugMode
-import com.gentin.connectiq.handsfree.globals.setIsInDebugMode
 import com.gentin.connectiq.handsfree.helpers.shareLog
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_ON_DEVICE
@@ -107,21 +105,7 @@ fun resolveLink(link: String, fragment: Fragment, navigationLabel: String? = nul
                 }
 
                 "toggle-debug-mode" -> {
-                    setIsInDebugMode(context, !isInDebugMode(context))
-                    val contextView = fragment.view
-                    contextView?.apply {
-                        Snackbar
-                            .make(
-                                this,
-                                if (isInDebugMode(context))
-                                    "Debug mode is on"
-                                else
-                                    "Debug mode is off",
-                                Snackbar.LENGTH_SHORT
-                            )
-                            .setAnchorView(R.id.nav_bar_view)
-                            .show()
-                    }
+                    toggleDebugMode(context, fragment)
                 }
 
                 "open-watch-app" -> {
