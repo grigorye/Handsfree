@@ -265,13 +265,18 @@ class DefaultServiceLocator(
                 incomingMessageDispatcher.handleMessage(o, source)
             },
             appDataMayBeInvalidated = { device, app ->
-                val subjects = allSubjectNames.map { name ->
-                    SubjectQuery(name = name, version = null)
+                val appVersion = activeGarminConnector.value?.appVersion(device, app) ?: 0
+                if (appVersion == 1) {
+                    Log.d(TAG, "ignoringAppDataInvalidationDueToV1: $device, ${appLogName(app)}($appVersion)")
+                } else {
+                    val subjects = allSubjectNames.map { name ->
+                        SubjectQuery(name = name, version = null)
+                    }
+                    val args = QueryArgs(subjects)
+                    val result = query(args, metadataOnly = true)
+                    val destination = OutgoingMessageDestination(device, app)
+                    outgoingMessageDispatcher.sendQueryResult(destination, result)
                 }
-                val args = QueryArgs(subjects)
-                val result = query(args, metadataOnly = true)
-                val destination = OutgoingMessageDestination(device, app)
-                outgoingMessageDispatcher.sendQueryResult(destination, result)
             }
         ).apply {
             activeGarminConnector.value = this
