@@ -4,6 +4,9 @@ import Toybox.Application;
 
 module AudioStateManip {
 
+(:background)
+const L_AUDIO_STATE_STORAGE as LogComponent = "audioState";
+
 (:background, :typecheck(disableBackgroundCheck))
 function setAudioState(audioState as AudioState) as Void {
     AudioStateImp.setAudioStateImp(audioState);
@@ -62,7 +65,7 @@ function getAudioVolume(audioState as AudioState) as RelVolume {
 
 (:inline, :background)
 function setAudioStateVersion(version as Version) as Void {
-    if (debug) { _3(L_RECENTS_STORAGE, "setAudioStateVersion", version); }
+    if (debug) { _3(L_AUDIO_STATE_STORAGE, "setAudioStateVersion", version); }
     Storage.setValue("audioStateVersion.v1", version);
 }
 
