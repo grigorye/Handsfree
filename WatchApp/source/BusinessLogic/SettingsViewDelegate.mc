@@ -18,6 +18,10 @@ class SettingsViewDelegate extends WatchUi.Menu2InputDelegate {
                 openAppInConnectIQ();
                 break;
             }
+            case :installCompanionApp: {
+                installCompanionApp();
+                break;
+            }
         }
     }
 

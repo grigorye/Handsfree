@@ -5,6 +5,7 @@ class SettingsView extends WatchUi.Menu2 {
         Menu2.initialize({ :title => "Settings" });
         addItem(new ToggleMenuItem("Incoming Calls", null, :openAppOnIncomingCall, false, null));
         addItem(new MenuItem("More: Connect IQ", null, :more, null));
+        addItem(new MenuItem("Companion App", null, :installCompanionApp, null));
     }
 
     function update() as Void {
