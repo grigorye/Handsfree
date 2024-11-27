@@ -49,7 +49,9 @@ module AppSettings {
 
 (:background)
 module BackgroundSettings {
-    const isOpenAppOnIncomingCallEnabled as Lang.Boolean = Properties.getValue("openAppOnIncomingCall") as Lang.Boolean;
+    function isOpenAppOnIncomingCallEnabled() as Lang.Boolean {
+        return Properties.getValue("openAppOnIncomingCall") as Lang.Boolean;
+    }
     const isIncomingOpenAppViaCompanionEnabled as Lang.Boolean = Properties.getValue("incomingOpenAppViaCompanion") as Lang.Boolean;
     const isIncomingOpenAppViaWakeUpEnabled as Lang.Boolean = Properties.getValue("incomingOpenAppViaWakeUp") as Lang.Boolean;
 }
