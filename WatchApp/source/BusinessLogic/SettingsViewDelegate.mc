@@ -27,5 +27,8 @@ class SettingsViewDelegate extends WatchUi.Menu2InputDelegate {
 
     function onBack() as Void {
         popView(WatchUi.SLIDE_RIGHT);
+        if (topViewIs(V.comm)) {
+            exitToSystemFromCommView();
+        }
     }
 }

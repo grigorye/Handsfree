@@ -26,6 +26,15 @@ class CommView extends WatchUi.View {
 
     function firstOnShow() as Void {
         if (debug) { _2(L_COMM_VIEW, "firstOnShow"); }
+        if (CompanionInfoImp.getCompanionInfo() == null) {
+            if (debug) { _2(L_COMM_VIEW, "noCompanionInfo"); }
+            openSettingsView();
+        } else {
+            routeToMainUI();
+        }
+    }
+
+    function routeToMainUI() as Void {
         appWillRouteToMainUI();
         openFavoritesView();
         getRouter().updateRoute();
