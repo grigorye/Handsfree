@@ -146,6 +146,21 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
                 }
                 break;
             }
+            case companionInfoSubject: {
+                if (!version.equals(CompanionInfoManip.getCompanionInfoVersion())) {
+                    var companionInfo = subject[valueK] as CompanionInfo or Null;
+                    if (companionInfo == null) {
+                        subjectsInvalidated.add(name);
+                    } else {
+                        CompanionInfoManip.setCompanionInfo(companionInfo);
+                        CompanionInfoManip.setCompanionInfoVersion(version);
+                    }
+                    isHit = false;
+                } else {
+                    if (debug) { _3(LX_REMOTE_MSG, "companionInfoHit", version); }
+                }
+                break;
+            }
             default: {
                 if (debug) { _3(LX_REMOTE_MSG, "unknownSubject", name); }
                 break;

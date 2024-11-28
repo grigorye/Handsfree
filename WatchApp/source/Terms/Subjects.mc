@@ -8,3 +8,6 @@ const recentsSubject = "r";
 
 (:inline, :background, :glance)
 const phonesSubject = "p";
+
+(:inline, :background, :glance)
+const companionInfoSubject = "i";
