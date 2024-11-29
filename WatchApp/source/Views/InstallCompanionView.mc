@@ -1,5 +1,6 @@
 import Toybox.WatchUi;
 
+module Views {
 class InstallCompanionView extends WatchUi.Menu2 {
     function initialize() {
         Menu2.initialize({ :title => "Install" });
@@ -9,4 +10,6 @@ class InstallCompanionView extends WatchUi.Menu2 {
 
 function newInstallCompanionView() as WatchUi.Views {
     return new InstallCompanionView();
+}
+
 }

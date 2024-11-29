@@ -1,11 +1,7 @@
 import Toybox.WatchUi;
 
 module Views {
-    const about = "b";
-}
-module Views {
-    const aboutX = "c";
-}
+
 class AboutView extends WatchUi.Menu2 {
     function initialize() {
         Menu2.initialize({ :title => "About" });
@@ -37,4 +33,6 @@ class AboutView extends WatchUi.Menu2 {
 function newAboutView() as WatchUi.Views {
     var aboutView = new AboutView();
     return aboutView;
+}
+
 }

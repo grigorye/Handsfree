@@ -15,7 +15,7 @@ class SettingsViewDelegate extends WatchUi.Menu2InputDelegate {
                 break;
             }
             case :about: {
-                pushView(V.about, newAboutView(), new AboutViewDelegate(), WatchUi.SLIDE_LEFT);
+                pushView(V.about, Views.newAboutView(), new AboutViewDelegate(), WatchUi.SLIDE_LEFT);
                 break;
             }
             case :installCompanionApp: {

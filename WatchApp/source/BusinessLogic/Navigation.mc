@@ -18,5 +18,5 @@ function openSettingsView() as Void {
 
 (:inline)
 function openInstallCompanionView() as Void {
-    pushView(V.installCompanion, newInstallCompanionView(), new InstallCompanionViewDelegate(), WatchUi.SLIDE_LEFT);
+    pushView(V.installCompanion, Views.newInstallCompanionView(), new InstallCompanionViewDelegate(), WatchUi.SLIDE_LEFT);
 }
