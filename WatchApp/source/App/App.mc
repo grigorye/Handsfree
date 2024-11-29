@@ -22,7 +22,9 @@ class App extends Application.AppBase {
     function initialize() {
         _preamble();
         AppBase.initialize();
-        Background.registerForPhoneAppMessageEvent();
+        if (Background has :registerForPhoneAppMessageEvent) {
+            Background.registerForPhoneAppMessageEvent();
+        }
     }
 
     (:typecheck(disableGlanceCheck))
