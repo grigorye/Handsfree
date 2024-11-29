@@ -15,7 +15,7 @@ import com.gentin.connectiq.handsfree.contacts.openFavorites
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.startConnector
-import com.gentin.connectiq.handsfree.impl.versionInfo
+import com.gentin.connectiq.handsfree.impl.versionInfoString
 import com.gentin.connectiq.handsfree.permissions.anyPermissionMissing
 import com.gentin.connectiq.handsfree.permissions.openAppSettings
 import com.gentin.connectiq.handsfree.permissions.requestPermissions
@@ -27,7 +27,7 @@ class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG, "onCreate")
-        Log.d(TAG, "versionInfo: ${versionInfo()}")
+        Log.d(TAG, "versionInfo: ${versionInfoString()}")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -70,7 +70,7 @@ class MainActivity : Activity() {
                 .create()
                 .show()
         }
-        findViewById<TextView>(R.id.version_info_txt)?.text = versionInfo()
+        findViewById<TextView>(R.id.version_info_txt)?.text = versionInfoString()
 
         startConnector(this, ACTIVATE_FROM_MAIN_ACTIVITY_ACTION)
     }

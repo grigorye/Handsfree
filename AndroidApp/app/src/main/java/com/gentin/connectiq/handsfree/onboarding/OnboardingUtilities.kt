@@ -19,7 +19,7 @@ import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.knownDevicesMarkdown
 import com.gentin.connectiq.handsfree.impl.startConnector
 import com.gentin.connectiq.handsfree.impl.statusInfo
-import com.gentin.connectiq.handsfree.impl.versionInfo
+import com.gentin.connectiq.handsfree.impl.versionInfoString
 import com.gentin.connectiq.handsfree.permissions.PermissionHandler
 import com.gentin.connectiq.handsfree.permissions.PermissionStatus
 import com.gentin.connectiq.handsfree.permissions.batteryOptimizationPermissionHandler
@@ -255,7 +255,7 @@ private fun getStringResourceIdByName(name: String, fragment: Fragment): Int {
 fun preprocessMarkdown(context: Activity, markdown: String): String {
     return preprocessPermissionsInMarkdown(context, markdown)
         .markdown
-        .replace("{{version_info}}", versionInfo())
+        .replace("{{version_info}}", versionInfoString())
         .replace("{{status_info}}", statusInfo())
         .replace("{{known_devices}}", knownDevicesMarkdown())
 }

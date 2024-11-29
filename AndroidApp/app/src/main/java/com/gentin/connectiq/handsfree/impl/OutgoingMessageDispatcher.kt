@@ -11,6 +11,7 @@ import com.gentin.connectiq.handsfree.terms.argsV1MsgField
 import com.gentin.connectiq.handsfree.terms.audioStateSubject
 import com.gentin.connectiq.handsfree.terms.cmdMsgField
 import com.gentin.connectiq.handsfree.terms.cmdV1MsgField
+import com.gentin.connectiq.handsfree.terms.companionInfoSubject
 import com.gentin.connectiq.handsfree.terms.messageForWakingUpArg
 import com.gentin.connectiq.handsfree.terms.openAppFailedCmd
 import com.gentin.connectiq.handsfree.terms.openMeCompletedCmd
@@ -33,7 +34,8 @@ data class QueryResult(
     var phoneState: PhoneState? = null,
     var audioState: VersionedPojo? = null,
     var phones: VersionedPojo? = null,
-    var recents: VersionedPojo? = null
+    var recents: VersionedPojo? = null,
+    var companionInfo: VersionedPojo? = null,
 )
 
 data class VersionedPojo(
@@ -120,6 +122,12 @@ class DefaultOutgoingMessageDispatcher(
         }
         queryResult.audioState?.apply {
             subjects[audioStateSubject] = mapOf(
+                subjectVersion to version,
+                subjectValue to pojo
+            )
+        }
+        queryResult.companionInfo?.apply {
+            subjects[companionInfoSubject] = mapOf(
                 subjectVersion to version,
                 subjectValue to pojo
             )
@@ -295,4 +303,8 @@ fun phonesPojoV1(contacts: List<ContactData>): Any {
 
 fun recentsPojo(recents: List<CallLogEntry>): Any {
     return pojoList(recents)
+}
+
+fun companionInfoPojo(info: CompanionInfo): Any {
+    return pojoMap(info)
 }

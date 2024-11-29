@@ -38,6 +38,8 @@ import com.gentin.connectiq.handsfree.impl.QueryResult
 import com.gentin.connectiq.handsfree.impl.RemoteMessageService
 import com.gentin.connectiq.handsfree.impl.SubjectQuery
 import com.gentin.connectiq.handsfree.impl.audioStatePojo
+import com.gentin.connectiq.handsfree.impl.companionInfo
+import com.gentin.connectiq.handsfree.impl.companionInfoPojo
 import com.gentin.connectiq.handsfree.impl.phonesPojo
 import com.gentin.connectiq.handsfree.impl.recentsPojo
 import com.gentin.connectiq.handsfree.impl.strippedVersionedPojo
@@ -47,6 +49,7 @@ import com.gentin.connectiq.handsfree.services.lastTrackedAudioState
 import com.gentin.connectiq.handsfree.services.lastTrackedPhoneState
 import com.gentin.connectiq.handsfree.terms.allSubjectNames
 import com.gentin.connectiq.handsfree.terms.audioStateSubject
+import com.gentin.connectiq.handsfree.terms.companionInfoSubject
 import com.gentin.connectiq.handsfree.terms.phonesSubject
 import com.gentin.connectiq.handsfree.terms.recentsSubject
 
@@ -185,6 +188,15 @@ class DefaultServiceLocator(
                         )
                 }
 
+                companionInfoSubject -> {
+                    queryResult.companionInfo =
+                        strippedVersionedPojo(
+                            subject.version,
+                            companionInfoPojo(companionInfo()),
+                            metadataOnly
+                        )
+                }
+
                 else -> {
                     Log.e(TAG, "Unknown subject: ${subject.name}")
                 }
@@ -267,7 +279,10 @@ class DefaultServiceLocator(
             appDataMayBeInvalidated = { device, app ->
                 val appVersion = activeGarminConnector.value?.appVersion(device, app) ?: 0
                 if (appVersion == 1) {
-                    Log.d(TAG, "ignoringAppDataInvalidationDueToV1: $device, ${appLogName(app)}($appVersion)")
+                    Log.d(
+                        TAG,
+                        "ignoringAppDataInvalidationDueToV1: $device, ${appLogName(app)}($appVersion)"
+                    )
                 } else {
                     val subjects = allSubjectNames.map { name ->
                         SubjectQuery(name = name, version = null)
