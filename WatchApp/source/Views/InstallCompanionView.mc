@@ -2,8 +2,8 @@ import Toybox.WatchUi;
 
 class InstallCompanionView extends WatchUi.Menu2 {
     function initialize() {
-        Menu2.initialize({ :title => "Setup" });
-        addItem(new MenuItem("Install Companion App", null, :installCompanionApp, null));
+        Menu2.initialize({ :title => "Install" });
+        addItem(new MenuItem("Companion App", minCompanionVersionName + " or later", :installCompanionApp, null));
     }
 }
 

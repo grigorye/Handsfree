@@ -9,8 +9,15 @@ function routeOnFirstShow() as Void {
     }
 }
 
+const minCompanionVersionName as Lang.String = "0.0.7";
+const minCompanionVersionCode as Lang.Integer = 69;
+
 function isCompanionUpToDate() as Lang.Boolean {
-    return CompanionInfoImp.getCompanionInfo() != null;
+    var companionInfo = CompanionInfoImp.getCompanionInfo();
+    if (companionInfo == null) {
+        return false;
+    }
+    return CompanionInfoImp.getCompanionVersionCode(companionInfo) >= minCompanionVersionCode;
 }
 
 function routeToMainUI() as Void {
