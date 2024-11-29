@@ -8,4 +8,5 @@ module V {
     const installCompanion = "i";
     const callInProgress = "g";
     const callActing = "a";
+    const about = "b";
 }
