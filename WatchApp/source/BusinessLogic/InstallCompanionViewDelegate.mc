@@ -2,7 +2,7 @@ import Toybox.Application;
 import Toybox.WatchUi;
 import Toybox.Lang;
 
-class SettingsViewDelegate extends WatchUi.Menu2InputDelegate {
+class InstallCompanionViewDelegate extends WatchUi.Menu2InputDelegate {
     function initialize() {
         Menu2InputDelegate.initialize();
     }
@@ -10,14 +10,6 @@ class SettingsViewDelegate extends WatchUi.Menu2InputDelegate {
     function onSelect(item as WatchUi.MenuItem) as Void {
         var id = item.getId() as Lang.Symbol;
         switch (id) {
-            case :openAppOnIncomingCall: {
-                AppSettings.toggle("openAppOnIncomingCall");
-                break;
-            }
-            case :more: {
-                openAppInConnectIQ();
-                break;
-            }
             case :installCompanionApp: {
                 installCompanionApp();
                 break;
@@ -27,5 +19,10 @@ class SettingsViewDelegate extends WatchUi.Menu2InputDelegate {
 
     function onBack() as Void {
         popView(WatchUi.SLIDE_RIGHT);
+        if (isCompanionUpToDate()) {
+            routeToMainUI();
+        } else {
+            exitToSystemFromCommView();
+        }
     }
 }

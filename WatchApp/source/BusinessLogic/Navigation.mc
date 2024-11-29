@@ -15,3 +15,8 @@ function openRecentsView() as Void {
 function openSettingsView() as Void {
     pushView(V.settings, newSettingsView(), new SettingsViewDelegate(), WatchUi.SLIDE_LEFT);
 }
+
+(:inline)
+function openInstallCompanionView() as Void {
+    pushView(V.installCompanion, newInstallCompanionView(), new InstallCompanionViewDelegate(), WatchUi.SLIDE_LEFT);
+}
