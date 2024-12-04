@@ -37,7 +37,7 @@ class Router {
                     case instanceof SchedulingCall: {
                         if (debug) { _2(L_ROUTER, "routingToScheduling"); }
                         if (debug) { _2(L_ROUTER, "pushingOutPhones"); }
-                        pushView("scheduling", new SchedulingCallView(newState as SchedulingCall), new SchedulingCallViewDelegate(), WatchUi.SLIDE_LEFT);
+                        pushView(V.scheduling, new SchedulingCallView(newState as SchedulingCall), new SchedulingCallViewDelegate(), WatchUi.SLIDE_LEFT);
                         break;
                     }
                     case instanceof CallInProgress: {
@@ -55,7 +55,7 @@ class Router {
                 switch (newState) {
                     case instanceof SchedulingCall: {
                         if (debug) { _2(L_ROUTER, "routingToUpdatedScheduledCall"); }
-                        switchToView("scheduling", new SchedulingCallView(newState as SchedulingCall), new SchedulingCallViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        switchToView(V.scheduling, new SchedulingCallView(newState as SchedulingCall), new SchedulingCallViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof CallInProgress: {

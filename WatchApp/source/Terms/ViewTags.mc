@@ -9,4 +9,5 @@ module V {
     const callInProgress = "g";
     const callActing = "a";
     const about = "b";
+    const scheduling = "d";
 }
