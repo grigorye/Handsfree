@@ -4,7 +4,7 @@ import Toybox.Lang;
 
 (:inline, :background)
 function getLastRecentsCheckDate() as Lang.Number {
-    var loadedLastRecentsCheckDate = Storage.getValue("lastRecentsCheckDate") as Lang.Number;
+    var loadedLastRecentsCheckDate = Storage.getValue("lastRecentsCheckDate") as Lang.Number or Null;
     if (loadedLastRecentsCheckDate == null) {
         loadedLastRecentsCheckDate = 0;
     }

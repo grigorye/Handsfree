@@ -19,7 +19,7 @@ function trackValidRemoteMessageReceived() as Void {
 
 (:background, :glance, :noLowMemory)
 function getRawRemoteMessagesCount() as Lang.Number {
-    var rawRemoteMessagesCount = Storage.getValue("rawRemoteMessagesCount.v1") as Lang.Number;
+    var rawRemoteMessagesCount = Storage.getValue("rawRemoteMessagesCount.v1") as Lang.Number or Null;
     if (rawRemoteMessagesCount == null) {
         rawRemoteMessagesCount = 0;
     }
@@ -28,7 +28,7 @@ function getRawRemoteMessagesCount() as Lang.Number {
 
 (:background, :glance, :noLowMemory)
 function getValidRemoteMessagesCount() as Lang.Number {
-    var validRemoteMessagesCount = Storage.getValue("validRemoteMessagesCount.v1") as Lang.Number;
+    var validRemoteMessagesCount = Storage.getValue("validRemoteMessagesCount.v1") as Lang.Number or Null;
     if (validRemoteMessagesCount == null) {
         validRemoteMessagesCount = 0;
     }
