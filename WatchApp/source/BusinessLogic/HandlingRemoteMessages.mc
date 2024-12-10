@@ -7,17 +7,18 @@ import Toybox.Application;
 const LX_REMOTE_MSG as LogComponent = "<";
 
 (:background)
-function handleRemoteMessage(iqMsg as Communications.Message or Null) as Void {
+function handleRemoteMessage(iqMsgObject as Lang.Object or Null) as Void {
     trackRawRemoteMessageReceived();
-    if (iqMsg == null) {
+    if (iqMsgObject == null) {
         if (minDebug) { _3(LX_REMOTE_MSG, "msg", "isNull!"); }
         return;
     }
-    if (!(iqMsg instanceof Communications.Message)) {
+    if (!(iqMsgObject instanceof Communications.Message)) {
         if (debug) { _3(LX_REMOTE_MSG, "msg", "isNotMessage!"); }
-        if (debug) { _3(LX_REMOTE_MSG, "msg", iqMsg); }
+        if (debug) { _3(LX_REMOTE_MSG, "msg", iqMsgObject); }
         return;
     }
+    var iqMsg = iqMsgObject as Communications.Message;
     var data = iqMsg.data;
     if (!(data instanceof Lang.Object)) {
         if (minDebug) { _3(LX_REMOTE_MSG, "msg", "dataIsNotObject: " + data); }
