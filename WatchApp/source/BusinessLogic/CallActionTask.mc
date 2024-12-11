@@ -55,7 +55,7 @@ class CallActionTask extends Communications.ConnectionListener {
             return;
         }
         var newState;
-        if (AppSettings.isOptimisticCallHandlingEnabled) {
+        if (AppSettings.isOptimisticCallHandlingEnabled()) {
             newState = oldState.wouldBeNextState();
             trackOptimisticCallState(newState);
         } else {

@@ -27,7 +27,9 @@ module AppSettings {
     }
     
     const followUpCommDelay as Lang.Number = Properties.getValue("followUpCommDelay") as Lang.Number;
-    const isOptimisticCallHandlingEnabled as Lang.Boolean = Properties.getValue("optimisticCallHandling") as Lang.Boolean;
+    function isOptimisticCallHandlingEnabled() as Lang.Boolean {
+        return Properties.getValue("optimisticCallHandling") as Lang.Boolean;
+    }
     const isExitToSystemAfterCallCompletionEnabled as Lang.Boolean = Properties.getValue("popOutOfAppInsteadOfPhones") as Lang.Boolean;
 
     (:noLowMemory)
