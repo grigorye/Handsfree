@@ -18,6 +18,10 @@ class SettingsViewDelegate extends WatchUi.Menu2InputDelegate {
                 AppSettings.toggle("optimisticCallHandling");
                 break;
             }
+            case :broadcastListening: {
+                AppSettings.toggle("broadcastListening");
+                break;
+            }
             case :about: {
                 pushView(V.about, Views.newAboutView(), new AboutViewDelegate(), WatchUi.SLIDE_LEFT);
                 break;

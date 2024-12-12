@@ -5,6 +5,7 @@ class SettingsView extends WatchUi.Menu2 {
         Menu2.initialize({ :title => "Settings" });
         addItem(incomingCallsMenuItem());
         addItem(optimisticCallHandlingMenuItem());
+        addItem(broadcastListeningMenuItem());
         addItem(new MenuItem("About", null, :about, null));
     }
 
@@ -34,9 +35,23 @@ class SettingsView extends WatchUi.Menu2 {
         );
     }
 
+    function broadcastListeningMenuItem() as WatchUi.ToggleMenuItem {
+        return new ToggleMenuItem(
+            "Background Sync",
+            {
+                :enabled => "On",
+                :disabled => "Off"
+            },
+            :broadcastListening,
+            BackgroundSettings.broadcastListeningVersion() == 1,
+            null
+        );
+    }
+
     function update() as Void {
         (getItem(findItemById(:openAppOnIncomingCall)) as WatchUi.ToggleMenuItem).setEnabled(BackgroundSettings.isOpenAppOnIncomingCallEnabled());
         (getItem(findItemById(:optimisticCallHandling)) as WatchUi.ToggleMenuItem).setEnabled(AppSettings.isOptimisticCallHandlingEnabled());
+        (getItem(findItemById(:broadcastListening)) as WatchUi.ToggleMenuItem).setEnabled(BackgroundSettings.broadcastListeningVersion() == 1);
         workaroundNoRedrawForMenu2(self);
     }
 }
