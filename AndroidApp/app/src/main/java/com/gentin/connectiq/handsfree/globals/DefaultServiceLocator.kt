@@ -28,6 +28,7 @@ import com.gentin.connectiq.handsfree.impl.DeviceInfo
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.HeadsetConnectionMonitor
 import com.gentin.connectiq.handsfree.impl.IncomingMessageDispatcher
+import com.gentin.connectiq.handsfree.impl.IncomingMessageSource
 import com.gentin.connectiq.handsfree.impl.OutgoingMessage
 import com.gentin.connectiq.handsfree.impl.OutgoingMessageDestination
 import com.gentin.connectiq.handsfree.impl.OutgoingMessageDispatcher
@@ -49,6 +50,7 @@ import com.gentin.connectiq.handsfree.services.lastTrackedAudioState
 import com.gentin.connectiq.handsfree.services.lastTrackedPhoneState
 import com.gentin.connectiq.handsfree.terms.allSubjectNames
 import com.gentin.connectiq.handsfree.terms.audioStateSubject
+import com.gentin.connectiq.handsfree.terms.broadcastSubject
 import com.gentin.connectiq.handsfree.terms.companionInfoSubject
 import com.gentin.connectiq.handsfree.terms.phonesSubject
 import com.gentin.connectiq.handsfree.terms.recentsSubject
@@ -111,7 +113,7 @@ class DefaultServiceLocator(
             },
             queryImp = { source, args ->
                 val destination = OutgoingMessageDestination(source.device, source.app)
-                val result = query(args)
+                val result = query(args, source = source)
                 outgoingMessageDispatcher.sendQueryResult(destination, result)
             },
             openAppImp = { source, args ->
@@ -133,7 +135,7 @@ class DefaultServiceLocator(
                     SubjectQuery(name = name, version = null)
                 }
                 val args = QueryArgs(subjects)
-                val result = query(args)
+                val result = query(args, source = source)
                 val destination = OutgoingMessageDestination(source.device, source.app)
                 outgoingMessageDispatcher.sendQueryResult(destination, result)
             },
@@ -160,11 +162,19 @@ class DefaultServiceLocator(
         )
     }
 
-    private fun query(args: QueryArgs, metadataOnly: Boolean = false): QueryResult {
+    private fun query(args: QueryArgs, metadataOnly: Boolean = false, source: IncomingMessageSource): QueryResult {
         val queryResult = QueryResult()
         for (subject in args.subjects) {
             assert(allSubjectNames.contains(subject.name)) { "Unknown subject: ${subject.name}" }
             when (subject.name) {
+                broadcastSubject -> {
+                    if (metadataOnly) {
+                        queryResult.broadcastEnabled = garminConnector.isAppListeningForBroadcasts(source.device, source.app)
+                    } else {
+                        queryResult.broadcastEnabled = subject.version == 1
+                    }
+                }
+
                 phonesSubject -> {
                     queryResult.phones =
                         strippedVersionedPojo(
@@ -262,7 +272,13 @@ class DefaultServiceLocator(
     }
 
     val outgoingMessageDispatcher: OutgoingMessageDispatcher by lazy {
-        DefaultOutgoingMessageDispatcher(this, remoteMessageService)
+        DefaultOutgoingMessageDispatcher(
+            this,
+            remoteMessageService,
+            trackAppListeningForBroadcast = { destination, enabled ->
+                garminConnector.trackAppListeningForBroadcasts(destination.device!!, destination.app!!, enabled)
+            }
+        )
     }
 
     private val audioControl: AudioControl by lazy {
@@ -288,7 +304,8 @@ class DefaultServiceLocator(
                         SubjectQuery(name = name, version = null)
                     }
                     val args = QueryArgs(subjects)
-                    val result = query(args, metadataOnly = true)
+                    val source = IncomingMessageSource(device, app)
+                    val result = query(args, metadataOnly = true, source = source)
                     val destination = OutgoingMessageDestination(device, app)
                     outgoingMessageDispatcher.sendQueryResult(destination, result)
                 }

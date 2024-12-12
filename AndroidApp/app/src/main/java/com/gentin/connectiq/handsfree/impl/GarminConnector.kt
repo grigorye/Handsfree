@@ -43,6 +43,8 @@ interface GarminConnector {
     )
 
     fun trackFirstAppLaunch(device: IQDevice, app: IQApp)
+    fun trackAppListeningForBroadcasts(device: IQDevice, app: IQApp, enabled: Boolean)
+    fun isAppListeningForBroadcasts(device: IQDevice, app: IQApp): Boolean
 
     val sentMessagesCounter: Int
     val acknowledgedMessagesCounter: Int
@@ -200,6 +202,7 @@ class DefaultGarminConnector(
 
     private val notInstalledApps = mutableMapOf<Long, MutableList<IQApp>>()
     private val installedApps = mutableMapOf<Long, MutableList<IQApp>>()
+    private val appsListeningForBroadcasts = mutableMapOf<Long, MutableSet<IQApp>>()
 
     private fun trackNotInstalledApp(device: IQDevice, app: IQApp) {
         val key = device.deviceIdentifier
@@ -233,6 +236,23 @@ class DefaultGarminConnector(
         return notInstalledApps[device.deviceIdentifier]?.contains(app) ?: false
     }
 
+    override fun trackAppListeningForBroadcasts(device: IQDevice, app: IQApp, enabled: Boolean) {
+        val key = device.deviceIdentifier
+        run {
+            val apps = appsListeningForBroadcasts[key] ?: mutableSetOf()
+            if (enabled) {
+                apps.add(app)
+            } else {
+                apps.remove(app)
+            }
+            appsListeningForBroadcasts[key] = apps
+        }
+    }
+
+    override fun isAppListeningForBroadcasts(device: IQDevice, app: IQApp): Boolean {
+        return appsListeningForBroadcasts[device.deviceIdentifier]?.contains(app) ?: false
+    }
+
     override fun appVersion(device: IQDevice, app: IQApp): Int? {
         val version = installedApps[device.deviceIdentifier]?.find { x -> x.applicationId == app.applicationId }?.version()
         if (version == 0) {
@@ -244,6 +264,10 @@ class DefaultGarminConnector(
     private fun clearNotInstalledApps() {
         notInstalledApps.clear()
         installedApps.clear()
+    }
+
+    private fun clearAppsListeningForBroadcasts() {
+        appsListeningForBroadcasts.clear()
     }
 
     private fun startOutgoingMessageGeneration(device: IQDevice) {
@@ -310,6 +334,7 @@ class DefaultGarminConnector(
 
     private fun stopOutgoingMessageGeneration() {
         clearNotInstalledApps()
+        clearAppsListeningForBroadcasts()
     }
 
     private var installedAppsTrackingEnabled = true
@@ -460,7 +485,7 @@ class DefaultGarminConnector(
             if (!useOnlyInstalledAppsForSendingMessages()) {
                 true
             } else {
-                !isNotInstalledApp(device, it)
+                !isNotInstalledApp(device, it) && isAppListeningForBroadcasts(device, it)
             }
         }
     }
