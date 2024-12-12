@@ -22,11 +22,13 @@
         <property id="forceLogAll" type="boolean">false</property>
         <property id="optimisticCallHandling" type="boolean">false</property>
         <property id="followUpCommDelay" type="number">300</property>
+        <property id="broadcastListening" type="boolean">true</property>
     </properties>
 
     <strings>
         <string id="popOutOfAppInsteadOfPhones">Close app after call</string>
         <string id="openAppOnIncomingCall">Open app on incoming call</string>
+        <string id="broadcastListening">Sync in background</string>
         <string id="callStateOnGlance">Show call state on glance</string>
         <string id="forceCheckIn">Check-in</string>
         <string id="secondsToCheckIn">Timeout for check-in (sec)</string>
@@ -55,6 +57,9 @@
     </strings>
 
     <settings>
+        <setting propertyKey="@Properties.broadcastListening" title="@Strings.broadcastListening">
+            <settingConfig type="boolean" />
+        </setting>
         <setting propertyKey="@Properties.openAppOnIncomingCall"
             title="@Strings.openAppOnIncomingCall">
             <settingConfig type="boolean" />

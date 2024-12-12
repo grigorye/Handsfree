@@ -11,3 +11,6 @@ const phonesSubject = "p";
 
 (:inline, :background, :glance)
 const companionInfoSubject = "i";
+
+(:inline, :background, :glance)
+const broadcastSubject = "b";

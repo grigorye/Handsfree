@@ -15,9 +15,10 @@ function requestAllSubjects() as Void {
         cmdK => Cmd.query,
         argsK => {
             QueryArgsK.subjects => [
+                { QueryArgsK.subjectNameK => broadcastSubject, QueryArgsK.subjectVersionK => BackgroundSettings.broadcastListeningVersion()},
                 { QueryArgsK.subjectNameK => phonesSubject, QueryArgsK.subjectVersionK => PhonesManip.getPhonesVersion() },
                 { QueryArgsK.subjectNameK => recentsSubject, QueryArgsK.subjectVersionK => RecentsManip.getRecentsVersion() },
-                { QueryArgsK.subjectNameK => audioStateSubject, QueryArgsK.subjectVersionK => AudioStateManip.getAudioStateVersion() }
+                { QueryArgsK.subjectNameK => audioStateSubject, QueryArgsK.subjectVersionK => AudioStateManip.getAudioStateVersion() },
             ]
         }
     } as Lang.Object as Application.PersistableType;
@@ -30,7 +31,11 @@ function requestSubjects(subjects as Lang.Array<Lang.String>) as Void {
     var subjectsCount = subjects.size();
     for (var i = 0; i < subjectsCount; i++) {
         var name = subjects[i];
-        subjectsArg.add({ QueryArgsK.subjectNameK => name });
+        if (name.equals(broadcastSubject)) {
+            subjectsArg.add({ QueryArgsK.subjectNameK => name, QueryArgsK.subjectVersionK => BackgroundSettings.broadcastListeningVersion()});
+        } else {
+            subjectsArg.add({ QueryArgsK.subjectNameK => name });
+        }
     }
     var msg = {
         cmdK => Cmd.query,

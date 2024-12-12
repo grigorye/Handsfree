@@ -51,6 +51,10 @@ module AppSettings {
 
 (:background)
 module BackgroundSettings {
+    function broadcastListeningVersion() as Lang.Number {
+        return (Properties.getValue("broadcastListening") as Lang.Boolean) ? 1 : 0;
+    }
+
     function isOpenAppOnIncomingCallEnabled() as Lang.Boolean {
         return Properties.getValue("openAppOnIncomingCall") as Lang.Boolean;
     }
