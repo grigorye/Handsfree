@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Environment
+import android.os.Environment.DIRECTORY_DOWNLOADS
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.FileReader
@@ -15,7 +17,8 @@ import java.util.Locale
 const val REQUEST_CODE_SHARE_LOG = 123
 
 fun saveLog(context: Context, uri: Uri) {
-    val path = "/sdcard/Download/Handsfree.log"
+    val downloads = Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)
+    val path = "$downloads/Handsfree.log"
     val process = Runtime.getRuntime().exec("logcat -d -f $path")
     process.waitFor()
 
