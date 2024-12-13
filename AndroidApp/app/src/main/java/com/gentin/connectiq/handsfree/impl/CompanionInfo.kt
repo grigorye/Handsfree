@@ -1,6 +1,5 @@
 package com.gentin.connectiq.handsfree.impl
 
-import com.gentin.connectiq.handsfree.BuildConfig
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
