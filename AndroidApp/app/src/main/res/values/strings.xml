@@ -202,7 +202,7 @@ B. If you are not a beta tester (or prefer to not depend on Google Play), you ca
     <string name="settings_disabled_due_to_essentials_are_off">"Disabled due to basic call control is off."</string>
     <string name="onboarding_troubleshooting">"# Troubleshooting
 
-There're several components that should work together for normal operation of Handsfree. If it does not work as expected, especially when your setup changes (e.g. you added or removed Garmin device, got new phone or OS update), try the hints below. They cover all the known problems so far.
+There are several components that should work together for normal operation of Handsfree. If it does not work as expected, especially when your setup changes (e.g. you added or removed Garmin device, got new phone or OS update), try the hints below. They cover all the known problems so far.
 
 ### In general/beforehand
 
