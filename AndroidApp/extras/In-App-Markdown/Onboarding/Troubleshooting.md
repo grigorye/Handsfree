@@ -1,6 +1,6 @@
 # Troubleshooting
 
-There're several components that should work together for normal operation of Handsfree. If it does not work as expected, especially when your setup changes (e.g. you added or removed Garmin device, got new phone or OS update), try the hints below. They cover all the known problems so far.
+There are several components that should work together for normal operation of Handsfree. If it does not work as expected, especially when your setup changes (e.g. you added or removed Garmin device, got new phone or OS update), try the hints below. They cover all the known problems so far.
 
 ### In general/beforehand
 
