@@ -1,11 +1,29 @@
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
     <option name="myName" value="Project Default" />
+    <option name="scopesOrder">
+      <list>
+        <option value="All Changed Files" />
+        <option value="Open Files" />
+        <option value="Production" />
+        <option value="Project Files" />
+        <option value="Project Non-Source Files" />
+        <option value="Project Source Files" />
+        <option value="SVG" />
+        <option value="Scratches and Consoles" />
+        <option value="Tests" />
+      </list>
+    </option>
     <inspection_tool class="EmptyMethod" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="MarkdownUnresolvedFileReference" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="SameReturnValue" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="SpellCheckingInspection" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Non-Source Files" level="TYPO" enabled="false">
+        <option name="processCode" value="true" />
+        <option name="processLiterals" value="true" />
+        <option name="processComments" value="true" />
+      </scope>
+      <scope name="SVG" level="TYPO" enabled="false" editorAttributes="TYPO">
         <option name="processCode" value="true" />
         <option name="processLiterals" value="true" />
         <option name="processComments" value="true" />
