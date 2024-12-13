@@ -38,7 +38,7 @@ fun shareLog(activity: Activity) {
     val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
         addCategory(Intent.CATEGORY_OPENABLE)
         type = "text/plain"
-        val timestamp = SimpleDateFormat("YYYYMMdd-HHmm", Locale.US).format(Date())
+        val timestamp = SimpleDateFormat("yyyyMMdd-HHmm", Locale.US).format(Date())
         putExtra(Intent.EXTRA_TITLE, "HF_$timestamp")
     }
     activity.startActivityForResult(intent, REQUEST_CODE_SHARE_LOG)
