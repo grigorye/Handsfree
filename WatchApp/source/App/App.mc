@@ -90,6 +90,20 @@ function appDidRouteToMainUI() as Void {
         System.error("Already routed to main UI");
     }
     routedToMainUI = true;
+    syncIfNecessary();
+}
+
+function syncIfNecessary() as Void {
+    if (BackgroundSettings.isBroadcastListeningEnabled()) {
+        if (debug) { _2(LX_APP_LIFE_CYCLE, "syncSkipped.inFavorOfBroadcasts"); }
+        return;
+    }
+    var callState = getCallState();
+    if (!(callState instanceof Idle)) {
+        if (debug) { _3(LX_APP_LIFE_CYCLE, "syncSkipped.dueToCallState", callState); }
+        return;
+    }
+    requestAllSubjects();
 }
 
 (:widget)
