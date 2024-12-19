@@ -43,7 +43,7 @@ class SettingsView extends WatchUi.Menu2 {
                 :disabled => "Off"
             },
             :broadcastListening,
-            BackgroundSettings.broadcastListeningVersion() == 1,
+            BackgroundSettings.isBroadcastListeningEnabled(),
             null
         );
     }
@@ -51,7 +51,7 @@ class SettingsView extends WatchUi.Menu2 {
     function update() as Void {
         (getItem(findItemById(:openAppOnIncomingCall)) as WatchUi.ToggleMenuItem).setEnabled(BackgroundSettings.isOpenAppOnIncomingCallEnabled());
         (getItem(findItemById(:optimisticCallHandling)) as WatchUi.ToggleMenuItem).setEnabled(AppSettings.isOptimisticCallHandlingEnabled());
-        (getItem(findItemById(:broadcastListening)) as WatchUi.ToggleMenuItem).setEnabled(BackgroundSettings.broadcastListeningVersion() == 1);
+        (getItem(findItemById(:broadcastListening)) as WatchUi.ToggleMenuItem).setEnabled(BackgroundSettings.isBroadcastListeningEnabled());
         workaroundNoRedrawForMenu2(self);
     }
 }
