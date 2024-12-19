@@ -54,6 +54,7 @@ import com.gentin.connectiq.handsfree.terms.broadcastSubject
 import com.gentin.connectiq.handsfree.terms.companionInfoSubject
 import com.gentin.connectiq.handsfree.terms.phonesSubject
 import com.gentin.connectiq.handsfree.terms.recentsSubject
+import java.lang.RuntimeException
 
 class DefaultServiceLocator(
     base: Context?,
@@ -218,7 +219,7 @@ class DefaultServiceLocator(
     fun availableContacts(): List<ContactData> {
         return try {
             contactsRepository.contacts()
-        } catch (e: java.lang.RuntimeException) {
+        } catch (e: RuntimeException) {
             Log.e(TAG, "contactsRetrievalFailed: $e")
             listOf()
         }
@@ -227,7 +228,7 @@ class DefaultServiceLocator(
     private fun callLog(): List<CallLogEntry> {
         return try {
             callLogRepository.callLog()
-        } catch (e: java.lang.RuntimeException) {
+        } catch (e: RuntimeException) {
             Log.e(TAG, "callLogRetrievalFailed: $e")
             listOf()
         }
