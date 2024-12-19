@@ -14,7 +14,7 @@ function requestAllSubjects() as Void {
     var msg = {
         cmdK => Cmd.query,
         argsK => {
-            QueryArgsK.subjects => [
+            subjectsK => [
                 { QueryArgsK.subjectNameK => broadcastSubject, QueryArgsK.subjectVersionK => BackgroundSettings.broadcastListeningVersion()},
                 { QueryArgsK.subjectNameK => phonesSubject, QueryArgsK.subjectVersionK => PhonesManip.getPhonesVersion() },
                 { QueryArgsK.subjectNameK => recentsSubject, QueryArgsK.subjectVersionK => RecentsManip.getRecentsVersion() },

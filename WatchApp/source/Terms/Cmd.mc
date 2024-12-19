@@ -21,7 +21,6 @@ module CallArgsK {
 
 (:inline, :background, :glance)
 module QueryArgsK {
-    const subjects = "n";
     const subjectNameK = "n";
     const subjectVersionK = "v";
 }
