@@ -92,7 +92,7 @@ class DefaultOutgoingMessageDispatcher(
     private val trackAppListeningForBroadcast: (OutgoingMessageDestination, enabled: Boolean) -> Unit,
 ) : OutgoingMessageDispatcher {
     override fun sendPing() {
-        send(pingBody)
+        send(pingBody, everywhereExactly)
     }
 
     override fun sendSyncYouV1(contacts: List<ContactData>, phoneState: PhoneState?) {
@@ -103,7 +103,7 @@ class DefaultOutgoingMessageDispatcher(
                 phoneStateChangedV1Cmd to phoneState?.let { phoneStateChangedArgsV1(it) }
             )
         )
-        send(msg)
+        send(msg, everywhereExactly)
     }
 
     override fun sendQueryResult(
@@ -137,7 +137,11 @@ class DefaultOutgoingMessageDispatcher(
         }
         queryResult.broadcastEnabled?.apply {
             subjects[broadcastSubject] = mapOf(
-                subjectVersion to if (this) { 1 } else { 0 },
+                subjectVersion to if (this) {
+                    1
+                } else {
+                    0
+                },
                 subjectValue to {}
             )
             trackAppListeningForBroadcast(destination, this)
@@ -163,14 +167,18 @@ class DefaultOutgoingMessageDispatcher(
     }
 
     override fun sendContacts(contacts: List<ContactData>) {
-        sendSubject(phonesSubject, strippedVersionedPojo(null, phonesPojo(contacts)))
+        sendSubject(
+            phonesSubject,
+            strippedVersionedPojo(null, phonesPojo(contacts)),
+            destination = everywhere
+        )
     }
 
     override fun sendRecents(recents: List<CallLogEntry>) {
         sendSubject(
             recentsSubject,
             strippedVersionedPojo(null, recentsPojo(recents)),
-            OutgoingMessageDestination().copy(matchV1 = false)
+            everywhere.copy(matchV1 = false)
         )
     }
 
@@ -178,7 +186,7 @@ class DefaultOutgoingMessageDispatcher(
         sendSubject(
             audioStateSubject,
             strippedVersionedPojo(null, audioStatePojo(state)),
-            OutgoingMessageDestination().copy(matchV1 = false)
+            everywhereExactly.copy(matchV1 = false)
         )
     }
 
@@ -264,7 +272,7 @@ class DefaultOutgoingMessageDispatcher(
     private fun sendSubject(
         subject: String,
         versionedPojo: VersionedPojo,
-        destination: OutgoingMessageDestination = OutgoingMessageDestination()
+        destination: OutgoingMessageDestination
     ) {
         val msg = mapOf(
             cmdMsgField to subjectsChangedCmd,
@@ -284,8 +292,8 @@ class DefaultOutgoingMessageDispatcher(
         remoteMessageService.sendMessage(msg)
     }
 
-    private fun send(msg: Map<String, Any>) {
-        send(OutgoingMessage(OutgoingMessageDestination(), msg))
+    private fun send(msg: Map<String, Any>, destination: OutgoingMessageDestination) {
+        send(OutgoingMessage(destination, msg))
     }
 }
 

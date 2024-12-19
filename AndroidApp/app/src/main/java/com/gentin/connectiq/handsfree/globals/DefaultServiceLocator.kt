@@ -92,7 +92,10 @@ class DefaultServiceLocator(
             makeCallImp = { source, phoneNumber ->
                 val withSpeakerPhone = !headPhoneConnectionMonitor.isHeadsetConnected()
                 if (!phoneCallService.makeCall(phoneNumber, withSpeakerPhone)) {
-                    val destination = OutgoingMessageDestination(source.device, source.app)
+                    val destination = OutgoingMessageDestination(
+                        source.device, source.app,
+                        accountBroadcastOnly = false
+                    )
                     outgoingMessageDispatcher.sendPhoneState(
                         destination,
                         lastTrackedPhoneState ?: fallbackPhoneState()
@@ -109,11 +112,14 @@ class DefaultServiceLocator(
                 outgoingMessageDispatcher.sendSyncYouV1(availableContacts(), lastTrackedPhoneState)
             },
             syncPhonesV1Imp = { source ->
-                val destination = OutgoingMessageDestination(source.device, source.app)
+                val destination = OutgoingMessageDestination(
+                    source.device, source.app,
+                    accountBroadcastOnly = false
+                )
                 outgoingMessageDispatcher.sendPhonesV1(destination, availableContacts())
             },
             queryImp = { source, args ->
-                val destination = OutgoingMessageDestination(source.device, source.app)
+                val destination = OutgoingMessageDestination(source.device, source.app, accountBroadcastOnly = false)
                 val result = query(args, source = source)
                 outgoingMessageDispatcher.sendQueryResult(destination, result)
             },

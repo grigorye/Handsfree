@@ -5,19 +5,21 @@ import com.garmin.android.connectiq.IQDevice
 import com.gentin.connectiq.handsfree.globals.appLogName
 
 data class OutgoingMessage(
-    val destination: OutgoingMessageDestination = OutgoingMessageDestination(),
+    val destination: OutgoingMessageDestination,
     val body: Map<String, Any>
 ) {
     override fun toString(): String {
         return "{$destination, $body}"
     }
 }
-val everywhere = OutgoingMessageDestination()
+val everywhereExactly = OutgoingMessageDestination(device = null, app = null, accountBroadcastOnly = false)
+val everywhere = OutgoingMessageDestination(device = null, app = null, accountBroadcastOnly = true)
 
 data class OutgoingMessageDestination(
-    val device: IQDevice? = null,
-    val app: IQApp? = null,
-    val matchV1: Boolean? = null
+    val device: IQDevice?,
+    val app: IQApp?,
+    val matchV1: Boolean? = null,
+    val accountBroadcastOnly: Boolean = false
 ) {
     override fun toString(): String {
         val deviceRep = if (device != null) {
@@ -35,6 +37,10 @@ data class OutgoingMessageDestination(
             false -> "!v1"
             null -> null
         }
-        return listOf(deviceRep, appRep, matchV1Rep).joinToString(prefix = "{", postfix = "}")
+        val broadcastOnlyRep = when (accountBroadcastOnly) {
+            true -> "bc-only"
+            false -> "!"
+        }
+        return listOf(deviceRep, appRep, matchV1Rep, broadcastOnlyRep).joinToString(prefix = "{", postfix = "}")
     }
 }

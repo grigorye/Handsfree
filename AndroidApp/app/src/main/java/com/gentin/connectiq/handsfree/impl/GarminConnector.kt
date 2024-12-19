@@ -119,7 +119,7 @@ class DefaultGarminConnector(
     ) {
         connectIQ.knownDevices.forEach { device ->
             openWatchAppOnDevice(device, app) { succeeded ->
-                val destination = OutgoingMessageDestination(device, app)
+                val destination = OutgoingMessageDestination(device, app, accountBroadcastOnly = false)
                 completion(destination, succeeded)
             }
         }
@@ -485,7 +485,7 @@ class DefaultGarminConnector(
             if (!useOnlyInstalledAppsForSendingMessages()) {
                 true
             } else {
-                !isNotInstalledApp(device, it) && isAppListeningForBroadcasts(device, it)
+                !isNotInstalledApp(device, it)
             }
         }
     }
@@ -514,6 +514,10 @@ class DefaultGarminConnector(
                     appsForSendingMessages(device)
                 }
                 for (app in targetApps) {
+                    when (destination.accountBroadcastOnly) {
+                        true -> if (!isAppListeningForBroadcasts(device, app)) continue
+                        false -> Unit
+                    }
                     when (destination.matchV1) {
                         true -> if (appVersion(device, app) != 1) continue
                         false -> if (appVersion(device, app) == 1) continue
