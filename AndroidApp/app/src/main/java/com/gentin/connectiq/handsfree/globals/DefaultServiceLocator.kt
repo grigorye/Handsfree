@@ -333,7 +333,7 @@ class DefaultServiceLocator(
         }
     }
 
-    val audioManager by lazy { getSystemService(Context.AUDIO_SERVICE) as AudioManager }
+    val audioManager by lazy { getSystemService(AUDIO_SERVICE) as AudioManager }
 
     companion object {
         private val TAG: String = DefaultServiceLocator::class.java.simpleName
