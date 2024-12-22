@@ -18,7 +18,7 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
         }
         if (!lowMemory) {
             if (id.equals(noPhonesMenuItemId)) {
-                requestSync();
+                requestAllSubjects();
                 return;
             }
         }

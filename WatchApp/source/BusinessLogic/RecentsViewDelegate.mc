@@ -10,7 +10,7 @@ class RecentsViewDelegate extends WatchUi.Menu2InputDelegate {
         var id = item.getId() as Lang.Number or Recent;
         if (!lowMemory) {
             if (id.equals(noRecentsMenuItemId)) {
-                requestSync();
+                requestAllSubjects();
                 return;
             }
         }

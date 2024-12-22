@@ -2,14 +2,6 @@ import Toybox.Application;
 import Toybox.Lang;
 import Toybox.Communications;
 
-(:noLowMemory)
-function requestSync() as Void {
-    var msg = {
-        cmdK => "syncMe"
-    } as Lang.Object as Application.PersistableType;
-    transmitWithRetry("syncMe", msg, new Communications.ConnectionListener());
-}
-
 function requestAllSubjects() as Void {
     var msg = {
         cmdK => Cmd.query,
