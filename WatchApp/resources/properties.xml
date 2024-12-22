@@ -20,7 +20,7 @@
         <property id="incomingCallVibration" type="string">v1;p1;v1;p1</property>
         <property id="forcedLogComponents" type="string">&lt;;&gt;;app</property>
         <property id="forceLogAll" type="boolean">false</property>
-        <property id="optimisticCallHandling" type="boolean">false</property>
+        <property id="optimisticCallHandling" type="boolean">true</property>
         <property id="followUpCommDelay" type="number">300</property>
         <property id="broadcastListening" type="boolean">true</property>
     </properties>
