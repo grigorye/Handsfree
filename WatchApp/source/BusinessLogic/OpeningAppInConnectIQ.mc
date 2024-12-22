@@ -18,5 +18,5 @@ function installCompanionApp() as Void {
         {},
         null
     );
-    showFeedback("Notification sent\nto your phone");
+    showFeedback("Sent notification\nto your phone");
 }
