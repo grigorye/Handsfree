@@ -5,6 +5,8 @@ import Toybox.Attention;
 (:noLowMemory)
 const L_VIBRA as LogComponent = "vibra";
 
+const debugVibra = false;
+
 (:noLowMemory)
 class VibrationLoop {
     private var program as Lang.String;
@@ -18,13 +20,13 @@ class VibrationLoop {
     }
 
     function reduceProgram() as Void {
-        if (debug) { _3(L_VIBRA, "tail", tail); }
+        if (debugVibra) { _3(L_VIBRA, "tail", tail); }
         var instructionEnd = tail.find(";");
         var instruction = substring(tail, 0, instructionEnd);
-        if (debug) { _3(L_VIBRA, "instruction", instruction); }
+        if (debugVibra) { _3(L_VIBRA, "instruction", instruction); }
 
         if (instructionEnd == null) {
-            if (debug) { _2(L_VIBRA, "rewind"); }
+            if (debugVibra) { _2(L_VIBRA, "rewind"); }
             tail = program;
         } else {
             var newTailIndex = (instructionEnd as Lang.Number) + 1;
@@ -38,13 +40,13 @@ class VibrationLoop {
                 if (Attention has :vibrate) {
                     Attention.vibrate([new Attention.VibeProfile(100, duration)]);
                 }
-                if (debug) { _3(L_VIBRA, "vibrate", duration); }
+                if (debugVibra) { _3(L_VIBRA, "vibrate", duration); }
                 vibeTimer.start(method(:reduceProgram), duration, false);
                 break;
             }
             case "p":
                 var pause = 1000 * (substring(instruction, 1, null).toNumber() as Lang.Number);
-                if (debug) { _3(L_VIBRA, "pause", pause); }
+                if (debugVibra) { _3(L_VIBRA, "pause", pause); }
                 vibeTimer.start(method(:reduceProgram), pause, false);
                 break;
             default:
