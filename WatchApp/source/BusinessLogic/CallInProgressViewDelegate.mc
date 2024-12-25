@@ -18,17 +18,14 @@ class CallInProgressViewDelegate extends WatchUi.Menu2InputDelegate {
         if (debug) { _2(L_USER_ACTION_DEBUG, action); }
         switch (action) {
             case CALL_IN_PROGRESS_ACTION_ACCEPT: {
-                popView(WatchUi.SLIDE_IMMEDIATE);
                 acceptIncomingCall(phone);
                 break;
             }
             case CALL_IN_PROGRESS_ACTION_HANGUP: {
-                popView(WatchUi.SLIDE_IMMEDIATE);
                 hangupCallInProgress(phone);
                 break;
             }
             case CALL_IN_PROGRESS_ACTION_REJECT: {
-                popView(WatchUi.SLIDE_IMMEDIATE);
                 rejectIncomingCall(phone);
                 break;
             }
