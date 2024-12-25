@@ -89,9 +89,12 @@ class Router {
                     case instanceof CallInProgress: {
                         if (debug) { _2(L_ROUTER, "updatingForNewCallInProgress"); }
                         var phone = (newState as CallInProgress).phone;
-                        var existingView = viewWithTag(V.callInProgress) as CallInProgressView or Null;
-                        if (existingView != null) {
-                            existingView.updateFromPhone(phone, isOptimisticCallState(newState));
+                        var existingViewStackEntry = viewStackEntryWithTag(V.callInProgress);
+                        if (existingViewStackEntry != null) {
+                            var view = existingViewStackEntry.view as CallInProgressView;
+                            var delegate = existingViewStackEntry.delegate as CallInProgressViewDelegate;
+                            view.updateFromPhone(phone, isOptimisticCallState(newState));
+                            delegate.phone = phone;
                         } else {
                             var newCallInProgressView = new CallInProgressView(phone, isOptimisticCallState(newState));
                             pushView(V.callInProgress, newCallInProgressView, new CallInProgressViewDelegate(phone), WatchUi.SLIDE_LEFT);
