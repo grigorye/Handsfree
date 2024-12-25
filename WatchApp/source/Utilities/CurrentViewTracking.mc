@@ -104,11 +104,19 @@ function viewStackTagsEqual(other as Lang.Array<ViewTag>) as Lang.Boolean {
     return true;
 }
 
-function viewWithTag(tag as ViewTag) as WatchUi.Views or Null {
+function viewStackEntryWithTag(tag as ViewTag) as ViewStackEntry or Null {
     for (var i = 0; i < viewStack.size(); i++) {
         if (viewStack[i].tag.equals(tag)) {
-            return viewStack[i].view;
+            return viewStack[i];
         }
     }
     return null;
+}
+
+function viewWithTag(tag as ViewTag) as WatchUi.Views or Null {
+    var entry = viewStackEntryWithTag(tag);
+    if (entry == null) {
+        return null;
+    }
+    return entry.view;
 }
