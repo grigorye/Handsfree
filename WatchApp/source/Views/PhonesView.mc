@@ -41,12 +41,7 @@ class PhonesView extends WatchUi.Menu2 {
             menuItemCount = oldPhonesCount;
         }
         menuItemCount += predefinedItemsCount;
-        for (var i = 0; i < menuItemCount; i++) {
-            var existed = deleteItem(0);
-            if (existed == null) {
-                System.error("Failed to delete menu item at index " + i);
-            }
-        }
+        deleteNMenuItems(self, menuItemCount);
     }
 
     private function setFromPhones(phones as Phones) as Void {
