@@ -115,7 +115,18 @@ class Router {
                     case instanceof CallInProgress: {
                         if (debug) { _2(L_ROUTER, "routingToCallInProgress"); }
                         var phone = (newState as CallInProgress).phone;
-                        VT.switchToView(V.callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
+                        var existingViewStackEntry = VT.viewStackEntryWithTag(V.callInProgress);
+                        if (existingViewStackEntry != null) {
+                            var view = existingViewStackEntry.view as CallInProgressView;
+                            var delegate = existingViewStackEntry.delegate as CallInProgressViewDelegate;
+                            view.updateFromPhone(phone, isOptimisticCallState(newState));
+                            delegate.phone = phone;
+                            do {
+                                VT.popView(WatchUi.SLIDE_IMMEDIATE);
+                            } while (!VT.topViewIs(V.callInProgress));
+                        } else {
+                            VT.switchToView(V.callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
+                        }
                         break;
                     }
                     case instanceof Idle: {
