@@ -67,7 +67,7 @@ function getInitialViewInApp() as [WatchUi.Views] or [WatchUi.Views, WatchUi.Inp
     willReturnInitialView();
     var view = new WidgetView();
     var delegate = new WidgetViewDelegate();
-    trackInitialView("widget", view, delegate);
+    VT.trackInitialView("widget", view, delegate);
     return [view, delegate];
 }
 
@@ -75,7 +75,7 @@ function getInitialViewInApp() as [WatchUi.Views] or [WatchUi.Views, WatchUi.Inp
 function getInitialViewInApp() as [WatchUi.Views] or [WatchUi.Views, WatchUi.InputDelegates] {
     willReturnInitialView();
     var view = new CommView();
-    trackInitialView(V.comm, view, null);
+    VT.trackInitialView(V.comm, view, null);
     return [view];
 }
 

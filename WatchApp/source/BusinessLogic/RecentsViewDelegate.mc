@@ -19,7 +19,7 @@ class RecentsViewDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onBack() {
-        popView(SLIDE_RIGHT);
+        VT.popView(SLIDE_RIGHT);
     }
 }
 

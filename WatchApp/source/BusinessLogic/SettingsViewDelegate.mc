@@ -23,7 +23,7 @@ class SettingsViewDelegate extends WatchUi.Menu2InputDelegate {
                 break;
             }
             case :about: {
-                pushView(V.about, Views.newAboutView(), new AboutViewDelegate(), WatchUi.SLIDE_LEFT);
+                VT.pushView(V.about, Views.newAboutView(), new AboutViewDelegate(), WatchUi.SLIDE_LEFT);
                 break;
             }
             case :installCompanionApp: {
@@ -34,6 +34,6 @@ class SettingsViewDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onBack() as Void {
-        popView(WatchUi.SLIDE_RIGHT);
+        VT.popView(WatchUi.SLIDE_RIGHT);
     }
 }

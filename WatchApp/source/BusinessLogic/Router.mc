@@ -37,14 +37,14 @@ class Router {
                     case instanceof SchedulingCall: {
                         if (debug) { _2(L_ROUTER, "routingToScheduling"); }
                         if (debug) { _2(L_ROUTER, "pushingOutPhones"); }
-                        pushView(V.scheduling, new SchedulingCallView(newState as SchedulingCall), new SchedulingCallViewDelegate(), WatchUi.SLIDE_LEFT);
+                        VT.pushView(V.scheduling, new SchedulingCallView(newState as SchedulingCall), new SchedulingCallViewDelegate(), WatchUi.SLIDE_LEFT);
                         break;
                     }
                     case instanceof CallInProgress: {
                         if (debug) { _2(L_ROUTER, "routingToCallInProgress"); }
                         var phone = (newState as CallInProgress).phone;
                         if (debug) { _3(L_ROUTER, "pushingOutPhones", true); }
-                        pushView(V.callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_LEFT);
+                        VT.pushView(V.callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_LEFT);
                         break;
                     }
                     default:
@@ -55,13 +55,13 @@ class Router {
                 switch (newState) {
                     case instanceof SchedulingCall: {
                         if (debug) { _2(L_ROUTER, "routingToUpdatedScheduledCall"); }
-                        switchToView(V.scheduling, new SchedulingCallView(newState as SchedulingCall), new SchedulingCallViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        VT.switchToView(V.scheduling, new SchedulingCallView(newState as SchedulingCall), new SchedulingCallViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof CallInProgress: {
                         if (debug) { _2(L_ROUTER, "routingToCallInProgress"); }
                         var phone = (newState as CallInProgress).phone;
-                        switchToView(V.callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
+                        VT.switchToView(V.callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof Idle: {
@@ -83,13 +83,13 @@ class Router {
                     }
                     case instanceof CallActing: {
                         if (debug) { _2(L_ROUTER, "routingToCallActing"); }
-                        pushView(V.callActing, new CallActingView(newState as CallActing), new CallActingViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        VT.pushView(V.callActing, new CallActingView(newState as CallActing), new CallActingViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof CallInProgress: {
                         if (debug) { _2(L_ROUTER, "updatingForNewCallInProgress"); }
                         var phone = (newState as CallInProgress).phone;
-                        var existingViewStackEntry = viewStackEntryWithTag(V.callInProgress);
+                        var existingViewStackEntry = VT.viewStackEntryWithTag(V.callInProgress);
                         if (existingViewStackEntry != null) {
                             var view = existingViewStackEntry.view as CallInProgressView;
                             var delegate = existingViewStackEntry.delegate as CallInProgressViewDelegate;
@@ -97,7 +97,7 @@ class Router {
                             delegate.phone = phone;
                         } else {
                             var newCallInProgressView = new CallInProgressView(phone, isOptimisticCallState(newState));
-                            pushView(V.callInProgress, newCallInProgressView, new CallInProgressViewDelegate(phone), WatchUi.SLIDE_LEFT);
+                            VT.pushView(V.callInProgress, newCallInProgressView, new CallInProgressViewDelegate(phone), WatchUi.SLIDE_LEFT);
                         }
                         break;
                     }
@@ -109,13 +109,13 @@ class Router {
                 switch (newState) {
                     case instanceof CallActing: {
                         if (debug) { _2(L_ROUTER, "routingToUpdatedCallActing"); }
-                        switchToView(V.callActing, new CallActingView(newState as CallActing), new CallActingViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        VT.switchToView(V.callActing, new CallActingView(newState as CallActing), new CallActingViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof CallInProgress: {
                         if (debug) { _2(L_ROUTER, "routingToCallInProgress"); }
                         var phone = (newState as CallInProgress).phone;
-                        switchToView(V.callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
+                        VT.switchToView(V.callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof Idle: {
@@ -136,26 +136,26 @@ class Router {
         if (AppSettings.isExitToSystemAfterCallCompletionEnabled) {
             exitToSystemFromCurrentView();
         } else {
-            popView(WatchUi.SLIDE_RIGHT);
+            VT.popView(WatchUi.SLIDE_RIGHT);
         }
     }
 }
 
 function exitToSystemFromCurrentView() as Void {
-    if (debug) { _3(L_ROUTER, "exitingToSystemFromCurrentView", viewStackTags()); }
-    while (!topViewIs(V.comm)) {
-        popView(WatchUi.SLIDE_IMMEDIATE);
+    if (debug) { _3(L_ROUTER, "exitingToSystemFromCurrentView", VT.viewStackTags()); }
+    while (!VT.topViewIs(V.comm)) {
+        VT.popView(WatchUi.SLIDE_IMMEDIATE);
     }
     exitToSystemFromCommView();
 }
 
 function exitToSystemFromCommView() as Void {
     if (viewDebug) { _2(L_ROUTER, "exitingToSystemFromCommView"); }
-    if (!topViewIs(V.comm)) {
-        dumpViewStack("messedUpViewStack");
+    if (!VT.topViewIs(V.comm)) {
+        VT.dumpViewStack("messedUpViewStack");
         System.error("viewStackIsMessedUp");
     }
-    if (viewStackTagsEqual([V.comm])) {
+    if (VT.viewStackTagsEqual([V.comm])) {
         if (viewDebug) { _2(L_ROUTER, "willSystemExit"); }
         if (tweakingForSystemExit) {
             System.exit();
@@ -163,9 +163,9 @@ function exitToSystemFromCommView() as Void {
         if (viewDebug) { _2(L_ROUTER, "systemExitDidNotExit"); }
         exiting = true;
     } else {
-        if (viewDebug) { _3(L_ROUTER, "poppingUpAsCommViewIsNotTop", viewStackTags()); }
+        if (viewDebug) { _3(L_ROUTER, "poppingUpAsCommViewIsNotTop", VT.viewStackTags()); }
     }
-    popView(WatchUi.SLIDE_IMMEDIATE);
+    VT.popView(WatchUi.SLIDE_IMMEDIATE);
 }
 
 // Workaround for System.exit() treated as non-returning (while it is, in some cases).

@@ -1,7 +1,7 @@
 import Toybox.WatchUi;
 
 function workaroundNoRedrawForMenu2(menu as WatchUi.Menu2) as Void {
-    if (topView() != menu) {
+    if (VT.topView() != menu) {
         return;
     }
     if (!AppSettings.isMenu2NoRedrawWorkaroundEnabled) {

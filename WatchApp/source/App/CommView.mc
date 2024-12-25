@@ -11,11 +11,11 @@ class CommView extends WatchUi.View {
 
     function onShow() {
         if (viewDebug) { _2(L_COMM_VIEW, "onShow"); }
-        if (topView() == self) {
+        if (VT.topView() == self) {
             firstOnShow();
         } else {
             if (viewDebug) {
-                _3(L_COMM_VIEW_CRITICAL, "unexpectedOnShow", viewStackTags());
+                _3(L_COMM_VIEW_CRITICAL, "unexpectedOnShow", VT.viewStackTags());
                 if (exiting) {
                     if (viewDebug) { _2(L_COMM_VIEW_CRITICAL, "poppingUpDueToExiting"); }
                     WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);

@@ -76,7 +76,7 @@ function getAudioStateVersion() as Version {
 }
 
 function updateCallInProgressView() as Void {
-    var callInProgressView = viewWithTag(V.callInProgress) as CallInProgressView | Null;
+    var callInProgressView = VT.viewWithTag(V.callInProgress) as CallInProgressView | Null;
     if (callInProgressView != null) {
         var callInProgressState = getCallState() as CallInProgress | Null;
         if (callInProgressState != null) {

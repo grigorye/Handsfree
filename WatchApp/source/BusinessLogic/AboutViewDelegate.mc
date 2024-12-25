@@ -22,6 +22,6 @@ class AboutViewDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onBack() as Void {
-        popView(WatchUi.SLIDE_RIGHT);
+        VT.popView(WatchUi.SLIDE_RIGHT);
     }
 }
