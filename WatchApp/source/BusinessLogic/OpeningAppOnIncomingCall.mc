@@ -14,7 +14,7 @@ function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
     }
     if (debug) { _3(LX_OPEN_ME, "activeUiKind", activeUiKind); }
     if (isActiveUiKindApp) {
-        startRequestingAttentionIfInApp();
+        startRequestingAttentionIfInAppAndNotDeactivated();
     } else {
         openAppOnIncomingCall(phone);
     }
@@ -35,7 +35,7 @@ function handleOpenMeCompleted(args as Lang.Dictionary<Lang.String, Lang.Object>
 (:background)
 function openMeSucceeded() as Void {
     if (debug) { _2(LX_OPEN_ME, "openMeSucceeded"); }
-    startRequestingAttentionIfInApp();
+    startRequestingAttentionIfInAppAndNotDeactivated();
 }
 
 (:background)

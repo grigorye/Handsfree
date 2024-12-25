@@ -1,8 +1,11 @@
 function stopRequestingAttention() as Void {
 }
 
+function deactivateRequestingAttentionTillRelaunch() as Void {
+}
+
 (:background)
-function startRequestingAttentionIfInApp() as Void {
+function startRequestingAttentionIfInAppAndNotDeactivated() as Void {
 }
 
 (:background)

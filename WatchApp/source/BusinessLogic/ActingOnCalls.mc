@@ -14,7 +14,7 @@ function acceptIncomingCall(phone as Phone) as Void {
     if (!isIncomingCallPhone(phone)) {
         System.error("!isIncomingCallPhone: " + phone);
     }
-    stopRequestingAttention();
+    deactivateRequestingAttentionTillRelaunch();
     dropRingingFromPhone(phone);
     new CallActionTask(phone, CALL_IN_PROGRESS_ACTION_ACCEPT).launch();
 }
@@ -23,7 +23,7 @@ function rejectIncomingCall(phone as Phone) as Void {
     if (!isIncomingCallPhone(phone)) {
         System.error("!isIncomingCallPhone: " + phone);
     }
-    stopRequestingAttention();
+    deactivateRequestingAttentionTillRelaunch();
     dropRingingFromPhone(phone);
     new CallActionTask(phone, CALL_IN_PROGRESS_ACTION_REJECT).launch();
 }
