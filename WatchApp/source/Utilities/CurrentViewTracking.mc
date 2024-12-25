@@ -4,6 +4,8 @@ import Toybox.System;
 
 const L_VIEW_TRACKING as LogComponent = "$$";
 
+module VT {
+
 typedef ViewTag as Lang.String;
 class ViewStackEntry extends Lang.Object {
 
@@ -119,4 +121,6 @@ function viewWithTag(tag as ViewTag) as WatchUi.Views or Null {
         return null;
     }
     return entry.view;
+}
+
 }
