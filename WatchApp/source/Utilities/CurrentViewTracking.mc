@@ -23,8 +23,8 @@ class ViewStackEntry extends Lang.Object {
 typedef ViewStack as Lang.Array<ViewStackEntry>;
 var viewStack as ViewStack = [];
 
-function viewStackTags() as Lang.Array<ViewTag> {
-    var tags = [] as Lang.Array<ViewTag>;
+function viewStackTags() as Lang.Array {
+    var tags = [] as Lang.Array;
     for (var i = 0; i < viewStack.size(); i++) {
         tags.add(viewStack[i].tag);
     }
