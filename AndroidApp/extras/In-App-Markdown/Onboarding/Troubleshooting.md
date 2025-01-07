@@ -12,13 +12,13 @@ There are several components that should work together for normal operation of H
 
 ### If things go wrong out of sudden
 
-**[Force stop Garmin Connect](do://garmin-connect-settings)** - this may be the dealbreaker when Handsfree does not respond to watch app (things happen) - just tap "Force stop" to kill the app (there's no need to restart it - that will be done automatically).
+**[Force stop Garmin Connect](do://garmin-connect-settings)** - this may be the dealbreaker when Handsfree does not respond to watch app (things happen) - just tap "Force stop" to kill the app (there's no need to restart it - that will be done automatically). Sometimes it needs to be followed by resetting the connection to the phone, see below.
+
+**Toggle the connection to your phone off and then back on from the settings on your Garmin device** - this is known to help when the phone does not respond to your commands from the watch app.
 
 **[Reconnect with the watch](do://reconnect-connectiq)** (you can tap the devices list on the Control screen to reconnect as well) - this may be worth trying, especially if you don't want to kill Garmin Connect (see above).
 
 **Reboot your phone** - yes, that may mean a lot, but it's for sure probably the simplest thing to do once in a while.
-
-**Toggle bluetooth off and on the watch** - this is known to help sometimes when Handsfree does not respond to the watch and nothing of the above helps.
 
 ### May be helpful in certain situations
 
