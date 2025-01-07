@@ -16,10 +16,10 @@ fenix7x.personality = $(fenix7x.personality);$(fenix7_personality_extras)
 fenix7xpro.personality = $(fenix7xpro.personality);$(fenix7_personality_extras)
 fenix7xpronowifi.personality = $(fenix7xpronowifi.personality);$(fenix7_personality_extras)
 
-instinct_presonality_extras = ./resources-glances2022;./resources-static-glances
-instinct2.personality = $(instinct2.personality);$(instinct_presonality_extras)
-instinct2s.personality = $(instinct2s.personality);$(instinct_presonality_extras)
-instinct2x.personality = $(instinct2x.personality);$(instinct_presonality_extras)
+instinct_personality_extras = ./resources-glances2022;./resources-static-glances
+instinct2.personality = $(instinct2.personality);$(instinct_personality_extras)
+instinct2s.personality = $(instinct2s.personality);$(instinct_personality_extras)
+instinct2x.personality = $(instinct2x.personality);$(instinct_personality_extras)
 
 edge_personality_extras = ./resources-glances2022
 edge_resourcePath_extras = ./resources-edge;./resources-color
