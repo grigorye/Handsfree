@@ -7,7 +7,13 @@ instinct_sourcePath_extras = ./source-LowMemory
 instinct2.excludeAnnotations = $(versioning_excludeAnnotations);$(instinct_excludeAnnotations_extras)
 instinct2s.excludeAnnotations = $(versioning_excludeAnnotations);$(instinct_excludeAnnotations_extras)
 instinct2x.excludeAnnotations = $(versioning_excludeAnnotations);$(instinct_excludeAnnotations_extras)
+instinct3solar45mm.excludeAnnotations = $(versioning_excludeAnnotations);$(instinct_excludeAnnotations_extras)
+instincte40mm.excludeAnnotations = $(versioning_excludeAnnotations);$(instinct_excludeAnnotations_extras)
+instincte45mm.excludeAnnotations = $(versioning_excludeAnnotations);$(instinct_excludeAnnotations_extras)
 
 instinct2.sourcePath = $(instinct2.sourcePath);$(instinct_sourcePath_extras)
 instinct2s.sourcePath = $(instinct2s.sourcePath);$(instinct_sourcePath_extras)
 instinct2x.sourcePath = $(instinct2x.sourcePath);$(instinct_sourcePath_extras)
+instinct3solar45mm.sourcePath = $(instinct3solar45mm.sourcePath);$(instinct_sourcePath_extras)
+instincte40mm.sourcePath = $(instincte40mm.sourcePath);$(instinct_sourcePath_extras)
+instincte45mm.sourcePath = $(instincte45mm.sourcePath);$(instinct_sourcePath_extras)
