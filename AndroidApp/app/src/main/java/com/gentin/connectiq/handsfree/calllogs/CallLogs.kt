@@ -86,7 +86,8 @@ private fun callLogEntry(cursor: Cursor): CallLogEntry {
         val isNewColumn = getColumnIndex(CallLog.Calls.NEW)
 
         val phoneNumber = getString(numberColumn)
-        val name = getString(cachedNameColumn)
+        val stringName = getString(cachedNameColumn)
+        val name = if (stringName == "") { null } else { stringName }
         val date = getLong(dateColumn)
         val type = getInt(typeColumn)
         val duration = getLong(durationColumn)
