@@ -15,5 +15,13 @@
   "prettierMonkeyC.typeCheckLevel": "Strict",
   "monkeyC.typeCheckLevel": "Strict",
   "monkeyC.compilerOptions": "--build-stats 0 -r",
-  "prettierMonkeyC.checkCompilerLookupRules": "OFF"
+  "prettierMonkeyC.checkCompilerLookupRules": "OFF",
+  "cSpell.customDictionaries": {
+    "custom-dictionary-workspace": {
+      "name": "custom-dictionary-workspace",
+      "path": "${workspaceFolder:WatchApp}/.cspell/custom-dictionary-workspace.txt",
+      "addWords": true,
+      "scope": "workspace"
+    }
+  }
 }
