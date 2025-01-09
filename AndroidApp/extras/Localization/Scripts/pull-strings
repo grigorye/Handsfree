@@ -5,4 +5,6 @@ set -euo pipefail
 
 wd=$(dirname "$0")
 
-"$wd"/poeditor pull
+adjusted_wd="$wd/../../.."
+
+(cd "$adjusted_wd" && "extras/Localization/Scripts/poeditor" pull)

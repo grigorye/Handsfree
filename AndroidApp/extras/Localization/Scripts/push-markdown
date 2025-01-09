@@ -4,6 +4,9 @@ set -x
 set -euo pipefail
 shopt -s nullglob
 
+wd=$(dirname "$0")
+src_root="$wd/../../.."
+
 api_token="$POEDITOR_TOKEN"
 project_id="691894"
 
@@ -35,7 +38,7 @@ push_json() {
         --data-urlencode data@"$json"
 }
 
-for i in extras/In-App-Markdown/Onboarding/*.md; do
+for i in "$src_root"/extras/In-App-Markdown/Onboarding/*.md; do
     echo "Uploading $i"
     suffix=$(basename "$i" .md | tr '-' '_' | tr '[:upper:]' '[:lower:]')
     term="onboarding_$suffix"
@@ -44,11 +47,11 @@ for i in extras/In-App-Markdown/Onboarding/*.md; do
     push_json "$json"
 done
 
-for i in extras/In-App-Markdown/Settings/*.md; do
+for i in "$src_root"/extras/In-App-Markdown/Settings/*.md; do
     echo "Uploading $i"
     suffix=$(basename "$i" .md | tr '-' '_' | tr '[:upper:]' '[:lower:]')
     term="settings_$suffix"
     json="$tmpdir/$term.json"
-    app/push-strings-from-markdown.main.kts "$i" >"$json"
+    "$src_root"/app/push-strings-from-markdown.main.kts "$i" >"$json"
     push_json "$json"
 done
