@@ -13,5 +13,6 @@ function updateStatusMenu() as Void {
 
 (:noLowMemory)
 function statusMenuTitle() as Lang.String {
-    return joinComponents([joinComponents([headsetStatusRep(), statsRep()], "")], " ");
+    var statsRep = statsRep();
+    return joinComponents([statsRep != null ? statsRep : "Contacts", headsetStatusRep()], " ");
 }

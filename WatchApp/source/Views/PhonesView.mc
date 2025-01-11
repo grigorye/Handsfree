@@ -15,6 +15,7 @@ class PhonesView extends WatchUi.Menu2 {
 
     function initialize(phones as Phones) {
         Menu2.initialize({});
+        setTitle(statusMenuTitle());
         setFromPhones(phones);
     }
 
