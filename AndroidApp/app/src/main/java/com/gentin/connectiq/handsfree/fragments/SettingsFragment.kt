@@ -46,6 +46,12 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
             R.string.settings_disabled_due_to_essentials_are_off
         )
         setupPermissionPreference(
+            recentsPreference,
+            R.string.settings_recents,
+            R.string.settings_recents_on,
+            R.string.settings_recents_off
+        )
+        setupPermissionPreference(
             callInfoPreference,
             R.string.settings_call_info,
             R.string.settings_call_info_on,
@@ -169,6 +175,11 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
     private val callInfoPreference: Preference?
         get() {
             return findPreference("full_featured")
+        }
+
+    private val recentsPreference: Preference?
+        get() {
+            return findPreference("recents")
         }
 
     private val contactsPreference: Preference?
