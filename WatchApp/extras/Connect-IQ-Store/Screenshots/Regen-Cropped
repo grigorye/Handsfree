@@ -6,12 +6,12 @@ set -euo pipefail
 wd=$(dirname "$0")
 src_root="$wd/../../../.."
 
-for device in Originals/*; do
+for device in "$wd"/Originals/*; do
     device_name=$(basename "$device")
     for i in "$device"/*.BMP; do
         inner_part=$(basename "$i" | sed 's/.BMP$//')
-        cropped_jpg="Cropped/$device_name-$inner_part.jpg"
-        cropped_png="Cropped/$device_name-$inner_part.png"
+        cropped_jpg="$wd/Cropped/$device_name-$inner_part.jpg"
+        cropped_png="$wd/Cropped/$device_name-$inner_part.png"
 
         "$src_root"/extras/bin/Frame-Device-Screenshot "$device_name" "$i" "$cropped_png"
         pngtopnm <"$cropped_png" | pnmtojpeg >"$cropped_jpg"
