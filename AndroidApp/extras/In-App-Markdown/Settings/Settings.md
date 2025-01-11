@@ -30,11 +30,11 @@
 
 ✅ [Effective only if call control is enabled.](lk:outgoing_calls_on)
 
-### [Caller ID](lk:call_info)
+### [Incoming calls](lk:call_info)
 
-❎ [No phone numbers or names are shown on the watch.](lk:call_info_off)
+❎ [](lk:call_info_off)
 
-✅ [Phone numbers or contact names are shown on the watch.](lk:call_info_on)
+✅ [Calls can be accepted the watch.](lk:call_info_on)
 
 ### [Recent calls](lk:recents)
 
