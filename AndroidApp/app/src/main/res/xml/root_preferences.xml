@@ -20,11 +20,6 @@
             app:key="essentials"
             app:summary="@string/settings_essentials_off"
             app:title="@string/settings_essentials" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/settings_extras_group"
-        app:iconSpaceReserved="false">
         <Preference
             app:dependency="essentials"
             app:iconSpaceReserved="false"
@@ -39,6 +34,18 @@
             app:key="outgoing_calls"
             app:summary="@string/settings_outgoing_calls_off"
             app:title="@string/settings_outgoing_calls" />
+        <Preference
+            app:dependency="essentials"
+            app:enabled="false"
+            app:iconSpaceReserved="false"
+            app:key="recents"
+            app:summary="@string/settings_recents_off"
+            app:title="@string/settings_recents" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/settings_extras_group"
+        app:iconSpaceReserved="false">
         <Preference
             app:iconSpaceReserved="false"
             app:key="contacts"
