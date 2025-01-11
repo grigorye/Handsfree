@@ -3,9 +3,18 @@
 set -x
 set -euo pipefail
 
-pngtopnm fenix7-Screenshot-CropMask.png >fenix7-Screenshot-CropMask.pnm
+wd=$(dirname "$0")
+src_root="$wd/../../../.."
 
-for i in Originals/fenix7-*.png; do
-    croppedJpg=$(basename "$i" | sed 's/.png$/.jpg/')
-    pngtopnm "$i" | pnmcrop -borderfile=fenix7-Screenshot-CropMask.pnm | pnmtojpeg >Cropped/"$croppedJpg"
+for device in Originals/*; do
+    device_name=$(basename "$device")
+    for i in "$device"/*.BMP; do
+        inner_part=$(basename "$i" | sed 's/.BMP$//')
+        cropped_jpg="Cropped/$device_name-$inner_part.jpg"
+        cropped_png="Cropped/$device_name-$inner_part.png"
+
+        "$src_root"/extras/bin/Frame-Device-Screenshot "$device_name" "$i" "$cropped_png"
+        pngtopnm <"$cropped_png" | pnmtojpeg >"$cropped_jpg"
+        rm "$cropped_png"
+    done
 done
