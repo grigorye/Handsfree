@@ -8,6 +8,7 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.preference.PreferenceManager
 import com.gentin.connectiq.handsfree.calllogs.CallLogEntry
 import com.gentin.connectiq.handsfree.calllogs.CallLogsRepository
 import com.gentin.connectiq.handsfree.calllogs.CallLogsRepositoryImpl
@@ -240,7 +241,15 @@ class DefaultServiceLocator(
         }
     }
 
+    private fun isRecentsEnabled(): Boolean {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        return sharedPreferences.getBoolean("recents", false)
+    }
+
     fun recents(): List<CallLogEntry> {
+        if (!isRecentsEnabled()) {
+            return listOf()
+        }
         return recentsFromCallLog(callLog())
     }
 
