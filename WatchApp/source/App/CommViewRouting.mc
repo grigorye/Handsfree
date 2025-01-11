@@ -17,7 +17,8 @@ function isCompanionUpToDate() as Lang.Boolean {
     if (companionInfo == null) {
         return false;
     }
-    return CompanionInfoImp.getCompanionVersionCode(companionInfo) >= minCompanionVersionCode;
+    var companionVersionCode = CompanionInfoImp.getCompanionVersionCode(companionInfo);
+    return companionVersionCode >= minCompanionVersionCode;
 }
 
 function routeToMainUI() as Void {
