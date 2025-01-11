@@ -28,7 +28,7 @@
 
 ❎ [](lk:outgoing_calls_off)
 
-✅ [Effective only if call control is enabled.](lk:outgoing_calls_on)
+✅ [Calls enabled for starred contacts in Phonebook.](lk:outgoing_calls_on)
 
 ### [Incoming calls](lk:call_info)
 
