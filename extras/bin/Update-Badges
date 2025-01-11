@@ -25,7 +25,7 @@ curl https://raw.githubusercontent.com/steverichey/google-play-badge-svg/master/
 # Fix missing height/width as well as drop margins.
 inkscape --export-id=rect17 --export-plain-svg --export-overwrite "$google_play_badge_svg"
 # Scale up 200% (from height 40 to 80).
-patch -p1 <"$src_root/extras/Patches/Get-It-On-Google-Play-Badge.patch"
+patch -d "$src_root" -p1 <"$src_root/extras/Patches/Get-It-On-Google-Play-Badge.patch"
 
 #
 # Connect IQ
