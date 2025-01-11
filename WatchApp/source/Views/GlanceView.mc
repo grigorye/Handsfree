@@ -92,7 +92,13 @@ function defaultTitle() as Lang.String {
     }
     var defaultTitle = adjustedTitle;
     if (Styles.glance_live_update.enabled) {
-        defaultTitle = joinComponents([defaultTitle, joinComponents([headsetStatusRep(), statsRep()], "")], " ");
+        var statsRep = statsRep();
+        if (statsRep != null) {
+            defaultTitle = joinComponents([statsRep, headsetStatusRep()], " ");
+        } else {
+            var headsetStatus = headsetStatusHumanReadable();
+            defaultTitle = headsetStatus != null ? headsetStatus : defaultTitle;
+        }
     }
     return defaultTitle;
 }
