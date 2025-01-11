@@ -1,0 +1,31 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+device_name="$1"
+shift
+bmp_screenshot="$1"
+shift
+out="$1"
+shift
+
+bn=$(basename "$0")
+
+device_alpha="$HOME/Library/Application Support/Garmin/ConnectIQ/Devices/$device_name/$device_name.png"
+
+tmpdir=$(mktemp -d /tmp/"$bn".XXXXXX)
+alpha="$tmpdir/device_alpha.pgm"
+
+alpha_width=$(pngtopnm "$device_alpha" | head -n 2 | tail -n 1 | awk '{print $1}' || true)
+alpha_height=$(pngtopnm "$device_alpha" | head -n 2 | tail -n 1 | awk '{print $2}' || true)
+
+magick "$device_alpha" -alpha extract "$alpha"
+
+pamcomp \
+    -align center \
+    -valign middle \
+    -alpha "$alpha" \
+    <(pngtopnm "$device_alpha" || true) \
+    <(pnmpad -width "$alpha_width" -height "$alpha_height" <(bmptopnm "$bmp_screenshot" || true) || true) |
+    pnmtopng >"$out"
