@@ -16,7 +16,7 @@ const L_APP_STAT as LogComponent = "app";
 (:glance, :background)
 const L_APP_EXTRA as LogComponent = "app";
 
-(:glance, :background, :noLowMemory)
+(:glance, :background)
 class App extends AppCore {
     function initialize() {
         AppCore.initialize();
