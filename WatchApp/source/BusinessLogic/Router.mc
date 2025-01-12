@@ -181,5 +181,3 @@ function exitToSystemFromCommView() as Void {
 
 // Workaround for System.exit() treated as non-returning (while it is, in some cases).
 var tweakingForSystemExit as Lang.Boolean = true;
-
-const viewDebug as Lang.Boolean = true;
