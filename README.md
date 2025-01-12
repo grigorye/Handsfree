@@ -4,23 +4,25 @@
 
 **If you're interested in joining the beta, please reach to me or send a request to join the [dedicated Google group](https://groups.google.com/g/handsfree-beta) - I'd really appreciate that.**
 
-### Features
-
--   Outgoing calls to starred contacts
--   Incoming calls [beta]
--   Custom *continuous* vibration pattern (on Fenix 7)
--   Recent contacts [beta]
--   Missed calls [beta]
--   In-call audio *volume* control [beta]
--   Phone speaker enabled on *outgoing* calls without headset [beta]
--   Headset connection status
--   Glance view/making calls during an activity (on supported devices)
-
 # Why
 
 For one reason or another, most of the times I find myself wearing Bluetooth headset connected to my Android phone (to be specific, it's hearing aids in my case). The same phone is connected to my Garmin watch.
 
 The watch (one of the best watches in the world, if you ask me), allows me to control Music, Podcasts and, among other things, to *answer and control the incoming calls* on the phone. What it does not allow me, yet, is to *initiate and control the outgoing calls*. Handsfree fills that gap.
+
+# Features
+
+-   [Call control](./docs/Call-Control.md)
+-   [Outgoing calls](./docs/Outgoing-Calls.md)
+-   [Incoming calls](./docs/Incoming-Calls.md) [beta]
+-   [Customizable *continuous* vibration on an incoming call](./docs/Vibration.md) (Fenix 7 only) [beta]
+-   [Recent contacts](./docs/Recents.md) [beta]
+-   [Missed calls](./docs/Missed-Calls.md) [beta]
+-   [In-call audio *volume* control, muting/unmuting](./docs/In-Call-Audio.md) [beta]
+-   [Headset status](./docs/Headset-Status.md)
+-   [Speaker phone control](./docs/Speaker-Phone.md) [beta]
+-   [Seamless syncing](./docs/Syncing.md)
+-   [Glance view](./docs/Glance.md)
 
 # How
 
@@ -78,69 +80,13 @@ https://grigorye.github.io/handsfree/Installation
 -   Check https://dontkillmyapp.com for your phone model (the link that should automatically show hints for your phone model is available in About > Troubleshooting > Hints for running apps in background on your phone in Android app).
 -   Install the watch app, launch it. It should get the list of the contacts from the phone and you should be ready to go.
 
-## Making calls
-
-Open the app on the watch.
-
-Select a contact phone to start the call.
-
-If the phone is not connected to a headset, Handsfree will automatically activate the phone speaker. (Beware that this function is not available on accepting the calls.)
-
-The "Call in progress" screen will be shown with the following options:
-
--   Hang Up - lets you hangup the call
--   Volume: XXX% - lets you change audio volume (the audio volume screen will show SPKR or HSET to indicate either speaker or headset currently active)
--   Mute/Unmute - lets you temporarily mute *your microphone*, so that the other party would not hear you.
-
-To go back to the watch without hanging up the call, just select Back.
-
-To return to the call in progress after going back to watch, just launch the app again.
-
-## Accepting calls
-
-Select "Incoming Calls" in Settings of Handsfree on your watch.
-
-(Optionally) disable Garmin's own support for accepting the calls on the watch.
-
-Depending on your watch model, on incoming call:
-
--   (Most of the watch models) You'll get a notification about a call, that prompts into launching Handsfree app. If you accept the prompt, Handsfree will be launched and you'll get the prompt to Accept/Decline the call.
--   (Fenix 7 family of the watches) After some delay, you'll get the prompt to Accept/Decline call, with the watch vibrating until you make your choice.
-
-## Accessing recent calls
-
-Navigate Recents in Handsfree on you watch, and you should see the recent contacts (max 5) involved in the calls, as long as the date/time of the last call associated with the given contact and indicator of the type of the call:
-
--   ">" - incoming call
--   "<" - outgoing call
--   "-" - declined call
--   "!" - (new) missed call
--   "?" - (old) missed call
--   "r" - call routed to voicemail
--   "b" - blocked call
--   "a" - answered externally
-
-Selecting an entry in the recent calls, will trigger a call to the contact selected.
-
-## Watch app optimizations
-
-There're a couple settings (enabled by default) that speed up the operation/responsiveness of the watch app. If you encounter some problems with the operation, it may be worth checking if turning a setting off could work as a workaround.
-
--   **Faster Calls** - the watch app assumes that requests that it sends to the phone succeed, even before it gets a confirmation from the phone. The app indicates such a case by placing "|" around the texts shown. For example, right after selecting a contact to initiate a call, Handsfree will show you "Call in progress" screen, with a contact name, options to Hang Up/Control the sound volume and etc. - those can actually be used right away. For a few seconds, it will show the contact name (e.g. John Doe) like "|John Doe|", then the contact name will be shown as "John Doe".
-
-    With this setting *disabled* you will not get to the "Call in Progress" screen until the moment when the watch actually receives the confirmation from the phone - that takes a few seconds and may be confusing, because you the call in fact may be already in progress.
-
--   **Background Sync** - all the changes in recents/favorites that happen on the phone are automatically pushed to the watch, even if you don't open the watch app. This results in no need to sync anything when you open the watch app - all the information is instantly available on the watch. Enabling this setting may potentially decrease the battery life of your watch, however, the negative effect (compared to manual sync) should be minimal, as the the data is pushed during the calls *anyway* and with background sync only slightly more data is pushed to the watch (particularly, changes in recents).
-
 # Troubleshooting
 
 It's critical for the companion app to be able to run in background and to be able to receive the requests from the watch. To avoid troubles, I really recommend to take a look at https://dontkillmyapp.com and follow instructions for your specific phone model, to let Handsfree *and* Garmin Connect app run in the background.
 
-# Overview of Garmin watch app screens
+See also [optimization for responsiveness](./docs/Optimization.md).
 
-<img src="WatchApp-Flow.svg" alt="WatchApp-Flow" width="60%" />
-
-
+​      
 
 # Disclaimer
 
