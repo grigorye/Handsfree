@@ -12,7 +12,9 @@ shift
 
 bn=$(basename "$0")
 
-device_alpha="$HOME/Library/Application Support/Garmin/ConnectIQ/Devices/$device_name/$device_name.png"
+device_root="$HOME/Library/Application Support/Garmin/ConnectIQ/Devices/$device_name"
+device_alpha="$device_root/$device_name.png"
+device_sim_json="$device_root/simulator.json"
 
 tmpdir=$(mktemp -d /tmp/"$bn".XXXXXX)
 alpha="$tmpdir/device_alpha.pgm"
@@ -22,10 +24,19 @@ alpha_height=$(pngtopnm "$device_alpha" | head -n 2 | tail -n 1 | awk '{print $2
 
 magick "$device_alpha" -alpha extract "$alpha"
 
+screenshot_w=$(bmptopnm "$bmp_screenshot" | head -n 2 | tail -n 1 | awk '{print $1}' || true)
+screenshot_h=$(bmptopnm "$bmp_screenshot" | head -n 2 | tail -n 1 | awk '{print $2}' || true)
+
+left_pad=$(jq ".display.location.x" "$device_sim_json")
+top_pad=$(jq ".display.location.y" "$device_sim_json")
+
+right_pad=$((alpha_width - left_pad - screenshot_w))
+bottom_pad=$((alpha_height - top_pad - screenshot_h))
+
 pamcomp \
     -align center \
     -valign middle \
     -alpha "$alpha" \
     <(pngtopnm "$device_alpha" || true) \
-    <(pnmpad -width "$alpha_width" -height "$alpha_height" <(bmptopnm "$bmp_screenshot" || true) || true) |
+    <(pnmpad -left "$left_pad" -right "$right_pad" -top "$top_pad" -bottom "$bottom_pad" <(bmptopnm "$bmp_screenshot" || true) || true) |
     pnmtopng >"$out"
