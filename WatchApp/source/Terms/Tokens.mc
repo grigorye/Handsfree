@@ -3,6 +3,8 @@ using Toybox.Lang;
 (:inline, :background, :glance)
 const isHeadsetConnectedK = "h";
 (:inline, :background, :glance)
+const activeAudioDeviceK = "d";
+(:inline, :background, :glance)
 const volumeK = "v";
 (:inline, :background, :glance)
 const isMutedK = "m";

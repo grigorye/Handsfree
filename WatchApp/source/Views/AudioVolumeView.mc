@@ -17,22 +17,18 @@ class AudioVolumeView extends WatchUi.View {
         dc.clear();
 
         var audioState = AudioStateImp.getPendingAudioState();
-        var line1;
-        if (AudioStateManip.getIsHeadsetConnected(audioState)) {
-            line1 = "HSET";
-        } else {
-            line1 = "SPKR";
-        }
+        var audioDevice = AudioStateManip.getActiveAudioDeviceAbbreviation(AudioStateImp.getAudioState());
+        var line1 = audioDevice;
         var audioVolume = AudioStateManip.getAudioVolume(audioState);
         var volumeIndex = audioVolume[indexK] as Lang.Integer;
         var maxVolumeIndex = audioVolume[maxK] as Lang.Integer;
-        var line2 = 100 * volumeIndex / maxVolumeIndex;
+        var line2 = "" + 100 * volumeIndex / maxVolumeIndex;
         var lastKnownAudioVolume = AudioStateManip.getAudioVolume(AudioStateImp.getAudioState());
         var isUpToDate = objectsEqual(lastKnownAudioVolume, audioVolume);
         if (!isUpToDate) {
             line2 = "|" + line2 + "|";
         }
-        var text = line1 + "\n" + line2;
+        var text = joinComponents([line1, line2], "\n");
 
         var x = dc.getWidth() / 2;
         var y = dc.getHeight() / 2;

@@ -63,6 +63,58 @@ function getAudioVolume(audioState as AudioState) as RelVolume {
     return audioVolume;
 }
 
+(:inline)
+function getActiveAudioDeviceName(audioState as AudioState) as Lang.String? {
+    var audioDevice = audioState[activeAudioDeviceK] as Lang.String or Null;
+    if (audioDevice != null) {
+        switch (audioDevice) {
+            case "h": {
+                return "Headset";
+            }
+            case "s": {
+                return "Speaker";
+            }
+            case "e": {
+                return "Phone";
+            }
+            case "w": {
+                return "Wired";
+            }
+            default: {
+                return "Unknown (" + audioDevice + ")";
+            }
+        }
+    } else {
+        return null;
+    }
+}
+
+(:inline)
+function getActiveAudioDeviceAbbreviation(audioState as AudioState) as Lang.String or Null {
+    var audioDevice = audioState[activeAudioDeviceK] as Lang.String or Null;
+    if (audioDevice != null) {
+        switch (audioDevice) {
+            case "h": {
+                return "HSET";
+            }
+            case "s": {
+                return "SPKR";
+            }
+            case "e": {
+                return "PHNE";
+            }
+            case "w": {
+                return "WHST";
+            }
+            default: {
+                return audioDevice + "?";
+            }
+        }
+    } else {
+        return null;
+    }
+}
+
 (:inline, :background)
 function setAudioStateVersion(version as Version) as Void {
     if (debug) { _3(L_AUDIO_STATE_STORAGE, "setAudioStateVersion", version); }

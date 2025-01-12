@@ -33,9 +33,10 @@ function saveAudioState(audioState as AudioState) as Void {
 
 (:inline, :background)
 function resetAudioState() as Void {
-    var audioState = getAudioState();
-    audioState[isMutedK] = false;
-    AudioStateManip.setAudioState(audioState);
+    var oldAudioState = getAudioState();
+    var newAudioState = defaultAudioState();
+    newAudioState[isHeadsetConnectedK] = oldAudioState[isHeadsetConnectedK];
+    AudioStateManip.setAudioState(newAudioState);
 }
 
 (:background, :glance)
@@ -84,6 +85,7 @@ function clone(state as AudioState) as AudioState {
     var volume = state[volumeK] as RelVolume;
     return {
         isHeadsetConnectedK => state[isHeadsetConnectedK],
+        activeAudioDeviceK => state[activeAudioDeviceK],
         volumeK => {
             indexK => volume[indexK],
             maxK => volume[maxK]

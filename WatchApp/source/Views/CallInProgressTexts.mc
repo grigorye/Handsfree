@@ -50,10 +50,11 @@ function addAudioActions(actions as CallInProgressActions) as Void {
     if (!audioVolumeIsUpToDate) {
         volumeSuffix = "|" + volumeSuffix + "|";
     }
-    var volumeLabel = AudioStateManip.getIsHeadsetConnected(AudioStateImp.getAudioState()) ? "Headset" : "Speaker";
-    var volumePrompt = volumeLabel + ": " + volumeSuffix;
+    var activeAudioDevice = AudioStateManip.getActiveAudioDeviceName(AudioStateImp.getAudioState());
+    var volumePrompt = (activeAudioDevice != null) ? "Volume: " + volumeSuffix : "Volume";
     actions.add({
         :prompt => volumePrompt,
+        :subLabel => activeAudioDevice,
         :command => CALL_IN_PROGRESS_ACTION_AUDIO_VOLUME
     } as CallInProgressActionSelector);
 
