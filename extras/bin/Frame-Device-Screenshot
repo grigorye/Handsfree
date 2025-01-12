@@ -19,8 +19,8 @@ device_sim_json="$device_root/simulator.json"
 tmpdir=$(mktemp -d /tmp/"$bn".XXXXXX)
 alpha="$tmpdir/device_alpha.pgm"
 
-alpha_width=$(pngtopnm "$device_alpha" | head -n 2 | tail -n 1 | awk '{print $1}' || true)
-alpha_height=$(pngtopnm "$device_alpha" | head -n 2 | tail -n 1 | awk '{print $2}' || true)
+alpha_w=$(pngtopnm "$device_alpha" | head -n 2 | tail -n 1 | awk '{print $1}' || true)
+alpha_h=$(pngtopnm "$device_alpha" | head -n 2 | tail -n 1 | awk '{print $2}' || true)
 
 magick "$device_alpha" -alpha extract "$alpha"
 
@@ -30,8 +30,8 @@ screenshot_h=$(bmptopnm "$bmp_screenshot" | head -n 2 | tail -n 1 | awk '{print 
 left_pad=$(jq ".display.location.x" "$device_sim_json")
 top_pad=$(jq ".display.location.y" "$device_sim_json")
 
-right_pad=$((alpha_width - left_pad - screenshot_w))
-bottom_pad=$((alpha_height - top_pad - screenshot_h))
+right_pad=$((alpha_w - left_pad - screenshot_w))
+bottom_pad=$((alpha_h - top_pad - screenshot_h))
 
 pamcomp \
     -align center \
