@@ -1,8 +1,20 @@
-**TLDR**: If you wear a Garmin watch and prefer to keep your Android phone in your pocket while making calls (meaning, you're wearing some kind of earphones), you can find Handsfree useful.
+**TLDR**: Make calls via your Garmin device without taking your phone out of the pocket.
 
 ###### **Beta-testers wanted!**
 
 **If you're interested in joining the beta, please reach to me or send a request to join the [dedicated Google group](https://groups.google.com/g/handsfree-beta) - I'd really appreciate that.**
+
+### Features
+
+-   Outgoing calls to starred contacts
+-   Incoming calls [beta]
+-   Custom *continuous* vibration pattern (on Fenix 7)
+-   Recent contacts [beta]
+-   Missed calls [beta]
+-   In-call audio *volume* control [beta]
+-   Phone speaker enabled on *outgoing* calls without headset [beta]
+-   Headset connection status
+-   Glance view/making calls during an activity (on supported devices)
 
 # Why
 
