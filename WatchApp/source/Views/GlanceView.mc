@@ -59,7 +59,12 @@ class GlanceView extends WatchUi.GlanceView {
                 }
             }
         }
-        var text = title;
+        var text;
+        if (title.equals(defaultTitle)) {
+            text = title;
+        } else {
+            text = embeddingHeadsetStatusRep(title);
+        }
         if (Styles.glance_font.capitalize) {
             text = text.toUpper();
         }
@@ -94,13 +99,19 @@ function defaultTitle() as Lang.String {
     if (Styles.glance_live_update.enabled) {
         var statsRep = statsRep();
         if (statsRep != null) {
-            defaultTitle = joinComponents([statsRep, headsetStatusRep()], " ");
+            defaultTitle = embeddingHeadsetStatusRep(statsRep);
         } else {
             var headsetStatus = headsetStatusHumanReadable();
             defaultTitle = headsetStatus != null ? headsetStatus : defaultTitle;
         }
     }
     return defaultTitle;
+}
+
+(:glance, :watchApp, :noLowMemory)
+function embeddingHeadsetStatusRep(title as Lang.String) as Lang.String {
+    var adjustedTitle = joinComponents([title, headsetStatusRep()], " ");
+    return adjustedTitle;
 }
 
 (:glance, :watchApp, :noLowMemory)
