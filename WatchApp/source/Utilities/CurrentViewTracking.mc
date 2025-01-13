@@ -79,6 +79,12 @@ function topViewStackEntry() as ViewStackEntry {
     return viewStack[viewStack.size() - 1];
 }
 
+function popToView(tag as ViewTag, transition as WatchUi.SlideType) as Void {
+    while (!topViewIs(tag)) {
+        popView(transition);
+    }
+}
+
 function assertViewStackIsSane() as Void {
     var uniqueViewTags = [] as Lang.Array<ViewTag>;
     for (var i = 0; i < viewStack.size(); i++) {
