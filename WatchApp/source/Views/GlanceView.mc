@@ -108,12 +108,6 @@ function defaultTitle() as Lang.String {
     return defaultTitle;
 }
 
-(:glance, :watchApp)
-function embeddingHeadsetStatusRep(title as Lang.String) as Lang.String {
-    var adjustedTitle = joinComponents([title, headsetStatusRep()], " ");
-    return adjustedTitle;
-}
-
 (:glance, :watchApp, :noLowMemory)
 function glanceFont() as Graphics.FontDefinition or Graphics.VectorFont {
     var font;

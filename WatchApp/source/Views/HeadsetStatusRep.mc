@@ -17,3 +17,9 @@ function headsetStatusHumanReadable() as Lang.String or Null {
         return null;
     }
 }
+
+(:glance, :watchApp)
+function embeddingHeadsetStatusRep(title as Lang.String) as Lang.String {
+    var adjustedTitle = joinComponents([title, headsetStatusRep()], " ");
+    return adjustedTitle;
+}
