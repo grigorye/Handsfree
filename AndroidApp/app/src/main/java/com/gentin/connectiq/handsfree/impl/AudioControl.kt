@@ -8,6 +8,7 @@ import android.media.AudioManager
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.gentin.connectiq.handsfree.services.lastTrackedPhoneState
 
 interface AudioControl {
     fun toggleSpeaker(on: Boolean)
@@ -15,6 +16,7 @@ interface AudioControl {
     fun isMuted(): Boolean
     fun setAudioVolume(relVolume: RelVolume)
     fun audioVolume(): RelVolume
+    fun activeAudioDevice(): AudioDevice?
 }
 
 class AudioControlImp(base: Context?) : ContextWrapper(base), AudioControl {
@@ -94,6 +96,33 @@ class AudioControlImp(base: Context?) : ContextWrapper(base), AudioControl {
         )
         Log.d(TAG, "relVolume: $relVolume")
         return relVolume
+    }
+
+    @Suppress("DEPRECATION")
+    override fun activeAudioDevice(): AudioDevice? {
+        if (lastTrackedPhoneState?.stateId != PhoneStateId.OffHook) {
+            return null
+        }
+        val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
+        val audioInfo = mapOf(
+            "mode" to audioManager.getMode(),
+            "isSpeakerphoneOn" to audioManager.isSpeakerphoneOn,
+            "isBluetoothScoOn" to audioManager.isBluetoothScoOn,
+            "isBluetoothA2dpOn" to audioManager.isBluetoothA2dpOn,
+            "isWiredHeadsetOn" to audioManager.isWiredHeadsetOn,
+        )
+        Log.d(TAG, "audioInfo: $audioInfo")
+        if (audioManager.isBluetoothScoOn) {
+            return AudioDevice.Headset
+        }
+        if (audioManager.isSpeakerphoneOn) {
+            return AudioDevice.Speaker
+        }
+        if (audioManager.isWiredHeadsetOn) {
+            return AudioDevice.WiredHeadset
+        } else {
+            return AudioDevice.Earpiece
+        }
     }
 }
 

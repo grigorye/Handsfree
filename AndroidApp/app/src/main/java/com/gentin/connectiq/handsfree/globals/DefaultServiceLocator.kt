@@ -257,6 +257,7 @@ class DefaultServiceLocator(
         val isHeadsetConnected = headPhoneConnectionMonitor.isHeadsetConnected()
         val state = AudioState(
             isHeadsetConnected,
+            activeAudioDevice = audioControl.activeAudioDevice(),
             isMuted = audioControl.isMuted(),
             volume = audioControl.audioVolume()
         )
