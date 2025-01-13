@@ -23,6 +23,7 @@
         <property id="optimisticCallHandling" type="boolean">true</property>
         <property id="followUpCommDelay" type="number">300</property>
         <property id="broadcastListening" type="boolean">true</property>
+        <property id="showPhoneNumbers" type="boolean">false</property>
     </properties>
 
     <strings>
@@ -54,6 +55,7 @@
         <string id="favoritesScreen">Favorites</string>
         <string id="recentsScreen">Recents</string>
         <string id="followUpCommDelay">Comm delay on follow-up</string>
+        <string id="showPhoneNumbers">Show phone numbers</string>
     </strings>
 
     <settings>
@@ -76,6 +78,9 @@
         </setting>
         <setting propertyKey="@Properties.optimisticCallHandling"
             title="@Strings.optimisticCallHandling">
+            <settingConfig type="boolean" />
+        </setting>
+        <setting propertyKey="@Properties.showPhoneNumbers" title="@Strings.showPhoneNumbers">
             <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.beepOnComm" title="@Strings.beepOnComm">

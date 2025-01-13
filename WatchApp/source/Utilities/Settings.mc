@@ -37,6 +37,7 @@ module AppSettings {
     const isMenu2NoRedrawWorkaroundEnabled as Lang.Boolean = Properties.getValue("workaroundNoRedrawForMenu2") as Lang.Boolean;
     (:noLowMemory)
     const incomingCallVibrationProgram as Lang.String = Properties.getValue("incomingCallVibration") as Lang.String;
+    const isShowingPhoneNumbersEnabled as Lang.Boolean = Properties.getValue("showPhoneNumbers") as Lang.Boolean;
     const forcedLogComponentsJoined as Lang.String = Properties.getValue("forcedLogComponents") as Lang.String;
 
     const isFlushIncomingMessagesOnLaunchEnabled as Lang.Boolean = Properties.getValue("flushIncomingMessagesOnLaunch") as Lang.Boolean;

@@ -59,7 +59,7 @@ class PhonesView extends WatchUi.Menu2 {
                 }
                 var item = new WatchUi.MenuItem(
                     getPhoneName(phone), // label
-                    getPhoneNumber(phone), // subLabel
+                    AppSettings.isShowingPhoneNumbersEnabled ? getPhoneNumber(phone) : null, // subLabel
                     phone, // identifier
                     {}
                 );
