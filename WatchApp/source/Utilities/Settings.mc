@@ -33,7 +33,7 @@ module AppSettings {
     const isExitToSystemAfterCallCompletionEnabled as Lang.Boolean = Properties.getValue("popOutOfAppInsteadOfPhones") as Lang.Boolean;
 
     (:noLowMemory)
-    const isBeepOnCommuncationEnabled as Lang.Boolean = Properties.getValue("beepOnComm") as Lang.Boolean;
+    const isBeepOnCommunicationEnabled as Lang.Boolean = Properties.getValue("beepOnComm") as Lang.Boolean;
     const isMenu2NoRedrawWorkaroundEnabled as Lang.Boolean = Properties.getValue("workaroundNoRedrawForMenu2") as Lang.Boolean;
     (:noLowMemory)
     const incomingCallVibrationProgram as Lang.String = Properties.getValue("incomingCallVibration") as Lang.String;

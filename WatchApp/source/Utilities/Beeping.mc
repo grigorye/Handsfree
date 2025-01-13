@@ -10,7 +10,7 @@ enum BeepType {
 
 (:noLowMemory)
 function beep(type as BeepType) as Void {
-    if (!AppSettings.isBeepOnCommuncationEnabled) {
+    if (!AppSettings.isBeepOnCommunicationEnabled) {
         return;
     }
     if (!(Attention has :playTone)) {
