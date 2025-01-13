@@ -26,7 +26,7 @@ class CallInProgressView extends WatchUi.Menu2 {
             var command = action[:command] as Lang.String;
             var item = new WatchUi.MenuItem(
                 action[:prompt] as Lang.String, // label
-                null, // subLabel
+                action[:subLabel] as Lang.String or Null, // subLabel
                 command, // identifier
                 null // options
             );
@@ -42,10 +42,11 @@ class CallInProgressView extends WatchUi.Menu2 {
             if (existingIndex != -1) {
                 var item = getItem(existingIndex) as WatchUi.MenuItem;
                 item.setLabel(action[:prompt] as Lang.String);
+                item.setSubLabel(action[:subLabel] as Lang.String or Null);
             } else {
                 var item = new WatchUi.MenuItem(
                     action[:prompt] as Lang.String, // label
-                    null, // subLabel
+                    action[:subLabel] as Lang.String or Null, // subLabel
                     command, // identifier
                     null // options
                 );
