@@ -44,6 +44,7 @@ class Router {
                         if (debug) { _2(L_ROUTER, "routingToCallInProgress"); }
                         var phone = (newState as CallInProgress).phone;
                         if (debug) { _3(L_ROUTER, "pushingOutPhones", true); }
+                        VT.popToView(V.comm, WatchUi.SLIDE_IMMEDIATE);
                         VT.pushView(V.callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_LEFT);
                         break;
                     }
@@ -61,7 +62,8 @@ class Router {
                     case instanceof CallInProgress: {
                         if (debug) { _2(L_ROUTER, "routingToCallInProgress"); }
                         var phone = (newState as CallInProgress).phone;
-                        VT.switchToView(V.callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
+                        VT.popToView(V.comm, WatchUi.SLIDE_IMMEDIATE);
+                        VT.pushView(V.callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
                         break;
                     }
                     case instanceof Idle: {
@@ -96,6 +98,7 @@ class Router {
                             view.updateFromPhone(phone, isOptimisticCallState(newState));
                             delegate.phone = phone;
                         } else {
+                            VT.popToView(V.comm, WatchUi.SLIDE_IMMEDIATE);
                             var newCallInProgressView = new CallInProgressView(phone, isOptimisticCallState(newState));
                             VT.pushView(V.callInProgress, newCallInProgressView, new CallInProgressViewDelegate(phone), WatchUi.SLIDE_LEFT);
                         }
@@ -125,7 +128,8 @@ class Router {
                                 VT.popView(WatchUi.SLIDE_IMMEDIATE);
                             } while (!VT.topViewIs(V.callInProgress));
                         } else {
-                            VT.switchToView(V.callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
+                            VT.popToView(V.comm, WatchUi.SLIDE_IMMEDIATE);
+                            VT.pushView(V.callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
                         }
                         break;
                     }
