@@ -12,7 +12,7 @@ class CallInProgressView extends WatchUi.Menu2 {
             title = "|" + title + "|";
         }
         Menu2.initialize({
-            :title => title
+            :title => embeddingHeadsetStatusRep(title)
         });
 
         var actions = texts[:actions] as CallInProgressActions;
@@ -65,7 +65,7 @@ class CallInProgressView extends WatchUi.Menu2 {
         if (optimistic) {
             title = "|" + title + "|";
         }
-        setTitle(title);
+        setTitle(embeddingHeadsetStatusRep(title));
 
         var actions = texts[:actions] as CallInProgressActions;
         if (actions.size() != self.actionsCount) {
