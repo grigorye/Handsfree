@@ -144,7 +144,19 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
                     if (audioState == null) {
                         subjectsInvalidated.add(name);
                     } else {
-                        if (AudioStateImp.pendingAudioStateImp == null) {
+                        var pendingAudioState = AudioStateImp.pendingAudioStateImp;
+                        if (pendingAudioState != null) {
+                            var newActiveAudioDevice = pendingAudioState[activeAudioDeviceK] as Lang.String | Null;
+                            if (newActiveAudioDevice != null) {
+                                var oldActiveAudioDevice = audioState[activeAudioDeviceK];
+                                if ((oldActiveAudioDevice == null) || !oldActiveAudioDevice.equals(newActiveAudioDevice)) {
+                                    var isMuted = pendingAudioState[isMutedK] as Lang.Boolean;
+                                    pendingAudioState = AudioStateImp.clone(audioState);
+                                    pendingAudioState[isMutedK] = isMuted;
+                                    AudioStateImp.pendingAudioStateImp = pendingAudioState;
+                                }
+                            }
+                        } else {
                             AudioStateImp.pendingAudioStateImp = audioState;
                         }
                         AudioStateManip.setAudioState(audioState);
