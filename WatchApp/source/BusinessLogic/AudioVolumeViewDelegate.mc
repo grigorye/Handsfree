@@ -9,26 +9,44 @@ class AudioVolumeViewDelegate extends WatchUi.InputDelegate {
     (:noLowMemory)
     function onSwipe(swipeEvent as WatchUi.SwipeEvent) as Lang.Boolean {
         var direction = swipeEvent.getDirection();
-        if (direction != WatchUi.SWIPE_UP && direction != WatchUi.SWIPE_DOWN) {
-            return false;
-        }
-        if (direction == WatchUi.SWIPE_UP) {
-            increaseVolume();
-        } else {
-            decreaseVolume();
+        switch (direction) {
+            case WatchUi.SWIPE_UP: {
+                increaseVolume();
+                break;
+            }
+            case WatchUi.SWIPE_DOWN: {
+                decreaseVolume();
+                break;
+            }
+            case WatchUi.SWIPE_RIGHT: {
+                onBack();
+                break;
+            }
+            default: {
+                return false;
+            }
         }
         return true;
     }
 
     function onKey(keyEvent as WatchUi.KeyEvent) as Lang.Boolean {
         var key = keyEvent.getKey();
-        if (key != WatchUi.KEY_UP && key != WatchUi.KEY_DOWN) {
-            return false;
-        }
-        if (key == WatchUi.KEY_UP) {
-            increaseVolume();
-        } else {
-            decreaseVolume();
+        switch (key) {
+            case WatchUi.KEY_UP: {
+                increaseVolume();
+                break;
+            }
+            case WatchUi.KEY_DOWN: {
+                decreaseVolume();
+                break;
+            }
+            case WatchUi.KEY_ESC: {
+                onBack();
+                break;
+            }
+            default: {
+                return false;
+            }
         }
         return true;
     }
@@ -57,5 +75,9 @@ class AudioVolumeViewDelegate extends WatchUi.InputDelegate {
         } as RelVolume;
         sendAudioVolume(newAudioVolume);
         WatchUi.requestUpdate();
+    }
+
+    function onBack() as Void {
+        VT.popView(WatchUi.SLIDE_RIGHT);
     }
 }
