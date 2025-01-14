@@ -119,7 +119,11 @@ class DefaultServiceLocator(
                 outgoingMessageDispatcher.sendPhonesV1(destination, availableContacts())
             },
             queryImp = { source, args ->
-                val destination = OutgoingMessageDestination(source.device, source.app, accountBroadcastOnly = false)
+                val destination = OutgoingMessageDestination(
+                    source.device,
+                    source.app,
+                    accountBroadcastOnly = false
+                )
                 val result = query(args, source = source)
                 outgoingMessageDispatcher.sendQueryResult(destination, result)
             },
@@ -169,14 +173,19 @@ class DefaultServiceLocator(
         )
     }
 
-    private fun query(args: QueryArgs, metadataOnly: Boolean = false, source: IncomingMessageSource): QueryResult {
+    private fun query(
+        args: QueryArgs,
+        metadataOnly: Boolean = false,
+        source: IncomingMessageSource
+    ): QueryResult {
         val queryResult = QueryResult()
         for (subject in args.subjects) {
             assert(allSubjectNames.contains(subject.name)) { "Unknown subject: ${subject.name}" }
             when (subject.name) {
                 broadcastSubject -> {
                     if (metadataOnly) {
-                        queryResult.broadcastEnabled = garminConnector.isAppListeningForBroadcasts(source.device, source.app)
+                        queryResult.broadcastEnabled =
+                            garminConnector.isAppListeningForBroadcasts(source.device, source.app)
                     } else {
                         queryResult.broadcastEnabled = subject.version == 1
                     }
@@ -292,7 +301,11 @@ class DefaultServiceLocator(
             this,
             remoteMessageService,
             trackAppListeningForBroadcast = { destination, enabled ->
-                garminConnector.trackAppListeningForBroadcasts(destination.device!!, destination.app!!, enabled)
+                garminConnector.trackAppListeningForBroadcasts(
+                    destination.device!!,
+                    destination.app!!,
+                    enabled
+                )
             }
         )
     }
