@@ -55,7 +55,6 @@ import com.gentin.connectiq.handsfree.terms.broadcastSubject
 import com.gentin.connectiq.handsfree.terms.companionInfoSubject
 import com.gentin.connectiq.handsfree.terms.phonesSubject
 import com.gentin.connectiq.handsfree.terms.recentsSubject
-import java.lang.RuntimeException
 
 class DefaultServiceLocator(
     base: Context?,
