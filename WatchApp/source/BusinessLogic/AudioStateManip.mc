@@ -122,8 +122,8 @@ function setAudioStateVersion(version as Version) as Void {
 }
 
 (:inline, :background)
-function getAudioStateVersion() as Version {
-    var version = Storage.getValue("audioStateVersion.v1") as Version;
+function getAudioStateVersion() as Version | Null {
+    var version = Storage.getValue("audioStateVersion.v1") as Version | Null;
     return version;
 }
 
