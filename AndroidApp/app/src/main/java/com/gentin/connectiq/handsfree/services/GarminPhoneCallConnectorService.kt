@@ -38,6 +38,7 @@ import com.gentin.connectiq.handsfree.impl.PhoneState
 import com.gentin.connectiq.handsfree.impl.PhoneStateId
 import com.gentin.connectiq.handsfree.impl.everywhereExactly
 import com.gentin.connectiq.handsfree.impl.phoneState
+import com.gentin.connectiq.handsfree.impl.phoneStateId
 import java.util.Date
 
 
@@ -52,6 +53,9 @@ data class StartStats(
 )
 
 var startStats = StartStats()
+
+var lastTrackedPhoneStateId: PhoneStateId? = null
+    private set
 
 var lastTrackedPhoneState: PhoneState? = null
     private set
@@ -78,9 +82,8 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     private val callLogObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
         override fun onChange(selfChange: Boolean) {
             super.onChange(selfChange)
-            val stateId = lastTrackedPhoneState?.stateId
-            if (stateId != PhoneStateId.Idle) {
-                Log.d(TAG, "callLogDidChange.ignoredDuePhoneStateId: $stateId")
+            if (lastTrackedPhoneStateId != PhoneStateId.Idle) {
+                Log.d(TAG, "callLogDidChange.ignoredDuePhoneStateId: $lastTrackedPhoneStateId")
                 return
             }
             val recents = l.recents()
@@ -221,6 +224,8 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             Manifest.permission.READ_CALL_LOG
         ) == PackageManager.PERMISSION_GRANTED
         Log.d(TAG, "shouldHaveIncomingNumber: $shouldHaveIncomingNumber")
+
+        lastTrackedPhoneStateId = phoneStateId(stateExtra)
 
         @Suppress("DEPRECATION")
         if (shouldHaveIncomingNumber && !intent.hasExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)) {

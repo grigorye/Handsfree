@@ -22,6 +22,20 @@ enum class PhoneStateId {
     @SerialName("r") Ringing
 }
 
+fun phoneStateId(stateExtra: String): PhoneStateId {
+    return when (stateExtra) {
+        TelephonyManager.EXTRA_STATE_IDLE -> PhoneStateId.Idle
+        TelephonyManager.EXTRA_STATE_OFFHOOK -> PhoneStateId.OffHook
+        TelephonyManager.EXTRA_STATE_RINGING -> PhoneStateId.Ringing
+
+        else -> {
+            val tag = object {}.javaClass.enclosingMethod?.name
+            Log.e(tag, "unknownPhoneStateExtra: $stateExtra")
+            PhoneStateId.Unknown
+        }
+    }
+}
+
 fun phoneState(
     context: Context,
     stateExtra: String,
@@ -30,14 +44,15 @@ fun phoneState(
 ): PhoneState {
     val tag = object {}.javaClass.enclosingMethod?.name
 
+    val stateId = phoneStateId(stateExtra)
     return when (stateExtra) {
         TelephonyManager.EXTRA_STATE_IDLE -> {
-            PhoneState(PhoneStateId.Idle)
+            PhoneState(stateId)
         }
 
         TelephonyManager.EXTRA_STATE_OFFHOOK -> {
             PhoneState(
-                PhoneStateId.OffHook,
+                stateId,
                 dispatchedPhoneNumber(context, incomingNumber),
                 incomingDisplayNames.firstOrNull()
             )
@@ -45,7 +60,7 @@ fun phoneState(
 
         TelephonyManager.EXTRA_STATE_RINGING -> {
             PhoneState(
-                PhoneStateId.Ringing,
+                stateId,
                 dispatchedPhoneNumber(context, incomingNumber),
                 incomingDisplayNames.firstOrNull()
             )
@@ -54,7 +69,7 @@ fun phoneState(
         else -> {
             Log.e(tag, "unknownPhoneStateExtra: $stateExtra")
             PhoneState(
-                PhoneStateId.Unknown,
+                stateId,
                 dispatchedPhoneNumber(context, incomingNumber),
                 incomingDisplayNames.firstOrNull()
             )

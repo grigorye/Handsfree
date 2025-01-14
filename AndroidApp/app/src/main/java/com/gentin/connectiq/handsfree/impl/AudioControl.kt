@@ -8,7 +8,7 @@ import android.media.AudioManager
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.gentin.connectiq.handsfree.services.lastTrackedPhoneState
+import com.gentin.connectiq.handsfree.services.lastTrackedPhoneStateId
 
 interface AudioControl {
     fun toggleSpeaker(on: Boolean)
@@ -100,7 +100,7 @@ class AudioControlImp(base: Context?) : ContextWrapper(base), AudioControl {
 
     @Suppress("DEPRECATION")
     override fun activeAudioDevice(): AudioDevice? {
-        if (lastTrackedPhoneState?.stateId != PhoneStateId.OffHook) {
+        if (lastTrackedPhoneStateId != PhoneStateId.OffHook) {
             return null
         }
         val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
