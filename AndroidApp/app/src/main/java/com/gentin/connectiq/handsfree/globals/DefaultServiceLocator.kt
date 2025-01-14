@@ -339,6 +339,7 @@ class DefaultServiceLocator(
             val deviceInfo = "\"${device?.productName}\" (${device?.type})"
             if (lastTrackedPhoneState?.stateId == PhoneStateId.Idle) {
                 Log.d(TAG, "communicationDeviceChangedWhileIdle: $deviceInfo")
+                lastObservedAudioState = null
             } else {
                 Log.d(TAG, "communicationDeviceChangedInCall: $deviceInfo, $lastTrackedPhoneState")
                 val audioState = audioState()
