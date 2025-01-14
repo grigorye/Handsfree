@@ -336,12 +336,16 @@ class DefaultServiceLocator(
 
     val communicationDeviceChangedListener: AudioManager.OnCommunicationDeviceChangedListener by lazy {
         AudioManager.OnCommunicationDeviceChangedListener { device ->
+            val deviceInfo = "\"${device?.productName}\" (${device?.type})"
             if (lastTrackedPhoneState?.stateId == PhoneStateId.Idle) {
-                Log.d(TAG, "audioDeviceDidChangeWhileIdle: ${device?.type}")
+                Log.d(TAG, "communicationDeviceChangedWhileIdle: $deviceInfo")
             } else {
-                Log.d(TAG, "audioDeviceDidChangeInCall: ${device?.type}")
+                Log.d(TAG, "communicationDeviceChangedInCall: $deviceInfo, $lastTrackedPhoneState")
                 val audioState = audioState()
-                if (lastObservedAudioState != audioState) {
+                if (lastObservedAudioState == audioState) {
+                    Log.d(TAG, "audioStateDidNotChange: $audioState")
+                } else {
+                    Log.d(TAG, "audioStateChanged: $audioState")
                     outgoingMessageDispatcher.sendAudioState(audioState)
                     lastObservedAudioState = audioState
                 }
