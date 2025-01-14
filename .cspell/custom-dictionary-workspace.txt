@@ -1,0 +1,6 @@
+bmptopnm
+magick
+pamcomp
+pngtopnm
+pnmpad
+pnmtopng
