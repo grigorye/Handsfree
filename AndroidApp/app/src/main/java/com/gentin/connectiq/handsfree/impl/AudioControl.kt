@@ -80,7 +80,8 @@ class AudioControlImp(base: Context?) : ContextWrapper(base), AudioControl {
         val maxVolume = audioManager.getStreamMaxVolume(stream)
         val minVolume = 1 // audioManager.getStreamMinVolume(stream)
         Log.d(TAG, "volumeRange: $minVolume...$maxVolume")
-        val volume = minVolume + ((relVolume.index.toFloat() / relVolume.max) * (maxVolume - minVolume)).toInt()
+        val volume =
+            minVolume + ((relVolume.index.toFloat() / relVolume.max) * (maxVolume - minVolume)).toInt()
         Log.d(TAG, "volume: $volume")
         audioManager.setStreamVolume(stream, volume, AudioManager.FLAG_SHOW_UI)
     }
