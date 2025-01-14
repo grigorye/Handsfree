@@ -37,6 +37,7 @@ function resetAudioState() as Void {
     var newAudioState = defaultAudioState();
     newAudioState[isHeadsetConnectedK] = oldAudioState[isHeadsetConnectedK];
     AudioStateManip.setAudioState(newAudioState);
+    AudioStateManip.setAudioStateVersion(0);
 }
 
 (:background, :glance)
