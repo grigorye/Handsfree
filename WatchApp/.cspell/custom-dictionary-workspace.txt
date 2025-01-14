@@ -1,0 +1,16 @@
+--dirsfirst
+--houtro
+--noreport
+-Dfile
+Handsfree
+HSET
+jar
+Manip
+monkeybrains
+monkeyc
+PHNE
+recents
+Recents
+Roboto
+SPKR
+WHST
