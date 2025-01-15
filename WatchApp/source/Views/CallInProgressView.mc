@@ -9,7 +9,7 @@ class CallInProgressView extends WatchUi.Menu2 {
         var texts = textsForCallInProgress(phone);
         var title = texts[:title] as Lang.String;
         if (optimistic) {
-            title = "|" + title + "|";
+            title = pendingText(title);
         }
         Menu2.initialize({
             :title => embeddingHeadsetStatusRep(title)
@@ -63,7 +63,7 @@ class CallInProgressView extends WatchUi.Menu2 {
         var texts = textsForCallInProgress(phone);
         var title = texts[:title] as Lang.String;
         if (optimistic) {
-            title = "|" + title + "|";
+            title = pendingText(title);
         }
         setTitle(embeddingHeadsetStatusRep(title));
 

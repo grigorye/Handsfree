@@ -42,6 +42,8 @@ module AppSettings {
 
     const isFlushIncomingMessagesOnLaunchEnabled as Lang.Boolean = Properties.getValue("flushIncomingMessagesOnLaunch") as Lang.Boolean;
 
+    const pendingValueFormat as Lang.String = Properties.getValue("pendingValueFormat") as Lang.String;
+
     (:noLowMemory)
     const isEraseAppDataOnNextLaunchEnabled as Lang.Boolean = Properties.getValue("eraseAppDataOnNextLaunch") as Lang.Boolean;
     (:noLowMemory)

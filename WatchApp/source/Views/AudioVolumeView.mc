@@ -26,7 +26,7 @@ class AudioVolumeView extends WatchUi.View {
         var lastKnownAudioVolume = AudioStateManip.getAudioVolume(AudioStateImp.getAudioState());
         var isUpToDate = objectsEqual(lastKnownAudioVolume, audioVolume);
         if (!isUpToDate) {
-            line2 = "|" + line2 + "|";
+            line2 = pendingText(line2);
         }
         var text = joinComponents([line1, line2], "\n");
 

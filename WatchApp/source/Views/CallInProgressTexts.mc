@@ -48,7 +48,7 @@ function addAudioActions(actions as CallInProgressActions) as Void {
     var audioVolumeIsUpToDate = percents == toPercents(lastKnownAudioVolume);
     var volumeSuffix = percents + "%";
     if (!audioVolumeIsUpToDate) {
-        volumeSuffix = "|" + volumeSuffix + "|";
+        volumeSuffix = pendingText(volumeSuffix);
     }
     var activeAudioDevice = AudioStateManip.getActiveAudioDeviceName(AudioStateImp.getAudioState());
     var volumePrompt = (activeAudioDevice != null) ? "Volume: " + volumeSuffix : "Volume";
@@ -62,7 +62,7 @@ function addAudioActions(actions as CallInProgressActions) as Void {
     var muteLabel = isMuted ? "Unmute" : "Mute";
     var isMutedIsUpToDate = isMuted != AudioStateImp.getIsMuted(lastKnownAudioState);
     if (isMutedIsUpToDate) {
-        muteLabel = "|" + muteLabel + "|";
+        muteLabel = pendingText(muteLabel);
     }
     actions.add({
         :prompt => muteLabel,

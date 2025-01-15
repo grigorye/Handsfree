@@ -9,6 +9,7 @@
         <property id="flushIncomingMessagesOnLaunch" type="boolean">false</property>
         <property id="customGlanceTitle" type="string"></property>
         <property id="incomingCallMessageFormat" type="string">&lt;$1$</property>
+        <property id="pendingValueFormat" type="string">|$1$|</property>
         <property id="forceLargeFonts" type="boolean">false</property>
         <property id="eraseAppDataOnNextLaunch" type="boolean">false</property>
         <property id="incomingOpenAppViaCompanion" type="boolean">false</property>
@@ -37,6 +38,7 @@
         <string id="customGlanceTitle">Custom title for glance</string>
         <string id="incomingCallMessageFormat">Incoming call message format (use $1$ as the contact
             name/phone number placeholder)</string>
+        <string id="pendingValueFormat">Pending value format (keep $1$ as the placeholder)</string>
         <string id="forceLargeFonts">Force large fonts</string>
         <string id="eraseAppDataOnNextLaunch">Erase data on next launch</string>
         <string id="incomingOpenAppViaCompanion">Use companion for opening app on incoming call</string>
@@ -74,6 +76,9 @@
         </setting>
         <setting propertyKey="@Properties.incomingCallMessageFormat"
             title="@Strings.incomingCallMessageFormat">
+            <settingConfig type="alphaNumeric" />
+        </setting>
+        <setting propertyKey="@Properties.pendingValueFormat" title="@Strings.pendingValueFormat">
             <settingConfig type="alphaNumeric" />
         </setting>
         <setting propertyKey="@Properties.optimisticCallHandling"
