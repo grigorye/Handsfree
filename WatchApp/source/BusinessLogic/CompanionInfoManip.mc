@@ -7,9 +7,12 @@ module CompanionInfoManip {
 (:background)
 const L_STORAGE as LogComponent = "companionInfo";
 
-(:inline, :background)
+(:inline, :background, :typecheck(disableBackgroundCheck))
 function setCompanionInfo(companionInfo as CompanionInfo) as Void {
     CompanionInfoImp.setCompanionInfoImp(companionInfo);
+    if (isActiveUiKindApp) {
+        Routing.companionInfoDidChange();
+    }
 }
 
 (:inline, :background)
