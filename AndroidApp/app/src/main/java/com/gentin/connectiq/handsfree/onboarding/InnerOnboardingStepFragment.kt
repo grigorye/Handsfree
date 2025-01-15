@@ -6,6 +6,7 @@ import android.view.View
 import androidx.navigation.fragment.navArgs
 import androidx.preference.SwitchPreferenceCompat
 import com.gentin.connectiq.handsfree.R
+import com.gentin.connectiq.handsfree.activities.invalidateSubjects
 import com.gentin.connectiq.handsfree.fragments.DynamicSettingsFragment
 
 class InnerOnboardingStepFragment : OnboardingStepFragment() {
@@ -44,6 +45,7 @@ class InnerOnboardingStepFragment : OnboardingStepFragment() {
                                 ).permissionHandlers
                             requestPermissionsWithRationale(permissionHandlers, activity, null)
                         }
+                        invalidateSubjects(context)
                         true
                     }
                 }
