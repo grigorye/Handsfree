@@ -7,7 +7,7 @@ module CompanionInfoManip {
 (:background)
 const L_STORAGE as LogComponent = "companionInfo";
 
-(:background, :typecheck(disableBackgroundCheck))
+(:inline, :background)
 function setCompanionInfo(companionInfo as CompanionInfo) as Void {
     CompanionInfoImp.setCompanionInfoImp(companionInfo);
 }
