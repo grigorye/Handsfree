@@ -21,9 +21,9 @@ function setCompanionInfoVersion(version as Version) as Void {
     Storage.setValue("companionInfoVersion.v1", version);
 }
 
-(:inline, :background)
-function getCompanionInfoVersion() as Version {
-    var version = Storage.getValue("companionInfoVersion.v1") as Version;
+(:inline, :glance, :background)
+function getCompanionInfoVersion() as Version | Null {
+    var version = Storage.getValue("companionInfoVersion.v1") as Version | Null;
     return version;
 }
 

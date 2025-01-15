@@ -22,7 +22,10 @@ class GlanceView extends WatchUi.GlanceView {
 
         var title;
         var subtitle = null;
-        if (!GlanceLikeSettings.isShowingCallStateOnGlanceEnabled || !Styles.glance_live_update.enabled) {
+        if (CompanionInfoManip.getCompanionInfoVersion() == null) {
+            title = defaultTitle;
+            subtitle = "No companion";
+        } else if (!GlanceLikeSettings.isShowingCallStateOnGlanceEnabled || !Styles.glance_live_update.enabled) {
             title = defaultTitle;
             if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
                 subtitle = sourceVersion;
@@ -101,8 +104,10 @@ function defaultTitle() as Lang.String {
         if (statsRep != null) {
             defaultTitle = embeddingHeadsetStatusRep(statsRep);
         } else {
-            var headsetStatus = headsetStatusHumanReadable();
-            defaultTitle = headsetStatus != null ? headsetStatus : defaultTitle;
+            if (CompanionInfoManip.getCompanionInfoVersion() != null) {
+                var headsetStatus = headsetStatusHumanReadable();
+                defaultTitle = headsetStatus != null ? headsetStatus : defaultTitle;
+            }
         }
     }
     return defaultTitle;
