@@ -27,6 +27,7 @@ import com.gentin.connectiq.handsfree.contacts.ContactData
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
 import com.gentin.connectiq.handsfree.globals.callInfoShouldBeEnabled
 import com.gentin.connectiq.handsfree.globals.watchApps
+import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_ON_DEVICE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_PING
@@ -311,6 +312,10 @@ class GarminPhoneCallConnectorService : LifecycleService() {
                 handler.postDelayed({
                     l.accountAudioState()
                 }, 1000)
+            }
+        } else {
+            if (isRunningInEmulator()) {
+                l.accountAudioState()
             }
         }
 
