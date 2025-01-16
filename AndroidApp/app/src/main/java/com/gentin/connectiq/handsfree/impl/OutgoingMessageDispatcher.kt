@@ -16,6 +16,7 @@ import com.gentin.connectiq.handsfree.terms.companionInfoSubject
 import com.gentin.connectiq.handsfree.terms.messageForWakingUpArg
 import com.gentin.connectiq.handsfree.terms.openAppFailedCmd
 import com.gentin.connectiq.handsfree.terms.openMeCompletedCmd
+import com.gentin.connectiq.handsfree.terms.permissionInfoSubject
 import com.gentin.connectiq.handsfree.terms.phoneStateChangedCmd
 import com.gentin.connectiq.handsfree.terms.phoneStateChangedV1Cmd
 import com.gentin.connectiq.handsfree.terms.phonesSubject
@@ -38,6 +39,7 @@ data class QueryResult(
     var phones: VersionedPojo? = null,
     var recents: VersionedPojo? = null,
     var companionInfo: VersionedPojo? = null,
+    var permissionInfo: VersionedPojo? = null,
 )
 
 data class VersionedPojo(
@@ -131,6 +133,12 @@ class DefaultOutgoingMessageDispatcher(
         }
         queryResult.companionInfo?.apply {
             subjects[companionInfoSubject] = mapOf(
+                subjectVersion to version,
+                subjectValue to pojo
+            )
+        }
+        queryResult.permissionInfo?.apply {
+            subjects[permissionInfoSubject] = mapOf(
                 subjectVersion to version,
                 subjectValue to pojo
             )
@@ -324,5 +332,9 @@ fun recentsPojo(recents: List<CallLogEntry>): Any {
 }
 
 fun companionInfoPojo(info: CompanionInfo): Any {
+    return pojoMap(info)
+}
+
+fun permissionInfoPojo(info: PermissionInfo): Any {
     return pojoMap(info)
 }
