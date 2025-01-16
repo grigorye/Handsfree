@@ -69,7 +69,11 @@ class PhonesView extends WatchUi.Menu2 {
                 addItem(item);
             }
         } else {
-            addItem(new WatchUi.MenuItem("No contacts selected", "", noPhonesMenuItemId, {}));
+            if (PermissionInfoManip.hasStarredContactsPermission()) {
+                addItem(new WatchUi.MenuItem("Not selected", "", noPhonesMenuItemId, {}));
+            } else {
+                addItem(new WatchUi.MenuItem("Grant Access:", "Contacts", noPhonesMenuItemId, {}));
+            }
         }
 
         for (var i = 0; i < predefinedItemsCount; i++) {

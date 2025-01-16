@@ -50,7 +50,11 @@ class RecentsView extends WatchUi.Menu2 {
         if (debug) { _2(L_RECENTS_VIEW, "addMenuItemsFromRecents"); }
         var recentsCount = recents.size();
         if (recentsCount == 0) {
-            addItem(new WatchUi.MenuItem("No recents", "", noRecentsMenuItemId, {}));
+            if (PermissionInfoManip.hasRecentsPermission()) {
+                addItem(new WatchUi.MenuItem("No recents", "", noRecentsMenuItemId, {}));
+            } else {
+                addItem(new WatchUi.MenuItem("Grant Access:", "Recents", noRecentsMenuItemId, {}));
+            }
         } else {
             for (var i = 0; i < recentsCount; i++) {
                 var recent = recents[i];
