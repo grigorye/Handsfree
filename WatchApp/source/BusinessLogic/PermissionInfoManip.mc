@@ -14,6 +14,7 @@ function setPermissionInfo(permissionInfo as PermissionInfo) as Void {
         Routing.permissionInfoDidChange();
     }
 }
+
 (:inline)
 function hasStarredContactsPermission() as Lang.Boolean {
     var permissionInfo = PermissionInfoImp.getPermissionInfo();
@@ -28,6 +29,15 @@ function hasRecentsPermission() as Lang.Boolean {
     var permissionInfo = PermissionInfoImp.getPermissionInfo();
     if (permissionInfo != null) {
         return permissionInfo[PermissionInfoImp.permissionRecentsK] as Lang.Boolean == true;
+    } else {
+        return false;
+    }
+}
+
+function hasOutgoingCallsPermission() as Lang.Boolean {
+    var permissionInfo = PermissionInfoImp.getPermissionInfo();
+    if (permissionInfo != null) {
+        return permissionInfo[PermissionInfoImp.permissionOutgoingCallsK] as Lang.Boolean == true;
     } else {
         return false;
     }

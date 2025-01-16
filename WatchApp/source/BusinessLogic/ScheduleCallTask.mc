@@ -13,6 +13,12 @@ class ScheduleCallTask extends Communications.ConnectionListener {
     }
 
     function launch() as Void {
+        if (!PermissionInfoManip.hasOutgoingCallsPermission()) {
+            if (debug) { _2(L_SCHEDULE_CALL, "noOutgoingCallsPermission"); }
+            showFeedback("Grant access to\nOutgoing calls");
+            return;
+        }
+
         var msg = {
             cmdK => Cmd.call,
             argsK => {
