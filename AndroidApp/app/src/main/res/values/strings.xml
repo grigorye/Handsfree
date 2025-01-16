@@ -165,16 +165,6 @@ To actually **get alerted** (or not) about an incoming call *when the watch app 
     <string name="navigation_onboarding">"Configuration"</string>
     <string name="onboarding_intro">"Version {{version_info}}
 
-Handsfree lets you keep your phone in your pocket while you make calls, allowing you to use Garmin watch (or cycling computer) almost as a full-featured phone, except for the need for headset.
-
-Currently supported:
-
--   Outgoing calls to Favorites
--   Incoming calls
--   Recent calls (5)
--   In-call audio volume control
--   Automatically enabling phone speaker on outgoing calls without headset
-
 ### [Troubleshooting](link://onboarding_troubleshooting)
 
 ### [Project home](https://github.com/grigorye/Handsfree)
