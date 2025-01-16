@@ -58,7 +58,7 @@ private fun requiredPermissionsGranted(context: Context, resourceId: Int): Boole
         context, markdown
     ).permissionHandlers
 
-    val hasAllPermissions =
-        permissionHandlers.all { permissionHandler -> permissionHandler.hasPermission(context) }
-    return hasAllPermissions
+    val hasAllRequiredPermissions =
+        permissionHandlers.all { permissionHandler -> permissionHandler.hasRequiredPermission(context) }
+    return hasAllRequiredPermissions
 }

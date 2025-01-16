@@ -266,7 +266,7 @@ data class PreprocessedMarkdownWithPermissions(
 )
 
 fun preprocessPermissionsInMarkdown(
-    context: Activity,
+    context: Context,
     markdown: String
 ): PreprocessedMarkdownWithPermissions {
     val tag = object {}.javaClass.enclosingMethod?.name
@@ -323,12 +323,18 @@ private fun permissionHandlersForLink(uri: Uri): List<PermissionHandler> {
 
 private fun permissionHandlersForLinks(uris: List<Uri>): List<PermissionHandler> {
     val handlers = ArrayList<PermissionHandler>()
-    val accumulatedManifestPermissions = ArrayList<String>()
+    val accumulatedRequiredManifestPermissions = ArrayList<String>()
+    val accumulatedOptionalManifestPermissions = ArrayList<String>()
     for (uri in uris) {
         val manifestPermissionsArg = uri.getQueryParameter("manifest")
         if (manifestPermissionsArg != null) {
             val manifestPermissions = manifestPermissionsArg.split(",")
-            accumulatedManifestPermissions += manifestPermissions
+            accumulatedRequiredManifestPermissions += manifestPermissions
+        }
+        val manifestOptionalPermissionsArg = uri.getQueryParameter("manifest_optional")
+        if (manifestOptionalPermissionsArg != null) {
+            val manifestPermissions = manifestOptionalPermissionsArg.split(",")
+            accumulatedOptionalManifestPermissions += manifestPermissions
         }
         val batteryPermissionArg = uri.getQueryParameterNames().contains("battery_optimization")
         if (batteryPermissionArg) {
@@ -339,8 +345,8 @@ private fun permissionHandlersForLinks(uris: List<Uri>): List<PermissionHandler>
             handlers.add(overlayPermissionHandler)
         }
     }
-    if (accumulatedManifestPermissions.isNotEmpty()) {
-        handlers.add(newManifestPermissionHandler(accumulatedManifestPermissions))
+    if (accumulatedRequiredManifestPermissions.isNotEmpty() || accumulatedOptionalManifestPermissions.isNotEmpty()) {
+        handlers.add(newManifestPermissionHandler(accumulatedRequiredManifestPermissions, accumulatedOptionalManifestPermissions))
     }
     return handlers
 }

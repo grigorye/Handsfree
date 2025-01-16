@@ -1,6 +1,7 @@
 package com.gentin.connectiq.handsfree.permissions
 
 import android.app.Activity
+import android.content.Context
 
 enum class PermissionStatus {
     Granted,
@@ -9,10 +10,33 @@ enum class PermissionStatus {
 }
 
 data class PermissionHandler(
+    val hasPermission: (context: Context) -> Boolean,
+    val hasRequiredPermission: (context: Context) -> Boolean,
     val permissionStatus: (context: Activity) -> PermissionStatus,
-    val requestPermission: (context: Activity) -> Unit
-) {
-    fun hasPermission(context: Activity): Boolean {
-        return permissionStatus(context) == PermissionStatus.Granted
-    }
+    val requestPermission: (activity: Activity) -> Unit
+)
+
+fun newAllRequiredPermissionHandler(
+    hasPermission: (context: Context) -> Boolean,
+    requestPermission: (activity: Activity) -> Unit
+): PermissionHandler {
+    return PermissionHandler(
+        hasPermission = { context ->
+            hasPermission(context)
+        },
+        hasRequiredPermission = { context ->
+            hasPermission(context)
+        },
+        permissionStatus = { context ->
+            if (hasPermission(context)) {
+                PermissionStatus.Granted
+            } else {
+                PermissionStatus.NotGranted
+            }
+        },
+        requestPermission = { activity ->
+            requestPermission(activity)
+        }
+    )
 }
+

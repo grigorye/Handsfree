@@ -60,15 +60,38 @@ fun manifestPermissionsExtrasTiramisu(): List<String> {
 }
 
 fun newManifestPermissionHandler(context: Context): PermissionHandler {
-    return newManifestPermissionHandler(manifestPermissions(context))
+    return newManifestPermissionHandler(
+        requiredPermissions = manifestPermissions(context),
+        optionalPermissions = listOf()
+    )
 }
 
-fun newManifestPermissionHandler(manifestPermissions: List<String>): PermissionHandler {
+fun hasPermissions(context: Context, permissions: List<String>): Boolean {
+    val allGranted = permissions.all { permission ->
+        val tag = object {}.javaClass.enclosingMethod?.name
+        val hasPermission = ContextCompat.checkSelfPermission(
+            context,
+            permission
+        ) == PackageManager.PERMISSION_GRANTED
+        Log.d(tag, "$permission: $hasPermission")
+        hasPermission
+    }
+    return allGranted
+}
+
+fun newManifestPermissionHandler(requiredPermissions: List<String>, optionalPermissions: List<String>): PermissionHandler {
     return PermissionHandler(
+        hasPermission = { context ->
+            hasPermissions(context, requiredPermissions + optionalPermissions)
+        },
+        hasRequiredPermission = { context ->
+            hasPermissions(context, requiredPermissions)
+        },
         permissionStatus = { context ->
             var allPermissionsGranted = true
             var anyPermissionNeedsRationale = false
-            for (permission in manifestPermissions) {
+            val allPermissions = requiredPermissions + optionalPermissions
+            for (permission in allPermissions) {
                 val tag = object {}.javaClass.enclosingMethod?.name
                 val hasPermission = ContextCompat.checkSelfPermission(
                     context,
@@ -98,7 +121,8 @@ fun newManifestPermissionHandler(manifestPermissions: List<String>): PermissionH
             }
         },
         requestPermission = { context ->
-            ActivityCompat.requestPermissions(context, manifestPermissions.toTypedArray(), 0)
+            val allPermissions = requiredPermissions + optionalPermissions
+            ActivityCompat.requestPermissions(context, allPermissions.toTypedArray(), 0)
         }
     )
 }
