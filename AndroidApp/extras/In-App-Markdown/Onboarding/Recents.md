@@ -12,7 +12,7 @@ Without the permission, recent calls won't be shown.
 
 With the permission, Handsfree will be able to show you the number (and probably the contact name, see below) and call back your recent/missed calls, from the watch.
 
-### [Access your contacts](permissions://?manifest=android.permission.READ_CONTACTS)
+### [Access your contacts](permissions://?manifest_optional=android.permission.READ_CONTACTS)
 
 To be able to match the phone number of a call with a contact name and show it on the watch, Handsfree needs access to your contacts, so that when notices a recent call, it can send the matching contact name to show it to you on the watch.
 

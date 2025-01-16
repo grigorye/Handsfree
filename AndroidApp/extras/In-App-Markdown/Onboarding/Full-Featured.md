@@ -1,6 +1,6 @@
 # Allow incoming calls
 
-Handsfree lets you accept the incoming calls on the watch. To allow that, give the app a couple more permissions, in addition to the [essential ones](link://onboarding_essentials).
+Handsfree lets you show and accept the incoming calls on the watch. To allow that, give the app a couple more permissions, in addition to the [essential ones](link://onboarding_essentials).
 
 ### [Access your phone call logs](permissions://?manifest=android.permission.READ_CALL_LOG)
 
@@ -10,7 +10,7 @@ Without the permission, for an incoming call, Handsfree will show just "Call in 
 
 With the permission, Handsfree will be able to show you the number (and probably the contact name, see below) on the watch.
 
-### [Access your contacts](permissions://?manifest=android.permission.READ_CONTACTS)
+### [Access your contacts](permissions://?manifest_optional=android.permission.READ_CONTACTS)
 
 To be able to match the phone number of a call with a contact name and show it on the watch, Handsfree needs access to your contacts, so that when it observes the call, it can send the matching contact name to show it to you on the watch.
 
