@@ -12,4 +12,8 @@ function companionInfoDidChange() as Void {
     }
 }
 
+function permissionInfoDidChange() as Void {
+    if (debug) { _3(L_APP, "permissionInfoDidChange", PermissionInfoImp.getPermissionInfo()); }
+}
+
 }

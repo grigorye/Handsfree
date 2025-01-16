@@ -183,6 +183,21 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
                 }
                 break;
             }
+            case permissionInfoSubject: {
+                if (!version.equals(PermissionInfoManip.getPermissionInfoVersion())) {
+                    var permissionInfo = subject[valueK] as PermissionInfo or Null;
+                    if (permissionInfo == null) {
+                        subjectsInvalidated.add(name);
+                    } else {
+                        PermissionInfoManip.setPermissionInfo(permissionInfo);
+                        PermissionInfoManip.setPermissionInfoVersion(version);
+                    }
+                    isHit = false;
+                } else {
+                    if (debug) { _3(LX_REMOTE_MSG, "permissionInfoHit", version); }
+                }
+                break;
+            }
             default: {
                 if (debug) { _3(LX_REMOTE_MSG, "unknownSubject", name); }
                 break;
