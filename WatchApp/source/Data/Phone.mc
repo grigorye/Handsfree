@@ -3,6 +3,8 @@ import Toybox.Lang;
 typedef Phone as Lang.Dictionary<Lang.String, Lang.String or Lang.Number or Lang.Boolean or Null>;
 typedef Phones as Lang.Array<Phone>;
 
+const noPhones as Phones = [] as Phones;
+
 (:inline, :background)
 function setPhoneName(phone as Phone, name as Lang.String) as Void {
     phone[PhoneField.name] = name;

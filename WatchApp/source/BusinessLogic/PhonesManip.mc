@@ -32,7 +32,7 @@ function getPhones() as Phones {
     if (phones != null) {
         return phones;
     } else {
-        return [] as Phones;
+        return noPhones;
     }
 }
 

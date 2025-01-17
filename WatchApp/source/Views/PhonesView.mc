@@ -19,7 +19,7 @@ class PhonesView extends WatchUi.Menu2 {
         setFromPhones(phones);
     }
 
-    private var oldPhones as Phones = [] as Phones;
+    private var oldPhones as Phones = noPhones;
 
     function updateFromPhones(phones as Phones) as Void {
         if (debug) { _3(L_PHONES_VIEW, "updatingFromPhones", phones); }
