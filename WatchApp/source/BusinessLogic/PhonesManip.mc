@@ -56,7 +56,7 @@ function updateUIForPhonesIfInApp(phones as Phones) as Void {
 }
 
 function updateUIForPhones(phones as Phones) as Void {
-    var phonesView = VT.viewWithTag(V.phones) as PhonesView or Null;
+    var phonesView = VT.viewWithTag(V.phones) as PhonesScreen.View or Null;
     if (phonesView != null) {
         phonesView.updateFromPhones(phones);
     }

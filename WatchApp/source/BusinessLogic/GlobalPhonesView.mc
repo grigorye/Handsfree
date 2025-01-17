@@ -1,5 +1,5 @@
 import Toybox.System;
 
-function newPhonesView() as PhonesView {
-    return new PhonesView(PhonesManip.getPhones());
+function newPhonesView() as PhonesScreen.View {
+    return new PhonesScreen.View(PhonesManip.getPhones());
 }

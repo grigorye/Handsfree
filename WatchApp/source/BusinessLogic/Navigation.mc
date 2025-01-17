@@ -2,7 +2,7 @@ import Toybox.WatchUi;
 
 (:inline)
 function openFavoritesView() as Void {
-    VT.pushView(V.phones, newPhonesView(), new PhonesViewDelegate(), WatchUi.SLIDE_LEFT);
+    VT.pushView(V.phones, newPhonesView(), new PhonesScreen.ViewDelegate(), WatchUi.SLIDE_LEFT);
 }
 
 (:inline)

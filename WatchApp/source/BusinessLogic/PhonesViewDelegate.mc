@@ -1,7 +1,9 @@
 import Toybox.WatchUi;
 import Toybox.Lang;
 
-class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
+module PhonesScreen {
+
+class ViewDelegate extends WatchUi.Menu2InputDelegate {
     function initialize() {
         Menu2InputDelegate.initialize();
     }
@@ -36,4 +38,6 @@ class PhonesViewDelegate extends WatchUi.Menu2InputDelegate {
             exitToSystemFromCommView();
         }
     }
+}
+
 }

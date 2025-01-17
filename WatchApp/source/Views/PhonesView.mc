@@ -2,9 +2,11 @@ import Toybox.WatchUi;
 import Toybox.Lang;
 import Toybox.System;
 
+module PhonesScreen {
+
 const L_PHONES_VIEW as LogComponent = "phonesView";
 
-class PhonesView extends WatchUi.Menu2 {
+class View extends WatchUi.Menu2 {
 
     const predefinedItems as Lang.Array<WatchUi.MenuItem> = [
         newRecentsMenuItem(),
@@ -120,4 +122,6 @@ function specialItemForPhone(phone as Phone) as WatchUi.MenuItem | Null {
         );
     }
     return null;
+}
+
 }
