@@ -2,33 +2,47 @@ package com.gentin.connectiq.handsfree.impl
 
 import android.content.Context
 import com.gentin.connectiq.handsfree.R
-import com.gentin.connectiq.handsfree.globals.outgoingCallsShouldBeEnabled
+import com.gentin.connectiq.handsfree.globals.Readiness
+import com.gentin.connectiq.handsfree.globals.callInfoShouldBeEnabled
+import com.gentin.connectiq.handsfree.globals.essentialsAreOn
+import com.gentin.connectiq.handsfree.globals.outgoingCallsAreOn
+import com.gentin.connectiq.handsfree.globals.readiness
+import com.gentin.connectiq.handsfree.globals.recentsAreOn
 import com.gentin.connectiq.handsfree.onboarding.preprocessPermissionsInMarkdown
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PermissionInfo(
-    @SerialName("e") val essentials: Boolean,
-    @SerialName("o") val outgoingCalls: Boolean,
-    @SerialName("s") val starredContacts: Boolean,
-    @SerialName("r") val recents: Boolean,
-    @SerialName("i") val incomingCalls: Boolean
+data class ReadinessInfo(
+    @SerialName("e") val essentials: Readiness,
+    @SerialName("o") val outgoingCalls: Readiness,
+    @SerialName("s") val starredContacts: Readiness,
+    @SerialName("r") val recents: Readiness,
+    @SerialName("i") val incomingCalls: Readiness
 )
 
-fun permissionInfo(context: Context): PermissionInfo {
-    return PermissionInfo(
-        essentials = hasRequiredPermissionsForEssentials(context),
-        outgoingCalls = arrayOf(
+fun readinessInfo(context: Context): ReadinessInfo {
+    return ReadinessInfo(
+        essentials = readiness(
+            essentialsAreOn(context),
             hasRequiredPermissionsForEssentials(context),
+        ),
+        outgoingCalls = readiness(
+            outgoingCallsAreOn(context),
             hasRequiredPermissionsForOutgoingCalls(context)
-        ).all { it },
-        incomingCalls = arrayOf(
-            hasRequiredPermissionsForEssentials(context),
+        ),
+        incomingCalls = readiness(
+            callInfoShouldBeEnabled(context),
             hasRequiredPermissionsForIncomingCalls(context)
-        ).all { it },
-        recents = hasRequiredPermissionsForRecents(context),
-        starredContacts = hasRequiredPermissionsForStarredContacts(context)
+        ),
+        recents = readiness(
+            recentsAreOn(context),
+            hasRequiredPermissionsForRecents(context)
+        ),
+        starredContacts = readiness(
+            true,
+            hasRequiredPermissionsForStarredContacts(context)
+        )
     )
 }
 

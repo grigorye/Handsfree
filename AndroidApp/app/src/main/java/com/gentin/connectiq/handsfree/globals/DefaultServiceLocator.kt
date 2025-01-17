@@ -43,8 +43,8 @@ import com.gentin.connectiq.handsfree.impl.SubjectQuery
 import com.gentin.connectiq.handsfree.impl.audioStatePojo
 import com.gentin.connectiq.handsfree.impl.companionInfo
 import com.gentin.connectiq.handsfree.impl.companionInfoPojo
-import com.gentin.connectiq.handsfree.impl.permissionInfo
-import com.gentin.connectiq.handsfree.impl.permissionInfoPojo
+import com.gentin.connectiq.handsfree.impl.readinessInfo
+import com.gentin.connectiq.handsfree.impl.readinessInfoPojo
 import com.gentin.connectiq.handsfree.impl.phonesPojo
 import com.gentin.connectiq.handsfree.impl.recentsPojo
 import com.gentin.connectiq.handsfree.impl.strippedVersionedPojo
@@ -56,7 +56,7 @@ import com.gentin.connectiq.handsfree.terms.allSubjectNames
 import com.gentin.connectiq.handsfree.terms.audioStateSubject
 import com.gentin.connectiq.handsfree.terms.broadcastSubject
 import com.gentin.connectiq.handsfree.terms.companionInfoSubject
-import com.gentin.connectiq.handsfree.terms.permissionInfoSubject
+import com.gentin.connectiq.handsfree.terms.readinessInfoSubject
 import com.gentin.connectiq.handsfree.terms.phonesSubject
 import com.gentin.connectiq.handsfree.terms.recentsSubject
 
@@ -230,11 +230,11 @@ class DefaultServiceLocator(
                         )
                 }
 
-                permissionInfoSubject -> {
-                    queryResult.permissionInfo =
+                readinessInfoSubject -> {
+                    queryResult.readinessInfo =
                         strippedVersionedPojo(
                             subject.version,
-                            permissionInfoPojo(permissionInfo(context = this)),
+                            readinessInfoPojo(readinessInfo(context = this)),
                             metadataOnly
                         )
                 }

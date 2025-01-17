@@ -5,7 +5,7 @@ const val audioStateSubject = "a"
 const val phonesSubject = "p"
 const val recentsSubject = "r"
 const val companionInfoSubject = "i"
-const val permissionInfoSubject = "n"
+const val readinessInfoSubject = "n"
 
 val allSubjectNames = listOf(
     broadcastSubject,
@@ -13,5 +13,5 @@ val allSubjectNames = listOf(
     recentsSubject,
     audioStateSubject,
     companionInfoSubject,
-    permissionInfoSubject
+    readinessInfoSubject
 )

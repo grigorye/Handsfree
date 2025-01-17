@@ -9,16 +9,22 @@ fun essentialsAreOn(context: Context): Boolean {
 }
 
 fun outgoingCallsShouldBeEnabled(context: Context): Boolean {
+    return essentialsAreOn(context) && outgoingCallsAreOn(context)
+}
+
+fun outgoingCallsAreOn(context: Context): Boolean {
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-    return sharedPreferences.getBoolean(
-        "essentials",
-        false
-    ) && sharedPreferences.getBoolean("outgoing_calls", false)
+    return sharedPreferences.getBoolean("outgoing_calls", false)
 }
 
 fun callInfoShouldBeEnabled(context: Context): Boolean {
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     return sharedPreferences.getBoolean("full_featured", false)
+}
+
+fun recentsAreOn(context: Context): Boolean {
+    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    return sharedPreferences.getBoolean("recents", false)
 }
 
 fun isInDebugMode(context: Context): Boolean {
