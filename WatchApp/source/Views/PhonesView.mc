@@ -56,18 +56,9 @@ class PhonesView extends WatchUi.Menu2 {
     }
 
     private function setFromPhones(phones as Phones) as Void {
-        var accessIssue = phones[PhonesField.accessIssue] as AccessIssue;
+        var accessIssue = phones[PhonesField.accessIssue] as AccessIssue | Null;
         if (accessIssue != null) {
-            switch (accessIssue) {
-                case AccessIssues.NoPermission:
-                    addItem(new WatchUi.MenuItem("Grant Access:", "Contacts", noPhonesMenuItemId, {}));
-                    break;
-                case AccessIssues.ReadFailed:
-                    addItem(new WatchUi.MenuItem("Read Failed:", "Contacts", noPhonesMenuItemId, {}));
-                    break;
-                default:
-                    System.error("Unknown access issue: " + accessIssue);
-            }
+            addItem(new WatchUi.MenuItem(accessIssuePrompt(accessIssue), "Contacts", noPhonesMenuItemId, {}));
         } else {
             var phoneList = phones[PhonesField.phoneList] as PhoneList;
             setFromPhoneList(phoneList);
