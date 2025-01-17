@@ -9,15 +9,18 @@ const L_PHONES_UI as LogComponent = "phonesUI";
 
 module PhonesManip {
 
+(:background)
+const phonesVersionStorageK as Lang.String = "phonesVersion.v1";
+
 (:inline, :background)
 function setPhonesVersion(version as Version) as Void {
     if (debug) { _3(L_PHONES_STORAGE, "savePhonesVersion", version); }
-    Storage.setValue("phonesVersion.v1", version);
+    Storage.setValue(phonesVersionStorageK, version);
 }
 
 (:inline, :background)
 function getPhonesVersion() as Version or Null {
-    var phonesVersion = Storage.getValue("phonesVersion.v1") as Version or Null;
+    var phonesVersion = Storage.getValue(phonesVersionStorageK) as Version or Null;
     return phonesVersion;
 }
 
