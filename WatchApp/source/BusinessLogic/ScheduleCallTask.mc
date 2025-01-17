@@ -13,12 +13,9 @@ class ScheduleCallTask extends Communications.ConnectionListener {
     }
 
     function launch() as Void {
-        if (!PermissionInfoManip.hasOutgoingCallsPermission()) {
-            if (debug) { _2(L_SCHEDULE_CALL, "noOutgoingCallsPermission"); }
-            showFeedback("Grant access to\nOutgoing calls");
+        if (!preflightScheduledCall()) {
             return;
         }
-
         var msg = {
             cmdK => Cmd.call,
             argsK => {
@@ -59,4 +56,27 @@ class ScheduleCallTask extends Communications.ConnectionListener {
         newState.commStatus = FAILED;
         setCallState(newState);
     }
+}
+
+function preflightScheduledCall() as Lang.Boolean {
+    var outgoingCallsReadiness = ReadinessInfoManip.readiness(ReadinessField.outgoingCalls);
+    if (outgoingCallsReadiness.equals(ReadinessValue.ready)) {
+        return true;
+    }
+    if (debug) { _3(L_SCHEDULE_CALL, "outgoingCallsNotReady", outgoingCallsReadiness); }
+    switch (outgoingCallsReadiness) {
+        case ReadinessValue.disabled: {
+            showFeedback("Outgoing calls\nare disabled");
+            break;
+        }
+        case ReadinessValue.notPermitted: {
+            showFeedback("Outgoing calls\nlack permissions");
+            break;
+        }
+        case ReadinessValue.notReady: {
+            showFeedback("Outgoing calls\nnot ready");
+            break;
+        }
+    }
+    return false;
 }
