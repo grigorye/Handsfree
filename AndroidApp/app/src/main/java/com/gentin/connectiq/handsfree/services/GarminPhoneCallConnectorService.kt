@@ -22,7 +22,6 @@ import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
-import com.gentin.connectiq.handsfree.calllogs.CallLogEntry
 import com.gentin.connectiq.handsfree.globals.AvailableContacts
 import com.gentin.connectiq.handsfree.globals.AvailableRecents
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
