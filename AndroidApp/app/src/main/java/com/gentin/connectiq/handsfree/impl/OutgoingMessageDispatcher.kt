@@ -16,10 +16,10 @@ import com.gentin.connectiq.handsfree.terms.companionInfoSubject
 import com.gentin.connectiq.handsfree.terms.messageForWakingUpArg
 import com.gentin.connectiq.handsfree.terms.openAppFailedCmd
 import com.gentin.connectiq.handsfree.terms.openMeCompletedCmd
-import com.gentin.connectiq.handsfree.terms.readinessInfoSubject
 import com.gentin.connectiq.handsfree.terms.phoneStateChangedCmd
 import com.gentin.connectiq.handsfree.terms.phoneStateChangedV1Cmd
 import com.gentin.connectiq.handsfree.terms.phonesSubject
+import com.gentin.connectiq.handsfree.terms.readinessInfoSubject
 import com.gentin.connectiq.handsfree.terms.recentsSubject
 import com.gentin.connectiq.handsfree.terms.setPhonesV1Cmd
 import com.gentin.connectiq.handsfree.terms.subjectValue
