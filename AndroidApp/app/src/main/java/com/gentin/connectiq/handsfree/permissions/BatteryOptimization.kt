@@ -1,7 +1,6 @@
 package com.gentin.connectiq.handsfree.permissions
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Context.POWER_SERVICE
 import android.content.Intent
 import android.net.Uri
