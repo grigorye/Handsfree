@@ -7,16 +7,21 @@ import Toybox.Time;
 const L_RECENTS_STORAGE as LogComponent = "recents";
 
 module RecentsManip {
+(:inline, :background)
+const recentsStorageK as Lang.String = "recents.v1";
+
+(:inline, :background)
+const recentsVersionStorageK as Lang.String = "recentsVersion.v1";
 
 (:inline, :background)
 function setRecentsVersion(version as Version) as Void {
     if (debug) { _3(L_RECENTS_STORAGE, "saveRecentsVersion", version); }
-    Storage.setValue("recentsVersion.v1", version);
+    Storage.setValue(recentsVersionStorageK, version);
 }
 
 (:inline, :background)
 function getRecentsVersion() as Version {
-    var recentsVersion = Storage.getValue("recentsVersion.v1") as Version;
+    var recentsVersion = Storage.getValue(recentsVersionStorageK) as Version;
     return recentsVersion;
 }
 
@@ -35,7 +40,7 @@ function getRecents() as Recents {
 
 (:inline, :background)
 function loadRecents() as Recents {
-    var recents = Storage.getValue("recents.v1") as Recents or Null;
+    var recents = Storage.getValue(recentsStorageK) as Recents or Null;
     if (recents == null) {
         recents = [] as Recents;
     }
@@ -45,7 +50,7 @@ function loadRecents() as Recents {
 (:inline, :background)
 function saveRecents(recents as Recents) as Void {
     if (debug) { _3(L_RECENTS_STORAGE, "saveRecents", recents); }
-    Storage.setValue("recents.v1", recents as [Application.PropertyValueType]);
+    Storage.setValue(recentsStorageK, recents as [Application.PropertyValueType]);
 }
 
 (:background)
