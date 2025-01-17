@@ -13,8 +13,8 @@ class SettingsView extends WatchUi.Menu2 {
         return new ToggleMenuItem(
             "Incoming Calls",
             {
-                :enabled => "On",
-                :disabled => "Off"
+                :enabled => BackgroundSettings.isIncomingOpenAppViaCompanionEnabled ? "Vibration/Alert" : "Alert",
+                :disabled => "Silent"
             },
             :openAppOnIncomingCall,
             BackgroundSettings.isOpenAppOnIncomingCallEnabled(),
