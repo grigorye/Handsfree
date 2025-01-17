@@ -252,7 +252,7 @@ There are several components that should work together for normal operation of H
     <string name="device_label_connected">"Connected"</string>
     <string name="device_label_not_connected">"Not Connected"</string>
     <string name="no_devices_preference_title">"No devices are registered."</string>
-    <string name="no_devices_preference_summary"></string>
+    <string name="no_devices_preference_summary">"Use Garmin Connect to register a device."</string>
     <string name="onboarding_incoming_calls">"# Alert on incoming calls
 
 By default, Handsfree (passively) shows incoming calls on your Garmin devices, ignoring any alerting and favoring the Garmin standard handling of incoming calls.
