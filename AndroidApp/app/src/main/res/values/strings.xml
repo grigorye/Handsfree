@@ -200,10 +200,10 @@ B. If you are not a beta tester (or prefer to not depend on Google Play), you ca
     <string name="settings_contacts_on">"Some contacts are starred and should be available on the watch."</string>
     <string name="settings_contacts_off">"**Starred** contacts make the list for dialing from the watch."</string>
     <string name="settings_outgoing_calls">"Outgoing calls"</string>
-    <string name="settings_outgoing_calls_off"></string>
-    <string name="settings_outgoing_calls_on">"Calls enabled for starred contacts in Phonebook."</string>
+    <string name="settings_outgoing_calls_off">"Making calls is not possible on the watch."</string>
+    <string name="settings_outgoing_calls_on">"Making calls is possible for starred contacts in Phonebook."</string>
     <string name="settings_call_info">"Incoming calls"</string>
-    <string name="settings_call_info_off">"No calls are forwarded to the watch"</string>
+    <string name="settings_call_info_off">"Not receiving calls on the watch."</string>
     <string name="settings_call_info_on">"Calls can be accepted the watch."</string>
     <string name="settings_disabled_due_to_essentials_are_off">"Disabled due to basic call control is off."</string>
     <string name="onboarding_troubleshooting">"# Troubleshooting
