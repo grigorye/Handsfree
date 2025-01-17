@@ -1,7 +1,9 @@
 import Toybox.WatchUi;
 import Toybox.Lang;
 
-class RecentsViewDelegate extends WatchUi.Menu2InputDelegate {
+module RecentsScreen {
+
+class ViewDelegate extends WatchUi.Menu2InputDelegate {
     function initialize() {
         Menu2InputDelegate.initialize();
     }
@@ -30,4 +32,6 @@ function phoneFromRecent(recent as Recent) as Phone {
         PhoneField.name => recent[RecentField.name],
         PhoneField.number => recent[RecentField.number]
     } as Phone;
+}
+
 }

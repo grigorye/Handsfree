@@ -1,6 +1,6 @@
 import Toybox.Lang;
 
-function newRecentsView() as RecentsView {
+function newRecentsView() as RecentsScreen.View {
     var lastRecentsCheckDate = getLastRecentsCheckDate();
-    return new RecentsView(lastRecentsCheckDate);
+    return new RecentsScreen.View(lastRecentsCheckDate);
 }

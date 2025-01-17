@@ -3,9 +3,11 @@ import Toybox.Lang;
 import Toybox.System;
 import Toybox.Time;
 
+module RecentsScreen {
+
 const L_RECENTS_VIEW as LogComponent = "recentsView";
 
-class RecentsView extends WatchUi.Menu2 {
+class View extends WatchUi.Menu2 {
     function initialize(lastRecentsCheckDate as Lang.Number) {
         Menu2.initialize({});
         self.lastRecentsCheckDate = lastRecentsCheckDate;
@@ -165,4 +167,6 @@ function formatDuration(duration as Lang.Number) as Lang.String or Null {
         return null;
     }
     return formatted;
+}
+
 }

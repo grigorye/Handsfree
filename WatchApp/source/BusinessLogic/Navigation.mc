@@ -7,7 +7,7 @@ function openFavoritesView() as Void {
 
 (:inline)
 function openRecentsView() as Void {
-    VT.pushView(V.recents, newRecentsView(), new RecentsViewDelegate(), WatchUi.SLIDE_LEFT);
+    VT.pushView(V.recents, newRecentsView(), new RecentsScreen.ViewDelegate(), WatchUi.SLIDE_LEFT);
     RecentsManip.recentsDidOpen();
 }
 

@@ -85,7 +85,7 @@ function updateUIForRecents(recents as Recents) as Void {
 
 (:inline)
 function updateRecentsView() as Void {
-    var recentsView = VT.viewWithTag(V.recents) as RecentsView or Null;
+    var recentsView = VT.viewWithTag(V.recents) as RecentsScreen.View or Null;
     if (recentsView != null) {
         recentsView.update();
     }
