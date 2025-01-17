@@ -1,10 +1,9 @@
 package com.gentin.connectiq.handsfree.impl
 
 import android.content.Context
-import com.gentin.connectiq.handsfree.calllogs.CallLogEntry
-import com.gentin.connectiq.handsfree.globals.AvailableContacts
 import com.gentin.connectiq.handsfree.contacts.ContactData
-import com.gentin.connectiq.handsfree.helpers.pojoList
+import com.gentin.connectiq.handsfree.globals.AvailableContacts
+import com.gentin.connectiq.handsfree.globals.AvailableRecents
 import com.gentin.connectiq.handsfree.helpers.pojoMap
 import com.gentin.connectiq.handsfree.terms.acceptQueryResultCmd
 import com.gentin.connectiq.handsfree.terms.argsMsgField
@@ -78,7 +77,7 @@ interface OutgoingMessageDispatcher {
     fun sendQueryResult(destination: OutgoingMessageDestination, queryResult: QueryResult)
     fun sendPhonesV1(destination: OutgoingMessageDestination, contacts: List<ContactData>)
     fun sendContacts(contacts: AvailableContacts)
-    fun sendRecents(recents: List<CallLogEntry>)
+    fun sendRecents(recents: AvailableRecents)
     fun sendPhoneState(destination: OutgoingMessageDestination, phoneState: PhoneState)
     fun sendAudioState(state: AudioState)
     fun sendOpenAppFailed(destination: OutgoingMessageDestination)
@@ -183,7 +182,7 @@ class DefaultOutgoingMessageDispatcher(
         )
     }
 
-    override fun sendRecents(recents: List<CallLogEntry>) {
+    override fun sendRecents(recents: AvailableRecents) {
         sendSubject(
             recentsSubject,
             strippedVersionedPojo(null, recentsPojo(recents)),
@@ -328,8 +327,8 @@ fun phonesPojoV1(contacts: List<ContactData>): Any {
     return pojo
 }
 
-fun recentsPojo(recents: List<CallLogEntry>): Any {
-    return pojoList(recents)
+fun recentsPojo(recents: AvailableRecents): Any {
+    return pojoMap(recents)
 }
 
 fun companionInfoPojo(info: CompanionInfo): Any {

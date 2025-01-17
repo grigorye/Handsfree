@@ -12,7 +12,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
-import com.gentin.connectiq.handsfree.calllogs.CallLogEntry
 import com.gentin.connectiq.handsfree.calllogs.CallLogsRepository
 import com.gentin.connectiq.handsfree.calllogs.CallLogsRepositoryImpl
 import com.gentin.connectiq.handsfree.calllogs.recentsFromCallLog
@@ -274,15 +273,23 @@ class DefaultServiceLocator(
         return sharedPreferences.getBoolean("recents", false)
     }
 
-    fun recents(): List<CallLogEntry> {
+    fun recents(): AvailableRecents {
         if (!isRecentsEnabled()) {
-            return listOf()
+            return AvailableRecents(accessIssue = AccessIssue.Disabled)
+        }
+        val hasPermission = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.READ_CALL_LOG
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (!hasPermission) {
+            return AvailableRecents(accessIssue = AccessIssue.NoPermission)
         }
         try {
-            return recentsFromCallLog(callLogRepository.callLog())
+            val recents = recentsFromCallLog(callLogRepository.callLog())
+            return AvailableRecents(recents)
         } catch (e: RuntimeException) {
-            Log.e(TAG, "recentsRetrievalFailed: $e")
-            return listOf()
+            return AvailableRecents(accessIssue = AccessIssue.ReadFailure)
         }
     }
 
