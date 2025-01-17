@@ -252,15 +252,6 @@ class DefaultServiceLocator(
         }
     }
 
-    private fun callLog(): List<CallLogEntry> {
-        return try {
-            callLogRepository.callLog()
-        } catch (e: RuntimeException) {
-            Log.e(TAG, "callLogRetrievalFailed: $e")
-            listOf()
-        }
-    }
-
     private fun isRecentsEnabled(): Boolean {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         return sharedPreferences.getBoolean("recents", false)
@@ -270,7 +261,12 @@ class DefaultServiceLocator(
         if (!isRecentsEnabled()) {
             return listOf()
         }
-        return recentsFromCallLog(callLog())
+        try {
+            return recentsFromCallLog(callLogRepository.callLog())
+        } catch (e: RuntimeException) {
+            Log.e(TAG, "recentsRetrievalFailed: $e")
+            return listOf()
+        }
     }
 
     private fun audioState(): AudioState {
