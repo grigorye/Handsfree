@@ -2,6 +2,7 @@ package com.gentin.connectiq.handsfree.impl
 
 import android.content.Context
 import com.gentin.connectiq.handsfree.calllogs.CallLogEntry
+import com.gentin.connectiq.handsfree.globals.AvailableContacts
 import com.gentin.connectiq.handsfree.contacts.ContactData
 import com.gentin.connectiq.handsfree.helpers.pojoList
 import com.gentin.connectiq.handsfree.helpers.pojoMap
@@ -76,7 +77,7 @@ interface OutgoingMessageDispatcher {
     fun sendSyncYouV1(contacts: List<ContactData>, phoneState: PhoneState?)
     fun sendQueryResult(destination: OutgoingMessageDestination, queryResult: QueryResult)
     fun sendPhonesV1(destination: OutgoingMessageDestination, contacts: List<ContactData>)
-    fun sendContacts(contacts: List<ContactData>)
+    fun sendContacts(contacts: AvailableContacts)
     fun sendRecents(recents: List<CallLogEntry>)
     fun sendPhoneState(destination: OutgoingMessageDestination, phoneState: PhoneState)
     fun sendAudioState(state: AudioState)
@@ -174,7 +175,7 @@ class DefaultOutgoingMessageDispatcher(
         send(OutgoingMessage(destination, msg))
     }
 
-    override fun sendContacts(contacts: List<ContactData>) {
+    override fun sendContacts(contacts: AvailableContacts) {
         sendSubject(
             phonesSubject,
             strippedVersionedPojo(null, phonesPojo(contacts)),
@@ -309,8 +310,8 @@ fun audioStatePojo(state: AudioState): Any {
     return pojoMap(state)
 }
 
-fun phonesPojo(contacts: List<ContactData>): Any {
-    return pojoList(contacts)
+fun phonesPojo(contacts: AvailableContacts): Any {
+    return pojoMap(contacts)
 }
 
 fun phonesPojoV1(contacts: List<ContactData>): Any {

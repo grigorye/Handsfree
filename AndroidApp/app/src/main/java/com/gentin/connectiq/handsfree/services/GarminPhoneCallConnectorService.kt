@@ -23,7 +23,7 @@ import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import com.gentin.connectiq.handsfree.calllogs.CallLogEntry
-import com.gentin.connectiq.handsfree.contacts.ContactData
+import com.gentin.connectiq.handsfree.globals.AvailableContacts
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
 import com.gentin.connectiq.handsfree.globals.callInfoShouldBeEnabled
 import com.gentin.connectiq.handsfree.globals.watchApps
@@ -67,7 +67,7 @@ fun fallbackPhoneState(): PhoneState {
 }
 
 var lastRecentsSentOnChange: List<CallLogEntry>? = null
-var lastContactsSentOnChange: List<ContactData>? = null
+var lastContactsSentOnChange: AvailableContacts? = null
 
 class GarminPhoneCallConnectorService : LifecycleService() {
 

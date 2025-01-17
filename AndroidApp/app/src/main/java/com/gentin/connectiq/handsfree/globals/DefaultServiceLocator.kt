@@ -1,9 +1,12 @@
 package com.gentin.connectiq.handsfree.globals
 
+import android.Manifest
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.pm.PackageManager
 import android.media.AudioManager
 import android.util.Log
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -13,7 +16,6 @@ import com.gentin.connectiq.handsfree.calllogs.CallLogEntry
 import com.gentin.connectiq.handsfree.calllogs.CallLogsRepository
 import com.gentin.connectiq.handsfree.calllogs.CallLogsRepositoryImpl
 import com.gentin.connectiq.handsfree.calllogs.recentsFromCallLog
-import com.gentin.connectiq.handsfree.contacts.ContactData
 import com.gentin.connectiq.handsfree.contacts.ContactsRepository
 import com.gentin.connectiq.handsfree.contacts.ContactsRepositoryImpl
 import com.gentin.connectiq.handsfree.contacts.contactsGroupId
@@ -112,14 +114,17 @@ class DefaultServiceLocator(
                 phoneCallService.acceptCall()
             },
             syncV1Imp = {
-                outgoingMessageDispatcher.sendSyncYouV1(availableContacts(), lastTrackedPhoneState)
+                outgoingMessageDispatcher.sendSyncYouV1(
+                    availableContacts().contacts,
+                    lastTrackedPhoneState
+                )
             },
             syncPhonesV1Imp = { source ->
                 val destination = OutgoingMessageDestination(
                     source.device, source.app,
                     accountBroadcastOnly = false
                 )
-                outgoingMessageDispatcher.sendPhonesV1(destination, availableContacts())
+                outgoingMessageDispatcher.sendPhonesV1(destination, availableContacts().contacts)
             },
             queryImp = { source, args ->
                 val destination = OutgoingMessageDestination(
@@ -243,12 +248,24 @@ class DefaultServiceLocator(
         return queryResult
     }
 
-    fun availableContacts(): List<ContactData> {
+    fun availableContacts(): AvailableContacts {
+        val hasPermission = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.READ_CONTACTS
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (!hasPermission) {
+            return AvailableContacts(accessIssue = AccessIssue.NoPermission)
+        }
         return try {
-            contactsRepository.contacts()
+            AvailableContacts(
+                contactsRepository.contactsData()
+            )
         } catch (e: RuntimeException) {
             Log.e(TAG, "contactsRetrievalFailed: $e")
-            listOf()
+            AvailableContacts(
+                accessIssue = AccessIssue.ReadFailure
+            )
         }
     }
 

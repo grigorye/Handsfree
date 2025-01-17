@@ -36,7 +36,7 @@ interface ContactsRepository {
     fun invalidatePermissions()
     fun subscribe(observer: ContentObserver)
     fun unsubscribe(observer: ContentObserver)
-    fun contacts(): List<ContactData>
+    fun contactsData(): List<ContactData>
     fun displayNamesForPhoneNumber(phoneNumber: String): List<String>
 }
 
@@ -131,7 +131,7 @@ class ContactsRepositoryImpl(
         return numbers
     }
 
-    override fun contacts(): List<ContactData> {
+    override fun contactsData(): List<ContactData> {
         val contacts = ArrayList<ContactData>()
         iterateOverContacts { contactId, displayName ->
             val number = numbersForContact(contactId)[0]
