@@ -119,10 +119,10 @@ class AudioControlImp(base: Context?) : ContextWrapper(base), AudioControl {
         if (audioManager.isSpeakerphoneOn) {
             return AudioDevice.Speaker
         }
-        if (audioManager.isWiredHeadsetOn) {
-            return AudioDevice.WiredHeadset
+        return if (audioManager.isWiredHeadsetOn) {
+            AudioDevice.WiredHeadset
         } else {
-            return AudioDevice.Earpiece
+            AudioDevice.Earpiece
         }
     }
 }
