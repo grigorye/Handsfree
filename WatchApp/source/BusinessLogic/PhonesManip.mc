@@ -25,7 +25,7 @@ function getPhonesVersion() as Version or Null {
 }
 
 (:background)
-const phonesStorageK as Lang.String = "phones.v1";
+const phonesStorageK as Lang.String = "phones.v2";
 
 function getPhones() as Phones {
     var phones = Storage.getValue(phonesStorageK) as Phones or Null;

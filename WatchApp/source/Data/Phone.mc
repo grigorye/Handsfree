@@ -1,9 +1,15 @@
 import Toybox.Lang;
 
 typedef Phone as Lang.Dictionary<Lang.String, Lang.String or Lang.Number or Lang.Boolean or Null>;
-typedef Phones as Lang.Array<Phone>;
+typedef PhoneList as Lang.Array<Phone>;
+typedef Phones as Lang.Dictionary<Lang.String, PhoneList | AccessIssue>;
 
-const noPhones as Phones = [] as Phones;
+const noPhones as Phones = { PhonesField.phoneList => [] as PhoneList } as Phones;
+
+module PhonesField {
+    const phoneList as Lang.String = "c";
+    const accessIssue as Lang.String = "a";
+}
 
 (:inline, :background)
 function setPhoneName(phone as Phone, name as Lang.String) as Void {

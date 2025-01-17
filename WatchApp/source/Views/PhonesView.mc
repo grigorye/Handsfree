@@ -33,19 +33,50 @@ class PhonesView extends WatchUi.Menu2 {
         workaroundNoRedrawForMenu2(self);
     }
 
-    private function deleteExistingItems() as Void {
-        var oldPhonesCount = oldPhones.size();
+    function deleteExistingItems() as Void {
+        var accessIssue = oldPhones[PhonesField.accessIssue] as AccessIssue | Null;
+        if (accessIssue != null) {
+            deleteItem(0); // There should be a single item for access issue
+        } else {
+            deleteExistingPhoneListItems();
+        }
+        deleteNMenuItems(self, predefinedItemsCount);
+    }
+
+    private function deleteExistingPhoneListItems() as Void {
+        var oldPhonesList = oldPhones[PhonesField.phoneList] as PhoneList;
+        var oldPhonesCount = oldPhonesList.size();
         var menuItemCount;
         if (oldPhonesCount == 0) {
-            menuItemCount = 1; // There should be a "No contacts", "Check Android" or "Syncing" item
+            menuItemCount = 1; // There should be a "No contacts" item
         } else {
             menuItemCount = oldPhonesCount;
         }
-        menuItemCount += predefinedItemsCount;
         deleteNMenuItems(self, menuItemCount);
     }
 
     private function setFromPhones(phones as Phones) as Void {
+        var accessIssue = phones[PhonesField.accessIssue] as AccessIssue;
+        if (accessIssue != null) {
+            switch (accessIssue) {
+                case AccessIssues.NoPermission:
+                    addItem(new WatchUi.MenuItem("Grant Access:", "Contacts", noPhonesMenuItemId, {}));
+                    break;
+                case AccessIssues.ReadFailed:
+                    addItem(new WatchUi.MenuItem("Read Failed:", "Contacts", noPhonesMenuItemId, {}));
+                    break;
+                default:
+                    System.error("Unknown access issue: " + accessIssue);
+            }
+        } else {
+            var phoneList = phones[PhonesField.phoneList] as PhoneList;
+            setFromPhoneList(phoneList);
+        }
+        addPredefinedMenuItems();
+        oldPhones = phones;
+    }
+
+    private function setFromPhoneList(phones as PhoneList) as Void {
         var focusedItemId = getFocusedPhonesViewItemId();
         var focus = null as Lang.Number or Null;
         var phonesCount = phones.size();
@@ -69,21 +100,18 @@ class PhonesView extends WatchUi.Menu2 {
                 addItem(item);
             }
         } else {
-            if (PermissionInfoManip.hasStarredContactsPermission()) {
-                addItem(new WatchUi.MenuItem("Not selected", "", noPhonesMenuItemId, {}));
-            } else {
-                addItem(new WatchUi.MenuItem("Grant Access:", "Contacts", noPhonesMenuItemId, {}));
-            }
+            addItem(new WatchUi.MenuItem("Not selected", "", noPhonesMenuItemId, {}));
         }
 
-        for (var i = 0; i < predefinedItemsCount; i++) {
-            addItem(predefinedItems[i]);
-        }
-        
         if (focus != null) {
            setFocus(focus);
         }
-        oldPhones = phones;
+    }
+
+    private function addPredefinedMenuItems() as Void {
+        for (var i = 0; i < predefinedItemsCount; i++) {
+            addItem(predefinedItems[i]);
+        }
     }
 }
 
