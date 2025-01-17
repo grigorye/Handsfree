@@ -3,6 +3,9 @@ import Toybox.Lang;
 typedef Recent as Lang.Dictionary<Lang.String, Lang.String or Lang.Number or Lang.Boolean or Null>;
 typedef Recents as Lang.Array<Recent>;
 
+(:background)
+const noRecents as Recents = [] as Recents;
+
 (:inline)
 function getRecentName(recent as Recent) as Lang.String or Null {
     return recent[RecentField.name] as Lang.String or Null;

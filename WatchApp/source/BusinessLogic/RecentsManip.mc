@@ -42,7 +42,7 @@ function getRecents() as Recents {
 function loadRecents() as Recents {
     var recents = Storage.getValue(recentsStorageK) as Recents or Null;
     if (recents == null) {
-        recents = [] as Recents;
+        recents = noRecents;
     }
     return recents;
 }
