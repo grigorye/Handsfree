@@ -3,7 +3,7 @@ import Toybox.Application;
 
 (:background)
 function updateMissedRecents() as Void {
-    var recents = RecentsManip.getRecents();
+    var recents = RecentsManip.getRecentsList();
     var lastRecentCheckDate = getLastRecentsCheckDate();
     var newMissedRecents = missedRecents(recents, lastRecentCheckDate);
     var oldMissedRecents = getMissedRecents();
@@ -14,9 +14,9 @@ function updateMissedRecents() as Void {
 }
 
 (:background)
-function missedRecents(recents as Recents, lastRecentCheckDate as Lang.Number) as Recents {
+function missedRecents(recents as RecentsList, lastRecentCheckDate as Lang.Number) as RecentsList {
     var recentsCount = recents.size();
-    var missedRecents = [] as Recents;
+    var missedRecents = [] as RecentsList;
     for (var i = 0; i < recentsCount; i++) {
         var recent = recents[i];
         if (getRecentIsNew(recent) > 0 && getRecentType(recent) == 3 && (getRecentDate(recent) / 1000) > lastRecentCheckDate) {

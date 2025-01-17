@@ -1,10 +1,17 @@
 import Toybox.Lang;
 
 typedef Recent as Lang.Dictionary<Lang.String, Lang.String or Lang.Number or Lang.Boolean or Null>;
-typedef Recents as Lang.Array<Recent>;
+typedef RecentsList as Lang.Array<Recent>;
+typedef Recents as Lang.Dictionary<Lang.String, RecentsList | AccessIssue>;
 
 (:background)
-const noRecents as Recents = [] as Recents;
+const noRecents as Recents = { RecentsField.list => [] as RecentsList } as Recents;
+
+(:background)
+module RecentsField {
+    const list as Lang.String = "r";
+    const accessIssue as Lang.String = "a";
+}
 
 (:inline)
 function getRecentName(recent as Recent) as Lang.String or Null {

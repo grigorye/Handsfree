@@ -8,7 +8,7 @@ const L_RECENTS_STORAGE as LogComponent = "recents";
 
 module RecentsManip {
 (:inline, :background)
-const recentsStorageK as Lang.String = "recents.v1";
+const recentsStorageK as Lang.String = "recents.v2";
 
 (:inline, :background)
 const recentsVersionStorageK as Lang.String = "recentsVersion.v1";
@@ -38,6 +38,13 @@ function getRecents() as Recents {
     return recents;
 }
 
+(:background)
+function getRecentsList() as RecentsList {
+    var recents = getRecents();
+    var recentsList = recents[RecentsField.list] as RecentsList;
+    return recentsList;
+}
+
 (:inline, :background)
 function loadRecents() as Recents {
     var recents = Storage.getValue(recentsStorageK) as Recents or Null;
@@ -55,6 +62,7 @@ function saveRecents(recents as Recents) as Void {
 
 (:background)
 function setRecents(recents as Recents) as Void {
+    _3(L_APP, "setRecents", recents);
     saveRecents(recents);
     recentsImp = recents;
     updateUIForRecentsIfInApp(recents);

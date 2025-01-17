@@ -26,13 +26,7 @@ class RecentsView extends WatchUi.Menu2 {
     }
 
     function deleteExistingItems() as Void {
-        var menuItemCount;
-        if (oldRecentsCount == 0) {
-            menuItemCount = 1; // There should be a "No recents" item
-        } else {
-            menuItemCount = oldRecentsCount;
-        }
-        for (var i = 0; i < menuItemCount; i++) {
+        for (var i = 0; i < oldRecentsCount; i++) {
             var existed = deleteItem(0);
             if (existed == null) {
                 System.error("Failed to delete menu item at index " + i);
@@ -45,50 +39,68 @@ class RecentsView extends WatchUi.Menu2 {
         setTitle(title);
     }
 
-    function addMenuItemsFromRecents() as Void {
+    private function addMenuItemsFromRecents() as Void {
         var recents = RecentsManip.getRecents();
-        if (debug) { _2(L_RECENTS_VIEW, "addMenuItemsFromRecents"); }
-        var recentsCount = recents.size();
-        if (recentsCount == 0) {
-            if (PermissionInfoManip.hasRecentsPermission()) {
-                addItem(new WatchUi.MenuItem("No recents", "", noRecentsMenuItemId, {}));
-            } else {
-                addItem(new WatchUi.MenuItem("Grant Access:", "Recents", noRecentsMenuItemId, {}));
-            }
+        var accessIssue = recents[RecentsField.accessIssue] as AccessIssue | Null;
+        if (accessIssue != null) {
+            addMenuItemsForAccessIssue(accessIssue);
         } else {
-            for (var i = 0; i < recentsCount; i++) {
-                var recent = recents[i];
-                var name = getRecentName(recent);
-                var label;
-                if (name == null || name.equals("")) {
-                    var number = getRecentNumber(recent);
-                    if (number.equals("")) {
-                        label = "Private Number";
-                    } else {
-                        label = getRecentNumber(recent);
-                    }
-                } else {
-                    label = name;
-                }
-                var recentDate = getRecentDate(recent) / 1000;
-                var dateFormatted = formatDate(recentDate);
-                var typeFormatted;
-                var type = getRecentType(recent);
-                if (type == 3 && recentDate > lastRecentsCheckDate && getRecentIsNew(recent) > 0) {
-                    typeFormatted = "!"; // missed
-                } else {
-                    typeFormatted = formatRecentType(type);
-                }
-                var durationFormatted = formatDuration(getRecentDuration(recent));
-                var subLabel = joinComponents([typeFormatted + " " + dateFormatted, durationFormatted], ", ");
-                var item = new WatchUi.MenuItem(
-                    label, // label
-                    subLabel, // subLabel
-                    recent, // identifier
-                    {}
-                );
-                addItem(item);
+            var recentsList = recents[RecentsField.list] as RecentsList;
+            if (recentsList.size() == 0) {
+                addMenuItemsForEmptyRecentsList();
+            } else {
+                addMenuItemsForNonEmptyRecentsList(recentsList);
             }
+        }
+    }
+
+    private function addMenuItemsForAccessIssue(accessIssue as AccessIssue) as Void {
+        if (debug) { _2(L_RECENTS_VIEW, "addMenuItemsForAccessIssue"); }
+        addItem(new WatchUi.MenuItem(accessIssuePrompt(accessIssue), "Recents", noRecentsMenuItemId, {}));
+        oldRecentsCount = 1;
+    }
+
+    private function addMenuItemsForEmptyRecentsList() as Void {
+        if (debug) { _2(L_RECENTS_VIEW, "addMenuItemsForEmptyRecentsList"); }
+        addItem(new WatchUi.MenuItem("No recents", "", noRecentsMenuItemId, {}));
+        oldRecentsCount = 1;
+    }
+
+    private function addMenuItemsForNonEmptyRecentsList(recents as RecentsList) as Void {
+        if (debug) { _2(L_RECENTS_VIEW, "addMenuItemsForNonEmptyRecentsList"); }
+        var recentsCount = recents.size();
+        for (var i = 0; i < recentsCount; i++) {
+            var recent = recents[i];
+            var name = getRecentName(recent);
+            var label;
+            if (name == null || name.equals("")) {
+                var number = getRecentNumber(recent);
+                if (number.equals("")) {
+                    label = "Private Number";
+                } else {
+                    label = getRecentNumber(recent);
+                }
+            } else {
+                label = name;
+            }
+            var recentDate = getRecentDate(recent) / 1000;
+            var dateFormatted = formatDate(recentDate);
+            var typeFormatted;
+            var type = getRecentType(recent);
+            if (type == 3 && recentDate > lastRecentsCheckDate && getRecentIsNew(recent) > 0) {
+                typeFormatted = "!"; // missed
+            } else {
+                typeFormatted = formatRecentType(type);
+            }
+            var durationFormatted = formatDuration(getRecentDuration(recent));
+            var subLabel = joinComponents([typeFormatted + " " + dateFormatted, durationFormatted], ", ");
+            var item = new WatchUi.MenuItem(
+                label, // label
+                subLabel, // subLabel
+                recent, // identifier
+                {}
+            );
+            addItem(item);
         }
         oldRecentsCount = recentsCount;
     }
