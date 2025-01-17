@@ -26,13 +26,13 @@
 
 ### [Outgoing calls](lk:outgoing_calls)
 
-❎ [](lk:outgoing_calls_off)
+❎ [Making calls is not possible on the watch.](lk:outgoing_calls_off)
 
-✅ [Calls enabled for starred contacts in Phonebook.](lk:outgoing_calls_on)
+✅ [Making calls is possible for starred contacts in Phonebook.](lk:outgoing_calls_on)
 
 ### [Incoming calls](lk:call_info)
 
-❎ [](lk:call_info_off)
+❎ [Not receiving calls on the watch.](lk:call_info_off)
 
 ✅ [Calls can be accepted the watch.](lk:call_info_on)
 
