@@ -3,8 +3,8 @@ package com.gentin.connectiq.handsfree.impl
 import android.content.Context
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.globals.Readiness
-import com.gentin.connectiq.handsfree.globals.callInfoShouldBeEnabled
 import com.gentin.connectiq.handsfree.globals.essentialsAreOn
+import com.gentin.connectiq.handsfree.globals.incomingCallsAreOn
 import com.gentin.connectiq.handsfree.globals.outgoingCallsAreOn
 import com.gentin.connectiq.handsfree.globals.readiness
 import com.gentin.connectiq.handsfree.globals.recentsAreOn
@@ -32,7 +32,7 @@ fun readinessInfo(context: Context): ReadinessInfo {
             hasRequiredPermissionsForOutgoingCalls(context)
         ),
         incomingCalls = readiness(
-            callInfoShouldBeEnabled(context),
+            incomingCallsAreOn(context),
             hasRequiredPermissionsForIncomingCalls(context)
         ),
         recents = readiness(

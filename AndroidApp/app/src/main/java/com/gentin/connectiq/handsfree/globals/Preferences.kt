@@ -17,9 +17,9 @@ fun outgoingCallsAreOn(context: Context): Boolean {
     return sharedPreferences.getBoolean("outgoing_calls", false)
 }
 
-fun callInfoShouldBeEnabled(context: Context): Boolean {
+fun incomingCallsAreOn(context: Context): Boolean {
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-    return sharedPreferences.getBoolean("full_featured", false)
+    return sharedPreferences.getBoolean("incoming_calls", false)
 }
 
 fun recentsAreOn(context: Context): Boolean {
