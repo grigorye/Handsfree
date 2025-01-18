@@ -8,13 +8,7 @@ To be able to identify the number for an incoming call, Handsfree needs access t
 
 Without the permission, for an incoming call, Handsfree will show just "Call in progress" or "Incoming call" instead of the phone number or the contact name, on the watch.
 
-With the permission, Handsfree will be able to show you the number (and probably the contact name, see below) on the watch.
-
-### [Access your contacts](permissions://?manifest_optional=android.permission.READ_CONTACTS)
-
-To be able to match the phone number of a call with a contact name and show it on the watch, Handsfree needs access to your contacts, so that when it observes the call, it can send the matching contact name to show it to you on the watch.
-
-Without the permission, no contact names for calls would be visible to you on the watch.
+With the permission, Handsfree will be able to show you the number (and probably the contact name) on the watch.
 
 ## On the watch
 

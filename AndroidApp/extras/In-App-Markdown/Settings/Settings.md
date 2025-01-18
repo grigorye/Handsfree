@@ -34,11 +34,17 @@
 
 🟢 [Making calls is possible for starred contacts in Phonebook.](lk:outgoing_calls_on)
 
-### [Incoming calls](lk:call_info)
+### [Caller ID](lk:call_info)
 
-🔴 [Not receiving calls on the watch.](lk:call_info_off)
+🔴 [No phone numbers or names are shown on the watch.](lk:call_info_off)
 
-🟢 [Calls can be accepted the watch.](lk:call_info_on)
+🟢 [Phone numbers or contact names are shown on the watch.](lk:call_info_on)
+
+### [Incoming calls](lk:incoming_calls)
+
+🔴 [Not receiving calls on the watch.](lk:incoming_calls_off)
+
+🟢 [Calls can be accepted on the watch.](lk:incoming_calls_on)
 
 ### [Recent calls](lk:recents)
 
