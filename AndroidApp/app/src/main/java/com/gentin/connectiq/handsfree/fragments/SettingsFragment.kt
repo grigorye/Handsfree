@@ -68,6 +68,16 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
         )
         callInfoPreference?.isVisible =
             isPermissionRequested(requireActivity(), Manifest.permission.READ_CALL_LOG)
+        setupPermissionPreference(
+            incomingCallsPreference,
+            R.string.settings_incoming_calls,
+            R.string.settings_incoming_calls_on,
+            R.string.settings_incoming_calls_off,
+            R.string.settings_disabled_due_to_essentials_are_off,
+            hasPermissions = { hasRequiredPermissionsForIncomingCalls(requireContext()) }
+        )
+        incomingCallsPreference?.isVisible =
+            isPermissionRequested(requireActivity(), Manifest.permission.READ_CALL_LOG)
         setupContactsPreference()
     }
 
@@ -192,6 +202,11 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
     private val callInfoPreference: Preference?
         get() {
             return findPreference("call_info")
+        }
+
+    private val incomingCallsPreference: Preference?
+        get() {
+            return findPreference("incoming_calls")
         }
 
     private val recentsPreference: Preference?
