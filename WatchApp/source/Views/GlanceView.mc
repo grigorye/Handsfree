@@ -54,7 +54,9 @@ class GlanceView extends WatchUi.GlanceView {
                     }
                 } else {
                     title = defaultTitle;
-                    if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
+                    if (!ReadinessInfoManip.readiness(ReadinessField.essentials).equals(ReadinessValue.ready)) {
+                        subtitle = "No call control";
+                    } else if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
                         subtitle = sourceVersion;
                     } else {
                         subtitle = "Idle";
@@ -104,7 +106,9 @@ function defaultTitle() as Lang.String {
         if (statsRep != null) {
             defaultTitle = embeddingHeadsetStatusRep(statsRep);
         } else {
-            if (CompanionInfoManip.getCompanionInfoVersion() != null) {
+            var hasCompanionConnected = CompanionInfoManip.getCompanionInfoVersion() != null;
+            var callControlReady = ReadinessInfoManip.readiness(ReadinessField.essentials).equals(ReadinessValue.ready);
+            if (hasCompanionConnected && callControlReady) {
                 var headsetStatus = headsetStatusHumanReadable();
                 defaultTitle = headsetStatus != null ? headsetStatus : defaultTitle;
             }
