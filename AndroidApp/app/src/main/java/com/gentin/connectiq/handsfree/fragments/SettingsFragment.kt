@@ -71,7 +71,11 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
             devicesPreference?.apply {
                 if (it.count() > 1) {
                     val message = messageForDeviceInfos(it)
-                    val suffix = if (message != "") { "\n\n" + message } else { "" }
+                    val suffix = if (message != "") {
+                        "\n\n" + message
+                    } else {
+                        ""
+                    }
                     title = formattedDeviceInfos(it) + "\n\n" + refreshMessage + suffix
                     summary = null
                 } else {
