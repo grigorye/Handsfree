@@ -46,7 +46,7 @@ fun readinessInfo(context: Context): ReadinessInfo {
     )
 }
 
-private fun hasRequiredPermissionsForEssentials(context: Context): Boolean {
+fun hasRequiredPermissionsForEssentials(context: Context): Boolean {
     return requiredPermissionsGranted(context, R.string.onboarding_essentials)
 }
 
@@ -54,15 +54,15 @@ private fun hasRequiredPermissionsForStarredContacts(context: Context): Boolean 
     return requiredPermissionsGranted(context, R.string.onboarding_starred_contacts)
 }
 
-private fun hasRequiredPermissionsForOutgoingCalls(context: Context): Boolean {
+fun hasRequiredPermissionsForOutgoingCalls(context: Context): Boolean {
     return requiredPermissionsGranted(context, R.string.onboarding_outgoing_calls)
 }
 
-private fun hasRequiredPermissionsForIncomingCalls(context: Context): Boolean {
+fun hasRequiredPermissionsForIncomingCalls(context: Context): Boolean {
     return requiredPermissionsGranted(context, R.string.onboarding_incoming_calls)
 }
 
-private fun hasRequiredPermissionsForRecents(context: Context): Boolean {
+fun hasRequiredPermissionsForRecents(context: Context): Boolean {
     return requiredPermissionsGranted(context, R.string.onboarding_recents)
 }
 

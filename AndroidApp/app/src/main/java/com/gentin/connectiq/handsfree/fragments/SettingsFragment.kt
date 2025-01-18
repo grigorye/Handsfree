@@ -10,6 +10,10 @@ import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
 import com.gentin.connectiq.handsfree.impl.DeviceInfo
 import com.gentin.connectiq.handsfree.impl.formattedDeviceInfos
+import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForEssentials
+import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForIncomingCalls
+import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForOutgoingCalls
+import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForRecents
 import com.gentin.connectiq.handsfree.impl.messageForDeviceInfos
 import com.gentin.connectiq.handsfree.impl.refreshMessage
 import com.gentin.connectiq.handsfree.onboarding.resolveLink
@@ -36,27 +40,31 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
             essentialsPreference,
             R.string.settings_essentials,
             R.string.settings_essentials_on,
-            R.string.settings_essentials_off
+            R.string.settings_essentials_off,
+            hasPermissions = { hasRequiredPermissionsForEssentials(requireContext()) }
         )
         setupPermissionPreference(
             outgoingCallsPreference,
             R.string.settings_outgoing_calls,
             R.string.settings_outgoing_calls_on,
             R.string.settings_outgoing_calls_off,
-            R.string.settings_disabled_due_to_essentials_are_off
+            R.string.settings_disabled_due_to_essentials_are_off,
+            hasPermissions = { hasRequiredPermissionsForOutgoingCalls(requireContext()) },
         )
         setupPermissionPreference(
             recentsPreference,
             R.string.settings_recents,
             R.string.settings_recents_on,
-            R.string.settings_recents_off
+            R.string.settings_recents_off,
+            hasPermissions = { hasRequiredPermissionsForRecents(requireContext()) },
         )
         setupPermissionPreference(
             callInfoPreference,
             R.string.settings_call_info,
             R.string.settings_call_info_on,
             R.string.settings_call_info_off,
-            R.string.settings_disabled_due_to_essentials_are_off
+            R.string.settings_disabled_due_to_essentials_are_off,
+            hasPermissions = { hasRequiredPermissionsForIncomingCalls(requireContext()) }
         )
         callInfoPreference?.isVisible =
             isPermissionRequested(requireActivity(), Manifest.permission.READ_CALL_LOG)
@@ -108,7 +116,8 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
         title: Int,
         summaryOn: Int,
         summaryOff: Int,
-        summaryOffDueToDependency: Int = 0
+        summaryOffDueToDependency: Int = 0,
+        hasPermissions: () -> Boolean = { true }
     ) {
         preference?.apply {
             val dependencyIsOff = lazy {
@@ -123,7 +132,11 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
                 val isOn = sharedPreferences!!.getBoolean(key, false)
                 Log.d(TAG, "preference.$key.isOn: $isOn")
                 val titleFormat = if (isOn) {
-                    getString(R.string.settings_preference_enabled_fmt)
+                    if (hasPermissions()) {
+                        getString(R.string.settings_preference_enabled_fmt)
+                    } else {
+                        getString(R.string.settings_preference_enabled_no_perm_fmt)
+                    }
                 } else {
                     getString(R.string.settings_preference_disabled_fmt)
                 }
