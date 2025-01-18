@@ -2,7 +2,7 @@ import Toybox.Lang;
 import Toybox.WatchUi;
 import Toybox.Application;
 
-(:background)
+(:background, :glance)
 module ReadinessValue {
     const disabled = "d";
     const notPermitted = "p";
@@ -25,7 +25,7 @@ function setReadinessInfo(readinessInfo as ReadinessInfo) as Void {
 
 typedef Readiness as Lang.String;
 
-(:inline, :background)
+(:inline, :background, :glance)
 function readiness(readinessField as Lang.String) as Readiness {
     var readinessInfo = ReadinessInfoImp.getReadinessInfo();
     if (readinessInfo == null) {
