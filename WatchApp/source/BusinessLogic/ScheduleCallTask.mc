@@ -13,7 +13,10 @@ class ScheduleCallTask extends Communications.ConnectionListener {
     }
 
     function launch() as Void {
-        if (!preflightScheduledCall()) {
+        if (!preflightReadiness(ReadinessField.essentials, "Call control")) {
+            return;
+        }
+        if (!preflightReadiness(ReadinessField.outgoingCalls, "Outgoing calls")) {
             return;
         }
         var msg = {
@@ -58,25 +61,32 @@ class ScheduleCallTask extends Communications.ConnectionListener {
     }
 }
 
-function preflightScheduledCall() as Lang.Boolean {
-    var outgoingCallsReadiness = ReadinessInfoManip.readiness(ReadinessField.outgoingCalls);
-    if (outgoingCallsReadiness.equals(ReadinessValue.ready)) {
+function preflightReadiness(field as Lang.String, title as Lang.String) as Lang.Boolean {
+    var readiness = ReadinessInfoManip.readiness(field);
+    if (readiness.equals(ReadinessValue.ready)) {
         return true;
     }
-    if (debug) { _3(L_SCHEDULE_CALL, "outgoingCallsNotReady", outgoingCallsReadiness); }
-    switch (outgoingCallsReadiness) {
+    if (debug) { _3(L_SCHEDULE_CALL, "notReady", field + ":" + readiness); }
+    var format;
+    switch (readiness) {
         case ReadinessValue.disabled: {
-            showFeedback("Outgoing calls\nare disabled");
+            format = "$1$\nnot enabled";
             break;
         }
         case ReadinessValue.notPermitted: {
-            showFeedback("Outgoing calls\nlack permissions");
+            format = "$1$\nnot permitted";
             break;
         }
         case ReadinessValue.notReady: {
-            showFeedback("Outgoing calls\nnot ready");
+            format = "$1$\nnot ready";
+            break;
+        }
+        default: {
+            format = "$1$\nnot ready?";
             break;
         }
     }
+    var message = Lang.format(format, [title]);
+    showFeedback(message);
     return false;
 }
