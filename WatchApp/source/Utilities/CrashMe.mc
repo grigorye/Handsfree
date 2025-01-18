@@ -8,6 +8,7 @@ function crashMe() as Void {
     var backgroundStats = BackgroundSystemStats.getBackgroundSystemStats();
     var infos = [
         ["crashMe", null],
+        ["readinessInfo", readinessInfoCompact()],
         ["freeMemory", [stats.freeMemory, backgroundStats["f"]]],
         ["totalMemory", [stats.totalMemory, backgroundStats["t"]]],
         ["usedMemory", [stats.usedMemory, backgroundStats["u"]]],
@@ -40,4 +41,21 @@ class DebugMenuDelegate extends WatchUi.Menu2InputDelegate {
             System.error("Crashing!");
         }
     }
+}
+
+function readinessInfoCompact() as Lang.String {
+    var readinessInfo = ReadinessInfoImp.getReadinessInfo();
+    if (readinessInfo == null) {
+        return "null";
+    }
+    var r = "";
+    var allVariants = [ReadinessField.essentials, ReadinessField.outgoingCalls, ReadinessField.recents, ReadinessField.incomingCalls, ReadinessField.starredContacts];
+    for (var i = 0; i < allVariants.size(); ++i) {
+        var variant = allVariants[i];
+        r = r + variant + ":" + readinessInfo[variant];
+        if (i < allVariants.size() - 1) {
+            r = r + "|";
+        }
+    }
+    return r;
 }
