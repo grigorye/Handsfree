@@ -11,6 +11,7 @@ function requestAllSubjects() as Void {
                 { QueryArgsK.subjectNameK => phonesSubject, QueryArgsK.subjectVersionK => PhonesManip.getPhonesVersion() },
                 { QueryArgsK.subjectNameK => recentsSubject, QueryArgsK.subjectVersionK => RecentsManip.getRecentsVersion() },
                 { QueryArgsK.subjectNameK => audioStateSubject, QueryArgsK.subjectVersionK => AudioStateManip.getAudioStateVersion() },
+                { QueryArgsK.subjectNameK => readinessInfoSubject, QueryArgsK.subjectVersionK => ReadinessInfoManip.getReadinessInfoVersion() },
             ]
         }
     } as Lang.Object as Application.PersistableType;
