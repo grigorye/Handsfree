@@ -25,7 +25,6 @@ import androidx.preference.PreferenceManager
 import com.gentin.connectiq.handsfree.globals.AvailableContacts
 import com.gentin.connectiq.handsfree.globals.AvailableRecents
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
-import com.gentin.connectiq.handsfree.globals.callInfoShouldBeEnabled
 import com.gentin.connectiq.handsfree.globals.watchApps
 import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE
@@ -288,19 +287,14 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     }
 
     private fun accountPhoneState(incomingNumber: String?, stateExtra: String) {
-        val sentIncomingNumber: String? = if (callInfoShouldBeEnabled(this)) {
-            incomingNumber
-        } else {
-            null
-        }
-        val sentIncomingDisplayNames = sentIncomingNumber?.let {
+        val incomingDisplayNames = incomingNumber?.let {
             availableDisplayNames(it)
         } ?: listOf()
         val phoneState = phoneState(
             this,
             stateExtra,
-            sentIncomingNumber,
-            sentIncomingDisplayNames
+            incomingNumber,
+            incomingDisplayNames
         )
         lastTrackedPhoneState = phoneState
         l.outgoingMessageDispatcher.sendPhoneState(everywhereExactly, phoneState)
