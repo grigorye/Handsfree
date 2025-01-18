@@ -191,7 +191,7 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
 
     private val callInfoPreference: Preference?
         get() {
-            return findPreference("full_featured")
+            return findPreference("call_info")
         }
 
     private val recentsPreference: Preference?
