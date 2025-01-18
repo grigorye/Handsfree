@@ -47,6 +47,13 @@
         android:title="@string/settings_extras_group"
         app:iconSpaceReserved="false">
         <Preference
+            app:dependency="essentials"
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false"
+            app:key="call_info"
+            app:summary="@string/settings_call_info_off"
+            app:title="@string/settings_call_info" />
+        <Preference
             app:iconSpaceReserved="false"
             app:key="contacts"
             app:summary="@string/settings_contacts_off"
