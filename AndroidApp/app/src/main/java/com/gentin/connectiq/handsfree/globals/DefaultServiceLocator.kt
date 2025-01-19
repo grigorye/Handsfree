@@ -271,13 +271,8 @@ class DefaultServiceLocator(
         }
     }
 
-    private fun isRecentsEnabled(): Boolean {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        return sharedPreferences.getBoolean("recents", false)
-    }
-
     fun recents(): AvailableRecents {
-        if (!isRecentsEnabled()) {
+        if (!recentsAreOn(this)) {
             return AvailableRecents(accessIssue = AccessIssue.Disabled)
         }
         val hasPermission = ActivityCompat.checkSelfPermission(
