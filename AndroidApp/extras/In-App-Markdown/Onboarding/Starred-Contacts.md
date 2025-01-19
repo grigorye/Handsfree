@@ -1,4 +1,8 @@
-# Starred contacts
+# Allow dialing of starred contacts
+
+Handsfree lets you make outgoing calls to any of the starred contacts. To allow that, give the app the extra permission, in addition to the ones necessary for [outgoing calls](link://onboarding_outgoing_calls).
+
+You can check your starred contacts [here](contacts://starred).
 
 ### [Access your contacts](permissions://?manifest=android.permission.READ_CONTACTS)
 
