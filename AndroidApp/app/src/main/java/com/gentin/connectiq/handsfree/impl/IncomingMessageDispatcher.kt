@@ -136,14 +136,12 @@ class IncomingMessageDispatcher(
     }
 
     private fun simulateCommDelay(source: IncomingMessageSource) {
-        if (commDelaySimulationEnabled(source)) {
+        if (source.app == simApp && communicationDelaySimulationEnabled) {
             Thread.sleep(5000)
         }
     }
 
-    private fun commDelaySimulationEnabled(source: IncomingMessageSource): Boolean {
-        return source.app == simApp
-    }
+    private var communicationDelaySimulationEnabled = false
 
     companion object {
         private val TAG: String = IncomingMessageDispatcher::class.java.simpleName
