@@ -1,10 +1,10 @@
 # Show caller info
 
-Handsfree can let you see the phone number and contact name for a call, on the watch, like a usual phone. If you want to benefit from that, give it a couple more permissions, in addition to the [essential ones](link://onboarding_essentials).
+Handsfree can let you see the phone number and contact name for a call, on the watch, like a usual phone. If you want to benefit from that for the calls other than outgoing, give it a couple more permissions, in addition to the [essential ones](link://onboarding_essentials).
 
 ### [Access your phone call logs](permissions://?manifest=android.permission.READ_CALL_LOG)
 
-To be able to identify the number of any call in progress, Handsfree needs access to your call logs.
+To be able to identify the number of a call, Handsfree needs access to your call logs.
 
 With the permission, Handsfree will be able to show you the number (and probably the contact name, see below), on the watch.
 
@@ -12,6 +12,6 @@ Without the permission, Handsfree will show you just "Call in progress".
 
 ### [Access your contacts](permissions://?manifest_optional=android.permission.READ_CONTACTS)
 
-To be able to match the phone number of a call with a contact name and show it on the watch, Handsfree needs access to your contacts, so that when it observes a call in progress or a recent call, it can send the matching contact name to show it to you on the watch.
+To be able to match the phone number of a call with a contact name and show it on the watch, Handsfree needs access to your contacts, so that when it observes the call, it can send the matching contact name to show it to you on the watch.
 
-Without the permission, no contact names for calls would be visible to you on the watch.
+Without the permission, no contact names for the calls will be visible.
