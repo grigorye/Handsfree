@@ -27,6 +27,11 @@ fun recentsAreOn(context: Context): Boolean {
     return sharedPreferences.getBoolean("recents", false)
 }
 
+fun starredContactsAreOn(context: Context): Boolean {
+    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    return sharedPreferences.getBoolean("starred_contacts", false)
+}
+
 fun isInDebugMode(context: Context): Boolean {
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     return sharedPreferences.getBoolean("debug", false)

@@ -8,6 +8,7 @@ import com.gentin.connectiq.handsfree.globals.incomingCallsAreOn
 import com.gentin.connectiq.handsfree.globals.outgoingCallsAreOn
 import com.gentin.connectiq.handsfree.globals.readiness
 import com.gentin.connectiq.handsfree.globals.recentsAreOn
+import com.gentin.connectiq.handsfree.globals.starredContactsAreOn
 import com.gentin.connectiq.handsfree.onboarding.preprocessPermissionsInMarkdown
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -40,7 +41,7 @@ fun readinessInfo(context: Context): ReadinessInfo {
             hasRequiredPermissionsForRecents(context)
         ),
         starredContacts = readiness(
-            true,
+            starredContactsAreOn(context),
             hasRequiredPermissionsForStarredContacts(context)
         )
     )
@@ -50,7 +51,7 @@ fun hasRequiredPermissionsForEssentials(context: Context): Boolean {
     return requiredPermissionsGranted(context, R.string.onboarding_essentials)
 }
 
-private fun hasRequiredPermissionsForStarredContacts(context: Context): Boolean {
+fun hasRequiredPermissionsForStarredContacts(context: Context): Boolean {
     return requiredPermissionsGranted(context, R.string.onboarding_starred_contacts)
 }
 

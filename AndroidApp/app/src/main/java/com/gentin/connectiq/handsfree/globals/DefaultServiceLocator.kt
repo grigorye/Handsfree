@@ -248,6 +248,9 @@ class DefaultServiceLocator(
     }
 
     fun availableContacts(): AvailableContacts {
+        if (!starredContactsAreOn(this)) {
+            return AvailableContacts(accessIssue = AccessIssue.Disabled)
+        }
         val hasPermission = ActivityCompat.checkSelfPermission(
             this,
             Manifest.permission.READ_CONTACTS

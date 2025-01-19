@@ -20,19 +20,17 @@
 
 [🟢 {{title}}](lk:preference_enabled_fmt)
 
-
-
-### [🟢 Phonebook](lk:contacts)
-
-🔴 [**Starred** contacts make the list for dialing from the watch.](lk:contacts_off)
-
-🟢 [Some contacts are starred and should be available on the watch.](lk:contacts_on)
-
 ### [Outgoing calls](lk:outgoing_calls)
 
 🔴 [Making calls is not possible on the watch.](lk:outgoing_calls_off)
 
-🟢 [Making calls is possible for starred contacts in Phonebook.](lk:outgoing_calls_on)
+🟢 [Making calls is possible on the watch.](lk:outgoing_calls_on)
+
+### [Phonebook](lk:starred_contacts)
+
+🔴 [**Starred** contacts are not shared with the watch.](lk:starred_contacts_off)
+
+🟢 [**Starred** contacts are available for dialing on the watch.](lk:starred_contacts_on)
 
 ### [Caller ID](lk:call_info)
 

@@ -14,6 +14,7 @@ import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForEssentials
 import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForIncomingCalls
 import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForOutgoingCalls
 import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForRecents
+import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForStarredContacts
 import com.gentin.connectiq.handsfree.impl.messageForDeviceInfos
 import com.gentin.connectiq.handsfree.impl.refreshMessage
 import com.gentin.connectiq.handsfree.onboarding.resolveLink
@@ -78,7 +79,13 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
         )
         incomingCallsPreference?.isVisible =
             isPermissionRequested(requireActivity(), Manifest.permission.READ_CALL_LOG)
-        setupContactsPreference()
+        setupPermissionPreference(
+            starredContactsPreference,
+            R.string.settings_starred_contacts,
+            R.string.settings_starred_contacts_on,
+            R.string.settings_starred_contacts_off,
+            hasPermissions = { hasRequiredPermissionsForStarredContacts(requireContext()) }
+        )
     }
 
     private fun setupDevicesPreference(
@@ -170,20 +177,6 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
         }
     }
 
-    private fun setupContactsPreference() {
-        contactsPreference?.apply {
-            summary = getString(R.string.settings_contacts_off)
-            setOnPreferenceClickListener { preference ->
-                Log.d(TAG, "preferenceClicked: $preference")
-                resolveLink(
-                    "contacts://starred",
-                    this@SettingsFragment
-                )
-                false
-            }
-        }
-    }
-
     private val devicesPreference: Preference?
         get() {
             return findPreference("devices")
@@ -214,9 +207,9 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
             return findPreference("recents")
         }
 
-    private val contactsPreference: Preference?
+    private val starredContactsPreference: Preference?
         get() {
-            return findPreference("contacts")
+            return findPreference("starred_contacts")
         }
 
     companion object {

@@ -1,6 +1,6 @@
 # Allow outgoing calls
 
-Besides the essential functionality, Handsfree lets you make outgoing calls from the watch for your [starred contacts](contacts://starred), by redirecting your requests from the watch to the default phone application.
+Handsfree lets you make outgoing calls from the watch for your [starred contacts](contacts://starred) or for your recent calls, by redirecting your requests from the watch to the default phone application.
 
 Beware that even though you can open starred contacts from Handsfree, it has no access to the list until you give it the permission to access the list.
 
@@ -12,9 +12,5 @@ To be able to make calls via the default phone app while running in the backgrou
 
 Without the permission, Handsfree won't be able to make calls for you, when it is not the frontmost application or when the phone is locked. This permission is not necessary for observing or hanging up calls in progress though.
 
-### [Access your contacts](permissions://?manifest=android.permission.READ_CONTACTS)
 
-To let you dial a starred contact from your watch, Handsfree needs permission to access your contacts. Given the permission, Handsfree sends the contact names and phone numbers to the watch. Handsfree never reads nor sends any other contact information to anywhere.
-
-Without the permission, the (starred) contacts won't be sent to the watch, and hence you won't be able to dial them from your watch.
 
