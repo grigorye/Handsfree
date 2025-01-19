@@ -117,7 +117,7 @@ Besides the above permissions, to let Handsfree run without interruptions, check
 "</string>
     <string name="onboarding_outgoing_calls">"# Allow outgoing calls
 
-Besides the essential functionality, Handsfree lets you make outgoing calls from the watch for your [starred contacts](contacts://starred), by redirecting your requests from the watch to the default phone application.
+Handsfree lets you make outgoing calls from the watch for your [starred contacts](contacts://starred) or for your recent calls, by redirecting your requests from the watch to the default phone application.
 
 Beware that even though you can open starred contacts from Handsfree, it has no access to the list until you give it the permission to access the list.
 
@@ -129,38 +129,8 @@ To be able to make calls via the default phone app while running in the backgrou
 
 Without the permission, Handsfree won't be able to make calls for you, when it is not the frontmost application or when the phone is locked. This permission is not necessary for observing or hanging up calls in progress though.
 
-### [Access your contacts](permissions://?manifest=android.permission.READ_CONTACTS)
 
-To let you dial a starred contact from your watch, Handsfree needs permission to access your contacts. Given the permission, Handsfree sends the contact names and phone numbers to the watch. Handsfree never reads nor sends any other contact information to anywhere.
 
-Without the permission, the (starred) contacts won't be sent to the watch, and hence you won't be able to dial them from your watch.
-
-"</string>
-    <string name="onboarding_full_featured">"# Allow incoming calls
-
-Handsfree lets you show and accept the incoming calls on the watch. To allow that, give the app a couple more permissions, in addition to the [essential ones](link://onboarding_essentials).
-
-### [Access your phone call logs](permissions://?manifest=android.permission.READ_CALL_LOG)
-
-To be able to identify the number for an incoming call, Handsfree needs access to your call logs.
-
-Without the permission, for an incoming call, Handsfree will show just \"Call in progress\" or \"Incoming call\" instead of the phone number or the contact name, on the watch.
-
-With the permission, Handsfree will be able to show you the number (and probably the contact name, see below) on the watch.
-
-### [Access your contacts](permissions://?manifest_optional=android.permission.READ_CONTACTS)
-
-To be able to match the phone number of a call with a contact name and show it on the watch, Handsfree needs access to your contacts, so that when it observes the call, it can send the matching contact name to show it to you on the watch.
-
-Without the permission, no contact names for calls would be visible to you on the watch.
-
-## On the watch
-
-When enabled, Handsfree forwards your calls to the watch, so you can see an incoming call *when the watch app is active*.
-
-To actually **get alerted** (or not) about an incoming call *when the watch app is not active*, toggle \"Incoming Calls\" in the app settings.
-
-&lt;img src=\"./badges/Watch/Settings-Incoming-Calls.jpg\" alt=\"Settings-Incoming-Calls\" style=\"zoom:50%;\" /&gt;
 "</string>
     <string name="navigation_onboarding">"Configuration"</string>
     <string name="onboarding_intro">"Version {{version_info}}
@@ -196,15 +166,12 @@ B. If you are not a beta tester (or prefer to not depend on Google Play), you ca
     <string name="settings_essentials">"Call control"</string>
     <string name="settings_essentials_on">"Calls can be observed and hang up on the watch."</string>
     <string name="settings_essentials_off">"No calls are enabled on the watch."</string>
-    <string name="settings_contacts">"✅ Phonebook"</string>
+    <string name="settings_contacts">"🟢 Phonebook"</string>
     <string name="settings_contacts_on">"Some contacts are starred and should be available on the watch."</string>
     <string name="settings_contacts_off">"**Starred** contacts make the list for dialing from the watch."</string>
     <string name="settings_outgoing_calls">"Outgoing calls"</string>
     <string name="settings_outgoing_calls_off">"Making calls is not possible on the watch."</string>
-    <string name="settings_outgoing_calls_on">"Making calls is possible for starred contacts in Phonebook."</string>
-    <string name="settings_call_info">"Incoming calls"</string>
-    <string name="settings_call_info_off">"Not receiving calls on the watch."</string>
-    <string name="settings_call_info_on">"Calls can be accepted the watch."</string>
+    <string name="settings_outgoing_calls_on">"Making calls is possible on the watch."</string>
     <string name="settings_disabled_due_to_essentials_are_off">"Disabled due to basic call control is off."</string>
     <string name="onboarding_troubleshooting">"# Troubleshooting
 
@@ -245,27 +212,37 @@ There are several components that should work together for normal operation of H
     <string name="settings_essentials_group">"Essentials"</string>
     <string name="settings_extras_group">"Extras"</string>
     <string name="settings_screen">"Controls"</string>
-    <string name="settings_preference_disabled_fmt">"❎ {{title}}"</string>
-    <string name="settings_preference_enabled_fmt">"✅ {{title}}"</string>
+    <string name="settings_preference_disabled_fmt">"🔴 {{title}}"</string>
+    <string name="settings_preference_enabled_fmt">"🟢 {{title}}"</string>
     <string name="settings_devices_group">"Devices"</string>
     <string name="settings_preferences_subscreen">"Configuration"</string>
     <string name="device_label_connected">"Connected"</string>
     <string name="device_label_not_connected">"Not Connected"</string>
     <string name="no_devices_preference_title">"No devices are registered."</string>
     <string name="no_devices_preference_summary">"Use Garmin Connect to register a device."</string>
-    <string name="onboarding_incoming_calls">"# Alert on incoming calls
+    <string name="onboarding_incoming_calls">"# Allow incoming calls
 
-By default, Handsfree (passively) shows incoming calls on your Garmin devices, ignoring any alerting and favoring the Garmin standard handling of incoming calls.
+Handsfree lets you show and accept the incoming calls on the watch. To allow that, give the app a couple more permissions, in addition to the [essential ones](link://onboarding_essentials).
 
-You can opt-in into Handsfree's own handling of incoming calls, employing vibration and (automatic) prompting you to accept or decline the call on the watch. If you go this route, it's probably worth disabling the standard alerts on incoming calls.
+### [Access your phone call logs](permissions://?manifest=android.permission.READ_CALL_LOG)
 
-Beware that vibration is employed only on when the watch is idle - if you get an incoming call during an activity or while interacting with the watch, the watch will ask you to confirm opening Handsfree to handle the call, without vibration.
+To be able to identify the number for an incoming call, Handsfree needs access to your call logs.
 
-Also note that (due to what looks like a firmware limitation) the automatic prompt is available only on the specific models of the watches, namely Fenix 7 like devices, while on the most of the old/low-power watches/bike computers incoming calls trigger the confirmation to open Handsfree, without vibration.
+Without the permission, for an incoming call, Handsfree will show just \"Call in progress\" or \"Incoming call\" instead of the phone number or the contact name, on the watch.
+
+With the permission, Handsfree will be able to show you the number (and probably the contact name) on the watch.
+
+## On the watch
+
+When enabled, Handsfree forwards your calls to the watch, so you can see an incoming call *when the watch app is active*.
+
+To actually **get alerted** (or not) about an incoming call *when the watch app is not active*, toggle \"Incoming Calls\" in the app settings.
+
+&lt;img src=\"./badges/Watch/Settings-Incoming-Calls.jpg\" alt=\"Settings-Incoming-Calls\" style=\"zoom:50%;\" /&gt;
 "</string>
     <string name="settings_incoming_calls">"Incoming calls"</string>
-    <string name="settings_incoming_calls_off">"Show incoming call on glance"</string>
-    <string name="settings_incoming_calls_on">"Effective only if call control is enabled."</string>
+    <string name="settings_incoming_calls_off">"Not receiving calls on the watch."</string>
+    <string name="settings_incoming_calls_on">"Calls can be accepted on the watch."</string>
     <string name="settings_recents">"Recent calls"</string>
     <string name="settings_recents_off">"Call history is not shared with the watch."</string>
     <string name="settings_recents_on">"5 recently called contacts are shared with the watch."</string>
@@ -277,23 +254,48 @@ Currently the number of the recent contacts is limited to 5.
 
 ### [Access your phone call logs](permissions://?manifest=android.permission.READ_CALL_LOG)
 
-To show your recent calls on the watch, Handsfree needs access to your call logs.
+To let you see your recent calls on the watch, Handsfree needs access to your call logs.
 
-Without the permission, recent calls won't be shown.
+Without the permission, recent calls cannot be shown on the watch.
 
-With the permission, Handsfree will be able to show you the number (and probably the contact name, see below) and call back your recent/missed calls, from the watch.
-
-### [Access your contacts](permissions://?manifest_optional=android.permission.READ_CONTACTS)
-
-To be able to match the phone number of a call with a contact name and show it on the watch, Handsfree needs access to your contacts, so that when notices a recent call, it can send the matching contact name to show it to you on the watch.
-
-Without the permission, no contact names for calls would be visible to you on the watch.
+With the permission, Handsfree will be able to show you the recent/missed calls, and let you call them back from the watch (if you enable outgoing calls).
 "</string>
-    <string name="onboarding_starred_contacts">"# Starred contacts
+    <string name="onboarding_starred_contacts">"# Allow dialing of starred contacts
+
+Handsfree lets you make outgoing calls to any of the starred contacts. To allow that, give the app the extra permission, in addition to the ones necessary for [outgoing calls](link://onboarding_outgoing_calls).
+
+You can check your starred contacts [here](contacts://starred).
 
 ### [Access your contacts](permissions://?manifest=android.permission.READ_CONTACTS)
 
 To let you dial a starred contact from your watch, Handsfree needs permission to access your contacts. Given the permission, Handsfree sends the contact names and phone numbers to the watch. Handsfree never reads nor sends any other contact information to anywhere.
 
-Without the permission, the (starred) contacts won't be sent to the watch, and hence you won't be able to dial them from your watch."</string>
+Without the permission, the (starred) contacts won't be sent to the watch, and hence you won't be able to dial them from your watch.
+"</string>
+    <string name="settings_outgoing_calls_on_no_perm">"Making calls is not possible on the watch."</string>
+    <string name="settings_preference_enabled_no_perm_fmt">"🟡 {{title}}"</string>
+    <string name="onboarding_call_info">"# Show caller info
+
+Handsfree can let you see the phone number and contact name for a call, on the watch, like a usual phone. If you want to benefit from that for the calls other than outgoing, give it a couple more permissions, in addition to the [essential ones](link://onboarding_essentials).
+
+### [Access your phone call logs](permissions://?manifest=android.permission.READ_CALL_LOG)
+
+To be able to identify the number of a call, Handsfree needs access to your call logs.
+
+With the permission, Handsfree will be able to show you the number (and probably the contact name, see below), on the watch.
+
+Without the permission, Handsfree will show you just \"Call in progress\".
+
+### [Access your contacts](permissions://?manifest_optional=android.permission.READ_CONTACTS)
+
+To be able to match the phone number of a call with a contact name and show it on the watch, Handsfree needs access to your contacts, so that when it observes the call, it can send the matching contact name to show it to you on the watch.
+
+Without the permission, no contact names for the calls will be visible.
+"</string>
+    <string name="settings_call_info">"Caller ID"</string>
+    <string name="settings_call_info_off">"No phone numbers or names are shown on the watch."</string>
+    <string name="settings_call_info_on">"Phone numbers or contact names are shown on the watch."</string>
+    <string name="settings_starred_contacts">"Contacts"</string>
+    <string name="settings_starred_contacts_off">"**Starred** contacts are not shared with the watch."</string>
+    <string name="settings_starred_contacts_on">"**Starred** contacts are available for dialing on the watch."</string>
 </resources>
