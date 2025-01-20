@@ -26,7 +26,7 @@
 
 🟢 [Making calls is possible on the watch.](lk:outgoing_calls_on)
 
-### [Phonebook](lk:starred_contacts)
+### [Contacts](lk:starred_contacts)
 
 🔴 [**Starred** contacts are not shared with the watch.](lk:starred_contacts_off)
 
