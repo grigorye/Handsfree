@@ -28,36 +28,91 @@
     </properties>
 
     <strings>
-        <string id="popOutOfAppInsteadOfPhones">Close app after call</string>
-        <string id="openAppOnIncomingCall">Open app on incoming call</string>
-        <string id="broadcastListening">Sync in background</string>
-        <string id="callStateOnGlance">Show call state on glance</string>
-        <string id="forceCheckIn">Check-in</string>
-        <string id="secondsToCheckIn">Timeout for check-in (sec)</string>
-        <string id="showSourceVersion">Show source version in the app</string>
-        <string id="customGlanceTitle">Custom title for glance</string>
-        <string id="incomingCallMessageFormat">Incoming call message format (use $1$ as the contact
-            name/phone number placeholder)</string>
-        <string id="pendingValueFormat">Pending value format (keep $1$ as the placeholder)</string>
-        <string id="forceLargeFonts">Force large fonts</string>
-        <string id="eraseAppDataOnNextLaunch">Erase data on next launch</string>
-        <string id="incomingOpenAppViaCompanion">Use companion for opening app on incoming call</string>
-        <string id="incomingOpenAppViaWakeUp">Wake up app on incoming call</string>
-        <string id="beepOnComm">Beep on communication</string>
-        <string id="statsTracking">Show stats</string>
-        <string id="glanceLogging">Log glance</string>
-        <string id="workaroundNoRedrawForMenu2">Workaround no redraw for Menu2</string>
-        <string id="forcedLogComponents">Force log components</string>
-        <string id="incomingCallVibration">Incoming call vibration pattern ('v3;p1;v3;p2'
-            means 'vibrate 3s, pause 1s, vibrate 3s, pause 2s')</string>
-        <string id="forceLogAll">Verbose logs</string>
-        <string id="flushIncomingMessagesOnLaunch">Flush incoming messages on launch</string>
-        <string id="optimisticCallHandling">Optimistic call handling</string>
-        <string id="mainScreen">Main</string>
-        <string id="favoritesScreen">Favorites</string>
-        <string id="recentsScreen">Recents</string>
-        <string id="followUpCommDelay">Comm delay on follow-up</string>
-        <string id="showPhoneNumbers">Show phone numbers</string>
+        <string id="popOutOfAppInsteadOfPhones">
+            Close app after call
+        </string>
+        <string id="openAppOnIncomingCall">
+            Open app on incoming call
+        </string>
+        <string id="broadcastListening">
+            Sync in background
+        </string>
+        <string id="callStateOnGlance">
+            Show call state on glance
+        </string>
+        <string id="forceCheckIn">
+            Check-in
+        </string>
+        <string id="secondsToCheckIn">
+            Timeout for check-in (sec)
+        </string>
+        <string id="showSourceVersion">
+            Show source version in the app
+        </string>
+        <string id="customGlanceTitle">
+            Custom title for glance
+        </string>
+        <string id="incomingCallMessageFormat">
+            Incoming call message format (use name/phone number placeholder)
+        </string>
+        <string id="pendingValueFormat">
+            Pending value format (keep $1$ as the placeholder)
+        </string>
+        <string id="forceLargeFonts">
+            Force large fonts
+        </string>
+        <string id="eraseAppDataOnNextLaunch">
+            Erase data on next launch
+        </string>
+        <string id="incomingOpenAppViaCompanion">
+            Use companion for opening app on incoming call
+        </string>
+        <string id="incomingOpenAppViaWakeUp">
+            Wake up app on incoming call
+        </string>
+        <string id="beepOnComm">
+            Beep on communication
+        </string>
+        <string id="statsTracking">
+            Show stats
+        </string>
+        <string id="glanceLogging">
+            Log glance
+        </string>
+        <string id="workaroundNoRedrawForMenu2">
+            Workaround no redraw for Menu2
+        </string>
+        <string id="forcedLogComponents">
+            Force log components
+        </string>
+        <string id="incomingCallVibration">
+            Incoming call vibration pattern ('v3;p1;v3;p2' means 'vibrate 3s, pause 1s, vibrate 3s,
+            pause 2s')
+        </string>
+        <string id="forceLogAll">
+            Verbose logs
+        </string>
+        <string id="flushIncomingMessagesOnLaunch">
+            Flush incoming messages on launch
+        </string>
+        <string id="optimisticCallHandling">
+            Optimistic call handling
+        </string>
+        <string id="mainScreen">
+            Main
+        </string>
+        <string id="favoritesScreen">
+            Favorites
+        </string>
+        <string id="recentsScreen">
+            Recents
+        </string>
+        <string id="followUpCommDelay">
+            Comm delay on follow-up
+        </string>
+        <string id="showPhoneNumbers">
+            Show phone numbers
+        </string>
     </strings>
 
     <settings>
