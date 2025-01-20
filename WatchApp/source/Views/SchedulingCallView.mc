@@ -23,7 +23,11 @@ class SchedulingCallView extends WatchUi.ProgressBar {
                 message = "Calling" + "\n" + destination;
                 break;
             case FAILED:
-                message = "Communication\nFailed";
+                if (System.getDeviceSettings().phoneConnected) {
+                    message = "Communication\nFailed";
+                } else {
+                    message = "Phone is\nnot connected";
+                }
                 break;
             default:
                 System.error("Unknown commStatus");
