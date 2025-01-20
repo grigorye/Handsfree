@@ -60,7 +60,7 @@ class View extends WatchUi.Menu2 {
     private function setFromPhones(phones as Phones) as Void {
         var accessIssue = phones[PhonesField.accessIssue] as AccessIssue | Null;
         if (accessIssue != null) {
-            addItem(new WatchUi.MenuItem(accessIssuePrompt(accessIssue), "Contacts", noPhonesMenuItemId, {}));
+            addItem(accessIssueMenuItem("Contacts", accessIssue, noPhonesMenuItemId));
         } else {
             var phoneList = phones[PhonesField.phoneList] as PhoneList;
             setFromPhoneList(phoneList);

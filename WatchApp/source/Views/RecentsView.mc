@@ -58,7 +58,7 @@ class View extends WatchUi.Menu2 {
 
     private function addMenuItemsForAccessIssue(accessIssue as AccessIssue) as Void {
         if (debug) { _2(L_RECENTS_VIEW, "addMenuItemsForAccessIssue"); }
-        addItem(new WatchUi.MenuItem(accessIssuePrompt(accessIssue), "Recents", noRecentsMenuItemId, {}));
+        addItem(accessIssueMenuItem("Recents", accessIssue, noRecentsMenuItemId));
         oldRecentsCount = 1;
     }
 
