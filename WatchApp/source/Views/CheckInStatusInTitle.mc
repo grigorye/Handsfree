@@ -14,5 +14,18 @@ function updateStatusMenu() as Void {
 (:noLowMemory)
 function statusMenuTitle() as Lang.String {
     var statsRep = statsRep();
-    return joinComponents([statsRep != null ? statsRep : "Contacts", headsetStatusRep()], " ");
+    return joinComponents(
+        [
+            statsRep != null ? statsRep : "Contacts",
+            connectionStatusRep()
+        ],
+        " "
+    );
+}
+
+function connectionStatusRep() as Lang.String or Null {
+    if (!System.getDeviceSettings().phoneConnected) {
+        return "@";
+    }
+    return headsetStatusRep();
 }

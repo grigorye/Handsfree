@@ -15,14 +15,19 @@ class GlanceView extends WatchUi.GlanceView {
     }
 
     function onUpdate(dc as Graphics.Dc) {
-        var defaultTitle = defaultTitle();
+        var phoneConnected = System.getDeviceSettings().phoneConnected;
+        var companionConnected = CompanionInfoManip.getCompanionInfoVersion() != null;
+        var defaultTitle = defaultTitle(phoneConnected, companionConnected);
         var font = glanceFont();
         var colors = glanceColors();
         dc.setColor(colors[0], colors[1]);
 
         var title;
         var subtitle = null;
-        if (CompanionInfoManip.getCompanionInfoVersion() == null) {
+        if (!phoneConnected) {
+            title = defaultTitle;
+            subtitle = "Not connected";
+        } else if (!companionConnected) {
             title = defaultTitle;
             subtitle = "No companion";
         } else if (!GlanceLikeSettings.isShowingCallStateOnGlanceEnabled || !Styles.glance_live_update.enabled) {
@@ -88,7 +93,7 @@ class GlanceView extends WatchUi.GlanceView {
 }
 
 (:glance, :watchApp, :noLowMemory)
-function defaultTitle() as Lang.String {
+function customizableTitle() as Lang.String {
     var customTitle = GlanceSettings.customGlanceTitle;
     var adjustedTitle;
     if (customTitle.equals("")) {
@@ -100,15 +105,22 @@ function defaultTitle() as Lang.String {
     } else {
         adjustedTitle = customTitle;
     }
-    var defaultTitle = adjustedTitle;
+    return adjustedTitle;
+}
+
+(:glance, :watchApp, :noLowMemory)
+function defaultTitle(phoneConnected as Lang.Boolean, companionConnected as Lang.Boolean) as Lang.String {
+    var defaultTitle = customizableTitle();
+    if (!phoneConnected) {
+        return defaultTitle;
+    }
     if (Styles.glance_live_update.enabled) {
         var statsRep = statsRep();
         if (statsRep != null) {
             defaultTitle = embeddingHeadsetStatusRep(statsRep);
         } else {
-            var hasCompanionConnected = CompanionInfoManip.getCompanionInfoVersion() != null;
             var callControlReady = ReadinessInfoManip.readiness(ReadinessField.essentials).equals(ReadinessValue.ready);
-            if (hasCompanionConnected && callControlReady) {
+            if (companionConnected && callControlReady) {
                 var headsetStatus = headsetStatusHumanReadable();
                 defaultTitle = headsetStatus != null ? headsetStatus : defaultTitle;
             }
