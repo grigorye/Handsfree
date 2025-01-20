@@ -12,9 +12,9 @@ const Disabled as AccessIssue = "d";
 
 function accessIssuePrompt(issue as AccessIssue) as Lang.String {
     switch (issue) {
-        case AccessIssues.NoPermission: return "Grant Access:";
+        case AccessIssues.NoPermission: return "Give Permissions:";
         case AccessIssues.ReadFailed: return "Read Failed:";
-        case AccessIssues.Disabled: return "Disabled:";
+        case AccessIssues.Disabled: return "Enable in Companion:";
     }
     return "Unknown Issue:";
 }
