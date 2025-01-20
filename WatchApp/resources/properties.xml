@@ -28,89 +28,89 @@
     </properties>
 
     <strings>
-        <string id="popOutOfAppInsteadOfPhones">
+        <string id="popOutOfAppInsteadOfPhones" scope="settings">
             Close app after call
         </string>
-        <string id="openAppOnIncomingCall">
+        <string id="openAppOnIncomingCall" scope="settings">
             Open app on incoming call
         </string>
-        <string id="broadcastListening">
+        <string id="broadcastListening" scope="settings">
             Sync in background
         </string>
-        <string id="callStateOnGlance">
+        <string id="callStateOnGlance" scope="settings">
             Show call state on glance
         </string>
-        <string id="forceCheckIn">
+        <string id="forceCheckIn" scope="settings">
             Check-in
         </string>
-        <string id="secondsToCheckIn">
+        <string id="secondsToCheckIn" scope="settings">
             Timeout for check-in (sec)
         </string>
-        <string id="showSourceVersion">
+        <string id="showSourceVersion" scope="settings">
             Show source version in the app
         </string>
-        <string id="customGlanceTitle">
+        <string id="customGlanceTitle" scope="settings">
             Custom title for glance
         </string>
-        <string id="incomingCallMessageFormat">
+        <string id="incomingCallMessageFormat" scope="settings">
             Incoming call message format (use name/phone number placeholder)
         </string>
-        <string id="pendingValueFormat">
+        <string id="pendingValueFormat" scope="settings">
             Pending value format (keep $1$ as the placeholder)
         </string>
-        <string id="forceLargeFonts">
+        <string id="forceLargeFonts" scope="settings">
             Force large fonts
         </string>
-        <string id="eraseAppDataOnNextLaunch">
+        <string id="eraseAppDataOnNextLaunch" scope="settings">
             Erase data on next launch
         </string>
-        <string id="incomingOpenAppViaCompanion">
+        <string id="incomingOpenAppViaCompanion" scope="settings">
             Use companion for opening app on incoming call
         </string>
-        <string id="incomingOpenAppViaWakeUp">
+        <string id="incomingOpenAppViaWakeUp" scope="settings">
             Wake up app on incoming call
         </string>
-        <string id="beepOnComm">
+        <string id="beepOnComm" scope="settings">
             Beep on communication
         </string>
-        <string id="statsTracking">
+        <string id="statsTracking" scope="settings">
             Show stats
         </string>
-        <string id="glanceLogging">
+        <string id="glanceLogging" scope="settings">
             Log glance
         </string>
-        <string id="workaroundNoRedrawForMenu2">
+        <string id="workaroundNoRedrawForMenu2" scope="settings">
             Workaround no redraw for Menu2
         </string>
-        <string id="forcedLogComponents">
+        <string id="forcedLogComponents" scope="settings">
             Force log components
         </string>
-        <string id="incomingCallVibration">
+        <string id="incomingCallVibration" scope="settings">
             Incoming call vibration pattern ('v3;p1;v3;p2' means 'vibrate 3s, pause 1s, vibrate 3s,
             pause 2s')
         </string>
-        <string id="forceLogAll">
+        <string id="forceLogAll" scope="settings">
             Verbose logs
         </string>
-        <string id="flushIncomingMessagesOnLaunch">
+        <string id="flushIncomingMessagesOnLaunch" scope="settings">
             Flush incoming messages on launch
         </string>
-        <string id="optimisticCallHandling">
+        <string id="optimisticCallHandling" scope="settings">
             Optimistic call handling
         </string>
-        <string id="mainScreen">
+        <string id="mainScreen" scope="settings">
             Main
         </string>
-        <string id="favoritesScreen">
+        <string id="favoritesScreen" scope="settings">
             Favorites
         </string>
-        <string id="recentsScreen">
+        <string id="recentsScreen" scope="settings">
             Recents
         </string>
-        <string id="followUpCommDelay">
+        <string id="followUpCommDelay" scope="settings">
             Comm delay on follow-up
         </string>
-        <string id="showPhoneNumbers">
+        <string id="showPhoneNumbers" scope="settings">
             Show phone numbers
         </string>
     </strings>
