@@ -2,7 +2,9 @@ import Toybox.Application;
 import Toybox.WatchUi;
 import Toybox.Lang;
 
-class SettingsViewDelegate extends WatchUi.Menu2InputDelegate {
+module SettingsScreen {
+
+class ViewDelegate extends WatchUi.Menu2InputDelegate {
     function initialize() {
         Menu2InputDelegate.initialize();
     }
@@ -36,4 +38,6 @@ class SettingsViewDelegate extends WatchUi.Menu2InputDelegate {
     function onBack() as Void {
         VT.popView(WatchUi.SLIDE_RIGHT);
     }
+}
+
 }

@@ -13,7 +13,7 @@ function openRecentsView() as Void {
 
 (:inline)
 function openSettingsView() as Void {
-    VT.pushView(V.settings, newSettingsView(), new SettingsViewDelegate(), WatchUi.SLIDE_LEFT);
+    VT.pushView(V.settings, newSettingsView(), new SettingsScreen.ViewDelegate(), WatchUi.SLIDE_LEFT);
 }
 
 (:inline)

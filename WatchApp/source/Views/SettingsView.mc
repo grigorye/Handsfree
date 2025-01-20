@@ -1,6 +1,8 @@
 import Toybox.WatchUi;
 
-class SettingsView extends WatchUi.Menu2 {
+module SettingsScreen {
+
+class View extends WatchUi.Menu2 {
     function initialize() {
         Menu2.initialize({ :title => "Settings" });
         addItem(incomingCallsMenuItem());
@@ -56,8 +58,10 @@ class SettingsView extends WatchUi.Menu2 {
     }
 }
 
-function newSettingsView() as SettingsView {
-    var settingsView = new SettingsView();
+}
+
+function newSettingsView() as SettingsScreen.View {
+    var settingsView = new SettingsScreen.View();
     settingsView.update();
     return settingsView;
 }
