@@ -4,6 +4,7 @@ enum CallInProgressAction {
     CALL_IN_PROGRESS_ACTION_HANGUP = "hangup",
     CALL_IN_PROGRESS_ACTION_ACCEPT = "accept",
     CALL_IN_PROGRESS_ACTION_REJECT = "reject",
+    CALL_IN_PROGRESS_ACTION_IGNORE = "ignore",
     CALL_IN_PROGRESS_ACTION_MUTE = "mute",
     CALL_IN_PROGRESS_ACTION_AUDIO_VOLUME = "audioVolume",
 }
@@ -24,6 +25,10 @@ function textsForCallInProgress(phone as Phone) as CallInProgressTexts {
         actions.add({
             :prompt => "Decline",
             :command => CALL_IN_PROGRESS_ACTION_REJECT
+        } as CallInProgressActionSelector);
+        actions.add({
+            :prompt => "Ignore",
+            :command => CALL_IN_PROGRESS_ACTION_IGNORE
         } as CallInProgressActionSelector);
     } else {
         actions.add({

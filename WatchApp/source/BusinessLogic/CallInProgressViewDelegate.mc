@@ -29,6 +29,10 @@ class CallInProgressViewDelegate extends WatchUi.Menu2InputDelegate {
                 rejectIncomingCall(phone);
                 break;
             }
+            case CALL_IN_PROGRESS_ACTION_IGNORE: {
+                ignoreIncomingCall(phone);
+                break;
+            }
             case CALL_IN_PROGRESS_ACTION_MUTE: {
                 var isMuted = AudioStateImp.getIsMuted(AudioStateImp.getPendingAudioState());
                 sendMute(!isMuted);

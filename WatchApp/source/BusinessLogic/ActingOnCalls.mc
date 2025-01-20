@@ -27,3 +27,10 @@ function rejectIncomingCall(phone as Phone) as Void {
     dropRingingFromPhone(phone);
     new CallActionTask(phone, CALL_IN_PROGRESS_ACTION_REJECT).launch();
 }
+
+function ignoreIncomingCall(phone as Phone) as Void {
+    if (!isIncomingCallPhone(phone)) {
+        System.error("!isIncomingCallPhone: " + phone);
+    }
+    exitToSystemFromCurrentView();
+}
