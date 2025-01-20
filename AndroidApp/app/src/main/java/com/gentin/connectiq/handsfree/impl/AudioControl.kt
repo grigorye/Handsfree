@@ -101,7 +101,7 @@ class AudioControlImp(base: Context?) : ContextWrapper(base), AudioControl {
 
     @Suppress("DEPRECATION")
     override fun activeAudioDevice(): AudioDevice? {
-        if (lastTrackedPhoneStateId != PhoneStateId.OffHook) {
+        if (!listOf(PhoneStateId.OffHook, PhoneStateId.Ringing).contains(lastTrackedPhoneStateId)) {
             return null
         }
         val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
