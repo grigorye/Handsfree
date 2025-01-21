@@ -1,0 +1,5 @@
+<resources>
+    <properties>
+        <property id="workaroundNoRedrawForMenu2" type="boolean">false</property>
+    </properties>
+</resources>

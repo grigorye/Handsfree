@@ -2,7 +2,7 @@ project.typecheck = strict
 project.optimization = 3z
 base.sourcePath = build/source/**.mc;source/**.mc;local/source/**.mc
 
-fenix7_personality_extras = ./traits/glances2022;./traits/auto-open;./traits/color
+fenix7_personality_extras = ./traits/glances2022;./traits/auto-open;./traits/color;./traits/menu2-redraw
 epix2.personality = $(epix2.personality);$(fenix7_personality_extras)
 epix2pro42mm.personality = $(epix2pro42mm.personality);$(fenix7_personality_extras)
 epix2pro47mm.personality = $(epix2pro47mm.personality);$(fenix7_personality_extras)
