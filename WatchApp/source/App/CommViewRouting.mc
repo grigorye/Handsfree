@@ -3,7 +3,7 @@ import Toybox.Lang;
 function routeOnFirstShow() as Void {
     if (!isCompanionUpToDate()) {
         if (debug) { _2(L_COMM_VIEW, "noCompanionInfo"); }
-        openInstallCompanionView();
+        Navigation.openInstallCompanionView();
     } else {
         routeToMainUI();
     }
@@ -23,7 +23,7 @@ function isCompanionUpToDate() as Lang.Boolean {
 
 function routeToMainUI() as Void {
     appWillRouteToMainUI();
-    openFavoritesView();
+    Navigation.openFavoritesView();
     getRouter().updateRoute();
     appDidRouteToMainUI();
 }

@@ -11,11 +11,11 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
     function onSelect(item as WatchUi.MenuItem) as Void {
         var id = item.getId() as Lang.Object;
         if (id == :recents) {
-            openRecentsView();
+            Navigation.openRecentsView();
             return;
         }
         if (id == :settings) {
-            openSettingsView();
+            Navigation.openSettingsView();
             return;
         }
         if (!lowMemory) {
