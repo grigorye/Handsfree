@@ -6,7 +6,7 @@ module PhonesScreen {
 
 const L_PHONES_VIEW as LogComponent = "phonesView";
 
-class View extends WatchUi.Menu2 {
+class View extends ExtendedMenu2 {
 
     const predefinedItems as Lang.Array<WatchUi.MenuItem> = [
         newRecentsMenuItem(),
@@ -16,7 +16,7 @@ class View extends WatchUi.Menu2 {
     const predefinedItemsCount as Lang.Number = predefinedItems.size();
 
     function initialize(phones as Phones) {
-        Menu2.initialize({});
+        ExtendedMenu2.initialize();
         setTitle(statusMenuTitle());
         setFromPhones(phones);
     }
@@ -33,28 +33,6 @@ class View extends WatchUi.Menu2 {
         deleteExistingItems();
         setFromPhones(phones);
         workaroundNoRedrawForMenu2(self);
-    }
-
-    function deleteExistingItems() as Void {
-        var accessIssue = oldPhones[PhonesField.accessIssue] as AccessIssue | Null;
-        if (accessIssue != null) {
-            deleteItem(0); // There should be a single item for access issue
-        } else {
-            deleteExistingPhoneListItems();
-        }
-        deleteNMenuItems(self, predefinedItemsCount);
-    }
-
-    private function deleteExistingPhoneListItems() as Void {
-        var oldPhonesList = oldPhones[PhonesField.phoneList] as PhoneList;
-        var oldPhonesCount = oldPhonesList.size();
-        var menuItemCount;
-        if (oldPhonesCount == 0) {
-            menuItemCount = 1; // There should be a "No contacts" item
-        } else {
-            menuItemCount = oldPhonesCount;
-        }
-        deleteNMenuItems(self, menuItemCount);
     }
 
     private function setFromPhones(phones as Phones) as Void {

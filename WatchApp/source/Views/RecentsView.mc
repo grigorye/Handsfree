@@ -7,16 +7,14 @@ module RecentsScreen {
 
 const L_RECENTS_VIEW as LogComponent = "recentsView";
 
-class View extends WatchUi.Menu2 {
+class View extends ExtendedMenu2 {
     function initialize(lastRecentsCheckDate as Lang.Number) {
-        Menu2.initialize({});
+        ExtendedMenu2.initialize();
         self.lastRecentsCheckDate = lastRecentsCheckDate;
-        self.oldRecentsCount = 0;
         setTitleFromRecents();
         addMenuItemsFromRecents();
     }
 
-    private var oldRecentsCount as Lang.Number;
     private var lastRecentsCheckDate as Lang.Number;
 
     function update() as Void {
@@ -25,15 +23,6 @@ class View extends WatchUi.Menu2 {
         deleteExistingItems();
         addMenuItemsFromRecents();
         workaroundNoRedrawForMenu2(self);
-    }
-
-    function deleteExistingItems() as Void {
-        for (var i = 0; i < oldRecentsCount; i++) {
-            var existed = deleteItem(0);
-            if (existed == null) {
-                System.error("Failed to delete menu item at index " + i);
-            }
-        }
     }
 
     function setTitleFromRecents() as Void {
@@ -59,13 +48,11 @@ class View extends WatchUi.Menu2 {
     private function addMenuItemsForAccessIssue(accessIssue as AccessIssue) as Void {
         if (debug) { _2(L_RECENTS_VIEW, "addMenuItemsForAccessIssue"); }
         addItem(accessIssueMenuItem("Recents", accessIssue, noRecentsMenuItemId));
-        oldRecentsCount = 1;
     }
 
     private function addMenuItemsForEmptyRecentsList() as Void {
         if (debug) { _2(L_RECENTS_VIEW, "addMenuItemsForEmptyRecentsList"); }
         addItem(new WatchUi.MenuItem("No recents", "", noRecentsMenuItemId, {}));
-        oldRecentsCount = 1;
     }
 
     private function addMenuItemsForNonEmptyRecentsList(recents as RecentsList) as Void {
@@ -104,7 +91,6 @@ class View extends WatchUi.Menu2 {
             );
             addItem(item);
         }
-        oldRecentsCount = recentsCount;
     }
 }
 
