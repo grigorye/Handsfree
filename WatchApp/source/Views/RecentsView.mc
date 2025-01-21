@@ -20,9 +20,10 @@ class View extends ExtendedMenu2 {
     function update() as Void {
         if (debug) { _2(L_RECENTS_VIEW, "update"); }
         setTitleFromRecents();
+        beginUpdate();
         deleteExistingItems();
         addMenuItemsFromRecents();
-        workaroundNoRedrawForMenu2(self);
+        endUpdate();
     }
 
     function setTitleFromRecents() as Void {

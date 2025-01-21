@@ -30,9 +30,10 @@ class View extends ExtendedMenu2 {
             return;
         }
         if (debug) { _2(L_PHONES_VIEW, "phonesChanged"); }
+        beginUpdate();
         deleteExistingItems();
         setFromPhones(phones);
-        workaroundNoRedrawForMenu2(self);
+        endUpdate();
     }
 
     private function setFromPhones(phones as Phones) as Void {
