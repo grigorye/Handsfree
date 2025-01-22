@@ -121,6 +121,7 @@ default_build_prg() {
         -f "$jungles" \
         -y "$developer_key" \
         -d "$device" \
+        --build-stats 0 \
         --warn
 }
 
