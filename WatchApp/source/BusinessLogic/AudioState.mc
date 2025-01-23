@@ -3,69 +3,67 @@ import Toybox.Application;
 
 typedef AudioState as Lang.Dictionary<String, Application.PropertyValueType>;
 
+module X {
+
+(:background, :glance)
+var audioState as AudioStateWrapper = new AudioStateWrapper();
+
+class AudioStateWrapper extends VersionedSubject {
+
+    function initialize() {
+        VersionedSubject.initialize(
+            1,
+            1,
+            "audioState"
+        );
+    }
+
+    function setSubjectValue(value as SubjectValue) as Void {
+        oldValue = value();
+        VersionedSubject.setSubjectValue(value);
+        AudioStateManip.updateUIForAudioStateIfRelevant();
+    }
+
+    var oldValue as AudioState | Null = null;
+
+    function defaultSubjectValue() as SubjectValue | Null {
+        return {
+            isHeadsetConnectedK => false,
+            activeAudioDeviceK => "speaker",
+            volumeK => {
+                indexK => 0,
+                maxK => 10
+            },
+            isMutedK => false
+        } as AudioState as SubjectValue;
+    }
+
+    function defaultValue() as AudioState {
+        return defaultSubjectValue() as AudioState;
+    }
+
+    (:background, :glance)
+    function value() as AudioState {
+        return subjectValue() as AudioState;
+    }
+
+    (:background)
+    function setValue(value as AudioState) as Void {
+        setSubjectValue(value as SubjectValue);
+    }
+}
+
+}
+
 module AudioStateImp {
-
-(:background, :glance)
-var audioStateImp as AudioState or Null = null;
-(:background)
-var oldAudioStateImp as AudioState or Null = null;
-
-(:background, :glance)
-const L_AUDIO_STATE as LogComponent = "audioState";
-
-(:inline, :background)
-function setAudioStateImp(audioState as AudioState) as Void {
-    if (debug) { _3(L_AUDIO_STATE, "audioState", audioState); }
-    oldAudioStateImp = getAudioState();
-    audioStateImp = audioState;
-    saveAudioState(audioState);
-}
-
-(:inline, :background, :glance)
-function loadAudioState() as AudioState or Null {
-    return Storage.getValue("audioState.v1") as AudioState or Null;
-}
-
-(:inline, :background)
-function saveAudioState(audioState as AudioState) as Void {
-    Storage.setValue("audioState.v1", audioState as Application.PropertyValueType);
-}
 
 (:inline, :background)
 function resetAudioState() as Void {
-    var oldAudioState = getAudioState();
-    var newAudioState = defaultAudioState();
+    var oldAudioState = X.audioState.value();
+    var newAudioState = X.audioState.defaultValue();
     newAudioState[isHeadsetConnectedK] = oldAudioState[isHeadsetConnectedK];
-    AudioStateManip.setAudioState(newAudioState);
-    AudioStateManip.setAudioStateVersion(0);
-}
-
-(:background, :glance)
-function getAudioState() as AudioState {
-    var audioState;
-    if (audioStateImp != null) {
-        audioState = audioStateImp;
-    } else {
-        var loadedAudioState = loadAudioState();
-        if (loadedAudioState != null) {
-            audioState = loadedAudioState;
-        } else {
-            audioState = defaultAudioState();
-        }
-    }
-    return audioState;
-}
-
-(:background, :glance)
-function defaultAudioState() as AudioState {
-    return {
-        isHeadsetConnectedK => false,
-        volumeK => {
-            indexK => 5,
-            maxK => 10
-        },
-        isMutedK => false
-    } as AudioState;
+    X.audioState.setValue(newAudioState);
+    X.audioState.setVersion(0);
 }
 
 (:inline)
@@ -78,7 +76,7 @@ var pendingAudioStateImp as AudioState | Null = null;
 
 (:background)
 function getPendingAudioState() as AudioState {
-    return (pendingAudioStateImp != null) ? pendingAudioStateImp : getAudioState();
+    return (pendingAudioStateImp != null) ? pendingAudioStateImp : X.audioState.value();
 }
 
 (:background, :inline)

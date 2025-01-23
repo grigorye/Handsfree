@@ -32,7 +32,7 @@ class View extends ExtendedMenu2 {
     }
 
     private function addMenuItemsFromRecents() as Void {
-        var recents = RecentsManip.getRecents();
+        var recents = X.recents.value();
         var accessIssue = recents[RecentsField.accessIssue] as AccessIssue | Null;
         if (accessIssue != null) {
             addMenuItemsForAccessIssue(accessIssue);

@@ -2,7 +2,7 @@ import Toybox.Lang;
 
 (:glance)
 function headsetStatusRep() as Lang.String or Null {
-    if (!AudioStateManip.getIsHeadsetConnected(AudioStateImp.getAudioState())) {
+    if (!AudioStateManip.getIsHeadsetConnected(X.audioState.value())) {
         return "#";
     } else {
         return null;
@@ -11,7 +11,7 @@ function headsetStatusRep() as Lang.String or Null {
 
 (:glance, :noLowMemory)
 function headsetStatusHumanReadable() as Lang.String or Null {
-    if (!AudioStateManip.getIsHeadsetConnected(AudioStateImp.getAudioState())) {
+    if (!AudioStateManip.getIsHeadsetConnected(X.audioState.value())) {
         return "No headset";
     } else {
         return null;

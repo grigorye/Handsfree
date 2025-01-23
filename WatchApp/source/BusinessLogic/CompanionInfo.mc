@@ -4,6 +4,34 @@ import Toybox.Application;
 typedef CompanionInfo as Lang.Dictionary<String, Application.PropertyValueType>;
 typedef VersionInfo as Lang.Dictionary<String, Application.PropertyValueType>;
 
+module X {
+
+(:background, :glance)
+var companionInfo as CompanionInfoWrapper = new CompanionInfoWrapper();
+
+class CompanionInfoWrapper extends VersionedSubject {
+
+    (:background, :glance)
+    function initialize() {
+        VersionedSubject.initialize(
+            1,
+            1,
+            "companionInfo"
+        );
+    }
+
+    function setSubjectValue(value as SubjectValue) as Void {
+        VersionedSubject.setSubjectValue(value);
+        Routing.companionInfoDidChangeIfInApp();
+    }
+
+    function value() as CompanionInfo | Null {
+        return subjectValue() as CompanionInfo | Null;
+    }
+}
+
+}
+
 module CompanionInfoImp {
 
 (:inline, :background, :glance)
@@ -18,48 +46,6 @@ const versionCodeK = "c";
 const versionSourceVersionK = "s";
 (:inline, :background, :glance)
 const versionBuildTypeK = "t";
-
-(:background, :glance)
-var companionInfoImp as CompanionInfo or Null = null;
-(:background)
-var oldCompanionInfoImp as CompanionInfo or Null = null;
-
-(:background, :glance)
-const L_COMPANION_INFO as LogComponent = "companionInfo";
-
-(:inline, :background)
-function setCompanionInfoImp(companionInfo as CompanionInfo) as Void {
-    if (debug) { _3(L_COMPANION_INFO, "companionInfo", companionInfo); }
-    oldCompanionInfoImp = getCompanionInfo();
-    companionInfoImp = companionInfo;
-    saveCompanionInfo(companionInfo);
-}
-
-(:inline, :background, :glance)
-function loadCompanionInfo() as CompanionInfo or Null {
-    return Storage.getValue("companionInfo.v1") as CompanionInfo or Null;
-}
-
-(:inline, :background)
-function saveCompanionInfo(companionInfo as CompanionInfo) as Void {
-    Storage.setValue("companionInfo.v1", companionInfo as Application.PropertyValueType);
-}
-
-(:background, :glance)
-function getCompanionInfo() as CompanionInfo or Null {
-    var companionInfo;
-    if (companionInfoImp != null) {
-        companionInfo = companionInfoImp;
-    } else {
-        var loadedCompanionInfo = loadCompanionInfo();
-        if (loadedCompanionInfo != null) {
-            companionInfo = loadedCompanionInfo;
-        } else {
-            companionInfo = null;
-        }
-    }
-    return companionInfo;
-}
 
 (:inline)
 function getCompanionVersionCode(companionInfo as CompanionInfo) as Lang.Number {

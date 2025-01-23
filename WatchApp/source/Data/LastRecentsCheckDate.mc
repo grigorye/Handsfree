@@ -2,6 +2,9 @@ import Toybox.Lang;
 import Toybox.Application;
 import Toybox.Lang;
 
+(:background)
+const L_RECENTS_STORAGE as LogComponent = "recents";
+
 (:inline, :background)
 function getLastRecentsCheckDate() as Lang.Number {
     var loadedLastRecentsCheckDate = Storage.getValue("lastRecentsCheckDate") as Lang.Number or Null;

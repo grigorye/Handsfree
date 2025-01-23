@@ -1,72 +1,46 @@
 import Toybox.WatchUi;
-import Toybox.Application;
 import Toybox.Lang;
 import Toybox.Time;
 
-(:background)
-const L_RECENTS_STORAGE as LogComponent = "recents";
-
-module RecentsManip {
-(:inline, :background)
-const recentsStorageK as Lang.String = "recents.v2";
-
-(:inline, :background)
-const recentsVersionStorageK as Lang.String = "recentsVersion.v1";
-
-(:inline, :background)
-function setRecentsVersion(version as Version) as Void {
-    if (debug) { _3(L_RECENTS_STORAGE, "saveRecentsVersion", version); }
-    Storage.setValue(recentsVersionStorageK, version);
-}
-
-(:inline, :background)
-function getRecentsVersion() as Version {
-    var recentsVersion = Storage.getValue(recentsVersionStorageK) as Version;
-    return recentsVersion;
-}
+module X {
 
 (:background)
-var recentsImp as Recents | Null = null;
+var recents as RecentsWrapper = new RecentsWrapper();
 
-(:background)
-function getRecents() as Recents {
-    if (recentsImp != null) {
-        return recentsImp;
+class RecentsWrapper extends VersionedSubject {
+    
+    function initialize() {
+        VersionedSubject.initialize(
+            2,
+            1,
+            "recents"
+        );
     }
-    var recents = loadRecents();
-    recentsImp = recents;
-    return recents;
+
+    function setSubjectValue(value as SubjectValue) as Void {
+        VersionedSubject.setSubjectValue(value);
+        updateMissedRecents();
+        RecentsManip.updateUIForRecentsIfInApp(value as Recents);
+    }
+
+    function defaultSubjectValue() as SubjectValue | Null {
+        return { RecentsField.list => [] as RecentsList } as Recents as SubjectValue;
+    }
+
+    (:background)
+    function value() as Recents {
+        return subjectValue() as Recents;
+    }
 }
+
+}
+module RecentsManip {
 
 (:background)
 function getRecentsList() as RecentsList {
-    var recents = getRecents();
+    var recents = X.recents.value();
     var recentsList = recents[RecentsField.list] as RecentsList;
     return recentsList;
-}
-
-(:inline, :background)
-function loadRecents() as Recents {
-    var recents = Storage.getValue(recentsStorageK) as Recents or Null;
-    if (recents == null) {
-        recents = noRecents;
-    }
-    return recents;
-}
-
-(:inline, :background)
-function saveRecents(recents as Recents) as Void {
-    if (debug) { _3(L_RECENTS_STORAGE, "saveRecents", recents); }
-    Storage.setValue(recentsStorageK, recents as [Application.PropertyValueType]);
-}
-
-(:background)
-function setRecents(recents as Recents) as Void {
-    _3(L_APP, "setRecents", recents);
-    saveRecents(recents);
-    recentsImp = recents;
-    updateUIForRecentsIfInApp(recents);
-    updateMissedRecents();
 }
 
 (:background, :typecheck([disableBackgroundCheck]))
@@ -74,10 +48,6 @@ function updateUIForRecentsIfInApp(recents as Recents) as Void {
     if (!isActiveUiKindApp) {
         return;
     }
-    updateUIForRecents(recents);
-}
-
-function updateUIForRecents(recents as Recents) as Void {
     updateRecentsMenuItem();
     updateRecentsView();
     WatchUi.requestUpdate();

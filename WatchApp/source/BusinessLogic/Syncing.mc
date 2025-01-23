@@ -8,10 +8,10 @@ function requestAllSubjects() as Void {
         argsK => {
             subjectsK => [
                 { QueryArgsK.subjectNameK => broadcastSubject, QueryArgsK.subjectVersionK => BackgroundSettings.broadcastListeningVersion()},
-                { QueryArgsK.subjectNameK => phonesSubject, QueryArgsK.subjectVersionK => PhonesManip.getPhonesVersion() },
-                { QueryArgsK.subjectNameK => recentsSubject, QueryArgsK.subjectVersionK => RecentsManip.getRecentsVersion() },
-                { QueryArgsK.subjectNameK => audioStateSubject, QueryArgsK.subjectVersionK => AudioStateManip.getAudioStateVersion() },
-                { QueryArgsK.subjectNameK => readinessInfoSubject, QueryArgsK.subjectVersionK => ReadinessInfoManip.getReadinessInfoVersion() },
+                { QueryArgsK.subjectNameK => phonesSubject, QueryArgsK.subjectVersionK => X.phones.version() },
+                { QueryArgsK.subjectNameK => recentsSubject, QueryArgsK.subjectVersionK => X.recents.version() },
+                { QueryArgsK.subjectNameK => audioStateSubject, QueryArgsK.subjectVersionK => X.audioState.version() },
+                { QueryArgsK.subjectNameK => readinessInfoSubject, QueryArgsK.subjectVersionK => X.readinessInfo.version() },
             ]
         }
     } as Lang.Object as Application.PersistableType;

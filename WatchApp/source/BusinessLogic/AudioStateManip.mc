@@ -4,44 +4,38 @@ import Toybox.Application;
 
 module AudioStateManip {
 
-(:background)
-const L_AUDIO_STATE_STORAGE as LogComponent = "audioState";
+(:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
+function updateUIForAudioStateIfRelevant() as Void {
+    if (activeUiKind.equals(ACTIVE_UI_GLANCE)) {
+        WatchUi.requestUpdate();
+        return;
+    }
+    if (!isActiveUiKindApp) {
+        return;
+    }
 
-(:background, :typecheck(disableBackgroundCheck))
-function setAudioState(audioState as AudioState) as Void {
-    AudioStateImp.setAudioStateImp(audioState);
-    switch (activeUiKind) {
-        case ACTIVE_UI_NONE: {
-            return;
-        }
-        case ACTIVE_UI_GLANCE: {
-            WatchUi.requestUpdate();
-            return;
-        }
-        case ACTIVE_UI_APP: {
-            updateCallInProgressView();
-            WatchUi.requestUpdate();
-            var isHeadsetConnected = getIsHeadsetConnected(audioState);
-            var needToast;
-            var oldAudioStateImp = AudioStateImp.oldAudioStateImp;
-            if (oldAudioStateImp != null) {
-                var oldIsHeadsetConnected = getIsHeadsetConnected(oldAudioStateImp);
-                needToast = isHeadsetConnected != oldIsHeadsetConnected;
+    var audioState = X.audioState.value();
+
+    updateCallInProgressView();
+    WatchUi.requestUpdate();
+    var isHeadsetConnected = getIsHeadsetConnected(audioState);
+    var needToast;
+    var oldAudioStateImp = X.audioState.oldValue;
+    if (oldAudioStateImp != null) {
+        var oldIsHeadsetConnected = getIsHeadsetConnected(oldAudioStateImp);
+        needToast = isHeadsetConnected != oldIsHeadsetConnected;
+    } else {
+        needToast = true;
+    }
+    if (needToast) {
+        if (WatchUi has :showToast) {
+            if (isHeadsetConnected && oldAudioStateImp == null) {
+                // do nothing
+            } else if (isHeadsetConnected) {
+                WatchUi.showToast("Headset on", null);
             } else {
-                needToast = true;
+                WatchUi.showToast("No headset", null);
             }
-            if (needToast) {
-                if (WatchUi has :showToast) {
-                    if (isHeadsetConnected && oldAudioStateImp == null) {
-                        // do nothing
-                    } else if (isHeadsetConnected) {
-                        WatchUi.showToast("Headset on", null);
-                    } else {
-                        WatchUi.showToast("No headset", null);
-                    }
-                }
-            }
-            return;
         }
     }
 }
@@ -113,18 +107,6 @@ function getActiveAudioDeviceAbbreviation(audioState as AudioState) as Lang.Stri
     } else {
         return null;
     }
-}
-
-(:inline, :background)
-function setAudioStateVersion(version as Version) as Void {
-    if (debug) { _3(L_AUDIO_STATE_STORAGE, "setAudioStateVersion", version); }
-    Storage.setValue("audioStateVersion.v1", version);
-}
-
-(:inline, :background)
-function getAudioStateVersion() as Version | Null {
-    var version = Storage.getValue("audioStateVersion.v1") as Version | Null;
-    return version;
 }
 
 function updateCallInProgressView() as Void {

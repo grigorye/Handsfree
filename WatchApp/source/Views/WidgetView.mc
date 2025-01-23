@@ -106,7 +106,7 @@ class WidgetView extends WatchUi.View {
 
 (:widget)
 function headsetStatusForWidget() as Lang.String or Null {
-    if (!AudioStateManip.getIsHeadsetConnected(AudioStateImp.getAudioState())) {
+    if (!AudioStateManip.getIsHeadsetConnected(X.audioState.value())) {
         return "(no headset)";
     } else {
         return null;

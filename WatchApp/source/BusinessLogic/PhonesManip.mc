@@ -2,60 +2,44 @@ import Toybox.WatchUi;
 import Toybox.Application;
 import Toybox.Lang;
 
+module X {
+
 (:background)
-const L_PHONES_STORAGE as LogComponent = "phones";
+var phones as PhonesWrapper = new PhonesWrapper();
 
-const L_PHONES_UI as LogComponent = "phonesUI";
+class PhonesWrapper extends VersionedSubject {
+    
+    (:background)
+    function initialize() {
+        VersionedSubject.initialize(
+            2,
+            1,
+            "phones"
+        );
+    }
 
+    function setSubjectValue(value as SubjectValue) as Void {
+        VersionedSubject.setSubjectValue(value);
+        PhonesManip.updateUIForPhonesIfInApp(value as Phones);
+    }
+
+    function defaultSubjectValue() as SubjectValue | Null {
+        return noPhones as SubjectValue;
+    }
+
+    function value() as Phones {
+        return subjectValue() as Phones;
+    }
+}
+
+}
 module PhonesManip {
 
-(:background)
-const phonesVersionStorageK as Lang.String = "phonesVersion.v1";
-
-(:inline, :background)
-function setPhonesVersion(version as Version) as Void {
-    if (debug) { _3(L_PHONES_STORAGE, "savePhonesVersion", version); }
-    Storage.setValue(phonesVersionStorageK, version);
-}
-
-(:inline, :background)
-function getPhonesVersion() as Version or Null {
-    var phonesVersion = Storage.getValue(phonesVersionStorageK) as Version or Null;
-    return phonesVersion;
-}
-
-(:background)
-const phonesStorageK as Lang.String = "phones.v2";
-
-function getPhones() as Phones {
-    var phones = Storage.getValue(phonesStorageK) as Phones or Null;
-    if (phones != null) {
-        return phones;
-    } else {
-        return noPhones;
-    }
-}
-
-(:inline, :background)
-function savePhones(phones as Phones) as Void {
-    if (debug) { _3(L_PHONES_STORAGE, "savePhones", phones); }
-    Storage.setValue(phonesStorageK, phones as [Application.PropertyValueType]);
-}
-
-(:inline, :background)
-function setPhones(phones as Phones) as Void {
-    savePhones(phones);
-    updateUIForPhonesIfInApp(phones);
-}
-
-(:inline, :background, :typecheck([disableBackgroundCheck]))
+(:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function updateUIForPhonesIfInApp(phones as Phones) as Void {
-    if (isActiveUiKindApp) {
-        updateUIForPhones(phones);
+    if (!isActiveUiKindApp) {
+        return;
     }
-}
-
-function updateUIForPhones(phones as Phones) as Void {
     var phonesView = VT.viewWithTag(V.phones) as PhonesScreen.View or Null;
     if (phonesView != null) {
         phonesView.updateFromPhones(phones);

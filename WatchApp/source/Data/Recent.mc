@@ -5,9 +5,6 @@ typedef RecentsList as Lang.Array<Recent>;
 typedef Recents as Lang.Dictionary<Lang.String, RecentsList | AccessIssue>;
 
 (:background)
-const noRecents as Recents = { RecentsField.list => [] as RecentsList } as Recents;
-
-(:background)
 module RecentsField {
     const list as Lang.String = "r";
     const accessIssue as Lang.String = "a";

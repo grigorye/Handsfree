@@ -44,7 +44,7 @@ class DebugMenuDelegate extends WatchUi.Menu2InputDelegate {
 }
 
 function readinessInfoCompact() as Lang.String {
-    var readinessInfo = ReadinessInfoImp.getReadinessInfo();
+    var readinessInfo = X.readinessInfo.value();
     if (readinessInfo == null) {
         return "null";
     }

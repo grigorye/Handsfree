@@ -16,7 +16,7 @@ class GlanceView extends WatchUi.GlanceView {
 
     function onUpdate(dc as Graphics.Dc) {
         var phoneConnected = System.getDeviceSettings().phoneConnected;
-        var companionConnected = CompanionInfoManip.getCompanionInfoVersion() != null;
+        var companionConnected = X.companionInfo.version() != null;
         var defaultTitle = defaultTitle(phoneConnected, companionConnected);
         var font = glanceFont();
         var colors = glanceColors();

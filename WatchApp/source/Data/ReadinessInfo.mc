@@ -18,48 +18,30 @@ const starredContacts = "s";
 
 }
 
-module ReadinessInfoImp {
+module X {
 
 (:background, :glance)
-var readinessInfoImp as ReadinessInfo or Null = null;
-(:background)
-var oldReadinessInfoImp as ReadinessInfo or Null = null;
+var readinessInfo as ReadinessInfoWrapper = new ReadinessInfoWrapper();
 
-(:background, :glance)
-const L_COMPANION_INFO as LogComponent = "readinessInfo";
+class ReadinessInfoWrapper extends VersionedSubject {
 
-(:inline, :background)
-function setReadinessInfoImp(readinessInfo as ReadinessInfo) as Void {
-    if (debug) { _3(L_COMPANION_INFO, "readinessInfo", readinessInfo); }
-    oldReadinessInfoImp = getReadinessInfo();
-    readinessInfoImp = readinessInfo;
-    saveReadinessInfo(readinessInfo);
-}
-
-(:inline, :background, :glance)
-function loadReadinessInfo() as ReadinessInfo or Null {
-    return Storage.getValue("readinessInfo.v1") as ReadinessInfo or Null;
-}
-
-(:inline, :background)
-function saveReadinessInfo(readinessInfo as ReadinessInfo) as Void {
-    Storage.setValue("readinessInfo.v1", readinessInfo as Application.PropertyValueType);
-}
-
-(:background, :glance)
-function getReadinessInfo() as ReadinessInfo or Null {
-    var readinessInfo;
-    if (readinessInfoImp != null) {
-        readinessInfo = readinessInfoImp;
-    } else {
-        var loadedReadinessInfo = loadReadinessInfo();
-        if (loadedReadinessInfo != null) {
-            readinessInfo = loadedReadinessInfo;
-        } else {
-            readinessInfo = null;
-        }
+    function initialize() {
+        VersionedSubject.initialize(
+            1,
+            1,
+            "readinessInfo"
+        );
     }
-    return readinessInfo;
+
+    function setSubjectValue(value as SubjectValue) as Void {
+        VersionedSubject.setSubjectValue(value);
+        Routing.readinessInfoDidChangeIfInApp();
+    }
+
+    (:background, :glance)
+    function value() as ReadinessInfo | Null {
+        return subjectValue() as ReadinessInfo | Null;
+    }
 }
 
 }

@@ -108,93 +108,49 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
                 }
                 break;
             }
-            case phonesSubject: {
-                if (!version.equals(PhonesManip.getPhonesVersion())) {
-                    var phones = subject[valueK] as Phones or Null;
-                    if (phones == null) {
-                        subjectsInvalidated.add(name);
-                    } else {
-                        PhonesManip.setPhones(phones);
-                        PhonesManip.setPhonesVersion(version);
-                    }
-                    isHit = false;
-                } else {
-                    if (debug) { _3(LX_REMOTE_MSG, "phonesHit", version); }
-                }
-                break;
-            }
-            case recentsSubject: {
-                if (!version.equals(RecentsManip.getRecentsVersion())) {
-                    var recents = subject[valueK] as Recents or Null;
-                    if (recents == null) {
-                        subjectsInvalidated.add(name);
-                    } else {
-                        RecentsManip.setRecents(recents);
-                        RecentsManip.setRecentsVersion(version);
-                    }
-                    isHit = false;
-                } else {
-                    if (debug) { _3(LX_REMOTE_MSG, "recentsHit", version); }
-                }
-                break;
-            }
             case audioStateSubject: {
-                if (!version.equals(AudioStateManip.getAudioStateVersion())) {
-                    var audioState = subject[valueK] as AudioState or Null;
-                    if (audioState == null) {
-                        subjectsInvalidated.add(name);
-                    } else {
-                        var pendingAudioState = AudioStateImp.pendingAudioStateImp;
-                        if (pendingAudioState != null) {
-                            var newActiveAudioDevice = pendingAudioState[activeAudioDeviceK] as Lang.String | Null;
-                            if (newActiveAudioDevice != null) {
-                                var oldActiveAudioDevice = audioState[activeAudioDeviceK];
-                                if ((oldActiveAudioDevice == null) || !oldActiveAudioDevice.equals(newActiveAudioDevice)) {
-                                    var isMuted = pendingAudioState[isMutedK] as Lang.Boolean;
-                                    pendingAudioState = AudioStateImp.clone(audioState);
-                                    pendingAudioState[isMutedK] = isMuted;
-                                    AudioStateImp.pendingAudioStateImp = pendingAudioState;
-                                }
+                if (version.equals(X.audioState.version())) {
+                    break;
+                }
+                var audioState = subject[valueK] as AudioState or Null;
+                if (audioState != null) {
+                    var pendingAudioState = AudioStateImp.pendingAudioStateImp;
+                    if (pendingAudioState != null) {
+                        var newActiveAudioDevice = pendingAudioState[activeAudioDeviceK] as Lang.String | Null;
+                        if (newActiveAudioDevice != null) {
+                            var oldActiveAudioDevice = audioState[activeAudioDeviceK];
+                            if ((oldActiveAudioDevice == null) || !oldActiveAudioDevice.equals(newActiveAudioDevice)) {
+                                var isMuted = pendingAudioState[isMutedK] as Lang.Boolean;
+                                pendingAudioState = AudioStateImp.clone(audioState);
+                                pendingAudioState[isMutedK] = isMuted;
+                                AudioStateImp.pendingAudioStateImp = pendingAudioState;
                             }
-                        } else {
-                            AudioStateImp.pendingAudioStateImp = audioState;
                         }
-                        AudioStateManip.setAudioState(audioState);
-                        AudioStateManip.setAudioStateVersion(version);
+                    } else {
+                        AudioStateImp.pendingAudioStateImp = audioState;
                     }
-                    isHit = false;
-                } else {
-                    if (debug) { _3(LX_REMOTE_MSG, "audioStateHit", version); }
                 }
-                break;
+                // fall through
             }
+            case recentsSubject:
+            case phonesSubject:
+            case readinessInfoSubject:
             case companionInfoSubject: {
-                if (!version.equals(CompanionInfoManip.getCompanionInfoVersion())) {
-                    var companionInfo = subject[valueK] as CompanionInfo or Null;
-                    if (companionInfo == null) {
-                        subjectsInvalidated.add(name);
-                    } else {
-                        CompanionInfoManip.setCompanionInfo(companionInfo);
-                        CompanionInfoManip.setCompanionInfoVersion(version);
-                    }
-                    isHit = false;
-                } else {
-                    if (debug) { _3(LX_REMOTE_MSG, "companionInfoHit", version); }
+                var versionedSubject = versionedSubjectForSubject(name);
+                if (versionedSubject == null) {
+                    System.error("");
                 }
-                break;
-            }
-            case readinessInfoSubject: {
-                if (!version.equals(ReadinessInfoManip.getReadinessInfoVersion())) {
-                    var readinessInfo = subject[valueK] as ReadinessInfo or Null;
-                    if (readinessInfo == null) {
+                if (!version.equals(versionedSubject.version())) {
+                    var value = subject[valueK] as SubjectValue or Null;
+                    if (value == null) {
                         subjectsInvalidated.add(name);
                     } else {
-                        ReadinessInfoManip.setReadinessInfo(readinessInfo);
-                        ReadinessInfoManip.setReadinessInfoVersion(version);
+                        versionedSubject.setSubjectValue(value);
+                        versionedSubject.setVersion(version);
                     }
                     isHit = false;
                 } else {
-                    if (debug) { _3(LX_REMOTE_MSG, "readinessInfoHit", version); }
+                    if (debug) { _3(LX_REMOTE_MSG, versionedSubject.tag + "Hit", version); }
                 }
                 break;
             }
@@ -303,4 +259,22 @@ function didReceiveRemoteMessage() as Void {
 
 function didReceiveRemoteMessageInForeground() as Void {
     beep(BEEP_TYPE_MESSAGE);
+}
+
+(:background)
+function versionedSubjectForSubject(subject as Lang.String) as VersionedSubject | Null {
+    switch (subject) {
+        case phonesSubject:
+            return X.phones;
+        case recentsSubject:
+            return X.recents;
+        case readinessInfoSubject:
+            return X.readinessInfo;
+        case companionInfoSubject:
+            return X.companionInfo;
+        case audioStateSubject:
+            return X.audioState;
+        default:
+            return null;
+    }
 }
