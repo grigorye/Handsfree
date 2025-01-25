@@ -299,7 +299,9 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         lastTrackedPhoneState = phoneState
         l.outgoingMessageDispatcher.sendPhoneState(everywhereExactly, phoneState)
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+        if (phoneState.stateId == PhoneStateId.Idle) {
+            l.accountAudioState()
+        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             if (stateExtra == TelephonyManager.EXTRA_STATE_OFFHOOK) {
                 // Workaround audio route not yet up to date.
                 val handler = Handler(Looper.getMainLooper())
