@@ -29,7 +29,7 @@ class AudioStateWrapper extends VersionedSubject {
     function defaultSubjectValue() as SubjectValue | Null {
         return {
             isHeadsetConnectedK => false,
-            activeAudioDeviceK => "speaker",
+            activeAudioDeviceK => null,
             volumeK => {
                 indexK => 0,
                 maxK => 10
