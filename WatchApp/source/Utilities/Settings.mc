@@ -14,10 +14,8 @@ module GlanceSettings {
 
 (:glance)
 module GlanceLikeSettings {
-    (:noLowMemory)
     const isShowingCallStateOnGlanceEnabled as Lang.Boolean =
         Properties.getValue("callStateOnGlance") as Lang.Boolean;
-    (:noLowMemory)
     const isStatsTrackingEnabled as Lang.Boolean =
         Properties.getValue("statsTracking") as Lang.Boolean;
     const isShowingSourceVersionEnabled as Lang.Boolean =
