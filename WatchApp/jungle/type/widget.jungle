@@ -3,7 +3,7 @@ project.manifest = ../../manifest-widget.xml
 base.excludeAnnotations = $(base.excludeAnnotations);watchApp;lowMemory
 
 # When the app type is widget, on Instinct 2 only, the system uses glance
-# exposed by the app. Anecdotacally, the glance is not used if the app type is
+# exposed by the app. Anecdotally, the glance is not used if the app type is
 # watch-app. Therefore, to reflect the former, we enable the glance (vs widget)
 # builds for widget on Instinct 2.
 #
