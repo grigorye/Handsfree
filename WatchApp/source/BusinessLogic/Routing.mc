@@ -11,7 +11,9 @@ function companionInfoDidChangeIfInApp() as Void {
         if (VT.viewStackEntryWithTag(V.installCompanion) != null) {
             VT.popToView(V.comm, WatchUi.SLIDE_RIGHT);
             routeToMainUI();
-            WatchUi.showToast("Connected!", null);
+            if (WatchUi has :showToast) {
+                WatchUi.showToast("Connected!", null);
+            }
         }
     }
 }
