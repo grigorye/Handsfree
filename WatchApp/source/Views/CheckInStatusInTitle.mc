@@ -23,6 +23,7 @@ function statusMenuTitle() as Lang.String {
     );
 }
 
+(:noLowMemory)
 function connectionStatusRep() as Lang.String or Null {
     if (!System.getDeviceSettings().phoneConnected) {
         return "@";
