@@ -1,15 +1,15 @@
 import Toybox.Lang;
 import Toybox.Application;
 
-(:background, :glance)
+(:background, :glance, :lowMemory)
 const debug = false;
 
-(:background)
+(:background, :lowMemory)
 function logComponentsForcedInApp() as Lang.Array<Lang.String> {
     return [">", "<", "app", "openMe"];
 }
 
-(:background, :glance)
+(:background, :glance, :lowMemory)
 function isLogAllEnforced() as Lang.Boolean {
     if (!isActiveUiKindApp) {
         return false;

@@ -1,13 +1,15 @@
+(:lowMemory)
 function stopRequestingAttention() as Void {
 }
 
+(:lowMemory)
 function deactivateRequestingAttentionTillRelaunch() as Void {
 }
 
-(:background)
+(:background, :lowMemory)
 function startRequestingAttentionIfInAppAndNotDeactivated() as Void {
 }
 
-(:background)
+(:background, :lowMemory)
 function stopRequestingAttentionIfInApp() as Void {
 }

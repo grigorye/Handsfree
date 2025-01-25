@@ -14,3 +14,7 @@ function eraseAppDataIfNecessary() as Void {
     eraseAppData();
     AppSettings.clearEraseAppDataOnNextLaunch();
 }
+
+(:lowMemory)
+function eraseAppDataIfNecessary() as Void {
+}

@@ -3,7 +3,7 @@ import Toybox.Lang;
 import Toybox.Graphics;
 import Rez.Styles;
 
-(:glance, :watchApp)
+(:glance, :watchApp, :lowMemory)
 class GlanceView extends WatchUi.GlanceView {
 
     function initialize() {

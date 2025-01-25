@@ -1,6 +1,10 @@
 import Toybox.Application;
 import Toybox.Lang;
 
+(:background, :lowMemory)
+function trackRawRemoteMessageReceived() as Void {
+}
+
 (:background, :noLowMemory)
 function trackRawRemoteMessageReceived() as Void {
     var rawRemoteMessagesCount = getRawRemoteMessagesCount();

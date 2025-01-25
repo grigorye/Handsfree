@@ -8,6 +8,12 @@ function statsDidChange() as Void {
     updateStatusMenu();
 }
 
+(:lowMemory)
+function
+statsRep() as Lang.String or Null {
+    return null;
+}
+
 (:glance, :noLowMemory)
 function statsRep() as Lang.String or Null {
     if (!GlanceLikeSettings.isStatsTrackingEnabled) {

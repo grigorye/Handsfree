@@ -1,2 +1,0 @@
-function eraseAppDataIfNecessary() as Void {
-}

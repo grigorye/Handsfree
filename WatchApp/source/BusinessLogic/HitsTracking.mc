@@ -9,3 +9,7 @@ function trackHits(isHit as Lang.Boolean) as Void {
         setHitsCount(0);
     }
 }
+
+(:background, :lowMemory)
+function trackHits(isHit as Lang.Boolean) as Void {
+}

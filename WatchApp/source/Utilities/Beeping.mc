@@ -1,6 +1,5 @@
 import Toybox.Attention;
 
-(:noLowMemory)
 enum BeepType {
     BEEP_TYPE_BEEP,
     BEEP_TYPE_ERROR,
@@ -18,6 +17,10 @@ function beep(type as BeepType) as Void {
     }
     var tone = toneForBeep(type);
     Attention.playTone(tone);
+}
+
+(:lowMemory)
+function beep(type as BeepType) as Void {
 }
 
 (:noLowMemory)

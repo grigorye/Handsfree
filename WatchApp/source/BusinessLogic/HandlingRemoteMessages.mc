@@ -251,6 +251,10 @@ function handlePhoneStateChanged(state as Lang.Dictionary<Lang.String, Lang.Obje
     }
 }
 
+(:background, :lowMemory)
+function trackValidRemoteMessageReceived() as Void {
+}
+
 (:background, :typecheck(disableBackgroundCheck))
 function didReceiveRemoteMessage() as Void {
     trackValidRemoteMessageReceived();

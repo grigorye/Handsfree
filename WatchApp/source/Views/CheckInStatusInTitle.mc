@@ -11,6 +11,11 @@ function updateStatusMenu() as Void {
     }
 }
 
+(:lowMemory)
+function statusMenuTitle() as Lang.String {
+    return "Contacts";
+}
+
 (:noLowMemory)
 function statusMenuTitle() as Lang.String {
     var statsRep = statsRep();
