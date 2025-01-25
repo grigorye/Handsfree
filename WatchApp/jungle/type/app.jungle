@@ -1,12 +1,15 @@
 project.manifest = ../../manifest-app.xml
-# Beware that we don't apply the next setting for Instinct 2
+# Beware that we don't apply the next setting for devices with low memory
 base.excludeAnnotations = $(base.excludeAnnotations);widget;lowMemory
 
-instinct_excludeAnnotations_extras = widget;noLowMemory
+lowMemory_excludeAnnotations = widget;noLowMemory
 
-instinct2.excludeAnnotations = $(versioning_excludeAnnotations);$(instinct_excludeAnnotations_extras)
-instinct2s.excludeAnnotations = $(versioning_excludeAnnotations);$(instinct_excludeAnnotations_extras)
-instinct2x.excludeAnnotations = $(versioning_excludeAnnotations);$(instinct_excludeAnnotations_extras)
-instinct3solar45mm.excludeAnnotations = $(versioning_excludeAnnotations);$(instinct_excludeAnnotations_extras)
-instincte40mm.excludeAnnotations = $(versioning_excludeAnnotations);$(instinct_excludeAnnotations_extras)
-instincte45mm.excludeAnnotations = $(versioning_excludeAnnotations);$(instinct_excludeAnnotations_extras)
+instinct2.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
+instinct2s.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
+instinct2x.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
+instinct3solar45mm.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
+instincte40mm.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
+instincte45mm.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
+
+marqdriver.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
+edge530.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)

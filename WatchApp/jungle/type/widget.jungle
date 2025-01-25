@@ -1,16 +1,19 @@
 project.manifest = ../../manifest-widget.xml
-# Beware that we don't apply the next setting for Instinct 2
+# Beware that we don't apply the next setting for some devices.
 base.excludeAnnotations = $(base.excludeAnnotations);watchApp;lowMemory
 
-# When the app type is widget, on Instinct 2 only, the system uses glance
-# exposed by the app. Anecdotally, the glance is not used if the app type is
-# watch-app. Therefore, to reflect the former, we enable the glance (vs widget)
-# builds for widget on Instinct 2.
+# When the app type is widget, on Instinct 2 (and some other devices), the
+# system uses glance exposed by the app. Anecdotally, the glance is not used if
+# the app type is watch-app. Therefore, to reflect the former, we enable the
+# glance (vs widget) builds for widget builds for those devices.
 #
-# Also for Instinct 2, widget memory is super limited. Hence we had to employ
+# Also on those devices, widget memory is super limited. Hence we had to employ
 # low-memory implementations.
-instinct_excludeAnnotations_extras = widget;noLowMemory
+lowMemory_widgetGlance_excludeAnnotations_extras = widget;noLowMemory
 
-instinct2.excludeAnnotations = $(versioning_excludeAnnotations);$(instinct_excludeAnnotations_extras)
-instinct2s.excludeAnnotations = $(versioning_excludeAnnotations);$(instinct_excludeAnnotations_extras)
-instinct2x.excludeAnnotations = $(versioning_excludeAnnotations);$(instinct_excludeAnnotations_extras)
+instinct2.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
+instinct2s.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
+instinct2x.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
+
+marqdriver.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
+edge530.excludeAnnotations = $(versioning_excludeAnnotations);watchApp;noLowMemory
