@@ -8,9 +8,6 @@ const L_CALL_STATE_UI_UPDATE as LogComponent = "callStateUI";
 function setCallState(callStateImp as CallState or CallActing) as Void {
     var callState = callStateImp as CallState;
     if (debug) { _3(L_CALL_STATE, "set", callState); }
-    if (callStateImp instanceof Idle) {
-        AudioStateImp.resetAudioState();
-    }
     setCallStateImp(callState);
     updateUIForCallState();
 }

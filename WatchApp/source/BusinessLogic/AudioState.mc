@@ -57,15 +57,6 @@ class AudioStateWrapper extends VersionedSubject {
 
 module AudioStateImp {
 
-(:inline, :background)
-function resetAudioState() as Void {
-    var oldAudioState = X.audioState.value();
-    var newAudioState = X.audioState.defaultValue();
-    newAudioState[isHeadsetConnectedK] = oldAudioState[isHeadsetConnectedK];
-    X.audioState.setValue(newAudioState);
-    X.audioState.setVersion(0);
-}
-
 (:inline)
 function getIsMuted(state as AudioState) as Lang.Boolean {
     return state[isMutedK] as Lang.Boolean;
