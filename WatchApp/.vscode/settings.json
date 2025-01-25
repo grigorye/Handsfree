@@ -23,5 +23,6 @@
       "addWords": true,
       "scope": "workspace"
     }
-  }
+  },
+  "prettier.tabWidth": 4
 }

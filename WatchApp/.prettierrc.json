@@ -1,0 +1,17 @@
+{
+    "tabWidth": 4,
+    "overrides": [
+        {
+            "files": "*.mc",
+            "options": {
+                "tabWidth": 4
+            }
+        },
+        {
+            "files": "*.json",
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
+}
