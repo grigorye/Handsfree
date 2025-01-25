@@ -29,7 +29,7 @@ function updateUIForAudioStateIfRelevant() as Void {
     }
     if (needToast) {
         if (WatchUi has :showToast) {
-            if (isHeadsetConnected && oldAudioStateImp == null) {
+            if (isHeadsetConnected != null && isHeadsetConnected && oldAudioStateImp == null) {
                 // do nothing
             } else if (isHeadsetConnected) {
                 WatchUi.showToast("Headset on", null);
@@ -45,10 +45,18 @@ function setPendingAudioState(state as AudioState) as Void {
     updateCallInProgressView();
 }
 
-(:inline, :background, :glance)
-function getIsHeadsetConnected(audioState as AudioState) as Lang.Boolean {
+(:inline)
+function getIsHeadsetConnected(audioState as AudioState) as Lang.Boolean | Null {
     var isHeadsetConnected = audioState[isHeadsetConnectedK] as Lang.Boolean | Null;
-    return (isHeadsetConnected != null) ? isHeadsetConnected : false;
+    return isHeadsetConnected;
+}
+
+(:inline, :glance)
+function getSpeakerWouldBeUsed() as Lang.Boolean | Null {
+    var audioState = X.audioState.value();
+    var isHeadsetConnected = audioState[isHeadsetConnectedK] as Lang.Boolean | Null;
+    var speakerWouldBeUsed = isHeadsetConnected != null && !isHeadsetConnected;
+    return speakerWouldBeUsed;
 }
 
 (:inline)
