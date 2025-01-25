@@ -109,7 +109,7 @@ function isLogAllEnforced() as Lang.Boolean {
 
 (:lowMemory)
 function logComponentsForcedInApp() as Lang.Array<Lang.String> {
-    return [">", "<", "app", "openMe"];
+    return [">", "<", "app", "openMe", viewDebug ? "commView" : ""];
 }
 
 (:noLowMemory)

@@ -165,20 +165,20 @@ function exitToSystemFromCurrentView() as Void {
 }
 
 function exitToSystemFromCommView() as Void {
-    if (viewDebug) { _2(L_ROUTER, "exitingToSystemFromCommView"); }
+    if (viewDebug) { _2(L_COMM_VIEW, "exitingToSystemFromCommView"); }
     if (!VT.topViewIs(V.comm)) {
         VT.dumpViewStack("messedUpViewStack");
         System.error("viewStackIsMessedUp");
     }
     if (VT.viewStackTagsEqual([V.comm])) {
-        if (viewDebug) { _2(L_ROUTER, "willSystemExit"); }
+        if (viewDebug) { _2(L_COMM_VIEW, "willSystemExit"); }
         if (tweakingForSystemExit) {
             System.exit();
         }
-        if (viewDebug) { _2(L_ROUTER, "systemExitDidNotExit"); }
+        if (viewDebug) { _2(L_COMM_VIEW, "systemExitDidNotExit"); }
         exiting = true;
     } else {
-        if (viewDebug) { _3(L_ROUTER, "poppingUpAsCommViewIsNotTop", VT.viewStackTags()); }
+        if (viewDebug) { _3(L_COMM_VIEW, "poppingUpAsCommViewIsNotTop", VT.viewStackTags()); }
     }
     VT.popView(WatchUi.SLIDE_IMMEDIATE);
 }
