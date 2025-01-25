@@ -1,6 +1,7 @@
 import Toybox.WatchUi;
 
 module Views {
+
 class InstallCompanionView extends WatchUi.Menu2 {
     function initialize() {
         Menu2.initialize({ :title => "Action Required" });
