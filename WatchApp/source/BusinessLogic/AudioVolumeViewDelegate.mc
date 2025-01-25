@@ -73,7 +73,7 @@ class AudioVolumeViewDelegate extends WatchUi.InputDelegate {
             indexK => newVolumeIndex,
             maxK => maxVolumeIndex
         } as RelVolume;
-        sendAudioVolume(newAudioVolume);
+        Req.sendAudioVolume(newAudioVolume);
         WatchUi.requestUpdate();
     }
 

@@ -4,6 +4,10 @@ import Toybox.Application;
 
 const onArg as Lang.String = "o";
 
+typedef RelVolume as Lang.Dictionary<Lang.String, Lang.Number>;
+
+module Req {
+
 function sendMute(on as Lang.Boolean) as Void {
     var audioState = AudioStateImp.clone(AudioStateImp.getPendingAudioState());
     audioState[isMutedK] = on;
@@ -18,8 +22,6 @@ function sendMute(on as Lang.Boolean) as Void {
     if (debug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
     Communications.transmit(msg, null, new DummyCommListener(tag));
 }
-
-typedef RelVolume as Lang.Dictionary<Lang.String, Lang.Number>;
 
 function sendAudioVolume(relVolume as RelVolume) as Void {
     var audioState = AudioStateImp.clone(AudioStateImp.getPendingAudioState());
@@ -48,3 +50,5 @@ function sendAudioVolume(relVolume as RelVolume) as Void {
 }
 
 var audioStateLifoCommProxy as LifoCommProxy | Null = null;
+
+}

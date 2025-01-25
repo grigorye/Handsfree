@@ -3,6 +3,8 @@ import Toybox.WatchUi;
 import Toybox.System;
 import Toybox.Lang;
 
+module Req {
+
 function hangupCallInProgress(phone as Phone) as Void {
     if (isIncomingCallPhone(phone)) {
         System.error("isIncomingCallPhone: " + phone);
@@ -33,4 +35,6 @@ function ignoreIncomingCall(phone as Phone) as Void {
         System.error("!isIncomingCallPhone: " + phone);
     }
     exitToSystemFromCurrentView();
+}
+
 }

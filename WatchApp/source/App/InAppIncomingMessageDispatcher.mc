@@ -5,6 +5,8 @@ const L_INCOMING as LogComponent = "incoming";
 
 const L_INCOMING_INIT as LogComponent = "incoming";
 
+module Req {
+
 class InAppIncomingMessageDispatcher {
     private var readyToSync as Lang.Boolean = false;
 
@@ -28,4 +30,6 @@ class InAppIncomingMessageDispatcher {
         }
         handleRemoteMessage(msg);
     }
+}
+
 }

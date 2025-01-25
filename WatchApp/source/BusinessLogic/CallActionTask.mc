@@ -4,6 +4,8 @@ import Toybox.Lang;
 
 const L_CALL_ACTION as LogComponent = "callAction";
 
+module Req {
+
 class CallActionTask extends Communications.ConnectionListener {
     private var phone as Phone;
     private var action as CallInProgressAction;
@@ -77,4 +79,6 @@ class CallActionTask extends Communications.ConnectionListener {
         newState.commStatus = FAILED;
         setCallState(newState);
     }
+}
+
 }

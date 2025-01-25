@@ -1,5 +1,5 @@
 function launchCheckIn() as Void {
-    requestAllSubjects();
+    Req.requestAllSubjects();
 }
 
 function trackCheckRemoteMessageForCheckIn() as Void {

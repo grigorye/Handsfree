@@ -6,6 +6,8 @@ import Toybox.Lang;
 (:background)
 const L_BACKGROUND_SERVICE as LogComponent = "backgroundService";
 
+module Req {
+
 (:background)
 class BackgroundServiceDelegate extends System.ServiceDelegate {
 
@@ -20,4 +22,6 @@ class BackgroundServiceDelegate extends System.ServiceDelegate {
         if (debug) { _3(L_BACKGROUND_SERVICE, "exit", "onPhoneAppMessage"); }
         Background.exit("onPhoneAppMessage");
     }
+}
+
 }

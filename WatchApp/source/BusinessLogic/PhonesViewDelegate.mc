@@ -20,7 +20,7 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
         }
         if (!lowMemory) {
             if (id.equals(noPhonesMenuItemId)) {
-                requestAllSubjects();
+                Req.requestAllSubjects();
                 return;
             }
         }
@@ -29,7 +29,7 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
         if (preprocessSpecialPhone(phone)) {
             return;
         }
-        scheduleCall(phone);
+        Req.scheduleCall(phone);
     }
 
     function onBack() {

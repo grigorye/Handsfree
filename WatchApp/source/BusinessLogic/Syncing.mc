@@ -2,6 +2,8 @@ import Toybox.Application;
 import Toybox.Lang;
 import Toybox.Communications;
 
+module Req {
+
 function requestAllSubjects() as Void {
     var msg = {
         cmdK => Cmd.query,
@@ -39,4 +41,6 @@ function requestSubjects(subjects as Lang.Array<Lang.String>) as Void {
     var tag = formatCommTag("syncSubjects");
     if (minDebug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
     Communications.transmit(msg, null, new DummyCommListener(tag));
+}
+
 }

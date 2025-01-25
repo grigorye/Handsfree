@@ -4,6 +4,8 @@ import Toybox.Lang;
 
 const L_SCHEDULE_CALL as LogComponent = "scheduleCall";
 
+module Req {
+
 class ScheduleCallTask extends Communications.ConnectionListener {
     private var phone as Phone;
 
@@ -89,4 +91,6 @@ function preflightReadiness(field as Lang.String, title as Lang.String) as Lang.
     var message = Lang.format(format, [title]);
     showFeedback(message);
     return false;
+}
+
 }

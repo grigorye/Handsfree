@@ -9,6 +9,8 @@ const L_OUT_RETRYING as LogComponent = ">";
 (:background)
 const LX_OUT_COMM as LogComponent = ">";
 
+module Req {
+
 function transmitWithRetry(tagLiteral as Lang.String, msg as Application.PersistableType, listener as Communications.ConnectionListener) as Void {
     var tag = formatCommTag(tagLiteral);
     var proxy = new RetryingCommListenerProxy(tag, msg, listener);
@@ -112,4 +114,6 @@ function dumpConnectionInfo(connectionInfo as System.ConnectionInfo) as Lang.Obj
         default:
             System.error("unknownConnectionState: " + connectionInfo.state);
     }
+}
+
 }

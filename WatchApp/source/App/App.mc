@@ -54,7 +54,7 @@ class AppCore extends Application.AppBase {
     function getServiceDelegate() as [System.ServiceDelegate] {
         trackFirstLaunch();
         if (minDebug) { _2(L_APP_EXTRA, "getServiceDelegate"); }
-        return [new BackgroundServiceDelegate()];
+        return [new Req.BackgroundServiceDelegate()];
     }
 
     function onBackgroundData(data as Application.PersistableType) as Void {
@@ -113,8 +113,10 @@ function appDidRouteToMainUI() as Void {
         System.error("Already routed to main UI");
     }
     routedToMainUI = true;
-    syncIfNecessary();
+    Req.syncIfNecessary();
 }
+
+module Req {
 
 function syncIfNecessary() as Void {
     if (BackgroundSettings.isBroadcastListeningEnabled()) {
@@ -127,6 +129,8 @@ function syncIfNecessary() as Void {
         return;
     }
     requestAllSubjects();
+}
+
 }
 
 (:widget)
@@ -147,7 +151,7 @@ function widgetDidShow() as Void {
 function onAppDidFinishLaunching() as Void {
     if (debug) { _2(L_APP, "onAppDidFinishLaunching"); }
     eraseAppDataIfNecessary();
-    (new InAppIncomingMessageDispatcher()).launch();
+    (new Req.InAppIncomingMessageDispatcher()).launch();
 }
 
 function didSeeIncomingMessageWhileRoutedToMainUI() as Void {

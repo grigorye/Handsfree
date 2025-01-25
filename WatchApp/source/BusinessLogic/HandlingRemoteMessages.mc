@@ -6,6 +6,10 @@ import Toybox.Application;
 (:background)
 const LX_REMOTE_MSG as LogComponent = "<";
 
+typedef Version as Lang.Number;
+
+module Req {
+
 (:background)
 function handleRemoteMessage(iqMsgObject as Lang.Object or Null) as Void {
     trackRawRemoteMessageReceived();
@@ -71,8 +75,6 @@ function handleRemoteMessage(iqMsgObject as Lang.Object or Null) as Void {
 
 (:background)
 const L_PHONE_STATE_CHANGED as LogComponent = "phoneStateChanged";
-
-typedef Version as Lang.Number;
 
 typedef SubjectsChanged as Lang.Dictionary<Lang.String, Lang.Dictionary<Lang.String, Lang.Object>>;
 
@@ -277,4 +279,6 @@ function versionedSubjectForSubject(subject as Lang.String) as VersionedSubject 
         default:
             return null;
     }
+}
+
 }

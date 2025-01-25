@@ -12,12 +12,12 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
         var id = item.getId() as Lang.Number or Recent;
         if (!lowMemory) {
             if (id.equals(noRecentsMenuItemId)) {
-                requestAllSubjects();
+                Req.requestAllSubjects();
                 return;
             }
         }
         var selectedRecent = id as Recent;
-        scheduleCall(phoneFromRecent(selectedRecent));
+        Req.scheduleCall(phoneFromRecent(selectedRecent));
     }
 
     function onBack() {
