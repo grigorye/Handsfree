@@ -82,14 +82,14 @@ typedef SubjectsChanged as Lang.Dictionary<Lang.String, Lang.Dictionary<Lang.Str
 function handleAcceptQueryResult(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
     var subjects = args[subjectsK] as SubjectsChanged;
     var subjectsInvalidated = handleSubjectsChanged(subjects);
-    if (subjectsInvalidated.size() > 0) {
+    if (!subjectsInvalidated.equals("")) {
         requestSubjects(subjectsInvalidated);
     }
 }
 
 (:background)
-function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.String> {
-    var subjectsInvalidated = [];
+function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
+    var subjectsInvalidated = "";
     var names = subjects.keys() as Lang.Array<Lang.String>;
     var namesCount = names.size();
     var isHit = true;
@@ -103,7 +103,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
         switch (name) {
             case broadcastSubject: {
                 if (!version.equals(BackgroundSettings.broadcastListeningVersion())) {
-                    subjectsInvalidated.add(name);
+                    subjectsInvalidated = subjectsInvalidated + name;
                     isHit = false;
                 } else {
                     if (debug) { _3(LX_REMOTE_MSG, "broadcastHit", version); }
@@ -145,7 +145,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
                 if (!version.equals(versionedSubject.version())) {
                     var value = subject[valueK] as SubjectValue or Null;
                     if (value == null) {
-                        subjectsInvalidated.add(name);
+                        subjectsInvalidated = subjectsInvalidated + name;
                     } else {
                         versionedSubject.setSubjectValue(value);
                         versionedSubject.setVersion(version);

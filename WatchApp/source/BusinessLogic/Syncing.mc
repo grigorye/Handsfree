@@ -21,11 +21,11 @@ function requestAllSubjects() as Void {
 }
 
 (:background)
-function requestSubjects(subjects as Lang.Array<Lang.String>) as Void {
+function requestSubjects(subjects as Lang.String) as Void {
     var subjectsArg = [];
-    var subjectsCount = subjects.size();
+    var subjectsCount = subjects.length();
     for (var i = 0; i < subjectsCount; i++) {
-        var name = subjects[i];
+        var name = subjects.substring(i, i + 1) as Lang.String;
         if (name.equals(broadcastSubject)) {
             subjectsArg.add({ QueryArgsK_subjectNameK => name, QueryArgsK_subjectVersionK => BackgroundSettings.broadcastListeningVersion() });
         } else {
