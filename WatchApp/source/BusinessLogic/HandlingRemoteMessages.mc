@@ -264,7 +264,7 @@ function didReceiveRemoteMessage() as Void {
 }
 
 function didReceiveRemoteMessageInForeground() as Void {
-    beep(BEEP_TYPE_MESSAGE);
+    if (debug) { beep(BEEP_TYPE_MESSAGE); }
 }
 
 (:background)

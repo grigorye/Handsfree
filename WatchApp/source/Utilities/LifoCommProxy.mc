@@ -37,7 +37,7 @@ class LifoCommProxy extends Communications.ConnectionListener {
     }
 
     function transmit() as Void {
-        beep(BEEP_TYPE_BEEP);
+        if (debug) { beep(BEEP_TYPE_BEEP); }
         if (minDebug) { _3(L_OUT_RETRYING, tag + ".transmit", msg); }
         Communications.transmit(msg, null, self);
     }
@@ -54,7 +54,7 @@ class LifoCommProxy extends Communications.ConnectionListener {
     }
 
     function onCompleteImp() as Void {
-        beep(BEEP_TYPE_SUCCESS);
+        if (debug) { beep(BEEP_TYPE_SUCCESS); }
         if (minDebug) { _2(LX_OUT_COMM, tag + ".succeeded"); }
         wrappedListener.onComplete();
         followUp();
@@ -72,7 +72,7 @@ class LifoCommProxy extends Communications.ConnectionListener {
     }
 
     function onErrorImp() as Void {
-        beep(BEEP_TYPE_ERROR);
+        if (debug) { beep(BEEP_TYPE_ERROR); }
         if (minDebug) { _2(LX_OUT_COMM, tag + ".failed"); }
         wrappedListener.onError();
         followUp();
