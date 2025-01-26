@@ -3,19 +3,15 @@ import Toybox.Lang;
 
 typedef AccessIssue as Lang.String;
 
-module AccessIssues {
-
-const NoPermission as AccessIssue = "p";
-const ReadFailed as AccessIssue = "r";
-const Disabled as AccessIssue = "d";
-
-}
+const AccessIssues_NoPermission as AccessIssue = "p";
+const AccessIssues_ReadFailed as AccessIssue = "r";
+const AccessIssues_Disabled as AccessIssue = "d";
 
 function accessIssuePrompt(issue as AccessIssue) as Lang.String {
     switch (issue) {
-        case AccessIssues.NoPermission: return "Give Permissions:";
-        case AccessIssues.ReadFailed: return "Read Failed:";
-        case AccessIssues.Disabled: return "Not Enabled:";
+        case AccessIssues_NoPermission: return "Give Permissions:";
+        case AccessIssues_ReadFailed: return "Read Failed:";
+        case AccessIssues_Disabled: return "Not Enabled:";
     }
     return "Unknown Issue:";
 }

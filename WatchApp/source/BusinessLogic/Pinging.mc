@@ -20,7 +20,7 @@ function handlePing() as Void {
 (:background)
 function sendPong() as Void {
     var msg = {
-        cmdK => Cmd.pong
+        cmdK => Cmd_pong
     } as Lang.Object as Application.PersistableType;
     var tag = formatCommTag("pong");
     if (debug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }

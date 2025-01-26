@@ -15,16 +15,16 @@ class ScheduleCallTask extends Communications.ConnectionListener {
     }
 
     function launch() as Void {
-        if (!preflightReadiness(ReadinessField.essentials, "Call control")) {
+        if (!preflightReadiness(ReadinessField_essentials, "Call control")) {
             return;
         }
-        if (!preflightReadiness(ReadinessField.outgoingCalls, "Outgoing calls")) {
+        if (!preflightReadiness(ReadinessField_outgoingCalls, "Outgoing calls")) {
             return;
         }
         var msg = {
-            cmdK => Cmd.call,
+            cmdK => Cmd_call,
             argsK => {
-                CallArgsK.number => getPhoneNumber(phone)
+                CallArgsK_number => getPhoneNumber(phone)
             }
         } as Lang.Object as Application.PersistableType;
         resetOptimisticCallStates();
@@ -65,21 +65,21 @@ class ScheduleCallTask extends Communications.ConnectionListener {
 
 function preflightReadiness(field as Lang.String, title as Lang.String) as Lang.Boolean {
     var readiness = ReadinessInfoManip.readiness(field);
-    if (readiness.equals(ReadinessValue.ready)) {
+    if (readiness.equals(ReadinessValue_ready)) {
         return true;
     }
     if (debug) { _3(L_SCHEDULE_CALL, "notReady", field + ":" + readiness); }
     var format;
     switch (readiness) {
-        case ReadinessValue.disabled: {
+        case ReadinessValue_disabled: {
             format = "$1$\nnot enabled";
             break;
         }
-        case ReadinessValue.notPermitted: {
+        case ReadinessValue_notPermitted: {
             format = "$1$\nnot permitted";
             break;
         }
-        case ReadinessValue.notReady: {
+        case ReadinessValue_notReady: {
             format = "$1$\nnot ready";
             break;
         }

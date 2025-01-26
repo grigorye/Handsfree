@@ -3,12 +3,13 @@ import Toybox.WatchUi;
 import Toybox.Application;
 
 (:background, :glance)
-module ReadinessValue {
-    const disabled = "d";
-    const notPermitted = "p";
-    const ready = "r";
-    const notReady = "n";
-}
+const ReadinessValue_disabled = "d";
+(:background, :glance)
+const ReadinessValue_notPermitted = "p";
+(:background, :glance)
+const ReadinessValue_ready = "r";
+(:background, :glance)
+const ReadinessValue_notReady = "n";
 
 module ReadinessInfoManip {
 
@@ -18,7 +19,7 @@ typedef Readiness as Lang.String;
 function readiness(readinessField as Lang.String) as Readiness {
     var readinessInfo = X.readinessInfo.value();
     if (readinessInfo == null) {
-        return ReadinessValue.notReady;
+        return ReadinessValue_notReady;
     }
     return readinessInfo[readinessField] as Readiness;
 }

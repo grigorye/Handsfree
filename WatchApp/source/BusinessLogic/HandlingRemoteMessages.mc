@@ -49,19 +49,19 @@ function handleRemoteMessage(iqMsgObject as Lang.Object or Null) as Void {
     }
     var args = msg[argsMsgField] as Lang.Dictionary<Lang.String, Lang.Object>;
     switch (cmd) {
-        case InCmd.subjectsChanged:
+        case InCmd_subjectsChanged:
             handleSubjectsChanged(args[subjectsK] as SubjectsChanged);
             break;
-        case InCmd.acceptQueryResult:
+        case InCmd_acceptQueryResult:
             handleAcceptQueryResult(args);
             break;
-        case InCmd.phoneStateChanged:
+        case InCmd_phoneStateChanged:
             handlePhoneStateChanged(args);
             break;
-        case InCmd.openAppFailed:
+        case InCmd_openAppFailed:
             openAppFailed();
             break;
-        case InCmd.openMeCompleted:
+        case InCmd_openMeCompleted:
             handleOpenMeCompleted(args);            
             break;
         default:
@@ -173,16 +173,16 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.Array<Lang.S
 function handlePhoneStateChanged(state as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
     var callState = getCallState();
     if (debug) { _3(L_PHONE_STATE_CHANGED, "oldCallState", callState); }
-    var stateId = state[PhoneState.stateId] as Lang.String;
+    var stateId = state[PhoneState_stateId] as Lang.String;
     if (debug) { _3(L_PHONE_STATE_CHANGED, "inPhoneState", stateId); }
-    if (!stateId.equals(PhoneStateId.ringing)) {
+    if (!stateId.equals(PhoneStateId_ringing)) {
         stopRequestingAttentionIfInApp();
     }
     var optimisticCallState = nextOptimisticCallState();
     switch (stateId) {
-        case PhoneStateId.offHook:
-            var inProgressNumber = state[PhoneState.number] as Lang.String or Null;
-            var inProgressName = state[PhoneState.name] as Lang.String or Null;
+        case PhoneStateId_offHook:
+            var inProgressNumber = state[PhoneState_number] as Lang.String or Null;
+            var inProgressName = state[PhoneState_name] as Lang.String or Null;
             if (debug) { _3(L_PHONE_STATE_CHANGED, "inProgressNumber", inProgressNumber); }
             if (optimisticCallState != null) {
                 if (optimisticCallState instanceof CallInProgress) {
@@ -202,14 +202,14 @@ function handlePhoneStateChanged(state as Lang.Dictionary<Lang.String, Lang.Obje
                 resetOptimisticCallStates();
             }
             var inProgressPhone = {
-                PhoneField.number => inProgressNumber,
-                PhoneField.id => -3
+                PhoneField_number => inProgressNumber,
+                PhoneField_id => -3
             } as Phone;
             if (inProgressName != null) {
                 setPhoneName(inProgressPhone, inProgressName as Lang.String);
             }
             if (callState instanceof DismissedCallInProgress) {
-                var dismissedNumber = callState.phone[PhoneField.number] as Lang.String;
+                var dismissedNumber = callState.phone[PhoneField_number] as Lang.String;
                 var dismissedButChanged = !dismissedNumber.equals(inProgressNumber);
                 if (debug) { _3(L_PHONE_STATE_CHANGED, "dismissedButChanged", dismissedButChanged); }
                 if (dismissedButChanged) {
@@ -219,7 +219,7 @@ function handlePhoneStateChanged(state as Lang.Dictionary<Lang.String, Lang.Obje
                 setCallState(new CallInProgress(inProgressPhone));
             }
             break;
-        case PhoneStateId.idle:
+        case PhoneStateId_idle:
             if (optimisticCallState != null) {
                 if (optimisticCallState instanceof Idle) {
                     if (debug) { _3(L_PHONE_STATE_CHANGED, "optimisticCallStateHit", optimisticCallState); }
@@ -232,15 +232,15 @@ function handlePhoneStateChanged(state as Lang.Dictionary<Lang.String, Lang.Obje
             }
             setCallState(new Idle());
             break;
-        case PhoneStateId.ringing:
-            var ringingNumber = state[PhoneState.number] as Lang.String;
+        case PhoneStateId_ringing:
+            var ringingNumber = state[PhoneState_number] as Lang.String;
             if (debug) { _3(L_PHONE_STATE_CHANGED, "inRingingNumber", ringingNumber); }
             var ringingPhone = {
-                PhoneField.number => ringingNumber,
-                PhoneField.id => -4,
-                PhoneField.ringing => true
+                PhoneField_number => ringingNumber,
+                PhoneField_id => -4,
+                PhoneField_ringing => true
             } as Phone;
-            var ringingName = state[PhoneState.name] as Lang.String or Null;
+            var ringingName = state[PhoneState_name] as Lang.String or Null;
             if (ringingName != null) {
                 setPhoneName(ringingPhone, ringingName as Lang.String);
             }

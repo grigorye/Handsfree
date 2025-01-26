@@ -25,7 +25,7 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
                 break;
             }
             case :about: {
-                VT.pushView(V.about, Views.newAboutView(), new AboutViewDelegate(), WatchUi.SLIDE_LEFT);
+                VT.pushView(V_about, Views.newAboutView(), new AboutViewDelegate(), WatchUi.SLIDE_LEFT);
                 break;
             }
             case :installCompanionApp: {

@@ -37,11 +37,11 @@ class View extends ExtendedMenu2 {
     }
 
     private function setFromPhones(phones as Phones) as Void {
-        var accessIssue = phones[PhonesField.accessIssue] as AccessIssue | Null;
+        var accessIssue = phones[PhonesField_accessIssue] as AccessIssue | Null;
         if (accessIssue != null) {
             addItem(accessIssueMenuItem("Contacts", accessIssue, noPhonesMenuItemId));
         } else {
-            var phoneList = phones[PhonesField.phoneList] as PhoneList;
+            var phoneList = phones[PhonesField_phoneList] as PhoneList;
             setFromPhoneList(phoneList);
         }
         addPredefinedMenuItems();

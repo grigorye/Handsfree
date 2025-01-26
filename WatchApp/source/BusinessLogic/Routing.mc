@@ -8,8 +8,8 @@ function companionInfoDidChangeIfInApp() as Void {
         return;
     }
     if (isCompanionUpToDate()) {
-        if (VT.viewStackEntryWithTag(V.installCompanion) != null) {
-            VT.popToView(V.comm, WatchUi.SLIDE_RIGHT);
+        if (VT.viewStackEntryWithTag(V_installCompanion) != null) {
+            VT.popToView(V_comm, WatchUi.SLIDE_RIGHT);
             routeToMainUI();
             if (WatchUi has :showToast) {
                 WatchUi.showToast("Connected!", null);

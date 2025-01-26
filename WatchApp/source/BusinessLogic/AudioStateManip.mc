@@ -118,7 +118,7 @@ function getActiveAudioDeviceAbbreviation(audioState as AudioState) as Lang.Stri
 }
 
 function updateCallInProgressView() as Void {
-    var callInProgressView = VT.viewWithTag(V.callInProgress) as CallInProgressView | Null;
+    var callInProgressView = VT.viewWithTag(V_callInProgress) as CallInProgressView | Null;
     if (callInProgressView != null) {
         var callInProgressState = getCallState() as CallInProgress | Null;
         if (callInProgressState != null) {

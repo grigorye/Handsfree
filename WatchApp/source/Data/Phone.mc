@@ -5,41 +5,39 @@ typedef PhoneList as Lang.Array<Phone>;
 typedef Phones as Lang.Dictionary<Lang.String, PhoneList | AccessIssue>;
 
 (:background)
-const noPhones as Phones = { PhonesField.phoneList => [] as PhoneList } as Phones;
+const noPhones as Phones = { PhonesField_phoneList => [] as PhoneList } as Phones;
 
-module PhonesField {
-    const phoneList as Lang.String = "c";
-    const accessIssue as Lang.String = "a";
-}
+const PhonesField_phoneList = "c";
+const PhonesField_accessIssue = "a";
 
 (:inline, :background)
 function setPhoneName(phone as Phone, name as Lang.String) as Void {
-    phone[PhoneField.name] = name;
+    phone[PhoneField_name] = name;
 }
 
 (:inline)
 function getPhoneName(phone as Phone) as Lang.String {
-    return phone[PhoneField.name] as Lang.String;
+    return phone[PhoneField_name] as Lang.String;
 }
 
 (:inline)
 function getPhoneId(phone as Phone) as Lang.String {
-    return phone[PhoneField.id] as Lang.String;
+    return phone[PhoneField_id] as Lang.String;
 }
 
 (:inline, :background)
 function getPhoneNumber(phone as Phone) as Lang.String or Null {
-    return phone[PhoneField.number] as Lang.String or Null;
+    return phone[PhoneField_number] as Lang.String or Null;
 }
 
 (:inline)
 function dropRingingFromPhone(phone as Phone) as Void {
-    phone[PhoneField.ringing] = false;
+    phone[PhoneField_ringing] = false;
 }
 
 (:inline, :background, :glance)
 function isIncomingCallPhone(phone as Phone) as Lang.Boolean {
-    var ringing = phone[PhoneField.ringing] as Lang.Boolean or Null;
+    var ringing = phone[PhoneField_ringing] as Lang.Boolean or Null;
     var isIncoming = (ringing != null) && (ringing as Lang.Boolean);
     return isIncoming;
 }

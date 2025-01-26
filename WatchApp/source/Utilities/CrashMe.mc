@@ -49,7 +49,7 @@ function readinessInfoCompact() as Lang.String {
         return "null";
     }
     var r = "";
-    var allVariants = [ReadinessField.essentials, ReadinessField.outgoingCalls, ReadinessField.recents, ReadinessField.incomingCalls, ReadinessField.starredContacts];
+    var allVariants = [ReadinessField_essentials, ReadinessField_outgoingCalls, ReadinessField_recents, ReadinessField_incomingCalls, ReadinessField_starredContacts];
     for (var i = 0; i < allVariants.size(); ++i) {
         var variant = allVariants[i];
         r = r + variant + ":" + readinessInfo[variant];

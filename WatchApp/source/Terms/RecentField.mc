@@ -1,11 +1,12 @@
-import Toybox.Lang;
-
-(:inline, :background)
-module RecentField {
-    const name = "m";
-    const date = "d";
-    const type = "t";
-    const isNew = "w";
-    const duration = "r";
-    const number = "n";
-}
+(:background)
+const RecentField_name = "m";
+(:background)
+const RecentField_date = "d";
+(:background)
+const RecentField_type = "t";
+(:background)
+const RecentField_isNew = "w";
+(:background)
+const RecentField_duration = "r";
+(:background)
+const RecentField_number = "n";

@@ -23,11 +23,11 @@ function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
 (:background)
 function handleOpenMeCompleted(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
     if (debug) { _3(LX_OPEN_ME, "handleOpenMeCompleted", args); }
-    var succeeded = args[OpenMeCompletedArgs.succeeded] as Lang.Boolean;
+    var succeeded = args[OpenMeCompletedArgs_succeeded] as Lang.Boolean;
     if (succeeded) {
         openMeSucceeded();
     } else {
-        var message = args[OpenMeCompletedArgs.messageForWakingUp] as Lang.String;
+        var message = args[OpenMeCompletedArgs_messageForWakingUp] as Lang.String;
         openMeFailed(message);
     }
 }
@@ -49,9 +49,9 @@ function openAppOnIncomingCall(phone as Phone) as Void {
     var message = messageForApplicationWake(phone);
     if (BackgroundSettings.isIncomingOpenAppViaCompanionEnabled) {
         var msg = {
-            cmdK => Cmd.openMe,
+            cmdK => Cmd_openMe,
             argsK => {
-                OpenMeArgsK.messageForWakingUp => message
+                OpenMeArgsK_messageForWakingUp => message
             }
         } as Lang.Object as Application.PersistableType;
         var tag = formatCommTag("openMe");
@@ -66,11 +66,11 @@ function openAppOnIncomingCall(phone as Phone) as Void {
 
 (:background)
 function messageForApplicationWake(phone as Phone) as Lang.String {
-    var name = phone[PhoneField.name] as Lang.String or Null;
+    var name = phone[PhoneField_name] as Lang.String or Null;
     if (name != null) {
         return incomingCallMessage(name);
     }
-    var number = phone[PhoneField.number] as Lang.String or Null;
+    var number = phone[PhoneField_number] as Lang.String or Null;
     if (number != null) {
         return incomingCallMessage(number);
     }

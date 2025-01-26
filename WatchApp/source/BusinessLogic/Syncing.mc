@@ -6,14 +6,14 @@ module Req {
 
 function requestAllSubjects() as Void {
     var msg = {
-        cmdK => Cmd.query,
+        cmdK => Cmd_query,
         argsK => {
             subjectsK => [
-                { QueryArgsK.subjectNameK => broadcastSubject, QueryArgsK.subjectVersionK => BackgroundSettings.broadcastListeningVersion()},
-                { QueryArgsK.subjectNameK => phonesSubject, QueryArgsK.subjectVersionK => X.phones.version() },
-                { QueryArgsK.subjectNameK => recentsSubject, QueryArgsK.subjectVersionK => X.recents.version() },
-                { QueryArgsK.subjectNameK => audioStateSubject, QueryArgsK.subjectVersionK => X.audioState.version() },
-                { QueryArgsK.subjectNameK => readinessInfoSubject, QueryArgsK.subjectVersionK => X.readinessInfo.version() },
+                { QueryArgsK_subjectNameK => broadcastSubject, QueryArgsK_subjectVersionK => BackgroundSettings.broadcastListeningVersion()},
+                { QueryArgsK_subjectNameK => phonesSubject, QueryArgsK_subjectVersionK => X.phones.version() },
+                { QueryArgsK_subjectNameK => recentsSubject, QueryArgsK_subjectVersionK => X.recents.version() },
+                { QueryArgsK_subjectNameK => audioStateSubject, QueryArgsK_subjectVersionK => X.audioState.version() },
+                { QueryArgsK_subjectNameK => readinessInfoSubject, QueryArgsK_subjectVersionK => X.readinessInfo.version() },
             ]
         }
     } as Lang.Object as Application.PersistableType;
@@ -27,13 +27,13 @@ function requestSubjects(subjects as Lang.Array<Lang.String>) as Void {
     for (var i = 0; i < subjectsCount; i++) {
         var name = subjects[i];
         if (name.equals(broadcastSubject)) {
-            subjectsArg.add({ QueryArgsK.subjectNameK => name, QueryArgsK.subjectVersionK => BackgroundSettings.broadcastListeningVersion()});
+            subjectsArg.add({ QueryArgsK_subjectNameK => name, QueryArgsK_subjectVersionK => BackgroundSettings.broadcastListeningVersion() });
         } else {
-            subjectsArg.add({ QueryArgsK.subjectNameK => name });
+            subjectsArg.add({ QueryArgsK_subjectNameK => name });
         }
     }
     var msg = {
-        cmdK => Cmd.query,
+        cmdK => Cmd_query,
         argsK => {
             subjectsK => subjectsArg
         }

@@ -40,7 +40,7 @@ function updateUIForPhonesIfInApp(phones as Phones) as Void {
     if (!isActiveUiKindApp) {
         return;
     }
-    var phonesView = VT.viewWithTag(V.phones) as PhonesScreen.View or Null;
+    var phonesView = VT.viewWithTag(V_phones) as PhonesScreen.View or Null;
     if (phonesView != null) {
         phonesView.updateFromPhones(phones);
     }

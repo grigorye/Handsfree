@@ -1,16 +1,15 @@
-import Toybox.Lang;
+(:background)
+const InCmd_subjectsChanged = "s";
+(:background)
+const InCmd_acceptQueryResult = "a";
+(:background)
+const InCmd_phoneStateChanged = "p";
+(:background)
+const InCmd_openAppFailed = "f";
+(:background)
+const InCmd_openMeCompleted = "c";
 
-(:inline, :background, :glance)
-module InCmd {
-    const subjectsChanged = "s";
-    const acceptQueryResult = "a";
-    const phoneStateChanged = "p";
-    const openAppFailed = "f";
-    const openMeCompleted = "c";
-}
-
-(:inline, :background)
-module OpenMeCompletedArgs {
-    const succeeded = "e";
-    const messageForWakingUp = "m";
-}
+(:background)
+const OpenMeCompletedArgs_succeeded = "e";
+(:background)
+const OpenMeCompletedArgs_messageForWakingUp = "m";

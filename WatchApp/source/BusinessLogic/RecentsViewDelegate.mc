@@ -28,9 +28,9 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
 (:inline)
 function phoneFromRecent(recent as Recent) as Phone {
     return {
-        PhoneField.id => recent[RecentField.date],
-        PhoneField.name => recent[RecentField.name],
-        PhoneField.number => recent[RecentField.number]
+        PhoneField_id => recent[RecentField_date],
+        PhoneField_name => recent[RecentField_name],
+        PhoneField_number => recent[RecentField_number]
     } as Phone;
 }
 

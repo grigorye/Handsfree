@@ -1,16 +1,15 @@
-import Toybox.Lang;
+(:background, :glance)
+const PhoneState_stateId = "d";
+(:background, :glance)
+const PhoneState_number = "n";
+(:background, :glance)
+const PhoneState_name = "m";
 
-(:inline, :background, :glance)
-module PhoneState {
-    const stateId = "d";
-    const number = "n";
-    const name = "m";
-}
-
-(:inline, :background, :glance)
-module PhoneStateId {
-    const ringing = "r";
-    const idle = "i";
-    const offHook = "h";
-    const unknown = "u";
-}
+(:background, :glance)
+const PhoneStateId_ringing = "r";
+(:background, :glance)
+const PhoneStateId_idle = "i";
+(:background, :glance)
+const PhoneStateId_offHook = "h";
+(:background, :glance)
+const PhoneStateId_unknown = "u";

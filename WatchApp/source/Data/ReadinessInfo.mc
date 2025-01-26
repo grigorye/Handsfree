@@ -3,20 +3,16 @@ import Toybox.Application;
 
 typedef ReadinessInfo as Lang.Dictionary<String, Application.PropertyValueType>;
 
-module ReadinessField {
-
-(:inline, :background, :glance)
-const essentials = "e";
-(:inline, :background, :glance)
-const outgoingCalls = "o";
-(:inline, :background, :glance)
-const recents = "r";
-(:inline, :background, :glance)
-const incomingCalls = "i";
-(:inline, :background, :glance)
-const starredContacts = "s";
-
-}
+(:background, :glance)
+const ReadinessField_essentials = "e";
+(:background, :glance)
+const ReadinessField_outgoingCalls = "o";
+(:background, :glance)
+const ReadinessField_recents = "r";
+(:background, :glance)
+const ReadinessField_incomingCalls = "i";
+(:background, :glance)
+const ReadinessField_starredContacts = "s";
 
 module X {
 

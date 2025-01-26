@@ -24,7 +24,7 @@ class RecentsWrapper extends VersionedSubject {
     }
 
     function defaultSubjectValue() as SubjectValue | Null {
-        return { RecentsField.list => [] as RecentsList } as Recents as SubjectValue;
+        return { RecentsField_list => [] as RecentsList } as Recents as SubjectValue;
     }
 
     (:background)
@@ -39,7 +39,7 @@ module RecentsManip {
 (:background)
 function getRecentsList() as RecentsList {
     var recents = X.recents.value();
-    var recentsList = recents[RecentsField.list] as RecentsList;
+    var recentsList = recents[RecentsField_list] as RecentsList;
     return recentsList;
 }
 
@@ -55,7 +55,7 @@ function updateUIForRecentsIfInApp(recents as Recents) as Void {
 
 (:inline)
 function updateRecentsView() as Void {
-    var recentsView = VT.viewWithTag(V.recents) as RecentsScreen.View or Null;
+    var recentsView = VT.viewWithTag(V_recents) as RecentsScreen.View or Null;
     if (recentsView != null) {
         recentsView.update();
     }

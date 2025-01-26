@@ -1,13 +1,9 @@
-import Toybox.Lang;
-
-module V {
-    const comm = "c";
-    const phones = "p";
-    const recents = "r";
-    const settings = "s";
-    const installCompanion = "i";
-    const callInProgress = "g";
-    const callActing = "a";
-    const about = "b";
-    const scheduling = "d";
-}
+const V_comm = "c";
+const V_phones = "p";
+const V_recents = "r";
+const V_settings = "s";
+const V_installCompanion = "i";
+const V_callInProgress = "g";
+const V_callActing = "a";
+const V_about = "b";
+const V_scheduling = "d";

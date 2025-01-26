@@ -1,5 +1,3 @@
-using Toybox.Lang;
-
 (:inline, :background, :glance)
 const isHeadsetConnectedK = "h";
 (:inline, :background, :glance)

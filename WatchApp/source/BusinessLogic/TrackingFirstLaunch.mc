@@ -15,7 +15,7 @@ function trackFirstLaunch() as Void {
 function didFirstLaunch() as Void {
     if (debug) { _2(L_APP_STAT, "didFirstLaunch"); }
     var msg = {
-        cmdK => Cmd.didFirstLaunch
+        cmdK => Cmd_didFirstLaunch
     } as Lang.Object as Application.PersistableType;
     var tag = formatCommTag("didFirstLaunch");
     if (minDebug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }

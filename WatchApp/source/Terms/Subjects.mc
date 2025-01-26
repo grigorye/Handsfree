@@ -1,5 +1,3 @@
-using Toybox.Lang;
-
 (:inline, :background, :glance)
 const audioStateSubject = "a";
 

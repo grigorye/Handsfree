@@ -59,7 +59,7 @@ class GlanceView extends WatchUi.GlanceView {
                     }
                 } else {
                     title = defaultTitle;
-                    if (!ReadinessInfoManip.readiness(ReadinessField.essentials).equals(ReadinessValue.ready)) {
+                    if (!ReadinessInfoManip.readiness(ReadinessField_essentials).equals(ReadinessValue_ready)) {
                         subtitle = "No call control";
                     } else if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
                         subtitle = sourceVersion;
@@ -119,7 +119,7 @@ function defaultTitle(phoneConnected as Lang.Boolean, companionConnected as Lang
         if (statsRep != null) {
             defaultTitle = embeddingHeadsetStatusRep(statsRep);
         } else {
-            var callControlReady = ReadinessInfoManip.readiness(ReadinessField.essentials).equals(ReadinessValue.ready);
+            var callControlReady = ReadinessInfoManip.readiness(ReadinessField_essentials).equals(ReadinessValue_ready);
             if (companionConnected && callControlReady) {
                 var headsetStatus = headsetStatusHumanReadable();
                 defaultTitle = headsetStatus != null ? headsetStatus : defaultTitle;

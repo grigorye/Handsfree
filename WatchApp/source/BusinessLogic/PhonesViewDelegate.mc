@@ -34,7 +34,7 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
 
     function onBack() {
         VT.popView(SLIDE_IMMEDIATE);
-        if (VT.topViewIs(V.comm)) {
+        if (VT.topViewIs(V_comm)) {
             exitToSystemFromCommView();
         }
     }

@@ -10,6 +10,6 @@ class DismissedCallInProgress extends CallStateImp {
     }
 
     function toString() as Lang.String {
-        return "DismissedCallInProgress(" + phone[PhoneField.number] + ")";
+        return "DismissedCallInProgress(" + phone[PhoneField_number] + ")";
     }
 }

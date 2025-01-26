@@ -1,9 +1,8 @@
-import Toybox.Lang;
-
-(:inline, :background, :glance)
-module PhoneField {
-    const name = "m";
-    const id = "i";
-    const number = "n";
-    const ringing = "r";
-}
+(:background, :glance)
+const PhoneField_name = "m";
+(:background, :glance)
+const PhoneField_id = "i";
+(:background, :glance)
+const PhoneField_number = "n";
+(:background, :glance)
+const PhoneField_ringing = "r";
