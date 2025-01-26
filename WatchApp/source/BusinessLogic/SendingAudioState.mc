@@ -31,22 +31,22 @@ function sendAudioVolume(relVolume as RelVolume) as Void {
             volumeK => relVolume
         }
     } as Lang.Object as Application.PersistableType;
-    var tag = formatCommTag("setAudioVolume");
-    if (false) {
-        if (debug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
-        Communications.transmit(msg, null, new DummyCommListener(tag));
-    } else {
-        var proxy;
-        if (audioStateLifoCommProxy != null) {
-            proxy = audioStateLifoCommProxy;
-        } else {
-            proxy = new LifoCommProxy(new DummyCommListener("audio"));
-            audioStateLifoCommProxy = proxy;
-        }
-        proxy.send(tag, msg);
-    }
+    transmitWithLifo("setAudioVolume", msg);
 }
 
-var audioStateLifoCommProxy as LifoCommProxy | Null = null;
+function transmitWithLifo(tagLiteral as Lang.String, msg as Application.PersistableType) as Void {
+    var proxy;
+    var existingProxy = lifoCommProxies[tagLiteral];
+    if (existingProxy != null) {
+        proxy = existingProxy;
+    } else {
+        proxy = new LifoCommProxy(new DummyCommListener(tagLiteral));
+        lifoCommProxies[tagLiteral] = proxy;
+    }
+    var tag = formatCommTag(tagLiteral);
+    proxy.send(tag, msg);
+}
+
+var lifoCommProxies as Lang.Dictionary<Lang.String, LifoCommProxy> = {} as Lang.Dictionary<Lang.String, LifoCommProxy>;
 
 }
