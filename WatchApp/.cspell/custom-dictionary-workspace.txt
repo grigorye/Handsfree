@@ -8,6 +8,7 @@ jar
 Manip
 monkeybrains
 monkeyc
+Persistable
 PHNE
 recents
 Recents
