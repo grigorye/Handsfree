@@ -1,0 +1,41 @@
+set sdk_root "$env(sdk_root)"
+set src_root "$env(src_root)"
+set device "$env(device)"
+set prg "$env(prg)"
+
+set attempts 0
+while {1} {
+    set timeout 10
+    spawn "$sdk_root/bin/connectiq"
+    spawn monkeydo "$prg" $device
+    expect {
+        "Unable to connect to simulator." {
+            if {$attempts > 3} {
+                set attempts 0
+                spawn sh -c "killall -q simulator || true"
+            } else {
+                incr attempts
+                sleep 1
+            }
+            continue
+        }
+        timeout {
+            spawn sh -c "killall -q simulator || true"
+            continue
+        }
+        -re "^Background: " {
+            set attempts 0
+            while {1} {
+                expect {
+                    "app.activeUiKind: " {
+                        exit
+                    }
+                    -re '.*' {
+                        puts "$expect_out(buffer)"
+                    }
+                }
+            }
+            continue
+        }
+    }
+}

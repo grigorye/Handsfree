@@ -1,0 +1,19 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+device="$1"
+shift
+
+prg="$1"
+shift
+
+wd=$(dirname "$0")
+
+export src_root="$wd/.."
+
+. "$src_root/sdk-env.sh"
+
+export device prg
+expect -f "$wd/BootSanity.exp"

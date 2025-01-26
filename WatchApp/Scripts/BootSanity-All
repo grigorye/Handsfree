@@ -1,0 +1,16 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+wd=$(dirname "$0")
+
+src_root="$wd/.."
+
+find "$src_root"/build/prg -name '*.prg' | while read -r prg; do
+    # Get enduro3 from
+    # ./build/prg/enduro3/Handsfree-beta-app-enduro3.prg
+    device=$(basename "$(dirname "$prg")")
+
+    "$wd"/BootSanity "$device" "$prg"
+done
