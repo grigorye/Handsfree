@@ -3,6 +3,8 @@ import Toybox.Application;
 import Toybox.Communications;
 import Toybox.Lang;
 
+module Req {
+
 (:background, :typecheck(disableBackgroundCheck))
 function handlePing() as Void {
     sendPong();
@@ -25,4 +27,6 @@ function sendPong() as Void {
     var tag = formatCommTag("pong");
     if (debug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
     Communications.transmit(msg, null, new DummyCommListener(tag));
+}
+
 }

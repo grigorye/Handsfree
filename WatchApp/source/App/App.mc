@@ -52,7 +52,7 @@ class AppCore extends Application.AppBase {
 
     (:typecheck(disableGlanceCheck))
     function getServiceDelegate() as [System.ServiceDelegate] {
-        trackFirstLaunch();
+        Req.trackFirstLaunch();
         if (minDebug) { _2(L_APP_EXTRA, "getServiceDelegate"); }
         return [new Req.BackgroundServiceDelegate()];
     }

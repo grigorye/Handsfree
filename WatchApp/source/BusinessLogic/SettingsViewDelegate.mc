@@ -29,7 +29,7 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
                 break;
             }
             case :installCompanionApp: {
-                installCompanionApp();
+                Req.installCompanionApp();
                 break;
             }
         }

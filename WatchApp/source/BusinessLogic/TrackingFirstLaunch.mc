@@ -2,6 +2,8 @@ import Toybox.Application;
 import Toybox.Communications;
 import Toybox.Lang;
 
+module Req {
+
 (:background)
 function trackFirstLaunch() as Void {
     var everLaunched = Storage.getValue("everLaunched.v1") as Lang.Boolean or Null;
@@ -20,4 +22,6 @@ function didFirstLaunch() as Void {
     var tag = formatCommTag("didFirstLaunch");
     if (minDebug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
     Communications.transmit(msg, null, new DummyCommListener(tag));
+}
+
 }

@@ -1,6 +1,8 @@
 import Toybox.Communications;
 import Toybox.Lang;
 
+module Req {
+
 (:background)
 class DummyCommListener extends Communications.ConnectionListener {
     var tag as Lang.String;
@@ -17,4 +19,6 @@ class DummyCommListener extends Communications.ConnectionListener {
     function onError() {
         if (debug) { _2(LX_OUT_COMM, tag + ".failed"); }
     }
+}
+
 }

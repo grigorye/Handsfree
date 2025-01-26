@@ -11,7 +11,7 @@ class InstallCompanionViewDelegate extends WatchUi.Menu2InputDelegate {
         var id = item.getId() as Lang.Symbol;
         switch (id) {
             case :installCompanionApp: {
-                installCompanionApp();
+                Req.installCompanionApp();
                 break;
             }
         }

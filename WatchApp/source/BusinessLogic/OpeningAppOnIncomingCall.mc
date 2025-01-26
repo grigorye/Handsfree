@@ -6,6 +6,8 @@ import Toybox.Application;
 (:background)
 const LX_OPEN_ME as LogComponent = "openMe";
 
+module Req {
+
 (:background)
 function openAppOnIncomingCallIfNecessary(phone as Phone) as Void {
     if (debug) { _3(LX_OPEN_ME, "isOpenAppOnIncomingCallEnabled", BackgroundSettings.isOpenAppOnIncomingCallEnabled()); }
@@ -80,4 +82,6 @@ function messageForApplicationWake(phone as Phone) as Lang.String {
 (:background)
 function incomingCallMessage(phone as Lang.String) as Lang.String {
     return Lang.format(CommonSettings.incomingCallMessageFormat, [phone]);
+}
+
 }

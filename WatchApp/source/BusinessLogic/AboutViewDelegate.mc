@@ -11,11 +11,11 @@ class AboutViewDelegate extends WatchUi.Menu2InputDelegate {
         var id = item.getId() as Lang.Symbol;
         switch (id) {
             case :more: {
-                openAppInConnectIQ();
+                Req.openAppInConnectIQ();
                 break;
             }
             case :installCompanionApp: {
-                installCompanionApp();
+                Req.installCompanionApp();
                 break;
             }
         }

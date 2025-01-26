@@ -3,6 +3,8 @@ import Toybox.Lang;
 import Toybox.Application;
 import Toybox.WatchUi;
 
+module Req {
+
 function openAppInConnectIQ() as Void {
     var msg = {
         cmdK => Cmd_openAppInStore,
@@ -19,4 +21,6 @@ function installCompanionApp() as Void {
         null
     );
     showFeedback("Sent notification\nto your phone");
+}
+
 }
