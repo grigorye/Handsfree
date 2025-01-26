@@ -3,6 +3,7 @@ import Toybox.Lang;
 import Toybox.Application;
 import Toybox.Timer;
 
+(:noLowMemory)
 const simulatedCommDelay = false ? 2000 : 0;
 
 class LifoCommProxy extends Communications.ConnectionListener {
@@ -11,6 +12,7 @@ class LifoCommProxy extends Communications.ConnectionListener {
     private var queuedTag as Lang.String | Null;
     private var queuedMsg as Application.PersistableType | Null;
     private var wrappedListener as Communications.ConnectionListener;
+    (:noLowMemory)
     private var simDelayTimer as Timer.Timer | Null;
     private var followUpTimer as Timer.Timer | Null;
 
@@ -42,12 +44,19 @@ class LifoCommProxy extends Communications.ConnectionListener {
         Communications.transmit(msg, null, self);
     }
 
+    (:lowMemory)
+    function onComplete() as Void {
+        onCompleteImp();
+    }
+
+    (:noLowMemory)
     function onComplete() as Void {
         if (!simDelay(method(:onCompleteWithSimDelay))) {
             onCompleteImp();
         }
     }
     
+    (:noLowMemory)
     function onCompleteWithSimDelay() as Void {
         simDelayTimer = null;
         onCompleteImp();
@@ -60,12 +69,19 @@ class LifoCommProxy extends Communications.ConnectionListener {
         followUp();
     }
 
+    (:lowMemory)
+    function onError() as Void {
+        onErrorImp();
+    }
+
+    (:noLowMemory)
     function onError() as Void {
         if (!simDelay(method(:onErrorWithSimDelay))) {
             onErrorImp();
         }
     }
     
+    (:noLowMemory)
     function onErrorWithSimDelay() as Void {
         simDelayTimer = null;
         onErrorImp();
@@ -78,6 +94,7 @@ class LifoCommProxy extends Communications.ConnectionListener {
         followUp();
     }
 
+    (:noLowMemory)
     function simDelay(method as Method() as Void) as Lang.Boolean {
         if (simulatedCommDelay <= 0) {
             return false;
