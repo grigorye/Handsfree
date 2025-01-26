@@ -18,9 +18,7 @@ function sendMute(on as Lang.Boolean) as Void {
             onArg => on
         }
     } as Lang.Object as Application.PersistableType;
-    var tag = formatCommTag("mute");
-    if (debug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
-    Communications.transmit(msg, null, new DummyCommListener(tag));
+    transmitWithoutRetry("mute", msg);
 }
 
 function sendAudioVolume(relVolume as RelVolume) as Void {

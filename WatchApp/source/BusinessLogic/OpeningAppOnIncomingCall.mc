@@ -56,9 +56,7 @@ function openAppOnIncomingCall(phone as Phone) as Void {
                 OpenMeArgsK_messageForWakingUp => message
             }
         } as Lang.Object as Application.PersistableType;
-        var tag = formatCommTag("openMe");
-        if (debug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
-        Communications.transmit(msg, null, new DummyCommListener(tag));
+        transmitWithoutRetry("openMe", msg);
     }
     if (BackgroundSettings.isIncomingOpenAppViaWakeUpEnabled) {
         if (debug) { _3(LX_OPEN_ME, "requestingApplicationWake", message); }

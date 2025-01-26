@@ -24,9 +24,7 @@ function sendPong() as Void {
     var msg = {
         cmdK => Cmd_pong
     } as Lang.Object as Application.PersistableType;
-    var tag = formatCommTag("pong");
-    if (debug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
-    Communications.transmit(msg, null, new DummyCommListener(tag));
+    transmitWithoutRetry("pong", msg);
 }
 
 }
