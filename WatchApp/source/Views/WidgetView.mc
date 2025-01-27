@@ -1,6 +1,7 @@
 import Toybox.WatchUi;
 import Toybox.Lang;
 import Toybox.Graphics;
+import Toybox.Application;
 import Rez.Styles;
 
 (:widget)
@@ -72,7 +73,9 @@ class WidgetView extends WatchUi.View {
                     lines.add("Missed Calls");
                     var subtitle;
                     if (missedRecentsCount == 1) {
-                        subtitle = getPhoneRep(missedRecents[0]);
+                        var recents = Storage.getValue(Recents_valueKey) as Recents;
+                        var recent = (recents[RecentsField_list] as RecentsList)[missedRecents[0]];
+                        subtitle = getPhoneRep(recent);
                     } else {
                         subtitle = missedRecentsCount + " contacts";
                     }
