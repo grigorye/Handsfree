@@ -2,38 +2,14 @@ import Toybox.WatchUi;
 import Toybox.Lang;
 import Toybox.Time;
 
-module X {
+(:glance, :background)
+const Recents_valueKey = "recents.v2";
+(:glance, :background)
+const Recents_versionKey = "recentsVersion.v1";
 
-(:background)
-var recents as RecentsWrapper = new RecentsWrapper();
+(:glance, :background)
+const Recents_defaultValue = { RecentsField_list => [] as RecentsList } as Recents;
 
-class RecentsWrapper extends VersionedSubject {
-    
-    function initialize() {
-        VersionedSubject.initialize(
-            2,
-            1,
-            "recents"
-        );
-    }
-
-    function setSubjectValue(value as SubjectValue) as Void {
-        VersionedSubject.setSubjectValue(value);
-        updateMissedRecents();
-        RecentsManip.updateUIForRecentsIfInApp(value as Recents);
-    }
-
-    function defaultSubjectValue() as SubjectValue | Null {
-        return { RecentsField_list => [] as RecentsList } as Recents as SubjectValue;
-    }
-
-    (:background)
-    function value() as Recents {
-        return subjectValue() as Recents;
-    }
-}
-
-}
 module RecentsManip {
 
 (:background)

@@ -3,57 +3,24 @@ import Toybox.Application;
 
 typedef AudioState as Lang.Dictionary<String, Application.PropertyValueType>;
 
-module X {
-
 (:background, :glance)
-var audioState as AudioStateWrapper = new AudioStateWrapper();
+const AudioState_valueKey = "audioState.v1";
+(:background, :glance)
+const AudioState_versionKey = "audioStateVersion.v1";
 
-class AudioStateWrapper extends VersionedSubject {
+(:background)
+const AudioState_defaultValue = {
+    isHeadsetConnectedK => false,
+    activeAudioDeviceK => null,
+    volumeK => {
+        indexK => 0,
+        maxK => 10
+    },
+    isMutedK => false
+} as AudioState;
 
-    function initialize() {
-        VersionedSubject.initialize(
-            1,
-            1,
-            "audioState"
-        );
-    }
-
-    function setSubjectValue(value as SubjectValue) as Void {
-        oldValue = value();
-        VersionedSubject.setSubjectValue(value);
-        AudioStateManip.updateUIForAudioStateIfRelevant();
-    }
-
-    var oldValue as AudioState | Null = null;
-
-    function defaultSubjectValue() as SubjectValue | Null {
-        return {
-            isHeadsetConnectedK => false,
-            activeAudioDeviceK => null,
-            volumeK => {
-                indexK => 0,
-                maxK => 10
-            },
-            isMutedK => false
-        } as AudioState as SubjectValue;
-    }
-
-    function defaultValue() as AudioState {
-        return defaultSubjectValue() as AudioState;
-    }
-
-    (:background, :glance)
-    function value() as AudioState {
-        return subjectValue() as AudioState;
-    }
-
-    (:background)
-    function setValue(value as AudioState) as Void {
-        setSubjectValue(value as SubjectValue);
-    }
-}
-
-}
+(:background)
+var AudioState_oldValue as AudioState | Null = null;
 
 module AudioStateImp {
 

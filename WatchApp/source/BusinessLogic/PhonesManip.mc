@@ -2,37 +2,12 @@ import Toybox.WatchUi;
 import Toybox.Application;
 import Toybox.Lang;
 
-module X {
+(:background, :glance)
+const Phones_valueKey = "phones.v2";
 
-(:background)
-var phones as PhonesWrapper = new PhonesWrapper();
+(:background, :glance)
+const Phones_versionKey = "phonesVersion.v1";
 
-class PhonesWrapper extends VersionedSubject {
-    
-    (:background)
-    function initialize() {
-        VersionedSubject.initialize(
-            2,
-            1,
-            "phones"
-        );
-    }
-
-    function setSubjectValue(value as SubjectValue) as Void {
-        VersionedSubject.setSubjectValue(value);
-        PhonesManip.updateUIForPhonesIfInApp(value as Phones);
-    }
-
-    function defaultSubjectValue() as SubjectValue | Null {
-        return noPhones as SubjectValue;
-    }
-
-    function value() as Phones {
-        return subjectValue() as Phones;
-    }
-}
-
-}
 module PhonesManip {
 
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))

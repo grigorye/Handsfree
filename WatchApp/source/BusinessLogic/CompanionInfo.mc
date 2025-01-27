@@ -4,33 +4,10 @@ import Toybox.Application;
 typedef CompanionInfo as Lang.Dictionary<String, Application.PropertyValueType>;
 typedef VersionInfo as Lang.Dictionary<String, Application.PropertyValueType>;
 
-module X {
-
 (:background, :glance)
-var companionInfo as CompanionInfoWrapper = new CompanionInfoWrapper();
-
-class CompanionInfoWrapper extends VersionedSubject {
-
-    (:background, :glance)
-    function initialize() {
-        VersionedSubject.initialize(
-            1,
-            1,
-            "companionInfo"
-        );
-    }
-
-    function setSubjectValue(value as SubjectValue) as Void {
-        VersionedSubject.setSubjectValue(value);
-        Routing.companionInfoDidChangeIfInApp();
-    }
-
-    function value() as CompanionInfo | Null {
-        return subjectValue() as CompanionInfo | Null;
-    }
-}
-
-}
+const CompanionInfo_valueKey = "companionInfo.v1";
+(:background, :glance)
+const CompanionInfo_versionKey = "companionInfoVersion.v1";
 
 module CompanionInfoImp {
 
