@@ -1,0 +1,41 @@
+import Toybox.Application;
+import Toybox.Lang;
+
+(:background)
+function loadValueWithDefault(key as Lang.String, defaultValue as Lang.Object) as Lang.Object {
+    var storedValue = Storage.getValue(key);
+    if (storedValue != null) {
+        return storedValue as Lang.Object;
+    }
+    return defaultValue;
+}
+
+(:background)
+function storeValue(key as Lang.String, value as Lang.Object) as Void {
+    _3(L_APP, "storeValue", key);
+    switch (key) {
+        case AudioState_valueKey:
+            AudioState_oldValue = Storage.getValue(key) as AudioState | Null;
+            break;
+    }
+    Storage.setValue(key, value as Application.PropertyValueType);
+    switch (key) {
+        case AudioState_valueKey:
+            AudioStateManip.updateUIForAudioStateIfRelevant(value as AudioState);
+            break;
+        case CompanionInfo_valueKey:
+            Routing.companionInfoDidChangeIfInApp();
+            break;
+        case Phones_valueKey:
+            PhonesManip.updateUIForPhonesIfInApp(value as Phones);
+            break;
+        case ReadinessInfo_valueKey:
+            Routing.readinessInfoDidChangeIfInApp();
+            break;
+        case Recents_valueKey:
+            if (!lowMemory || isActiveUiKindApp) {
+                RecentsManip.updateUIForRecentsIfInApp();
+            }
+            break;
+    }
+}
