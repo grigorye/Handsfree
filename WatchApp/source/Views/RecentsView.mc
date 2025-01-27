@@ -2,6 +2,7 @@ import Toybox.WatchUi;
 import Toybox.Lang;
 import Toybox.System;
 import Toybox.Time;
+import Toybox.Application;
 
 module RecentsScreen {
 
@@ -32,7 +33,7 @@ class View extends ExtendedMenu2 {
     }
 
     private function addMenuItemsFromRecents() as Void {
-        var recents = X.recents.value();
+        var recents = Storage.getValue(Recents_valueKey) as Recents;
         var accessIssue = recents[RecentsField_accessIssue] as AccessIssue | Null;
         if (accessIssue != null) {
             addMenuItemsForAccessIssue(accessIssue);

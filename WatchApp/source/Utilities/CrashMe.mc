@@ -1,6 +1,7 @@
 import Toybox.System;
 import Toybox.WatchUi;
 import Toybox.Lang;
+import Toybox.Application;
 
 function crashMe() as Void {
     var deviceSettings = System.getDeviceSettings();
@@ -44,7 +45,7 @@ class DebugMenuDelegate extends WatchUi.Menu2InputDelegate {
 }
 
 function readinessInfoCompact() as Lang.String {
-    var readinessInfo = X.readinessInfo.value();
+    var readinessInfo = Storage.getValue(ReadinessInfo_valueKey) as ReadinessInfo | Null;
     if (readinessInfo == null) {
         return "null";
     }

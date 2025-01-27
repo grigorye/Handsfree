@@ -34,7 +34,7 @@ var pendingAudioStateImp as AudioState | Null = null;
 
 (:background)
 function getPendingAudioState() as AudioState {
-    return (pendingAudioStateImp != null) ? pendingAudioStateImp : X.audioState.value();
+    return (pendingAudioStateImp != null) ? pendingAudioStateImp : (loadValueWithDefault(AudioState_valueKey, AudioState_defaultValue) as AudioState);
 }
 
 (:background, :inline)

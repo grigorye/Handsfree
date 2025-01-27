@@ -46,7 +46,7 @@ function textsForCallInProgress(phone as Phone) as CallInProgressTexts {
 
 function addAudioActions(actions as CallInProgressActions) as Void {
     var audioState = AudioStateImp.getPendingAudioState();
-    var lastKnownAudioState = X.audioState.value();
+    var lastKnownAudioState = loadValueWithDefault(AudioState_valueKey, AudioState_defaultValue) as AudioState;
     var audioVolume = AudioStateManip.getAudioVolume(audioState);
     var percents = toPercents(audioVolume);
     var lastKnownAudioVolume = AudioStateManip.getAudioVolume(lastKnownAudioState);
@@ -55,7 +55,7 @@ function addAudioActions(actions as CallInProgressActions) as Void {
     if (!audioVolumeIsUpToDate) {
         volumeSuffix = pendingText(volumeSuffix);
     }
-    var activeAudioDevice = AudioStateManip.getActiveAudioDeviceName(X.audioState.value());
+    var activeAudioDevice = AudioStateManip.getActiveAudioDeviceName(lastKnownAudioState);
     var volumePrompt = (activeAudioDevice != null) ? "Volume: " + volumeSuffix : "Volume";
     actions.add({
         :prompt => volumePrompt,

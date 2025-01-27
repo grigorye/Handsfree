@@ -17,7 +17,7 @@ typedef Readiness as Lang.String;
 
 (:inline, :background, :glance)
 function readiness(readinessField as Lang.String) as Readiness {
-    var readinessInfo = X.readinessInfo.value();
+    var readinessInfo = Storage.getValue(ReadinessInfo_valueKey) as ReadinessInfo | Null;
     if (readinessInfo == null) {
         return ReadinessValue_notReady;
     }

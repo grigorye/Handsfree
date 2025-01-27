@@ -1,4 +1,5 @@
 import Toybox.Lang;
+import Toybox.Application;
 
 function routeOnFirstShow() as Void {
     if (!isCompanionUpToDate()) {
@@ -13,7 +14,7 @@ const minCompanionVersionName as Lang.String = "0.0.8";
 const minCompanionVersionCode as Lang.Integer = 70;
 
 function isCompanionUpToDate() as Lang.Boolean {
-    var companionInfo = X.companionInfo.value();
+    var companionInfo = Storage.getValue(CompanionInfo_valueKey) as CompanionInfo | Null;
     if (companionInfo == null) {
         return false;
     }

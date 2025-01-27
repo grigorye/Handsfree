@@ -1,4 +1,5 @@
 import Toybox.WatchUi;
+import Toybox.Application;
 
 module Routing {
 
@@ -20,7 +21,7 @@ function companionInfoDidChangeIfInApp() as Void {
 
 (:background, :glance)
 function readinessInfoDidChangeIfInApp() as Void {
-    if (debug) { _3(L_APP, "readinessInfoDidChange", X.readinessInfo.value()); }
+    if (debug) { _3(L_APP, "readinessInfoDidChange", Storage.getValue(ReadinessInfo_valueKey)); }
 }
 
 }

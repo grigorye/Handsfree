@@ -5,16 +5,17 @@ import Toybox.Communications;
 module Req {
 
 function requestAllSubjects() as Void {
+    var subjectsArg = [
+        { QueryArgsK_subjectNameK => broadcastSubject, QueryArgsK_subjectVersionK => BackgroundSettings.broadcastListeningVersion()},
+        { QueryArgsK_subjectNameK => phonesSubject, QueryArgsK_subjectVersionK => Storage.getValue(Phones_versionKey) },
+        { QueryArgsK_subjectNameK => recentsSubject, QueryArgsK_subjectVersionK => Storage.getValue(Recents_versionKey) },
+        { QueryArgsK_subjectNameK => audioStateSubject, QueryArgsK_subjectVersionK => Storage.getValue(AudioState_versionKey) },
+        { QueryArgsK_subjectNameK => readinessInfoSubject, QueryArgsK_subjectVersionK => Storage.getValue(ReadinessInfo_versionKey) }
+    ] as Lang.Array;
     var msg = {
         cmdK => Cmd_query,
         argsK => {
-            subjectsK => [
-                { QueryArgsK_subjectNameK => broadcastSubject, QueryArgsK_subjectVersionK => BackgroundSettings.broadcastListeningVersion()},
-                { QueryArgsK_subjectNameK => phonesSubject, QueryArgsK_subjectVersionK => X.phones.version() },
-                { QueryArgsK_subjectNameK => recentsSubject, QueryArgsK_subjectVersionK => X.recents.version() },
-                { QueryArgsK_subjectNameK => audioStateSubject, QueryArgsK_subjectVersionK => X.audioState.version() },
-                { QueryArgsK_subjectNameK => readinessInfoSubject, QueryArgsK_subjectVersionK => X.readinessInfo.version() },
-            ]
+            subjectsK => subjectsArg
         }
     } as Lang.Object as Application.PersistableType;
     transmitWithRetry("reqAllSubjects", msg, new Communications.ConnectionListener());

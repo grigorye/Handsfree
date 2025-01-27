@@ -1,4 +1,5 @@
 import Toybox.WatchUi;
+import Toybox.Application;
 
 module Views {
 
@@ -16,7 +17,7 @@ class AboutView extends WatchUi.Menu2 {
     }
 
     function companionVersionItem() as WatchUi.MenuItem {
-        var companionInfo = X.companionInfo.value();
+        var companionInfo = Storage.getValue(CompanionInfo_valueKey) as CompanionInfo | Null;
         if (companionInfo == null) {
             return new MenuItem("Install Companion App", null, :installCompanionApp, null);
         } else {

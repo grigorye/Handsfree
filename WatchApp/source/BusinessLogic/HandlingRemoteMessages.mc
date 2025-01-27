@@ -111,7 +111,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
                 break;
             }
             case audioStateSubject: {
-                if (version.equals(X.audioState.version())) {
+                if (version.equals(Storage.getValue(AudioState_versionKey))) {
                     break;
                 }
                 var audioState = subject[valueK] as AudioState or Null;
@@ -138,21 +138,23 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
             case phonesSubject:
             case readinessInfoSubject:
             case companionInfoSubject: {
-                var versionedSubject = versionedSubjectForSubject(name);
-                if (versionedSubject == null) {
+                var versionKey = versionKeyForSubject(name);
+                if (versionKey == null) {
                     System.error("");
                 }
-                if (!version.equals(versionedSubject.version())) {
-                    var value = subject[valueK] as SubjectValue or Null;
+                var oldVersion = Storage.getValue(versionKey) as Version | Null;
+                if (!version.equals(oldVersion)) {
+                    var value = subject[valueK];
                     if (value == null) {
                         subjectsInvalidated = subjectsInvalidated + name;
                     } else {
-                        versionedSubject.setSubjectValue(value);
-                        versionedSubject.setVersion(version);
+                        var valueKey = valueKeyForSubject(name) as Lang.String;
+                        storeValue(valueKey, value);
+                        Storage.setValue(versionKey, version);
                     }
                     isHit = false;
                 } else {
-                    if (debug) { _3(LX_REMOTE_MSG, versionedSubject.tag + "Hit", version); }
+                    if (debug) { _3(LX_REMOTE_MSG, "Hit." + versionKey, version); }
                 }
                 break;
             }
@@ -268,21 +270,31 @@ function didReceiveRemoteMessageInForeground() as Void {
 }
 
 (:background)
-function versionedSubjectForSubject(subject as Lang.String) as VersionedSubject | Null {
-    switch (subject) {
-        case phonesSubject:
-            return X.phones;
-        case recentsSubject:
-            return X.recents;
-        case readinessInfoSubject:
-            return X.readinessInfo;
-        case companionInfoSubject:
-            return X.companionInfo;
-        case audioStateSubject:
-            return X.audioState;
-        default:
-            return null;
-    }
+const versionKeyForSubjectMap = {
+    phonesSubject => Phones_versionKey,
+    recentsSubject => Recents_versionKey,
+    readinessInfoSubject => ReadinessInfo_versionKey,
+    companionInfoSubject => CompanionInfo_versionKey,
+    audioStateSubject => AudioState_versionKey
+} as Lang.Dictionary<Lang.String, Lang.String>;
+
+(:background)
+function versionKeyForSubject(subject as Lang.String) as Lang.String | Null {
+    return versionKeyForSubjectMap[subject];
+}
+
+(:background)
+const valueKeyForSubjectMap = {
+    phonesSubject => Phones_valueKey,
+    recentsSubject => Recents_valueKey,
+    readinessInfoSubject => ReadinessInfo_valueKey,
+    companionInfoSubject => CompanionInfo_valueKey,
+    audioStateSubject => AudioState_valueKey
+} as Lang.Dictionary<Lang.String, Lang.String>;
+
+(:background)
+function valueKeyForSubject(subject as Lang.String) as Lang.String | Null {
+    return valueKeyForSubjectMap[subject];
 }
 
 }

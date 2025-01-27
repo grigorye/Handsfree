@@ -17,13 +17,14 @@ class AudioVolumeView extends WatchUi.View {
         dc.clear();
 
         var audioState = AudioStateImp.getPendingAudioState();
-        var audioDevice = AudioStateManip.getActiveAudioDeviceAbbreviation(X.audioState.value());
+        var lastKnownAudioState = loadValueWithDefault(AudioState_valueKey, AudioState_defaultValue) as AudioState;
+        var audioDevice = AudioStateManip.getActiveAudioDeviceAbbreviation(lastKnownAudioState);
         var line1 = audioDevice;
         var audioVolume = AudioStateManip.getAudioVolume(audioState);
         var volumeIndex = audioVolume[indexK] as Lang.Integer;
         var maxVolumeIndex = audioVolume[maxK] as Lang.Integer;
         var line2 = "" + 100 * volumeIndex / maxVolumeIndex;
-        var lastKnownAudioVolume = AudioStateManip.getAudioVolume(X.audioState.value());
+        var lastKnownAudioVolume = AudioStateManip.getAudioVolume(lastKnownAudioState);
         var isUpToDate = objectsEqual(lastKnownAudioVolume, audioVolume);
         if (!isUpToDate) {
             line2 = pendingText(line2);

@@ -3,7 +3,11 @@ import Toybox.Application;
 
 (:background)
 function updateMissedRecents() as Void {
-    var recents = RecentsManip.getRecentsList();
+    var recentsSubject = Storage.getValue(Recents_valueKey) as Recents | Null;
+    if (recentsSubject == null) {
+        return;
+    }
+    var recents = recentsSubject[RecentsField_list] as RecentsList;
     var lastRecentCheckDate = getLastRecentsCheckDate();
     var newMissedRecents = missedRecents(recents, lastRecentCheckDate);
     var oldMissedRecents = getMissedRecents();

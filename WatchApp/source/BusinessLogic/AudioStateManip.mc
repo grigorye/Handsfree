@@ -5,7 +5,7 @@ import Toybox.Application;
 module AudioStateManip {
 
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
-function updateUIForAudioStateIfRelevant() as Void {
+function updateUIForAudioStateIfRelevant(audioState as AudioState) as Void {
     if (activeUiKind.equals(ACTIVE_UI_GLANCE)) {
         WatchUi.requestUpdate();
         return;
@@ -13,14 +13,15 @@ function updateUIForAudioStateIfRelevant() as Void {
     if (!isActiveUiKindApp) {
         return;
     }
+    updateUIForAudioStateInApp(audioState);
+}
 
-    var audioState = X.audioState.value();
-
+function updateUIForAudioStateInApp(audioState as AudioState) as Void {
     updateCallInProgressView();
     WatchUi.requestUpdate();
     var isHeadsetConnected = getIsHeadsetConnected(audioState);
     var needToast;
-    var oldAudioStateImp = X.audioState.oldValue;
+    var oldAudioStateImp = AudioState_oldValue;
     if (oldAudioStateImp != null) {
         var oldIsHeadsetConnected = getIsHeadsetConnected(oldAudioStateImp);
         needToast = isHeadsetConnected != oldIsHeadsetConnected;
@@ -53,7 +54,10 @@ function getIsHeadsetConnected(audioState as AudioState) as Lang.Boolean | Null 
 
 (:inline, :glance)
 function getSpeakerWouldBeUsed() as Lang.Boolean | Null {
-    var audioState = X.audioState.value();
+    var audioState = Storage.getValue(AudioState_valueKey) as AudioState | Null;
+    if (audioState == null) {
+        return null;
+    }
     var isHeadsetConnected = audioState[isHeadsetConnectedK] as Lang.Boolean | Null;
     var speakerWouldBeUsed = isHeadsetConnected != null && !isHeadsetConnected;
     return speakerWouldBeUsed;

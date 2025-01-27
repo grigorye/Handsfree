@@ -12,15 +12,8 @@ const Recents_defaultValue = { RecentsField_list => [] as RecentsList } as Recen
 
 module RecentsManip {
 
-(:background)
-function getRecentsList() as RecentsList {
-    var recents = X.recents.value();
-    var recentsList = recents[RecentsField_list] as RecentsList;
-    return recentsList;
-}
-
-(:background, :typecheck([disableBackgroundCheck]))
-function updateUIForRecentsIfInApp(recents as Recents) as Void {
+(:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
+function updateUIForRecentsIfInApp() as Void {
     if (!isActiveUiKindApp) {
         return;
     }

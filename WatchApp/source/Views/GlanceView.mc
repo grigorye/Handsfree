@@ -2,6 +2,7 @@ import Toybox.WatchUi;
 import Toybox.Lang;
 import Toybox.System;
 import Toybox.Graphics;
+import Toybox.Application;
 import Rez.Styles;
 
 (:glance)
@@ -16,7 +17,7 @@ class GlanceView extends WatchUi.GlanceView {
 
     function onUpdate(dc as Graphics.Dc) {
         var phoneConnected = System.getDeviceSettings().phoneConnected;
-        var companionConnected = X.companionInfo.version() != null;
+        var companionConnected = Storage.getValue(CompanionInfo_valueKey) != null;
         var defaultTitle = defaultTitle(phoneConnected, companionConnected);
         var font = glanceFont();
         var colors = glanceColors();
