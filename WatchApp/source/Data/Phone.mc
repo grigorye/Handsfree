@@ -5,9 +5,9 @@ typedef PhoneList as Lang.Array<Phone>;
 typedef Phones as Lang.Dictionary<Lang.String, PhoneList | AccessIssue>;
 
 (:background)
-const noPhones as Phones = { PhonesField_phoneList => [] as PhoneList } as Phones;
+const Phones_defaultValue as Phones = { PhonesField_list => [] as PhoneList } as Phones;
 
-const PhonesField_phoneList = "c";
+const PhonesField_list = "c";
 const PhonesField_accessIssue = "a";
 
 (:inline, :background)

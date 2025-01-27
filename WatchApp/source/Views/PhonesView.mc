@@ -21,7 +21,7 @@ class View extends ExtendedMenu2 {
         setFromPhones(phones);
     }
 
-    private var oldPhones as Phones = noPhones;
+    private var oldPhones as Phones = Phones_defaultValue;
 
     function updateFromPhones(phones as Phones) as Void {
         if (debug) { _3(L_PHONES_VIEW, "updatingFromPhones", phones); }
@@ -41,7 +41,7 @@ class View extends ExtendedMenu2 {
         if (accessIssue != null) {
             addItem(accessIssueMenuItem("Contacts", accessIssue, noPhonesMenuItemId));
         } else {
-            var phoneList = phones[PhonesField_phoneList] as PhoneList;
+            var phoneList = phones[PhonesField_list] as PhoneList;
             setFromPhoneList(phoneList);
         }
         addPredefinedMenuItems();
