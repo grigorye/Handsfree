@@ -54,7 +54,9 @@ class GlanceView extends WatchUi.GlanceView {
                 if (missedRecentsCount > 0) {
                     title = "Missed Calls";
                     if (missedRecentsCount == 1) {
-                        subtitle = getPhoneRep(missedRecents[0]);
+                        var recents = Storage.getValue(Recents_valueKey) as Recents;
+                        var recent = (recents[RecentsField_list] as RecentsList)[missedRecents[0]];
+                        subtitle = getPhoneRep(recent);
                     } else {
                         subtitle = missedRecentsCount + " contacts";
                     }
