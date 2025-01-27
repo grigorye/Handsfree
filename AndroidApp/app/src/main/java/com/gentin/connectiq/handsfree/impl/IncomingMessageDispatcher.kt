@@ -58,9 +58,9 @@ class IncomingMessageDispatcher(
             }
 
             callInCmd -> {
-                val callRequest = json.decodeFromString<CallRequest>(string)
-                Log.d(TAG, "callRequest: $callRequest")
-                makeCallImp(source, callRequest.args.number)
+                val args = json.decodeFromString<CallArgs>(string)
+                Log.d(TAG, "callRequest: $args")
+                makeCallImp(source, args.number)
             }
 
             hangUpV1InCmd -> {
@@ -90,15 +90,15 @@ class IncomingMessageDispatcher(
             }
 
             queryInCmd -> {
-                val queryRequest = json.decodeFromString<QueryRequest>(string)
-                Log.d(TAG, "queryRequest: $queryRequest")
-                queryImp(source, queryRequest.args)
+                val args = json.decodeFromString<QueryArgs>(string)
+                Log.d(TAG, "queryRequest: $args")
+                queryImp(source, args)
             }
 
             openMeInCmd -> {
-                val openMeRequest = json.decodeFromString<OpenMeRequest>(string)
-                Log.d(TAG, "openMeRequest: $openMeRequest")
-                openAppImp(source, openMeRequest.args)
+                val args = json.decodeFromString<OpenMeArgs>(string)
+                Log.d(TAG, "openMeRequest: $args")
+                openAppImp(source, args)
             }
 
             openAppInStoreInCmd -> {
@@ -114,15 +114,15 @@ class IncomingMessageDispatcher(
             }
 
             setAudioVolumeInCmd -> {
-                val request = json.decodeFromString<SetAudioVolumeRequest>(string)
-                Log.d(TAG, "setAudioVolumeRequest: $request")
-                setAudioVolumeImp(request.args.volume)
+                val args = json.decodeFromString<SetAudioVolumeRequestArgs>(string)
+                Log.d(TAG, "setAudioVolumeRequest: $args")
+                setAudioVolumeImp(args.volume)
             }
 
             muteInCmd -> {
-                val request = json.decodeFromString<MuteRequest>(string)
-                Log.d(TAG, "muteRequest: $request")
-                muteImp(request.args.on)
+                val args = json.decodeFromString<MuteRequestArgs>(string)
+                Log.d(TAG, "muteRequest: $args")
+                muteImp(args.on)
             }
 
             pongInCmd -> {

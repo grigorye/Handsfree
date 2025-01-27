@@ -43,11 +43,14 @@ import com.gentin.connectiq.handsfree.impl.SubjectQuery
 import com.gentin.connectiq.handsfree.impl.audioStatePojo
 import com.gentin.connectiq.handsfree.impl.companionInfo
 import com.gentin.connectiq.handsfree.impl.companionInfoPojo
+import com.gentin.connectiq.handsfree.impl.newSubjectQuery
 import com.gentin.connectiq.handsfree.impl.phonesPojo
 import com.gentin.connectiq.handsfree.impl.readinessInfo
 import com.gentin.connectiq.handsfree.impl.readinessInfoPojo
 import com.gentin.connectiq.handsfree.impl.recentsPojo
 import com.gentin.connectiq.handsfree.impl.strippedVersionedPojo
+import com.gentin.connectiq.handsfree.impl.subjectQueryName
+import com.gentin.connectiq.handsfree.impl.subjectQueryVersion
 import com.gentin.connectiq.handsfree.notifications.showPongNotification
 import com.gentin.connectiq.handsfree.services.fallbackPhoneState
 import com.gentin.connectiq.handsfree.services.lastTrackedAudioState
@@ -150,7 +153,7 @@ class DefaultServiceLocator(
             didFirstLaunchImp = { source ->
                 garminConnector.trackFirstAppLaunch(source.device, source.app)
                 val subjects = allSubjectNames.map { name ->
-                    SubjectQuery(name = name, version = null)
+                    newSubjectQuery(name, null)
                 }
                 val args = QueryArgs(subjects)
                 val result = query(args, source = source)
@@ -187,21 +190,23 @@ class DefaultServiceLocator(
     ): QueryResult {
         val queryResult = QueryResult()
         for (subject in args.subjects) {
-            assert(allSubjectNames.contains(subject.name)) { "Unknown subject: ${subject.name}" }
-            when (subject.name) {
+            val subjectName = subjectQueryName(subject)
+            val subjectVersion = subjectQueryVersion(subject)
+            assert(allSubjectNames.contains(subjectName)) { "Unknown subject: $subjectName" }
+            when (subjectName) {
                 broadcastSubject -> {
                     if (metadataOnly) {
                         queryResult.broadcastEnabled =
                             garminConnector.isAppListeningForBroadcasts(source.device, source.app)
                     } else {
-                        queryResult.broadcastEnabled = subject.version == 1
+                        queryResult.broadcastEnabled = subjectVersion == 1
                     }
                 }
 
                 phonesSubject -> {
                     queryResult.phones =
                         strippedVersionedPojo(
-                            subject.version,
+                            subjectVersion,
                             phonesPojo(availableContacts()),
                             metadataOnly
                         )
@@ -209,13 +214,13 @@ class DefaultServiceLocator(
 
                 recentsSubject -> {
                     queryResult.recents =
-                        strippedVersionedPojo(subject.version, recentsPojo(recents()), metadataOnly)
+                        strippedVersionedPojo(subjectVersion, recentsPojo(recents()), metadataOnly)
                 }
 
                 audioStateSubject -> {
                     queryResult.audioState =
                         strippedVersionedPojo(
-                            subject.version,
+                            subjectVersion,
                             audioStatePojo(audioState()),
                             metadataOnly
                         )
@@ -224,7 +229,7 @@ class DefaultServiceLocator(
                 companionInfoSubject -> {
                     queryResult.companionInfo =
                         strippedVersionedPojo(
-                            subject.version,
+                            subjectVersion,
                             companionInfoPojo(companionInfo()),
                             metadataOnly
                         )
@@ -233,14 +238,14 @@ class DefaultServiceLocator(
                 readinessInfoSubject -> {
                     queryResult.readinessInfo =
                         strippedVersionedPojo(
-                            subject.version,
+                            subjectVersion,
                             readinessInfoPojo(readinessInfo(context = this)),
                             metadataOnly
                         )
                 }
 
                 else -> {
-                    Log.e(TAG, "Unknown subject: ${subject.name}")
+                    Log.e(TAG, "Unknown subject: $subjectName")
                 }
             }
         }
@@ -360,7 +365,7 @@ class DefaultServiceLocator(
                     )
                 } else {
                     val subjects = allSubjectNames.map { name ->
-                        SubjectQuery(name = name, version = null)
+                        newSubjectQuery(name, null)
                     }
                     val args = QueryArgs(subjects)
                     val source = IncomingMessageSource(device, app)

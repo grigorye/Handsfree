@@ -14,33 +14,8 @@ data class CommonRequestV1(
 )
 
 @Serializable
-data class CallRequest(
-    @SerialName("a") val args: CallArgs
-)
-
-@Serializable
 data class CallRequestV1(
     val args: CallArgsV1
-)
-
-@Serializable
-data class QueryRequest(
-    @SerialName("a") val args: QueryArgs
-)
-
-@Serializable
-data class OpenMeRequest(
-    @SerialName("a") val args: OpenMeArgs
-)
-
-@Serializable
-data class SetAudioVolumeRequest(
-    @SerialName("a") val args: SetAudioVolumeRequestArgs
-)
-
-@Serializable
-data class MuteRequest(
-    @SerialName("a") val args: MuteRequestArgs
 )
 
 @Serializable
@@ -79,8 +54,23 @@ data class QueryArgs(
     @SerialName("s") val subjects: List<SubjectQuery>
 )
 
-@Serializable
-data class SubjectQuery(
-    @SerialName("n") val name: String,
-    @SerialName("v") val version: Version? = null
-)
+typealias SubjectQuery = List<String>
+
+fun newSubjectQuery(name: String, version: Int? = null): SubjectQuery {
+    val query = mutableListOf(name)
+    if (version != null) {
+        query.add("$version")
+    }
+    return query
+}
+
+fun subjectQueryName(query: SubjectQuery): String {
+    return query[0]
+}
+
+fun subjectQueryVersion(query: SubjectQuery): Int? {
+    if (query.size < 2) {
+        return null
+    }
+    return query[1].toInt()
+}
