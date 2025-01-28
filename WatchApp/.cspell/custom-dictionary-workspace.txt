@@ -2,12 +2,15 @@
 --houtro
 --noreport
 -Dfile
+connectiq
 Handsfree
 HSET
 jar
+killall
 Manip
 monkeybrains
 monkeyc
+monkeydo
 Persistable
 PHNE
 recents
