@@ -63,6 +63,8 @@ import com.gentin.connectiq.handsfree.terms.phonesSubject
 import com.gentin.connectiq.handsfree.terms.readinessInfoSubject
 import com.gentin.connectiq.handsfree.terms.recentsSubject
 
+private const val separateQueryResults = true
+
 class DefaultServiceLocator(
     base: Context?,
     lifecycleScope: LifecycleCoroutineScope
@@ -134,8 +136,16 @@ class DefaultServiceLocator(
                     source.app,
                     accountBroadcastOnly = false
                 )
-                val result = query(args, source = source)
-                outgoingMessageDispatcher.sendQueryResult(destination, result)
+                if (separateQueryResults) {
+                    for (subject in args.subjects) {
+                        val args = QueryArgs(listOf(subject))
+                        val result = query(args, source = source)
+                        outgoingMessageDispatcher.sendQueryResult(destination, result)
+                    }
+                } else {
+                    val result = query(args, source = source)
+                    outgoingMessageDispatcher.sendQueryResult(destination, result)
+                }
             },
             openAppImp = { source, args ->
                 if (lastTrackedPhoneState?.stateId != PhoneStateId.Ringing) {
@@ -155,10 +165,19 @@ class DefaultServiceLocator(
                 val subjects = allSubjectNames.map { name ->
                     newSubjectQuery(name, null)
                 }
-                val args = QueryArgs(subjects)
-                val result = query(args, source = source)
-                val destination = OutgoingMessageDestination(source.device, source.app)
-                outgoingMessageDispatcher.sendQueryResult(destination, result)
+                if (separateQueryResults) {
+                    for (subject in subjects) {
+                        val args = QueryArgs(listOf(subject))
+                        val result = query(args, source = source)
+                        val destination = OutgoingMessageDestination(source.device, source.app)
+                        outgoingMessageDispatcher.sendQueryResult(destination, result)
+                    }
+                } else {
+                    val args = QueryArgs(subjects)
+                    val result = query(args, source = source)
+                    val destination = OutgoingMessageDestination(source.device, source.app)
+                    outgoingMessageDispatcher.sendQueryResult(destination, result)
+                }
             },
             openAppInStoreImp = { source ->
                 garminConnector.openWatchAppInStore(source.app)
