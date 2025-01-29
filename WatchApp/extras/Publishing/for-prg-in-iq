@@ -1,0 +1,28 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+wd=$(dirname "$0")
+
+src_root="$wd/.."
+
+iq="$1"
+shift
+
+wd=$(dirname "$0")
+bn=$(basename "$0")
+tmpdir=$(mktemp -d /tmp/"$bn".XXXXXX)
+
+prg_dir="$tmpdir/prg"
+
+"$wd"/unpack-iq-prgs "$iq" "$prg_dir"
+
+for prg in "$prg_dir"/*.prg; do
+    # Get fenix5plus from
+    # Handsfree-beta-app-fenix5plus-3.3.3.prg
+    # by looking at the last part of the basename.
+    device=$(basename "$prg" | sed -E 's/.*-([^-]+)-[0-9.]+.prg/\1/')
+
+    "$@" "$device" "$prg"
+done
