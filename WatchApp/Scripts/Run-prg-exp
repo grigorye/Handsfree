@@ -1,0 +1,27 @@
+#! /bin/bash
+
+#
+# Runs an Expect script with the given device and .prg file (exporting "device",
+# "prg" and some other env vars ("sdk_root") for the script).
+#
+
+set -x
+set -euo pipefail
+
+exp="$1" # .exp/Expect script to run
+shift
+
+device="$1" # Device to test on
+shift
+
+prg="$1" # .prg file to test
+shift
+
+wd=$(dirname "$0")
+
+export src_root="$wd/.."
+
+. "$src_root/sdk-env.sh"
+
+export device prg
+expect -f "$exp"
