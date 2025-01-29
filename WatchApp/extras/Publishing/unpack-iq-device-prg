@@ -1,0 +1,32 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+# Garmin Connect .iq files are just zip files with a different extension.
+iq="$1"
+shift
+
+device="$1"
+shift
+
+dst="$1"
+shift
+
+bn=$(basename "$0")
+tmpdir=$(mktemp -d /tmp/"$bn".XXXXXX)
+
+# .iq file contains multiple directories containing build products for every
+# supported device. The directories are named after part number of each device,
+# e.g. 006-B3906-00 for Fenix 7.
+
+# The part number for the device is stored in compiler.json that is part of
+# device metadata downloadable via Garmin Connect SDK Manager.
+devices_root="$HOME/Library/Application Support/Garmin/ConnectIQ/Devices"
+part_number=$(jq -r '.worldWidePartNumber' "$devices_root/$device/compiler.json")
+
+# Unpack the  file from the .iq file.
+iq_unpacked_dir="$tmpdir/iq"
+iq_unpacked_part_dir="$iq_unpacked_dir/$part_number"
+unzip "$iq" "$part_number/*.prg" -d "$iq_unpacked_dir"
+mv "$iq_unpacked_part_dir"/*.prg "$dst"

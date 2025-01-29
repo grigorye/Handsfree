@@ -1,0 +1,51 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+# Garmin Connect .iq files are just zip files with a different extension.
+iq="$1"
+shift
+
+dst="$1"
+shift
+
+bn=$(basename "$0")
+tmpdir=$(mktemp -d /tmp/"$bn".XXXXXX)
+
+# .iq file contains multiple directories containing build products for every
+# supported device. The directories are named after part number of each device,
+# e.g. 006-B3906-00 for Fenix 7.
+
+# The part number for the device is stored in compiler.json that is part of
+# device metadata downloadable via Garmin Connect SDK Manager.
+devices_root="$HOME/Library/Application Support/Garmin/ConnectIQ/Devices"
+
+# Unpack the .iq file
+
+unzip -q "$iq" -d "$tmpdir/iq"
+
+# Prepare a map of part number to device name.
+device_map="$tmpdir/device_map.txt"
+echo >"$device_map"
+for compiler_json in "$devices_root"/*/compiler.json; do
+    device_name=$(basename "$(dirname "$compiler_json")")
+    jq -r '.partNumbers[]|[.number,.connectIQVersion]|join(" ")' <"$compiler_json" | while read -r part_number connect_iq_version; do
+        echo "$part_number:$device_name-$connect_iq_version" >>"$device_map"
+    done
+done
+
+for prg in "$tmpdir/iq"/*/*.prg; do
+    device_dir=$(dirname "$prg")
+    part_number=$(basename "$device_dir")
+    device_name=$(grep "^$part_number:" "$device_map" | cut -d: -f2)
+    prg_name=$(basename "$prg")
+    prg_name_wo_ext="${prg_name%.prg}"
+    dst_prg="$dst/$prg_name_wo_ext-$device_name.prg"
+    mkdir -p "$dst"
+    if [[ -e "$dst_prg" ]]; then
+        diff "$prg" "$dst_prg"
+    else
+        mv -i "$prg" "$dst_prg"
+    fi
+done
