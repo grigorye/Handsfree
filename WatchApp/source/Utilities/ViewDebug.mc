@@ -1,7 +1,7 @@
 import Toybox.Lang;
 
-(:lowMemory)
+(:background, :glance, :lowMemory)
 const viewDebug as Lang.Boolean = false;
 
-(:noLowMemory)
+(:background, :glance, :noLowMemory)
 const viewDebug as Lang.Boolean = true;
