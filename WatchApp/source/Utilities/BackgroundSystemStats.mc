@@ -36,4 +36,5 @@ function getBackgroundSystemStats() as Lang.Dictionary<Lang.String, Lang.Number>
     }
     return savedStats; 
 }
+
 }
