@@ -19,7 +19,7 @@ class AboutView extends WatchUi.Menu2 {
     function companionVersionItem() as WatchUi.MenuItem {
         var companionInfo = Storage.getValue(CompanionInfo_valueKey) as CompanionInfo | Null;
         if (companionInfo == null) {
-            return new MenuItem("Install Companion App", null, :installCompanionApp, null);
+            return new MenuItem("Install", "Companion App", :installCompanionApp, null);
         } else {
             var versionCode = CompanionInfoImp.getCompanionVersionCode(companionInfo);
             var versionName = CompanionInfoImp.getCompanionVersionName(companionInfo);
