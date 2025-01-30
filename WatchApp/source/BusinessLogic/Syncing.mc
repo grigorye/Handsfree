@@ -21,6 +21,7 @@ function requestAllSubjects() as Void {
 
 (:background)
 function requestSubjects(subjects as Lang.String) as Void {
+    dumpF(L_APP, "requestSubjects");
     var subjectsArg = [];
     var subjectsCount = subjects.length();
     for (var i = 0; i < subjectsCount; i++) {
