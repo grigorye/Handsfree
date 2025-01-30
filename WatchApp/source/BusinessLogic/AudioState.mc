@@ -8,7 +8,6 @@ const AudioState_valueKey = "audioState.v1";
 (:background, :glance)
 const AudioState_versionKey = "audioStateVersion.v1";
 
-(:background)
 const AudioState_defaultValue = {
     isHeadsetConnectedK => false,
     activeAudioDeviceK => null,
@@ -32,7 +31,6 @@ function getIsMuted(state as AudioState) as Lang.Boolean {
 (:background)
 var pendingAudioStateImp as AudioState | Null = null;
 
-(:background)
 function getPendingAudioState() as AudioState {
     return (pendingAudioStateImp != null) ? pendingAudioStateImp : (loadValueWithDefault(AudioState_valueKey, AudioState_defaultValue) as AudioState);
 }
