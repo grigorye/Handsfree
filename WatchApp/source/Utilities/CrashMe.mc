@@ -44,6 +44,12 @@ class DebugMenuDelegate extends WatchUi.Menu2InputDelegate {
     }
 }
 
+(:lowMemory)
+function readinessInfoCompact() as Lang.String {
+    return "?";
+}
+
+(:noLowMemory)
 function readinessInfoCompact() as Lang.String {
     var readinessInfo = Storage.getValue(ReadinessInfo_valueKey) as ReadinessInfo | Null;
     if (readinessInfo == null) {

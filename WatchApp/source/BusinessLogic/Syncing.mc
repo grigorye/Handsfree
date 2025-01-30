@@ -25,6 +25,11 @@ function requestSubjects(subjects as Lang.String) as Void {
     var subjectsCount = subjects.length();
     for (var i = 0; i < subjectsCount; i++) {
         var name = subjects.substring(i, i + 1) as Lang.String;
+        if (lowMemory) {
+            if (name.equals(readinessInfoSubject)) {
+                continue;
+            }
+        }
         if (name.equals(broadcastSubject)) {
             subjectsArg.add([name, "" + BackgroundSettings.broadcastListeningVersion()]);
         } else {

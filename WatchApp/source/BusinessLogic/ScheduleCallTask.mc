@@ -15,12 +15,7 @@ class ScheduleCallTask extends Communications.ConnectionListener {
     }
 
     function launch() as Void {
-        if (!preflightReadiness(ReadinessField_essentials, "Call control")) {
-            return;
-        }
-        if (!preflightReadiness(ReadinessField_outgoingCalls, "Outgoing calls")) {
-            return;
-        }
+        preflightAllReadiness();
         var msg = {
             cmdK => Cmd_call,
             CallArgsK_number => getPhoneNumber(phone)
@@ -61,6 +56,23 @@ class ScheduleCallTask extends Communications.ConnectionListener {
     }
 }
 
+(:lowMemory)
+function preflightAllReadiness() as Lang.Boolean {
+    return true;
+}
+
+(:noLowMemory)
+function preflightAllReadiness() as Lang.Boolean {
+    if (!preflightReadiness(ReadinessField_essentials, "Call control")) {
+        return false;
+    }
+    if (!preflightReadiness(ReadinessField_outgoingCalls, "Outgoing calls")) {
+        return false;
+    }
+    return true;
+}
+
+(:noLowMemory)
 function preflightReadiness(field as Lang.String, title as Lang.String) as Lang.Boolean {
     var readiness = ReadinessInfoManip.readiness(field);
     if (readiness.equals(ReadinessValue_ready)) {
