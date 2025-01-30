@@ -13,11 +13,11 @@ class DummyCommListener extends Communications.ConnectionListener {
     }
 
     function onComplete() {
-        if (debug) { _2(LX_OUT_COMM, tag + ".completed"); }
+        if (minDebug || lowMemory) { _2(LX_OUT_COMM, tag + ".completed"); }
     }
 
     function onError() {
-        if (debug) { _2(LX_OUT_COMM, tag + ".failed"); }
+        if (debug || lowMemory) { _2(LX_OUT_COMM, tag + ".failed"); }
     }
 }
 
