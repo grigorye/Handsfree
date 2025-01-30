@@ -182,6 +182,3 @@ function exitToSystemFromCommView() as Void {
     }
     VT.popView(WatchUi.SLIDE_IMMEDIATE);
 }
-
-// Workaround for System.exit() treated as non-returning (while it is, in some cases).
-var tweakingForSystemExit as Lang.Boolean = true;
