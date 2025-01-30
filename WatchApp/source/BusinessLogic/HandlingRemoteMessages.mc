@@ -140,7 +140,10 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
             case companionInfoSubject: {
                 var versionKey = versionKeyForSubject(name);
                 if (versionKey == null) {
-                    System.error("");
+                    if (tweakingForSystemExit) {
+                        System.error("");
+                    }
+                    break;
                 }
                 var oldVersion = Storage.getValue(versionKey) as Version | Null;
                 if (!version.equals(oldVersion)) {
