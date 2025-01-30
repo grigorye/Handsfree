@@ -23,9 +23,4 @@ const Cmd_openAppInStore = "r";
 const CallArgsK_number = "n";
 
 (:background)
-const QueryArgsK_subjectNameK = "n";
-(:background)
-const QueryArgsK_subjectVersionK = "v";
-
-(:background)
 const OpenMeArgsK_messageForWakingUp = "m";
