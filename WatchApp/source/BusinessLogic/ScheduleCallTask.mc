@@ -26,7 +26,7 @@ class ScheduleCallTask extends Communications.ConnectionListener {
             argsK => {
                 CallArgsK_number => getPhoneNumber(phone)
             }
-        } as Lang.Object as Application.PersistableType;
+        };
         resetOptimisticCallStates();
         setCallState(new SchedulingCall(phone, PENDING));
         transmitWithRetry("call", msg, self);

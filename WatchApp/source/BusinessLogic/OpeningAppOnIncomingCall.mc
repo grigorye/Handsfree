@@ -55,7 +55,7 @@ function openAppOnIncomingCall(phone as Phone) as Void {
             argsK => {
                 OpenMeArgsK_messageForWakingUp => message
             }
-        } as Lang.Object as Application.PersistableType;
+        };
         transmitWithoutRetry("openMe", msg);
     }
     if (BackgroundSettings.isIncomingOpenAppViaWakeUpEnabled) {

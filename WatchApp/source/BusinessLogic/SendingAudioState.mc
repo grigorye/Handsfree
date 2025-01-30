@@ -17,7 +17,7 @@ function sendMute(on as Lang.Boolean) as Void {
         argsK => {
             onArg => on
         }
-    } as Lang.Object as Application.PersistableType;
+    };
     transmitWithoutRetry("mute", msg);
 }
 
@@ -30,11 +30,11 @@ function sendAudioVolume(relVolume as RelVolume) as Void {
         argsK => {
             volumeK => relVolume
         }
-    } as Lang.Object as Application.PersistableType;
+    };
     transmitWithLifo("setAudioVolume", msg);
 }
 
-function transmitWithLifo(tagLiteral as Lang.String, msg as Application.PersistableType) as Void {
+function transmitWithLifo(tagLiteral as Lang.String, msg as Lang.Object) as Void {
     var proxy;
     var existingProxy = lifoCommProxies[tagLiteral];
     if (existingProxy != null) {
@@ -44,7 +44,7 @@ function transmitWithLifo(tagLiteral as Lang.String, msg as Application.Persista
         lifoCommProxies[tagLiteral] = proxy;
     }
     var tag = formatCommTag(tagLiteral);
-    proxy.send(tag, msg);
+    proxy.send(tag, msg as Application.PersistableType);
 }
 
 var lifoCommProxies as Lang.Dictionary<Lang.String, LifoCommProxy> = {} as Lang.Dictionary<Lang.String, LifoCommProxy>;

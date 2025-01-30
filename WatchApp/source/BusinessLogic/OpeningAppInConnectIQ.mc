@@ -8,7 +8,7 @@ module Req {
 function openAppInConnectIQ() as Void {
     var msg = {
         cmdK => Cmd_openAppInStore,
-    } as Lang.Object as Application.PersistableType;
+    };
     transmitWithoutRetry("openAppInStore", msg);
 }
 

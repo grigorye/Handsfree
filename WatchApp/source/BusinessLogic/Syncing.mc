@@ -17,7 +17,7 @@ function requestAllSubjects() as Void {
         argsK => {
             subjectsK => subjectsArg
         }
-    } as Lang.Object as Application.PersistableType;
+    } as Lang.Object;
     transmitWithRetry("reqAllSubjects", msg, new Communications.ConnectionListener());
 }
 
@@ -38,7 +38,7 @@ function requestSubjects(subjects as Lang.String) as Void {
         argsK => {
             subjectsK => subjectsArg
         }
-    } as Lang.Object as Application.PersistableType;
+    } as Lang.Object;
     transmitWithoutRetry("syncSubjects", msg);
 }
 

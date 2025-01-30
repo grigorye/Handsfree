@@ -12,15 +12,15 @@ const LX_OUT_COMM as LogComponent = ">";
 module Req {
 
 (:background)
-function transmitWithoutRetry(tagLiteral as Lang.String, msg as Application.PersistableType) as Void {
+function transmitWithoutRetry(tagLiteral as Lang.String, msg as Lang.Object) as Void {
     var tag = formatCommTag(tagLiteral);
     if (minDebug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
-    Communications.transmit(msg, null, new DummyCommListener(tag));
+    Communications.transmit(msg as Application.PersistableType, null, new DummyCommListener(tag));
 }
 
-function transmitWithRetry(tagLiteral as Lang.String, msg as Application.PersistableType, listener as Communications.ConnectionListener) as Void {
+function transmitWithRetry(tagLiteral as Lang.String, msg as Lang.Object, listener as Communications.ConnectionListener) as Void {
     var tag = formatCommTag(tagLiteral);
-    var proxy = new RetryingCommListenerProxy(tag, msg, listener);
+    var proxy = new RetryingCommListenerProxy(tag, msg as Application.PersistableType, listener);
     proxy.launch();
 }
 

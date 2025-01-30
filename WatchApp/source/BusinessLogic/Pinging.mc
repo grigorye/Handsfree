@@ -23,7 +23,7 @@ function handlePing() as Void {
 function sendPong() as Void {
     var msg = {
         cmdK => Cmd_pong
-    } as Lang.Object as Application.PersistableType;
+    };
     transmitWithoutRetry("pong", msg);
 }
 
