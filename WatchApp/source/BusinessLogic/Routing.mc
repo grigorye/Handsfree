@@ -3,7 +3,7 @@ import Toybox.Application;
 
 module Routing {
 
-(:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
+(:background, :typecheck([disableBackgroundCheck]))
 function companionInfoDidChangeIfInApp() as Void {
     if (!isActiveUiKindApp) {
         return;
@@ -19,7 +19,7 @@ function companionInfoDidChangeIfInApp() as Void {
     }
 }
 
-(:background, :glance)
+(:background)
 function readinessInfoDidChangeIfInApp() as Void {
     if (debug) { _3(L_APP, "readinessInfoDidChange", Storage.getValue(ReadinessInfo_valueKey)); }
 }
