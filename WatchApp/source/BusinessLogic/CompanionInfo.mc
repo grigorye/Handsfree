@@ -9,6 +9,7 @@ const CompanionInfo_valueKey = "companionInfo.v1";
 (:background, :glance)
 const CompanionInfo_versionKey = "companionInfoVersion.v1";
 
+(:noLowMemory)
 module CompanionInfoImp {
 
 (:inline, :background, :glance)

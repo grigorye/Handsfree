@@ -18,7 +18,7 @@ function openSettingsView() as Void {
     VT.pushView(V_settings, newSettingsView(), new SettingsScreen.ViewDelegate(), WatchUi.SLIDE_LEFT);
 }
 
-(:inline)
+(:inline, :noLowMemory)
 function openInstallCompanionView() as Void {
     VT.pushView(V_installCompanion, Views.newInstallCompanionView(), new InstallCompanionViewDelegate(), WatchUi.SLIDE_LEFT);
 }

@@ -3,7 +3,11 @@ import Toybox.Application;
 
 module Routing {
 
-(:background, :typecheck([disableBackgroundCheck]))
+(:background, :lowMemory)
+function companionInfoDidChangeIfInApp() as Void {
+}
+
+(:background, :typecheck([disableBackgroundCheck]), :noLowMemory)
 function companionInfoDidChangeIfInApp() as Void {
     if (!isActiveUiKindApp) {
         return;

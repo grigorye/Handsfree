@@ -29,6 +29,9 @@ function requestSubjects(subjects as Lang.String) as Void {
             if (name.equals(readinessInfoSubject)) {
                 continue;
             }
+            if (name.equals(companionInfoSubject)) {
+                continue;
+            }
         }
         if (name.equals(broadcastSubject)) {
             subjectsArg.add([name, "" + BackgroundSettings.broadcastListeningVersion()]);
