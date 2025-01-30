@@ -12,9 +12,7 @@ function sendMute(on as Lang.Boolean) as Void {
     AudioStateManip.setPendingAudioState(audioState);
     var msg = {
         cmdK => Cmd_mute,
-        argsK => {
-            onArg => on
-        }
+        onArg => on
     };
     transmitWithoutRetry("mute", msg);
 }
@@ -25,9 +23,7 @@ function sendAudioVolume(relVolume as RelVolume) as Void {
     AudioStateManip.setPendingAudioState(audioState);
     var msg = {
         cmdK => Cmd_setAudioVolume,
-        argsK => {
-            volumeK => relVolume
-        }
+        volumeK => relVolume
     };
     transmitWithLifo("setAudioVolume", msg);
 }

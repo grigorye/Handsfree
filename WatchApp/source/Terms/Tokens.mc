@@ -20,8 +20,6 @@ const valueK = "l";
 const subjectsK = "s";
 (:inline, :background, :glance)
 const cmdK = "c";
-(:inline, :background, :glance)
-const argsK = "a";
 
 (:inline, :background, :glance)
 const idMsgField = "i";

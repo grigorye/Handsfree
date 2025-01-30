@@ -23,9 +23,7 @@ class ScheduleCallTask extends Communications.ConnectionListener {
         }
         var msg = {
             cmdK => Cmd_call,
-            argsK => {
-                CallArgsK_number => getPhoneNumber(phone)
-            }
+            CallArgsK_number => getPhoneNumber(phone)
         };
         resetOptimisticCallStates();
         setCallState(new SchedulingCall(phone, PENDING));

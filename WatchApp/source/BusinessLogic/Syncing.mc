@@ -14,9 +14,7 @@ function requestAllSubjects() as Void {
     ] as Lang.Array;
     var msg = {
         cmdK => Cmd_query,
-        argsK => {
-            subjectsK => subjectsArg
-        }
+        subjectsK => subjectsArg
     } as Lang.Object;
     transmitWithRetry("reqAllSubjects", msg, new Communications.ConnectionListener());
 }
@@ -35,9 +33,7 @@ function requestSubjects(subjects as Lang.String) as Void {
     }
     var msg = {
         cmdK => Cmd_query,
-        argsK => {
-            subjectsK => subjectsArg
-        }
+        subjectsK => subjectsArg
     } as Lang.Object;
     transmitWithoutRetry("syncSubjects", msg);
 }

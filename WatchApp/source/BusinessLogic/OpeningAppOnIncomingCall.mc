@@ -52,9 +52,7 @@ function openAppOnIncomingCall(phone as Phone) as Void {
     if (BackgroundSettings.isIncomingOpenAppViaCompanionEnabled) {
         var msg = {
             cmdK => Cmd_openMe,
-            argsK => {
-                OpenMeArgsK_messageForWakingUp => message
-            }
+            OpenMeArgsK_messageForWakingUp => message
         };
         transmitWithoutRetry("openMe", msg);
     }
