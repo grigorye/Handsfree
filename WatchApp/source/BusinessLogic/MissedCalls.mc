@@ -1,17 +1,19 @@
 import Toybox.Lang;
 import Toybox.Application;
 
-(:background)
+(:glance)
 function updateMissedRecents() as Void {
+    if (false) { dumpF(L_APP, "updateMissedRecents"); }
     var missedRecentsForUpdate = missedRecentsForUpdate();
     if (missedRecentsForUpdate == null) {
         _2(L_APP, "updateMissedRecents.noChange");
         return;
     }
+    if (false) { dumpF(L_APP, "updateMissedRecents.pre.setMissedRecents"); }
     setMissedRecents(missedRecentsForUpdate);
 }
 
-(:background)
+(:glance)
 function missedRecentsForUpdate() as MissedRecents? {
     var recentsSubject = Storage.getValue(Recents_valueKey) as Recents | Null;
     if (recentsSubject == null) {
@@ -28,7 +30,7 @@ function missedRecentsForUpdate() as MissedRecents? {
     }
 }
 
-(:background)
+(:glance)
 function missedRecents(recents as RecentsList, lastRecentCheckDate as Lang.Number) as MissedRecents {
     var recentsCount = recents.size();
     var missedRecents = [] as MissedRecents;

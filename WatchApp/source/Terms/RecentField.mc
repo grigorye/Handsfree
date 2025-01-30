@@ -1,12 +1,9 @@
-(:background)
 const RecentField_name = "m";
-(:background)
+(:glance)
 const RecentField_date = "d";
-(:background)
+(:glance)
 const RecentField_type = "t";
-(:background)
+(:glance)
 const RecentField_isNew = "w";
-(:background)
 const RecentField_duration = "r";
-(:background)
 const RecentField_number = "n";

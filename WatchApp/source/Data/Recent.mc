@@ -4,9 +4,8 @@ typedef Recent as Lang.Dictionary<Lang.String, Lang.String or Lang.Number or Lan
 typedef RecentsList as Lang.Array<Recent>;
 typedef Recents as Lang.Dictionary<Lang.String, RecentsList | AccessIssue>;
 
-(:background)
+(:glance)
 const RecentsField_list as Lang.String = "r";
-(:background)
 const RecentsField_accessIssue as Lang.String = "a";
 
 (:inline)
@@ -14,17 +13,17 @@ function getRecentName(recent as Recent) as Lang.String or Null {
     return recent[RecentField_name] as Lang.String or Null;
 }
 
-(:inline, :background)
+(:inline, :glance)
 function getRecentDate(recent as Recent) as Lang.Number {
     return recent[RecentField_date] as Lang.Number;
 }
 
-(:inline, :background)
+(:inline, :glance)
 function getRecentType(recent as Recent) as Lang.Number {
     return recent[RecentField_type] as Lang.Number;
 }
 
-(:inline, :background)
+(:inline, :glance)
 function getRecentIsNew(recent as Recent) as Lang.Number {
     return recent[RecentField_isNew] as Lang.Number;
 }

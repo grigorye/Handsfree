@@ -1,13 +1,13 @@
 import Toybox.Lang;
 import Toybox.Application;
 
-(:glance, :background)
+(:glance)
 const MissedRecents_valueKey = "missedRecents.v1";
 
-(:inline, :glance, :background)
+(:glance)
 typedef MissedRecents as Lang.Array<Lang.Number>;
 
-(:inline, :glance, :background)
+(:inline, :glance)
 function getMissedRecents() as MissedRecents {
     var missedRecents = Storage.getValue(MissedRecents_valueKey) as MissedRecents | Null;
     if (missedRecents == null) {
@@ -16,13 +16,13 @@ function getMissedRecents() as MissedRecents {
     return missedRecents;
 }
 
-(:inline, :background)
+(:inline, :glance)
 function setMissedRecents(missedRecents as MissedRecents | Null) as Void {
     Storage.setValue(MissedRecents_valueKey, missedRecents as Application.PropertyValueType);
     updateUIForMissedRecentsIfInApp();
 }
 
-(:inline, :background, :typecheck([disableBackgroundCheck]))
+(:inline,:glance,:typecheck([disableGlanceCheck]))
 function updateUIForMissedRecentsIfInApp() as Void {
     if (isActiveUiKindApp) {
         updateRecentsMenuItem();
