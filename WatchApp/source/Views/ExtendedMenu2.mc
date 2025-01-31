@@ -15,9 +15,20 @@ class ExtendedMenu2 extends WatchUi.Menu2 {
         menuItemCount++;
     }
 
-    function deleteExistingItems() as Void {
-        deleteNMenuItems(self, menuItemCount);
-        menuItemCount = 0;
+    function deleteItem(index as Lang.Number) as Lang.Boolean | Null {
+        if (Menu2.deleteItem(index) != null) {
+            menuItemCount--;
+            return true;
+        }
+        return null;
+    }
+
+    function deleteItems(index as Lang.Number, itemCount as Lang.Number) as Void {
+        deleteNMenuItems(self, index, itemCount);
+    }
+
+    function deleteAllItems() as Void {
+        deleteItems(0, menuItemCount);
     }
 
     function beginUpdate() as Void {
