@@ -20,7 +20,13 @@ function _3(component as LogComponent, tag as Lang.String, value as Lang.Object 
     dumpImp(component, tag, value);
 }
 
-(:glance, :background, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
+(:glance, :background, :lowMemory)
+function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
+    var forcedComponents = [">", "<", "app", "openMe", (viewDebug && isActiveUiKindApp) ? "commView" : ""];
+    return forcedComponents.indexOf(component) != -1;
+}
+
+(:glance, :background, :typecheck([disableBackgroundCheck, disableGlanceCheck]),:noLowMemory)
 function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
     var forcedComponents;
     if (component.equals(L_GLANCE) && GlanceLikeSettings.isGlanceLoggingEnabled) {
@@ -34,7 +40,7 @@ function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
     return forcedComponents.indexOf(component) != -1;
 }
 
-(:glance, :background)
+(:glance, :background, :noLowMemory)
 function dumpImp(component as LogComponent, tag as Lang.String, output as Lang.Object or Null) as Void {
     var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
     var timePrefix =
@@ -42,6 +48,15 @@ function dumpImp(component as LogComponent, tag as Lang.String, output as Lang.O
         info.min.format("%02d") + ":" +
         info.sec.format("%02d") + " ";
     var message = timePrefix + component + "." + tag;
+    if (output != noArg) {
+        message = message + ": " + output;
+    }
+    System.println(message);
+}
+
+(:glance, :background, :lowMemory)
+function dumpImp(component as LogComponent, tag as Lang.String, output as Lang.Object or Null) as Void {
+    var message = component + "." + tag;
     if (output != noArg) {
         message = message + ": " + output;
     }
