@@ -20,7 +20,7 @@ function getHitsCount() as Lang.Number {
     }
 }
 
-(:background)
+(:background, :noLowMemory)
 function saveHitsCount(hitsCount as Lang.Number) as Void {
     if (debug) { _3(L_HITS_STORAGE, "saveHitsCount", hitsCount); }
     Storage.setValue("hitsCount.v1", hitsCount);
