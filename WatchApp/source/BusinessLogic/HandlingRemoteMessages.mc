@@ -257,10 +257,10 @@ function handlePhoneStateChanged(state as Lang.Dictionary<Lang.String, Lang.Obje
 }
 
 (:background, :lowMemory)
-function trackValidRemoteMessageReceived() as Void {
+function didReceiveRemoteMessage() as Void {
 }
 
-(:background, :typecheck(disableBackgroundCheck))
+(:background, :typecheck(disableBackgroundCheck), :noLowMemory)
 function didReceiveRemoteMessage() as Void {
     trackValidRemoteMessageReceived();
     if (isActiveUiKindApp) {
@@ -268,6 +268,7 @@ function didReceiveRemoteMessage() as Void {
     }
 }
 
+(:noLowMemory)
 function didReceiveRemoteMessageInForeground() as Void {
     if (debug) { beep(BEEP_TYPE_MESSAGE); }
 }
