@@ -22,6 +22,12 @@ function requestAllSubjects() as Void {
 (:background)
 function requestSubjects(subjects as Lang.String) as Void {
     dumpF(L_APP, "requestSubjects");
+    var msg = msgForRequestSubjects(subjects);
+    transmitWithoutRetry("syncSubjects", msg);
+}
+
+(:background)
+function msgForRequestSubjects(subjects as Lang.String) as Lang.Object {
     var subjectsArg = [];
     var subjectsCount = subjects.length();
     for (var i = 0; i < subjectsCount; i++) {
@@ -44,7 +50,7 @@ function requestSubjects(subjects as Lang.String) as Void {
         cmdK => Cmd_query,
         subjectsK => subjectsArg
     } as Lang.Object;
-    transmitWithoutRetry("syncSubjects", msg);
+    return msg;
 }
 
 }
