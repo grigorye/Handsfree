@@ -7,7 +7,7 @@ class ExtendedMenu2 extends WatchUi.Menu2 {
         Menu2.initialize({});
     }
 
-    private var menuItemCount as Lang.Number = 0;
+    var menuItemCount as Lang.Number = 0;
     private var menuItemCountOnUpdate as Lang.Number = 0;
 
     function addItem(item as WatchUi.MenuItem) as Void {
