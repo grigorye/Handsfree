@@ -17,6 +17,7 @@ function updateUIForRecentsIfInApp() as Void {
     if (!isActiveUiKindApp) {
         return;
     }
+    updateMissedRecents();
     updateRecentsMenuItem();
     updateRecentsView();
     WatchUi.requestUpdate();
