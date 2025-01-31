@@ -22,7 +22,7 @@ class View extends ExtendedMenu2 {
         if (debug) { _2(L_RECENTS_VIEW, "update"); }
         setTitleFromRecents();
         beginUpdate();
-        deleteExistingItems();
+        deleteAllItems();
         addMenuItemsFromRecents();
         endUpdate();
     }

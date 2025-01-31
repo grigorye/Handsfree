@@ -31,7 +31,7 @@ class View extends ExtendedMenu2 {
         }
         if (debug) { _2(L_PHONES_VIEW, "phonesChanged"); }
         beginUpdate();
-        deleteExistingItems();
+        deleteAllItems();
         setFromPhones(phones);
         endUpdate();
     }
