@@ -6,6 +6,7 @@ import Toybox.Timer;
 (:noLowMemory)
 const simulatedCommDelay = false ? 2000 : 0;
 
+(:noLowMemory)
 class LifoCommProxy extends Communications.ConnectionListener {
     private var tag as Lang.String | Null;
     private var msg as Application.PersistableType | Null;
