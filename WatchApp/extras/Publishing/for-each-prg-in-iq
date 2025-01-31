@@ -5,8 +5,6 @@ set -euo pipefail
 
 wd=$(dirname "$0")
 
-src_root="$wd/.."
-
 iq="$1"
 shift
 

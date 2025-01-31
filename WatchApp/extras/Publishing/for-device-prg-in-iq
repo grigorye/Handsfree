@@ -1,0 +1,26 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+wd=$(dirname "$0")
+
+iq="$1"
+shift
+
+device_with_iq_ver="$1" # descentmk2-3.4.3
+shift
+
+wd=$(dirname "$0")
+bn=$(basename "$0")
+tmpdir=$(mktemp -d /tmp/"$bn".XXXXXX)
+
+device=$(echo "$device_with_iq_ver" | sed -E 's/^([^-]+)-[0-9.]+$/\1/')
+
+prg_dir="$tmpdir/prg"
+
+"$wd"/unpack-iq-prgs "$iq" "$prg_dir"
+
+for prg in "$prg_dir"/*-"$device_with_iq_ver".prg; do
+    "$@" "$device" "$prg"
+done
