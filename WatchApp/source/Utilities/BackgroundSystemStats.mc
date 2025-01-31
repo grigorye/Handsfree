@@ -3,6 +3,14 @@ import Toybox.Application;
 import Toybox.Lang;
 
 module BackgroundSystemStats {
+    (:background, :lowMemory)
+    function saveBackgroundSystemStats() as Void {}
+    (:lowMemory)
+    function getBackgroundSystemStats() as Lang.Dictionary { return {}; }
+}
+
+(:noLowMemory)
+module BackgroundSystemStats {
 
 (:background)
 function canSaveInBackground() as Lang.Boolean {
