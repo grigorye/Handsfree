@@ -3,10 +3,14 @@
 --noreport
 -Dfile
 connectiq
+Fenix
 Handsfree
 HSET
 jar
 killall
+lappend
+llength
+lsearch
 Manip
 monkeybrains
 monkeyc
