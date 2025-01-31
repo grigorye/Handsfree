@@ -11,7 +11,14 @@ const LX_OUT_COMM as LogComponent = ">";
 
 module Req {
 
-(:background)
+(:background, :lowMemory)
+function transmitWithoutRetry(tagLiteral as Lang.String, msg as Lang.Object) as Void {
+    var tag = formatCommTag(tagLiteral);
+    if (true) { dumpF(L_APP, "transmitWithoutRetry.preTransmit"); }
+    Communications.transmit(msg as Application.PersistableType, null, new DummyCommListener(tag));
+}
+
+(:background, :noLowMemory)
 function transmitWithoutRetry(tagLiteral as Lang.String, msg as Lang.Object) as Void {
     var tag = formatCommTag(tagLiteral);
     if (minDebug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
@@ -54,14 +61,16 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
     }
 
     function onComplete() {
-        beep(BEEP_TYPE_SUCCESS);
-        var attemptsSuffix;
-        if (attemptNumber > 1) {
-            attemptsSuffix = "(attempts: " + attemptNumber + ")";
-        } else {
-            attemptsSuffix = "";
+        if (debug) { beep(BEEP_TYPE_SUCCESS); }
+        if (minDebug) {
+            var attemptsSuffix;
+            if (attemptNumber > 1) {
+                attemptsSuffix = "(attempts: " + attemptNumber + ")";
+            } else {
+                attemptsSuffix = "";
+            }
+            _2(LX_OUT_COMM, tag + ".succeeded" + attemptsSuffix);
         }
-        if (minDebug) { _2(LX_OUT_COMM, tag + ".succeeded" + attemptsSuffix); }
         wrappedListener.onComplete();
     }
 
@@ -90,6 +99,12 @@ class RetryingCommListenerProxy extends Communications.ConnectionListener {
     }
 }
 
+(:lowMemory)
+function dumpConnectionInfos(connectionInfos as Lang.Dictionary<Lang.Symbol, System.ConnectionInfo>) as Lang.Object {
+    return "";
+}
+
+(:noLowMemory)
 function dumpConnectionInfos(connectionInfos as Lang.Dictionary<Lang.Symbol, System.ConnectionInfo>) as Lang.Object {
     var result = {} as Lang.Dictionary<Lang.String, Lang.Object>;
     var wifi = connectionInfos[:wifi];
@@ -107,6 +122,7 @@ function dumpConnectionInfos(connectionInfos as Lang.Dictionary<Lang.Symbol, Sys
     return result;
 }
 
+(:noLowMemory)
 function dumpConnectionInfo(connectionInfo as System.ConnectionInfo) as Lang.Object {
     switch (connectionInfo.state) {
         case System.CONNECTION_STATE_NOT_INITIALIZED: {
