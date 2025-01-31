@@ -79,9 +79,17 @@ module BackgroundSettings {
     function isOpenAppOnIncomingCallEnabled() as Lang.Boolean {
         return Properties.getValue("openAppOnIncomingCall") as Lang.Boolean;
     }
-    const isIncomingOpenAppViaCompanionEnabled as Lang.Boolean =
+
+    (:lowMemory)
+    const isIncomingOpenAppViaCompanionEnabled = false;
+    (:noLowMemory)
+    const isIncomingOpenAppViaCompanionEnabled =
         Properties.getValue("incomingOpenAppViaCompanion") as Lang.Boolean;
-    const isIncomingOpenAppViaWakeUpEnabled as Lang.Boolean =
+
+    (:lowMemory)
+    const isIncomingOpenAppViaWakeUpEnabled = true;
+    (:noLowMemory)
+    const isIncomingOpenAppViaWakeUpEnabled =
         Properties.getValue("incomingOpenAppViaWakeUp") as Lang.Boolean;
 }
 
