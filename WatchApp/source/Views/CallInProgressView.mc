@@ -2,22 +2,17 @@ import Toybox.WatchUi;
 import Toybox.Lang;
 import Toybox.System;
 
-class CallInProgressView extends WatchUi.Menu2 {
-    var actionsCount as Lang.Number;
-
+class CallInProgressView extends ExtendedMenu2 {
     function initialize(phone as Phone, optimistic as Lang.Boolean) {
         var texts = textsForCallInProgress(phone);
         var title = texts[:title] as Lang.String;
         if (optimistic) {
             title = pendingText(title);
         }
-        Menu2.initialize({
-            :title => embeddingHeadsetStatusRep(title)
-        });
-
+        ExtendedMenu2.initialize();
+        setTitle(embeddingHeadsetStatusRep(title));
         var actions = texts[:actions] as CallInProgressActions;
         populateFromActions(actions);
-        self.actionsCount = actions.size();
     }
 
     private function populateFromActions(actions as CallInProgressActions) as Void {
@@ -35,28 +30,40 @@ class CallInProgressView extends WatchUi.Menu2 {
     }
 
     private function updateInPlaceFromActions(actions as CallInProgressActions) as Void {
+        beginUpdate();
+        var j = 0;
         for (var i = 0; i < actions.size(); ++i) {
             var action = actions[i] as CallInProgressActionSelector;
             var command = action[:command] as Lang.String;
-            var existingIndex = findItemById(command) as Lang.Number;
-            if (existingIndex != -1) {
-                var item = getItem(existingIndex) as WatchUi.MenuItem;
-                item.setLabel(action[:prompt] as Lang.String);
-                item.setSubLabel(action[:subLabel] as Lang.String or Null);
-            } else {
-                var item = new WatchUi.MenuItem(
-                    action[:prompt] as Lang.String, // label
-                    action[:subLabel] as Lang.String or Null, // subLabel
-                    command, // identifier
-                    null // options
-                );
-                var existed = deleteItem(i);
-                if (existed == null) {
-                    System.error("Failed to replace item at index " + i);
+            var item = new WatchUi.MenuItem(
+                action[:prompt] as Lang.String, // label
+                action[:subLabel] as Lang.String or Null, // subLabel
+                command, // identifier
+                null // options
+            );
+            // It's possible that the menu item at index j is not the one we want to update.
+            // We delete all such items, either to the end or until we find the item to update.
+            while (j < menuItemCount) {
+                var existingItem = getItem(j) as WatchUi.MenuItem;
+                if ((existingItem.getId() as Lang.String).equals(command)) {
+                    break;
                 }
+                deleteItem(j);
+                // we should not increment j here, since we just deleted an item.
+            }
+            if (j < menuItemCount) {
+                // We found the item to update.
+                updateItem(item, j);
+            } else {
                 addItem(item);
             }
+            j++;
         }
+        if (j < menuItemCount) {
+            // We have more items than we need.
+            deleteItems(j, menuItemCount - j);
+        }
+        endUpdate();
     }
 
     function updateFromPhone(phone as Phone, optimistic as Lang.Boolean) as Void {
@@ -68,10 +75,9 @@ class CallInProgressView extends WatchUi.Menu2 {
         setTitle(embeddingHeadsetStatusRep(title));
 
         var actions = texts[:actions] as CallInProgressActions;
-        if (actions.size() != self.actionsCount) {
-            deleteNMenuItems(self, self.actionsCount);
+        if (actions.size() != menuItemCount) {
+            deleteAllItems();
             populateFromActions(actions);
-            self.actionsCount = actions.size();
         } else {
             updateInPlaceFromActions(actions);
         }
