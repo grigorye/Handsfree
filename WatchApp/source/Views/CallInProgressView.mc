@@ -30,6 +30,7 @@ class CallInProgressView extends ExtendedMenu2 {
     }
 
     private function updateInPlaceFromActions(actions as CallInProgressActions) as Void {
+        if (debug) { _3(L_APP, "updatingInPlace", actions); }
         beginUpdate();
         var j = 0;
         for (var i = 0; i < actions.size(); ++i) {
@@ -46,21 +47,26 @@ class CallInProgressView extends ExtendedMenu2 {
             while (j < menuItemCount) {
                 var existingItem = getItem(j) as WatchUi.MenuItem;
                 if ((existingItem.getId() as Lang.String).equals(command)) {
+                    if (debug) { _3(L_APP, "existingItem", [j, existingItem.getId()]); }
                     break;
                 }
+                if (debug) { _3(L_APP, "deletingItem", [j, existingItem.getId()]); }
                 deleteItem(j);
                 // we should not increment j here, since we just deleted an item.
             }
             if (j < menuItemCount) {
                 // We found the item to update.
+                if (debug) { _3(L_APP, "updatingItem", [j, item.getId()]); }
                 updateItem(item, j);
             } else {
+                if (debug) { _3(L_APP, "addingItem", [j, item.getId()]); }
                 addItem(item);
             }
             j++;
         }
         if (j < menuItemCount) {
             // We have more items than we need.
+            if (debug) { _3(L_APP, "deletingRemainingItemsFrom", j); }
             deleteItems(j, menuItemCount - j);
         }
         endUpdate();
