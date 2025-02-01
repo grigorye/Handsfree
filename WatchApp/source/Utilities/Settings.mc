@@ -85,12 +85,6 @@ module BackgroundSettings {
     (:noLowMemory)
     const isIncomingOpenAppViaCompanionEnabled =
         Properties.getValue("incomingOpenAppViaCompanion") as Lang.Boolean;
-
-    (:lowMemory)
-    const isIncomingOpenAppViaWakeUpEnabled = true;
-    (:noLowMemory)
-    const isIncomingOpenAppViaWakeUpEnabled =
-        Properties.getValue("incomingOpenAppViaWakeUp") as Lang.Boolean;
 }
 
 (:background)

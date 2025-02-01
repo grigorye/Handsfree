@@ -13,7 +13,6 @@
         <property id="forceLargeFonts" type="boolean">false</property>
         <property id="eraseAppDataOnNextLaunch" type="boolean">false</property>
         <property id="incomingOpenAppViaCompanion" type="boolean">false</property>
-        <property id="incomingOpenAppViaWakeUp" type="boolean">true</property>
         <property id="beepOnComm" type="boolean">false</property>
         <property id="statsTracking" type="boolean">false</property>
         <property id="glanceLogging" type="boolean">false</property>
@@ -66,9 +65,6 @@
         </string>
         <string id="incomingOpenAppViaCompanion" scope="settings">
             Use companion for opening app on incoming call
-        </string>
-        <string id="incomingOpenAppViaWakeUp" scope="settings">
-            Wake up app on incoming call
         </string>
         <string id="beepOnComm" scope="settings">
             Beep on communication

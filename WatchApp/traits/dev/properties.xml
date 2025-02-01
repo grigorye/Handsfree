@@ -12,10 +12,6 @@
             title="@Strings.incomingOpenAppViaCompanion">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.incomingOpenAppViaWakeUp"
-            title="@Strings.incomingOpenAppViaWakeUp">
-            <settingConfig type="boolean" />
-        </setting>
         <setting propertyKey="@Properties.callStateOnGlance" title="@Strings.callStateOnGlance">
             <settingConfig type="boolean" />
         </setting>

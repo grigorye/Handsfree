@@ -61,9 +61,7 @@ function openAppOnIncomingCall(phone as Phone) as Void {
             OpenMeArgsK_messageForWakingUp => message
         };
         transmitWithoutRetry("openMe", msg);
-    }
-    if (BackgroundSettings.isIncomingOpenAppViaWakeUpEnabled) {
-        if (debug) { _3(LX_OPEN_ME, "requestingApplicationWake", message); }
+    } else {
         Background.requestApplicationWake(message);
     }
 }
