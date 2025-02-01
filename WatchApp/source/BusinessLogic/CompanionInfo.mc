@@ -25,7 +25,7 @@ const versionSourceVersionK = "s";
 (:inline, :background, :glance)
 const versionBuildTypeK = "t";
 
-(:inline)
+(:inline, :glance)
 function getCompanionVersionCode(companionInfo as CompanionInfo) as Lang.Number {
     var versionInfo = companionInfo[versionK] as VersionInfo;
     return versionInfo[versionCodeK] as Lang.Number;

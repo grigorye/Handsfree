@@ -17,8 +17,8 @@ class GlanceView extends WatchUi.GlanceView {
 
     function onUpdate(dc as Graphics.Dc) {
         var phoneConnected = System.getDeviceSettings().phoneConnected;
-        var companionConnected = Storage.getValue(CompanionInfo_valueKey) != null;
-        var defaultTitle = defaultTitle(phoneConnected, companionConnected);
+        var isCompanionUpToDate = isCompanionUpToDate();
+        var defaultTitle = defaultTitle(phoneConnected, isCompanionUpToDate);
         var font = glanceFont();
         var colors = glanceColors();
         dc.setColor(colors[0], colors[1]);
@@ -28,7 +28,7 @@ class GlanceView extends WatchUi.GlanceView {
         if (!phoneConnected) {
             title = defaultTitle;
             subtitle = "Not connected";
-        } else if (!companionConnected) {
+        } else if (!isCompanionUpToDate) {
             title = defaultTitle;
             subtitle = "No companion";
         } else if (!GlanceLikeSettings.isShowingCallStateOnGlanceEnabled || !Styles.glance_live_update.enabled) {
@@ -112,7 +112,7 @@ function customizableTitle() as Lang.String {
 }
 
 (:glance, :watchApp, :noLowMemory)
-function defaultTitle(phoneConnected as Lang.Boolean, companionConnected as Lang.Boolean) as Lang.String {
+function defaultTitle(phoneConnected as Lang.Boolean, isCompanionUpToDate as Lang.Boolean) as Lang.String {
     var defaultTitle = customizableTitle();
     if (!phoneConnected) {
         return defaultTitle;
@@ -123,7 +123,7 @@ function defaultTitle(phoneConnected as Lang.Boolean, companionConnected as Lang
             defaultTitle = embeddingHeadsetStatusRep(statsRep);
         } else {
             var callControlReady = ReadinessInfoManip.readiness(ReadinessField_essentials).equals(ReadinessValue_ready);
-            if (companionConnected && callControlReady) {
+            if (isCompanionUpToDate && callControlReady) {
                 var headsetStatus = headsetStatusHumanReadable();
                 defaultTitle = headsetStatus != null ? headsetStatus : defaultTitle;
             }

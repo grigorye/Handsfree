@@ -17,9 +17,10 @@ function routeOnFirstShow() as Void {
 }
 
 const minCompanionVersionName as Lang.String = "0.0.9";
+(:glance)
 const minCompanionVersionCode as Lang.Integer = 71;
 
-(:noLowMemory)
+(:noLowMemory, :glance)
 function isCompanionUpToDate() as Lang.Boolean {
     var companionInfo = Storage.getValue(CompanionInfo_valueKey) as CompanionInfo | Null;
     if (companionInfo == null) {
