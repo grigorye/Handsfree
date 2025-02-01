@@ -30,7 +30,7 @@ function substring(value as Lang.String, start as Lang.Number, end as Lang.Numbe
 
 (:noLowMemory)
 function stringComponentsJoinedBySeparator(joined as Lang.String, separator as Lang.String) as Lang.Array<Lang.String> {
-    var components = [];
+    var components = [] as Lang.Array<Lang.String>;
 
     var tail = joined;
     while (true) {
