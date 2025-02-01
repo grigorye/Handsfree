@@ -1,7 +1,7 @@
 import Toybox.Lang;
 
-(:background, :noLowMemory)
+(:background, :glance, :noLowMemory)
 const lowMemory as Lang.Boolean = false;
 
-(:background, :lowMemory)
+(:background, :glance, :lowMemory)
 const lowMemory as Lang.Boolean = true;
