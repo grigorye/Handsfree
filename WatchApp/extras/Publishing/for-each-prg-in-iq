@@ -22,5 +22,5 @@ for prg in "$prg_dir"/*.prg; do
     # by looking at the last part of the basename.
     device=$(basename "$prg" | sed -E 's/.*-([^-]+)-[0-9.]+.prg/\1/')
 
-    "$@" "$device" "$prg"
+    "$@" "$device" "$prg" || true
 done

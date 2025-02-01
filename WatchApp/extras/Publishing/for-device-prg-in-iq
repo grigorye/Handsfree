@@ -22,5 +22,5 @@ prg_dir="$tmpdir/prg"
 "$wd"/unpack-iq-prgs "$iq" "$prg_dir"
 
 for prg in "$prg_dir"/*-"$device_with_iq_ver".prg; do
-    "$@" "$device" "$prg"
+    "$@" "$device" "$prg" || true
 done
