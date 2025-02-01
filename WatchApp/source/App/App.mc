@@ -59,7 +59,7 @@ class AppCore extends Application.AppBase {
 
     function onBackgroundData(data as Application.PersistableType) as Void {
         dumpF(L_APP, "onBackgroundData");
-        if (minDebug) { _3(LX_APP_LIFE_CYCLE, "onBackgroundData", { "data" => data }); }
+        if (minDebug) { _3(LX_APP_LIFE_CYCLE, "onBackgroundData", data); }
         updateUIFromBackgroundData();
         AppBase.onBackgroundData(data);
     }
