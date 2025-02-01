@@ -198,7 +198,6 @@ function handlePhoneStateChanged(state as Lang.Dictionary<Lang.String, Lang.Obje
                         untrackOptimisticCallState(optimisticCallState);
                         if (isCurrent) {
                             setCallState(optimisticCallState);
-                            updateUIForCallState();
                         }
                         return;
                     }
