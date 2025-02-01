@@ -16,8 +16,8 @@ function routeOnFirstShow() as Void {
     }
 }
 
-const minCompanionVersionName as Lang.String = "0.0.8";
-const minCompanionVersionCode as Lang.Integer = 70;
+const minCompanionVersionName as Lang.String = "0.0.9";
+const minCompanionVersionCode as Lang.Integer = 71;
 
 (:noLowMemory)
 function isCompanionUpToDate() as Lang.Boolean {
