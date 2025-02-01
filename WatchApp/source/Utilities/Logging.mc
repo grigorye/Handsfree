@@ -40,25 +40,24 @@ function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
     return forcedComponents.indexOf(component) != -1;
 }
 
-(:glance, :background, :noLowMemory)
-function dumpImp(component as LogComponent, tag as Lang.String, output as Lang.Object or Null) as Void {
-    var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-    var timePrefix =
-        info.hour.format("%02d") + ":" +
-        info.min.format("%02d") + ":" +
-        info.sec.format("%02d") + " ";
-    var message = timePrefix + component + "." + tag;
-    if (output != noArg) {
-        message = message + ": " + output;
+(:glance, :background)
+function dumpImp(component as LogComponent, tag as Lang.String, output as Lang.Object | Null) as Void {
+    var prefix;
+    if (!lowMemory) {
+        var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+        var timePrefix =
+            info.hour.format("%02d") + ":" +
+            info.min.format("%02d") + ":" +
+            info.sec.format("%02d") + " ";
+        prefix = timePrefix + component + "." + tag;
+    } else {
+        prefix = component + "." + tag;
     }
-    System.println(message);
-}
-
-(:glance, :background, :lowMemory)
-function dumpImp(component as LogComponent, tag as Lang.String, output as Lang.Object or Null) as Void {
-    var message = component + "." + tag;
-    if (output != noArg) {
-        message = message + ": " + output;
+    var message;
+    if (output == noArg) {
+        message = prefix;
+    } else {
+        message = prefix + ": " + output;
     }
     System.println(message);
 }
