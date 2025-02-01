@@ -24,5 +24,6 @@
       "scope": "workspace"
     }
   },
-  "prettier.tabWidth": 4
+  "prettier.tabWidth": 4,
+  "prettierMonkeyC.extraReferenceTypeChecks": false
 }
