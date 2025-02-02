@@ -11,7 +11,6 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.preference.PreferenceManager
 import com.gentin.connectiq.handsfree.calllogs.CallLogsRepository
 import com.gentin.connectiq.handsfree.calllogs.CallLogsRepositoryImpl
 import com.gentin.connectiq.handsfree.calllogs.recentsFromCallLog
@@ -39,7 +38,6 @@ import com.gentin.connectiq.handsfree.impl.PhoneStateId
 import com.gentin.connectiq.handsfree.impl.QueryArgs
 import com.gentin.connectiq.handsfree.impl.QueryResult
 import com.gentin.connectiq.handsfree.impl.RemoteMessageService
-import com.gentin.connectiq.handsfree.impl.SubjectQuery
 import com.gentin.connectiq.handsfree.impl.audioStatePojo
 import com.gentin.connectiq.handsfree.impl.companionInfo
 import com.gentin.connectiq.handsfree.impl.companionInfoPojo
