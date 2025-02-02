@@ -8,7 +8,7 @@ function isLogAllEnforced() as Lang.Boolean {
 
 (:background,:glance,:noLowMemory)
 function isLogAllEnforced() as Lang.Boolean {
-    return Properties.getValue("forceLogAll") as Lang.Boolean;
+    return Properties.getValue(Settings_verboseLogsK) as Lang.Boolean;
 }
 
 (:noLowMemory)

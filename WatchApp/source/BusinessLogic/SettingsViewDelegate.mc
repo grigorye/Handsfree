@@ -13,15 +13,15 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
         var id = item.getId() as Lang.Symbol;
         switch (id) {
             case :openAppOnIncomingCall: {
-                AppSettings.toggle("openAppOnIncomingCall");
+                AppSettings.toggle(Settings_openAppOnIncomingCallK);
                 break;
             }
             case :optimisticCallHandling: {
-                AppSettings.toggle("optimisticCallHandling");
+                AppSettings.toggle(Settings_optimisticCallHandlingK);
                 break;
             }
             case :broadcastListening: {
-                AppSettings.toggle("broadcastListening");
+                AppSettings.toggle(Settings_broadcastListeningK);
                 break;
             }
             case :about: {

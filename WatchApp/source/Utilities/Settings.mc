@@ -2,6 +2,26 @@ import Toybox.Application;
 import Toybox.Lang;
 import Toybox.System;
 
+(:background, :glance, :noLowMemory)
+const Settings_verboseLogsK = "forceLogAll";
+
+const Settings_optimisticCallHandlingK = "optimisticCallHandling";
+const Settings_openAppOnIncomingCallK = "openAppOnIncomingCall";
+(:background)
+const Settings_broadcastListeningK = "broadcastListening";
+const Settings_showPhoneNumbersK = "showPhoneNumbers";
+(:glance)
+const Settings_showSourceVersionK = "showSourceVersion";
+(:glance)
+const Settings_statsTrackingK = "statsTracking";
+(:glance)
+const Settings_callStateOnGlanceK = "callStateOnGlance";
+(:noLowMemory)
+const Settings_beepOnCommK = "beepOnComm";
+
+(:background, :noLowMemory)
+const Settings_incomingOpenAppViaCompanionK = "incomingOpenAppViaCompanion";
+
 (:glance,:watchApp)
 module GlanceSettings {
     (:noLowMemory)
@@ -15,11 +35,11 @@ module GlanceSettings {
 (:glance)
 module GlanceLikeSettings {
     const isShowingCallStateOnGlanceEnabled as Lang.Boolean =
-        Properties.getValue("callStateOnGlance") as Lang.Boolean;
+        Properties.getValue(Settings_callStateOnGlanceK) as Lang.Boolean;
     const isStatsTrackingEnabled as Lang.Boolean =
-        Properties.getValue("statsTracking") as Lang.Boolean;
+        Properties.getValue(Settings_statsTrackingK) as Lang.Boolean;
     const isShowingSourceVersionEnabled as Lang.Boolean =
-        Properties.getValue("showSourceVersion") as Lang.Boolean;
+        Properties.getValue(Settings_showSourceVersionK) as Lang.Boolean;
     const isGlanceLoggingEnabled as Lang.Boolean =
         Properties.getValue("glanceLogging") as Lang.Boolean;
 }
@@ -33,21 +53,21 @@ module AppSettings {
     const followUpCommDelay as Lang.Number =
         Properties.getValue("followUpCommDelay") as Lang.Number;
     function isOptimisticCallHandlingEnabled() as Lang.Boolean {
-        return Properties.getValue("optimisticCallHandling") as Lang.Boolean;
+        return Properties.getValue(Settings_optimisticCallHandlingK) as Lang.Boolean;
     }
     const isExitToSystemAfterCallCompletionEnabled as Lang.Boolean =
         Properties.getValue("popOutOfAppInsteadOfPhones") as Lang.Boolean;
 
     (:noLowMemory)
     const isBeepOnCommunicationEnabled as Lang.Boolean =
-        Properties.getValue("beepOnComm") as Lang.Boolean;
+        Properties.getValue(Settings_beepOnCommK) as Lang.Boolean;
     const isMenu2NoRedrawWorkaroundEnabled as Lang.Boolean =
         Properties.getValue("workaroundNoRedrawForMenu2") as Lang.Boolean;
     (:noLowMemory)
     const incomingCallVibrationProgram as Lang.String =
         Properties.getValue("incomingCallVibration") as Lang.String;
     const isShowingPhoneNumbersEnabled as Lang.Boolean =
-        Properties.getValue("showPhoneNumbers") as Lang.Boolean;
+        Properties.getValue(Settings_showPhoneNumbersK) as Lang.Boolean;
     const forcedLogComponentsJoined as Lang.String =
         Properties.getValue("forcedLogComponents") as Lang.String;
 
@@ -73,7 +93,7 @@ module BackgroundSettings {
     }
 
     function isBroadcastListeningEnabled() as Lang.Boolean {
-        return Properties.getValue("broadcastListening") as Lang.Boolean;
+        return Properties.getValue(Settings_broadcastListeningK) as Lang.Boolean;
     }
 
     function isOpenAppOnIncomingCallEnabled() as Lang.Boolean {
@@ -84,7 +104,7 @@ module BackgroundSettings {
     const isIncomingOpenAppViaCompanionEnabled = false;
     (:noLowMemory)
     const isIncomingOpenAppViaCompanionEnabled =
-        Properties.getValue("incomingOpenAppViaCompanion") as Lang.Boolean;
+        Properties.getValue(Settings_incomingOpenAppViaCompanionK) as Lang.Boolean;
 }
 
 (:background)
