@@ -55,8 +55,7 @@ module AppSettings {
     function isOptimisticCallHandlingEnabled() as Lang.Boolean {
         return Properties.getValue(Settings_optimisticCallHandlingK) as Lang.Boolean;
     }
-    const isExitToSystemAfterCallCompletionEnabled as Lang.Boolean =
-        Properties.getValue("popOutOfAppInsteadOfPhones") as Lang.Boolean;
+    const isExitToSystemAfterCallCompletionEnabled as Lang.Boolean = true;
 
     (:noLowMemory)
     const isBeepOnCommunicationEnabled as Lang.Boolean =
