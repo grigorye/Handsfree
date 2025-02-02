@@ -3,6 +3,7 @@
 --noreport
 -Dfile
 connectiq
+descentmk2
 Fenix
 Handsfree
 HSET
@@ -17,8 +18,10 @@ monkeyc
 monkeydo
 Persistable
 PHNE
+prgs
 recents
 Recents
 Roboto
 SPKR
+Unmute
 WHST
