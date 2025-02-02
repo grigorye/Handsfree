@@ -136,8 +136,8 @@ class DefaultServiceLocator(
                 )
                 if (separateQueryResults) {
                     for (subject in args.subjects) {
-                        val args = QueryArgs(listOf(subject))
-                        val result = query(args, source = source)
+                        val subjectArgs = QueryArgs(listOf(subject))
+                        val result = query(subjectArgs, source = source)
                         outgoingMessageDispatcher.sendQueryResult(destination, result)
                     }
                 } else {
