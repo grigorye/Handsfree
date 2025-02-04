@@ -29,6 +29,7 @@ import kotlinx.coroutines.launch
 
 val pingBody = mapOf(cmdMsgField to "ping")
 
+const val AppConfig_Broadcast = 0b1
 interface GarminConnector {
     fun launch()
     fun terminate()
@@ -43,8 +44,8 @@ interface GarminConnector {
     )
 
     fun trackFirstAppLaunch(device: IQDevice, app: IQApp)
-    fun trackAppListeningForBroadcasts(device: IQDevice, app: IQApp, enabled: Boolean)
-    fun isAppListeningForBroadcasts(device: IQDevice, app: IQApp): Boolean
+    fun trackAppConfig(device: IQDevice, app: IQApp, config: AppConfig)
+    fun appConfig(device: IQDevice, app: IQApp): AppConfig
 
     val sentMessagesCounter: Int
     val acknowledgedMessagesCounter: Int
@@ -202,7 +203,7 @@ class DefaultGarminConnector(
 
     private val notInstalledApps = mutableMapOf<Long, MutableList<IQApp>>()
     private val installedApps = mutableMapOf<Long, MutableList<IQApp>>()
-    private val appsListeningForBroadcasts = mutableMapOf<Long, MutableSet<IQApp>>()
+    private val appConfigs = mutableMapOf<String, AppConfig>()
 
     private fun trackNotInstalledApp(device: IQDevice, app: IQApp) {
         val key = device.deviceIdentifier
@@ -236,21 +237,15 @@ class DefaultGarminConnector(
         return notInstalledApps[device.deviceIdentifier]?.contains(app) ?: false
     }
 
-    override fun trackAppListeningForBroadcasts(device: IQDevice, app: IQApp, enabled: Boolean) {
-        val key = device.deviceIdentifier
+    override fun trackAppConfig(device: IQDevice, app: IQApp, config: AppConfig) {
+        val key = "${device.deviceIdentifier}, ${app.applicationId}"
         run {
-            val apps = appsListeningForBroadcasts[key] ?: mutableSetOf()
-            if (enabled) {
-                apps.add(app)
-            } else {
-                apps.remove(app)
-            }
-            appsListeningForBroadcasts[key] = apps
+            appConfigs[key] = config
         }
     }
-
-    override fun isAppListeningForBroadcasts(device: IQDevice, app: IQApp): Boolean {
-        return appsListeningForBroadcasts[device.deviceIdentifier]?.contains(app) ?: false
+    override fun appConfig(device: IQDevice, app: IQApp): AppConfig {
+        val key = "${device.deviceIdentifier}, ${app.applicationId}"
+        return appConfigs[key] ?: 0
     }
 
     override fun appVersion(device: IQDevice, app: IQApp): Int? {
@@ -266,8 +261,8 @@ class DefaultGarminConnector(
         installedApps.clear()
     }
 
-    private fun clearAppsListeningForBroadcasts() {
-        appsListeningForBroadcasts.clear()
+    private fun clearAppConfigs() {
+        appConfigs.clear()
     }
 
     private fun startOutgoingMessageGeneration(device: IQDevice) {
@@ -334,7 +329,7 @@ class DefaultGarminConnector(
 
     private fun stopOutgoingMessageGeneration() {
         clearNotInstalledApps()
-        clearAppsListeningForBroadcasts()
+        clearAppConfigs()
     }
 
     private var installedAppsTrackingEnabled = true
@@ -514,8 +509,9 @@ class DefaultGarminConnector(
                     appsForSendingMessages(device)
                 }
                 for (app in targetApps) {
+                    val appConfig = appConfig(device, app)
                     when (destination.accountBroadcastOnly) {
-                        true -> if (!isAppListeningForBroadcasts(device, app)) continue
+                        true -> if ((appConfig and AppConfig_Broadcast) == 0) continue
                         false -> Unit
                     }
                     when (destination.matchV1) {

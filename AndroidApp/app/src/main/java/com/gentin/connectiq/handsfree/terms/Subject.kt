@@ -1,6 +1,6 @@
 package com.gentin.connectiq.handsfree.terms
 
-const val broadcastSubject = "b"
+const val appConfigSubject = "b"
 const val audioStateSubject = "a"
 const val phonesSubject = "p"
 const val recentsSubject = "r"
@@ -8,7 +8,7 @@ const val companionInfoSubject = "i"
 const val readinessInfoSubject = "n"
 
 val allSubjectNames = listOf(
-    broadcastSubject,
+    appConfigSubject,
     phonesSubject,
     recentsSubject,
     audioStateSubject,

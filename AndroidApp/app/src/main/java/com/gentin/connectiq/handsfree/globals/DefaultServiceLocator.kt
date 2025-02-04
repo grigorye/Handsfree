@@ -54,8 +54,8 @@ import com.gentin.connectiq.handsfree.services.fallbackPhoneState
 import com.gentin.connectiq.handsfree.services.lastTrackedAudioState
 import com.gentin.connectiq.handsfree.services.lastTrackedPhoneState
 import com.gentin.connectiq.handsfree.terms.allSubjectNames
+import com.gentin.connectiq.handsfree.terms.appConfigSubject
 import com.gentin.connectiq.handsfree.terms.audioStateSubject
-import com.gentin.connectiq.handsfree.terms.broadcastSubject
 import com.gentin.connectiq.handsfree.terms.companionInfoSubject
 import com.gentin.connectiq.handsfree.terms.phonesSubject
 import com.gentin.connectiq.handsfree.terms.readinessInfoSubject
@@ -211,12 +211,11 @@ class DefaultServiceLocator(
             val subjectVersion = subjectQueryVersion(subject)
             assert(allSubjectNames.contains(subjectName)) { "Unknown subject: $subjectName" }
             when (subjectName) {
-                broadcastSubject -> {
+                appConfigSubject -> {
                     if (metadataOnly) {
-                        queryResult.broadcastEnabled =
-                            garminConnector.isAppListeningForBroadcasts(source.device, source.app)
+                        queryResult.appConfig = garminConnector.appConfig(source.device, source.app)
                     } else {
-                        queryResult.broadcastEnabled = subjectVersion == 1
+                        queryResult.appConfig = subjectVersion
                     }
                 }
 
@@ -352,11 +351,11 @@ class DefaultServiceLocator(
         DefaultOutgoingMessageDispatcher(
             this,
             remoteMessageService,
-            trackAppListeningForBroadcast = { destination, enabled ->
-                garminConnector.trackAppListeningForBroadcasts(
+            trackAppConfig = { destination, config ->
+                garminConnector.trackAppConfig(
                     destination.device!!,
                     destination.app!!,
-                    enabled
+                    config
                 )
             }
         )

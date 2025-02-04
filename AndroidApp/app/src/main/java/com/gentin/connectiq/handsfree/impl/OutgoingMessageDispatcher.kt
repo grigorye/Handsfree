@@ -6,10 +6,10 @@ import com.gentin.connectiq.handsfree.globals.AvailableContacts
 import com.gentin.connectiq.handsfree.globals.AvailableRecents
 import com.gentin.connectiq.handsfree.helpers.pojoMap
 import com.gentin.connectiq.handsfree.terms.acceptQueryResultCmd
+import com.gentin.connectiq.handsfree.terms.appConfigSubject
 import com.gentin.connectiq.handsfree.terms.argsMsgField
 import com.gentin.connectiq.handsfree.terms.argsV1MsgField
 import com.gentin.connectiq.handsfree.terms.audioStateSubject
-import com.gentin.connectiq.handsfree.terms.broadcastSubject
 import com.gentin.connectiq.handsfree.terms.cmdMsgField
 import com.gentin.connectiq.handsfree.terms.cmdV1MsgField
 import com.gentin.connectiq.handsfree.terms.companionInfoSubject
@@ -33,7 +33,7 @@ import java.security.MessageDigest
 typealias Version = Int
 
 data class QueryResult(
-    var broadcastEnabled: Boolean? = null,
+    var appConfig: AppConfig? = null,
     var phoneState: PhoneState? = null,
     var audioState: VersionedPojo? = null,
     var phones: VersionedPojo? = null,
@@ -88,10 +88,12 @@ interface OutgoingMessageDispatcher {
     )
 }
 
+typealias AppConfig = Int
+
 class DefaultOutgoingMessageDispatcher(
     val context: Context,
     private val remoteMessageService: RemoteMessageService,
-    private val trackAppListeningForBroadcast: (OutgoingMessageDestination, enabled: Boolean) -> Unit,
+    private val trackAppConfig: (OutgoingMessageDestination, appConfig: AppConfig) -> Unit,
 ) : OutgoingMessageDispatcher {
     override fun sendPing() {
         send(pingBody, everywhereExactly)
@@ -143,16 +145,12 @@ class DefaultOutgoingMessageDispatcher(
                 subjectValue to pojo
             )
         }
-        queryResult.broadcastEnabled?.apply {
-            subjects[broadcastSubject] = mapOf(
-                subjectVersion to if (this) {
-                    1
-                } else {
-                    0
-                },
+        queryResult.appConfig?.apply {
+            subjects[appConfigSubject] = mapOf(
+                subjectVersion to this,
                 subjectValue to {}
             )
-            trackAppListeningForBroadcast(destination, this)
+            trackAppConfig(destination, this)
         }
         val msg = mapOf(
             cmdMsgField to acceptQueryResultCmd,
