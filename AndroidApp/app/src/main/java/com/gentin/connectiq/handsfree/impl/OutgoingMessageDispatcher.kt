@@ -4,6 +4,7 @@ import android.content.Context
 import com.gentin.connectiq.handsfree.contacts.ContactData
 import com.gentin.connectiq.handsfree.globals.AvailableContacts
 import com.gentin.connectiq.handsfree.globals.AvailableRecents
+import com.gentin.connectiq.handsfree.globals.recentsLimit
 import com.gentin.connectiq.handsfree.helpers.pojoMap
 import com.gentin.connectiq.handsfree.terms.acceptQueryResultCmd
 import com.gentin.connectiq.handsfree.terms.appConfigSubject
@@ -183,7 +184,7 @@ class DefaultOutgoingMessageDispatcher(
     override fun sendRecents(recents: AvailableRecents) {
         sendSubject(
             recentsSubject,
-            strippedVersionedPojo(null, recentsPojo(recents)),
+            strippedVersionedPojo(null, recentsPojo(recents, recentsLimit)),
             everywhere.copy(matchV1 = false)
         )
     }
@@ -325,7 +326,12 @@ fun phonesPojoV1(contacts: List<ContactData>): Any {
     return pojo
 }
 
-fun recentsPojo(recents: AvailableRecents): Any {
+fun recentsPojo(recents: AvailableRecents, limit: Int?): Any {
+    if (limit != null) {
+        val strippedRecents = recents.copy()
+        strippedRecents.list = strippedRecents.list.take(limit)
+        return pojoMap(strippedRecents)
+    }
     return pojoMap(recents)
 }
 

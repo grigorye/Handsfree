@@ -63,6 +63,8 @@ import com.gentin.connectiq.handsfree.terms.recentsSubject
 
 private const val separateQueryResults = true
 
+const val recentsLimit = 5
+
 class DefaultServiceLocator(
     base: Context?,
     lifecycleScope: LifecycleCoroutineScope
@@ -230,7 +232,11 @@ class DefaultServiceLocator(
 
                 recentsSubject -> {
                     queryResult.recents =
-                        strippedVersionedPojo(subjectVersion, recentsPojo(recents()), metadataOnly)
+                        strippedVersionedPojo(
+                            subjectVersion,
+                            recentsPojo(recents(), recentsLimit),
+                            metadataOnly
+                        )
                 }
 
                 audioStateSubject -> {

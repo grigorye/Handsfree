@@ -9,6 +9,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AvailableRecents(
     @OptIn(ExperimentalSerializationApi::class) @EncodeDefault
-    @SerialName("r") val list: List<CallLogEntry> = listOf(),
+    @SerialName("r") var list: List<CallLogEntry> = listOf(),
     @SerialName("a") val accessIssue: AccessIssue? = null
 )
