@@ -4,8 +4,11 @@ import Toybox.Communications;
 
 module Req {
 
-(:background)
+(:background, :noLowMemory)
 const allSubjects = appConfigSubject + phonesSubject + recentsSubject + audioStateSubject + readinessInfoSubject + companionInfoSubject;
+
+(:background, :lowMemory)
+const allSubjects = appConfigSubject + phonesSubject + recentsSubject + audioStateSubject;
 
 function requestAllSubjects() as Void {
     var msg = msgForRequestSubjects(allSubjects);
@@ -25,14 +28,6 @@ function msgForRequestSubjects(subjects as Lang.String) as Lang.Object {
     var subjectsCount = subjects.length();
     for (var i = 0; i < subjectsCount; i++) {
         var name = subjects.substring(i, i + 1) as Lang.String;
-        if (lowMemory) {
-            if (name.equals(readinessInfoSubject)) {
-                continue;
-            }
-            if (name.equals(companionInfoSubject)) {
-                continue;
-            }
-        }
         if (name.equals(appConfigSubject)) {
             subjectsArg.add([name, "" + BackgroundSettings.appConfigVersion()]);
         } else {

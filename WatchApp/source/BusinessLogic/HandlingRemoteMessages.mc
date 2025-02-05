@@ -134,13 +134,11 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
                 }
                 // fall through
             }
-            case recentsSubject:
-            case phonesSubject:
-            case readinessInfoSubject:
-            case companionInfoSubject: {
+            default: {
                 var versionKey = versionKeyForSubject(name);
                 if (versionKey == null) {
-                    if (tweakingForSystemExit) {
+                    _3(LX_REMOTE_MSG, "unknownSubject", name);
+                    if (debug) {
                         System.error("");
                     }
                     break;
@@ -159,10 +157,6 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
                 } else {
                     if (debug) { _3(LX_REMOTE_MSG, "Hit." + versionKey, version); }
                 }
-                break;
-            }
-            default: {
-                if (debug) { _3(LX_REMOTE_MSG, "unknownSubject", name); }
                 break;
             }
         }
@@ -272,7 +266,14 @@ function didReceiveRemoteMessageInForeground() as Void {
     if (debug) { beep(BEEP_TYPE_MESSAGE); }
 }
 
-(:background)
+(:background, :lowMemory)
+const versionKeyForSubjectMap = {
+    phonesSubject => Phones_versionKey,
+    recentsSubject => Recents_versionKey,
+    audioStateSubject => AudioState_versionKey
+} as Lang.Dictionary<Lang.String, Lang.String>;
+
+(:background, :noLowMemory)
 const versionKeyForSubjectMap = {
     phonesSubject => Phones_versionKey,
     recentsSubject => Recents_versionKey,
@@ -286,7 +287,14 @@ function versionKeyForSubject(subject as Lang.String) as Lang.String | Null {
     return versionKeyForSubjectMap[subject];
 }
 
-(:background)
+(:background, :lowMemory)
+const valueKeyForSubjectMap = {
+    phonesSubject => Phones_valueKey,
+    recentsSubject => Recents_valueKey,
+    audioStateSubject => AudioState_valueKey
+} as Lang.Dictionary<Lang.String, Lang.String>;
+
+(:background, :noLowMemory)
 const valueKeyForSubjectMap = {
     phonesSubject => Phones_valueKey,
     recentsSubject => Recents_valueKey,
