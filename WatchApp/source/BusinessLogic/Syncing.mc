@@ -4,18 +4,11 @@ import Toybox.Communications;
 
 module Req {
 
+(:background)
+const allSubjects = appConfigSubject + phonesSubject + recentsSubject + audioStateSubject + readinessInfoSubject;
+
 function requestAllSubjects() as Void {
-    var subjectsArg = [
-        [broadcastSubject, BackgroundSettings.broadcastListeningVersion()],
-        [phonesSubject, Storage.getValue(Phones_versionKey)],
-        [recentsSubject, Storage.getValue(Recents_versionKey)],
-        [audioStateSubject, Storage.getValue(AudioState_versionKey)],
-        [readinessInfoSubject, Storage.getValue(ReadinessInfo_versionKey)]
-    ] as Lang.Array;
-    var msg = {
-        cmdK => Cmd_query,
-        subjectsK => subjectsArg
-    } as Lang.Object;
+    var msg = msgForRequestSubjects(allSubjects);
     transmitWithRetry("reqAllSubjects", msg, new Communications.ConnectionListener());
 }
 
@@ -40,8 +33,8 @@ function msgForRequestSubjects(subjects as Lang.String) as Lang.Object {
                 continue;
             }
         }
-        if (name.equals(broadcastSubject)) {
-            subjectsArg.add([name, "" + BackgroundSettings.broadcastListeningVersion()]);
+        if (name.equals(appConfigSubject)) {
+            subjectsArg.add([name, "" + BackgroundSettings.appConfigVersion()]);
         } else {
             subjectsArg.add([name]);
         }

@@ -101,12 +101,12 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
         var subject = subjects[name] as Lang.Dictionary<Lang.String, Lang.Object>;
         var version = subject[versionK] as Version;
         switch (name) {
-            case broadcastSubject: {
-                if (!version.equals(BackgroundSettings.broadcastListeningVersion())) {
+            case appConfigSubject: {
+                if (!version.equals(BackgroundSettings.appConfigVersion())) {
                     subjectsInvalidated = subjectsInvalidated + name;
                     isHit = false;
                 } else {
-                    if (debug) { _3(LX_REMOTE_MSG, "broadcastHit", version); }
+                    if (debug) { _3(LX_REMOTE_MSG, "appConfigHit", version); }
                 }
                 break;
             }

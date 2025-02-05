@@ -87,8 +87,8 @@ module AppSettings {
 
 (:background)
 module BackgroundSettings {
-    function broadcastListeningVersion() as Lang.Number {
-        return isBroadcastListeningEnabled() ? 1 : 0;
+    function appConfigVersion() as Lang.Number {
+        return (isBroadcastListeningEnabled() ? 1 : 0) + (lowMemory ? 0 : 2);
     }
 
     function isBroadcastListeningEnabled() as Lang.Boolean {

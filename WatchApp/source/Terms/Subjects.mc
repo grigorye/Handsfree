@@ -14,4 +14,4 @@ const companionInfoSubject = "i";
 const readinessInfoSubject = "n";
 
 (:inline, :background, :glance)
-const broadcastSubject = "b";
+const appConfigSubject = "b";
