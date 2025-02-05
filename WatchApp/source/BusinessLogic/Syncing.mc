@@ -5,7 +5,7 @@ import Toybox.Communications;
 module Req {
 
 (:background)
-const allSubjects = appConfigSubject + phonesSubject + recentsSubject + audioStateSubject + readinessInfoSubject;
+const allSubjects = appConfigSubject + phonesSubject + recentsSubject + audioStateSubject + readinessInfoSubject + companionInfoSubject;
 
 function requestAllSubjects() as Void {
     var msg = msgForRequestSubjects(allSubjects);

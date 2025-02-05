@@ -9,8 +9,6 @@ const Cmd_mute = "m";
 (:background)
 const Cmd_setAudioVolume = "v";
 (:background)
-const Cmd_didFirstLaunch = "l";
-(:background)
 const Cmd_pong = "g";
 (:background)
 const Cmd_query = "q";

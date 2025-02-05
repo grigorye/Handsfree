@@ -16,10 +16,7 @@ function trackFirstLaunch() as Void {
 (:background)
 function didFirstLaunch() as Void {
     if (debug) { _2(L_APP_STAT, "didFirstLaunch"); }
-    var msg = {
-        cmdK => Cmd_didFirstLaunch
-    };
-    transmitWithoutRetry("didFirstLaunch", msg);
+    requestSubjects(allSubjects);
 }
 
 }
