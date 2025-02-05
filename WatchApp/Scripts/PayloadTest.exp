@@ -76,6 +76,12 @@ while {1} {
             puts ""
             continue
         }
+        "Error: Out Of Memory Error\r\n" {
+            # Wait for the stack trace to be printed (followed by empty line)
+            expect "\r\n\r\n"
+            puts ">>> Out of memory error"
+            exit 1
+        }
         -re "^Background:.* app.onAppInstall" {
             puts ">>> Accounting app.onAppInstall"
             puts ">>> Keys to find: [joined_by_comma $expected_keys]"
@@ -86,6 +92,12 @@ while {1} {
 
             while {1} {
                 expect {
+                    "Error: Out Of Memory Error\r\n" {
+                        # Wait for the stack trace to be printed (followed by empty line)
+                        expect "\r\n\r\n"
+                        puts ">>> Out of memory error"
+                        exit 1
+                    }
                     # Match "app.storeValue: phones.v2" and "app.storeValue: recents.v1", saving the key before the dot
                     -re "^.*app.storeValue: (.+)\\.v.*$" {
                         # Save the match in the key variable
