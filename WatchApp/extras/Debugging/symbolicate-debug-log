@@ -45,7 +45,7 @@ chomp $tmpdir;
 open(my $fh, '<', $ciq_log) or die "Failed to open file: ${ciq_log} $!";
 while (my $line = <$fh>) {
     chomp $line;
-    if ($line =~ /^  - (?<hex>0x[0-9a-f]+) $/) {
+    if ($line =~ /^  - (?<hex>0x[0-9a-f]+) ?$/) {
         my $symbolicated = symbolicate(hex($+{hex}), $debug_xml);
         print "${line} ${symbolicated}\n";
     } elsif ($line =~ /^Time: (?<ciq_time>.*)$/) {
