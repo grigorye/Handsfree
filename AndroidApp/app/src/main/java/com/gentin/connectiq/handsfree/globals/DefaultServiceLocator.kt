@@ -41,6 +41,7 @@ import com.gentin.connectiq.handsfree.impl.RemoteMessageService
 import com.gentin.connectiq.handsfree.impl.audioStatePojo
 import com.gentin.connectiq.handsfree.impl.companionInfo
 import com.gentin.connectiq.handsfree.impl.companionInfoPojo
+import com.gentin.connectiq.handsfree.impl.isLowMemory
 import com.gentin.connectiq.handsfree.impl.newSubjectQuery
 import com.gentin.connectiq.handsfree.impl.phonesPojo
 import com.gentin.connectiq.handsfree.impl.readinessInfo
@@ -63,8 +64,10 @@ import com.gentin.connectiq.handsfree.terms.recentsSubject
 
 private const val separateQueryResults = true
 
-const val recentsLimit = 5
-const val phonesLimit = 10
+const val recentsLimitLowMemory = 5
+const val recentsLimitFullFeatured = 10
+const val phonesLimitLowMemory = 10
+const val phonesLimitFullFeatured = 20
 
 class DefaultServiceLocator(
     base: Context?,
@@ -191,6 +194,7 @@ class DefaultServiceLocator(
         source: IncomingMessageSource
     ): QueryResult {
         val queryResult = QueryResult()
+        val lm = isLowMemory(garminConnector.appConfig(source.device, source.app))
         for (subject in args.subjects) {
             val subjectName = subjectQueryName(subject)
             val subjectVersion = subjectQueryVersion(subject)
@@ -205,19 +209,29 @@ class DefaultServiceLocator(
                 }
 
                 phonesSubject -> {
+                    val limit = if (lm) {
+                        phonesLimitLowMemory
+                    } else {
+                        phonesLimitFullFeatured
+                    }
                     queryResult.phones =
                         strippedVersionedPojo(
                             subjectVersion,
-                            phonesPojo(availableContacts(), phonesLimit),
+                            phonesPojo(availableContacts(), limit),
                             metadataOnly
                         )
                 }
 
                 recentsSubject -> {
+                    val limit = if (lm) {
+                        recentsLimitLowMemory
+                    } else {
+                        recentsLimitFullFeatured
+                    }
                     queryResult.recents =
                         strippedVersionedPojo(
                             subjectVersion,
-                            recentsPojo(recents(), recentsLimit),
+                            recentsPojo(recents(), limit),
                             metadataOnly
                         )
                 }

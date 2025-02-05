@@ -12,13 +12,16 @@ data class OutgoingMessage(
         return "{$destination, $body}"
     }
 }
-val everywhereExactly = OutgoingMessageDestination(device = null, app = null, accountBroadcastOnly = false)
+
+val everywhereExactly =
+    OutgoingMessageDestination(device = null, app = null, accountBroadcastOnly = false)
 val everywhere = OutgoingMessageDestination(device = null, app = null, accountBroadcastOnly = true)
 
 data class OutgoingMessageDestination(
     val device: IQDevice?,
     val app: IQApp?,
     val matchV1: Boolean? = null,
+    val matchLM: Boolean? = null,
     val accountBroadcastOnly: Boolean = false
 ) {
     override fun toString(): String {
@@ -41,6 +44,13 @@ data class OutgoingMessageDestination(
             true -> "bc-only"
             false -> "!"
         }
-        return listOf(deviceRep, appRep, matchV1Rep, broadcastOnlyRep).joinToString(prefix = "{", postfix = "}")
+        val matchLMRep = when (matchLM) {
+            true -> "lm"
+            false -> "ff"
+            null -> null
+        }
+        return listOf(
+            deviceRep, appRep, matchV1Rep, broadcastOnlyRep, matchLMRep
+        ).joinToString(prefix = "{", postfix = "}")
     }
 }

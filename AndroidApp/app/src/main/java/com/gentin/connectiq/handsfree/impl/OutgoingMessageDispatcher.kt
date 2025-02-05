@@ -4,8 +4,10 @@ import android.content.Context
 import com.gentin.connectiq.handsfree.contacts.ContactData
 import com.gentin.connectiq.handsfree.globals.AvailableContacts
 import com.gentin.connectiq.handsfree.globals.AvailableRecents
-import com.gentin.connectiq.handsfree.globals.phonesLimit
-import com.gentin.connectiq.handsfree.globals.recentsLimit
+import com.gentin.connectiq.handsfree.globals.phonesLimitLowMemory
+import com.gentin.connectiq.handsfree.globals.phonesLimitFullFeatured
+import com.gentin.connectiq.handsfree.globals.recentsLimitFullFeatured
+import com.gentin.connectiq.handsfree.globals.recentsLimitLowMemory
 import com.gentin.connectiq.handsfree.helpers.pojoMap
 import com.gentin.connectiq.handsfree.terms.acceptQueryResultCmd
 import com.gentin.connectiq.handsfree.terms.appConfigSubject
@@ -116,6 +118,8 @@ class DefaultOutgoingMessageDispatcher(
         destination: OutgoingMessageDestination,
         queryResult: QueryResult
     ) {
+        assert(destination.app != null)
+
         val subjects = mutableMapOf<String, Any>()
         queryResult.phones?.apply {
             subjects[phonesSubject] = mapOf(
@@ -177,16 +181,26 @@ class DefaultOutgoingMessageDispatcher(
     override fun sendContacts(contacts: AvailableContacts) {
         sendSubject(
             phonesSubject,
-            strippedVersionedPojo(null, phonesPojo(contacts, limit = phonesLimit)),
-            destination = everywhere
+            strippedVersionedPojo(null, phonesPojo(contacts, limit = phonesLimitLowMemory)),
+            destination = everywhere.copy(matchLM = true)
+        )
+        sendSubject(
+            phonesSubject,
+            strippedVersionedPojo(null, phonesPojo(contacts, limit = phonesLimitFullFeatured)),
+            destination = everywhere.copy(matchLM = false)
         )
     }
 
     override fun sendRecents(recents: AvailableRecents) {
         sendSubject(
             recentsSubject,
-            strippedVersionedPojo(null, recentsPojo(recents, recentsLimit)),
-            everywhere.copy(matchV1 = false)
+            strippedVersionedPojo(null, recentsPojo(recents, limit = recentsLimitLowMemory)),
+            everywhere.copy(matchV1 = false, matchLM = true)
+        )
+        sendSubject(
+            recentsSubject,
+            strippedVersionedPojo(null, recentsPojo(recents, limit = recentsLimitFullFeatured)),
+            everywhere.copy(matchV1 = false, matchLM = false)
         )
     }
 

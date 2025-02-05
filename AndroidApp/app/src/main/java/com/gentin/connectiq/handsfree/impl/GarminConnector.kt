@@ -30,6 +30,12 @@ import kotlinx.coroutines.launch
 val pingBody = mapOf(cmdMsgField to "ping")
 
 const val AppConfig_Broadcast = 0b1
+const val AppConfig_FullFeatured = 0b10
+
+fun isLowMemory(appConfig: AppConfig): Boolean {
+    return (appConfig and AppConfig_FullFeatured) == 0
+}
+
 interface GarminConnector {
     fun launch()
     fun terminate()
@@ -513,6 +519,11 @@ class DefaultGarminConnector(
                     when (destination.accountBroadcastOnly) {
                         true -> if ((appConfig and AppConfig_Broadcast) == 0) continue
                         false -> Unit
+                    }
+                    when (destination.matchLM) {
+                        true -> if (!isLowMemory(appConfig)) continue
+                        false -> if (isLowMemory(appConfig)) continue
+                        null -> Unit
                     }
                     when (destination.matchV1) {
                         true -> if (appVersion(device, app) != 1) continue
