@@ -16,6 +16,7 @@ descentmk2.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_wid
 descentmk2s.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
 edge1030.excludeAnnotations = $(versioning_excludeAnnotations);watchApp;noLowMemory
 edge1030bontrager.excludeAnnotations = $(versioning_excludeAnnotations);watchApp;noLowMemory
+edge1030plus.excludeAnnotations = $(versioning_excludeAnnotations);watchApp;noLowMemory
 edge530.excludeAnnotations = $(versioning_excludeAnnotations);watchApp;noLowMemory
 edge540.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
 edge830.excludeAnnotations = $(versioning_excludeAnnotations);watchApp;noLowMemory
