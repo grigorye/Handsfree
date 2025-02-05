@@ -4,6 +4,7 @@ import android.content.Context
 import com.gentin.connectiq.handsfree.contacts.ContactData
 import com.gentin.connectiq.handsfree.globals.AvailableContacts
 import com.gentin.connectiq.handsfree.globals.AvailableRecents
+import com.gentin.connectiq.handsfree.globals.phonesLimit
 import com.gentin.connectiq.handsfree.globals.recentsLimit
 import com.gentin.connectiq.handsfree.helpers.pojoMap
 import com.gentin.connectiq.handsfree.terms.acceptQueryResultCmd
@@ -176,7 +177,7 @@ class DefaultOutgoingMessageDispatcher(
     override fun sendContacts(contacts: AvailableContacts) {
         sendSubject(
             phonesSubject,
-            strippedVersionedPojo(null, phonesPojo(contacts)),
+            strippedVersionedPojo(null, phonesPojo(contacts, limit = phonesLimit)),
             destination = everywhere
         )
     }
@@ -308,8 +309,14 @@ fun audioStatePojo(state: AudioState): Any {
     return pojoMap(state)
 }
 
-fun phonesPojo(contacts: AvailableContacts): Any {
-    return pojoMap(contacts)
+fun phonesPojo(contacts: AvailableContacts, limit: Int?): Any {
+    if (limit != null) {
+        val strippedContacts = contacts.copy()
+        strippedContacts.contacts = strippedContacts.contacts.take(limit)
+        return pojoMap(strippedContacts)
+    } else {
+        return pojoMap(contacts)
+    }
 }
 
 fun phonesPojoV1(contacts: List<ContactData>): Any {

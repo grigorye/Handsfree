@@ -9,6 +9,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AvailableContacts(
     @OptIn(ExperimentalSerializationApi::class) @EncodeDefault
-    @SerialName("c") val contacts: List<ContactData> = listOf(),
+    @SerialName("c") var contacts: List<ContactData> = listOf(),
     @SerialName("a") val accessIssue: AccessIssue? = null
 )

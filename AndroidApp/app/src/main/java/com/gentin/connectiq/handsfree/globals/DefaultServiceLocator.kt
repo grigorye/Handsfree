@@ -64,6 +64,7 @@ import com.gentin.connectiq.handsfree.terms.recentsSubject
 private const val separateQueryResults = true
 
 const val recentsLimit = 5
+const val phonesLimit = 10
 
 class DefaultServiceLocator(
     base: Context?,
@@ -225,7 +226,7 @@ class DefaultServiceLocator(
                     queryResult.phones =
                         strippedVersionedPojo(
                             subjectVersion,
-                            phonesPojo(availableContacts()),
+                            phonesPojo(availableContacts(), phonesLimit),
                             metadataOnly
                         )
                 }
