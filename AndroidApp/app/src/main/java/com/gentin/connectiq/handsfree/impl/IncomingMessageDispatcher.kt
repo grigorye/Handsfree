@@ -6,7 +6,6 @@ import com.gentin.connectiq.handsfree.terms.acceptInCmd
 import com.gentin.connectiq.handsfree.terms.acceptV1InCmd
 import com.gentin.connectiq.handsfree.terms.callInCmd
 import com.gentin.connectiq.handsfree.terms.callV1InCmd
-import com.gentin.connectiq.handsfree.terms.didFirstLaunchInCmd
 import com.gentin.connectiq.handsfree.terms.hangUpInCmd
 import com.gentin.connectiq.handsfree.terms.hangUpV1InCmd
 import com.gentin.connectiq.handsfree.terms.muteInCmd
@@ -29,7 +28,6 @@ class IncomingMessageDispatcher(
     private val queryImp: (source: IncomingMessageSource, args: QueryArgs) -> Unit,
     private val syncV1Imp: () -> Unit,
     private val syncPhonesV1Imp: (destination: IncomingMessageSource) -> Unit,
-    private val didFirstLaunchImp: (destination: IncomingMessageSource) -> Unit,
     private val openAppImp: (source: IncomingMessageSource, args: OpenMeArgs) -> Unit,
     private val openAppInStoreImp: (source: IncomingMessageSource) -> Unit,
     private val toggleSpeakerImp: () -> Unit,
@@ -103,10 +101,6 @@ class IncomingMessageDispatcher(
 
             openAppInStoreInCmd -> {
                 openAppInStoreImp(source)
-            }
-
-            didFirstLaunchInCmd -> {
-                didFirstLaunchImp(source)
             }
 
             toggleSpeakerInCmd -> {

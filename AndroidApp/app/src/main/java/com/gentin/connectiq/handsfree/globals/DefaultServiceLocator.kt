@@ -132,6 +132,7 @@ class DefaultServiceLocator(
                 outgoingMessageDispatcher.sendPhonesV1(destination, availableContacts().contacts)
             },
             queryImp = { source, args ->
+                garminConnector.trackFirstAppLaunch(source.device, source.app)
                 val destination = OutgoingMessageDestination(
                     source.device,
                     source.app,
@@ -159,25 +160,6 @@ class DefaultServiceLocator(
                         val destination = OutgoingMessageDestination(source.device, source.app)
                         outgoingMessageDispatcher.sendOpenMeCompleted(destination, args, succeeded)
                     }
-                }
-            },
-            didFirstLaunchImp = { source ->
-                garminConnector.trackFirstAppLaunch(source.device, source.app)
-                val subjects = allSubjectNames.map { name ->
-                    newSubjectQuery(name, null)
-                }
-                if (separateQueryResults) {
-                    for (subject in subjects) {
-                        val args = QueryArgs(listOf(subject))
-                        val result = query(args, source = source)
-                        val destination = OutgoingMessageDestination(source.device, source.app)
-                        outgoingMessageDispatcher.sendQueryResult(destination, result)
-                    }
-                } else {
-                    val args = QueryArgs(subjects)
-                    val result = query(args, source = source)
-                    val destination = OutgoingMessageDestination(source.device, source.app)
-                    outgoingMessageDispatcher.sendQueryResult(destination, result)
                 }
             },
             openAppInStoreImp = { source ->

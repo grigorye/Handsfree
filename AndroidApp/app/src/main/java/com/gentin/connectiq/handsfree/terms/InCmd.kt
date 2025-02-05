@@ -8,7 +8,6 @@ const val syncPhonesV1InCmd = "syncPhones"
 
 const val acceptInCmd = "a"
 const val callInCmd = "c"
-const val didFirstLaunchInCmd = "l"
 const val hangUpInCmd = "h"
 const val muteInCmd = "m"
 const val openAppInStoreInCmd = "r"
