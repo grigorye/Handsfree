@@ -99,9 +99,9 @@ while {1} {
                         exit 1
                     }
                     # Match "app.storeValue: phones.v2" and "app.storeValue: recents.v1", saving the key before the dot
-                    -re "^.*app.storeValue: (.+)\\.v.*$" {
+                    -re "\n(Background: )?(..:..:.. )?app.storeValue: (\[a-z\]+)\\.v\[0-9\]+\r" {
                         # Save the match in the key variable
-                        set key $expect_out(1,string)
+                        set key $expect_out(3,string)
                         # Print the key
                         # If the key is in the required strings and not already matched, add it to the matched strings
                         if {[is_expected_key $key]} {
