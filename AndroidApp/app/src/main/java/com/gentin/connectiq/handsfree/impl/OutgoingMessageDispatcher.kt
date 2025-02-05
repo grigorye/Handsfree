@@ -92,8 +92,6 @@ interface OutgoingMessageDispatcher {
     )
 }
 
-typealias AppConfig = Int
-
 class DefaultOutgoingMessageDispatcher(
     val context: Context,
     private val remoteMessageService: RemoteMessageService,
