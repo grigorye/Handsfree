@@ -510,7 +510,7 @@ class DefaultGarminConnector(
                 for (app in targetApps) {
                     val appConfig = appConfig(device, app)
                     when (destination.accountBroadcastOnly) {
-                        true -> if ((appConfig and AppConfig_Broadcast) == 0) continue
+                        true -> if (!isBroadcastEnabled(appConfig)) continue
                         false -> Unit
                     }
                     when (destination.matchLM) {
