@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" /> <!-- to not be killed -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- to direct the phone application (and let it be brought to front) -->
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" /> <!-- to mute the microphone -->
+    <uses-permission android:name="com.garmin.connectiq.permission.RECEIVE_BROADCASTS" /> <!-- to receive messages from the watch/GCM -->
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
