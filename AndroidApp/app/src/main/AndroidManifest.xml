@@ -69,6 +69,10 @@
             </intent-filter>
         </receiver>
 
+        <provider
+            android:name=".contentproviders.SettingsProvider"
+            android:authorities="com.gentin.connectiq.handsfree.contentproviders.SettingsProvider"
+            android:exported="true" />
         <activity
             android:name=".activities.MainActivity"
             android:exported="false" />
