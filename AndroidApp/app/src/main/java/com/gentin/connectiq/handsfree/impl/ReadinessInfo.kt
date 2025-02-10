@@ -23,7 +23,7 @@ data class ReadinessInfo(
 )
 
 fun readinessInfo(context: Context): ReadinessInfo {
-    return ReadinessInfo(
+    val readinessInfo = ReadinessInfo(
         essentials = readiness(
             essentialsAreOn(context),
             hasRequiredPermissionsForEssentials(context),
@@ -45,6 +45,7 @@ fun readinessInfo(context: Context): ReadinessInfo {
             hasRequiredPermissionsForStarredContacts(context)
         )
     )
+    return readinessInfo
 }
 
 fun hasRequiredPermissionsForEssentials(context: Context): Boolean {
