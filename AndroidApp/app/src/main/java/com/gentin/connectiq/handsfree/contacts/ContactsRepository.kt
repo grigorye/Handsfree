@@ -80,7 +80,11 @@ class ContactsRepositoryImpl(
     }
 
     private fun subscribeIgnoringPermissions(observer: ContentObserver) {
-        contentResolver.registerContentObserver(Phone.CONTENT_URI, true, observer)
+        contentResolver.registerContentObserver(
+            Phone.CONTENT_URI,
+            true,
+            observer
+        )
         contentResolver.registerContentObserver(
             ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
             true,
