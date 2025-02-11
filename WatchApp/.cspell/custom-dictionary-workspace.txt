@@ -2,6 +2,7 @@
 --noreport
 -Dfile
 connectiq
+coreutils
 descentg
 descentmk2
 edge1030bontrager
@@ -36,6 +37,8 @@ pronowifi
 recents
 Recents
 Roboto
+sendkeys
+socsieng
 SPKR
 splus
 spro
