@@ -1,2 +1,3 @@
 tap "socsieng/tap"
+brew "coreutils"
 brew "socsieng/tap/sendkeys"
