@@ -53,7 +53,6 @@ while {1} {
     # Print time
     puts [clock format [clock seconds] -format "%Y-%m-%d %H:%M:%S"]
     spawn sh -c "killall -q simulator || true"
-    spawn "$env(HOME)/Library/Android/sdk/platform-tools/adb" "-s" "emulator-5554" "forward" "tcp:7381" "tcp:7381"
     spawn "$sdk_root/bin/connectiq"
     sleep 2
     spawn "/opt/homebrew/bin/sendkeys" "--application-name" "com.garmin.connectiq.simulator" "--characters" "<c:d:command><p:1><c:f1:command>"
