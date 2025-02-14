@@ -1,0 +1,13 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+device="$1" # e.g. emulator-5554
+shift
+
+for pref in essentials starred_contacts outgoing_calls incoming_calls recents; do
+    adb -s "$device" shell content insert \
+        --uri content://com.gentin.connectiq.handsfree.contentproviders.SettingsProvider/prefs \
+        --bind key:s:"$pref" --bind value:b:true
+done

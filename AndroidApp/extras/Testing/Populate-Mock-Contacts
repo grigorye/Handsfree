@@ -1,0 +1,123 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+device_id="$1" # e.g. emulator-5554
+shift
+
+wd=$(dirname "$0")
+
+function adb() {
+    # Use given device with adb
+    command adb -s "$device_id" "$@"
+}
+
+function insert_contact() {
+    local type=$1 # "person" or "company"
+    local name=$2 # For persons: full name; for companies: company name
+    local phone=$3
+    local company=${4:-} # Optional: only used when type=person
+
+    # Insert a raw contact record
+    adb shell content insert \
+        --uri content://com.android.contacts/raw_contacts \
+        --bind account_name:s:null \
+        --bind account_type:s:null
+    local contact_id
+
+    # given "Row: 0 _id=1" in the output, extract the ID (1)
+    contact_id=$(adb shell content query --uri content://com.android.contacts/raw_contacts --projection _id --sort _id | tail -1 | cut -d '=' -f2)
+
+    if [[ "$type" == "person" ]]; then
+        # Split full name into first name and last name
+        local first_name last_name
+        IFS=' ' read -r first_name last_name <<<"$name"
+        first_name=$(printf '%q' "$first_name")
+        if [[ -n "$last_name" ]]; then
+            last_name=$(printf '%q' "$last_name")
+        else
+            last_name=""
+        fi
+        # Insert person's name; if last_name is empty, data3 will be empty
+        adb shell content insert \
+            --uri content://com.android.contacts/data \
+            --bind raw_contact_id:i:"$contact_id" \
+            --bind mimetype:s:vnd.android.cursor.item/name \
+            --bind data2:s:"$first_name" \
+            --bind data3:s:"$last_name"
+        adb shell content insert \
+            --uri content://com.android.contacts/data \
+            --bind raw_contact_id:i:"$contact_id" \
+            --bind mimetype:s:vnd.android.cursor.item/phone_v2 \
+            --bind data1:s:"$phone"
+        # If a company is provided, add the organization entry using the escaped company name
+        if [[ -n "$company" ]]; then
+            company=$(printf '%q' "$company")
+            adb shell content insert \
+                --uri content://com.android.contacts/data \
+                --bind raw_contact_id:i:"$contact_id" \
+                --bind mimetype:s:vnd.android.cursor.item/organization \
+                --bind data1:s:"$company"
+        fi
+    elif [[ "$type" == "company" ]]; then
+        name=$(printf '%q' "$name")
+        adb shell content insert \
+            --uri content://com.android.contacts/data \
+            --bind raw_contact_id:i:"$contact_id" \
+            --bind mimetype:s:vnd.android.cursor.item/organization \
+            --bind data1:s:"$name"
+        adb shell content insert \
+            --uri content://com.android.contacts/data \
+            --bind raw_contact_id:i:"$contact_id" \
+            --bind mimetype:s:vnd.android.cursor.item/phone_v2 \
+            --bind data1:s:"$phone"
+    else
+        exit 1
+    fi
+}
+
+load_file() {
+    local file="$1"
+    local var_name="$2"
+    local lines=()
+    while IFS= read -r line; do
+        lines[${#lines[@]}]="$line"
+    done <"$file"
+    eval "$var_name=(\"\${lines[@]}\")"
+}
+
+declare -a first_names last_names companies
+
+load_file "$wd"/mock-first_names.txt first_names
+load_file "$wd"/mock-last_names.txt last_names
+load_file "$wd"/mock-companies.txt companies
+
+# Add a Voicemail contact
+voicemail_number="1233"
+insert_contact "person" "Voicemail" "$voicemail_number"
+
+# Insert 20 personal contacts
+for i in {0..19}; do
+    first_name=${first_names[$i]}
+    last_name=${last_names[$i]}
+    # For even indices, assign a company; for odd indices, leave company optional (empty)
+    if ((i % 2 == 0)); then
+        company=${companies[$((i % 10))]}
+    else
+        company=""
+    fi
+    phone="+1-555-010$(printf "%02d" $((i + 1)))"
+    insert_contact "person" "$first_name $last_name" "$phone" "$company"
+done
+
+# Insert 10 company-only contacts
+for i in {0..9}; do
+    company=${companies[$i]}
+    phone="+1-555-020$(printf "%02d" $((i + 1)))" # Different US-style phone numbers for companies
+
+    insert_contact "company" "$company" "$phone"
+done
+
+# Mark all the contacts as starred
+adb shell content update --uri content://com.android.contacts/contacts --bind starred:i:1

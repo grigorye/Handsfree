@@ -1,0 +1,12 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+device="$1" # e.g. emulator-5554
+shift
+
+package="$1" # e.g. com.example.app
+shift
+
+adb -s "$device" shell monkey -p "$package" -c android.intent.category.LAUNCHER 1

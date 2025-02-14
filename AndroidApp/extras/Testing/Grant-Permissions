@@ -1,0 +1,21 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+device="$1" # e.g. emulator-5554
+shift
+
+package="$1" # e.g. com.example.app
+shift
+
+# Get a list of requested permissions (this example assumes the permission names are in the standard format)
+permissions=$(adb -s "$device" shell dumpsys package "$package" | grep -o 'android\.permission\.[A-Z_]\+')
+
+for perm in $permissions; do
+    echo "Granting $perm to $package"
+    adb -s "$device" shell pm grant "$package" "$perm" || true
+done
+
+# Grant the permission to ignore battery optimizations
+adb -s "$device" shell cmd deviceidle whitelist +"$package"
