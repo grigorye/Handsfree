@@ -1,0 +1,17 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+adb_device="$1" # e.g. localhost:5555
+shift
+
+wd=$(dirname "$0")
+
+"$wd"/Run-Tests \
+    build/iq/Handsfree-beta-widget.iq \
+    "$adb_device"
+
+"$wd"/Run-Tests \
+    build/iq/Handsfree-beta-app.iq \
+    "$adb_device"
