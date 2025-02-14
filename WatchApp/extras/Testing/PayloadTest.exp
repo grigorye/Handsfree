@@ -1,5 +1,4 @@
 set sdk_root "$env(sdk_root)"
-set src_root "$env(src_root)"
 set device "$env(device)"
 set prg "$env(prg)"
 

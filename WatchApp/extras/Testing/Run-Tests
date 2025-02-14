@@ -11,12 +11,12 @@ shift
 
 wd=$(dirname "$0")
 
-src_root="$wd"/..
+src_root="$wd"/../..
 
 adb connect "$adb_device"
 adb -s "$adb_device" forward tcp:7381 tcp:7381
 
 "$src_root"/extras/Publishing/for-each-prg-in-iq \
     "$iq" \
-    "$src_root"/Scripts/Run-prg-exp \
-    "$src_root"/Scripts/PayloadTest.exp
+    "$wd"/Run-prg-exp \
+    "$wd"/PayloadTest.exp

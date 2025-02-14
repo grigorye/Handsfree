@@ -19,7 +19,7 @@ shift
 
 wd=$(dirname "$0")
 
-export src_root="$wd/.."
+export src_root="$wd/../.."
 
 . "$src_root/sdk-env.sh"
 
