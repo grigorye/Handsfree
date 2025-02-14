@@ -1,0 +1,24 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+brew install tccutil
+
+brew install socsieng/tap/sendkeys
+sendkeys_path=$(command -v sendkeys)
+sudo tccutil --insert "$sendkeys_path"
+sudo tccutil --insert /usr/libexec/sshd-keygen-wrapper # Required when running over ssh
+
+brew install connectiq
+xattr -rd com.apple.quarantine /Applications/ConnectIQ.app
+monkeydo_path=$(command -v monkeydo)
+monkeydo_real_path=$(realpath "$monkeydo_path")
+connectiq_sdk_bin=$(dirname "$monkeydo_real_path")
+# Workaround Connect IQ simulator looking for version.txt in the same folder as .app
+ln -sf "$connectiq_sdk_bin/version.txt" /Applications
+
+brew unlink yq || true
+brew install python-yq
+
+brew install jq

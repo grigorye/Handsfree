@@ -1,0 +1,12 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+vm="$1" # e.g. "gh-sonoma-xcode-15.4:grigorye_Handsfree"
+shift
+
+orchard ssh vm "$vm" 'mkdir -p ~/Library/Application\ Support/Garmin/ConnectIQ'
+
+(cd ~/Library/Application\ Support/Garmin/ConnectIQ && tar cf - Fonts Devices) |
+    orchard ssh vm "$vm" 'tar xvf - -C ~/Library/Application\ Support/Garmin/ConnectIQ'

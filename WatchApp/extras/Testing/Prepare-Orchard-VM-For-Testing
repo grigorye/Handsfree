@@ -1,0 +1,13 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+vm="$1"
+
+wd=$(dirname "$0")
+
+"$wd"/Prepare-ConnectIQ-In-Orchard-VM "$vm"
+
+orchard ssh vm "$vm" 'bash -ls' <"$wd"/Prepare-Test-Dependencies
+orchard ssh vm "$vm" 'bash -ls' <"$wd"/Prepare-ConnectIQ-Simulator
