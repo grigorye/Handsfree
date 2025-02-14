@@ -1,0 +1,31 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+vm="$1" # e.g. gh-sonoma-xcode-15.4:grigorye_Handsfree
+shift
+
+adb_device="$1" # e.g. localhost:5555
+shift
+
+wd=$(dirname "$0")
+src_root="$wd/../.."
+
+# Get relative path to wd from src_root, to reference it in the VM.
+rel_wd=$(grealpath --relative-to="$src_root" "$wd")
+
+prefix="Handsfree-WatchApp"
+
+(cd "$src_root" && git archive --format=tar --prefix="$prefix"/ HEAD) | orchard ssh vm "$vm" 'tar xvf -'
+(cd "$src_root" && tar cf - build/iq) | orchard ssh vm "$vm" 'tar xvf -'
+
+CIQ_SDK_ROOT=$(orchard ssh vm "$vm" "bash -lxc 'dirname \$(dirname \$(realpath \$(which monkeyc)))'")
+
+orchard ssh vm "$vm" 'bash -ls' <<-END
+CIQ_SDK_ROOT=$(printf "%q" "$CIQ_SDK_ROOT")
+export CIQ_SDK_ROOT
+
+"$prefix/$rel_wd"/Run-All-Tests \
+    "$adb_device"
+END
