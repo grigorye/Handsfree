@@ -82,7 +82,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     private val callLogObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
         override fun onChange(selfChange: Boolean) {
             super.onChange(selfChange)
-            if (lastTrackedPhoneStateId != PhoneStateId.Idle) {
+            if (lastTrackedPhoneStateId != null && lastTrackedPhoneStateId != PhoneStateId.Idle) {
                 Log.d(TAG, "callLogDidChange.ignoredDuePhoneStateId: $lastTrackedPhoneStateId")
                 return
             }
