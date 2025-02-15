@@ -11,13 +11,16 @@ function adb() {
     command adb -s "$device_id" "$@"
 }
 
+RANDOM=0
+timestamp=$(date +%s)
+
 function insert_call_log_record() {
     local phone=$1
     local type_code=$2 # 1: incoming, 2: outgoing, 3: missed
     local date
-    date=$((($(date +%s) - (RANDOM % (3600 * 24 * 7 * 30))) * 1000)) # Random date in the last 30 days (in milliseconds)
-    local duration=$((RANDOM % 3600))                                # Random duration between 0 and 1 hour
-    local new=$((RANDOM % 2))                                        # Randomly mark the call as new or not
+    date=$(((timestamp - (RANDOM % (3600 * 24 * 7 * 30))) * 1000)) # Random date in the last 30 days (in milliseconds)
+    local duration=$((RANDOM % 3600))                              # Random duration between 0 and 1 hour
+    local new=$((RANDOM % 2))                                      # Randomly mark the call as new or not
 
     # Insert a call log record
     adb shell content insert \
