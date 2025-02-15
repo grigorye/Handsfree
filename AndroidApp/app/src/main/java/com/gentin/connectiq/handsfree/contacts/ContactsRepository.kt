@@ -141,7 +141,7 @@ class ContactsRepositoryImpl(
             val number = numbersForContact(contactId)[0]
             contacts.add(ContactData(contactId, displayName, number))
         }
-        return contacts.sortedBy { it.name }
+        return contacts
     }
 
     override fun displayNamesForPhoneNumber(phoneNumber: String): List<String> {

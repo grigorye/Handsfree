@@ -45,7 +45,7 @@ fun forEachContactWithPhoneNumberInFavorites(
         ),
         "${ContactsContract.Contacts.STARRED} = 1",
         null,
-        null
+        ContactsContract.Contacts.SORT_KEY_PRIMARY + " COLLATE LOCALIZED ASC"
     )
 
     contactsCursor?.apply {
