@@ -1,6 +1,6 @@
 # Show caller info
 
-Handsfree can let you see the phone number and contact name for a call, on the watch, like a usual phone. If you want to benefit from that for the calls other than outgoing, give it a couple more permissions, in addition to the [essential ones](link://onboarding_essentials).
+Handsfree can let you see the phone number and contact name for a call, on the watch, like a usual phone. If you want to benefit from that for the calls that you did not initiate on the watch, give the app a couple more permissions, in addition to the [essential ones](link://onboarding_essentials).
 
 ### [Access your phone call logs](permissions://?manifest=android.permission.READ_CALL_LOG)
 
