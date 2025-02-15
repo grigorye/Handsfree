@@ -12,7 +12,24 @@ function loadValueWithDefault(key as Lang.String, defaultValue as Lang.Object) a
 
 (:background)
 function storeValue(key as Lang.String, value as Lang.Object) as Void {
-    _3(L_APP, "storeValue", key);
+    var listValue;
+    switch (key) {
+        case Recents_valueKey:
+            listValue = (value as Recents)[RecentsField_list] as Lang.Array;
+            break;
+        case Phones_valueKey:
+            listValue = (value as Phones)[PhonesField_list] as Lang.Array;
+            break;
+        default:
+            listValue = null;
+    }
+    var valueSuffix;
+    if (listValue != null) {
+        valueSuffix = " (" + listValue.size() + ")";
+    } else {
+        valueSuffix = "";
+    }
+    _3(L_APP, "storeValue", key + valueSuffix);
     switch (key) {
         case AudioState_valueKey:
             AudioState_oldValue = Storage.getValue(key) as AudioState | Null;

@@ -4,7 +4,7 @@ typedef Recent as Lang.Dictionary<Lang.String, Lang.String or Lang.Number or Lan
 typedef RecentsList as Lang.Array<Recent>;
 typedef Recents as Lang.Dictionary<Lang.String, RecentsList | AccessIssue>;
 
-(:glance)
+(:glance, :background)
 const RecentsField_list as Lang.String = "r";
 const RecentsField_accessIssue as Lang.String = "a";
 
