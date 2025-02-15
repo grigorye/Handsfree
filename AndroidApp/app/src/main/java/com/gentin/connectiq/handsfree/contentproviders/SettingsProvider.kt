@@ -2,7 +2,6 @@ package com.gentin.connectiq.handsfree.contentproviders
 
 import android.content.ContentProvider
 import android.content.ContentValues
-import android.content.Context
 import android.content.SharedPreferences
 import android.content.UriMatcher
 import android.database.Cursor
@@ -13,6 +12,7 @@ import androidx.preference.PreferenceManager
 class SettingsProvider : ContentProvider() {
 
     companion object {
+        @Suppress("SpellCheckingInspection")
         private const val AUTHORITY = "com.gentin.connectiq.handsfree.contentproviders.SettingsProvider"
         private const val PREFS_KEY = "key"
         private const val PREFS_VALUE = "value"
@@ -32,7 +32,7 @@ class SettingsProvider : ContentProvider() {
         return true
     }
 
-    override fun insert(uri: Uri, values: ContentValues?): Uri? {
+    override fun insert(uri: Uri, values: ContentValues?): Uri {
         when (uriMatcher.match(uri)) {
             PREFS -> {
                 values?.let {
@@ -63,7 +63,7 @@ class SettingsProvider : ContentProvider() {
         selection: String?,
         selectionArgs: Array<out String>?,
         sortOrder: String?
-    ): Cursor? {
+    ): Cursor {
         when (uriMatcher.match(uri)) {
             PREFS -> {
                 val cursor = MatrixCursor(arrayOf(PREFS_KEY, PREFS_VALUE))
@@ -124,7 +124,7 @@ class SettingsProvider : ContentProvider() {
         }
     }
 
-    override fun getType(uri: Uri): String? {
+    override fun getType(uri: Uri): String {
         return when (uriMatcher.match(uri)) {
             PREFS -> "vnd.android.cursor.dir/vnd.$AUTHORITY.prefs"
             else -> throw IllegalArgumentException("Unsupported URI: $uri")
