@@ -95,7 +95,7 @@ load_file "$wd"/mock-companies.txt companies
 
 # Add a Voicemail contact
 voicemail_number="1233"
-insert_contact "person" "Voicemail" "$voicemail_number"
+insert_contact "person" "• Voicemail" "$voicemail_number"
 
 # Insert 20 personal contacts
 for i in {0..19}; do
