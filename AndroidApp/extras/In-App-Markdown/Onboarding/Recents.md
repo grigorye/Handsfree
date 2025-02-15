@@ -1,4 +1,4 @@
-# Allow recent calls
+# Share call history
 
 Handsfree lets you see and make calls to recently contacted parties, as well as track missed calls, on the watch. To allow that, give the app a couple more permissions, in addition to the [essential ones](link://onboarding_essentials).
 

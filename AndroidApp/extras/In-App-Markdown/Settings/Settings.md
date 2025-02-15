@@ -44,9 +44,9 @@
 
 🟢 [Calls can be accepted on the watch.](lk:incoming_calls_on)
 
-### [Recent calls](lk:recents)
+### [Call history](lk:recents)
 
 🔴 [Call history is not shared with the watch.](lk:recents_off)
 
-🟢 [5 recently called contacts are shared with the watch.](lk:recents_on)
+🟢 [Recently called contacts are shared with the watch.](lk:recents_on)
 
