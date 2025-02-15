@@ -1,0 +1,51 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+device_id="$1" # e.g. emulator-5554
+shift
+
+function adb() {
+    # Use given device with adb
+    command adb -s "$device_id" "$@"
+}
+
+function insert_call_log_record() {
+    local phone=$1
+    local type_code=$2 # 1: incoming, 2: outgoing, 3: missed
+    local date
+    date=$((($(date +%s) - (RANDOM % (3600 * 24 * 7 * 30))) * 1000)) # Random date in the last 30 days (in milliseconds)
+    local duration=$((RANDOM % 3600))                                # Random duration between 0 and 1 hour
+    local new=$((RANDOM % 2))                                        # Randomly mark the call as new or not
+
+    # Insert a call log record
+    adb shell content insert \
+        --uri content://call_log/calls \
+        --bind number:s:"$phone" \
+        --bind type:i:"$type_code" \
+        --bind date:l:"$date" \
+        --bind duration:i:"$duration" \
+        --bind new:i:"$new"
+}
+
+voicemail_number="1233"
+insert_call_log_record "$voicemail_number" 2
+
+# Insert 5 call log records for personal contacts
+for i in {0..4}; do
+    phone="+1-555-010$(printf "%02d" $((i + 1)))"
+    insert_call_log_record "$phone" $((RANDOM % 3 + 1))
+done
+
+# Insert 5 call log records for company contacts
+for i in {0..4}; do
+    phone="+1-555-020$(printf "%02d" $((i + 1)))"
+    insert_call_log_record "$phone" $((RANDOM % 3 + 1))
+done
+
+# Insert 5 random call log records
+for i in {0..4}; do
+    phone="+1-555-030$(printf "%02d" $((i + 1)))"
+    insert_call_log_record "$phone" $((RANDOM % 3 + 1))
+done

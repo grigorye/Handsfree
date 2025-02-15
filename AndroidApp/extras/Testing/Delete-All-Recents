@@ -1,0 +1,9 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+device_id="$1" # e.g. emulator-5554
+shift
+
+adb -s "$device_id" shell content delete --uri content://call_log/calls
