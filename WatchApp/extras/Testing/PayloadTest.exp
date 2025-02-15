@@ -57,7 +57,7 @@ while {1} {
     sleep 2
     spawn "/opt/homebrew/bin/sendkeys" "--application-name" "com.garmin.connectiq.simulator" "--characters" "<c:d:command><p:1><c:f1:command>"
     sleep 2
-    spawn monkeydo "$prg" $device
+    spawn "$sdk_root/bin/monkeydo" "$prg" "$device"
     expect {
         "Unable to connect to simulator." {
             if {$attempts > 3} {
