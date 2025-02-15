@@ -5,7 +5,7 @@ function displayTextForPhone(phone as Phone) as Lang.String {
     var number = phone[PhoneField_number] as Lang.String or Null;
     var isIncomingCall = isIncomingCallPhone(phone);
     var text;
-    if (name != null) {
+    if (name != null && !name.equals("")) {
         text = name;
     } else if (number != null) {
         text = number;
