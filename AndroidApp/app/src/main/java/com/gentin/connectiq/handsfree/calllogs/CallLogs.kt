@@ -9,6 +9,7 @@ import android.database.ContentObserver
 import android.database.Cursor
 import android.net.Uri
 import android.provider.CallLog
+import android.provider.ContactsContract
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import kotlinx.serialization.SerialName
@@ -68,7 +69,7 @@ class CallLogsRepositoryImpl(
         val cursor = cursor(contentResolver) ?: throw AssertionError("callLogs are not accessible")
         val entries = ArrayList<CallLogEntry>()
         while (cursor.moveToNext()) {
-            val entry = callLogEntry(cursor)
+            val entry = callLogEntry(this, cursor)
             entries.add(entry)
         }
         cursor.close()
@@ -76,7 +77,7 @@ class CallLogsRepositoryImpl(
     }
 }
 
-private fun callLogEntry(cursor: Cursor): CallLogEntry {
+private fun callLogEntry(context: Context, cursor: Cursor): CallLogEntry {
     cursor.apply {
         val numberColumn = getColumnIndex(CallLog.Calls.NUMBER)
         val cachedNameColumn = getColumnIndex(CallLog.Calls.CACHED_NAME)
@@ -87,12 +88,44 @@ private fun callLogEntry(cursor: Cursor): CallLogEntry {
 
         val phoneNumber = getString(numberColumn)
         val stringName = getString(cachedNameColumn)
-        val name = if (stringName == "") { null } else { stringName }
+        val name = if (stringName == "" || stringName == null) {
+            contactName(context, phoneNumber) ?: stringName
+        } else {
+            stringName
+        }
         val date = getLong(dateColumn)
         val type = getInt(typeColumn)
         val duration = getLong(durationColumn)
         val isNew = getInt(isNewColumn)
 
         return CallLogEntry(phoneNumber, name, type, date, duration, isNew)
+    }
+}
+
+private fun contactName(context: Context, phoneNumber: String): String? {
+    val hasPermission = ActivityCompat.checkSelfPermission(
+        context,
+        Manifest.permission.READ_CONTACTS
+    ) == PackageManager.PERMISSION_GRANTED
+    if (!hasPermission) {
+        return null
+    }
+
+    val contentResolver = context.contentResolver
+    val lookupUri = Uri.withAppendedPath(
+        ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
+        Uri.encode(phoneNumber)
+    )
+    val projection = arrayOf(ContactsContract.PhoneLookup.DISPLAY_NAME)
+    contentResolver.query(lookupUri, projection, null, null, null).use { cursor ->
+        if (cursor == null) {
+            return null
+        }
+        if (!cursor.moveToFirst()) {
+            return null
+        }
+        val displayNameColumn = cursor.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME)
+        val displayName: String = cursor.getString(displayNameColumn)
+        return displayName
     }
 }
