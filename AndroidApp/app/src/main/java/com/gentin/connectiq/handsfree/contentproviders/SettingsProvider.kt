@@ -45,7 +45,7 @@ class SettingsProvider : ContentProvider() {
                     when (value) {
                         is String -> editor.putString(key, value)
                         is Boolean -> editor.putBoolean(key, value)
-                        else -> throw IllegalArgumentException("Unsupported value type: ${value?.javaClass}")
+                        else -> throw IllegalArgumentException("Unsupported value type: ${value.javaClass}")
                     }
                     editor.apply()
                     context?.contentResolver?.notifyChange(uri, null)
