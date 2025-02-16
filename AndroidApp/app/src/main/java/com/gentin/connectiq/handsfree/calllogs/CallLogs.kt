@@ -103,6 +103,9 @@ private fun callLogEntry(context: Context, cursor: Cursor): CallLogEntry {
 }
 
 private fun contactName(context: Context, phoneNumber: String): String? {
+    if (phoneNumber == "") {
+        return null
+    }
     val hasPermission = ActivityCompat.checkSelfPermission(
         context,
         Manifest.permission.READ_CONTACTS
