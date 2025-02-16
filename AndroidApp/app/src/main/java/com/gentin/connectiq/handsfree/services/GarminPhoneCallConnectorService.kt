@@ -297,16 +297,32 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             incomingDisplayNames
         )
         lastTrackedPhoneState = phoneState
+        lastTrackedAudioState = null
         l.outgoingMessageDispatcher.sendPhoneState(everywhereExactly, phoneState)
 
         if (phoneState.stateId == PhoneStateId.Idle) {
             l.accountAudioState()
-        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-            if (stateExtra == TelephonyManager.EXTRA_STATE_OFFHOOK) {
+        } else if (stateExtra == TelephonyManager.EXTRA_STATE_OFFHOOK) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
                 // Workaround audio route not yet up to date.
                 val handler = Handler(Looper.getMainLooper())
                 handler.postDelayed({
                     l.accountAudioState()
+                }, 1000)
+            } else {
+                // We assume that A) audio route would be changed (automatically) soon after
+                // call start - and hence delaying accounting the state till that moment,
+                // for performance reasons.
+                // However, it's also possible that B) it won't happen, e.g. when the ear-speaker
+                // is used for the call. To make that case also accounted, we make a pause we
+                // check if the audio state was accounted (due to A) after a delay - if that did
+                // not happen we account the audio state "manually".
+                val handler = Handler(Looper.getMainLooper())
+                handler.postDelayed({
+                    if (lastTrackedAudioState == null) {
+                        Log.d(TAG, "audioStateWasNotAccountedAutomatically")
+                        l.accountAudioState()
+                    }
                 }, 1000)
             }
         } else {
