@@ -8,6 +8,8 @@ shift
 
 wd=$(dirname "$0")
 
+"$wd"/Dump-Test-Data "$adb_device"
+
 "$wd"/Run-Tests \
     build/iq/Handsfree-beta-widget.iq \
     "$adb_device"
