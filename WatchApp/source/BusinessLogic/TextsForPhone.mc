@@ -13,7 +13,7 @@ function displayTextForPhone(phone as Phone) as Lang.String {
         if (isIncomingCall) {
             text = "Incoming Call";
         } else {
-            text = "Call in Progress";
+            text = "In Progress";
         }
     }
     return text;

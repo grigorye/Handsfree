@@ -57,7 +57,7 @@ class WidgetView extends WatchUi.View {
                 if (isIncomingCall) {
                     callStatusLine = "Incoming call";
                 } else {
-                    callStatusLine = "Call in progress";
+                    callStatusLine = "In Progress";
                 }
                 lines.add(callStatusLine);
 
