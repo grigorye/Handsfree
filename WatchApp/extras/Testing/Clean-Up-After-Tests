@@ -4,3 +4,5 @@ set -x
 set -euo pipefail
 
 killall simulator || true
+
+osascript -e 'tell app "System Events" to click button "OK" of every window of process "UserNotificationCenter"'
