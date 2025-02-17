@@ -19,3 +19,5 @@ adb connect "$adb_device"
 "$wd"/Run-Tests \
     build/iq/Handsfree-beta-app.iq \
     "$adb_device"
+
+"$wd"/Clean-Up-After-Tests "$adb_device"
