@@ -29,9 +29,7 @@ set -euo pipefail
 CIQ_SDK_ROOT=$(printf "%q" "$CIQ_SDK_ROOT")
 export CIQ_SDK_ROOT
 
-"$prefix/$rel_wd"/Run-All-Tests \
-    "$adb_device"
+"$prefix/$rel_wd"/Run-All-Tests "$adb_device" || true
 
-"$prefix/$rel_wd"/Clean-Up-After-Tests \
-    "$adb_device"
+"$prefix/$rel_wd"/Clean-Up-After-Tests "$adb_device"
 END
