@@ -23,6 +23,9 @@ prefix="Handsfree-WatchApp"
 CIQ_SDK_ROOT=$(orchard ssh vm "$vm" "bash -lxc 'dirname \$(dirname \$(realpath \$(which monkeyc)))'")
 
 orchard ssh vm "$vm" 'bash -ls' <<-END
+set -x
+set -euo pipefail
+
 CIQ_SDK_ROOT=$(printf "%q" "$CIQ_SDK_ROOT")
 export CIQ_SDK_ROOT
 
