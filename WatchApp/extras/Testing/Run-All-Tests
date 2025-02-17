@@ -8,6 +8,8 @@ shift
 
 wd=$(dirname "$0")
 
+adb connect "$adb_device"
+
 "$wd"/Dump-Test-Data "$adb_device"
 
 "$wd"/Run-Tests \
