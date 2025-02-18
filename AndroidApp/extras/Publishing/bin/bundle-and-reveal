@@ -6,25 +6,10 @@ set -euo pipefail
 wd=$(dirname "$0")
 src_root="$wd"/../../..
 
-if test "${GRADLE_EXTRAS_SOURCE:-}" != ""; then
-    # shellcheck disable=SC1090
-    source "$GRADLE_EXTRAS_SOURCE"
-fi
-
-gradle_version=$(cat "$src_root"/gradle/wrapper/gradle-wrapper.properties | grep '^distributionUrl=' | sed 's/^.*\/gradle-\([0-9.]*\)-bin\.zip$/\1/')
-gradle_distribution_sha256_sum=$(cat "$src_root"/gradle/wrapper/gradle-wrapper.properties | grep '^distributionSha256Sum=' | cut -d '=' -f 2)
-
-gradle wrapper \
-    --project-dir "$src_root" \
-    --gradle-version "$gradle_version" \
-    --gradle-distribution-sha256-sum "$gradle_distribution_sha256_sum"
-
-"$src_root"/gradlew \
-    --project-dir "$src_root" \
+"$wd"/run-gradle \
     clean \
     bundleGooglePlay \
-    assembleSelfHosted \
-    ${GRADLE_EXTRA_ARGS+"${GRADLE_EXTRA_ARGS[@]}"}
+    assembleSelfHosted
 
 open -R "$src_root"/app/build/outputs/bundle/googlePlayRelease/app-googlePlay-release.aab
 open -R "$src_root"/app/build/outputs/apk/selfHosted/release/app-selfHosted-release.apk
