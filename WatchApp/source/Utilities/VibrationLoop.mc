@@ -20,6 +20,11 @@ class VibrationLoop {
     }
 
     function reduceProgram() as Void {
+        var deviceSettings = System.getDeviceSettings();
+        var vibrationEnabled = !(deviceSettings has :doNotDisturb && deviceSettings.doNotDisturb);
+        if (debugVibra) {
+            _3(L_VIBRA, "vibrationEnabled", vibrationEnabled);
+        }
         if (debugVibra) { _3(L_VIBRA, "tail", tail); }
         var instructionEnd = tail.find(";");
         var instruction = substring(tail, 0, instructionEnd);
@@ -38,6 +43,9 @@ class VibrationLoop {
             case "v": {
                 var duration = 1000 * (substring(instruction, 1, null).toNumber() as Lang.Number);
                 if (Attention has :vibrate) {
+                    if (!vibrationEnabled) {
+                        return;
+                    }
                     Attention.vibrate([new Attention.VibeProfile(100, duration)]);
                 }
                 if (debugVibra) { _3(L_VIBRA, "vibrate", duration); }
