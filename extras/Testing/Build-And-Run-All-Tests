@@ -1,0 +1,24 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+vm="$1" # e.g. gh-sonoma-xcode-15.4:grigorye_Handsfree
+shift
+
+adb_device="$1" # e.g. localhost:5555 or emulator-5554
+shift
+
+wd=$(dirname "$0")
+src_root="$wd"/../..
+
+package="com.gentin.connectiq.handsfree"
+
+adb connect "$adb_device"
+env ANDROID_SERIAL="$adb_device" "$src_root"/AndroidApp/extras/Publishing/bin/run-gradle installSelfHostedDebug
+adb -s "$adb_device" shell am set-debug-app --persistent "$package" false
+adb -s "$adb_device" shell monkey -p "$package" -c android.intent.category.LAUNCHER 1
+adb kill-server
+"$src_root"/WatchApp/build-widget
+"$src_root"/WatchApp/build-app
+"$src_root"/WatchApp/extras/Testing/Run-All-Tests-In-VM "$vm" "$adb_device"
