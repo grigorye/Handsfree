@@ -42,6 +42,7 @@ pronowifi
 recents
 Recents
 Roboto
+semioctagon
 sendkeys
 socsieng
 SPKR
