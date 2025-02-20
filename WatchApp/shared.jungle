@@ -30,9 +30,11 @@ fenix7xpronowifi.personality = $(fenix7xpronowifi.personality);$(fenix7_personal
 fenix7xpronowifi.resourcePath = $(fenix7xpronowifi.resourcePath);$(fenix7_resourcePath_extras)
 
 instinct_personality_extras = ./traits/glances2022;./traits/static-glances
-instinct2.personality = $(instinct2.personality);$(instinct_personality_extras)
-instinct2s.personality = $(instinct2s.personality);$(instinct_personality_extras)
-instinct2x.personality = $(instinct2x.personality);$(instinct_personality_extras)
+instinct_resourcePath_extras = ./traits/semioctagon
+instinct2.personality = $(instinct2.personality);$(instinct_resourcePath_extras)
+instinct2.resourcePath = $(instinct2.resourcePath);$(instinct_resourcePath_extras)
+instinct2s.personality = $(instinct2s.personality);$(instinct_resourcePath_extras)
+instinct2x.personality = $(instinct2x.personality);$(instinct_resourcePath_extras)
 
 edge_personality_extras = ./traits/glances2022
 edge_resourcePath_extras = ./traits/edge;./traits/color
