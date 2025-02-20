@@ -1,3 +1,5 @@
 <resources>
-    <bitmap id="LauncherIcon" filename="../extras/Icons/LauncherIcon-bw-with-inset.svg" />
+    <bitmap id="LauncherIcon" filename="../../extras/Icons/LauncherIcon-bw-with-inset.svg"
+        automaticPalette="true" dithering="none">
+    </bitmap>  
 </resources>
