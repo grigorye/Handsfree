@@ -95,6 +95,7 @@ module BackgroundSettings {
         return Properties.getValue(Settings_broadcastListeningK) as Lang.Boolean;
     }
 
+    (:glance)
     function isOpenAppOnIncomingCallEnabled() as Lang.Boolean {
         return Properties.getValue("openAppOnIncomingCall") as Lang.Boolean;
     }
