@@ -15,7 +15,9 @@ class ScheduleCallTask extends Communications.ConnectionListener {
     }
 
     function launch() as Void {
-        preflightAllReadiness();
+        if (!preflightAllReadiness()) {
+            return;
+        }
         var msg = {
             cmdK => Cmd_call,
             CallArgsK_number => getPhoneNumber(phone)
