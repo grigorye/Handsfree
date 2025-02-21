@@ -1,4 +1,5 @@
 import Toybox.WatchUi;
+import Toybox.Lang;
 
 module SettingsScreen {
 
@@ -15,7 +16,7 @@ class View extends WatchUi.Menu2 {
         return new ToggleMenuItem(
             "Incoming Calls",
             {
-                :enabled => BackgroundSettings.isIncomingOpenAppViaCompanionEnabled ? "Vibration/Alert" : "Alert",
+                :enabled => incomingCallsEnabledMenuItemTitle(),
                 :disabled => "Silent"
             },
             :openAppOnIncomingCall,
@@ -55,6 +56,21 @@ class View extends WatchUi.Menu2 {
         (getItem(findItemById(:optimisticCallHandling)) as WatchUi.ToggleMenuItem).setEnabled(AppSettings.isOptimisticCallHandlingEnabled());
         (getItem(findItemById(:broadcastListening)) as WatchUi.ToggleMenuItem).setEnabled(BackgroundSettings.isBroadcastListeningEnabled());
         workaroundNoRedrawForMenu2(self);
+    }
+}
+
+(:lowMemory)
+function incomingCallsEnabledMenuItemTitle() as Lang.String {
+    return BackgroundSettings.isIncomingOpenAppViaCompanionEnabled ? "Vibration/Alert" : "Alert";
+}
+
+(:noLowMemory)
+function incomingCallsEnabledMenuItemTitle() as Lang.String {
+    var readiness = ReadinessInfoManip.readiness(ReadinessField_incomingCalls);
+    if (!readiness.equals(ReadinessValue_ready)) {
+        return "On (Not ready)";
+    } else {
+        return BackgroundSettings.isIncomingOpenAppViaCompanionEnabled ? "Vibration/Alert" : "Alert";
     }
 }
 

@@ -66,10 +66,15 @@ class GlanceView extends WatchUi.GlanceView {
                         subtitle = "No call control";
                     } else if (!BackgroundSettings.isOpenAppOnIncomingCallEnabled()) {
                         subtitle = "Idle, Silent";
-                    } else if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
-                        subtitle = sourceVersion;
                     } else {
-                        subtitle = "Idle";
+                        var readiness = ReadinessInfoManip.readiness(ReadinessField_incomingCalls);
+                        if (!readiness.equals(ReadinessValue_ready)) {
+                            subtitle = "Idle, Not ready";
+                        } else if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
+                            subtitle = sourceVersion;
+                        } else {
+                            subtitle = "Idle";
+                        }
                     }
                 }
             }
