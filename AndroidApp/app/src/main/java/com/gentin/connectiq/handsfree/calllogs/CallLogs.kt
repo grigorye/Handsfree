@@ -26,6 +26,7 @@ data class CallLogEntry(
 )
 
 interface CallLogsRepository {
+    fun invalidatePermissions()
     fun subscribe(observer: ContentObserver)
     fun unsubscribe(observer: ContentObserver)
     fun callLog(): List<CallLogEntry>
@@ -41,6 +42,22 @@ class CallLogsRepositoryImpl(
         private val TAG = CallLogsRepositoryImpl::class.java.simpleName
     }
 
+    private val delayedObservers = ArrayList<ContentObserver>()
+
+    override fun invalidatePermissions() {
+        val hasPermission = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.READ_CALL_LOG
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (hasPermission) {
+            for (observer in delayedObservers) {
+                subscribeIgnoringPermissions(observer)
+            }
+            delayedObservers.clear()
+        }
+    }
+
     override fun subscribe(observer: ContentObserver) {
         val hasPermission = ActivityCompat.checkSelfPermission(
             this,
@@ -48,13 +65,19 @@ class CallLogsRepositoryImpl(
         ) == PackageManager.PERMISSION_GRANTED
 
         if (!hasPermission) {
+            delayedObservers.add(observer)
             Log.e(TAG, "notPermittedToReadCallLog")
             return
         }
+        subscribeIgnoringPermissions(observer)
+    }
+
+    private fun subscribeIgnoringPermissions(observer: ContentObserver) {
         contentResolver.registerContentObserver(callUri, true, observer)
     }
 
     override fun unsubscribe(observer: ContentObserver) {
+        delayedObservers.remove(observer)
         contentResolver.unregisterContentObserver(observer)
     }
 

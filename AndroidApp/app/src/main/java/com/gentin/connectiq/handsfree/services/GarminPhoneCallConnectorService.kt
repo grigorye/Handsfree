@@ -177,6 +177,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             ACTIVATE_AND_RECONNECT -> {
                 startStats.other += 1
                 l.contactsRepository.invalidatePermissions()
+                l.callLogRepository.invalidatePermissions()
                 garminConnector.terminate()
                 garminConnector.launch()
                 START_REDELIVER_INTENT
