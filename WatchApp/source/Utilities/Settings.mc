@@ -57,6 +57,16 @@ module AppSettings {
     }
     const isExitToSystemAfterCallCompletionEnabled as Lang.Boolean = true;
 
+    (:noLowMemory, :glance)
+    function isHeadsetReportEnabled() as Lang.Boolean {
+        return Properties.getValue("reportHeadset") as Lang.Boolean;
+    }
+
+    (:lowMemory)
+    function isHeadsetReportEnabled() as Lang.Boolean {
+        return true;
+    }
+
     (:noLowMemory)
     const isBeepOnCommunicationEnabled as Lang.Boolean =
         Properties.getValue(Settings_beepOnCommK) as Lang.Boolean;

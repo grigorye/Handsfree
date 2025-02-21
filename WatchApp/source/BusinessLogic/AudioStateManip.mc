@@ -28,7 +28,7 @@ function updateUIForAudioStateInApp(audioState as AudioState) as Void {
     } else {
         needToast = true;
     }
-    if (needToast) {
+    if (needToast && AppSettings.isHeadsetReportEnabled()) {
         if (WatchUi has :showToast) {
             if (isHeadsetConnected != null && isHeadsetConnected && oldAudioStateImp == null) {
                 // do nothing

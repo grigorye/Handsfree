@@ -23,6 +23,7 @@
         <property id="followUpCommDelay" type="number">300</property>
         <property id="broadcastListening" type="boolean">true</property>
         <property id="showPhoneNumbers" type="boolean">false</property>
+        <property id="reportHeadset" type="boolean">true</property>
     </properties>
 
     <strings>
@@ -105,6 +106,9 @@
         <string id="showPhoneNumbers" scope="settings">
             Show phone numbers
         </string>
+        <string id="reportHeadset" scope="settings">
+            Report status of headset
+        </string>
     </strings>
 
     <settings>
@@ -113,6 +117,10 @@
         </setting>
         <setting propertyKey="@Properties.openAppOnIncomingCall"
             title="@Strings.openAppOnIncomingCall">
+            <settingConfig type="boolean" />
+        </setting>
+        <setting propertyKey="@Properties.reportHeadset"
+            title="@Strings.reportHeadset">
             <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.forceLargeFonts" title="@Strings.forceLargeFonts">

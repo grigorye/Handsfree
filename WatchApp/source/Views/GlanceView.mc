@@ -125,7 +125,7 @@ function defaultTitle(phoneConnected as Lang.Boolean, isCompanionUpToDate as Lan
             defaultTitle = embeddingHeadsetStatusRep(statsRep);
         } else {
             var callControlReady = ReadinessInfoManip.readiness(ReadinessField_essentials).equals(ReadinessValue_ready);
-            if (isCompanionUpToDate && callControlReady) {
+            if (isCompanionUpToDate && callControlReady && AppSettings.isHeadsetReportEnabled()) {
                 var headsetStatus = headsetStatusHumanReadable();
                 defaultTitle = headsetStatus != null ? headsetStatus : defaultTitle;
             }
