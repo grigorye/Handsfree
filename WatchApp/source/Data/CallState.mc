@@ -20,8 +20,11 @@ function initialCallState() as CallState {
 }
 
 (:background, :glance)
+const Storage_callState = "callState.v1";
+
+(:background, :glance)
 function loadCallState() as CallState or Null {
-    var callStateData = Storage.getValue("callState.v1") as CallStateData or Null;
+    var callStateData = Storage.getValue(Storage_callState) as CallStateData or Null;
     if (callStateData == null) {
         if (debug) { _2(L_CALL_STATE, "callStateDataIsNull"); }
         return null;
@@ -39,7 +42,7 @@ function loadCallState() as CallState or Null {
 (:background)
 function saveCallState(callState as CallState) as Void {
     if (debug) { _3(L_CALL_STATE, "saveCallState", callState); }
-    Storage.setValue("callState.v1", encodeCallState(callState));
+    Storage.setValue(Storage_callState, encodeCallState(callState));
 }
 
 (:background)

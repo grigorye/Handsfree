@@ -5,9 +5,12 @@ import Toybox.Lang;
 (:glance)
 const L_RECENTS_STORAGE as LogComponent = "recents";
 
+(:glance)
+const Storage_lastRecentsCheckDate = "lastRecentsCheckDate.v1";
+
 (:inline, :glance)
 function getLastRecentsCheckDate() as Lang.Number {
-    var loadedLastRecentsCheckDate = Storage.getValue("lastRecentsCheckDate") as Lang.Number or Null;
+    var loadedLastRecentsCheckDate = Storage.getValue(Storage_lastRecentsCheckDate) as Lang.Number or Null;
     if (loadedLastRecentsCheckDate == null) {
         loadedLastRecentsCheckDate = 0;
     }
@@ -17,5 +20,5 @@ function getLastRecentsCheckDate() as Lang.Number {
 (:inline)
 function setLastRecentsCheckDate(lastRecentsCheckDate as Lang.Number) as Void {
     if (debug) { _3(L_RECENTS_STORAGE, "setLastRecentsCheckDate", lastRecentsCheckDate); }
-    Storage.setValue("lastRecentsCheckDate", lastRecentsCheckDate);
+    Storage.setValue(Storage_lastRecentsCheckDate, lastRecentsCheckDate);
 }

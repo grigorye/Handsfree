@@ -19,6 +19,9 @@ function canSaveInBackground() as Lang.Boolean {
 }
 
 (:background)
+const Storage_backgroundSystemStats = "backgroundSystemStats.v1";
+
+(:background)
 function saveBackgroundSystemStats() as Void {
     if (!canSaveInBackground()) {
         if (minDebug) { _3(L_APP_EXTRA, "canSaveInBackground", false); }
@@ -30,11 +33,11 @@ function saveBackgroundSystemStats() as Void {
         "t" => stats.totalMemory,
         "u" => stats.usedMemory
     };
-    Storage.setValue("backgroundSystemStats", statsRep as Application.PropertyValueType);
+    Storage.setValue(Storage_backgroundSystemStats, statsRep as Application.PropertyValueType);
 }
 
 function getBackgroundSystemStats() as Lang.Dictionary<Lang.String, Lang.Number> {
-    var savedStats = Storage.getValue("backgroundSystemStats") as Lang.Dictionary<Lang.String, Lang.Number> or Null;
+    var savedStats = Storage.getValue(Storage_backgroundSystemStats) as Lang.Dictionary<Lang.String, Lang.Number> or Null;
     if (savedStats == null) {
         return {
             "f" => 0,

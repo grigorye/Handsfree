@@ -11,8 +11,11 @@ function setHitsCount(hitsCount as Lang.Number) as Void {
 }
 
 (:background, :glance, :noLowMemory)
+const Storage_hitsCount = "hitsCount.v1";
+
+(:background, :glance, :noLowMemory)
 function getHitsCount() as Lang.Number {
-    var hitsCount = Storage.getValue("hitsCount.v1") as Lang.Number or Null;
+    var hitsCount = Storage.getValue(Storage_hitsCount) as Lang.Number or Null;
     if (hitsCount != null) {
         return hitsCount;
     } else {
@@ -23,5 +26,5 @@ function getHitsCount() as Lang.Number {
 (:background, :noLowMemory)
 function saveHitsCount(hitsCount as Lang.Number) as Void {
     if (debug) { _3(L_HITS_STORAGE, "saveHitsCount", hitsCount); }
-    Storage.setValue("hitsCount.v1", hitsCount);
+    Storage.setValue(Storage_hitsCount, hitsCount);
 }

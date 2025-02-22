@@ -5,11 +5,17 @@ import Toybox.Lang;
 function trackRawRemoteMessageReceived() as Void {
 }
 
+(:background, :glance, :noLowMemory)
+const Storage_rawRemoteMessagesCount = "rawRemoteMessagesCount.v1";
+
+(:background, :glance, :noLowMemory)
+const Storage_validRemoteMessagesCount = "validRemoteMessagesCount.v1";
+
 (:background, :noLowMemory)
 function trackRawRemoteMessageReceived() as Void {
     var rawRemoteMessagesCount = getRawRemoteMessagesCount();
     rawRemoteMessagesCount++;
-    Storage.setValue("rawRemoteMessagesCount.v1", rawRemoteMessagesCount);
+    Storage.setValue(Storage_rawRemoteMessagesCount, rawRemoteMessagesCount);
     statsDidChange();
 }
 
@@ -17,13 +23,13 @@ function trackRawRemoteMessageReceived() as Void {
 function trackValidRemoteMessageReceived() as Void {
     var validRemoteMessagesCount = getValidRemoteMessagesCount();
     validRemoteMessagesCount++;
-    Storage.setValue("validRemoteMessagesCount.v1", validRemoteMessagesCount);
+    Storage.setValue(Storage_validRemoteMessagesCount, validRemoteMessagesCount);
     statsDidChange();
 }
 
 (:background, :glance, :noLowMemory)
 function getRawRemoteMessagesCount() as Lang.Number {
-    var rawRemoteMessagesCount = Storage.getValue("rawRemoteMessagesCount.v1") as Lang.Number or Null;
+    var rawRemoteMessagesCount = Storage.getValue(Storage_rawRemoteMessagesCount) as Lang.Number or Null;
     if (rawRemoteMessagesCount == null) {
         rawRemoteMessagesCount = 0;
     }
@@ -32,7 +38,7 @@ function getRawRemoteMessagesCount() as Lang.Number {
 
 (:background, :glance, :noLowMemory)
 function getValidRemoteMessagesCount() as Lang.Number {
-    var validRemoteMessagesCount = Storage.getValue("validRemoteMessagesCount.v1") as Lang.Number or Null;
+    var validRemoteMessagesCount = Storage.getValue(Storage_validRemoteMessagesCount) as Lang.Number or Null;
     if (validRemoteMessagesCount == null) {
         validRemoteMessagesCount = 0;
     }

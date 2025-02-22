@@ -5,8 +5,11 @@ import Toybox.Lang;
 typedef CallStates as Lang.Array<CallStateImp>;
 
 (:background)
+const Storage_optimisticCallStates = "optimisticCallStates.v1";
+
+(:background)
 function getOptimisticCallStates() as CallStates {
-    var encodedCallStates = Storage.getValue("optimisticCallStates.v1") as [Lang.Dictionary<Lang.String, Lang.Object>] or Null;
+    var encodedCallStates = Storage.getValue(Storage_optimisticCallStates) as [Lang.Dictionary<Lang.String, Lang.Object>] or Null;
     if (encodedCallStates != null) {
         return decodeOptimisticCallStates(encodedCallStates);
     } else {
@@ -17,7 +20,7 @@ function getOptimisticCallStates() as CallStates {
 (:background)
 function setOptimisticCallStates(callStates as CallStates) as Void {
     if (debug) { _3(L_CALL_STATE, "setOptimisticCallStates", callStates); }
-    Storage.setValue("optimisticCallStates.v1", encodeOptimisticCallStates(callStates));
+    Storage.setValue(Storage_optimisticCallStates, encodeOptimisticCallStates(callStates));
 }
 
 (:background)

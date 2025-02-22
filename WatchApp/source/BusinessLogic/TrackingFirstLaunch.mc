@@ -5,10 +5,13 @@ import Toybox.Lang;
 module Req {
 
 (:background)
+const Storage_everLaunched = "everLaunched.v1";
+
+(:background)
 function trackFirstLaunch() as Void {
-    var everLaunched = Storage.getValue("everLaunched.v1") as Lang.Boolean or Null;
+    var everLaunched = Storage.getValue(Storage_everLaunched) as Lang.Boolean or Null;
     if (everLaunched == null) {
-        Storage.setValue("everLaunched.v1", true);
+        Storage.setValue(Storage_everLaunched, true);
         didFirstLaunch();
     }
 }
