@@ -112,6 +112,17 @@
     </strings>
 
     <settings>
+        <setting propertyKey="@Properties.forceLogAll"
+            title="@Strings.forceLogAll">
+            <settingConfig type="boolean" />
+        </setting>
+        <setting propertyKey="@Properties.showPhoneNumbers" title="@Strings.showPhoneNumbers">
+            <settingConfig type="boolean" />
+        </setting>
+        <setting propertyKey="@Properties.incomingCallVibration"
+            title="@Strings.incomingCallVibration">
+            <settingConfig type="alphaNumeric" />
+        </setting>
         <setting propertyKey="@Properties.broadcastListening" title="@Strings.broadcastListening">
             <settingConfig type="boolean" />
         </setting>
@@ -140,9 +151,6 @@
             title="@Strings.optimisticCallHandling">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.showPhoneNumbers" title="@Strings.showPhoneNumbers">
-            <settingConfig type="boolean" />
-        </setting>
         <setting propertyKey="@Properties.beepOnComm" title="@Strings.beepOnComm">
             <settingConfig type="boolean" />
         </setting>
@@ -161,14 +169,6 @@
         </setting>
         <setting propertyKey="@Properties.followUpCommDelay" title="@Strings.followUpCommDelay">
             <settingConfig type="numeric" />
-        </setting>
-        <setting propertyKey="@Properties.incomingCallVibration"
-            title="@Strings.incomingCallVibration">
-            <settingConfig type="alphaNumeric" />
-        </setting>
-        <setting propertyKey="@Properties.forceLogAll"
-            title="@Strings.forceLogAll">
-            <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.forcedLogComponents"
             title="@Strings.forcedLogComponents">
