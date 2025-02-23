@@ -44,8 +44,13 @@ class Router {
                         if (debug) { _2(L_ROUTER, "routingToCallInProgress"); }
                         var phone = (newState as CallInProgress).phone;
                         if (debug) { _3(L_ROUTER, "pushingOutPhones", true); }
-                        VT.popToView(V_comm, WatchUi.SLIDE_IMMEDIATE);
-                        VT.pushView(V_callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_LEFT);
+                        VT.popToViewAndPushView(
+                            V_comm,
+                            V_callInProgress,
+                            new CallInProgressView(phone, isOptimisticCallState(newState)),
+                            new CallInProgressViewDelegate(phone),
+                            WatchUi.SLIDE_LEFT
+                        );
                         break;
                     }
                     default:
@@ -62,8 +67,13 @@ class Router {
                     case instanceof CallInProgress: {
                         if (debug) { _2(L_ROUTER, "routingToCallInProgress"); }
                         var phone = (newState as CallInProgress).phone;
-                        VT.popToView(V_comm, WatchUi.SLIDE_IMMEDIATE);
-                        VT.pushView(V_callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
+                        VT.popToViewAndPushView(
+                            V_comm,
+                            V_callInProgress,
+                            new CallInProgressView(phone, isOptimisticCallState(newState)),
+                            new CallInProgressViewDelegate(phone),
+                            WatchUi.SLIDE_IMMEDIATE
+                        );
                         break;
                     }
                     case instanceof Idle: {
@@ -98,9 +108,13 @@ class Router {
                             view.updateFromPhone(phone, isOptimisticCallState(newState));
                             delegate.phone = phone;
                         } else {
-                            VT.popToView(V_comm, WatchUi.SLIDE_IMMEDIATE);
-                            var newCallInProgressView = new CallInProgressView(phone, isOptimisticCallState(newState));
-                            VT.pushView(V_callInProgress, newCallInProgressView, new CallInProgressViewDelegate(phone), WatchUi.SLIDE_LEFT);
+                            VT.popToViewAndPushView(
+                                V_comm,
+                                V_callInProgress,
+                                new CallInProgressView(phone, isOptimisticCallState(newState)),
+                                new CallInProgressViewDelegate(phone),
+                                WatchUi.SLIDE_LEFT
+                            );
                         }
                         break;
                     }
@@ -134,8 +148,13 @@ class Router {
                                 VT.popView(WatchUi.SLIDE_IMMEDIATE);
                             } while (!VT.topViewIs(V_callInProgress));
                         } else {
-                            VT.popToView(V_comm, WatchUi.SLIDE_IMMEDIATE);
-                            VT.pushView(V_callInProgress, new CallInProgressView(phone, isOptimisticCallState(newState)), new CallInProgressViewDelegate(phone), WatchUi.SLIDE_IMMEDIATE);
+                            VT.popToViewAndPushView(
+                                V_comm,
+                                V_callInProgress,
+                                new CallInProgressView(phone, isOptimisticCallState(newState)),
+                                new CallInProgressViewDelegate(phone),
+                                WatchUi.SLIDE_IMMEDIATE
+                            );
                         }
                         break;
                     }
