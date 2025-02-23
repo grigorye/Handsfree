@@ -31,9 +31,11 @@ function getPhoneNumber(phone as Phone) as Lang.String or Null {
     return phone[PhoneField_number] as Lang.String or Null;
 }
 
-(:inline)
-function dropRingingFromPhone(phone as Phone) as Void {
-    phone[PhoneField_ringing] = false;
+(:inline, :background, :glance)
+function droppingRingingFromPhone(phone as Phone) as Phone {
+    var adjustedPhone = clonePhone(phone);
+    adjustedPhone[PhoneField_ringing] = false;
+    return adjustedPhone;
 }
 
 (:inline, :background, :glance)
@@ -41,4 +43,16 @@ function isIncomingCallPhone(phone as Phone) as Lang.Boolean {
     var ringing = phone[PhoneField_ringing] as Lang.Boolean or Null;
     var isIncoming = (ringing != null) && (ringing as Lang.Boolean);
     return isIncoming;
+}
+
+(:inline, :background, :glance)
+function clonePhone(source as Phone) as Phone {
+    var clone = {} as Phone;
+    var keys = source.keys();
+    for (var i = 0; i < keys.size(); i++) {
+        var key = keys[i];
+        var value = source[key];
+        clone[key] = value;
+    }
+    return clone;
 }

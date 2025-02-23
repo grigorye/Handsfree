@@ -50,7 +50,7 @@ class Accepting extends CallActing {
     }
 
     function wouldBeNextState() as CallState {
-        return new CallInProgress(phone);
+        return new CallInProgress(droppingRingingFromPhone(phone));
     }
 
     function stateId() as Lang.String {
