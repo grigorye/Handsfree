@@ -124,9 +124,13 @@ function getActiveAudioDeviceAbbreviation(audioState as AudioState) as Lang.Stri
 function updateCallInProgressView() as Void {
     var callInProgressView = VT.viewWithTag(V_callInProgress) as CallInProgressView | Null;
     if (callInProgressView != null) {
-        var callInProgressState = getCallState() as CallInProgress | Null;
-        if (callInProgressState != null) {
-            callInProgressView.updateFromPhone(callInProgressState.phone, isOptimisticCallState(callInProgressState));
+        var callState = getCallState();
+        if (callState instanceof CallInProgress) {
+            callInProgressView.updateFromPhone((callState as CallInProgress).phone, isOptimisticCallState(callState));
+        } if (callState instanceof CallActing) {
+            if (debug) { _3(L_APP, "actingWhileCallInProgress", callState); }
+        } else {
+            if (debug) { _3(L_APP, "ignoredCallStateForCallInProgressView", callState); }
         }
     }
 }
