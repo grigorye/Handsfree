@@ -75,6 +75,13 @@ function topViewIs(tag as ViewTag) as Lang.Boolean {
     return topViewStackEntry().tag.equals(tag);
 }
 
+function parentOfTopViewIs(tag as ViewTag) as Lang.Boolean {
+    if (viewStack.size() < 2) {
+        return false;
+    }
+    return viewStack[viewStack.size() - 2].tag.equals(tag);
+}
+
 function topViewStackEntry() as ViewStackEntry {
     return viewStack[viewStack.size() - 1];
 }
@@ -82,6 +89,22 @@ function topViewStackEntry() as ViewStackEntry {
 function popToView(tag as ViewTag, transition as WatchUi.SlideType) as Void {
     while (!topViewIs(tag)) {
         popView(transition);
+    }
+}
+
+function popToViewAndPushView(parentTag as ViewTag, tag as ViewTag, view as WatchUi.Views, delegate as WatchUi.InputDelegates or Null, transition as WatchUi.SlideType) as Void {
+    if (topViewIs(parentTag)) {
+        pushView(tag, view, delegate, transition);
+    } else if (topViewIs(tag)) {
+        if (debug) {
+            if (!parentOfTopViewIs(parentTag)) {
+                System.error("popToViewAndPushView: " + parentTag + " is not parent of " + tag);
+            }
+        }
+        switchToView(tag, view, delegate, WatchUi.SLIDE_IMMEDIATE);
+    } else {
+        popToView(parentTag, WatchUi.SLIDE_IMMEDIATE);
+        pushView(tag, view, delegate, WatchUi.SLIDE_IMMEDIATE);
     }
 }
 

@@ -112,7 +112,13 @@ class Router {
                 switch (newState) {
                     case instanceof CallActing: {
                         if (debug) { _2(L_ROUTER, "routingToUpdatedCallActing"); }
-                        VT.switchToView(V_callActing, new CallActingView(newState as CallActing), new CallActingViewDelegate(), WatchUi.SLIDE_IMMEDIATE);
+                        VT.popToViewAndPushView(
+                            V_callInProgress,
+                            V_callActing,
+                            new CallActingView(newState as CallActing),
+                            new CallActingViewDelegate(),
+                            WatchUi.SLIDE_LEFT
+                        );
                         break;
                     }
                     case instanceof CallInProgress: {
