@@ -1,3 +1,4 @@
+--dirsfirst
 --houtro
 --noreport
 -Dfile
