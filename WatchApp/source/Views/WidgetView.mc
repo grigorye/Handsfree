@@ -77,7 +77,7 @@ class WidgetView extends WatchUi.View {
                         var recent = (recents[RecentsField_list] as RecentsList)[missedRecents[0]];
                         subtitle = getPhoneRep(recent);
                     } else {
-                        subtitle = missedRecentsCount + " contacts";
+                        subtitle = "Contacts: " + missedRecentsCount;
                     }
                     lines.add(subtitle);
                 } else {
@@ -111,7 +111,7 @@ class WidgetView extends WatchUi.View {
 function headsetStatusForWidget() as Lang.String or Null {
     var speakerWouldBeUsed = AudioStateManip.getSpeakerWouldBeUsed();
     if (speakerWouldBeUsed == true && AppSettings.isHeadsetReportEnabled()) {
-        return "(no headset)";
+        return "(No Headset)";
     } else {
         return null;
     }

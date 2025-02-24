@@ -54,7 +54,7 @@ class View extends ExtendedMenu2 {
 
     private function addMenuItemsForEmptyRecentsList() as Void {
         if (debug) { _2(L_RECENTS_VIEW, "addMenuItemsForEmptyRecentsList"); }
-        addItem(new WatchUi.MenuItem("No recents", "", noRecentsMenuItemId, {}));
+        addItem(new WatchUi.MenuItem("No Recents", "", noRecentsMenuItemId, {}));
     }
 
     private function addMenuItemsForNonEmptyRecentsList(recents as RecentsList) as Void {

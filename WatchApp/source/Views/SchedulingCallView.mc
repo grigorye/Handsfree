@@ -26,7 +26,7 @@ class SchedulingCallView extends WatchUi.ProgressBar {
                 if (System.getDeviceSettings().phoneConnected) {
                     message = "Communication\nFailed";
                 } else {
-                    message = "Phone is\nnot connected";
+                    message = "Phone\nNot Connected";
                 }
                 break;
             default:

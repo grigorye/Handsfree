@@ -72,7 +72,7 @@ class View extends ExtendedMenu2 {
                 addItem(item);
             }
         } else {
-            addItem(new WatchUi.MenuItem("Not selected", "", noPhonesMenuItemId, {}));
+            addItem(new WatchUi.MenuItem("Not Selected", "", noPhonesMenuItemId, {}));
         }
 
         if (focus != null) {

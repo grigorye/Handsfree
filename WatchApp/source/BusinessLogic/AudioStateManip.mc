@@ -33,9 +33,9 @@ function updateUIForAudioStateInApp(audioState as AudioState) as Void {
             if (isHeadsetConnected != null && isHeadsetConnected && oldAudioStateImp == null) {
                 // do nothing
             } else if (isHeadsetConnected) {
-                WatchUi.showToast("Headset on", null);
+                WatchUi.showToast("Headset On", null);
             } else {
-                WatchUi.showToast("No headset", null);
+                WatchUi.showToast("No Headset", null);
             }
         }
     }

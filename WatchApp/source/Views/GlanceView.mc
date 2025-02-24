@@ -27,10 +27,10 @@ class GlanceView extends WatchUi.GlanceView {
         var subtitle = null;
         if (!phoneConnected) {
             title = defaultTitle;
-            subtitle = "Not connected";
+            subtitle = "Not Connected";
         } else if (!isCompanionUpToDate) {
             title = defaultTitle;
-            subtitle = "No companion";
+            subtitle = "No Companion";
         } else if (!GlanceLikeSettings.isShowingCallStateOnGlanceEnabled || !Styles.glance_live_update.enabled) {
             title = defaultTitle;
             if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
@@ -58,12 +58,12 @@ class GlanceView extends WatchUi.GlanceView {
                         var recent = (recents[RecentsField_list] as RecentsList)[missedRecents[0]];
                         subtitle = getPhoneRep(recent);
                     } else {
-                        subtitle = missedRecentsCount + " contacts";
+                        subtitle = missedRecentsCount + " Contacts";
                     }
                 } else {
                     title = defaultTitle;
                     if (!ReadinessInfoManip.readiness(ReadinessField_essentials).equals(ReadinessValue_ready)) {
-                        subtitle = "No call control";
+                        subtitle = "No Call Control";
                     } else if (!BackgroundSettings.isOpenAppOnIncomingCallEnabled()) {
                         subtitle = "Idle, Silent";
                     } else {
