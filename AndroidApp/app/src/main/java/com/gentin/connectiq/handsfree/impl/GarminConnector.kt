@@ -136,7 +136,7 @@ class DefaultGarminConnector(
                     IQOpenApplicationStatus.PROMPT_SHOWN_ON_DEVICE -> completion(true)
                     IQOpenApplicationStatus.PROMPT_NOT_SHOWN_ON_DEVICE -> completion(false)
                     IQOpenApplicationStatus.APP_IS_NOT_INSTALLED -> completion(false)
-                    IQOpenApplicationStatus.APP_IS_ALREADY_RUNNING -> completion(true)
+                    IQOpenApplicationStatus.APP_IS_ALREADY_RUNNING -> completion(false)
                     IQOpenApplicationStatus.UNKNOWN_FAILURE -> completion(false)
                     null -> completion(false)
                 }
