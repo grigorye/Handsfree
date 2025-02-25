@@ -413,7 +413,18 @@ class DefaultServiceLocator(
                     Log.d(TAG, "audioStateDidNotChange: $audioState")
                 } else {
                     Log.d(TAG, "audioStateChanged: $audioState")
-                    outgoingMessageDispatcher.sendAudioState(audioState)
+                    if (lastTrackedPhoneState?.stateId == PhoneStateId.Ringing) {
+                        // This is workaround for watch app considered by Garmin OS as running,
+                        // when we try to open it as part of incoming call, as it
+                        // handles the updated audio state received in background:
+                        // that prevents it from opening automatically.
+                        // To avoid getting into that situation, we ignore audio state changes on
+                        // ringing, assuming that the state will change again the call is
+                        // accepted.
+                        Log.d(TAG, "ignoringAudioStateChangeDueToRinging")
+                    } else {
+                        outgoingMessageDispatcher.sendAudioState(audioState)
+                    }
                     lastObservedAudioState = audioState
                 }
             }
