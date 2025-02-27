@@ -243,10 +243,10 @@ To actually **get alerted** (or not) about an incoming call *when the watch app 
     <string name="settings_incoming_calls">"Incoming calls"</string>
     <string name="settings_incoming_calls_off">"Not receiving calls on the watch."</string>
     <string name="settings_incoming_calls_on">"Calls can be accepted on the watch."</string>
-    <string name="settings_recents">"Call history"</string>
+    <string name="settings_recents">"Recents"</string>
     <string name="settings_recents_off">"Call history is not shared with the watch."</string>
     <string name="settings_recents_on">"Recently called contacts are shared with the watch."</string>
-    <string name="onboarding_recents">"# Share call history
+    <string name="onboarding_recents">"# Recents
 
 Handsfree lets you see and make calls to recently contacted parties, as well as track missed calls, on the watch. To allow that, give the app a couple more permissions, in addition to the [essential ones](link://onboarding_essentials).
 
