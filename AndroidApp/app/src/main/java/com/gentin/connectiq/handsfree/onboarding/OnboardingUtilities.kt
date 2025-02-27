@@ -279,6 +279,12 @@ fun preprocessPermissionsInMarkdown(
             val uri = Uri.parse(uriString)
             accumulatedPermissionLinks.add(uri)
             val permissionHandlers = permissionHandlersForLink(uri)
+            var isPermissionRequested = true
+            for (permissionHandler in permissionHandlers) {
+                if (!permissionHandler.isPermissionRequested(context)) {
+                    isPermissionRequested = false
+                }
+            }
             var hasPermission = true
             for (permissionHandler in permissionHandlers) {
                 if (!permissionHandler.hasPermission(context)) {
@@ -288,14 +294,20 @@ fun preprocessPermissionsInMarkdown(
             if (disarmPermissionLinks) {
                 linkText
             } else {
-                val format = if (hasPermission) {
+                val format = if (!isPermissionRequested) {
+                    context.getString(R.string.markdown_link_permission_not_available_fmt)
+                } else if (hasPermission) {
                     context.getString(R.string.markdown_link_permission_granted_fmt)
                 } else {
                     context.getString(R.string.markdown_link_permission_not_granted_fmt)
                 }
-                format
+                var result = format
                     .replace("{{link_text}}", linkText)
                     .replace("{{link_url}}", uriString)
+                if (!isPermissionRequested) {
+                    result += "\n" + context.getString(R.string.settings_permission_not_available_rationale)
+                }
+                result
             }
         }
 
@@ -346,7 +358,12 @@ private fun permissionHandlersForLinks(uris: List<Uri>): List<PermissionHandler>
         }
     }
     if (accumulatedRequiredManifestPermissions.isNotEmpty() || accumulatedOptionalManifestPermissions.isNotEmpty()) {
-        handlers.add(newManifestPermissionHandler(accumulatedRequiredManifestPermissions, accumulatedOptionalManifestPermissions))
+        handlers.add(
+            newManifestPermissionHandler(
+                accumulatedRequiredManifestPermissions,
+                accumulatedOptionalManifestPermissions
+            )
+        )
     }
     return handlers
 }

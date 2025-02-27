@@ -81,6 +81,14 @@ fun hasPermissions(context: Context, permissions: List<String>): Boolean {
 
 fun newManifestPermissionHandler(requiredPermissions: List<String>, optionalPermissions: List<String>): PermissionHandler {
     return PermissionHandler(
+        isPermissionRequested = { context ->
+            for (permission in requiredPermissions + optionalPermissions) {
+                if (!isPermissionRequested(context, permission)) {
+                    return@PermissionHandler false
+                }
+            }
+            true
+        },
         hasPermission = { context ->
             hasPermissions(context, requiredPermissions + optionalPermissions)
         },

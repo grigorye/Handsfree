@@ -52,23 +52,36 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
             R.string.settings_disabled_due_to_essentials_are_off,
             hasPermissions = { hasRequiredPermissionsForOutgoingCalls(requireContext()) },
         )
+
+        val isCallLogPermissionRequested =
+            isPermissionRequested(requireActivity(), Manifest.permission.READ_CALL_LOG)
+
         setupPermissionPreference(
             recentsPreference,
             R.string.settings_recents,
             R.string.settings_recents_on,
             R.string.settings_recents_off,
+            unavailable = if (isCallLogPermissionRequested) {
+                null
+            } else {
+                R.string.settings_recents_unavailable
+            },
             hasPermissions = { hasRequiredPermissionsForRecents(requireContext()) },
         )
+
         setupPermissionPreference(
             callInfoPreference,
             R.string.settings_call_info,
             R.string.settings_call_info_on,
             R.string.settings_call_info_off,
             R.string.settings_disabled_due_to_essentials_are_off,
+            unavailable = if (isCallLogPermissionRequested) {
+                null
+            } else {
+                R.string.settings_call_info_unavailable
+            },
             hasPermissions = { hasRequiredPermissionsForIncomingCalls(requireContext()) }
         )
-        callInfoPreference?.isVisible =
-            isPermissionRequested(requireActivity(), Manifest.permission.READ_CALL_LOG)
         setupPermissionPreference(
             incomingCallsPreference,
             R.string.settings_incoming_calls,
@@ -77,8 +90,6 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
             R.string.settings_disabled_due_to_essentials_are_off,
             hasPermissions = { hasRequiredPermissionsForIncomingCalls(requireContext()) }
         )
-        incomingCallsPreference?.isVisible =
-            isPermissionRequested(requireActivity(), Manifest.permission.READ_CALL_LOG)
         setupPermissionPreference(
             starredContactsPreference,
             R.string.settings_starred_contacts,
@@ -134,35 +145,44 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
         summaryOn: Int,
         summaryOff: Int,
         summaryOffDueToDependency: Int = 0,
+        unavailable: Int? = null,
         hasPermissions: () -> Boolean = { true }
     ) {
         preference?.apply {
-            val dependencyIsOff = lazy {
-                (dependency != null) && !sharedPreferences!!.getBoolean(dependency, false)
-            }
-            if (disableExtrasWithEssentials && dependencyIsOff.value) {
-                Log.d(TAG, "preference.$key.disabledDue: $dependency")
-                isEnabled = false
-                summary = getString(summaryOffDueToDependency)
-            } else {
+            if (unavailable != null) {
                 isEnabled = true
-                val isOn = sharedPreferences!!.getBoolean(key, false)
-                Log.d(TAG, "preference.$key.isOn: $isOn")
-                val titleFormat = if (isOn) {
-                    if (hasPermissions()) {
-                        getString(R.string.settings_preference_enabled_fmt)
-                    } else {
-                        getString(R.string.settings_preference_enabled_no_perm_fmt)
-                    }
-                } else {
-                    getString(R.string.settings_preference_disabled_fmt)
-                }
+                summary = getString(unavailable)
+                val titleFormat = getString(R.string.settings_preference_not_available_fmt)
                 val formattedTitle = titleFormat.replace("{{title}}", getString(title))
                 setTitle(formattedTitle)
-                summary = if (isOn) {
-                    getString(summaryOn)
+            } else {
+                val dependencyIsOff = lazy {
+                    (dependency != null) && !sharedPreferences!!.getBoolean(dependency, false)
+                }
+                if (disableExtrasWithEssentials && dependencyIsOff.value) {
+                    Log.d(TAG, "preference.$key.disabledDue: $dependency")
+                    isEnabled = false
+                    summary = getString(summaryOffDueToDependency)
                 } else {
-                    getString(summaryOff)
+                    isEnabled = true
+                    val isOn = sharedPreferences!!.getBoolean(key, false)
+                    Log.d(TAG, "preference.$key.isOn: $isOn")
+                    val titleFormat = if (isOn) {
+                        if (hasPermissions()) {
+                            getString(R.string.settings_preference_enabled_fmt)
+                        } else {
+                            getString(R.string.settings_preference_enabled_no_perm_fmt)
+                        }
+                    } else {
+                        getString(R.string.settings_preference_disabled_fmt)
+                    }
+                    val formattedTitle = titleFormat.replace("{{title}}", getString(title))
+                    setTitle(formattedTitle)
+                    summary = if (isOn) {
+                        getString(summaryOn)
+                    } else {
+                        getString(summaryOff)
+                    }
                 }
             }
             setOnPreferenceClickListener { preference ->

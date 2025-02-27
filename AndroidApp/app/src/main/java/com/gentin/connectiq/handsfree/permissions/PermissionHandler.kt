@@ -10,6 +10,7 @@ enum class PermissionStatus {
 }
 
 data class PermissionHandler(
+    var isPermissionRequested: (context: Context) -> Boolean,
     val hasPermission: (context: Context) -> Boolean,
     val hasRequiredPermission: (context: Context) -> Boolean,
     val permissionStatus: (context: Activity) -> PermissionStatus,
@@ -21,6 +22,9 @@ fun newAllRequiredPermissionHandler(
     requestPermission: (activity: Activity) -> Unit
 ): PermissionHandler {
     return PermissionHandler(
+        isPermissionRequested = {
+            true
+        },
         hasPermission = { context ->
             hasPermission(context)
         },

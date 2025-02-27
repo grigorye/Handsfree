@@ -23,7 +23,6 @@
         <Preference
             app:dependency="essentials"
             app:iconSpaceReserved="false"
-            app:isPreferenceVisible="false"
             app:key="incoming_calls"
             app:summary="@string/settings_incoming_calls_off"
             app:title="@string/settings_incoming_calls" />
@@ -55,7 +54,6 @@
         <Preference
             app:dependency="essentials"
             app:iconSpaceReserved="false"
-            app:isPreferenceVisible="false"
             app:key="call_info"
             app:summary="@string/settings_call_info_off"
             app:title="@string/settings_call_info" />
