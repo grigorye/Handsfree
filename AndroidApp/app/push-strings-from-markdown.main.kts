@@ -14,7 +14,7 @@ val text = file.readText()
 val keyPrefix = file.nameWithoutExtension.lowercase()
 
 val json = buildJsonArray {
-    for (match in "\\[([^]]*)]\\((lk:([^)]*))\\)".toRegex().findAll(text)) {
+    for (match in "\\[(.*)\\]\\((lk:([^)]*))\\)".toRegex().findAll(text)) {
         val rawKey = match.groupValues[3]
         val key = keyPrefix + "_" + rawKey
         val value = match.groupValues[1]
