@@ -20,6 +20,10 @@
 
 [🟢 {{title}}](lk:preference_enabled_fmt)
 
+[🚫 {{title}}](lk:preference_not_available_fmt)
+
+[> This permission is not currently available for the app installed from Google Play. If you want to benefit from it, consider [installation without Google Play](https://grigorye.github.io/handsfree/Installation).](lk:permission_not_available_rationale)
+
 ### [Outgoing calls](lk:outgoing_calls)
 
 🔴 [Making calls is not possible on the watch.](lk:outgoing_calls_off)
@@ -38,6 +42,8 @@
 
 🟢 [Phone numbers or contact names are shown on the watch.](lk:call_info_on)
 
+🔴 [Not available for the app installed from Google Play.](lk:call_info_unavailable)
+
 ### [Incoming calls](lk:incoming_calls)
 
 🔴 [Not receiving calls on the watch.](lk:incoming_calls_off)
@@ -49,4 +55,6 @@
 🔴 [Call history is not shared with the watch.](lk:recents_off)
 
 🟢 [Recently called contacts are shared with the watch.](lk:recents_on)
+
+🔴 [Not available for the app installed from Google Play.](lk:recents_unavailable)
 
