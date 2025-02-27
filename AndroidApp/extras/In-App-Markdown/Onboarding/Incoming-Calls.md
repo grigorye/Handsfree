@@ -1,6 +1,6 @@
 # Allow incoming calls
 
-Handsfree lets you show and accept the incoming calls on the watch. To allow that, give the app a couple more permissions, in addition to the [essential ones](link://onboarding_essentials).
+Handsfree lets you show and accept the incoming calls on the watch. To fully benefit from that, give the app a couple more permissions, in addition to the [essential ones](link://onboarding_essentials).
 
 ### [Access your phone call logs](permissions://?manifest=android.permission.READ_CALL_LOG)
 
