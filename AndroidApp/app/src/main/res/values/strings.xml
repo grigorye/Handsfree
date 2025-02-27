@@ -296,4 +296,9 @@ Without the permission, no contact names for the calls will be visible.
     <string name="settings_starred_contacts">"Contacts"</string>
     <string name="settings_starred_contacts_off">"**Starred** contacts are not shared with the watch."</string>
     <string name="settings_starred_contacts_on">"**Starred** contacts are available for dialing on the watch."</string>
+    <string name="settings_preference_not_available_fmt">"🚫 {{title}}"</string>
+    <string name="settings_call_info_unavailable">"Not available for the app installed from Google Play."</string>
+    <string name="settings_recents_unavailable">"Not available for the app installed from Google Play."</string>
+    <string name="markdown_link_permission_not_available_fmt">"🚫  [{{link_text}}]({{link_url}})"</string>
+    <string name="settings_permission_not_available_rationale">"&gt; This permission is not currently available for the app installed from Google Play. If you want to benefit from it, consider [installation without Google Play](https://grigorye.github.io/handsfree/Installation)."</string>
 </resources>
