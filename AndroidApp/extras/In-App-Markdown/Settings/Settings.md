@@ -50,7 +50,7 @@
 
 🟢 [Calls can be accepted on the watch.](lk:incoming_calls_on)
 
-### [Call history](lk:recents)
+### [Recents](lk:recents)
 
 🔴 [Call history is not shared with the watch.](lk:recents_off)
 
