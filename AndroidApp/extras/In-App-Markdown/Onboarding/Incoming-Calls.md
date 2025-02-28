@@ -6,7 +6,7 @@ Handsfree lets you show and accept the incoming calls on the watch. To fully ben
 
 To be able to identify the number for an incoming call, Handsfree needs access to your call logs.
 
-Without the permission, for an incoming call, Handsfree will show just "Call in progress" or "Incoming call" instead of the phone number or the contact name, on the watch.
+Without the permission, for an incoming call, Handsfree will display a generic message like "Call in Progress" instead of the phone number or the contact name, on the watch.
 
 With the permission, Handsfree will be able to show you the number (and probably the contact name) on the watch.
 
