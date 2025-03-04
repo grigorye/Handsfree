@@ -12,6 +12,7 @@ import android.provider.CallLog
 import android.provider.ContactsContract
 import android.util.Log
 import androidx.core.app.ActivityCompat
+import androidx.core.net.toUri
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -36,7 +37,7 @@ class CallLogsRepositoryImpl(
     base: Context?
 ) : ContextWrapper(base), CallLogsRepository {
 
-    private val callUri = Uri.parse("content://call_log/calls")
+    private val callUri = "content://call_log/calls".toUri()
 
     companion object {
         private val TAG = CallLogsRepositoryImpl::class.java.simpleName

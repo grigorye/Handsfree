@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -36,7 +37,7 @@ fun resolveLink(link: String, fragment: Fragment, navigationLabel: String? = nul
     val tag = object {}.javaClass.enclosingMethod?.name
     val context: Activity = fragment.requireActivity()
     Log.d(tag, "link: $link")
-    val uri = Uri.parse(link)
+    val uri = link.toUri()
     when (uri.scheme) {
         "https" -> {
             val browserIntent = Intent(Intent.ACTION_VIEW, uri)
@@ -276,7 +277,7 @@ fun preprocessPermissionsInMarkdown(
         .replace("\\[([^]]*)]\\((permissions://([^)]*))\\)".toRegex()) {
             val linkText = it.groupValues[1]
             val uriString = it.groupValues[2]
-            val uri = Uri.parse(uriString)
+            val uri = uriString.toUri()
             accumulatedPermissionLinks.add(uri)
             val permissionHandlers = permissionHandlersForLink(uri)
             var isPermissionRequested = true

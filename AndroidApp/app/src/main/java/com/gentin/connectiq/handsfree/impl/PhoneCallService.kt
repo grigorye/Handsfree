@@ -6,13 +6,13 @@ import android.content.ContextWrapper
 import android.content.ContextWrapper.TELEPHONY_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.provider.Settings
 import android.telecom.TelecomManager
 import android.telephony.TelephonyManager
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.net.toUri
 import com.gentin.connectiq.handsfree.globals.outgoingCallsShouldBeEnabled
 
 interface PhoneCallService {
@@ -34,7 +34,7 @@ class DefaultPhoneCallService(
             return false
         }
         val intent = Intent(Intent.ACTION_CALL)
-        intent.setData(Uri.parse("tel:${number}"))
+        intent.setData("tel:${number}".toUri())
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.addFlags(Intent.FLAG_FROM_BACKGROUND)
         if (withSpeakerPhone) {
