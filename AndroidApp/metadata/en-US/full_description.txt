@@ -1,3 +1,120 @@
-Handsfree lets you keep your phone in your pocket while you make calls, allowing you to use Garmin watch (or bike computer) for initiating and/or controlling the calls.
+Handsfree lets you keep your phone in your pocket while you handle calls on your Garmin watch or bike computer.
 
-It's a companion to the application that you can install on Garmin watch from Connect IQ store: https://apps.garmin.com/apps/a3d8da80-e013-41f9-aca4-f66bb38fad3f.
+It's a companion to the application that you can install on your Garmin device from Connect IQ store: https://apps.garmin.com/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920.
+
+In combination with the watch app, it allows you, right on your watch:
+• Initiate outgoing calls.
+• Accept (or reject) incoming calls.
+• See (and callback) your recent calls, missed calls.
+• Control calls even if you initially started/accepted them on your phone.
+• Mute/unmute the microphone.
+• Automatically use the speakerphone when you're not wearing a headset.
+• Control the volume of the call.
+
+The following models of Garmin watches are supported:
+• Approach® S50
+• Approach® S70 42mm
+• Approach® S70 47mm
+• Captain Marvel
+• D2™ Air
+• D2™ Air X10
+• D2™ Mach 1
+• Darth Vader™
+• Descent™ G1 / G1 Solar
+• Descent™ G2
+• Descent™ MK2 / Descent™ Mk2i
+• Descent™ Mk2 S
+• Descent™ Mk3 43mm / Mk3i 43mm
+• Descent™ MkЗі 51mm
+• Enduro™
+• Enduro™ 3
+• epix™ (Gen 2) / quatix® 7 Sapphire
+• epix™ Pro (Gen 2) 42mm
+• epix™ Pro (Gen 2) 47mm / quatix® 7 Pro
+• epix™ Pro (Gen 2) 51mm / D2™ Mach 1 Pro / tactix® 7 - AMOLED Edition
+• fēnix® 5 Plus
+• fēnix® 5S Plus
+• fēnix® 5X Plus
+• fēnix® 6 / 6 Solar / 6 Dual Power
+• fēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6
+• fēnix® 65 / 6S Solar / 6S Dual Power
+• fēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Power
+• fenix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Power
+• fēnix® 7 / quatix®7
+• fēnix® 7 Pro
+• fēnix® 7 Pro - Solar Edition (no Wi-Fi)
+• fēnix® 7S
+• fēnix® 7S Pro
+• fēnix® 7X / tactix® 7 / quatix® 7X Solar / Enduro™ 2
+• fēnix® 7X Pro
+• fēnix® 7X Pro - Solar Edition (no Wi-Fi)
+• fēnix® 843mm
+• fēnix® 847mm / 51mm / tactix® 8 47mm / 51mm
+• fēnix® 8 Solar 47mm
+• fēnix® 8 Solar 51mm / tactix® 8 Solar 51mm
+• fēnix® E
+• First Avenger
+• Forerunner® 165
+• Forerunner® 165 Music
+• Forerunner® 245
+• Forerunner® 245 Music
+• Forerunner® 255
+• Forerunner® 255 Music
+• Forerunner® 255s
+• Forerunner® 255s Music
+• Forerunner® 265
+• Forerunner® 265s
+• Forerunner® 55
+• Forerunner® 645 Music
+• Forerunner® 745
+• Forerunner® 945
+• Forerunner® 945 LTE
+• Forerunner® 955 / Solar
+• Forerunner® 965
+• Instinct® 2 / Solar / Dual Power / dēzl Edition
+• Instinct® 2S / Solar / Dual Power
+• Instinct® 2X Solar
+• Instinct® 3 AMOLED 45mm
+• Instinct® 3 AMOLED 50mm
+• Instinct® 3 Solar 45mm / 50mm
+• Instinct® Crossover
+• Instinct® E 40mm
+• Instinct® E 45mm
+• MARQ® (Gen 2) Athlete / Adventurer / Captain / Golfer / Carbon Edition / Commander - Carbon Edition
+• MARQ® (Gen 2) Aviator
+• MARQ® Adventurer
+• MARQ® Athlete
+• MARQ® Aviator
+• MARQ® Captain / MARQ® Captain: American Magic Edition
+• MARQ® Commander
+• MARQ® Driver
+• MARQ® Expedition
+• MARQ® Golfer
+• Rey™
+• Venu®
+• Venu® 2
+• Venu® 2 Plus
+• Venu® 2S
+• Venu® 3
+• Venu® 3S
+• Venu® Mercedes-Benz® Collection
+• Venu® Sq
+• Venu® Sq2
+• Venu® Sq 2 Music
+• Venu® Sq. Music Edition
+• vívoactive® 3 Music
+• vívoactive® 4
+• vívoactive® 4S
+• vívoactive® 5
+
+The following models of Garmin bike computers are supported:
+• Edge® 530
+• Edge® 540 / 540 Solar
+• Edge® 830
+• Edge® 840 / 840 Solar
+• Edge® 1030
+• Edge® 1030 / Bontrager
+• Edge® 1030 Plus
+• Edge® 1040 / 1040 Solar
+• Edge® 1050
+• Edge® Explore 2
