@@ -7,6 +7,7 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 
 class SettingsProvider : ContentProvider() {
@@ -38,16 +39,16 @@ class SettingsProvider : ContentProvider() {
                 values?.let {
                     val key = it.getAsString(PREFS_KEY)
                     val value = it.get(PREFS_VALUE)
-                    val editor = sharedPreferences.edit()
-                    if (value == null) {
-                        throw IllegalArgumentException("Value cannot be null")
+                    sharedPreferences.edit {
+                        if (value == null) {
+                            throw IllegalArgumentException("Value cannot be null")
+                        }
+                        when (value) {
+                            is String -> putString(key, value)
+                            is Boolean -> putBoolean(key, value)
+                            else -> throw IllegalArgumentException("Unsupported value type: ${value.javaClass}")
+                        }
                     }
-                    when (value) {
-                        is String -> editor.putString(key, value)
-                        is Boolean -> editor.putBoolean(key, value)
-                        else -> throw IllegalArgumentException("Unsupported value type: ${value.javaClass}")
-                    }
-                    editor.apply()
                     context?.contentResolver?.notifyChange(uri, null)
                 }
                 return uri
@@ -90,7 +91,7 @@ class SettingsProvider : ContentProvider() {
                     val key = it.getAsString(PREFS_KEY)
                     if (sharedPreferences.contains(key)) {
                         val value = it.getAsString(PREFS_VALUE)
-                        sharedPreferences.edit().putString(key, value).apply()
+                        sharedPreferences.edit { putString(key, value) }
                         updatedRows = 1
                         context?.contentResolver?.notifyChange(uri, null)
                     }
@@ -109,7 +110,7 @@ class SettingsProvider : ContentProvider() {
                 selectionArgs?.let {
                     it.forEach { key ->
                         if (sharedPreferences.contains(key)) {
-                            sharedPreferences.edit().remove(key).apply()
+                            sharedPreferences.edit { remove(key) }
                             deletedRows++
                         }
                     }
