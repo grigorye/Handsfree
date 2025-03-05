@@ -120,7 +120,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
                     if (pendingAudioState != null) {
                         var newActiveAudioDevice = pendingAudioState[activeAudioDeviceK] as Lang.String | Null;
                         if (newActiveAudioDevice != null) {
-                            var oldActiveAudioDevice = audioState[activeAudioDeviceK];
+                            var oldActiveAudioDevice = audioState[activeAudioDeviceK] as Lang.String | Null;
                             if ((oldActiveAudioDevice == null) || !oldActiveAudioDevice.equals(newActiveAudioDevice)) {
                                 var isMuted = pendingAudioState[isMutedK] as Lang.Boolean;
                                 pendingAudioState = AudioStateImp.clone(audioState);
