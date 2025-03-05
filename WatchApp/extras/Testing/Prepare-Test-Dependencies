@@ -3,6 +3,8 @@
 set -x
 set -euo pipefail
 
+brew update
+
 brew install tccutil
 
 brew install socsieng/tap/sendkeys
