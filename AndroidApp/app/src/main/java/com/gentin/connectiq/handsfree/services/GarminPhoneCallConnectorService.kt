@@ -32,7 +32,6 @@ import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_ON_DEVICE
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_PING
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
-import com.gentin.connectiq.handsfree.impl.AudioState
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.PhoneState
 import com.gentin.connectiq.handsfree.impl.PhoneStateId
@@ -59,7 +58,6 @@ var lastTrackedPhoneStateId: PhoneStateId? = null
 
 var lastTrackedPhoneState: PhoneState? = null
     private set
-var lastTrackedAudioState: AudioState? = null
 
 fun fallbackPhoneState(): PhoneState {
     return PhoneState(PhoneStateId.Idle)
@@ -298,7 +296,6 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             incomingDisplayNames
         )
         lastTrackedPhoneState = phoneState
-        lastTrackedAudioState = null
         l.outgoingMessageDispatcher.sendPhoneState(everywhereExactly, phoneState)
 
         if (phoneState.stateId == PhoneStateId.Idle) {
@@ -312,18 +309,13 @@ class GarminPhoneCallConnectorService : LifecycleService() {
                 }, 1000)
             } else {
                 // We assume that A) audio route would be changed (automatically) soon after
-                // call start - and hence delaying accounting the state till that moment,
-                // for performance reasons.
+                // call start.
                 // However, it's also possible that B) it won't happen, e.g. when the ear-speaker
-                // is used for the call. To make that case also accounted, we make a pause we
-                // check if the audio state was accounted (due to A) after a delay - if that did
-                // not happen we account the audio state "manually".
+                // is used for the call.
+                // To account both cases, we give it a try a few seconds after the call start.
                 val handler = Handler(Looper.getMainLooper())
                 handler.postDelayed({
-                    if (lastTrackedAudioState == null) {
-                        Log.d(TAG, "audioStateWasNotAccountedAutomatically")
-                        l.accountAudioState()
-                    }
+                    l.accountAudioState()
                 }, 1000)
             }
         } else {

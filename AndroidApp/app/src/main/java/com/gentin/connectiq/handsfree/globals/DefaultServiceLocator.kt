@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.pm.PackageManager
 import android.media.AudioManager
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.LifecycleCoroutineScope
@@ -52,7 +54,6 @@ import com.gentin.connectiq.handsfree.impl.subjectQueryName
 import com.gentin.connectiq.handsfree.impl.subjectQueryVersion
 import com.gentin.connectiq.handsfree.notifications.showPongNotification
 import com.gentin.connectiq.handsfree.services.fallbackPhoneState
-import com.gentin.connectiq.handsfree.services.lastTrackedAudioState
 import com.gentin.connectiq.handsfree.services.lastTrackedPhoneState
 import com.gentin.connectiq.handsfree.terms.allSubjectNames
 import com.gentin.connectiq.handsfree.terms.appConfigSubject
@@ -175,11 +176,11 @@ class DefaultServiceLocator(
                 audioControl.setAudioVolume(relVolume)
                 val audioState = audioState()
                 audioState.volume = relVolume
-                outgoingMessageDispatcher.sendAudioState(audioState)
+                trackAudioState(audioState)
             },
             muteImp = { on ->
                 audioControl.mute(on)
-                outgoingMessageDispatcher.sendAudioState(audioState())
+                trackAudioState(audioState())
             },
             pongImp = { source ->
                 Log.d(TAG, "Pong: $source")
@@ -336,6 +337,29 @@ class DefaultServiceLocator(
 
     fun accountAudioState() {
         val state = audioState()
+        if (state.activeAudioDevice == null) {
+            // One of the cases when the audio state is changed is when a phone call begins.
+            // In that case the active audio device is initially null and soon becomes non-null.
+            // To avoid overloading the watch with the messages, we delay sending the audio state.
+            // We assume that it's also safe in all other cases, when idle we send the audio state
+            // (e.g. tracking headset status) - it's not a big deal to have a delay then.
+            val handler = Handler(Looper.getMainLooper())
+            handler.postDelayed({
+                trackAudioState(audioState())
+            }, 1000)
+        } else {
+            trackAudioState(state)
+        }
+    }
+
+    private var lastTrackedAudioState: AudioState? = null
+
+    private fun trackAudioState(state: AudioState) {
+        if (state == lastTrackedAudioState) {
+            Log.d(TAG, "notTrackingUnchangedAudioState: $state")
+            return
+        }
+        Log.d(TAG, "trackingChangedAudioState: $state")
         lastTrackedAudioState = state
         outgoingMessageDispatcher.sendAudioState(state)
     }
@@ -398,34 +422,25 @@ class DefaultServiceLocator(
         }
     }
 
-    private var lastObservedAudioState: AudioState? = null
-
     val communicationDeviceChangedListener: AudioManager.OnCommunicationDeviceChangedListener by lazy {
         AudioManager.OnCommunicationDeviceChangedListener { device ->
             val deviceInfo = "\"${device?.productName}\" (${device?.type})"
             if (lastTrackedPhoneState?.stateId == PhoneStateId.Idle) {
                 Log.d(TAG, "communicationDeviceChangedWhileIdle: $deviceInfo")
-                lastObservedAudioState = null
+                accountAudioState()
             } else {
                 Log.d(TAG, "communicationDeviceChangedInCall: $deviceInfo, $lastTrackedPhoneState")
-                val audioState = audioState()
-                if (lastObservedAudioState == audioState) {
-                    Log.d(TAG, "audioStateDidNotChange: $audioState")
+                if (lastTrackedPhoneState?.stateId == PhoneStateId.Ringing) {
+                    // This is workaround for watch app considered by Garmin OS as running,
+                    // when we try to open it as part of incoming call, as it
+                    // handles the updated audio state received in background:
+                    // that prevents it from opening automatically.
+                    // To avoid getting into that situation, we ignore audio state changes on
+                    // ringing, assuming that the state will change again the call is
+                    // accepted.
+                    Log.d(TAG, "ignoringAudioStateChangeDueToRinging")
                 } else {
-                    Log.d(TAG, "audioStateChanged: $audioState")
-                    if (lastTrackedPhoneState?.stateId == PhoneStateId.Ringing) {
-                        // This is workaround for watch app considered by Garmin OS as running,
-                        // when we try to open it as part of incoming call, as it
-                        // handles the updated audio state received in background:
-                        // that prevents it from opening automatically.
-                        // To avoid getting into that situation, we ignore audio state changes on
-                        // ringing, assuming that the state will change again the call is
-                        // accepted.
-                        Log.d(TAG, "ignoringAudioStateChangeDueToRinging")
-                    } else {
-                        outgoingMessageDispatcher.sendAudioState(audioState)
-                    }
-                    lastObservedAudioState = audioState
+                    accountAudioState()
                 }
             }
         }
