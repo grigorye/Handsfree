@@ -131,30 +131,23 @@ function formatDate(date as Lang.Number) as Lang.String {
     return formatted;
 }
 
-function formatDuration(duration as Lang.Number) as Lang.String or Null {
+function formatDuration(duration as Lang.Number) as Lang.String? {
     var seconds = duration;
     var minutes = seconds / 60;
     var hours = minutes / 60;
-    var formatted = "";
-    if (hours > 0) {
-        formatted += hours.toString() + "h";
+    var secondsOnly = seconds % 60;
+    var minutesOnly = (minutes % 60) + (secondsOnly + 30) / 60;
+    var hoursOnly = hours + (minutesOnly + 30) / 60;
+    if (hoursOnly > 0) {
+        return hoursOnly.toString() + "h";
     }
-    if (minutes > 0) {
-        if (!formatted.equals("")) {
-            formatted += " ";
-        }
-        formatted += (minutes % 60).toString() + "m";
+    if (minutesOnly > 0) {
+        return minutesOnly.toString() + "m";
     }
-    if (seconds > 0) {
-        if (!formatted.equals("")) {
-            formatted += " ";
-        }
-        formatted += (seconds % 60).toString() + "s";
+    if (secondsOnly > 0) {
+        return secondsOnly.toString() + "s";
     }
-    if (formatted.equals("")) {
-        return null;
-    }
-    return formatted;
+    return null;
 }
 
 }
