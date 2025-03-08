@@ -85,6 +85,10 @@ class AppCore extends Application.AppBase {
         _3(L_APP, "onStop", state);
     }
 
+    function onSettingsChanged() as Void {
+        _2(L_APP, "onSettingsChanged");
+    }
+
     (:typecheck([disableBackgroundCheck]), :watchApp)
     function getGlanceView() as [WatchUi.GlanceView] or [WatchUi.GlanceView, WatchUi.GlanceViewDelegate] or Null {
         setActiveUiKind(ACTIVE_UI_GLANCE);
