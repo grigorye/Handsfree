@@ -13,9 +13,16 @@ data class OutgoingMessage(
     }
 }
 
-val everywhereExactly =
-    OutgoingMessageDestination(device = null, app = null, accountBroadcastOnly = false)
-val everywhere = OutgoingMessageDestination(device = null, app = null, accountBroadcastOnly = true)
+val everywhere = OutgoingMessageDestination(
+    device = null,
+    app = null,
+    accountBroadcastOnly = true
+)
+val everywhereExactly = OutgoingMessageDestination(
+    device = null,
+    app = null,
+    accountBroadcastOnly = false
+)
 
 data class OutgoingMessageDestination(
     val device: IQDevice?,
