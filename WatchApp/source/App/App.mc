@@ -76,6 +76,15 @@ class AppCore extends Application.AppBase {
     function onAppUpdate() as Void {
         _2(L_APP, "onAppUpdate");
     }
+    
+    function onStart(state as Lang.Dictionary or Null) as Void {
+        _3(L_APP, "onStart", state);
+    }
+
+    function onStop(state as Lang.Dictionary or Null) as Void {
+        _3(L_APP, "onStop", state);
+    }
+
     (:typecheck([disableBackgroundCheck]), :watchApp)
     function getGlanceView() as [WatchUi.GlanceView] or [WatchUi.GlanceView, WatchUi.GlanceViewDelegate] or Null {
         setActiveUiKind(ACTIVE_UI_GLANCE);
