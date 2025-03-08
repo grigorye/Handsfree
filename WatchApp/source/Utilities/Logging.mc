@@ -17,6 +17,9 @@ function _3(component as LogComponent, tag as Lang.String, value as Lang.Object 
     if (!isLogAllEnforced() && !isLogComponentEnforced(component)) {
         return;
     }
+    if (isLogComponentSuppressed(component)) {
+        return;
+    }
     dumpImp(component, tag, value);
 }
 
@@ -29,15 +32,25 @@ function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
 (:glance, :background, :typecheck([disableBackgroundCheck, disableGlanceCheck]),:noLowMemory)
 function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
     var forcedComponents;
-    if (component.equals(L_GLANCE) && GlanceLikeSettings.isGlanceLoggingEnabled) {
-        return true;
-    }
     if (!isActiveUiKindApp) {
         forcedComponents = [">", "<", "app", "openMe"];
     } else {
         forcedComponents = logComponentsForcedInApp();
     }
     return forcedComponents.indexOf(component) != -1;
+}
+
+(:glance, :background, :typecheck([disableBackgroundCheck, disableGlanceCheck]),:noLowMemory)
+function isLogComponentSuppressed(component as Lang.String) as Lang.Boolean {
+    if (component.equals(L_GLANCE)) {
+        return !GlanceLikeSettings.isGlanceLoggingEnabled;
+    }
+    return false;
+}
+
+(:glance, :background, :lowMemory)
+function isLogComponentSuppressed(component as Lang.String) as Lang.Boolean {
+    return false;
 }
 
 (:glance, :background)
