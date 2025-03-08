@@ -119,7 +119,11 @@ class DefaultGarminConnector(
     ) {
         connectIQ.knownDevices.forEach { device ->
             openWatchAppOnDevice(device, app) { succeeded ->
-                val destination = OutgoingMessageDestination(device, app, accountBroadcastOnly = false)
+                val destination = OutgoingMessageDestination(
+                    device,
+                    app,
+                    accountBroadcastOnly = false
+                )
                 completion(destination, succeeded)
             }
         }
@@ -242,13 +246,16 @@ class DefaultGarminConnector(
             appConfigs[key] = config
         }
     }
+
     override fun appConfig(device: IQDevice, app: IQApp): AppConfig {
         val key = "${device.deviceIdentifier}, ${app.applicationId}"
         return appConfigs[key] ?: 0
     }
 
     override fun appVersion(device: IQDevice, app: IQApp): Int? {
-        val version = installedApps[device.deviceIdentifier]?.find { x -> x.applicationId == app.applicationId }?.version()
+        val version = installedApps[device.deviceIdentifier]
+            ?.find { x -> x.applicationId == app.applicationId }
+            ?.version()
         if (version == 0) {
             return null
         }
@@ -491,7 +498,11 @@ class DefaultGarminConnector(
         sentMessagesCounter += 1
         val sdkStartCount = this.sdkStartCount
         val id = "$sdkStartCount.$sentMessagesCounter"
-        val message = if (tagMessages) { mapOf("id" to id) + messageValue.body } else { messageValue.body }
+        val message = if (tagMessages) {
+            mapOf("id" to id) + messageValue.body
+        } else {
+            messageValue.body
+        }
 
         val destination = messageValue.destination
         val targetDevices = if (destination.device != null) {
