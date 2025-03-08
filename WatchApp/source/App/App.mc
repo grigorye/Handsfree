@@ -106,6 +106,11 @@ function willReturnInitialView() as Void {
     onAppDidFinishLaunching();
 }
 
+(:glance)
+function activeUIKindDidChange() as Void {
+    TemporalBroadcasting.triggerTemporalSubjectsBroadcasting();
+}
+
 (:widget)
 function getInitialViewInApp() as [WatchUi.Views] or [WatchUi.Views, WatchUi.InputDelegates] {
     willReturnInitialView();

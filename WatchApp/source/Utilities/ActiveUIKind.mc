@@ -23,6 +23,7 @@ function setActiveUiKind(kind as ActiveUiKind) as Void {
     }
     activeUiKind = kind;
     isActiveUiKindApp = activeUiKind.equals(ACTIVE_UI_APP);
+    activeUIKindDidChange();
 }
 
 // Exposed for direct read-only access for (code space) optimization, set by setActiveUiKind.

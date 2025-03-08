@@ -7,7 +7,7 @@ const Settings_verboseLogsK = "forceLogAll";
 
 const Settings_optimisticCallHandlingK = "optimisticCallHandling";
 const Settings_openAppOnIncomingCallK = "openAppOnIncomingCall";
-(:background)
+(:background, :glance)
 const Settings_broadcastListeningK = "broadcastListening";
 const Settings_showPhoneNumbersK = "showPhoneNumbers";
 (:glance)
@@ -97,11 +97,16 @@ module AppSettings {
 
 (:background)
 module BackgroundSettings {
+    (:glance)
     function appConfigVersion() as Lang.Number {
         return (isBroadcastListeningEnabled() ? 1 : 0) + (lowMemory ? 0 : 2);
     }
 
+    (:glance)
     function isBroadcastListeningEnabled() as Lang.Boolean {
+        if (TemporalBroadcasting.isTemporalSubjectBroadcastingActive()) {
+            return true;
+        }
         return Properties.getValue(Settings_broadcastListeningK) as Lang.Boolean;
     }
 

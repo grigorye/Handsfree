@@ -10,7 +10,7 @@ const Cmd_mute = "m";
 const Cmd_setAudioVolume = "v";
 (:background)
 const Cmd_pong = "g";
-(:background)
+(:background, :glance)
 const Cmd_query = "q";
 (:background)
 const Cmd_openMe = "o";

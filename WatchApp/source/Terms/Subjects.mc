@@ -1,4 +1,7 @@
 (:inline, :background, :glance)
+const phoneStateSubject = "t";
+
+(:inline, :background, :glance)
 const audioStateSubject = "a";
 
 (:inline, :background, :glance)

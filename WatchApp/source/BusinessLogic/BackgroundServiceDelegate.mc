@@ -23,6 +23,11 @@ class BackgroundServiceDelegate extends System.ServiceDelegate {
         if (debug) { _3(L_BACKGROUND_SERVICE, "exit", "onPhoneAppMessage"); }
         Background.exit("onPhoneAppMessage");
     }
+
+    public function onTemporalEvent() as Void {
+        dumpF(L_APP, "onTemporalEvent");
+        TemporalBroadcasting.stopTemporalSubjectsBroadcasting();
+    }
 }
 
 }

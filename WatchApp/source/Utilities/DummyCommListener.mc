@@ -3,7 +3,7 @@ import Toybox.Lang;
 
 module Req {
 
-(:background)
+(:background, :glance)
 class DummyCommListener extends Communications.ConnectionListener {
     var tag as Lang.String;
     

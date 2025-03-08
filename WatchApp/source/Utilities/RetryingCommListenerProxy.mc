@@ -6,19 +6,19 @@ import Toybox.System;
 
 const L_OUT_RETRYING as LogComponent = ">";
 
-(:background)
+(:background, :glance)
 const LX_OUT_COMM as LogComponent = ">";
 
 module Req {
 
-(:background, :lowMemory)
+(:background, :glance, :lowMemory)
 function transmitWithoutRetry(tagLiteral as Lang.String, msg as Lang.Object) as Void {
     var tag = formatCommTag(tagLiteral);
     if (true) { dumpF(L_APP, "transmitWithoutRetry.preTransmit"); }
     Communications.transmit(msg as Application.PersistableType, null, new DummyCommListener(tag));
 }
 
-(:background, :noLowMemory)
+(:background, :glance, :noLowMemory)
 function transmitWithoutRetry(tagLiteral as Lang.String, msg as Lang.Object) as Void {
     var tag = formatCommTag(tagLiteral);
     if (minDebug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }

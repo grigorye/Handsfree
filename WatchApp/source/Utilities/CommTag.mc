@@ -1,9 +1,9 @@
 import Toybox.Lang;
 
-(:background)
+(:background, :glance)
 var msgIndex as Lang.Number = 0;
 
-(:background)
+(:background, :glance)
 function formatCommTag(tag as Lang.String) as Lang.String {
     msgIndex++;
     return "'" + tag + "'." + msgIndex;

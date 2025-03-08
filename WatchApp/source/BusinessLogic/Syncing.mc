@@ -15,14 +15,14 @@ function requestAllSubjects() as Void {
     transmitWithRetry("reqAllSubjects", msg, new Communications.ConnectionListener());
 }
 
-(:background)
+(:background, :glance)
 function requestSubjects(subjects as Lang.String) as Void {
     dumpF(L_APP, "requestSubjects");
     var msg = msgForRequestSubjects(subjects);
     transmitWithoutRetry("syncSubjects", msg);
 }
 
-(:background)
+(:background, :glance)
 function msgForRequestSubjects(subjects as Lang.String) as Lang.Object {
     var subjectsArg = [];
     var subjectsCount = subjects.length();
