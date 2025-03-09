@@ -56,7 +56,13 @@ fun symbolForDeviceInfo(deviceInfo: DeviceInfo): String {
     return with(deviceInfo) {
         if (connected) {
             if (installedAppsInfo.isNotEmpty()) {
-                ""
+                val info = installedAppsInfo[0]
+                val appConfig = info.appConfig()
+                if (isBroadcastEnabled(appConfig)) {
+                    "▶️️"
+                } else {
+                    "🅿️"
+                }
             } else {
                 "⏹️️"
             }
