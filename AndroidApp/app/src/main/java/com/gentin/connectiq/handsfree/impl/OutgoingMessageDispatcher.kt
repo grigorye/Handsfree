@@ -222,7 +222,7 @@ class DefaultOutgoingMessageDispatcher(
         sendSubject(
             audioStateSubject,
             versionedPojo(audioStatePojo(state)),
-            everywhereExactly.copy(matchV1 = false)
+            everywhere.copy(matchV1 = false)
         )
     }
 
