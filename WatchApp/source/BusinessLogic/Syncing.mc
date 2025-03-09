@@ -31,7 +31,18 @@ function msgForRequestSubjects(subjects as Lang.String) as Lang.Object {
         if (name.equals(appConfigSubject)) {
             subjectsArg.add([name, "" + BackgroundSettings.appConfigVersion()]);
         } else {
-            subjectsArg.add([name]);
+            var versionKey = versionKeyForSubjectMap[name];
+            if (versionKey != null) {
+                var version = Storage.getValue(versionKey) as Version | Null;
+                if (version != null) {
+                    var versionValue = "" + version;
+                    subjectsArg.add([name, versionValue]);
+                } else {
+                    subjectsArg.add([name]);
+                }
+            } else {
+                subjectsArg.add([name]);
+            }
         }
     }
     var msg = {

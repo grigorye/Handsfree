@@ -266,14 +266,14 @@ function didReceiveRemoteMessageInForeground() as Void {
     if (debug) { beep(BEEP_TYPE_MESSAGE); }
 }
 
-(:background, :lowMemory)
+(:background, :glance, :lowMemory)
 const versionKeyForSubjectMap = {
     phonesSubject => Phones_versionKey,
     recentsSubject => Recents_versionKey,
     audioStateSubject => AudioState_versionKey
 } as Lang.Dictionary<Lang.String, Lang.String>;
 
-(:background, :noLowMemory)
+(:background, :glance, :noLowMemory)
 const versionKeyForSubjectMap = {
     phonesSubject => Phones_versionKey,
     recentsSubject => Recents_versionKey,
