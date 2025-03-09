@@ -16,7 +16,9 @@ import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForOutgoingCall
 import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForRecents
 import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForStarredContacts
 import com.gentin.connectiq.handsfree.impl.messageForDeviceInfos
+import com.gentin.connectiq.handsfree.impl.nbsp
 import com.gentin.connectiq.handsfree.impl.refreshMessage
+import com.gentin.connectiq.handsfree.impl.symbolForDeviceInfo
 import com.gentin.connectiq.handsfree.onboarding.resolveLink
 import com.gentin.connectiq.handsfree.permissions.isPermissionRequested
 
@@ -117,7 +119,7 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
                 } else {
                     val deviceInfo = it?.lastOrNull()
                     if (deviceInfo != null) {
-                        title = deviceInfo.name
+                        title = "${symbolForDeviceInfo(deviceInfo)}$nbsp${deviceInfo.name}"
                         summary = if (deviceInfo.connected)
                             getString(R.string.device_label_connected)
                         else
