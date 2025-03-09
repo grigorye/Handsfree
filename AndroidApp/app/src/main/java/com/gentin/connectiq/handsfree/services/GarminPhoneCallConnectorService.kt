@@ -33,10 +33,12 @@ import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_PING
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_RECONNECT
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.GarminConnector
+import com.gentin.connectiq.handsfree.impl.OutgoingMessageDestination
 import com.gentin.connectiq.handsfree.impl.PhoneState
 import com.gentin.connectiq.handsfree.impl.PhoneStateId
 import com.gentin.connectiq.handsfree.impl.everywhere
-import com.gentin.connectiq.handsfree.impl.everywhereExactly
+import com.gentin.connectiq.handsfree.impl.isBroadcastEnabled
+import com.gentin.connectiq.handsfree.impl.isIncomingCallsEnabled
 import com.gentin.connectiq.handsfree.impl.phoneState
 import com.gentin.connectiq.handsfree.impl.phoneStateId
 import java.util.Date
@@ -299,7 +301,17 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         lastTrackedPhoneState = phoneState
         val where =
             if (phoneState.stateId == PhoneStateId.Ringing) {
-                everywhereExactly
+                OutgoingMessageDestination(
+                    device = null,
+                    app = null,
+                    skipOnAppConfig = { appConfig ->
+                        if (isIncomingCallsEnabled(appConfig)) {
+                            false
+                        } else {
+                            isBroadcastEnabled(appConfig)
+                        }
+                    }
+                )
             } else {
                 everywhere
             }
