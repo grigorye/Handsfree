@@ -550,6 +550,9 @@ class DefaultGarminConnector(
                         false -> if (appVersion(device, app) == 1) continue
                         null -> Unit
                     }
+                    if (destination.skipOnAppConfig(appConfig)) {
+                        continue
+                    }
                     val appLogName = appLogName(app)
                     if (messageValue.body == pingBody) {
                         Log.d(

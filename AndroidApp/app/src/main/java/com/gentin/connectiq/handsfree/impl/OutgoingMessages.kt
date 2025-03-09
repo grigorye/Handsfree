@@ -29,7 +29,8 @@ data class OutgoingMessageDestination(
     val app: IQApp?,
     val matchV1: Boolean? = null,
     val matchLM: Boolean? = null,
-    val accountBroadcastOnly: Boolean = false
+    val accountBroadcastOnly: Boolean = false,
+    val skipOnAppConfig: (AppConfig) -> Boolean = { false }
 ) {
     override fun toString(): String {
         val deviceRep = if (device != null) {
