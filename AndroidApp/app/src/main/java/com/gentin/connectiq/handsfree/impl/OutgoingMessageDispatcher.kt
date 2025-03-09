@@ -56,11 +56,14 @@ fun strippedVersionedPojo(
     hitVersion: Version?,
     pojo: Any?,
     metadataOnly: Boolean = false
-): VersionedPojo {
+): VersionedPojo? {
     val version = "$pojo".md5().takeLast(4).hexToInt()
+    if (version == hitVersion) {
+        return null
+    }
     return VersionedPojo(
         version = version,
-        pojo = if (version == hitVersion || metadataOnly) {
+        pojo = if (metadataOnly) {
             null
         } else {
             pojo
