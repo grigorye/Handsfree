@@ -4,8 +4,8 @@ import android.content.Context
 import com.gentin.connectiq.handsfree.contacts.ContactData
 import com.gentin.connectiq.handsfree.globals.AvailableContacts
 import com.gentin.connectiq.handsfree.globals.AvailableRecents
-import com.gentin.connectiq.handsfree.globals.phonesLimitLowMemory
 import com.gentin.connectiq.handsfree.globals.phonesLimitFullFeatured
+import com.gentin.connectiq.handsfree.globals.phonesLimitLowMemory
 import com.gentin.connectiq.handsfree.globals.recentsLimitFullFeatured
 import com.gentin.connectiq.handsfree.globals.recentsLimitLowMemory
 import com.gentin.connectiq.handsfree.helpers.pojoMap
