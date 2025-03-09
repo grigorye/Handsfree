@@ -99,7 +99,10 @@ module AppSettings {
 module BackgroundSettings {
     (:glance)
     function appConfigVersion() as Lang.Number {
-        return (isBroadcastListeningEnabled() ? 1 : 0) + (lowMemory ? 0 : 2);
+        return
+            (isBroadcastListeningEnabled() ? 1 : 0)
+            + (!lowMemory ? 2 : 0)
+            + (BackgroundSettings.isOpenAppOnIncomingCallEnabled() ? 4 : 0);
     }
 
     (:glance)
