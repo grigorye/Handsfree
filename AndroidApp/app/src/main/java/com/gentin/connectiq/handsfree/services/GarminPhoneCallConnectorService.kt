@@ -35,6 +35,7 @@ import com.gentin.connectiq.handsfree.impl.ACTIVATE_FROM_MAIN_ACTIVITY_ACTION
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.PhoneState
 import com.gentin.connectiq.handsfree.impl.PhoneStateId
+import com.gentin.connectiq.handsfree.impl.everywhere
 import com.gentin.connectiq.handsfree.impl.everywhereExactly
 import com.gentin.connectiq.handsfree.impl.phoneState
 import com.gentin.connectiq.handsfree.impl.phoneStateId
@@ -296,7 +297,13 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             incomingDisplayNames
         )
         lastTrackedPhoneState = phoneState
-        l.outgoingMessageDispatcher.sendPhoneState(everywhereExactly, phoneState)
+        val where =
+            if (phoneState.stateId == PhoneStateId.Ringing) {
+                everywhereExactly
+            } else {
+                everywhere
+            }
+        l.outgoingMessageDispatcher.sendPhoneState(where, phoneState)
 
         if (phoneState.stateId == PhoneStateId.Idle) {
             l.accountAudioState()
