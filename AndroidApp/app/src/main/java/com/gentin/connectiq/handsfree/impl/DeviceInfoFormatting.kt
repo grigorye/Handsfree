@@ -24,11 +24,11 @@ fun formattedUnfilteredDeviceInfos(deviceInfos: List<DeviceInfo>): String {
 }
 
 fun formattedFilteredDeviceInfos(deviceInfos: List<DeviceInfo>): String {
-    val matchingCount = deviceInfos.count { it.connected && it.installedAppsCount > 0 }
+    val matchingCount = deviceInfos.count { it.connected && it.installedAppsInfo.isNotEmpty() }
     return deviceInfos
         .filter {
             if (matchingCount > 0) {
-                it.connected && it.installedAppsCount > 0
+                it.connected && it.installedAppsInfo.isNotEmpty()
             } else {
                 true
             }
@@ -37,30 +37,37 @@ fun formattedFilteredDeviceInfos(deviceInfos: List<DeviceInfo>): String {
             if (!it.connected) {
                 -1
             } else {
-                it.installedAppsCount
+                it.installedAppsInfo.count()
             }
         })
         .reversed()
         .joinToString(",$nbsp ") {
-            val symbol = if (it.connected) {
-                if (it.installedAppsCount > 0) {
-                    if (matchingCount > 1) {
-                        "‼️"
-                    } else {
-                        ""
-                    }
+            val symbol =
+                if (matchingCount > 1 && it.connected) {
+                    "‼️"
                 } else {
-                    "⏹️️"
+                    symbolForDeviceInfo(it)
                 }
-            } else {
-                "⏸️"
-            }
             "$symbol$nbsp${it.displayName}"
         }
 }
 
+fun symbolForDeviceInfo(deviceInfo: DeviceInfo): String {
+    return with(deviceInfo) {
+        if (connected) {
+            if (installedAppsInfo.isNotEmpty()) {
+                ""
+            } else {
+                "⏹️️"
+            }
+        } else {
+            "⏸️"
+        }
+    }
+}
+
 fun messageForDeviceInfos(deviceInfos: List<DeviceInfo>): String {
-    val matchingCount = deviceInfos.count { it.connected && it.installedAppsCount > 0 }
+    val matchingCount = deviceInfos.count { it.connected && it.installedAppsInfo.isNotEmpty() }
     val message = if (matchingCount > 1) {
         listOf(
             "Only *one* connected Handsfree-enabled device is supported a time!",
@@ -76,5 +83,5 @@ fun messageForDeviceInfos(deviceInfos: List<DeviceInfo>): String {
     return message.joinToString("\n\n")
 }
 
-private const val nbsp = " "
+const val nbsp = " "
 const val refreshMessage = "🔄${nbsp}Refresh"

@@ -52,11 +52,19 @@ interface GarminConnector {
     val knownDeviceInfos: LiveData<List<DeviceInfo>>
 }
 
+data class InstalledAppInfo(
+    val appConfig: () -> AppConfig
+)
+
 data class DeviceInfo(
     val name: String,
-    val connected: Boolean,
-    var installedAppsCount: Int
+    val connectedImp: () -> Boolean,
+    var installedAppsInfoImp: () -> List<InstalledAppInfo>
 ) {
+    val installedAppsInfo: List<InstalledAppInfo>
+        get() = installedAppsInfoImp()
+    val connected: Boolean
+        get() = connectedImp()
     val displayName: String
         get() = name.replace(" ", " ")
 }
@@ -296,7 +304,7 @@ class DefaultGarminConnector(
                                 if (deviceInfo == null) {
                                     assert(false)
                                 } else {
-                                    deviceInfo.installedAppsCount += 1
+                                    val appConfigImp = { appConfig(device, app) }
                                     knownDevicesAcc[device.deviceIdentifier] = deviceInfo
                                     knownDevices.postValue(knownDevicesAcc)
                                 }
@@ -427,8 +435,16 @@ class DefaultGarminConnector(
                 knownDevicesAcc[device.deviceIdentifier] =
                     DeviceInfo(
                         device.friendlyName,
-                        connected = status == IQDevice.IQDeviceStatus.CONNECTED,
-                        installedAppsCount = 0
+                        connectedImp = { device.status == IQDevice.IQDeviceStatus.CONNECTED },
+                        installedAppsInfoImp = {
+                            val installedApps = installedApps[device.deviceIdentifier]
+                            installedApps?.map { app ->
+                                InstalledAppInfo(
+                                    appConfig = { appConfig(device, app) }
+                                )
+
+                            } ?: listOf()
+                        }
                     )
                 Log.d(TAG, "postingNewKnownDevices: $knownDevicesAcc")
                 knownDevices.postValue(knownDevicesAcc)
