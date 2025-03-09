@@ -119,6 +119,11 @@ class DefaultOutgoingMessageDispatcher(
         assert(destination.app != null)
 
         val subjects = mutableMapOf<String, Any>()
+
+        queryResult.phoneState?.apply {
+            sendPhoneState(destination, this)
+        }
+
         queryResult.phones?.apply {
             subjects[phonesSubject] = mapOf(
                 subjectVersion to version,

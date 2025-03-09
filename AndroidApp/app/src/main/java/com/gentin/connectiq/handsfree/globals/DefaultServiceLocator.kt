@@ -59,6 +59,7 @@ import com.gentin.connectiq.handsfree.terms.allSubjectNames
 import com.gentin.connectiq.handsfree.terms.appConfigSubject
 import com.gentin.connectiq.handsfree.terms.audioStateSubject
 import com.gentin.connectiq.handsfree.terms.companionInfoSubject
+import com.gentin.connectiq.handsfree.terms.phoneStateSubject
 import com.gentin.connectiq.handsfree.terms.phonesSubject
 import com.gentin.connectiq.handsfree.terms.readinessInfoSubject
 import com.gentin.connectiq.handsfree.terms.recentsSubject
@@ -201,6 +202,10 @@ class DefaultServiceLocator(
             val subjectVersion = subjectQueryVersion(subject)
             assert(allSubjectNames.contains(subjectName)) { "Unknown subject: $subjectName" }
             when (subjectName) {
+                phoneStateSubject -> {
+                    queryResult.phoneState = lastTrackedPhoneState ?: fallbackPhoneState()
+                }
+
                 appConfigSubject -> {
                     if (metadataOnly) {
                         queryResult.appConfig = garminConnector.appConfig(source.device, source.app)
