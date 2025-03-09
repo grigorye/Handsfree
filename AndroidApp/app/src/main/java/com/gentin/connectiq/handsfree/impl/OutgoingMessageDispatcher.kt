@@ -175,13 +175,15 @@ class DefaultOutgoingMessageDispatcher(
             )
             trackAppConfig(destination, this)
         }
-        val msg = mapOf(
-            cmdMsgField to acceptQueryResultCmd,
-            argsMsgField to mapOf(
-                subjectsArg to subjects
+        if (subjects.isNotEmpty()) {
+            val msg = mapOf(
+                cmdMsgField to acceptQueryResultCmd,
+                argsMsgField to mapOf(
+                    subjectsArg to subjects
+                )
             )
-        )
-        send(OutgoingMessage(destination, msg))
+            send(OutgoingMessage(destination, msg))
+        }
     }
 
     override fun sendPhonesV1(
