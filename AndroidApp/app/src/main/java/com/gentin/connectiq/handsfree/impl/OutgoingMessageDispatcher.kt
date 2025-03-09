@@ -69,6 +69,17 @@ fun strippedVersionedPojo(
 }
 
 @OptIn(ExperimentalStdlibApi::class)
+fun versionedPojo(
+    pojo: Any
+): VersionedPojo {
+    val version = "$pojo".md5().takeLast(4).hexToInt()
+    return VersionedPojo(
+        version = version,
+        pojo
+    )
+}
+
+@OptIn(ExperimentalStdlibApi::class)
 fun String.md5(): String {
     val md = MessageDigest.getInstance("MD5")
     val digest = md.digest(this.toByteArray())
@@ -184,12 +195,12 @@ class DefaultOutgoingMessageDispatcher(
     override fun sendContacts(contacts: AvailableContacts) {
         sendSubject(
             phonesSubject,
-            strippedVersionedPojo(null, phonesPojo(contacts, limit = phonesLimitLowMemory)),
+            versionedPojo(phonesPojo(contacts, limit = phonesLimitLowMemory)),
             destination = everywhere.copy(matchLM = true)
         )
         sendSubject(
             phonesSubject,
-            strippedVersionedPojo(null, phonesPojo(contacts, limit = phonesLimitFullFeatured)),
+            versionedPojo(phonesPojo(contacts, limit = phonesLimitFullFeatured)),
             destination = everywhere.copy(matchLM = false)
         )
     }
@@ -197,12 +208,12 @@ class DefaultOutgoingMessageDispatcher(
     override fun sendRecents(recents: AvailableRecents) {
         sendSubject(
             recentsSubject,
-            strippedVersionedPojo(null, recentsPojo(recents, limit = recentsLimitLowMemory)),
+            versionedPojo(recentsPojo(recents, limit = recentsLimitLowMemory)),
             everywhere.copy(matchV1 = false, matchLM = true)
         )
         sendSubject(
             recentsSubject,
-            strippedVersionedPojo(null, recentsPojo(recents, limit = recentsLimitFullFeatured)),
+            versionedPojo(recentsPojo(recents, limit = recentsLimitFullFeatured)),
             everywhere.copy(matchV1 = false, matchLM = false)
         )
     }
@@ -210,7 +221,7 @@ class DefaultOutgoingMessageDispatcher(
     override fun sendAudioState(state: AudioState) {
         sendSubject(
             audioStateSubject,
-            strippedVersionedPojo(null, audioStatePojo(state)),
+            versionedPojo(audioStatePojo(state)),
             everywhereExactly.copy(matchV1 = false)
         )
     }
