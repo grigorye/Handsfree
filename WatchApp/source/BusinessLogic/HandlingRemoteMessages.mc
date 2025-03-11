@@ -55,9 +55,6 @@ function handleRemoteMessage(iqMsgObject as Lang.Object or Null) as Void {
         case InCmd_acceptQueryResult:
             handleAcceptQueryResult(args);
             break;
-        case InCmd_phoneStateChanged:
-            handlePhoneStateChanged(args);
-            break;
         case InCmd_openAppFailed:
             openAppFailed();
             break;
@@ -100,19 +97,30 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
         var name = names[i];
         var subject = subjects[name] as Lang.Dictionary<Lang.String, Lang.Object>;
         var version = subject[versionK] as Version;
+        if (name.equals(appConfigSubject)) {
+            if (!version.equals(BackgroundSettings.appConfigVersion())) {
+                subjectsInvalidated = subjectsInvalidated + name;
+                isHit = false;
+            } else {
+                if (debug) { _3(LX_REMOTE_MSG, "appConfigHit", version); }
+            }
+            continue;
+        }
         switch (name) {
-            case appConfigSubject: {
-                if (!version.equals(BackgroundSettings.appConfigVersion())) {
-                    subjectsInvalidated = subjectsInvalidated + name;
-                    isHit = false;
-                } else {
-                    if (debug) { _3(LX_REMOTE_MSG, "appConfigHit", version); }
+            case phoneStateSubject: {
+                if (version.equals(Storage.getValue(PhoneState_versionKey))) {
+                    continue;
+                }
+                Storage.setValue(PhoneState_versionKey, version);
+                var phoneState = subject[valueK] as Lang.Dictionary<Lang.String, Lang.Object> | Null;
+                if (phoneState != null) {
+                    handlePhoneStateChanged(phoneState);
                 }
                 break;
             }
             case audioStateSubject: {
                 if (version.equals(Storage.getValue(AudioState_versionKey))) {
-                    break;
+                    continue;
                 }
                 var audioState = subject[valueK] as AudioState or Null;
                 if (audioState != null) {
@@ -132,33 +140,31 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
                         AudioStateImp.pendingAudioStateImp = audioState;
                     }
                 }
-                // fall through
-            }
-            default: {
-                var versionKey = versionKeyForSubject(name);
-                if (versionKey == null) {
-                    _3(LX_REMOTE_MSG, "unknownSubject", name);
-                    if (debug) {
-                        System.error("");
-                    }
-                    break;
-                }
-                var oldVersion = Storage.getValue(versionKey) as Version | Null;
-                if (!version.equals(oldVersion)) {
-                    var value = subject[valueK];
-                    if (value == null) {
-                        subjectsInvalidated = subjectsInvalidated + name;
-                    } else {
-                        var valueKey = valueKeyForSubject(name) as Lang.String;
-                        storeValue(valueKey, value);
-                        Storage.setValue(versionKey, version);
-                    }
-                    isHit = false;
-                } else {
-                    if (debug) { _3(LX_REMOTE_MSG, "Hit." + versionKey, version); }
-                }
                 break;
             }
+        }
+        // Store versions and values.
+        var versionKey = versionKeyForSubject(name);
+        if (versionKey == null) {
+            _3(LX_REMOTE_MSG, "unknownSubject", name);
+            if (debug) {
+                System.error("");
+            }
+            break;
+        }
+        var oldVersion = Storage.getValue(versionKey) as Version | Null;
+        if (!version.equals(oldVersion)) {
+            var value = subject[valueK];
+            if (value == null) {
+                subjectsInvalidated = subjectsInvalidated + name;
+            } else {
+                var valueKey = valueKeyForSubject(name) as Lang.String;
+                storeValue(valueKey, value);
+                Storage.setValue(versionKey, version);
+            }
+            isHit = false;
+        } else {
+            if (debug) { _3(LX_REMOTE_MSG, "Hit." + versionKey, version); }
         }
     }
     if (minDebug) {
@@ -268,6 +274,7 @@ function didReceiveRemoteMessageInForeground() as Void {
 
 (:background, :glance, :lowMemory)
 const versionKeyForSubjectMap = {
+    phoneStateSubject => PhoneState_versionKey,
     phonesSubject => Phones_versionKey,
     recentsSubject => Recents_versionKey,
     audioStateSubject => AudioState_versionKey
@@ -275,6 +282,7 @@ const versionKeyForSubjectMap = {
 
 (:background, :glance, :noLowMemory)
 const versionKeyForSubjectMap = {
+    phoneStateSubject => PhoneState_versionKey,
     phonesSubject => Phones_versionKey,
     recentsSubject => Recents_versionKey,
     readinessInfoSubject => ReadinessInfo_versionKey,
@@ -289,6 +297,7 @@ function versionKeyForSubject(subject as Lang.String) as Lang.String | Null {
 
 (:background, :lowMemory)
 const valueKeyForSubjectMap = {
+    phoneStateSubject => PhoneState_valueKey,
     phonesSubject => Phones_valueKey,
     recentsSubject => Recents_valueKey,
     audioStateSubject => AudioState_valueKey
@@ -296,6 +305,7 @@ const valueKeyForSubjectMap = {
 
 (:background, :noLowMemory)
 const valueKeyForSubjectMap = {
+    phoneStateSubject => PhoneState_valueKey,
     phonesSubject => Phones_valueKey,
     recentsSubject => Recents_valueKey,
     readinessInfoSubject => ReadinessInfo_valueKey,

@@ -1,3 +1,11 @@
+
+(:background)
+const PhoneState_versionKey = "phoneStateVersion.v1";
+
+(:background)
+const PhoneState_valueKey = "phoneStateValue.v1";
+
+
 (:background, :glance)
 const PhoneState_stateId = "d";
 (:background, :glance)

@@ -5,10 +5,10 @@ import Toybox.Communications;
 module Req {
 
 (:background, :noLowMemory)
-const allSubjects = appConfigSubject + phonesSubject + recentsSubject + audioStateSubject + readinessInfoSubject + companionInfoSubject;
+const allSubjects = appConfigSubject + phoneStateSubject + phonesSubject + recentsSubject + audioStateSubject + readinessInfoSubject + companionInfoSubject;
 
 (:background, :lowMemory)
-const allSubjects = appConfigSubject + phonesSubject + recentsSubject + audioStateSubject;
+const allSubjects = appConfigSubject + phoneStateSubject + phonesSubject + recentsSubject + audioStateSubject;
 
 function requestAllSubjects() as Void {
     var msg = msgForRequestSubjects(allSubjects);
