@@ -9,6 +9,7 @@ function crashMe() as Void {
     var backgroundStats = BackgroundSystemStats.getBackgroundSystemStats();
     var infos = [
         ["crashMe", null],
+        ["stats", statsRep()],
         ["readinessInfo", readinessInfoCompact()],
         ["freeMemory", [stats.freeMemory, backgroundStats["f"]]],
         ["totalMemory", [stats.totalMemory, backgroundStats["t"]]],
@@ -40,6 +41,10 @@ class DebugMenuDelegate extends WatchUi.Menu2InputDelegate {
     function onSelect(item as WatchUi.MenuItem) as Void {
         if (item.getLabel().equals("crashMe")) {
             System.error("Crashing!");
+        }
+        if (item.getLabel().equals("stats")) {
+            Storage.clearValues();
+            WatchUi.showToast("Storage Erased", null);
         }
     }
 }
