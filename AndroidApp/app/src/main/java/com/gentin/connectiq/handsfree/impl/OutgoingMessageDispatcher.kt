@@ -20,8 +20,8 @@ import com.gentin.connectiq.handsfree.terms.companionInfoSubject
 import com.gentin.connectiq.handsfree.terms.messageForWakingUpArg
 import com.gentin.connectiq.handsfree.terms.openAppFailedCmd
 import com.gentin.connectiq.handsfree.terms.openMeCompletedCmd
-import com.gentin.connectiq.handsfree.terms.phoneStateChangedCmd
 import com.gentin.connectiq.handsfree.terms.phoneStateChangedV1Cmd
+import com.gentin.connectiq.handsfree.terms.phoneStateSubject
 import com.gentin.connectiq.handsfree.terms.phonesSubject
 import com.gentin.connectiq.handsfree.terms.readinessInfoSubject
 import com.gentin.connectiq.handsfree.terms.recentsSubject
@@ -38,7 +38,8 @@ typealias Version = Int
 
 data class QueryResult(
     var appConfig: AppConfig? = null,
-    var phoneState: PhoneState? = null,
+    var phoneStateV1: PhoneState? = null,
+    var phoneState: VersionedPojo? = null,
     var audioState: VersionedPojo? = null,
     var phones: VersionedPojo? = null,
     var recents: VersionedPojo? = null,
@@ -96,6 +97,7 @@ interface OutgoingMessageDispatcher {
     fun sendPhonesV1(destination: OutgoingMessageDestination, contacts: List<ContactData>)
     fun sendContacts(contacts: AvailableContacts)
     fun sendRecents(recents: AvailableRecents)
+    fun sendPhoneStateV1(destination: OutgoingMessageDestination, phoneState: PhoneState)
     fun sendPhoneState(destination: OutgoingMessageDestination, phoneState: PhoneState)
     fun sendAudioState(state: AudioState)
     fun sendOpenAppFailed(destination: OutgoingMessageDestination)
@@ -134,10 +136,16 @@ class DefaultOutgoingMessageDispatcher(
 
         val subjects = mutableMapOf<String, Any>()
 
-        queryResult.phoneState?.apply {
-            sendPhoneState(destination, this)
+        queryResult.phoneStateV1?.apply {
+            sendPhoneStateV1(destination, this)
         }
 
+        queryResult.phoneState?.apply {
+            subjects[phoneStateSubject] = mapOf(
+                subjectVersion to version,
+                subjectValue to pojo
+            )
+        }
         queryResult.phones?.apply {
             subjects[phonesSubject] = mapOf(
                 subjectVersion to version,
@@ -241,12 +249,21 @@ class DefaultOutgoingMessageDispatcher(
         send(OutgoingMessage(destinationV1, msgV1))
 
         val destinationV2 = destination.copy(matchV1 = false)
-        val argsV2 = pojoMap(phoneState)
-        val msgV2 = mapOf(
-            cmdMsgField to phoneStateChangedCmd,
-            argsMsgField to argsV2
+        sendSubject(
+            phoneStateSubject,
+            versionedPojo(phoneStatePojo(phoneState)),
+            destinationV2
         )
-        send(OutgoingMessage(destinationV2, msgV2))
+    }
+
+    override fun sendPhoneStateV1(destination: OutgoingMessageDestination, phoneState: PhoneState) {
+        val destinationV1 = destination.copy(matchV1 = true)
+        val argsV1 = phoneStateChangedArgsV1(phoneState)
+        val msgV1 = mapOf(
+            cmdV1MsgField to phoneStateChangedV1Cmd,
+            argsV1MsgField to argsV1
+        )
+        send(OutgoingMessage(destinationV1, msgV1))
     }
 
     override fun sendOpenAppFailed(destination: OutgoingMessageDestination) {
@@ -339,6 +356,10 @@ class DefaultOutgoingMessageDispatcher(
 }
 
 fun audioStatePojo(state: AudioState): Any {
+    return pojoMap(state)
+}
+
+fun phoneStatePojo(state: PhoneState): Any {
     return pojoMap(state)
 }
 

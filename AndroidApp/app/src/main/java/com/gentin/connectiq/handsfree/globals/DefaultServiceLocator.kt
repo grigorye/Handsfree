@@ -45,6 +45,7 @@ import com.gentin.connectiq.handsfree.impl.companionInfo
 import com.gentin.connectiq.handsfree.impl.companionInfoPojo
 import com.gentin.connectiq.handsfree.impl.isLowMemory
 import com.gentin.connectiq.handsfree.impl.newSubjectQuery
+import com.gentin.connectiq.handsfree.impl.phoneStatePojo
 import com.gentin.connectiq.handsfree.impl.phonesPojo
 import com.gentin.connectiq.handsfree.impl.readinessInfo
 import com.gentin.connectiq.handsfree.impl.readinessInfoPojo
@@ -203,7 +204,14 @@ class DefaultServiceLocator(
             assert(allSubjectNames.contains(subjectName)) { "Unknown subject: $subjectName" }
             when (subjectName) {
                 phoneStateSubject -> {
-                    queryResult.phoneState = lastTrackedPhoneState ?: fallbackPhoneState()
+                    val phoneState = lastTrackedPhoneState ?: fallbackPhoneState()
+                    queryResult.phoneStateV1 = phoneState
+                    queryResult.phoneState =
+                        strippedVersionedPojo(
+                            subjectVersion,
+                            phoneStatePojo(phoneState),
+                            metadataOnly
+                        )
                 }
 
                 appConfigSubject -> {
