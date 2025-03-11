@@ -36,6 +36,8 @@ import java.security.MessageDigest
 
 typealias Version = Int
 
+private const val includeAppConfigInQueryResult = false
+
 data class QueryResult(
     var appConfig: AppConfig? = null,
     var phoneStateV1: PhoneState? = null,
@@ -177,10 +179,12 @@ class DefaultOutgoingMessageDispatcher(
             )
         }
         queryResult.appConfig?.apply {
-            subjects[appConfigSubject] = mapOf(
-                subjectVersion to this,
-                subjectValue to {}
-            )
+            if (includeAppConfigInQueryResult) {
+                subjects[appConfigSubject] = mapOf(
+                    subjectVersion to this,
+                    subjectValue to {}
+                )
+            }
             trackAppConfig(destination, this)
         }
         if (subjects.isNotEmpty()) {
