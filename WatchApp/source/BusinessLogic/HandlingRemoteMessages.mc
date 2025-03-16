@@ -43,7 +43,11 @@ function handleRemoteMessage(iqMsgObject as Lang.Object or Null) as Void {
         return;
     }
     var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
-    var cmd = msg[cmdMsgField] as Lang.String;
+    var cmd = msg[cmdMsgField] as Lang.String | Null;
+    if (cmd == null) {
+        if (minDebug) { _3(LX_REMOTE_MSG, "msg", "noCmdMsgField"); }
+        return;
+    }
     if (lowMemoryDebug) {
         _3(LX_REMOTE_MSG, "msg.cmd", cmd);
     }
