@@ -434,7 +434,7 @@ class DefaultGarminConnector(
                 knownDevicesAcc[device.deviceIdentifier] =
                     DeviceInfo(
                         device.friendlyName,
-                        connectedImp = { device.status == IQDevice.IQDeviceStatus.CONNECTED },
+                        connectedImp = { status == IQDevice.IQDeviceStatus.CONNECTED },
                         installedAppsInfoImp = {
                             val installedApps = installedApps[device.deviceIdentifier]
                             installedApps?.map { app ->
