@@ -39,7 +39,7 @@ class NotificationContentGenerator(
             NotificationContent("Not connected", "Add a device via Garmin Connect")
         } else {
             if (deviceInfos.count() > 1) {
-                val formattedDeviceInfos = formattedDeviceInfos(deviceInfos)
+                val formattedDeviceInfos = formattedDeviceInfos(deviceInfos, context)
                 if (!outgoingCallsShouldBeEnabled(context)) {
                     NotificationContent("Outgoing calls are off", "Serving $formattedDeviceInfos")
                 } else {

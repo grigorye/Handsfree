@@ -9,6 +9,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
 import com.gentin.connectiq.handsfree.impl.DeviceInfo
+import com.gentin.connectiq.handsfree.impl.formattedAppInfo
 import com.gentin.connectiq.handsfree.impl.formattedDeviceInfos
 import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForEssentials
 import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForIncomingCalls
@@ -114,14 +115,17 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
                     } else {
                         ""
                     }
-                    title = formattedDeviceInfos(it) + "\n\n" + refreshMessage + suffix
+                    title = formattedDeviceInfos(it, context) + "\n\n" + refreshMessage + suffix
                     summary = null
                 } else {
                     val deviceInfo = it?.lastOrNull()
                     if (deviceInfo != null) {
                         title = "${symbolForDeviceInfo(deviceInfo)}$nbsp${deviceInfo.name}"
                         summary = if (deviceInfo.connected)
-                            getString(R.string.device_label_connected)
+                            listOfNotNull(
+                                getString(R.string.device_label_connected),
+                                formattedAppInfo(deviceInfo.installedAppsInfo, context = context)
+                            ).joinToString(separator = " ")
                         else
                             getString(R.string.device_label_not_connected)
                     } else {

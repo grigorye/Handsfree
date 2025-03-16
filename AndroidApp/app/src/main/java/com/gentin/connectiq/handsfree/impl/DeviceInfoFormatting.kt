@@ -1,10 +1,13 @@
 package com.gentin.connectiq.handsfree.impl
 
+import android.content.Context
+import com.gentin.connectiq.handsfree.globals.isInDebugMode
+
 const val hideDevicesWithoutApps = true
 
-fun formattedDeviceInfos(deviceInfos: List<DeviceInfo>): String {
+fun formattedDeviceInfos(deviceInfos: List<DeviceInfo>, context: Context?): String {
     return if (hideDevicesWithoutApps) {
-        formattedFilteredDeviceInfos(deviceInfos)
+        formattedFilteredDeviceInfos(deviceInfos, context)
     } else {
         formattedUnfilteredDeviceInfos(deviceInfos)
     }
@@ -23,7 +26,7 @@ fun formattedUnfilteredDeviceInfos(deviceInfos: List<DeviceInfo>): String {
         }
 }
 
-fun formattedFilteredDeviceInfos(deviceInfos: List<DeviceInfo>): String {
+fun formattedFilteredDeviceInfos(deviceInfos: List<DeviceInfo>, context: Context?): String {
     val matchingCount = deviceInfos.count { it.connected && it.installedAppsInfo.isNotEmpty() }
     return deviceInfos
         .filter {
@@ -42,14 +45,32 @@ fun formattedFilteredDeviceInfos(deviceInfos: List<DeviceInfo>): String {
         })
         .reversed()
         .joinToString(",$nbsp ") {
+            val suffix = if (it.connected) {
+                formattedAppInfo(it.installedAppsInfo, context)
+            } else {
+                ""
+            }
             val symbol =
                 if (matchingCount > 1 && it.connected) {
                     "‼️"
                 } else {
                     symbolForDeviceInfo(it)
                 }
-            "$symbol$nbsp${it.displayName}"
+            listOfNotNull(
+                "$symbol$nbsp${it.displayName}",
+                suffix
+            ).joinToString(" ")
         }
+}
+
+fun formattedAppInfo(installedAppsInfo: List<InstalledAppInfo>, context: Context?): String? {
+    if (context?.let { isInDebugMode(it) } != true) {
+        return null
+    }
+    val joined = installedAppsInfo.joinToString { installedAppInfo ->
+        "${installedAppInfo.appConfig()}"
+    }
+    return "($joined)"
 }
 
 fun symbolForDeviceInfo(deviceInfo: DeviceInfo): String {
