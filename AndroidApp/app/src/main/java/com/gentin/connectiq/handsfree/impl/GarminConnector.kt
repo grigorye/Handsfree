@@ -441,7 +441,6 @@ class DefaultGarminConnector(
                                 InstalledAppInfo(
                                     appConfig = { appConfig(device, app) }
                                 )
-
                             } ?: listOf()
                         }
                     )
