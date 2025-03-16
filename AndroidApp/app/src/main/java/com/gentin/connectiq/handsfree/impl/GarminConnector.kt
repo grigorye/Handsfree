@@ -535,24 +535,8 @@ class DefaultGarminConnector(
                     appsForSendingMessages(device)
                 }
                 for (app in targetApps) {
-                    val appConfig = appConfig(device, app)
-                    when (destination.accountBroadcastOnly) {
-                        true -> if (!isBroadcastEnabled(appConfig)) continue
-                        false -> Unit
-                    }
-                    when (destination.matchLM) {
-                        true -> if (!isLowMemory(appConfig)) continue
-                        false -> if (isLowMemory(appConfig)) continue
-                        null -> Unit
-                    }
-                    when (destination.matchV1) {
-                        true -> if (appVersion(device, app) != 1) continue
-                        false -> if (appVersion(device, app) == 1) continue
-                        null -> Unit
-                    }
-                    if (destination.skipOnAppConfig(appConfig)) {
+                    if (messageShouldBeSkipped(messageValue, device, app, destination))
                         continue
-                    }
                     val appLogName = appLogName(app)
                     if (messageValue.body == pingBody) {
                         Log.d(
@@ -588,6 +572,57 @@ class DefaultGarminConnector(
             Log.e(TAG, "sendMessageFailed($message): $e")
             breakIntoDebugger()
             throw e
+        }
+    }
+
+    private fun skipReasonForDestination(
+        appConfig: AppConfig,
+        device: IQDevice,
+        app: IQApp,
+        destination: OutgoingMessageDestination
+    ): String? {
+        when (destination.accountBroadcastOnly) {
+            true -> if (!isBroadcastEnabled(appConfig)) return "broadcastEnabled"
+            false -> Unit
+        }
+        when (destination.matchLM) {
+            true -> if (!isLowMemory(appConfig)) return "lowMemoryMatch(false)"
+            false -> if (isLowMemory(appConfig)) return "lowMemoryMatch(true)"
+            null -> Unit
+        }
+        when (destination.matchV1) {
+            true -> if (appVersion(device, app) != 1) return "appVersionMatch(!1)"
+            false -> if (appVersion(device, app) == 1) return "appVersionMatch(1)"
+            null -> Unit
+        }
+        if (destination.skipOnAppConfig(appConfig)) {
+            return "skipOnAppConfig"
+        }
+        return null
+    }
+
+    private fun messageShouldBeSkipped(
+        message: OutgoingMessage,
+        device: IQDevice,
+        app: IQApp,
+        destination: OutgoingMessageDestination
+    ): Boolean {
+        val appConfig = appConfig(device, app)
+        when (val reason = skipReasonForDestination(appConfig, device, app, destination)) {
+            null -> {
+                return false
+            }
+            else -> {
+                val appLogName = appLogName(app)
+                val messageLogValue = gson.toJson(
+                    message
+                )
+                Log.d(
+                    TAG,
+                    "device.${device.deviceIdentifier}(${device.friendlyName})($appLogName) <- skip.$reason(${messageLogValue})"
+                )
+                return true
+            }
         }
     }
 
