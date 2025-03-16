@@ -427,7 +427,11 @@ class DefaultServiceLocator(
                     val source = IncomingMessageSource(device, app)
                     val result = query(args, metadataOnly = true, source = source)
                     val destination = OutgoingMessageDestination(device, app)
-                    outgoingMessageDispatcher.sendQueryResult(destination, result)
+                    outgoingMessageDispatcher.sendQueryResult(
+                        destination,
+                        result,
+                        includeAppConfigInQueryResult = true
+                    )
                 }
             }
         ).apply {

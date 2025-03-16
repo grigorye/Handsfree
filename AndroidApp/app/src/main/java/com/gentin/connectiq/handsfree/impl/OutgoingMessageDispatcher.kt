@@ -36,8 +36,6 @@ import java.security.MessageDigest
 
 typealias Version = Int
 
-private const val includeAppConfigInQueryResult = false
-
 data class QueryResult(
     var appConfig: AppConfig? = null,
     var phoneStateV1: PhoneState? = null,
@@ -95,7 +93,12 @@ fun String.md5(): String {
 interface OutgoingMessageDispatcher {
     fun sendPing()
     fun sendSyncYouV1(contacts: List<ContactData>, phoneState: PhoneState?)
-    fun sendQueryResult(destination: OutgoingMessageDestination, queryResult: QueryResult)
+    fun sendQueryResult(
+        destination: OutgoingMessageDestination,
+        queryResult: QueryResult,
+        includeAppConfigInQueryResult: Boolean = false
+    )
+
     fun sendPhonesV1(destination: OutgoingMessageDestination, contacts: List<ContactData>)
     fun sendContacts(contacts: AvailableContacts)
     fun sendRecents(recents: AvailableRecents)
@@ -132,7 +135,8 @@ class DefaultOutgoingMessageDispatcher(
 
     override fun sendQueryResult(
         destination: OutgoingMessageDestination,
-        queryResult: QueryResult
+        queryResult: QueryResult,
+        includeAppConfigInQueryResult: Boolean
     ) {
         assert(destination.app != null)
 
