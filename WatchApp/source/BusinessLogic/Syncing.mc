@@ -15,6 +15,17 @@ function requestAllSubjects() as Void {
     transmitWithRetry("reqAllSubjects", msg, new Communications.ConnectionListener());
 }
 
+(:glance, :typecheck(disableGlanceCheck))
+function requestSubjectsIfPossibleWithRetry(subjects as Lang.String) as Void {
+    dumpF(L_APP, "requestSubjects");
+    var msg = msgForRequestSubjects(subjects);
+    if (isActiveUiKindApp) {
+        transmitWithRetry("syncSubjects", msg, new Communications.ConnectionListener());
+    } else {
+        transmitWithoutRetry("syncSubjects", msg);
+    }
+}
+
 (:background, :glance)
 function requestSubjects(subjects as Lang.String) as Void {
     dumpF(L_APP, "requestSubjects");
