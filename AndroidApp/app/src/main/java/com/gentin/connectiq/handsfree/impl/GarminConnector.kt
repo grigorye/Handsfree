@@ -239,7 +239,9 @@ class DefaultGarminConnector(
         }
         run {
             val apps = installedApps[key] ?: mutableListOf()
-            apps.add(app)
+            if (apps.find { x -> x.applicationId == app.applicationId } == null) {
+                apps.add(app)
+            }
             installedApps[key] = apps
         }
     }
