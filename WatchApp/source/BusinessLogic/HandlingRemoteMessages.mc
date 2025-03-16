@@ -111,7 +111,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
                 if (version.equals(Storage.getValue(PhoneState_versionKey))) {
                     continue;
                 }
-                Storage.setValue(PhoneState_versionKey, version);
+                storeVersion(PhoneState_versionKey, version);
                 var phoneState = subject[valueK] as Lang.Dictionary<Lang.String, Lang.Object> | Null;
                 if (phoneState != null) {
                     handlePhoneStateChanged(phoneState);
@@ -160,7 +160,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
             } else {
                 var valueKey = valueKeyForSubject(name) as Lang.String;
                 storeValue(valueKey, value);
-                Storage.setValue(versionKey, version);
+                storeVersion(versionKey, version);
             }
             isHit = false;
         } else {

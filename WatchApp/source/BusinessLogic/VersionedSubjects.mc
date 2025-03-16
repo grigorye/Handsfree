@@ -11,6 +11,12 @@ function loadValueWithDefault(key as Lang.String, defaultValue as Lang.Object) a
 }
 
 (:background)
+function storeVersion(key as Lang.String, version as Lang.Number) as Void {
+    _3(L_APP, "storeVersion", [key, version]);
+    Storage.setValue(key, version);
+}
+
+(:background)
 function storeValue(key as Lang.String, value as Lang.Object) as Void {
     var listValue;
     switch (key) {
