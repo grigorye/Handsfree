@@ -304,7 +304,6 @@ class DefaultGarminConnector(
                                 if (deviceInfo == null) {
                                     assert(false)
                                 } else {
-                                    val appConfigImp = { appConfig(device, app) }
                                     knownDevicesAcc[device.deviceIdentifier] = deviceInfo
                                     knownDevices.postValue(knownDevicesAcc)
                                 }
