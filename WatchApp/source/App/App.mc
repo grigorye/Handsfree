@@ -78,11 +78,11 @@ class AppCore extends Application.AppBase {
     }
     
     function onStart(state as Lang.Dictionary or Null) as Void {
-        _3(L_APP, "onStart", state);
+        _3(L_APP, "onStart.state", state);
     }
 
     function onStop(state as Lang.Dictionary or Null) as Void {
-        _3(L_APP, "onStop", state);
+        _3(L_APP, "onStop.state", state);
     }
 
     function onSettingsChanged() as Void {
