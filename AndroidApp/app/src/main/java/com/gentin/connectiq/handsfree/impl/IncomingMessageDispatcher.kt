@@ -78,12 +78,12 @@ class IncomingMessageDispatcher(
             }
 
             syncMeV1InCmd -> {
-                assert(appVersionImp(source) == 1) { "wrongAppVersion: ${appVersionImp(source)}" }
+                assert((appVersionImp(source) ?: 1) == 1) { "wrongAppVersion: ${appVersionImp(source)}" }
                 syncV1Imp()
             }
 
             syncPhonesV1InCmd -> {
-                assert(appVersionImp(source) == 1) { "wrongAppVersion: ${appVersionImp(source)}" }
+                assert((appVersionImp(source) ?: 1) == 1) { "wrongAppVersion: ${appVersionImp(source)}" }
                 syncPhonesV1Imp(source)
             }
 
