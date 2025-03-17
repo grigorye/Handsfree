@@ -53,7 +53,13 @@ interface GarminConnector {
 }
 
 data class InstalledAppInfo(
-    val appConfig: () -> AppConfig
+    val appConfig: () -> AppConfig,
+    val appVersionInfo: WatchAppVersionInfo
+)
+
+data class WatchAppVersionInfo(
+    val version: Int,
+    val appName: String
 )
 
 data class DeviceInfo(
@@ -441,7 +447,8 @@ class DefaultGarminConnector(
                             val installedApps = installedApps[device.deviceIdentifier]
                             installedApps?.map { app ->
                                 InstalledAppInfo(
-                                    appConfig = { appConfig(device, app) }
+                                    appConfig = { appConfig(device, app) },
+                                    appVersionInfo = WatchAppVersionInfo(app.version(), app.displayName)
                                 )
                             } ?: listOf()
                         }
