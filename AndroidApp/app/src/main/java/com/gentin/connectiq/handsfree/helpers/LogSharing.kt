@@ -4,12 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Environment
-import android.os.Environment.DIRECTORY_DOWNLOADS
 import java.io.BufferedReader
 import java.io.BufferedWriter
-import java.io.FileReader
-import java.io.FileWriter
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -17,20 +15,22 @@ import java.util.Locale
 const val REQUEST_CODE_SHARE_LOG = 123
 
 fun saveLog(context: Context, uri: Uri) {
-    val downloads = Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)
-    val path = "$downloads/Handsfree.log"
-    val process = Runtime.getRuntime().exec("logcat -d -f $path")
-    process.waitFor()
+    try {
+        val process = Runtime.getRuntime().exec("logcat -d")
+        val reader = BufferedReader(InputStreamReader(process.inputStream))
 
-    context.contentResolver.openFileDescriptor(uri, "w")?.use { closeable ->
-        val bufferedWriter = BufferedWriter(FileWriter(closeable.fileDescriptor))
-        val bufferedReader = BufferedReader(FileReader(path))
-        var oneLine: String?
-        while ((bufferedReader.readLine().also { oneLine = it }) != null) {
-            bufferedWriter.write(oneLine)
-            bufferedWriter.newLine()
+        val outputStream = context.contentResolver.openOutputStream(uri) ?: return
+        val writer = BufferedWriter(OutputStreamWriter(outputStream))
+
+        var line: String?
+        while (reader.readLine().also { line = it } != null) {
+            writer.write(line + "\n")
         }
-        bufferedWriter.flush()
+
+        writer.close()
+        reader.close()
+    } catch (e: Exception) {
+        e.printStackTrace()
     }
 }
 
