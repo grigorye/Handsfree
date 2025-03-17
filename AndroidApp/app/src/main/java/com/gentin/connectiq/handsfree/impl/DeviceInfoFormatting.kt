@@ -70,7 +70,7 @@ fun formattedAppInfo(installedAppsInfo: List<InstalledAppInfo>, context: Context
     val joined = installedAppsInfo.joinToString { installedAppInfo ->
         "${installedAppInfo.appConfig()}"
     }
-    return "($joined)"
+    return if (joined == "") { null } else { "($joined)" }
 }
 
 fun symbolForDeviceInfo(deviceInfo: DeviceInfo): String {
