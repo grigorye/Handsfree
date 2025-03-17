@@ -581,7 +581,7 @@ class DefaultGarminConnector(
         app: IQApp,
         destination: OutgoingMessageDestination
     ): String? {
-        when (destination.accountBroadcastOnly) {
+        when (destination.accountBroadcastOnly && (destination.matchV1 != true)) {
             true -> if (!isBroadcastEnabled(appConfig)) return "broadcastEnabled"
             false -> Unit
         }
