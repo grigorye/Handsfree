@@ -596,6 +596,11 @@ class DefaultGarminConnector(
         app: IQApp,
         destination: OutgoingMessageDestination
     ): String? {
+        when (destination.matchV1) {
+            true -> if (appVersion(device, app) != 1) return "appVersionMatch(!1)"
+            false -> if (appVersion(device, app) == 1) return "appVersionMatch(1)"
+            null -> Unit
+        }
         when (destination.accountBroadcastOnly && (destination.matchV1 != true)) {
             true -> if (!isBroadcastEnabled(appConfig)) return "broadcastEnabled"
             false -> Unit
@@ -603,11 +608,6 @@ class DefaultGarminConnector(
         when (destination.matchLM) {
             true -> if (!isLowMemory(appConfig)) return "lowMemoryMatch(false)"
             false -> if (isLowMemory(appConfig)) return "lowMemoryMatch(true)"
-            null -> Unit
-        }
-        when (destination.matchV1) {
-            true -> if (appVersion(device, app) != 1) return "appVersionMatch(!1)"
-            false -> if (appVersion(device, app) == 1) return "appVersionMatch(1)"
             null -> Unit
         }
         if (destination.skipOnAppConfig(appConfig)) {
