@@ -303,7 +303,7 @@ Without the permission, no contact names for the calls will be visible.
     <string name="settings_permission_not_available_rationale">"&gt; This permission is not currently available with this version of the app."</string>
     <string name="settings_device_with_symbol_fmt">"{{symbol}}\u00A0{{device_name}}"</string>
     <string name="settings_device_symbol_active">"⚡️"</string>
-    <string name="settings_device_symbol_standby">"🕒"</string>
+    <string name="settings_device_symbol_standby">"🟢"</string>
     <string name="settings_device_symbol_missing_app">"⬇️️️"</string>
     <string name="settings_device_symbol_not_connected">"❌️"</string>
     <string name="settings_device_symbol_conflicting">"‼️"</string>
