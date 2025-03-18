@@ -474,6 +474,11 @@ class DefaultServiceLocator(
                     addSource(garminConnector.knownDeviceInfos) {
                         value = it
                     }
+                    addSource(garminConnector.appConfigsLiveData) {
+                        // Trigger dummy update, as app configs are not directly
+                        // represented in the value, rather retrieved via installedAppsInfo.
+                        value = value
+                    }
                 }
             }
     }

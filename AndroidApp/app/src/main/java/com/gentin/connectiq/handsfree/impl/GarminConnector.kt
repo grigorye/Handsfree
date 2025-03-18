@@ -29,6 +29,9 @@ import kotlinx.coroutines.launch
 
 val pingBody = mapOf(cmdMsgField to "ping")
 
+typealias AppConfigs = Map<String, AppConfig>
+typealias MutableAppConfigs = MutableMap<String, AppConfig>
+
 interface GarminConnector {
     fun launch()
     fun terminate()
@@ -50,6 +53,7 @@ interface GarminConnector {
     val acknowledgedMessagesCounter: Int
 
     val knownDeviceInfos: LiveData<List<DeviceInfo>>
+    val appConfigsLiveData: LiveData<AppConfigs>
 }
 
 data class InstalledAppInfo(
@@ -220,7 +224,9 @@ class DefaultGarminConnector(
 
     private val notInstalledApps = mutableMapOf<Long, MutableList<IQApp>>()
     private val installedApps = mutableMapOf<Long, MutableList<IQApp>>()
-    private val appConfigs = mutableMapOf<String, AppConfig>()
+
+    private val appConfigs: MutableAppConfigs = mutableMapOf()
+    override val appConfigsLiveData: MutableLiveData<AppConfigs> = MutableLiveData(mapOf())
 
     private fun trackNotInstalledApp(device: IQDevice, app: IQApp) {
         val key = device.deviceIdentifier
@@ -260,6 +266,7 @@ class DefaultGarminConnector(
         val key = "${device.deviceIdentifier}, ${app.applicationId}"
         run {
             appConfigs[key] = config
+            appConfigsLiveData.postValue(appConfigs)
         }
     }
 
@@ -285,6 +292,7 @@ class DefaultGarminConnector(
 
     private fun clearAppConfigs() {
         appConfigs.clear()
+        appConfigsLiveData.postValue(appConfigs)
     }
 
     private fun startOutgoingMessageGeneration(device: IQDevice) {
