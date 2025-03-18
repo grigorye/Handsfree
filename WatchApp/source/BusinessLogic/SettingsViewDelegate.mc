@@ -23,6 +23,7 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
             }
             case :broadcastListening: {
                 AppSettings.toggle(Settings_broadcastListeningK);
+                appConfigDidChange();
                 break;
             }
             case :about: {
