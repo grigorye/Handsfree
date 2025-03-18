@@ -9,7 +9,6 @@ import androidx.preference.PreferenceFragmentCompat
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
 import com.gentin.connectiq.handsfree.impl.DeviceInfo
-import com.gentin.connectiq.handsfree.impl.formattedAppInfo
 import com.gentin.connectiq.handsfree.impl.formattedDeviceInfos
 import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForEssentials
 import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForIncomingCalls
@@ -18,7 +17,6 @@ import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForRecents
 import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForStarredContacts
 import com.gentin.connectiq.handsfree.impl.messageForDeviceInfos
 import com.gentin.connectiq.handsfree.impl.refreshMessage
-import com.gentin.connectiq.handsfree.impl.titleForDevice
 import com.gentin.connectiq.handsfree.onboarding.resolveLink
 import com.gentin.connectiq.handsfree.permissions.isPermissionRequested
 
@@ -107,7 +105,7 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
         knownDeviceInfos.observe(this) {
             Log.d(TAG, "knownDeviceInfosDidChange: $it")
             devicesPreference?.apply {
-                if (it.count() > 1) {
+                if (it.isNotEmpty()) {
                     val message = messageForDeviceInfos(it)
                     val suffix = if (message != "") {
                         "\n\n" + message
@@ -117,20 +115,8 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
                     title = formattedDeviceInfos(it, context) + "\n\n" + refreshMessage + suffix
                     summary = null
                 } else {
-                    val deviceInfo = it?.lastOrNull()
-                    if (deviceInfo != null) {
-                        title = titleForDevice(deviceInfo, false, context)
-                        summary = if (deviceInfo.connected)
-                            listOfNotNull(
-                                getString(R.string.device_label_connected),
-                                formattedAppInfo(deviceInfo.installedAppsInfo, context = context)
-                            ).joinToString(separator = " ")
-                        else
-                            getString(R.string.device_label_not_connected)
-                    } else {
-                        title = getString(R.string.no_devices_preference_title)
-                        summary = getString(R.string.no_devices_preference_summary)
-                    }
+                    title = getString(R.string.no_devices_preference_title)
+                    summary = getString(R.string.no_devices_preference_summary)
                 }
                 setOnPreferenceClickListener { preference ->
                     Log.d(TAG, "preferenceClicked: $preference")
