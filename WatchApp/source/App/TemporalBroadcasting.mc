@@ -26,7 +26,7 @@ function triggerTemporalSubjectsBroadcasting() as Void {
     } else {
         if (debug) { _2(L_APP, "temporalBroadcastListening.activated"); }
         Storage.setValue(Storage_temporalBroadcastListening, true);
-        Req.requestSubjectsIfPossibleWithRetry(subjectsForStartingTemporalBroadcasting);
+        Req.requestSubjects(subjectsForStartingTemporalBroadcasting);
     }
     var fiveMinutes = new Time.Duration(5 * 60);
     var eventTime = Time.now().add(fiveMinutes);
