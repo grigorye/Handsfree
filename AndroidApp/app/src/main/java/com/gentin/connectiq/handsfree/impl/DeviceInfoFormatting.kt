@@ -1,11 +1,20 @@
 package com.gentin.connectiq.handsfree.impl
 
 import android.content.Context
+import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.globals.isInDebugMode
 
 const val hideDevicesWithoutApps = true
 
-fun formattedDeviceInfos(deviceInfos: List<DeviceInfo>, context: Context?): String {
+fun titleForDevice(deviceInfo: DeviceInfo, appConflict: Boolean, context: Context): String {
+    val format = context.getString(R.string.settings_device_with_symbol_fmt)
+    val title = format
+        .replace("{{device_name}}", deviceInfo.name)
+        .replace("{{symbol}}", symbolForDeviceInfo(deviceInfo, appConflict, context))
+    return title
+}
+
+fun formattedDeviceInfos(deviceInfos: List<DeviceInfo>, context: Context): String {
     return if (hideDevicesWithoutApps) {
         formattedFilteredDeviceInfos(deviceInfos, context)
     } else {
@@ -26,7 +35,7 @@ fun formattedUnfilteredDeviceInfos(deviceInfos: List<DeviceInfo>): String {
         }
 }
 
-fun formattedFilteredDeviceInfos(deviceInfos: List<DeviceInfo>, context: Context?): String {
+fun formattedFilteredDeviceInfos(deviceInfos: List<DeviceInfo>, context: Context): String {
     val matchingCount = deviceInfos.count { it.connected && it.installedAppsInfo.isNotEmpty() }
     return deviceInfos
         .filter {
@@ -50,14 +59,8 @@ fun formattedFilteredDeviceInfos(deviceInfos: List<DeviceInfo>, context: Context
             } else {
                 ""
             }
-            val symbol =
-                if (matchingCount > 1 && it.connected) {
-                    "‼️"
-                } else {
-                    symbolForDeviceInfo(it)
-                }
             listOfNotNull(
-                "$symbol$nbsp${it.displayName}",
+                titleForDevice(it, appConflict = matchingCount > 1, context),
                 suffix
             ).joinToString(" ")
         }
@@ -70,28 +73,36 @@ fun formattedAppInfo(installedAppsInfo: List<InstalledAppInfo>, context: Context
     val joined = installedAppsInfo.joinToString { installedAppInfo ->
         "${installedAppInfo.appConfig()}"
     }
-    return if (joined == "") { null } else { "($joined)" }
+    return if (joined == "") {
+        null
+    } else {
+        "($joined)"
+    }
 }
 
-fun symbolForDeviceInfo(deviceInfo: DeviceInfo): String {
+fun symbolForDeviceInfo(deviceInfo: DeviceInfo, appConflict: Boolean, context: Context): String {
     return with(deviceInfo) {
         if (connected) {
             if (installedAppsInfo.isNotEmpty()) {
-                installedAppsInfo.map { info ->
-                    val appConfig = info.appConfig()
-                    if (info.appVersionInfo.version == 1) {
-                        ""
-                    } else if (isBroadcastEnabled(appConfig)) {
-                        "▶️️"
-                    } else {
-                        "🅿️"
-                    }
-                }.joinToString(separator = "")
+                if (appConflict) {
+                    context.getString(R.string.settings_device_symbol_conflicting)
+                } else {
+                    installedAppsInfo.map { info ->
+                        val appConfig = info.appConfig()
+                        if (info.appVersionInfo.version == 1) {
+                            context.getString(R.string.settings_device_symbol_active)
+                        } else if (isBroadcastEnabled(appConfig)) {
+                            context.getString(R.string.settings_device_symbol_active)
+                        } else {
+                            context.getString(R.string.settings_device_symbol_standby)
+                        }
+                    }.joinToString(separator = "")
+                }
             } else {
-                "⏹️️"
+                context.getString(R.string.settings_device_symbol_missing_app)
             }
         } else {
-            "⏸️"
+            context.getString(R.string.settings_device_symbol_not_connected)
         }
     }
 }
