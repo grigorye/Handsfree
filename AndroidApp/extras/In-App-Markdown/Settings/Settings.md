@@ -10,7 +10,7 @@
 
 [⚡️](lk:device_symbol_active) (active)
 
-[🕒](lk:device_symbol_standby) (standby)
+[🟢](lk:device_symbol_standby) (standby)
 
 [⬇️️️](lk:device_symbol_missing_app) (missing app)
 
