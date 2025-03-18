@@ -308,7 +308,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
                         if (isIncomingCallsEnabled(appConfig)) {
                             false
                         } else {
-                            isBroadcastEnabled(appConfig)
+                            !isBroadcastEnabled(appConfig)
                         }
                     }
                 )
