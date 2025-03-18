@@ -14,10 +14,10 @@ class View extends WatchUi.Menu2 {
 
     function incomingCallsMenuItem() as WatchUi.ToggleMenuItem {
         return new ToggleMenuItem(
-            "Incoming Calls",
+            "Ringing",
             {
                 :enabled => incomingCallsEnabledMenuItemTitle(),
-                :disabled => "Silent"
+                :disabled => "Off"
             },
             :openAppOnIncomingCall,
             BackgroundSettings.isOpenAppOnIncomingCallEnabled(),
