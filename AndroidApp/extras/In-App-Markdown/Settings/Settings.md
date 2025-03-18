@@ -6,6 +6,8 @@
 
 [‼️](lk:device_symbol_conflicting) (conflicting)
 
+[⚪️](lk:device_symbol_loading) (loading app config)
+
 [⚡️](lk:device_symbol_active) (active)
 
 [🕒](lk:device_symbol_standby) (standby)
