@@ -87,6 +87,7 @@ class AppCore extends Application.AppBase {
 
     function onSettingsChanged() as Void {
         _2(L_APP, "onSettingsChanged");
+        settingsDidChange();
     }
 
     (:typecheck([disableBackgroundCheck]), :watchApp)
