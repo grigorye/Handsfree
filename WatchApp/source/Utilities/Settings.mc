@@ -6,6 +6,7 @@ import Toybox.System;
 const Settings_verboseLogsK = "forceLogAll";
 
 const Settings_optimisticCallHandlingK = "optimisticCallHandling";
+(:background, :glance)
 const Settings_openAppOnIncomingCallK = "openAppOnIncomingCall";
 (:background, :glance)
 const Settings_broadcastListeningK = "broadcastListening";
@@ -115,7 +116,7 @@ module BackgroundSettings {
 
     (:glance)
     function isOpenAppOnIncomingCallEnabled() as Lang.Boolean {
-        return Properties.getValue("openAppOnIncomingCall") as Lang.Boolean;
+        return Properties.getValue(Settings_openAppOnIncomingCallK) as Lang.Boolean;
     }
 
     (:lowMemory)
