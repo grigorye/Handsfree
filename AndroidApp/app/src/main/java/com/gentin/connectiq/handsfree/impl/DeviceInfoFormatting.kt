@@ -11,7 +11,24 @@ fun titleForDevice(deviceInfo: DeviceInfo, appConflict: Boolean, context: Contex
     val title = format
         .replace("{{device_name}}", deviceInfo.name)
         .replace("{{symbol}}", symbolForDeviceInfo(deviceInfo, appConflict, context))
-    return title
+    val suffix = if (!appConflict && isSilent(deviceInfo)) {
+        context.getString(R.string.settings_device_suffix_silent)
+    } else {
+        null
+    }
+    return listOfNotNull(title, suffix).joinToString(nbsp)
+}
+
+private fun isSilent(deviceInfo: DeviceInfo): Boolean {
+    val installedAppsInfo = deviceInfo.installedAppsInfo
+    return installedAppsInfo.isNotEmpty() && installedAppsInfo.find {
+        val appConfig = it.appConfig()
+        if (appConfig == null) {
+            false
+        } else {
+            !isIncomingCallsEnabled(appConfig)
+        }
+    } != null
 }
 
 fun formattedDeviceInfos(deviceInfos: List<DeviceInfo>, context: Context): String {
