@@ -308,4 +308,5 @@ Without the permission, no contact names for the calls will be visible.
     <string name="settings_device_symbol_not_connected">"❌️"</string>
     <string name="settings_device_symbol_conflicting">"‼️"</string>
     <string name="settings_device_symbol_loading">"⚪️"</string>
+    <string name="settings_device_suffix_silent">"(silent mode)"</string>
 </resources>
