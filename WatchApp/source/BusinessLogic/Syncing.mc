@@ -10,13 +10,8 @@ const allSubjects = appConfigSubject + phoneStateSubject + phonesSubject + recen
 (:background, :lowMemory)
 const allSubjects = appConfigSubject + phoneStateSubject + phonesSubject + recentsSubject + audioStateSubject;
 
-function requestAllSubjects() as Void {
-    var msg = msgForRequestSubjects(allSubjects);
-    transmitWithRetry("reqAllSubjects", msg, new Communications.ConnectionListener());
-}
-
-(:glance, :typecheck(disableGlanceCheck))
-function requestSubjectsIfPossibleWithRetry(subjects as Lang.String) as Void {
+(:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
+function requestSubjects(subjects as Lang.String) as Void {
     dumpF(L_APP, "requestSubjects");
     var msg = msgForRequestSubjects(subjects);
     if (isActiveUiKindApp) {
@@ -24,13 +19,6 @@ function requestSubjectsIfPossibleWithRetry(subjects as Lang.String) as Void {
     } else {
         transmitWithoutRetry("syncSubjects", msg);
     }
-}
-
-(:background, :glance)
-function requestSubjects(subjects as Lang.String) as Void {
-    dumpF(L_APP, "requestSubjects");
-    var msg = msgForRequestSubjects(subjects);
-    transmitWithoutRetry("syncSubjects", msg);
 }
 
 (:background, :glance)
