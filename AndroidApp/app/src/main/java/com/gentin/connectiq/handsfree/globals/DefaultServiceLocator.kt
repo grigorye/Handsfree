@@ -21,6 +21,7 @@ import com.gentin.connectiq.handsfree.contacts.ContactsRepositoryImpl
 import com.gentin.connectiq.handsfree.contacts.contactsGroupId
 import com.gentin.connectiq.handsfree.contacts.forEachContactInGroup
 import com.gentin.connectiq.handsfree.contacts.forEachContactWithPhoneNumberInFavorites
+import com.gentin.connectiq.handsfree.impl.AppConfig_Undefined
 import com.gentin.connectiq.handsfree.impl.AudioControl
 import com.gentin.connectiq.handsfree.impl.AudioControlImp
 import com.gentin.connectiq.handsfree.impl.AudioState
@@ -197,7 +198,8 @@ class DefaultServiceLocator(
         source: IncomingMessageSource
     ): QueryResult {
         val queryResult = QueryResult()
-        val lm = isLowMemory(garminConnector.appConfig(source.device, source.app))
+        val appConfig = garminConnector.appConfig(source.device, source.app)
+        val lm = if (appConfig != null) { isLowMemory(appConfig) } else { true }
         for (subject in args.subjects) {
             val subjectName = subjectQueryName(subject)
             val subjectVersion = subjectQueryVersion(subject)
@@ -216,7 +218,7 @@ class DefaultServiceLocator(
 
                 appConfigSubject -> {
                     if (metadataOnly) {
-                        queryResult.appConfig = garminConnector.appConfig(source.device, source.app)
+                        queryResult.appConfig = garminConnector.appConfig(source.device, source.app) ?: AppConfig_Undefined
                     } else {
                         queryResult.appConfig = subjectVersion
                     }

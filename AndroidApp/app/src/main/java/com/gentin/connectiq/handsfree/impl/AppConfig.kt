@@ -2,6 +2,7 @@ package com.gentin.connectiq.handsfree.impl
 
 typealias AppConfig = Int
 
+const val AppConfig_Undefined = -1
 const val AppConfig_Broadcast = 0b1
 const val AppConfig_FullFeatured = 0b10
 const val AppConfig_IncomingCalls = 0b100

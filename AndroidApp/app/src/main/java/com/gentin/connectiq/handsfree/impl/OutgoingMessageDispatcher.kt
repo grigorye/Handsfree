@@ -189,7 +189,9 @@ class DefaultOutgoingMessageDispatcher(
                     subjectValue to {}
                 )
             }
-            trackAppConfig(destination, this)
+            if (this != AppConfig_Undefined) {
+                trackAppConfig(destination, this)
+            }
         }
         if (subjects.isNotEmpty()) {
             val msg = mapOf(

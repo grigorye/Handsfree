@@ -88,13 +88,17 @@ fun symbolForDeviceInfo(deviceInfo: DeviceInfo, appConflict: Boolean, context: C
                     context.getString(R.string.settings_device_symbol_conflicting)
                 } else {
                     installedAppsInfo.map { info ->
-                        val appConfig = info.appConfig()
                         if (info.appVersionInfo.version == 1) {
                             context.getString(R.string.settings_device_symbol_active)
-                        } else if (isBroadcastEnabled(appConfig)) {
-                            context.getString(R.string.settings_device_symbol_active)
                         } else {
-                            context.getString(R.string.settings_device_symbol_standby)
+                            val appConfig = info.appConfig()
+                            if (appConfig == null) {
+                                context.getString(R.string.settings_device_symbol_loading)
+                            } else if (isBroadcastEnabled(appConfig)) {
+                                context.getString(R.string.settings_device_symbol_active)
+                            } else {
+                                context.getString(R.string.settings_device_symbol_standby)
+                            }
                         }
                     }.joinToString(separator = "")
                 }

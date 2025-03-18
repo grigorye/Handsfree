@@ -47,7 +47,7 @@ interface GarminConnector {
 
     fun trackFirstAppLaunch(device: IQDevice, app: IQApp)
     fun trackAppConfig(device: IQDevice, app: IQApp, config: AppConfig)
-    fun appConfig(device: IQDevice, app: IQApp): AppConfig
+    fun appConfig(device: IQDevice, app: IQApp): AppConfig?
 
     val sentMessagesCounter: Int
     val acknowledgedMessagesCounter: Int
@@ -57,7 +57,7 @@ interface GarminConnector {
 }
 
 data class InstalledAppInfo(
-    val appConfig: () -> AppConfig,
+    val appConfig: () -> AppConfig?,
     val appVersionInfo: WatchAppVersionInfo
 )
 
@@ -270,9 +270,9 @@ class DefaultGarminConnector(
         }
     }
 
-    override fun appConfig(device: IQDevice, app: IQApp): AppConfig {
+    override fun appConfig(device: IQDevice, app: IQApp): AppConfig? {
         val key = "${device.deviceIdentifier}, ${app.applicationId}"
-        return appConfigs[key] ?: 0
+        return appConfigs[key]
     }
 
     override fun appVersion(device: IQDevice, app: IQApp): Int? {
@@ -591,7 +591,7 @@ class DefaultGarminConnector(
     }
 
     private fun skipReasonForDestination(
-        appConfig: AppConfig,
+        appConfig: AppConfig?,
         device: IQDevice,
         app: IQApp,
         destination: OutgoingMessageDestination
@@ -600,6 +600,10 @@ class DefaultGarminConnector(
             true -> if (appVersion(device, app) != 1) return "appVersionMatch(!1)"
             false -> if (appVersion(device, app) == 1) return "appVersionMatch(1)"
             null -> Unit
+        }
+        if (appConfig == null) {
+            Log.d(TAG, "favoringAllDestinationsAsAppConfigIsNull")
+            return null
         }
         when (destination.accountBroadcastOnly && (destination.matchV1 != true)) {
             true -> if (!isBroadcastEnabled(appConfig)) return "broadcastEnabled"
