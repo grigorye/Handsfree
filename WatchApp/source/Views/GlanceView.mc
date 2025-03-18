@@ -69,7 +69,7 @@ class GlanceView extends WatchUi.GlanceView {
                     } else {
                         var readiness = ReadinessInfoManip.readiness(ReadinessField_incomingCalls);
                         if (!readiness.equals(ReadinessValue_ready)) {
-                            subtitle = "Idle, Not ready";
+                            subtitle = "Not Ready";
                         } else if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
                             subtitle = sourceVersion;
                         } else {
