@@ -307,4 +307,5 @@ Without the permission, no contact names for the calls will be visible.
     <string name="settings_device_symbol_missing_app">"⬇️️️"</string>
     <string name="settings_device_symbol_not_connected">"❌️"</string>
     <string name="settings_device_symbol_conflicting">"‼️"</string>
+    <string name="settings_device_symbol_loading">"⚪️"</string>
 </resources>
