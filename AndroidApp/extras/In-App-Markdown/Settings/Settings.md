@@ -2,6 +2,18 @@
 
 ## [Devices](lk:devices_group)
 
+[{{symbol}}\u00A0{{device_name}}](lk:device_with_symbol_fmt) (device title)
+
+[‼️](lk:device_symbol_conflicting) (conflicting)
+
+[⚡️](lk:device_symbol_active) (active)
+
+[🕒](lk:device_symbol_standby) (standby)
+
+[⬇️️️](lk:device_symbol_missing_app) (missing app)
+
+[❌️](lk:device_symbol_not_connected) (not connected)
+
 ## [Essentials](lk:essentials_group)
 
 ### [Call control](lk:essentials)
