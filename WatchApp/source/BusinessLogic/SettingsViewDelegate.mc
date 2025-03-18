@@ -14,7 +14,7 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
         switch (id) {
             case :openAppOnIncomingCall: {
                 AppSettings.toggle(Settings_openAppOnIncomingCallK);
-                settingsDidChange();
+                appConfigDidChange();
                 break;
             }
             case :optimisticCallHandling: {

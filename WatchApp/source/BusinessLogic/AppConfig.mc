@@ -1,4 +1,4 @@
 (:background, :glance)
-function settingsDidChange() as Void {
+function appConfigDidChange() as Void {
     Req.requestSubjects(appConfigSubject);
 }
