@@ -119,6 +119,9 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         garminConnector.knownDeviceInfos.observe(this) {
             ensureForegroundService()
         }
+        garminConnector.appConfigsLiveData.observe(this) {
+            ensureForegroundService()
+        }
         l.headPhoneConnectionMonitor.start()
         l.callLogRepository.subscribe(callLogObserver)
         l.contactsRepository.subscribe(contactsObserver)
