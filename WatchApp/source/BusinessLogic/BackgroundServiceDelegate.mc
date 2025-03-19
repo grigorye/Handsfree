@@ -24,7 +24,7 @@ class BackgroundServiceDelegate extends System.ServiceDelegate {
         Background.exit("onPhoneAppMessage");
     }
 
-    public function onTemporalEvent() as Void {
+    function onTemporalEvent() as Void {
         dumpF(L_APP, "onTemporalEvent");
         TemporalBroadcasting.stopTemporalSubjectsBroadcasting();
     }
