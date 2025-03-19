@@ -23,6 +23,12 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
             }
             case :broadcastListening: {
                 AppSettings.toggle(Settings_broadcastListeningK);
+                var newValue = Properties.getValue(Settings_broadcastListeningK) as Lang.Boolean;
+                if (newValue) {
+                    TemporalBroadcasting.stopTemporalSubjectsBroadcasting();
+                } else {
+                    TemporalBroadcasting.startTemporalSubjectsBroadcasting();
+                }
                 appConfigDidChange();
                 break;
             }
