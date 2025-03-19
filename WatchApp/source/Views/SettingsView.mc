@@ -1,5 +1,6 @@
 import Toybox.WatchUi;
 import Toybox.Lang;
+import Toybox.Application;
 
 module SettingsScreen {
 
@@ -46,7 +47,7 @@ class View extends WatchUi.Menu2 {
                 :disabled => "Off"
             },
             :broadcastListening,
-            BackgroundSettings.isBroadcastListeningEnabled(),
+            Properties.getValue(Settings_broadcastListeningK) as Lang.Boolean,
             null
         );
     }
@@ -54,7 +55,7 @@ class View extends WatchUi.Menu2 {
     function update() as Void {
         (getItem(findItemById(:openAppOnIncomingCall)) as WatchUi.ToggleMenuItem).setEnabled(BackgroundSettings.isOpenAppOnIncomingCallEnabled());
         (getItem(findItemById(:optimisticCallHandling)) as WatchUi.ToggleMenuItem).setEnabled(AppSettings.isOptimisticCallHandlingEnabled());
-        (getItem(findItemById(:broadcastListening)) as WatchUi.ToggleMenuItem).setEnabled(BackgroundSettings.isBroadcastListeningEnabled());
+        (getItem(findItemById(:broadcastListening)) as WatchUi.ToggleMenuItem).setEnabled(Properties.getValue(Settings_broadcastListeningK) as Lang.Boolean);
         workaroundNoRedrawForMenu2(self);
     }
 }
