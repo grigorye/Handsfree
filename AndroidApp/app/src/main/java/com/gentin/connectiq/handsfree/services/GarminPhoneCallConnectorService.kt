@@ -44,6 +44,8 @@ import com.gentin.connectiq.handsfree.impl.phoneStateId
 import java.util.Date
 
 
+private const val simulatePrivateNumber = false
+
 data class StartStats(
     val launchDate: Date = Date(),
     var total: Int = 0,
@@ -239,7 +241,11 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         }
 
         @Suppress("DEPRECATION")
-        val incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
+        val incomingNumber = if (simulatePrivateNumber) {
+            ""
+        } else {
+            intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
+        }
         Log.d(TAG, "incomingNumber: $incomingNumber")
 
         accountPhoneState(incomingNumber, stateExtra)
