@@ -26,10 +26,12 @@ function getPhoneRep(phone as Phone) as Lang.String or Null {
     var rep;
     if (phoneName != null && !phoneName.equals("")) {
         rep = phoneName;
-    } else if (number != null) {
-        rep = number;
-    } else {
+    } else if (number == null) {
         rep = null;
+    } else if (number.equals("")) {
+        rep = "Private Number";
+    } else {
+        rep = number;
     }
     return rep;
 }
