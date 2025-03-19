@@ -16,7 +16,7 @@
 
 [❌️](lk:device_symbol_not_connected) (not connected)
 
-[(silent mode)](lk:device_suffix_silent) (app configured with no alerts on incoming calls)
+[🔕](lk:device_suffix_silent) (app configured with no alerts on incoming calls)
 
 ## [Essentials](lk:essentials_group)
 
