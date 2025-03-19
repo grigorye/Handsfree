@@ -78,11 +78,11 @@ class AppCore extends Application.AppBase {
     }
     
     function onStart(state as Lang.Dictionary or Null) as Void {
-        _3(L_APP, "onStart.state", state);
+        if (debug) { _3(L_APP, "onStart.state", state); }
     }
 
     function onStop(state as Lang.Dictionary or Null) as Void {
-        _3(L_APP, "onStop.state", state);
+        if (debug) { _3(L_APP, "onStop.state", state); }
         if (!activeUiKind.equals(ACTIVE_UI_NONE)) {
             TemporalBroadcasting.scheduleStopTemporalSubjectsBroadcasting();
         }

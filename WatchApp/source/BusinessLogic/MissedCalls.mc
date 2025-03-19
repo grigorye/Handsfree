@@ -6,7 +6,7 @@ function updateMissedRecents() as Void {
     if (false) { dumpF(L_APP, "updateMissedRecents"); }
     var missedRecentsForUpdate = missedRecentsForUpdate();
     if (missedRecentsForUpdate == null) {
-        _2(L_APP, "updateMissedRecents.noChange");
+        if (debug) { _2(L_APP, "updateMissedRecents.noChange"); }
         return;
     }
     if (false) { dumpF(L_APP, "updateMissedRecents.pre.setMissedRecents"); }
