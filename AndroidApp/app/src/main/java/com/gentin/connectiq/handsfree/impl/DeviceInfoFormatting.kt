@@ -104,20 +104,26 @@ fun symbolForDeviceInfo(deviceInfo: DeviceInfo, appConflict: Boolean, context: C
                 if (appConflict) {
                     context.getString(R.string.settings_device_symbol_conflicting)
                 } else {
-                    installedAppsInfo.map { info ->
-                        if (info.appVersionInfo.version == 1) {
+                    val hasLoading = installedAppsInfo.find {
+                        (it.appVersionInfo.version != 1) && (it.appConfig() == null)
+                    } != null
+                    if (hasLoading) {
+                        context.getString(R.string.settings_device_symbol_loading)
+                    } else {
+                        val hasActive = installedAppsInfo.find {
+                            val appConfig = it.appConfig()
+                            if (appConfig == null) {
+                                false
+                            } else {
+                                isBroadcastEnabled(appConfig)
+                            }
+                        } != null
+                        if (hasActive) {
                             context.getString(R.string.settings_device_symbol_active)
                         } else {
-                            val appConfig = info.appConfig()
-                            if (appConfig == null) {
-                                context.getString(R.string.settings_device_symbol_loading)
-                            } else if (isBroadcastEnabled(appConfig)) {
-                                context.getString(R.string.settings_device_symbol_active)
-                            } else {
-                                context.getString(R.string.settings_device_symbol_standby)
-                            }
+                            context.getString(R.string.settings_device_symbol_standby)
                         }
-                    }.joinToString(separator = "")
+                    }
                 }
             } else {
                 context.getString(R.string.settings_device_symbol_missing_app)
