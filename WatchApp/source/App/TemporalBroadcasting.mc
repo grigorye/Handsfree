@@ -15,7 +15,7 @@ const subjectsForStartingTemporalBroadcasting = phoneStateSubject + appConfigSub
 const subjectsForStartingTemporalBroadcasting = phoneStateSubject + appConfigSubject + phonesSubject + recentsSubject + audioStateSubject;
 
 (:glance)
-function triggerTemporalSubjectsBroadcasting() as Void {
+function startTemporalSubjectsBroadcasting() as Void {
     if (Properties.getValue(Settings_broadcastListeningK) as Lang.Boolean) {
         if (debug) { _2(L_APP, "temporalBroadcastListening.skippedDueToSettings"); }
         return;
@@ -28,15 +28,31 @@ function triggerTemporalSubjectsBroadcasting() as Void {
         Storage.setValue(Storage_temporalBroadcastListening, true);
         Req.requestSubjects(subjectsForStartingTemporalBroadcasting);
     }
+}
+
+(:glance, :typecheck(disableBackgroundCheck))
+function scheduleStopTemporalSubjectsBroadcasting() as Void {
+    if (Properties.getValue(Settings_broadcastListeningK) as Lang.Boolean) {
+        if (debug) { _2(L_APP, "scheduleStopTemporalSubjectsBroadcasting.skippedDueToSettings"); }
+        return;
+    }
+    if (debug) { _2(L_APP, "scheduleStopTemporalSubjectsBroadcasting.done"); }
     var fiveMinutes = new Time.Duration(5 * 60);
     var eventTime = Time.now().add(fiveMinutes);
     Background.registerForTemporalEvent(eventTime);
 }
 
-(:background)
+(:background, :glance)
 function stopTemporalSubjectsBroadcasting() as Void {
-    Storage.setValue(Storage_temporalBroadcastListening, false);
-    Req.requestSubjects(appConfigSubject);
+    if (Properties.getValue(Settings_broadcastListeningK) as Lang.Boolean) {
+        if (debug) { _2(L_APP, "stopTemporalSubjectsBroadcasting.skippedDueToSettings"); }
+        return;
+    }
+    if (Storage.getValue(Storage_temporalBroadcastListening) as Lang.Boolean | Null) {
+        if (debug) { _2(L_APP, "stopTemporalSubjectsBroadcasting.deactivated"); }
+        Storage.setValue(Storage_temporalBroadcastListening, false);
+        Req.requestSubjects(appConfigSubject);
+    }
 }
 
 (:background, :glance)

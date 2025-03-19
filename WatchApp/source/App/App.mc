@@ -83,6 +83,9 @@ class AppCore extends Application.AppBase {
 
     function onStop(state as Lang.Dictionary or Null) as Void {
         _3(L_APP, "onStop.state", state);
+        if (!activeUiKind.equals(ACTIVE_UI_NONE)) {
+            TemporalBroadcasting.scheduleStopTemporalSubjectsBroadcasting();
+        }
     }
 
     function onSettingsChanged() as Void {
@@ -109,7 +112,7 @@ function willReturnInitialView() as Void {
 
 (:glance)
 function activeUIKindDidChange() as Void {
-    TemporalBroadcasting.triggerTemporalSubjectsBroadcasting();
+    TemporalBroadcasting.startTemporalSubjectsBroadcasting();
 }
 
 (:widget)
