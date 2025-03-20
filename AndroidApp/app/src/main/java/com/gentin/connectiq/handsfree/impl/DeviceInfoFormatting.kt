@@ -6,17 +6,46 @@ import com.gentin.connectiq.handsfree.globals.isInDebugMode
 
 const val hideDevicesWithoutApps = true
 
-fun titleForDevice(deviceInfo: DeviceInfo, appConflict: Boolean, context: Context): String {
-    val format = context.getString(R.string.settings_device_with_symbol_fmt)
-    val title = format
-        .replace("{{device_name}}", deviceInfo.name)
-        .replace("{{symbol}}", symbolForDeviceInfo(deviceInfo, appConflict, context))
+fun titleForDevice(
+    deviceInfo: DeviceInfo,
+    appConflict: Boolean,
+    context: Context,
+    tailorForNotifications: Boolean
+): String {
+    val prefix = titlePrefixForDevice(
+        deviceInfo,
+        appConflict = appConflict,
+        context,
+        tailorForNotifications = tailorForNotifications,
+    )
     val suffix = if (!appConflict && isSilent(deviceInfo)) {
         context.getString(R.string.settings_device_suffix_silent)
     } else {
         null
     }
-    return listOfNotNull(title, suffix).joinToString(nbsp)
+    return listOfNotNull(prefix, suffix).joinToString(nbsp)
+}
+
+fun titlePrefixForDevice(
+    deviceInfo: DeviceInfo,
+    appConflict: Boolean,
+    context: Context,
+    tailorForNotifications: Boolean
+): String {
+    val symbol = symbolForDeviceInfo(deviceInfo, appConflict, context)
+    if (tailorForNotifications) {
+        val symbolsHiddenForNotifications = listOf(
+            context.getString(R.string.settings_device_symbol_active),
+            context.getString(R.string.settings_device_symbol_standby)
+        )
+        if (symbol in symbolsHiddenForNotifications) {
+            return deviceInfo.name
+        }
+    }
+    val format = context.getString(R.string.settings_device_with_symbol_fmt)
+    return format
+        .replace("{{device_name}}", deviceInfo.name)
+        .replace("{{symbol}}", symbolForDeviceInfo(deviceInfo, appConflict, context))
 }
 
 private fun isSilent(deviceInfo: DeviceInfo): Boolean {
@@ -31,9 +60,13 @@ private fun isSilent(deviceInfo: DeviceInfo): Boolean {
     } != null
 }
 
-fun formattedDeviceInfos(deviceInfos: List<DeviceInfo>, context: Context): String {
+fun formattedDeviceInfos(
+    deviceInfos: List<DeviceInfo>,
+    context: Context,
+    tailorForNotifications: Boolean = false
+): String {
     return if (hideDevicesWithoutApps) {
-        formattedFilteredDeviceInfos(deviceInfos, context)
+        formattedFilteredDeviceInfos(deviceInfos, context, tailorForNotifications)
     } else {
         formattedUnfilteredDeviceInfos(deviceInfos)
     }
@@ -52,7 +85,11 @@ fun formattedUnfilteredDeviceInfos(deviceInfos: List<DeviceInfo>): String {
         }
 }
 
-fun formattedFilteredDeviceInfos(deviceInfos: List<DeviceInfo>, context: Context): String {
+fun formattedFilteredDeviceInfos(
+    deviceInfos: List<DeviceInfo>,
+    context: Context,
+    tailorForNotifications: Boolean
+): String {
     val matchingCount = deviceInfos.count { it.connected && it.installedAppsInfo.isNotEmpty() }
     return deviceInfos
         .filter {
@@ -77,7 +114,12 @@ fun formattedFilteredDeviceInfos(deviceInfos: List<DeviceInfo>, context: Context
                 ""
             }
             listOfNotNull(
-                titleForDevice(it, appConflict = matchingCount > 1, context),
+                titleForDevice(
+                    it,
+                    appConflict = matchingCount > 1,
+                    context = context,
+                    tailorForNotifications = tailorForNotifications
+                ),
                 suffix
             ).joinToString(" ")
         }
