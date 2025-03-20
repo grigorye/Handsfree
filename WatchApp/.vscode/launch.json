@@ -21,6 +21,13 @@
     {
       "type": "monkeyc",
       "request": "launch",
+      "name": "Run App on Descent Mk2 S",
+      "stopAtLaunch": false,
+      "device": "descentmk2s"
+    },
+    {
+      "type": "monkeyc",
+      "request": "launch",
       "name": "Run App on MARQ Driver",
       "stopAtLaunch": false,
       "device": "marqdriver"
