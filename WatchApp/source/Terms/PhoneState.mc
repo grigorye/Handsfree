@@ -1,9 +1,8 @@
 
 (:background)
-const PhoneState_versionKey = "phoneStateVersion.v1";
-
+const PhoneState_valueKey = phoneStateSubject + ".1";
 (:background)
-const PhoneState_valueKey = "phoneStateValue.v1";
+const PhoneState_versionKey = phoneStateSubject + "v.1";
 
 
 (:background, :glance)

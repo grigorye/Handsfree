@@ -15,6 +15,6 @@ const ReadinessField_incomingCalls = "i";
 const ReadinessField_starredContacts = "s";
 
 (:background, :glance)
-const ReadinessInfo_valueKey = "readinessInfo.v1";
+const ReadinessInfo_valueKey = readinessInfoSubject + ".1";
 (:background, :glance)
-const ReadinessInfo_versionKey = "readinessInfoVersion.v1";
+const ReadinessInfo_versionKey = readinessInfoSubject + "v.1";

@@ -10,10 +10,10 @@ const recentsSubject = "r";
 (:inline, :background, :glance)
 const phonesSubject = "p";
 
-(:inline, :background, :glance, :noLowMemory)
+(:inline, :background, :glance)
 const companionInfoSubject = "i";
 
-(:inline, :background, :glance, :noLowMemory)
+(:inline, :background, :glance)
 const readinessInfoSubject = "n";
 
 (:inline, :background, :glance)

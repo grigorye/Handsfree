@@ -276,50 +276,14 @@ function didReceiveRemoteMessageInForeground() as Void {
     if (debug) { beep(BEEP_TYPE_MESSAGE); }
 }
 
-(:background, :glance, :lowMemory)
-const versionKeyForSubjectMap = {
-    phoneStateSubject => PhoneState_versionKey,
-    phonesSubject => Phones_versionKey,
-    recentsSubject => Recents_versionKey,
-    audioStateSubject => AudioState_versionKey
-} as Lang.Dictionary<Lang.String, Lang.String>;
-
-(:background, :glance, :noLowMemory)
-const versionKeyForSubjectMap = {
-    phoneStateSubject => PhoneState_versionKey,
-    phonesSubject => Phones_versionKey,
-    recentsSubject => Recents_versionKey,
-    readinessInfoSubject => ReadinessInfo_versionKey,
-    companionInfoSubject => CompanionInfo_versionKey,
-    audioStateSubject => AudioState_versionKey
-} as Lang.Dictionary<Lang.String, Lang.String>;
-
-(:background)
+(:background, :glance)
 function versionKeyForSubject(subject as Lang.String) as Lang.String | Null {
-    return versionKeyForSubjectMap[subject];
+    return subject + "v.1";
 }
 
-(:background, :lowMemory)
-const valueKeyForSubjectMap = {
-    phoneStateSubject => PhoneState_valueKey,
-    phonesSubject => Phones_valueKey,
-    recentsSubject => Recents_valueKey,
-    audioStateSubject => AudioState_valueKey
-} as Lang.Dictionary<Lang.String, Lang.String>;
-
-(:background, :noLowMemory)
-const valueKeyForSubjectMap = {
-    phoneStateSubject => PhoneState_valueKey,
-    phonesSubject => Phones_valueKey,
-    recentsSubject => Recents_valueKey,
-    readinessInfoSubject => ReadinessInfo_valueKey,
-    companionInfoSubject => CompanionInfo_valueKey,
-    audioStateSubject => AudioState_valueKey
-} as Lang.Dictionary<Lang.String, Lang.String>;
-
-(:background)
+(:background, :glance)
 function valueKeyForSubject(subject as Lang.String) as Lang.String | Null {
-    return valueKeyForSubjectMap[subject];
+    return subject + ".1";
 }
 
 }

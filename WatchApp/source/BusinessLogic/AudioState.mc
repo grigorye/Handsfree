@@ -4,9 +4,9 @@ import Toybox.Application;
 typedef AudioState as Lang.Dictionary<String, Application.PropertyValueType>;
 
 (:background, :glance)
-const AudioState_valueKey = "audioState.v1";
+const AudioState_valueKey = audioStateSubject + ".1";
 (:background, :glance)
-const AudioState_versionKey = "audioStateVersion.v1";
+const AudioState_versionKey = audioStateSubject + "v.1";
 
 const AudioState_defaultValue = {
     isHeadsetConnectedK => false,
