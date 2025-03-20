@@ -16,7 +16,7 @@ const subjectsForStartingTemporalBroadcasting = phoneStateSubject + appConfigSub
 
 (:glance)
 function startTemporalSubjectsBroadcasting() as Void {
-    if (Properties.getValue(Settings_broadcastListeningK) as Lang.Boolean) {
+    if (isBroadcastListeningEnabled()) {
         if (debug) { _2(L_APP, "temporalBroadcastListening.skippedDueToSettings"); }
         return;
     }
@@ -32,7 +32,7 @@ function startTemporalSubjectsBroadcasting() as Void {
 
 (:glance, :typecheck(disableBackgroundCheck))
 function scheduleStopTemporalSubjectsBroadcasting() as Void {
-    if (Properties.getValue(Settings_broadcastListeningK) as Lang.Boolean) {
+    if (isBroadcastListeningEnabled()) {
         if (debug) { _2(L_APP, "scheduleStopTemporalSubjectsBroadcasting.skippedDueToSettings"); }
         return;
     }
@@ -44,7 +44,7 @@ function scheduleStopTemporalSubjectsBroadcasting() as Void {
 
 (:background, :glance)
 function stopTemporalSubjectsBroadcasting() as Void {
-    if (Properties.getValue(Settings_broadcastListeningK) as Lang.Boolean) {
+    if (isBroadcastListeningEnabled()) {
         if (debug) { _2(L_APP, "stopTemporalSubjectsBroadcasting.skippedDueToSettings"); }
         return;
     }
@@ -53,12 +53,6 @@ function stopTemporalSubjectsBroadcasting() as Void {
         Storage.setValue(Storage_temporalBroadcastListening, false);
         Req.requestSubjects(appConfigSubject);
     }
-}
-
-(:background, :glance)
-function isTemporalSubjectBroadcastingActive() as Lang.Boolean {
-    var temporalBroadcastListening = Storage.getValue(Storage_temporalBroadcastListening) as Lang.Boolean | Null;
-    return temporalBroadcastListening != null && temporalBroadcastListening;
 }
 
 }

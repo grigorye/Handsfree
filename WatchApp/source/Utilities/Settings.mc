@@ -96,22 +96,23 @@ module AppSettings {
     }
 }
 
+(:background, :glance)
+function isBroadcastListeningEnabled() as Lang.Boolean {
+    return Properties.getValue(Settings_broadcastListeningK) as Lang.Boolean;
+}
+
 (:background)
 module BackgroundSettings {
     (:glance)
     function appConfigVersion() as Lang.Number {
-        return
-            (isBroadcastListeningEnabled() ? 1 : 0)
+        var temporalBroadcastListening = (Storage.getValue(TemporalBroadcasting.Storage_temporalBroadcastListening) as Lang.Boolean | Null) == true;
+        var broadcastListening = temporalBroadcastListening || isBroadcastListeningEnabled();
+        var appConfigVersion =
+            (broadcastListening ? 1 : 0)
             + (!lowMemory ? 2 : 0)
             + (BackgroundSettings.isOpenAppOnIncomingCallEnabled() ? 4 : 0);
-    }
-
-    (:glance)
-    function isBroadcastListeningEnabled() as Lang.Boolean {
-        if (TemporalBroadcasting.isTemporalSubjectBroadcastingActive()) {
-            return true;
-        }
-        return Properties.getValue(Settings_broadcastListeningK) as Lang.Boolean;
+        if (debug) { _3(L_APP, "appConfigVersion", appConfigVersion); }
+        return appConfigVersion;
     }
 
     (:glance)
