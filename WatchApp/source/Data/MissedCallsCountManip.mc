@@ -2,14 +2,14 @@ import Toybox.Lang;
 import Toybox.Application;
 
 (:glance)
-const MissedRecents_valueKey = "missedRecents.v1";
+const Storage_missingRecents = "missedRecents.v1";
 
 (:glance)
 typedef MissedRecents as Lang.Array<Lang.Number>;
 
 (:inline, :glance)
 function getMissedRecents() as MissedRecents {
-    var missedRecents = Storage.getValue(MissedRecents_valueKey) as MissedRecents | Null;
+    var missedRecents = Storage.getValue(Storage_missingRecents) as MissedRecents | Null;
     if (missedRecents == null) {
         missedRecents = [] as MissedRecents;
     }
@@ -18,7 +18,7 @@ function getMissedRecents() as MissedRecents {
 
 (:inline, :glance)
 function setMissedRecents(missedRecents as MissedRecents | Null) as Void {
-    Storage.setValue(MissedRecents_valueKey, missedRecents as Application.PropertyValueType);
+    Storage.setValue(Storage_missingRecents, missedRecents as Application.PropertyValueType);
     updateUIForMissedRecentsIfInApp();
 }
 
