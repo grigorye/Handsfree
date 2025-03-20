@@ -21,6 +21,13 @@
     {
       "type": "monkeyc",
       "request": "launch",
+      "name": "Run App on Fenix 6 Pro",
+      "stopAtLaunch": false,
+      "device": "fenix6pro"
+    },
+    {
+      "type": "monkeyc",
+      "request": "launch",
       "name": "Run App on Descent Mk2 S",
       "stopAtLaunch": false,
       "device": "descentmk2s"
