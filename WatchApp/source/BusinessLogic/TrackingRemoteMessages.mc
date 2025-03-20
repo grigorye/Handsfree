@@ -6,10 +6,10 @@ function trackRawRemoteMessageReceived() as Void {
 }
 
 (:background, :glance, :noLowMemory)
-const Storage_rawRemoteMessagesCount = "rawRemoteMessagesCount.v1";
+const Storage_rawRemoteMessagesCount = "M.1";
 
 (:background, :glance, :noLowMemory)
-const Storage_validRemoteMessagesCount = "validRemoteMessagesCount.v1";
+const Storage_validRemoteMessagesCount = "V.1";
 
 (:background, :noLowMemory)
 function trackRawRemoteMessageReceived() as Void {

@@ -5,7 +5,7 @@ import Toybox.Lang;
 module Req {
 
 (:background)
-const Storage_everLaunched = "everLaunched.v1";
+const Storage_everLaunched = "E.1";
 
 (:background)
 function trackFirstLaunch() as Void {

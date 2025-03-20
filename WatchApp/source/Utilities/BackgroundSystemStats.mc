@@ -19,7 +19,7 @@ function canSaveInBackground() as Lang.Boolean {
 }
 
 (:background)
-const Storage_backgroundSystemStats = "backgroundSystemStats.v1";
+const Storage_backgroundSystemStats = "T.1";
 
 (:background)
 function saveBackgroundSystemStats() as Void {

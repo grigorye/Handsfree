@@ -11,7 +11,7 @@ function setHitsCount(hitsCount as Lang.Number) as Void {
 }
 
 (:background, :glance, :noLowMemory)
-const Storage_hitsCount = "hitsCount.v1";
+const Storage_hitsCount = "H.1";
 
 (:background, :glance, :noLowMemory)
 function getHitsCount() as Lang.Number {

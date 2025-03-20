@@ -2,7 +2,7 @@ import Toybox.Lang;
 import Toybox.Application;
 
 (:glance)
-const Storage_missingRecents = "missedRecents.v1";
+const Storage_missingRecents = "R.1";
 
 (:glance)
 typedef MissedRecents as Lang.Array<Lang.Number>;

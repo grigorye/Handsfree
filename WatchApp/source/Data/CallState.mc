@@ -20,7 +20,7 @@ function initialCallState() as CallState {
 }
 
 (:background, :glance)
-const Storage_callState = "callState.v1"; // The value stored *is not* phoneState subject.
+const Storage_callState = "S.1"; // The value stored *is not* phoneState subject.
 
 (:background, :glance)
 function loadCallState() as CallState or Null {
