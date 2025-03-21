@@ -52,7 +52,6 @@ class AppCore extends Application.AppBase {
 
     (:typecheck(disableGlanceCheck))
     function getServiceDelegate() as [System.ServiceDelegate] {
-        Req.trackFirstLaunch();
         if (minDebug) { _2(L_APP_EXTRA, "getServiceDelegate"); }
         return [new Req.BackgroundServiceDelegate()];
     }
@@ -69,8 +68,15 @@ class AppCore extends Application.AppBase {
         return getInitialViewInApp();
     }
 
+    (:typecheck([disableGlanceCheck]))
     function onAppInstall() as Void {
         _2(L_APP, "onAppInstall");
+        if (isBroadcastListeningEnabled()) {        
+            Req.requestSubjects(Req.allSubjects);
+        } else {
+            TemporalBroadcasting.startTemporalSubjectsBroadcasting();
+            TemporalBroadcasting.scheduleStopTemporalSubjectsBroadcasting();
+        }
     }
 
     function onAppUpdate() as Void {

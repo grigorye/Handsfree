@@ -8,13 +8,13 @@ module TemporalBroadcasting {
 (:background, :glance)
 const Storage_temporalBroadcastListening = "B" + valueKeySuffix;
 
-(:glance, :noLowMemory)
+(:background, :glance, :noLowMemory)
 const subjectsForStartingTemporalBroadcasting = phoneStateSubject + appConfigSubject + phonesSubject + recentsSubject + audioStateSubject + readinessInfoSubject + companionInfoSubject;
 
-(:glance, :lowMemory)
+(:background, :glance, :lowMemory)
 const subjectsForStartingTemporalBroadcasting = phoneStateSubject + appConfigSubject + phonesSubject + recentsSubject + audioStateSubject;
 
-(:glance)
+(:background, :glance)
 function startTemporalSubjectsBroadcasting() as Void {
     if (isBroadcastListeningEnabled()) {
         if (debug) { _2(L_APP, "temporalBroadcastListening.skippedDueToSettings"); }
@@ -30,7 +30,7 @@ function startTemporalSubjectsBroadcasting() as Void {
     }
 }
 
-(:glance, :typecheck(disableBackgroundCheck))
+(:background, :glance)
 function scheduleStopTemporalSubjectsBroadcasting() as Void {
     if (isBroadcastListeningEnabled()) {
         if (debug) { _2(L_APP, "scheduleStopTemporalSubjectsBroadcasting.skippedDueToSettings"); }
