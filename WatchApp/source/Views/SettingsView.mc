@@ -2,6 +2,7 @@ import Toybox.WatchUi;
 import Toybox.Lang;
 import Toybox.Application;
 
+(:noLowMemory)
 module SettingsScreen {
 
 class View extends WatchUi.Menu2 {
@@ -77,6 +78,7 @@ function incomingCallsEnabledMenuItemTitle() as Lang.String {
 
 }
 
+(:noLowMemory)
 function newSettingsView() as SettingsScreen.View {
     var settingsView = new SettingsScreen.View();
     settingsView.update();

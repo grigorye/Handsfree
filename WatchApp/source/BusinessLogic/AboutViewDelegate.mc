@@ -2,6 +2,7 @@ import Toybox.Application;
 import Toybox.WatchUi;
 import Toybox.Lang;
 
+(:noLowMemory)
 class AboutViewDelegate extends WatchUi.Menu2InputDelegate {
     function initialize() {
         Menu2InputDelegate.initialize();

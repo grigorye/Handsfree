@@ -1,6 +1,7 @@
 import Toybox.WatchUi;
 import Toybox.Application;
 
+(:noLowMemory)
 module Views {
 
 class AboutView extends WatchUi.Menu2 {
