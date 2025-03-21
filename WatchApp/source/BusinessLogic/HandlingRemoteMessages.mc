@@ -111,17 +111,6 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
             continue;
         }
         switch (name) {
-            case phoneStateSubject: {
-                if (version.equals(Storage.getValue(PhoneState_versionKey))) {
-                    continue;
-                }
-                storeVersion(PhoneState_versionKey, version);
-                var phoneState = subject[valueK] as Lang.Dictionary<Lang.String, Lang.Object> | Null;
-                if (phoneState != null) {
-                    handlePhoneStateChanged(phoneState);
-                }
-                break;
-            }
             case audioStateSubject: {
                 if (version.equals(Storage.getValue(AudioState_versionKey))) {
                     continue;
@@ -179,7 +168,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
 }
 
 (:background)
-function handlePhoneStateChanged(state as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
+function handlePhoneStateChanged(state as PhoneState) as Void {
     var callState = getCallState();
     if (debug) { _3(L_PHONE_STATE_CHANGED, "oldCallState", callState); }
     var stateId = state[PhoneState_stateId] as Lang.String;

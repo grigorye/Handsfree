@@ -60,5 +60,8 @@ function storeValue(key as Lang.String, value as Lang.Object) as Void {
                 RecentsManip.updateUIForRecentsIfInApp();
             }
             break;
+        case PhoneState_valueKey:
+            Req.handlePhoneStateChanged(value as PhoneState);
+            break;
     }
 }

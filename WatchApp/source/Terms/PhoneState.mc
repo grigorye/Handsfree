@@ -1,3 +1,6 @@
+import Toybox.Lang;
+
+typedef PhoneState as Lang.Dictionary<Lang.String, Lang.Object>;
 
 (:background)
 const PhoneState_valueKey = phoneStateSubject + valueKeySuffix;
