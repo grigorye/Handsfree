@@ -5,9 +5,9 @@ typedef CompanionInfo as Lang.Dictionary<String, Application.PropertyValueType>;
 typedef VersionInfo as Lang.Dictionary<String, Application.PropertyValueType>;
 
 (:background, :glance)
-const CompanionInfo_valueKey = companionInfoSubject + ".1";
+const CompanionInfo_valueKey = companionInfoSubject + valueKeySuffix;
 (:background, :glance)
-const CompanionInfo_versionKey = companionInfoSubject + "v.1";
+const CompanionInfo_versionKey = companionInfoSubject + versionKeySuffix;
 
 (:noLowMemory)
 module CompanionInfoImp {

@@ -5,7 +5,7 @@ import Toybox.Lang;
 typedef CallStates as Lang.Array<CallStateImp>;
 
 (:background)
-const Storage_optimisticCallStates = "O.1";
+const Storage_optimisticCallStates = "O" + valueKeySuffix;
 
 (:background)
 function getOptimisticCallStates() as CallStates {

@@ -278,12 +278,12 @@ function didReceiveRemoteMessageInForeground() as Void {
 
 (:background, :glance)
 function versionKeyForSubject(subject as Lang.String) as Lang.String | Null {
-    return subject + "v.1";
+    return subject + versionKeySuffix;
 }
 
 (:background, :glance)
 function valueKeyForSubject(subject as Lang.String) as Lang.String | Null {
-    return subject + ".1";
+    return subject + valueKeySuffix;
 }
 
 }

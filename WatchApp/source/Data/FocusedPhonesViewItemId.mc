@@ -1,7 +1,7 @@
 import Toybox.Lang;
 import Toybox.Application;
 
-const Storage_focusedPhonesViewItemId = "F.1";
+const Storage_focusedPhonesViewItemId = "F" + valueKeySuffix;
 
 (:inline)
 function setFocusedPhonesViewItemId(id as Lang.String or Null) as Void {

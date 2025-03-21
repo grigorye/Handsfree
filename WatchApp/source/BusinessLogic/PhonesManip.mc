@@ -3,10 +3,10 @@ import Toybox.Application;
 import Toybox.Lang;
 
 (:background, :glance)
-const Phones_valueKey = phonesSubject + ".1";
+const Phones_valueKey = phonesSubject + valueKeySuffix;
 
 (:background, :glance)
-const Phones_versionKey = phonesSubject + "v.1";
+const Phones_versionKey = phonesSubject + versionKeySuffix;
 
 module PhonesManip {
 

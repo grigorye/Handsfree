@@ -3,9 +3,9 @@ import Toybox.Lang;
 import Toybox.Time;
 
 (:glance, :background)
-const Recents_valueKey = recentsSubject + ".1";
+const Recents_valueKey = recentsSubject + valueKeySuffix;
 (:glance, :background)
-const Recents_versionKey = recentsSubject + "v.1";
+const Recents_versionKey = recentsSubject + versionKeySuffix;
 
 (:glance, :background)
 const Recents_defaultValue = { RecentsField_list => [] as RecentsList } as Recents;

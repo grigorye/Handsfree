@@ -6,7 +6,7 @@ import Toybox.Lang;
 const L_RECENTS_STORAGE as LogComponent = "recents";
 
 (:glance)
-const Storage_lastRecentsCheckDate = "D.1";
+const Storage_lastRecentsCheckDate = "D" + valueKeySuffix;
 
 (:inline, :glance)
 function getLastRecentsCheckDate() as Lang.Number {

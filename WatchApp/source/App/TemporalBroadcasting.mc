@@ -6,7 +6,7 @@ import Toybox.Background;
 module TemporalBroadcasting {
 
 (:background, :glance)
-const Storage_temporalBroadcastListening = "B.1";
+const Storage_temporalBroadcastListening = "B" + valueKeySuffix;
 
 (:glance, :noLowMemory)
 const subjectsForStartingTemporalBroadcasting = phoneStateSubject + appConfigSubject + phonesSubject + recentsSubject + audioStateSubject + readinessInfoSubject + companionInfoSubject;
