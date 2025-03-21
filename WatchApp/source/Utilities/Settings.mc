@@ -86,14 +86,6 @@ module AppSettings {
 
     const pendingValueFormat as Lang.String =
         Properties.getValue("pendingValueFormat") as Lang.String;
-
-    (:noLowMemory)
-    const isEraseAppDataOnNextLaunchEnabled as Lang.Boolean =
-        Properties.getValue("eraseAppDataOnNextLaunch") as Lang.Boolean;
-    (:noLowMemory)
-    function clearEraseAppDataOnNextLaunch() as Void {
-        Properties.setValue("eraseAppDataOnNextLaunch", false);
-    }
 }
 
 (:background, :glance)

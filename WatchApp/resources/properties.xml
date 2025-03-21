@@ -10,7 +10,6 @@
         <property id="incomingCallMessageFormat" type="string">&lt;$1$</property>
         <property id="pendingValueFormat" type="string">|$1$|</property>
         <property id="forceLargeFonts" type="boolean">false</property>
-        <property id="eraseAppDataOnNextLaunch" type="boolean">false</property>
         <property id="incomingOpenAppViaCompanion" type="boolean">false</property>
         <property id="beepOnComm" type="boolean">false</property>
         <property id="statsTracking" type="boolean">false</property>
@@ -56,9 +55,6 @@
         </string>
         <string id="forceLargeFonts" scope="settings">
             Force large fonts
-        </string>
-        <string id="eraseAppDataOnNextLaunch" scope="settings">
-            Erase data on next launch
         </string>
         <string id="incomingOpenAppViaCompanion" scope="settings">
             Use companion for opening app on incoming call
@@ -158,10 +154,6 @@
             <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.glanceLogging" title="@Strings.glanceLogging">
-            <settingConfig type="boolean" />
-        </setting>
-        <setting propertyKey="@Properties.eraseAppDataOnNextLaunch"
-            title="@Strings.eraseAppDataOnNextLaunch">
             <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.showSourceVersion" title="@Strings.showSourceVersion">

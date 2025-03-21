@@ -162,7 +162,6 @@ function widgetDidShow() as Void {
 
 function onAppDidFinishLaunching() as Void {
     if (debug) { _2(L_APP, "onAppDidFinishLaunching"); }
-    eraseAppDataIfNecessary();
     (new Req.InAppIncomingMessageDispatcher()).launch();
 }
 
