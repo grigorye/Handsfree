@@ -20,7 +20,7 @@
         <property id="forceLogAll" type="boolean">false</property>
         <property id="optimisticCallHandling" type="boolean">true</property>
         <property id="followUpCommDelay" type="number">300</property>
-        <property id="broadcastListening" type="boolean">true</property>
+        <property id="broadcastListening" type="boolean">false</property>
         <property id="showPhoneNumbers" type="boolean">false</property>
         <property id="reportHeadset" type="boolean">true</property>
     </properties>
