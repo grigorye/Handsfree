@@ -30,13 +30,13 @@
             Incoming calls/Ringing
         </string>
         <string id="broadcastListening" scope="settings">
-            Eager sync
+            ⚡️ Eager sync
         </string>
         <string id="callStateOnGlance" scope="settings">
             Show call state on glance
         </string>
         <string id="showSourceVersion" scope="settings">
-            Source version on glance
+            🐞 Source version on glance
         </string>
         <string id="customGlanceTitle" scope="settings">
             Custom title for glance
@@ -54,35 +54,35 @@
             Vibrate/full-fledged prompt for incoming calls.
         </string>
         <string id="beepOnComm" scope="settings">
-            Beep on communication
+            🐞 Beep on communication
         </string>
         <string id="statsTracking" scope="settings">
-            Stats
+            🐞 Stats
         </string>
         <string id="glanceLogging" scope="settings">
-            Log glance
+            🐞 Log glance
         </string>
         <string id="workaroundNoRedrawForMenu2" scope="settings">
-            Workaround no redraw for Menu2
+            🐞 Workaround no redraw for Menu2
         </string>
         <string id="forcedLogComponents" scope="settings">
-            Force log components
+            🐞 Force log components
         </string>
         <string id="incomingCallVibration" scope="settings">
             [Fenix 7 only] Incoming call vibration pattern. Use 'v3;p1;v3;p2' for 'vibrate
             3s, pause 1s, vibrate 3s, pause 2s'.
         </string>
         <string id="forceLogAll" scope="settings">
-            Verbose logs
+            🐞 Verbose logs
         </string>
         <string id="flushIncomingMessagesOnLaunch" scope="settings">
-            Flush incoming messages on launch
+            🐞 Flush incoming messages on launch
         </string>
         <string id="optimisticCallHandling" scope="settings">
-            Faster calls
+            🐞 Faster calls
         </string>
         <string id="followUpCommDelay" scope="settings">
-            Comm delay on follow-up
+            🐞 Comm delay on follow-up
         </string>
         <string id="showPhoneNumbers" scope="settings">
             Phone numbers in Contacts
