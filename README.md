@@ -28,9 +28,13 @@ There're two components of the solution: the app running on the watch and the co
 
 ## Companion (Android) app
 
--   Serves the your requests from the watch, e.g. directing the phone to initiate or to hangup a call.
--   Sends the updates to the watch, so that you see the call in progress, if any
--   Sends the data/phones from the preselected contact group (currently, starred contacts), to the watch, so that you can select a phone to dial.
+Acts like a (dumb) relay between the watch and the rest of the phone:
+
+-   Serves your requests from the watch, e.g. directing the phone to initiate or to hangup a call
+-   Sends the updates to the watch, so that you see a call in progress, if any
+-   Sends the data/phones from the preselected contact group (currently, starred contacts), to the watch, so that you can select a phone to dial
+-   Sends the call history to the watch
+-   Sends the state of your headset/microphone to the watch
 
 ## Garmin watch app
 
