@@ -27,37 +27,37 @@
 
     <strings>
         <string id="openAppOnIncomingCall" scope="settings">
-            Open app on incoming call
+            Incoming calls/Ringing
         </string>
         <string id="broadcastListening" scope="settings">
-            Sync in background
+            Eager sync
         </string>
         <string id="callStateOnGlance" scope="settings">
             Show call state on glance
         </string>
         <string id="showSourceVersion" scope="settings">
-            Show source version in the app
+            Source version on glance
         </string>
         <string id="customGlanceTitle" scope="settings">
             Custom title for glance
         </string>
         <string id="incomingCallMessageFormat" scope="settings">
-            Incoming call message format (use name/phone number placeholder)
+            Incoming call message format (keep $1$ as the placeholder)
         </string>
         <string id="pendingValueFormat" scope="settings">
             Pending value format (keep $1$ as the placeholder)
         </string>
         <string id="forceLargeFonts" scope="settings">
-            Force large fonts
+            Force large font on glance
         </string>
         <string id="incomingOpenAppViaCompanion" scope="settings">
-            Use companion for opening app on incoming call
+            Vibrate/full-fledged prompt for incoming calls.
         </string>
         <string id="beepOnComm" scope="settings">
             Beep on communication
         </string>
         <string id="statsTracking" scope="settings">
-            Show stats
+            Stats
         </string>
         <string id="glanceLogging" scope="settings">
             Log glance
@@ -69,8 +69,8 @@
             Force log components
         </string>
         <string id="incomingCallVibration" scope="settings">
-            Incoming call vibration pattern ('v3;p1;v3;p2' means 'vibrate 3s, pause 1s, vibrate 3s,
-            pause 2s')
+            [Fenix 7 only] Incoming call vibration pattern. Use 'v3;p1;v3;p2' for 'vibrate
+            3s, pause 1s, vibrate 3s, pause 2s'.
         </string>
         <string id="forceLogAll" scope="settings">
             Verbose logs
@@ -79,13 +79,13 @@
             Flush incoming messages on launch
         </string>
         <string id="optimisticCallHandling" scope="settings">
-            Optimistic call handling
+            Faster calls
         </string>
         <string id="followUpCommDelay" scope="settings">
             Comm delay on follow-up
         </string>
         <string id="showPhoneNumbers" scope="settings">
-            Show phone numbers
+            Phone numbers in Contacts
         </string>
         <string id="reportHeadset" scope="settings">
             Report status of headset
