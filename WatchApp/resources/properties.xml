@@ -35,16 +35,16 @@
             🐞 Source version on glance
         </string>
         <string id="customGlanceTitle" scope="settings">
-            Custom title for glance
+            🔧 Custom title for glance
         </string>
         <string id="incomingCallMessageFormat" scope="settings">
-            Incoming call message format (keep $1$ as the placeholder)
+            🔧 Incoming call message format (keep $1$ as the placeholder)
         </string>
         <string id="pendingValueFormat" scope="settings">
-            Pending value format (keep $1$ as the placeholder)
+            🔧 Pending value format (keep $1$ as the placeholder)
         </string>
         <string id="forceLargeFonts" scope="settings">
-            Force large font on glance
+            🔧 Force large font on glance
         </string>
         <string id="incomingOpenAppViaCompanion" scope="settings">
             Vibrate/full-fledged prompt for incoming calls.
