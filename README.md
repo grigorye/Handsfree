@@ -144,7 +144,19 @@ It's critical for the companion app to be able to run in background and to be ab
 
 <img src="WatchApp-Flow.svg" alt="WatchApp-Flow" width="60%" />
 
+# Contributing
 
+If you want to build it yourself/experiment/play with the source, all the things necessary except the developer keys are stored in the repo.
+
+Regular development should be possible with Android Studio (companion app) and Visual Studio Code (watch app).
+
+For watch app, use **./WatchApp** as the VScode workspace. The default build is configured to produce a watch app. To get a widget build (and hence e.g. get "glance" available for Instinct 2), edit [.vscode/settings.json](WatchApp/.vscode/settings.json) and replace "app.jungle" with "widget.jungle" in monkeyC.jungleFiles setting.
+
+# Publishing
+
+Use AndroidApp/extras/Publishing/bin/bundle-and-reveal for building Android app (would need e.g. GRADLE_EXTRA_ARGS to bind the developer key).
+
+Use WatchApp/build-all for building watch app (would need ../Handsfree-Publishing/keys/developer_key to hold the developer key).
 
 # Disclaimer
 
