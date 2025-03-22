@@ -69,7 +69,7 @@
             🐞 Force log components
         </string>
         <string id="incomingCallVibration" scope="settings">
-            [Fenix 7 only] Incoming call vibration pattern. Use 'v3;p1;v3;p2' for 'vibrate
+            Incoming call vibration pattern. Use 'v3;p1;v3;p2' for 'vibrate
             3s, pause 1s, vibrate 3s, pause 2s'.
         </string>
         <string id="forceLogAll" scope="settings">
@@ -99,10 +99,6 @@
         <setting propertyKey="@Properties.openAppOnIncomingCall"
             title="@Strings.openAppOnIncomingCall">
             <settingConfig type="boolean" />
-        </setting>
-        <setting propertyKey="@Properties.incomingCallVibration"
-            title="@Strings.incomingCallVibration">
-            <settingConfig type="alphaNumeric" />
         </setting>
         <setting propertyKey="@Properties.showPhoneNumbers" title="@Strings.showPhoneNumbers">
             <settingConfig type="boolean" />
