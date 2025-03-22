@@ -79,10 +79,12 @@ class AppCore extends Application.AppBase {
         }
     }
 
+    (:noLowMemory)
     function onAppUpdate() as Void {
         _2(L_APP, "onAppUpdate");
     }
     
+    (:noLowMemory)
     function onStart(state as Lang.Dictionary or Null) as Void {
         if (debug) { _3(L_APP, "onStart.state", state); }
     }

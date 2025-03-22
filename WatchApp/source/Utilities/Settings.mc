@@ -11,9 +11,9 @@ const Settings_openAppOnIncomingCallK = "openAppOnIncomingCall";
 (:background, :glance)
 const Settings_broadcastListeningK = "broadcastListening";
 const Settings_showPhoneNumbersK = "showPhoneNumbers";
-(:glance)
+(:glance, :noLowMemory)
 const Settings_showSourceVersionK = "showSourceVersion";
-(:glance)
+(:glance, :noLowMemory)
 const Settings_statsTrackingK = "statsTracking";
 (:noLowMemory)
 const Settings_beepOnCommK = "beepOnComm";
@@ -33,10 +33,17 @@ module GlanceSettings {
 
 (:glance)
 module GlanceLikeSettings {
+    (:lowMemory)
+    const isStatsTrackingEnabled as Lang.Boolean = false;
+    (:noLowMemory)
     const isStatsTrackingEnabled as Lang.Boolean =
         Properties.getValue(Settings_statsTrackingK) as Lang.Boolean;
+    (:lowMemory)
+    const isShowingSourceVersionEnabled as Lang.Boolean = false;
+    (:noLowMemory)
     const isShowingSourceVersionEnabled as Lang.Boolean =
         Properties.getValue(Settings_showSourceVersionK) as Lang.Boolean;
+    (:noLowMemory)
     const isGlanceLoggingEnabled as Lang.Boolean =
         Properties.getValue("glanceLogging") as Lang.Boolean;
 }
@@ -74,6 +81,7 @@ module AppSettings {
         Properties.getValue("incomingCallVibration") as Lang.String;
     const isShowingPhoneNumbersEnabled as Lang.Boolean =
         Properties.getValue(Settings_showPhoneNumbersK) as Lang.Boolean;
+    (:noLowMemory)
     const forcedLogComponentsJoined as Lang.String =
         Properties.getValue("forcedLogComponents") as Lang.String;
 
