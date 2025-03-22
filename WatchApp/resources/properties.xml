@@ -32,9 +32,6 @@
         <string id="broadcastListening" scope="settings">
             ⚡️ Eager sync
         </string>
-        <string id="callStateOnGlance" scope="settings">
-            Show call state on glance
-        </string>
         <string id="showSourceVersion" scope="settings">
             🐞 Source version on glance
         </string>

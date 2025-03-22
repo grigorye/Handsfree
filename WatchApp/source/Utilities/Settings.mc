@@ -15,8 +15,6 @@ const Settings_showPhoneNumbersK = "showPhoneNumbers";
 const Settings_showSourceVersionK = "showSourceVersion";
 (:glance)
 const Settings_statsTrackingK = "statsTracking";
-(:glance)
-const Settings_callStateOnGlanceK = "callStateOnGlance";
 (:noLowMemory)
 const Settings_beepOnCommK = "beepOnComm";
 
@@ -35,8 +33,6 @@ module GlanceSettings {
 
 (:glance)
 module GlanceLikeSettings {
-    const isShowingCallStateOnGlanceEnabled as Lang.Boolean =
-        Properties.getValue(Settings_callStateOnGlanceK) as Lang.Boolean;
     const isStatsTrackingEnabled as Lang.Boolean =
         Properties.getValue(Settings_statsTrackingK) as Lang.Boolean;
     const isShowingSourceVersionEnabled as Lang.Boolean =

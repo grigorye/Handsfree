@@ -31,7 +31,7 @@ class GlanceView extends WatchUi.GlanceView {
         } else if (!isCompanionUpToDate) {
             title = defaultTitle;
             subtitle = "No Companion";
-        } else if (!GlanceLikeSettings.isShowingCallStateOnGlanceEnabled || !Styles.glance_live_update.enabled) {
+        } else if (!Styles.glance_live_update.enabled) {
             title = defaultTitle;
             if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
                 subtitle = sourceVersion;

@@ -35,17 +35,8 @@ class WidgetView extends WatchUi.View {
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         }
 
-        if (debug) { _3(L_WIDGET_VIEW, "shouldShowCallState", GlanceLikeSettings.isShowingCallStateOnGlanceEnabled); }
         var appName = "Handsfree";
-        if (!GlanceLikeSettings.isShowingCallStateOnGlanceEnabled) {
-            dc.drawText(
-                dc.getWidth() / 2,
-                dc.getHeight() / 2,
-                Styles.widget_font__title.font,
-                joinComponents([appName, headsetStatusForWidget()], "\n"),
-                Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
-            );
-        } else {
+        if (true) {
             var callState = getCallState();
             var lines = [] as Lang.Array<Lang.String or Null>;
             if (callState instanceof CallInProgress) {
