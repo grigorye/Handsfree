@@ -13,6 +13,7 @@ const allSubjects = appConfigSubject + phoneStateSubject + phonesSubject + recen
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function requestSubjects(subjects as Lang.String) as Void {
     dumpF(L_APP, "requestSubjects");
+    _3(L_APP, "requestSubjects", subjects);
     var msg = msgForRequestSubjects(subjects);
     if (isActiveUiKindApp) {
         transmitWithRetry("syncSubjects", msg, new Communications.ConnectionListener());
