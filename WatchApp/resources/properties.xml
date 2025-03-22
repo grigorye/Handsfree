@@ -35,12 +35,6 @@
         <string id="callStateOnGlance" scope="settings">
             Show call state on glance
         </string>
-        <string id="forceCheckIn" scope="settings">
-            Check-in
-        </string>
-        <string id="secondsToCheckIn" scope="settings">
-            Timeout for check-in (sec)
-        </string>
         <string id="showSourceVersion" scope="settings">
             Show source version in the app
         </string>
@@ -86,15 +80,6 @@
         </string>
         <string id="optimisticCallHandling" scope="settings">
             Optimistic call handling
-        </string>
-        <string id="mainScreen" scope="settings">
-            Main
-        </string>
-        <string id="favoritesScreen" scope="settings">
-            Favorites
-        </string>
-        <string id="recentsScreen" scope="settings">
-            Recents
         </string>
         <string id="followUpCommDelay" scope="settings">
             Comm delay on follow-up
