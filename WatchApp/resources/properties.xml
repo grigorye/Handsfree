@@ -2,7 +2,6 @@
 
     <properties>
         <property id="openAppOnIncomingCall" type="boolean">false</property>
-        <property id="callStateOnGlance" type="boolean">true</property>
         <property id="showSourceVersion" type="boolean">false</property>
         <property id="dummySourceVersion" type="string"></property>
         <property id="flushIncomingMessagesOnLaunch" type="boolean">false</property>
