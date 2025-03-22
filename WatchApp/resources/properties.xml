@@ -93,26 +93,25 @@
     </strings>
 
     <settings>
-        <setting propertyKey="@Properties.forceLogAll"
-            title="@Strings.forceLogAll">
-            <settingConfig type="boolean" />
+        <setting propertyKey="@Properties.dummySourceVersion" title="@Strings.sourceVersion">
+            <settingConfig type="alphaNumeric" readonly="true" />
         </setting>
-        <setting propertyKey="@Properties.showPhoneNumbers" title="@Strings.showPhoneNumbers">
+        <setting propertyKey="@Properties.openAppOnIncomingCall"
+            title="@Strings.openAppOnIncomingCall">
             <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.incomingCallVibration"
             title="@Strings.incomingCallVibration">
             <settingConfig type="alphaNumeric" />
         </setting>
-        <setting propertyKey="@Properties.broadcastListening" title="@Strings.broadcastListening">
-            <settingConfig type="boolean" />
-        </setting>
-        <setting propertyKey="@Properties.openAppOnIncomingCall"
-            title="@Strings.openAppOnIncomingCall">
+        <setting propertyKey="@Properties.showPhoneNumbers" title="@Strings.showPhoneNumbers">
             <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.reportHeadset"
             title="@Strings.reportHeadset">
+            <settingConfig type="boolean" />
+        </setting>
+        <setting propertyKey="@Properties.broadcastListening" title="@Strings.broadcastListening">
             <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.forceLargeFonts" title="@Strings.forceLargeFonts">
@@ -132,10 +131,14 @@
             title="@Strings.optimisticCallHandling">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.beepOnComm" title="@Strings.beepOnComm">
+        <setting propertyKey="@Properties.statsTracking" title="@Strings.statsTracking">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.statsTracking" title="@Strings.statsTracking">
+        <setting propertyKey="@Properties.forceLogAll"
+            title="@Strings.forceLogAll">
+            <settingConfig type="boolean" />
+        </setting>
+        <setting propertyKey="@Properties.beepOnComm" title="@Strings.beepOnComm">
             <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.glanceLogging" title="@Strings.glanceLogging">
@@ -150,9 +153,6 @@
         <setting propertyKey="@Properties.forcedLogComponents"
             title="@Strings.forcedLogComponents">
             <settingConfig type="alphaNumeric" />
-        </setting>
-        <setting propertyKey="@Properties.dummySourceVersion" title="@Strings.sourceVersion">
-            <settingConfig type="alphaNumeric" readonly="true" />
         </setting>
     </settings>
 
