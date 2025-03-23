@@ -8,11 +8,8 @@ module TemporalBroadcasting {
 (:background, :glance)
 const Storage_temporalBroadcastListening = "B" + valueKeySuffix;
 
-(:background, :glance, :noLowMemory)
-const subjectsForStartingTemporalBroadcasting = phoneStateSubject + appConfigSubject + phonesSubject + recentsSubject + audioStateSubject + Req.companionInfoInAllSubjects + readinessInfoSubject;
-
-(:background, :glance, :lowMemory)
-const subjectsForStartingTemporalBroadcasting = phoneStateSubject + appConfigSubject + phonesSubject + recentsSubject + audioStateSubject + Req.companionInfoInAllSubjects;
+(:background, :glance)
+const subjectsForStartingTemporalBroadcasting = phoneStateSubject + appConfigSubject + phonesSubject + recentsSubject + audioStateSubject + Req.companionInfoInAllSubjects + Req.readinessInfoInAllSubjects;
 
 (:background, :glance)
 function startTemporalSubjectsBroadcasting() as Void {

@@ -3,18 +3,21 @@ import Toybox.Application;
 
 typedef ReadinessInfo as Lang.Dictionary<String, Application.PropertyValueType>;
 
-(:background, :glance, :noLowMemory)
+(:background, :glance, :readiness)
 const ReadinessField_essentials = "e";
-(:background, :glance, :noLowMemory)
+(:background, :glance, :readiness)
 const ReadinessField_outgoingCalls = "o";
-(:background, :glance, :noLowMemory)
+(:background, :glance, :readiness)
 const ReadinessField_recents = "r";
-(:background, :glance, :noLowMemory)
+(:background, :glance, :readiness)
 const ReadinessField_incomingCalls = "i";
-(:background, :glance, :noLowMemory)
+(:background, :glance, :readiness)
 const ReadinessField_starredContacts = "s";
 
-(:background, :glance)
+(:background, :glance, :noReadiness)
+const ReadinessInfo_valueKey = "?";
+
+(:background, :glance, :readiness)
 const ReadinessInfo_valueKey = readinessInfoSubject + valueKeySuffix;
-(:background, :glance)
+(:background, :glance, :readiness)
 const ReadinessInfo_versionKey = readinessInfoSubject + versionKeySuffix;

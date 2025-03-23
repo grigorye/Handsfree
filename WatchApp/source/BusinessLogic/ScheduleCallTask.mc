@@ -58,12 +58,12 @@ class ScheduleCallTask extends Communications.ConnectionListener {
     }
 }
 
-(:lowMemory)
+(:noReadiness)
 function preflightAllReadiness() as Lang.Boolean {
     return true;
 }
 
-(:noLowMemory)
+(:readiness)
 function preflightAllReadiness() as Lang.Boolean {
     if (!preflightReadiness(ReadinessField_essentials, "Call control")) {
         return false;
@@ -74,7 +74,7 @@ function preflightAllReadiness() as Lang.Boolean {
     return true;
 }
 
-(:noLowMemory)
+(:readiness)
 function preflightReadiness(field as Lang.String, title as Lang.String) as Lang.Boolean {
     var readiness = ReadinessInfoManip.readiness(field);
     if (readiness.equals(ReadinessValue_ready)) {

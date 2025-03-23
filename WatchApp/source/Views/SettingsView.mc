@@ -60,12 +60,12 @@ class View extends WatchUi.Menu2 {
     }
 }
 
-(:lowMemory)
+(:noReadiness)
 function incomingCallsEnabledMenuItemTitle() as Lang.String {
     return BackgroundSettings.isIncomingOpenAppViaCompanionEnabled ? "Vibration/Alert" : "Alert";
 }
 
-(:noLowMemory)
+(:readiness)
 function incomingCallsEnabledMenuItemTitle() as Lang.String {
     var readiness = ReadinessInfoManip.readiness(ReadinessField_incomingCalls);
     if (!readiness.equals(ReadinessValue_ready)) {

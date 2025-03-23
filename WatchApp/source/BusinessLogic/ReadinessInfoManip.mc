@@ -2,16 +2,16 @@ import Toybox.Lang;
 import Toybox.WatchUi;
 import Toybox.Application;
 
-(:background, :glance, :noLowMemory)
+(:background, :glance, :readiness)
 const ReadinessValue_disabled = "d";
-(:background, :glance, :noLowMemory)
+(:background, :glance, :readiness)
 const ReadinessValue_notPermitted = "p";
-(:background, :glance, :noLowMemory)
+(:background, :glance, :readiness)
 const ReadinessValue_ready = "r";
-(:background, :glance, :noLowMemory)
+(:background, :glance, :readiness)
 const ReadinessValue_notReady = "n";
 
-(:noLowMemory)
+(:readiness)
 module ReadinessInfoManip {
 
 typedef Readiness as Lang.String;
