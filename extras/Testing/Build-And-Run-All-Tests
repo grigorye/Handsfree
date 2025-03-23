@@ -20,5 +20,7 @@ adb -s "$adb_device" shell am set-debug-app --persistent "$package" false
 adb -s "$adb_device" shell monkey -p "$package" -c android.intent.category.LAUNCHER 1
 adb kill-server
 "$src_root"/WatchApp/build-widget
+cat "$src_root"/WatchApp/build/iq/Handsfree-beta-widget.iq-stats.txt
 "$src_root"/WatchApp/build-app
+cat "$src_root"/WatchApp/build/iq/Handsfree-beta-app.iq-stats.txt
 "$src_root"/WatchApp/extras/Testing/Run-All-Tests-In-VM "$vm" "$adb_device"
