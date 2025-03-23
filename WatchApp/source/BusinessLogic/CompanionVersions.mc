@@ -1,7 +1,7 @@
 using Toybox.Lang;
 
 (:companion)
-const minCompanionVersionName as Lang.String = "0.0.9";
+const minCompanionVersionName as Lang.String = "0.0.14";
 
 (:glance)
-const minCompanionVersionCode as Lang.Integer = 71;
+const minCompanionVersionCode as Lang.Integer = 77;
