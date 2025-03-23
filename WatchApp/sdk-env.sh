@@ -1,6 +1,6 @@
 #! /bin/bash
 
-sdk_version=$(cat "$src_root/sdk-version.txt")
+sdk_version=${CIQ_SDK_VERSION:-$(cat "$src_root/sdk-version.txt")}
 
 developer_key="${CIQ_DEV_KEY:-$src_root/../../Handsfree-Publishing/keys/developer_key}"
 
