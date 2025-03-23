@@ -14,11 +14,9 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
             Navigation.openRecentsView();
             return;
         }
-        if (!lowMemory) {
-            if (id == :settings) {
-                Navigation.openSettingsView();
-                return;
-            }
+        if (id == :settings) {
+            Navigation.openSettingsView();
+            return;
         }
         if (!lowMemory) {
             if (id.equals(noPhonesMenuItemId)) {

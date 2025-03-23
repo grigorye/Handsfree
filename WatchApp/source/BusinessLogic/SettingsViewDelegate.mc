@@ -2,7 +2,6 @@ import Toybox.Application;
 import Toybox.WatchUi;
 import Toybox.Lang;
 
-(:noLowMemory)
 module SettingsScreen {
 
 class ViewDelegate extends WatchUi.Menu2InputDelegate {

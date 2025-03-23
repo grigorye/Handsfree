@@ -13,13 +13,9 @@ function openRecentsView() as Void {
     RecentsManip.recentsDidOpen();
 }
 
-(:inline, :noLowMemory)
+(:inline)
 function openSettingsView() as Void {
     VT.pushView(V_settings, newSettingsView(), new SettingsScreen.ViewDelegate(), WatchUi.SLIDE_LEFT);
-}
-
-(:inline, :lowMemory)
-function openSettingsView() as Void {
 }
 
 (:inline, :noLowMemory)
