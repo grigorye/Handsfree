@@ -41,7 +41,7 @@ class View extends WatchUi.Menu2 {
 
     function broadcastListeningMenuItem() as WatchUi.ToggleMenuItem {
         return new ToggleMenuItem(
-            "Background Sync",
+            "Eager Sync",
             {
                 :enabled => "On",
                 :disabled => "Off"
