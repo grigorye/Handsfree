@@ -138,20 +138,13 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
         }
         // Store versions and values.
         var versionKey = versionKeyForSubject(name);
-        if (versionKey == null) {
-            _3(LX_REMOTE_MSG, "unknownSubject", name);
-            if (debug) {
-                System.error("");
-            }
-            break;
-        }
         var oldVersion = Storage.getValue(versionKey) as Version | Null;
         if (!version.equals(oldVersion)) {
             var value = subject[valueK];
             if (value == null) {
                 subjectsInvalidated = subjectsInvalidated + name;
             } else {
-                var valueKey = valueKeyForSubject(name) as Lang.String;
+                var valueKey = valueKeyForSubject(name);
                 storeValue(valueKey, value);
                 storeVersion(versionKey, version);
             }
@@ -266,12 +259,12 @@ function didReceiveRemoteMessageInForeground() as Void {
 }
 
 (:background, :glance)
-function versionKeyForSubject(subject as Lang.String) as Lang.String | Null {
+function versionKeyForSubject(subject as Lang.String) as Lang.String {
     return subject + versionKeySuffix;
 }
 
 (:background, :glance)
-function valueKeyForSubject(subject as Lang.String) as Lang.String | Null {
+function valueKeyForSubject(subject as Lang.String) as Lang.String {
     return subject + valueKeySuffix;
 }
 
