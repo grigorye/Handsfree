@@ -99,6 +99,10 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
     }
     for (var i = 0; i < namesCount; i++) {
         var name = names[i];
+        if (allSubjects.find(name) == null) {
+            _3(LX_REMOTE_MSG, "unknownSubject", name);
+            continue;
+        }
         var subject = subjects[name] as Lang.Dictionary<Lang.String, Lang.Object>;
         var version = subject[versionK] as Version;
         if (name.equals(appConfigSubject)) {
