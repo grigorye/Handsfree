@@ -17,30 +17,7 @@ const L_APP_STAT as LogComponent = "app";
 const L_APP_EXTRA as LogComponent = "app";
 
 (:glance, :background)
-class App extends AppCore {
-    function initialize() {
-        AppCore.initialize();
-    }
-
-    function getServiceDelegate() as [System.ServiceDelegate] {
-        return AppCore.getServiceDelegate();
-    }
-
-    function onBackgroundData(data as Application.PersistableType) as Void {
-        AppCore.onBackgroundData(data);
-    }
-
-    function getInitialView() as [WatchUi.Views] or [WatchUi.Views, WatchUi.InputDelegates] {
-        return AppCore.getInitialView();
-    }
-
-    function getGlanceView() as [WatchUi.GlanceView] or [WatchUi.GlanceView, WatchUi.GlanceViewDelegate] or Null {
-        return AppCore.getGlanceView();
-    }
-}
-
-(:glance, :background)
-class AppCore extends Application.AppBase {
+class App extends Application.AppBase {
 
     function initialize() {
         _preamble();
