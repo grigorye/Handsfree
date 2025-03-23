@@ -1,15 +1,20 @@
 import Toybox.Lang;
 import Toybox.Application;
 
+(:companion)
 typedef CompanionInfo as Lang.Dictionary<String, Application.PropertyValueType>;
+(:companion)
 typedef VersionInfo as Lang.Dictionary<String, Application.PropertyValueType>;
 
-(:background, :glance)
+(:background, :glance, :noCompanion)
+const CompanionInfo_valueKey = "?";
+
+(:background, :glance, :companion)
 const CompanionInfo_valueKey = companionInfoSubject + valueKeySuffix;
-(:background, :glance)
+(:background, :glance, :companion)
 const CompanionInfo_versionKey = companionInfoSubject + versionKeySuffix;
 
-(:noLowMemory)
+(:companion)
 module CompanionInfoImp {
 
 (:inline, :background, :glance)

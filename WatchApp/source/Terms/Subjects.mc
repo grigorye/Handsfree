@@ -10,7 +10,7 @@ const recentsSubject = "r";
 (:inline, :background, :glance)
 const phonesSubject = "p";
 
-(:inline, :background, :glance)
+(:inline, :background, :glance, :companion)
 const companionInfoSubject = "i";
 
 (:inline, :background, :glance)

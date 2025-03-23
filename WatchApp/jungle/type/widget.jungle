@@ -1,6 +1,6 @@
 project.manifest = ../../manifest-widget.xml
 # Beware that we don't apply the next setting for some devices.
-base.excludeAnnotations = $(base.excludeAnnotations);watchApp;lowMemory
+base.excludeAnnotations = $(base.excludeAnnotations);watchApp;lowMemory;noCompanion
 
 # When the app type is widget, on Instinct 2 (and some other devices), the
 # system uses glance exposed by the app. Anecdotally, the glance is not used if
@@ -9,17 +9,19 @@ base.excludeAnnotations = $(base.excludeAnnotations);watchApp;lowMemory
 #
 # Also on those devices, widget memory is super limited. Hence we had to employ
 # low-memory implementations.
-lowMemory_widgetGlance_excludeAnnotations_extras = widget;noLowMemory
+lowMemory_widgetGlance_excludeAnnotations_extras = widget;noLowMemory;companion
+
+lowMemory_excludeAnnotations = watchApp;noLowMemory;companion
 
 descentg1.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
 descentmk2.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
 descentmk2s.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
-edge1030.excludeAnnotations = $(versioning_excludeAnnotations);watchApp;noLowMemory
-edge1030bontrager.excludeAnnotations = $(versioning_excludeAnnotations);watchApp;noLowMemory
-edge1030plus.excludeAnnotations = $(versioning_excludeAnnotations);watchApp;noLowMemory
-edge530.excludeAnnotations = $(versioning_excludeAnnotations);watchApp;noLowMemory
+edge1030.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
+edge1030bontrager.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
+edge1030plus.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
+edge530.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 edge540.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
-edge830.excludeAnnotations = $(versioning_excludeAnnotations);watchApp;noLowMemory
+edge830.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 enduro.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
 fenix6.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
 fenix6pro.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)

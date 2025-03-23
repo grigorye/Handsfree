@@ -16,12 +16,12 @@ class AboutView extends WatchUi.Menu2 {
         return new MenuItem(title, subtitle, :more, null);
     }
 
-    (:lowMemory)
+    (:noCompanion)
     function companionVersionItem() as WatchUi.MenuItem {
         return new MenuItem("Install", "Companion App", :installCompanionApp, null);
     }
 
-    (:noLowMemory)
+    (:companion)
     function companionVersionItem() as WatchUi.MenuItem {
         var companionInfo = Storage.getValue(CompanionInfo_valueKey) as CompanionInfo | Null;
         if (companionInfo == null) {

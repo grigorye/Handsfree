@@ -18,7 +18,7 @@ const Settings_statsTrackingK = "statsTracking";
 (:noLowMemory)
 const Settings_beepOnCommK = "beepOnComm";
 
-(:background, :noLowMemory)
+(:background, :companion)
 const Settings_incomingOpenAppViaCompanionK = "incomingOpenAppViaCompanion";
 
 (:glance,:watchApp)
@@ -116,9 +116,9 @@ module BackgroundSettings {
         return Properties.getValue(Settings_openAppOnIncomingCallK) as Lang.Boolean;
     }
 
-    (:lowMemory)
+    (:noCompanion)
     const isIncomingOpenAppViaCompanionEnabled = false;
-    (:noLowMemory)
+    (:companion)
     const isIncomingOpenAppViaCompanionEnabled =
         Properties.getValue(Settings_incomingOpenAppViaCompanionK) as Lang.Boolean;
 }

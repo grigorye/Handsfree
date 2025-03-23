@@ -1,6 +1,6 @@
 import Toybox.WatchUi;
 
-(:noLowMemory)
+(:companion)
 module Views {
 
 class InstallCompanionView extends WatchUi.Menu2 {

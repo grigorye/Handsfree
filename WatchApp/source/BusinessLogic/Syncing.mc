@@ -4,11 +4,17 @@ import Toybox.Communications;
 
 module Req {
 
+(:background, :glance, :companion)
+const companionInfoInAllSubjects = companionInfoSubject;
+
+(:background, :glance, :noCompanion)
+const companionInfoInAllSubjects = "";
+
 (:background, :noLowMemory)
-const allSubjects = appConfigSubject + phoneStateSubject + phonesSubject + recentsSubject + audioStateSubject + readinessInfoSubject + companionInfoSubject;
+const allSubjects = appConfigSubject + phoneStateSubject + phonesSubject + recentsSubject + audioStateSubject + readinessInfoSubject + companionInfoInAllSubjects;
 
 (:background, :lowMemory)
-const allSubjects = appConfigSubject + phoneStateSubject + phonesSubject + recentsSubject + audioStateSubject;
+const allSubjects = appConfigSubject + phoneStateSubject + phonesSubject + recentsSubject + audioStateSubject + companionInfoInAllSubjects;
 
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function requestSubjects(subjects as Lang.String) as Void {

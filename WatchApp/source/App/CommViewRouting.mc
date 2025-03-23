@@ -1,12 +1,12 @@
 import Toybox.Lang;
 import Toybox.Application;
 
-(:lowMemory)
+(:noCompanion)
 function routeOnFirstShow() as Void {
     routeToMainUI();
 }
 
-(:noLowMemory)
+(:companion)
 function routeOnFirstShow() as Void {
     if (!isCompanionUpToDate()) {
         if (debug) { _2(L_COMM_VIEW, "noCompanionInfo"); }
@@ -20,7 +20,7 @@ const minCompanionVersionName as Lang.String = "0.0.9";
 (:glance)
 const minCompanionVersionCode as Lang.Integer = 71;
 
-(:noLowMemory, :glance)
+(:companion, :glance)
 function isCompanionUpToDate() as Lang.Boolean {
     var companionInfo = Storage.getValue(CompanionInfo_valueKey) as CompanionInfo | Null;
     if (companionInfo == null) {
