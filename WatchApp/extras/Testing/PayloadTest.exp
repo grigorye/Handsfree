@@ -2,7 +2,7 @@ set sdk_root "$env(sdk_root)"
 set device "$env(device)"
 set prg "$env(prg)"
 
-set expected_keys {r p t a}
+set expected_keys {r p t a n i}
 set matched_keys {}
 
 proc is_expected_key {key} {
