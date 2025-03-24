@@ -9,9 +9,9 @@ base.excludeAnnotations = $(base.excludeAnnotations);watchApp;lowMemory;noCompan
 #
 # Also on those devices, widget memory is super limited. Hence we had to employ
 # low-memory implementations.
-lowMemory_widgetGlance_excludeAnnotations_extras = widget;noLowMemory;noCompanion;noReadiness;noSettings
+lowMemory_widgetGlance_excludeAnnotations_extras = widget;noLowMemory;noCompanion;noReadiness;settings
 
-lowMemory_excludeAnnotations = watchApp;noLowMemory;noCompanion;noReadiness;noSettings
+lowMemory_excludeAnnotations = watchApp;noLowMemory;noCompanion;noReadiness;settings
 
 descentg1.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
 descentmk2.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
