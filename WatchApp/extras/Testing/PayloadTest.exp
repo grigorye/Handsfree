@@ -98,7 +98,7 @@ while {1} {
                         exit 1
                     }
                     # Match "app.storeValue: phones.v2" and "app.storeValue: recents.v1", saving the key before the dot
-                    -re "\n(Background: )?(..:..:.. )?app.storeValue: (\[a-z\])( \\(\[0-9\]+\\))?\r" {
+                    -re "\n(Background: )?(..:..:.. )?app.storeValue: (\[a-z\])( \\(\[0-9\]+\\))?\.f: \[0-9\]+\r" {
                         # Save the match in the key variable
                         set key $expect_out(3,string)
                         # Print the key
