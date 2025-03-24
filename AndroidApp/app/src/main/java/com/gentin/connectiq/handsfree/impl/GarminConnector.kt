@@ -68,8 +68,8 @@ data class WatchAppVersionInfo(
 
 data class DeviceInfo(
     val name: String,
-    val connectedImp: () -> Boolean,
-    var installedAppsInfoImp: () -> List<InstalledAppInfo>
+    private val connectedImp: () -> Boolean,
+    private var installedAppsInfoImp: () -> List<InstalledAppInfo>
 ) {
     val installedAppsInfo: List<InstalledAppInfo>
         get() = installedAppsInfoImp()
