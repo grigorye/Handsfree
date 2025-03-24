@@ -63,7 +63,7 @@ class App extends Application.AppBase {
     
     (:noLowMemory)
     function onStart(state as Lang.Dictionary or Null) as Void {
-        if (debug) { _3(L_APP, "onStart.state", state); }
+        if (debug) { _3(L_APP, "onStart.state", appStateRep(state)); }
     }
 
     function onStop(state as Lang.Dictionary or Null) as Void {
