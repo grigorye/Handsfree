@@ -3,6 +3,7 @@ import Toybox.Lang;
 import Toybox.Application;
 import Toybox.WatchUi;
 
+(:noLowMemory)
 module Req {
 
 function openAppInConnectIQ() as Void {
