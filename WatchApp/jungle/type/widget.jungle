@@ -1,6 +1,6 @@
 project.manifest = ../../manifest-widget.xml
 # Beware that we don't apply the next setting for some devices.
-base.excludeAnnotations = $(base.excludeAnnotations);watchApp;lowMemory;noCompanion;noReadiness;noSettings
+base.excludeAnnotations = $(base.excludeAnnotations);watchAppBuild;watchApp;lowMemory;noCompanion;noReadiness;noSettings
 
 # When the app type is widget, on Instinct 2 (and some other devices), the
 # system uses glance exposed by the app. Anecdotally, the glance is not used if
@@ -9,9 +9,9 @@ base.excludeAnnotations = $(base.excludeAnnotations);watchApp;lowMemory;noCompan
 #
 # Also on those devices, widget memory is super limited. Hence we had to employ
 # low-memory implementations.
-lowMemory_widgetGlance_excludeAnnotations_extras = widget;noLowMemory;noCompanion;noReadiness;settings
+lowMemory_widgetGlance_excludeAnnotations_extras = watchAppBuild;widget;noLowMemory;noCompanion;noReadiness;settings
 
-lowMemory_excludeAnnotations = watchApp;noLowMemory;noCompanion;noReadiness;settings
+lowMemory_excludeAnnotations = watchAppBuild;watchApp;noLowMemory;noCompanion;noReadiness;settings
 
 descentg1.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
 descentmk2.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)

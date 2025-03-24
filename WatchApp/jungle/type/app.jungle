@@ -1,8 +1,8 @@
 project.manifest = ../../manifest-app.xml
 # Beware that we don't apply the next setting for devices with low memory
-base.excludeAnnotations = $(base.excludeAnnotations);widget;lowMemory;noCompanion;noReadiness;noSettings
+base.excludeAnnotations = $(base.excludeAnnotations);widgetBuild;widget;lowMemory;noCompanion;noReadiness;noSettings
 
-lowMemory_excludeAnnotations = widget;noLowMemory;noCompanion;noReadiness;noSettings
+lowMemory_excludeAnnotations = widgetBuild;widget;noLowMemory;noCompanion;noReadiness;noSettings
 
 descentg1.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 descentmk2.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
