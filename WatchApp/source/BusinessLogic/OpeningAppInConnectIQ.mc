@@ -3,7 +3,7 @@ import Toybox.Lang;
 import Toybox.Application;
 import Toybox.WatchUi;
 
-(:noLowMemory)
+(:settings)
 module Req {
 
 function openAppInConnectIQ() as Void {
@@ -12,6 +12,11 @@ function openAppInConnectIQ() as Void {
     };
     transmitWithoutRetry("openAppInStore", msg);
 }
+
+}
+
+(:companion)
+module Req {
 
 function installCompanionApp() as Void {
     Communications.openWebPage(

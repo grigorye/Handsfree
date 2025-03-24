@@ -8,13 +8,13 @@ const L_PHONES_VIEW as LogComponent = "phonesView";
 
 class View extends ExtendedMenu2 {
 
-    (:noLowMemory)
+    (:settings)
     const predefinedItems as Lang.Array<WatchUi.MenuItem> = [
         newRecentsMenuItem(),
         newSettingsMenuItem()
     ];
 
-    (:lowMemory)
+    (:noSettings)
     const predefinedItems as Lang.Array<WatchUi.MenuItem> = [
         newRecentsMenuItem()
     ];
