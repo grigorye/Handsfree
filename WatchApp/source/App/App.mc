@@ -4,6 +4,7 @@ import Toybox.WatchUi;
 import Toybox.System;
 import Toybox.Lang;
 import Toybox.Communications;
+import Toybox.Notifications;
 
 (:glance, :background)
 const L_APP as LogComponent = "app";
@@ -78,6 +79,11 @@ class App extends Application.AppBase {
         appConfigDidChange();
     }
 
+    (:watchAppBuild, :typecheck([disableBackgroundCheck, disableGlanceCheck]), :noLowMemory)
+    function onNotification(message as Notifications.NotificationMessage) as Void {
+        _3(L_APP, "onNotification", [message.type, message.action]);
+    }
+
     (:typecheck([disableBackgroundCheck]), :watchApp)
     function getGlanceView() as [WatchUi.GlanceView] or [WatchUi.GlanceView, WatchUi.GlanceViewDelegate] or Null {
         setActiveUiKind(ACTIVE_UI_GLANCE);
@@ -95,9 +101,27 @@ function willReturnInitialView() as Void {
     onAppDidFinishLaunching();
 }
 
-(:glance)
+(:glance, :typecheck(disableGlanceCheck))
 function activeUIKindDidChange() as Void {
     TemporalBroadcasting.startTemporalSubjectsBroadcasting();
+    if (isActiveUiKindApp) {
+        registerForNotifications();
+    }
+}
+
+(:widgetBuild)
+function registerForNotifications() as Void {
+}
+
+(:watchAppBuild, :lowMemory)
+function registerForNotifications() as Void {
+}
+
+(:watchAppBuild, :noLowMemory)
+function registerForNotifications() as Void {
+    if (Notifications has :registerForNotificationMessages) {
+        Notifications.registerForNotificationMessages(Application.getApp().method(:onNotification));
+    }
 }
 
 (:widget)
