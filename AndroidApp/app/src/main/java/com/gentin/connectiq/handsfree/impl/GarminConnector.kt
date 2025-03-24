@@ -75,8 +75,6 @@ data class DeviceInfo(
         get() = installedAppsInfoImp()
     val connected: Boolean
         get() = connectedImp()
-    val displayName: String
-        get() = name.replace(" ", " ")
 }
 
 class DefaultGarminConnector(
