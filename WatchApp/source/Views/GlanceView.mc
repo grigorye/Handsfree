@@ -17,8 +17,8 @@ class GlanceView extends WatchUi.GlanceView {
 
     function onUpdate(dc as Graphics.Dc) {
         var phoneConnected = System.getDeviceSettings().phoneConnected;
-        var isCompanionUpToDate = isCompanionUpToDate();
-        var defaultTitle = defaultTitle(phoneConnected, isCompanionUpToDate);
+        var companionStatus = companionStatus();
+        var defaultTitle = defaultTitle(phoneConnected, companionStatus == CompanionStatus_upToDate);
         var font = glanceFont();
         var colors = glanceColors();
         dc.setColor(colors[0], colors[1]);
@@ -28,9 +28,9 @@ class GlanceView extends WatchUi.GlanceView {
         if (!phoneConnected) {
             title = defaultTitle;
             subtitle = "Not Connected";
-        } else if (!isCompanionUpToDate) {
+        } else if (companionStatus != CompanionStatus_upToDate) {
             title = defaultTitle;
-            subtitle = "No Companion";
+            subtitle = companionStatus == CompanionStatus_notInstalled ? "No Companion" : "Update Companion";
         } else if (!Styles.glance_live_update.enabled) {
             title = defaultTitle;
             if (GlanceLikeSettings.isShowingSourceVersionEnabled) {

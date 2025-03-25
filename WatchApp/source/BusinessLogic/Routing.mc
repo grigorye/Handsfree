@@ -12,7 +12,7 @@ function companionInfoDidChangeIfInApp() as Void {
     if (!isActiveUiKindApp) {
         return;
     }
-    if (isCompanionUpToDate()) {
+    if (companionStatus() == CompanionStatus_upToDate) {
         if (VT.viewStackEntryWithTag(V_installCompanion) != null) {
             VT.popToView(V_comm, WatchUi.SLIDE_RIGHT);
             routeToMainUI();

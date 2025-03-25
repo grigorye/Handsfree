@@ -20,7 +20,7 @@ class InstallCompanionViewDelegate extends WatchUi.Menu2InputDelegate {
 
     function onBack() as Void {
         VT.popView(WatchUi.SLIDE_RIGHT);
-        if (isCompanionUpToDate()) {
+        if (companionStatus() == CompanionStatus_upToDate) {
             routeToMainUI();
         } else {
             exitToSystemFromCommView();

@@ -8,7 +8,7 @@ function routeOnFirstShow() as Void {
 
 (:companion)
 function routeOnFirstShow() as Void {
-    if (!isCompanionUpToDate()) {
+    if (companionStatus() != CompanionStatus_upToDate) {
         if (debug) { _2(L_COMM_VIEW, "noCompanionInfo"); }
         Navigation.openInstallCompanionView();
     } else {
@@ -16,14 +16,25 @@ function routeOnFirstShow() as Void {
     }
 }
 
+(:glance)
+enum CompanionStatus {
+    CompanionStatus_notInstalled,
+    CompanionStatus_outdated,
+    CompanionStatus_upToDate,
+}
+
 (:companion, :glance)
-function isCompanionUpToDate() as Lang.Boolean {
+function companionStatus() as CompanionStatus {
     var companionInfo = Storage.getValue(CompanionInfo_valueKey) as CompanionInfo | Null;
     if (companionInfo == null) {
-        return false;
+        return CompanionStatus_notInstalled;
     }
     var companionVersionCode = CompanionInfoImp.getCompanionVersionCode(companionInfo);
-    return companionVersionCode >= minCompanionVersionCode;
+    if (companionVersionCode >= minCompanionVersionCode) {
+        return CompanionStatus_upToDate;
+    } else {
+        return CompanionStatus_outdated;
+    }
 }
 
 function routeToMainUI() as Void {
