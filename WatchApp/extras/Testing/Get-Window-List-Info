@@ -1,0 +1,29 @@
+#! /usr/bin/env swift
+// swiftlint:disable force_cast
+
+import Foundation
+import CoreGraphics
+
+let options: CGWindowListOption = CGWindowListOption(arrayLiteral: [.optionOnScreenOnly])
+let windowListInfo: NSArray = CGWindowListCopyWindowInfo(.optionAll, kCGNullWindowID)! as NSArray
+
+struct ExtractedWindowInfo: Encodable {
+    var windowId: Int
+    var windowTitle: String
+    var windowOwner: String
+}
+
+let extractedWindowInfos: [ExtractedWindowInfo] = (windowListInfo as! [[String: AnyObject]]).map { windowInfo in
+    let windowOwnerName: String = windowInfo[kCGWindowOwnerName as String] as? String ?? ""
+    let windowName: String = windowInfo[kCGWindowName as String] as? String ?? ""
+    let windowNumber: Int = windowInfo[kCGWindowNumber as String] as! Int
+    return ExtractedWindowInfo(
+        windowId: windowNumber,
+        windowTitle: windowName,
+        windowOwner: windowOwnerName
+    )
+}
+
+let data = try JSONEncoder().encode(extractedWindowInfos)
+
+print(String(data: data, encoding: .utf8)!)

@@ -1,0 +1,38 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+device="$1"
+shift
+
+out_mask="$1"
+shift
+
+bn=$(basename "$0")
+wd=$(dirname "$0")
+
+tmpdir=$(mktemp -d /tmp/"$bn".XXXXX)
+
+screen_scale=$("$wd"/Screen-Backing-Scale-Factor | sed 's/\.0//')
+
+src_root=$(realpath "$wd"/../..)
+
+# shellcheck disable=SC1091
+. "$src_root"/sdk-env.sh
+
+# shellcheck disable=SC2154
+device_root="$sdk_root/../../Devices/$device"
+
+if [[ -f "$device_root/device.png" ]]; then
+    mask_with_body="$device_root/device.png"
+else
+    mask_with_body="$device_root/$device.png"
+fi
+resized_mask_with_body="$tmpdir/resized-$device.png"
+
+alpha="$tmpdir/alpha.png"
+
+magick "$mask_with_body" -resize "${screen_scale}00%" "$resized_mask_with_body"
+magick "$resized_mask_with_body" -alpha extract "$alpha"
+magick "$alpha" -negate -alpha copy "$out_mask"

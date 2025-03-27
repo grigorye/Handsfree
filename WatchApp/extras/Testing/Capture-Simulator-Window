@@ -1,0 +1,44 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+device="$1"
+shift
+
+out="$1"
+shift
+
+wd=$(dirname "$0")
+bn=$(basename "$0")
+
+tmpdir=$(mktemp -d /tmp/"$bn".XXXXX)
+capture="$tmpdir/capture-$device.png"
+
+if false; then
+    simulator_window_id=$("$wd"/Simulator-Window-ID)
+    screencapture -o -l "$simulator_window_id" -t png "$capture"
+else
+    pos_as=$(osascript -e 'tell application "System Events" to return {position, size} of window of application process "simulator"')
+    pos="${pos_as// /}"
+    osascript -e 'tell application "System Events" to tell application process "simulator" to set frontmost to true'
+    screencapture -R "$pos" -t png "$capture"
+fi
+
+# Get dimensions of $capture
+dimensions=$(identify -format '%wx%h' "$capture")
+
+cache_dir="/tmp/$bn"
+mkdir -p "$cache_dir"
+mask="$cache_dir/mask-$device.png"
+sized_mask="$cache_dir/sized-mask-$device-$dimensions.png"
+
+masked_capture="$tmpdir/masked-capture.png"
+
+test -f "$mask" || "$wd"/Simulator-Mask "$device" "$mask"
+test -f "$sized_mask" || magick -size "$dimensions" canvas:none "$mask" -gravity center -composite "$sized_mask"
+
+magick "$capture" "$sized_mask" -alpha off -compose copy-opacity -composite "$masked_capture"
+
+# Preprocess for OCR
+magick "$masked_capture" -background white -alpha remove -alpha off -colorspace Gray -threshold 50% "$out"

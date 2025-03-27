@@ -1,0 +1,95 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+device="$1"
+shift
+
+text="$1" # Text to scroll to
+shift
+
+read -ra text <<<"$text"
+
+wd=$(dirname "$0")
+bn=$(basename "$0")
+
+src_root=$(realpath "$wd"/../..)
+
+# shellcheck disable=SC1091
+. "$src_root"/sdk-env.sh
+
+# shellcheck disable=SC2154
+device_root="$sdk_root/../../Devices/$device"
+
+key_mode=$(jq ".display.isTouch | not" <"$device_root"/simulator.json)
+
+pos_as=$(osascript -e 'tell application "System Events" to return {position, size} of window of application process "simulator"')
+read -r -a pos <<<"${pos_as//,/}"
+
+screen_scale=$("$wd"/Screen-Backing-Scale-Factor | sed 's/\.0//')
+cx=$((pos[0] + pos[2] / 2))
+cy=$((pos[1] + pos[3] / 2))
+cy_rel_s=$((pos[3] * screen_scale / 2))
+
+tmpdir=$(mktemp -d /private/tmp/"$bn".XXXXX)
+capture="$tmpdir/capture.png"
+old_capture="$tmpdir/old_capture.png"
+tsv="$tmpdir/capture.tsv"
+
+menu2_mode=$(jq -r '.layouts[0].menu2.mode' <"$device_root"/simulator.json)
+if [[ "$device" == "instinctcrossover" ]]; then
+    current_item_pos="top"
+else
+    current_item_pos="center"
+fi
+
+while true; do
+    "$wd"/Capture-Simulator-Window "$device" "$capture"
+
+    if diff "$capture" "$old_capture"; then
+        exit 1
+    fi
+    tesseract "$capture" - --psm 11 -l eng tsv >"$tsv"
+    if [[ "$key_mode" != "true" ]]; then
+        quoted_text=$(printf "'%s'," "${text[@]}")
+        quoted_text=${quoted_text%,}
+        item_tes=$(q -d $'\t' -H "SELECT left,top,width,height,text FROM $tsv WHERE conf > 90 AND text IN ($quoted_text) ORDER BY height DESC" | head -1)
+    else
+        if [[ "$current_item_pos" == "top" ]]; then
+            item_tes=$(q -d $'\t' -H "SELECT left,top,width,height,text FROM $tsv WHERE conf > 90 AND REGEXP('^[A-Za-z]+$', text) == 1" | head -1)
+        else # current item is center
+            item_tes=$(q -d $'\t' -H "SELECT left,top,width,height,text FROM $tsv WHERE conf > 90 AND REGEXP('^[A-Za-z]+$', text) == 1 ORDER BY ABS($cy_rel_s - (top + height / 2))" | head -1)
+        fi
+    fi
+    if [[ -n "$item_tes" ]]; then
+        read -r -a item_pos <<<"$item_tes"
+        found=false
+        for i in "${text[@]}"; do
+            if [[ "${item_pos[4]}" == "$i" ]]; then
+                found=true
+                break
+            fi
+        done
+        if $found; then
+            break
+        fi
+    fi
+    if $key_mode; then
+        sendkeys --application-name "com.garmin.connectiq.simulator" --initial-delay 0 --delay 0 --characters "<c:down>"
+    else
+        osascript -e 'tell application "System Events" to tell application process "simulator" to set frontmost to true'
+        cliclick dd:"$cx,$cy" du:"$cx,$((cy - 100))"
+    fi
+    mv "$capture" "$old_capture"
+done
+
+if $key_mode; then
+    sendkeys --application-name "com.garmin.connectiq.simulator" --characters "<c:return>"
+else
+    click_x=$((pos[0] + (item_pos[0] + item_pos[2] / 2) / screen_scale))
+    click_y=$((pos[1] + (item_pos[1] + item_pos[3] / 2) / screen_scale))
+
+    osascript -e 'tell application "System Events" to tell application process "simulator" to set frontmost to true'
+    cliclick c:"$click_x,$click_y"
+fi

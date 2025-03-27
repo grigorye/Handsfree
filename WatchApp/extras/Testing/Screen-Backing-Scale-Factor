@@ -1,0 +1,8 @@
+#! /usr/bin/env swift
+
+import AppKit
+
+if let screen = NSScreen.main {
+    let scale = screen.backingScaleFactor
+    print(scale)
+}

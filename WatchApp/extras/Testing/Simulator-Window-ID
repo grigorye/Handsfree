@@ -1,0 +1,10 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+wd=$(dirname "$0")
+
+window_id=$("$wd"/Get-Window-List-Info | jq '.[] | select(.windowOwner == "Connect IQ Device Simulator" and .windowTitle != "") | .windowId')
+
+echo "$window_id"

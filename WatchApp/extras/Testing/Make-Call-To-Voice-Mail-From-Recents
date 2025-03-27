@@ -1,0 +1,18 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+device="$1"
+shift
+
+wd=$(dirname "$0")
+
+click() {
+    text="$1"
+    "$wd"/Scroll-CIQ-Simulator-To-Text-And-Click "$device" "$text"
+}
+
+click "Recents"
+click "Voice Mail"
+click "Hang Up"
