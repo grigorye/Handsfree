@@ -104,7 +104,12 @@ function willReturnInitialView() as Void {
 
 (:glance, :typecheck(disableGlanceCheck))
 function activeUIKindDidChange() as Void {
-    TemporalBroadcasting.startTemporalSubjectsBroadcasting();
+    var callState = getCallState();
+    if (callState instanceof CallInProgress && isIncomingCallPhone(callState.phone)) {
+        if (debug) { _2(L_APP, "notStartingBroadcastsOnRinging"); }
+    } else {
+        TemporalBroadcasting.startTemporalSubjectsBroadcasting();
+    }
     if (isActiveUiKindApp) {
         registerForNotifications();
     }

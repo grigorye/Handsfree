@@ -18,6 +18,7 @@ function acceptIncomingCall(phone as Phone) as Void {
     }
     deactivateRequestingAttentionTillRelaunch();
     new CallActionTask(phone, CALL_IN_PROGRESS_ACTION_ACCEPT).launch();
+    TemporalBroadcasting.startTemporalSubjectsBroadcastingWithSubjects(null);
 }
 
 function rejectIncomingCall(phone as Phone) as Void {
