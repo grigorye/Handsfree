@@ -13,6 +13,11 @@ const subjectsForStartingTemporalBroadcasting = phoneStateSubject + appConfigSub
 
 (:background, :glance)
 function startTemporalSubjectsBroadcasting() as Void {
+    startTemporalSubjectsBroadcastingWithSubjects(subjectsForStartingTemporalBroadcasting);
+}
+
+(:background, :glance)
+function startTemporalSubjectsBroadcastingWithSubjects(subjectsToForceUpdate as Lang.String?) as Void {
     if (isBroadcastListeningEnabled()) {
         if (debug) { _2(L_APP, "temporalBroadcastListening.skippedDueToSettings"); }
         return;
@@ -23,7 +28,9 @@ function startTemporalSubjectsBroadcasting() as Void {
     } else {
         if (debug) { _2(L_APP, "temporalBroadcastListening.activated"); }
         Storage.setValue(Storage_temporalBroadcastListening, true);
-        Req.requestSubjects(subjectsForStartingTemporalBroadcasting);
+        if (subjectsToForceUpdate != null) {
+            Req.requestSubjects(subjectsToForceUpdate);
+        }
     }
 }
 
