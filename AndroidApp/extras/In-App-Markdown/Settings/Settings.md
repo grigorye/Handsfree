@@ -28,6 +28,8 @@
 
 ## [Extras](lk:extras_group)
 
+### Settings
+
 🔴 [Disabled due to basic call control is off.](lk:disabled_due_to_essentials_are_off)
 
 [❎ {{title}}](lk:preference_disabled_fmt) Disabled
@@ -39,6 +41,14 @@
 [⛔️ {{title}}](lk:preference_not_available_fmt) Not available
 
 [> This permission is not currently available with this version of the app.](lk:permission_not_available_rationale)
+
+### Permissions
+
+[⛔️\u00A0[{{link_text}}]({{link_url}})](lk:permission_not_available_fmt) Not available
+
+[[✅]({{link_url}})\u00A0[{{link_text}}]({{link_url}})](lk:permission_granted_fmt) Granted
+
+[[❎]({{link_url}})\u00A0[{{link_text}}]({{link_url}})](lk:permission_not_granted_fmt) Not granted
 
 ### [Outgoing calls](lk:outgoing_calls)
 
