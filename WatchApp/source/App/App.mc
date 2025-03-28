@@ -69,6 +69,7 @@ class App extends Application.AppBase {
 
     function onStop(state as Lang.Dictionary or Null) as Void {
         if (debug) { _3(L_APP, "onStop.state", state); }
+        if (debug) { _3(L_APP, "activeUiKindOnStop", activeUiKind); }
         if (!activeUiKind.equals(ACTIVE_UI_NONE)) {
             TemporalBroadcasting.scheduleStopTemporalSubjectsBroadcasting();
         }
