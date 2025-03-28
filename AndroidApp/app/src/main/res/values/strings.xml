@@ -161,8 +161,6 @@ B. If you are not a beta tester (or prefer to not depend on Google Play), you ca
     <string name="overview_snackbar_reconnecting_connectiq">"Reconnecting…"</string>
     <string name="permissions_snackbar_permission_is_already_granted">"The permission is already there."</string>
     <string name="permissions_snackbar_permission_is_denied">"The permission is available in App Settings."</string>
-    <string name="markdown_link_permission_granted_fmt">"[✅]({{link_url}})  [{{link_text}}]({{link_url}})"</string>
-    <string name="markdown_link_permission_not_granted_fmt">"[❎]({{link_url}})  [{{link_text}}]({{link_url}})"</string>
     <string name="settings_essentials">"Call control"</string>
     <string name="settings_essentials_on">"Calls can be observed and hang up on the watch."</string>
     <string name="settings_essentials_off">"No calls are enabled on the watch."</string>
@@ -299,7 +297,6 @@ Without the permission, no contact names for the calls will be visible.
     <string name="settings_preference_not_available_fmt">"⛔️ {{title}}"</string>
     <string name="settings_call_info_unavailable">"Not available."</string>
     <string name="settings_recents_unavailable">"Not available."</string>
-    <string name="markdown_link_permission_not_available_fmt">"⛔️  [{{link_text}}]({{link_url}})"</string>
     <string name="settings_permission_not_available_rationale">"&gt; This permission is not currently available with this version of the app."</string>
     <string name="settings_device_with_symbol_fmt">"{{symbol}}\u00A0{{device_name}}"</string>
     <string name="settings_device_symbol_active">"⚡️"</string>
@@ -309,4 +306,7 @@ Without the permission, no contact names for the calls will be visible.
     <string name="settings_device_symbol_conflicting">"‼️"</string>
     <string name="settings_device_symbol_loading">"⏳"</string>
     <string name="settings_device_suffix_silent">"(ringing off)"</string>
+    <string name="settings_permission_granted_fmt">"[✅]({{link_url}})\u00A0[{{link_text}}]({{link_url}})"</string>
+    <string name="settings_permission_not_granted_fmt">"[❎]({{link_url}})\u00A0[{{link_text}}]({{link_url}})"</string>
+    <string name="settings_permission_not_available_fmt">"⛔️\u00A0[{{link_text}}]({{link_url}})"</string>
 </resources>
