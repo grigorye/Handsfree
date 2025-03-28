@@ -212,8 +212,8 @@ There are several components that should work together for normal operation of H
     <string name="settings_essentials_group">"Essentials"</string>
     <string name="settings_extras_group">"Extras"</string>
     <string name="settings_screen">"Controls"</string>
-    <string name="settings_preference_disabled_fmt">"🔴 {{title}}"</string>
-    <string name="settings_preference_enabled_fmt">"🟢 {{title}}"</string>
+    <string name="settings_preference_disabled_fmt">"❎ {{title}}"</string>
+    <string name="settings_preference_enabled_fmt">"✅ {{title}}"</string>
     <string name="settings_devices_group">"Devices"</string>
     <string name="settings_preferences_subscreen">"Configuration"</string>
     <string name="device_label_connected">"Connected"</string>
@@ -271,7 +271,7 @@ To let you dial a starred contact from your watch, Handsfree needs permission to
 Without the permission, the (starred) contacts won't be sent to the watch, and hence you won't be able to dial them from your watch.
 "</string>
     <string name="settings_outgoing_calls_on_no_perm">"Making calls is not possible on the watch."</string>
-    <string name="settings_preference_enabled_no_perm_fmt">"🟡 {{title}}"</string>
+    <string name="settings_preference_enabled_no_perm_fmt">"⚠️ {{title}}"</string>
     <string name="onboarding_call_info">"# Show caller info
 
 Handsfree can let you see the phone number and contact name for a call, on the watch, like a normal phone. If you want to benefit from that for the calls that you did not initiate on the watch, give the app a couple more permissions, in addition to the [essential ones](link://onboarding_essentials).
@@ -303,10 +303,10 @@ Without the permission, no contact names for the calls will be visible.
     <string name="settings_permission_not_available_rationale">"&gt; This permission is not currently available with this version of the app."</string>
     <string name="settings_device_with_symbol_fmt">"{{symbol}}\u00A0{{device_name}}"</string>
     <string name="settings_device_symbol_active">"⚡️"</string>
-    <string name="settings_device_symbol_standby">"🟢"</string>
+    <string name="settings_device_symbol_standby">"✅"</string>
     <string name="settings_device_symbol_missing_app">"⬇️️️"</string>
     <string name="settings_device_symbol_not_connected">"❌️"</string>
     <string name="settings_device_symbol_conflicting">"‼️"</string>
-    <string name="settings_device_symbol_loading">"⚪️"</string>
+    <string name="settings_device_symbol_loading">"⏳"</string>
     <string name="settings_device_suffix_silent">"(ringing off)"</string>
 </resources>
