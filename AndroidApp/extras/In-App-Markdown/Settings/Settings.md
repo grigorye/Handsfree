@@ -6,11 +6,11 @@
 
 [‼️](lk:device_symbol_conflicting) (conflicting)
 
-[⚪️](lk:device_symbol_loading) (loading app config)
+[⏳](lk:device_symbol_loading) (loading app config)
 
 [⚡️](lk:device_symbol_active) (active)
 
-[🟢](lk:device_symbol_standby) (standby)
+[✅](lk:device_symbol_standby) (standby)
 
 [⬇️️️](lk:device_symbol_missing_app) (missing app)
 
@@ -30,13 +30,13 @@
 
 🔴 [Disabled due to basic call control is off.](lk:disabled_due_to_essentials_are_off)
 
-[🔴 {{title}}](lk:preference_disabled_fmt)
+[❎ {{title}}](lk:preference_disabled_fmt) Disabled
 
-[🟡 {{title}}](lk:preference_enabled_no_perm_fmt)
+[⚠️ {{title}}](lk:preference_enabled_no_perm_fmt) Enabled but lacking some permissions
 
-[🟢 {{title}}](lk:preference_enabled_fmt)
+[✅ {{title}}](lk:preference_enabled_fmt) Enabled
 
-[⛔️ {{title}}](lk:preference_not_available_fmt)
+[⛔️ {{title}}](lk:preference_not_available_fmt) Not available
 
 [> This permission is not currently available with this version of the app.](lk:permission_not_available_rationale)
 
