@@ -296,11 +296,11 @@ fun preprocessPermissionsInMarkdown(
                 linkText
             } else {
                 val format = if (!isPermissionRequested) {
-                    context.getString(R.string.markdown_link_permission_not_available_fmt)
+                    context.getString(R.string.settings_permission_not_available_fmt)
                 } else if (hasPermission) {
-                    context.getString(R.string.markdown_link_permission_granted_fmt)
+                    context.getString(R.string.settings_permission_granted_fmt)
                 } else {
-                    context.getString(R.string.markdown_link_permission_not_granted_fmt)
+                    context.getString(R.string.settings_permission_not_granted_fmt)
                 }
                 var result = format
                     .replace("{{link_text}}", linkText)
