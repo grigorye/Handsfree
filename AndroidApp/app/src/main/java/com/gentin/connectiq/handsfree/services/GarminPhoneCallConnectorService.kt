@@ -307,23 +307,27 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             incomingNumber,
             incomingDisplayNames
         )
-        lastTrackedPhoneState = phoneState
-        val where =
-            if (phoneState.stateId == PhoneStateId.Ringing) {
-                OutgoingMessageDestination(
-                    device = null,
-                    app = null,
-                    skipOnAppConfig = { appConfig ->
-                        if (isIncomingCallsEnabled(appConfig)) {
-                            false
-                        } else {
-                            !isBroadcastEnabled(appConfig)
-                        }
-                    }
-                )
-            } else {
-                everywhere
+
+        val everywhereExactlyForIncomingCallsEnabled = OutgoingMessageDestination(
+            device = null,
+            app = null,
+            skipOnAppConfig = { appConfig ->
+                if (isIncomingCallsEnabled(appConfig)) {
+                    false
+                } else {
+                    !isBroadcastEnabled(appConfig)
+                }
             }
+        )
+        val where = if (lastTrackedPhoneState?.stateId == PhoneStateId.Ringing) {
+            everywhereExactlyForIncomingCallsEnabled
+        } else if (phoneState.stateId == PhoneStateId.Ringing) {
+            everywhereExactlyForIncomingCallsEnabled
+        } else {
+            everywhere
+        }
+
+        lastTrackedPhoneState = phoneState
         l.outgoingMessageDispatcher.sendPhoneState(where, phoneState)
 
         if (phoneState.stateId == PhoneStateId.Idle) {
