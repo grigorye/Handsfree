@@ -21,6 +21,7 @@ import com.gentin.connectiq.handsfree.contacts.ContactsRepositoryImpl
 import com.gentin.connectiq.handsfree.contacts.contactsGroupId
 import com.gentin.connectiq.handsfree.contacts.forEachContactInGroup
 import com.gentin.connectiq.handsfree.contacts.forEachContactWithPhoneNumberInFavorites
+import com.gentin.connectiq.handsfree.impl.AppConfig_Broadcast
 import com.gentin.connectiq.handsfree.impl.AppConfig_Undefined
 import com.gentin.connectiq.handsfree.impl.AudioControl
 import com.gentin.connectiq.handsfree.impl.AudioControlImp
@@ -122,7 +123,25 @@ class DefaultServiceLocator(
             hangupCallImp = {
                 phoneCallService.hangupCall()
             },
-            acceptCallImp = {
+            acceptCallImp = { source ->
+                val appConfig = garminConnector.appConfig(source.device, source.app)
+                if (appConfig == null) {
+                    Log.d(TAG, "appConfigIsNull: $source")
+                } else {
+                    if (appConfig and AppConfig_Broadcast == 0) {
+                        Log.d(TAG, "enforcingAppConfigBroadcastOnAcceptCall: $source")
+                        val adjustedAppConfig = appConfig or AppConfig_Broadcast
+                        garminConnector.trackAppConfig(source.device, source.app, adjustedAppConfig)
+                        val forceTrackedAudioState = lastTrackedAudioState
+                        if (forceTrackedAudioState != null) {
+                            lastTrackedAudioState = null
+                            Log.d(TAG, "forceTrackedAudioState: $forceTrackedAudioState")
+                            trackAudioState(forceTrackedAudioState)
+                        }
+                    } else {
+                        Log.d(TAG, "appConfigIsAlreadyBroadcast: $source")
+                    }
+                }
                 phoneCallService.acceptCall()
             },
             syncV1Imp = {

@@ -2,7 +2,7 @@ package com.gentin.connectiq.handsfree.impl
 
 import android.util.Log
 import com.gentin.connectiq.handsfree.globals.simApp
-import com.gentin.connectiq.handsfree.terms.acceptInCmd
+import com.gentin.connectiq.handsfree.terms.acceptAndStartBroadcastingInCmd
 import com.gentin.connectiq.handsfree.terms.acceptV1InCmd
 import com.gentin.connectiq.handsfree.terms.callInCmd
 import com.gentin.connectiq.handsfree.terms.callV1InCmd
@@ -24,7 +24,7 @@ class IncomingMessageDispatcher(
     private val appVersionImp: (source: IncomingMessageSource) -> Int?,
     private val makeCallImp: (source: IncomingMessageSource, phoneNumber: String) -> Unit,
     private val hangupCallImp: () -> Unit,
-    private val acceptCallImp: () -> Unit,
+    private val acceptCallImp: (source: IncomingMessageSource) -> Unit,
     private val queryImp: (source: IncomingMessageSource, args: QueryArgs) -> Unit,
     private val syncV1Imp: () -> Unit,
     private val syncPhonesV1Imp: (destination: IncomingMessageSource) -> Unit,
@@ -70,11 +70,11 @@ class IncomingMessageDispatcher(
             }
 
             acceptV1InCmd -> {
-                acceptCallImp()
+                acceptCallImp(source)
             }
 
-            acceptInCmd -> {
-                acceptCallImp()
+            acceptAndStartBroadcastingInCmd -> {
+                acceptCallImp(source)
             }
 
             syncMeV1InCmd -> {

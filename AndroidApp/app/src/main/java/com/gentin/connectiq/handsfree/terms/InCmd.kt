@@ -6,7 +6,7 @@ const val hangUpV1InCmd = "hangup"
 const val syncMeV1InCmd = "syncMe"
 const val syncPhonesV1InCmd = "syncPhones"
 
-const val acceptInCmd = "a"
+const val acceptAndStartBroadcastingInCmd = "a"
 const val callInCmd = "c"
 const val hangUpInCmd = "h"
 const val muteInCmd = "m"
