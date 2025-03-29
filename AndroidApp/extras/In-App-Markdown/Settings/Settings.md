@@ -44,11 +44,11 @@
 
 ### Permissions
 
-[⛔️\u00A0[{{link_text}}]({{link_url}})](lk:permission_not_available_fmt) Not available
+[[⛔️ {{link_text}}]({{link_url}})](lk:permission_not_available_fmt) Not available
 
-[[✅]({{link_url}})\u00A0[{{link_text}}]({{link_url}})](lk:permission_granted_fmt) Granted
+[[✅ {{link_text}}]({{link_url}})](lk:permission_granted_fmt) Granted
 
-[[❎]({{link_url}})\u00A0[{{link_text}}]({{link_url}})](lk:permission_not_granted_fmt) Not granted
+[[❎ {{link_text}}]({{link_url}})](lk:permission_not_granted_fmt) Not granted
 
 ### [Outgoing calls](lk:outgoing_calls)
 
