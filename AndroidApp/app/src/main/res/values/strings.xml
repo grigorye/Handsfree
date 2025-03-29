@@ -306,7 +306,7 @@ Without the permission, no contact names for the calls will be visible.
     <string name="settings_device_symbol_conflicting">"‼️"</string>
     <string name="settings_device_symbol_loading">"⏳"</string>
     <string name="settings_device_suffix_silent">"(ringing off)"</string>
-    <string name="settings_permission_granted_fmt">"[✅]({{link_url}})\u00A0[{{link_text}}]({{link_url}})"</string>
-    <string name="settings_permission_not_granted_fmt">"[❎]({{link_url}})\u00A0[{{link_text}}]({{link_url}})"</string>
-    <string name="settings_permission_not_available_fmt">"⛔️\u00A0[{{link_text}}]({{link_url}})"</string>
+    <string name="settings_permission_granted_fmt">"[✅ {{link_text}}]({{link_url}})"</string>
+    <string name="settings_permission_not_granted_fmt">"[❎ {{link_text}}]({{link_url}})"</string>
+    <string name="settings_permission_not_available_fmt">"[⛔️ {{link_text}}]({{link_url}})"</string>
 </resources>
