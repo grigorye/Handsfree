@@ -8,13 +8,14 @@
 
 -   Outgoing calls to starred contacts
 -   Incoming calls [beta]
--   Custom *continuous* vibration pattern (on Fenix 7)
+-   Custom *continuous* vibration pattern on incoming calls (on Fenix 7) [beta]
 -   Recent contacts [beta]
 -   Missed calls [beta]
 -   In-call audio *volume* control [beta]
 -   Phone speaker enabled on *outgoing* calls without headset [beta]
 -   Headset connection status
 -   Glance view/making calls during an activity (on supported devices)
+-   Zero-effect on the watch battery when not in use [beta]
 
 # Why
 
