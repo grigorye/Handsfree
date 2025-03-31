@@ -133,7 +133,7 @@ There're a couple settings that speed up the operation/responsiveness of the wat
 
 -   **Faster Calls** (on by default) - the watch app assumes that requests that it sends to the phone succeed, even before it gets a confirmation from the phone. The app indicates such a case by placing "|" around the texts shown. For example, right after selecting a contact to initiate a call, Handsfree will show you "Call in progress" screen, with a contact name, options to Hang Up/Control the sound volume and etc. - those can actually be used right away. For a few seconds, it will show the contact name (e.g. John Doe) like "|John Doe|", then the contact name will be shown as "John Doe".
 
-    With this setting *disabled* you will not get to the "Call in Progress" screen until the moment when the watch actually receives the confirmation from the phone - that takes a few seconds and may be confusing, because you the call in fact may be already in progress.
+    With this setting is *disabled*, you will not get to the "Call in Progress" screen until the moment when the watch actually receives the confirmation from the phone - that takes a few seconds and may be confusing, because the call in fact may be already in progress.
 
 -   **Eager Sync** (off by default) - when on, all the changes in recents/favorites that happen on the phone are automatically pushed to the watch, even if you don't open the watch app. This results in no need to sync anything when you open the watch app - all the information is instantly available on the watch. On the negative side, it may slightly decrease the battery life of your watch, especially if you have many calls.
 
