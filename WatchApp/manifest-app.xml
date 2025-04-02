@@ -110,9 +110,9 @@
             <iq:product id="vivoactive6"/>
         </iq:products>
         <iq:permissions>
-            <iq:uses-permission id="Background" />
-            <iq:uses-permission id="Communications" />
-            <iq:uses-permission id="Notifications" />
+            <iq:uses-permission id="Background"/>
+            <iq:uses-permission id="Communications"/>
+            <iq:uses-permission id="Notifications"/>
         </iq:permissions>
         <iq:languages>
             <iq:language>eng</iq:language>
