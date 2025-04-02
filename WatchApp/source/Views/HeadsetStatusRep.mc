@@ -14,7 +14,7 @@ function headsetStatusRep() as Lang.String or Null {
 function headsetStatusHumanReadable() as Lang.String or Null {
     var speakerWouldBeUsed = AudioStateManip.getSpeakerWouldBeUsed();
     if (speakerWouldBeUsed) {
-        return "No headset";
+        return "No Headset";
     } else {
         return null;
     }
