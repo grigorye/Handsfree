@@ -22,10 +22,12 @@ import com.gentin.connectiq.handsfree.globals.storeID
 import com.gentin.connectiq.handsfree.globals.watchApps
 import com.gentin.connectiq.handsfree.helpers.breakIntoDebugger
 import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
+import com.gentin.connectiq.handsfree.services.startStats
 import com.gentin.connectiq.handsfree.terms.cmdMsgField
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Date
 
 val pingBody = mapOf(cmdMsgField to "ping")
 
@@ -408,7 +410,7 @@ class DefaultGarminConnector(
         if (shuttingDownSDK) {
             Log.d(TAG, "shuttingDownSDK")
         } else {
-            sdkRelaunchesOnExceptions += 1
+            startStats.sdkExceptionDates.add(Date())
             Log.d(TAG, "relaunchingSDKOnException")
             shuttingDownSDK = true
             connectIQ.shutdown(this) // Workaround no actual shutdown on exceptions
@@ -647,8 +649,6 @@ class DefaultGarminConnector(
         private val TAG: String = DefaultGarminConnector::class.java.simpleName
     }
 }
-
-var sdkRelaunchesOnExceptions = 0
 
 class DefaultConnectIQListener(
     private val garminConnector: DefaultGarminConnector

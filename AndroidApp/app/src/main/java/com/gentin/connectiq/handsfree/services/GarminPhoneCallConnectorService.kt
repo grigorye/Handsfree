@@ -53,7 +53,8 @@ data class StartStats(
     var incomingMessage: Int = 0,
     var bootCompleted: Int = 0,
     var mainActivity: Int = 0,
-    var other: Int = 0
+    var other: Int = 0,
+    var sdkExceptionDates: MutableList<Date> = mutableListOf()
 )
 
 var startStats = StartStats()

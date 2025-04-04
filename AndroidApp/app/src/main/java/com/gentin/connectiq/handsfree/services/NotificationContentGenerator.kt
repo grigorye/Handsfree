@@ -7,7 +7,6 @@ import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.globals.outgoingCallsShouldBeEnabled
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.formattedDeviceInfos
-import com.gentin.connectiq.handsfree.impl.sdkRelaunchesOnExceptions
 import java.text.DateFormat
 
 data class NotificationContent(
@@ -62,21 +61,31 @@ class NotificationContentGenerator(
     }
 
     private fun debugModeNotificationContent(): NotificationContent {
-        val dateFormatted = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)
-            .format(startStats.launchDate)
-        val title = "${context.getString(R.string.app_name)}: $dateFormatted"
-        val text = TextUtils.join(
-            ", ", arrayOf(
-                "i.${startStats.incomingMessage}",
-                "p.${startStats.phoneState}",
-                "e.$sdkRelaunchesOnExceptions",
-                "s.${garminConnector.sentMessagesCounter}",
-                "a.${garminConnector.acknowledgedMessagesCounter}",
-                "o.${startStats.other}",
-                "b.${startStats.bootCompleted}",
-                "m.${startStats.mainActivity}"
-            )
-        )
-        return NotificationContent(title, text)
+        val stats = debugModeStats(garminConnector)
+        val title = "${context.getString(R.string.app_name)}: ${stats.launchDateFormatted}"
+        return NotificationContent(title, stats.encodedStats)
     }
+}
+
+data class DebugModeStats(
+    val launchDateFormatted: String,
+    val encodedStats: String
+)
+
+fun debugModeStats(garminConnector: GarminConnector): DebugModeStats {
+    val launchDateFormatted = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)
+        .format(startStats.launchDate)
+    val encodedStats = TextUtils.join(
+        ", ", arrayOf(
+            "i.${startStats.incomingMessage}",
+            "p.${startStats.phoneState}",
+            "e.${startStats.sdkExceptionDates.count()}",
+            "s.${garminConnector.sentMessagesCounter}",
+            "a.${garminConnector.acknowledgedMessagesCounter}",
+            "o.${startStats.other}",
+            "b.${startStats.bootCompleted}",
+            "m.${startStats.mainActivity}"
+        )
+    )
+    return DebugModeStats(launchDateFormatted, encodedStats)
 }

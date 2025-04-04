@@ -8,7 +8,7 @@ fun statusInfo(): String {
         ", ", arrayOf(
             "i.${startStats.incomingMessage}",
             "p.${startStats.phoneState}",
-            "e.${sdkRelaunchesOnExceptions}",
+            "e.${startStats.sdkExceptionDates.count()}",
             "o.${startStats.other}",
             "b.${startStats.bootCompleted}",
             "m.${startStats.mainActivity}"
