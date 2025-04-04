@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
+import com.gentin.connectiq.handsfree.services.startStats
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
@@ -35,6 +37,8 @@ fun saveLog(context: Context, uri: Uri) {
 }
 
 fun shareLog(activity: Activity) {
+    val tag = object {}.javaClass.enclosingMethod?.name
+    Log.d(tag, "startStats: $startStats")
     val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
         addCategory(Intent.CATEGORY_OPENABLE)
         type = "text/plain"
