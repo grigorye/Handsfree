@@ -1,6 +1,6 @@
 <resources>
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:textColorLink">@color/doki_accent_color</item>
-        <item name="colorSecondary">@color/doki_accent_color</item>
+        <item name="android:colorAccent">@color/design_default_color_primary_dark</item>
+        <item name="colorSecondary">@color/design_default_color_primary_dark</item>
     </style>
 </resources>
