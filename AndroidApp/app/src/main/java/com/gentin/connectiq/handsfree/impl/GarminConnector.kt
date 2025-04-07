@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import com.garmin.android.connectiq.ConnectIQ
 import com.garmin.android.connectiq.ConnectIQ.IQApplicationInfoListener
 import com.garmin.android.connectiq.ConnectIQ.IQOpenApplicationStatus
+import com.garmin.android.connectiq.ConnectIQ.IQSdkErrorStatus
 import com.garmin.android.connectiq.IQApp
 import com.garmin.android.connectiq.IQDevice
 import com.garmin.android.connectiq.exception.InvalidStateException
@@ -192,6 +193,7 @@ class DefaultGarminConnector(
     enum class SdkState {
         Down,
         Initializing,
+        InitializationFailed,
         Ready,
         ShuttingDown
     }
@@ -400,6 +402,11 @@ class DefaultGarminConnector(
     }
 
     private val connectIQListener = DefaultConnectIQListener(this)
+
+    fun onInitializeError(errStatus: IQSdkErrorStatus) {
+        Log.e(TAG, "onInitializeError: $errStatus")
+        sdkState = SdkState.InitializationFailed
+    }
 
     fun onSDKReady() {
         sdkState = SdkState.Ready
@@ -666,6 +673,7 @@ class DefaultConnectIQListener(
 ) : ConnectIQ.ConnectIQListener {
     override fun onInitializeError(errStatus: ConnectIQ.IQSdkErrorStatus) {
         Log.e(TAG, "sdkInitializationFailure: ${errStatus.name}")
+        garminConnector.onInitializeError(errStatus)
     }
 
     override fun onSdkReady() {
