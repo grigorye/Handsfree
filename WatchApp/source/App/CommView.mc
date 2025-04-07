@@ -26,6 +26,11 @@ class CommView extends WatchUi.View {
 
     function firstOnShow() as Void {
         if (debug) { _2(L_COMM_VIEW, "firstOnShow"); }
+        if (dismissedNotification) {
+            if (viewDebug) { _2(L_COMM_VIEW, "dismissedNotification"); }
+            exitToSystemFromCurrentView();
+            return;
+        }
         routeOnFirstShow();
     }
 }

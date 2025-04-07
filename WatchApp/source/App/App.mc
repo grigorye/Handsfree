@@ -83,6 +83,9 @@ class App extends Application.AppBase {
     (:watchAppBuild, :typecheck([disableBackgroundCheck, disableGlanceCheck]), :noLowMemory)
     function onNotification(message as Notifications.NotificationMessage) as Void {
         _3(L_APP, "onNotification", [message.type, message.action]);
+        if (message.type == Notifications.NOTIFICATION_MESSAGE_TYPE_DISMISSED) {
+            dismissedNotification = true;
+        }
     }
 
     (:typecheck([disableBackgroundCheck]), :watchApp)
@@ -96,6 +99,8 @@ class App extends Application.AppBase {
         System.error("getGlanceView() should not be called for widget");
     }
 }
+
+var dismissedNotification as Lang.Boolean = false;
 
 function willReturnInitialView() as Void {
     setActiveUiKind(ACTIVE_UI_APP);
