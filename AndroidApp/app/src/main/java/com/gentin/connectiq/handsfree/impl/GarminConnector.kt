@@ -670,7 +670,7 @@ class DefaultConnectIQListener(
     private val garminConnector: DefaultGarminConnector
 ) : ConnectIQ.ConnectIQListener {
     override fun onInitializeError(errStatus: ConnectIQ.IQSdkErrorStatus) {
-        Log.d(TAG, "initializeError: ${errStatus.name}")
+        Log.e(TAG, "sdkInitializationFailure: ${errStatus.name}")
     }
 
     override fun onSdkReady() {
