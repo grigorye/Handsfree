@@ -409,8 +409,6 @@ class DefaultGarminConnector(
         Log.d(TAG, "sdkReady: $sdkStartCount")
         lifecycleScope.launch(Dispatchers.Default) {
             try {
-                stopMessageProcessing()
-                stopObservingDeviceEvents()
                 startObservingDeviceEvents()
                 startMessageProcessing()
                 processPendingMessages()
@@ -424,6 +422,8 @@ class DefaultGarminConnector(
 
     fun onSDKShutDown() {
         if (sdkState == SdkState.ShuttingDown) {
+            stopMessageProcessing()
+            clearKnownDevices()
             Log.d(TAG, "shuttingDownSDK")
         } else {
             startStats.sdkExceptionDates.add(Date())
@@ -447,12 +447,7 @@ class DefaultGarminConnector(
     private val knownDevices = MutableLiveData(mapOf<Long, DeviceInfo>())
     private val knownDevicesAcc = mutableMapOf<Long, DeviceInfo>()
 
-    private fun stopObservingDeviceEvents() {
-        Log.d(TAG, "stopObservingDeviceEvents: ${connectIQ.knownDevices}")
-        connectIQ.knownDevices.forEach { device ->
-            device.status = connectIQ.getDeviceStatus(device)
-            connectIQ.unregisterForDeviceEvents(device)
-        }
+    private fun clearKnownDevices() {
         knownDevicesAcc.clear()
         Log.d(TAG, "postingNewKnownDevices: $knownDevicesAcc")
         knownDevices.postValue(knownDevicesAcc)
