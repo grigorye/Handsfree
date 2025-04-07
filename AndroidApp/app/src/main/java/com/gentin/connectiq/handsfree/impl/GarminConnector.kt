@@ -185,13 +185,23 @@ class DefaultGarminConnector(
         trackInstalledApp(device, app)
     }
 
-    private var shuttingDownSDK = false
+    enum class SdkState {
+        Down,
+        Initializing,
+        Ready,
+        ShuttingDown
+    }
+    private var sdkState: SdkState = SdkState.Down
+        set(value) {
+            Log.d(TAG, "sdkState: $field -> $value")
+            field = value
+        }
 
     private fun shutdownSDK() {
         Log.d(TAG, "shutdownSDK")
-        shuttingDownSDK = true
+        sdkState = SdkState.ShuttingDown
         connectIQ.shutdown(this)
-        shuttingDownSDK = false
+        sdkState = SdkState.Down
     }
 
     private fun startSDK() {
@@ -203,6 +213,7 @@ class DefaultGarminConnector(
         }
 
         connectIQ = ConnectIQ.getInstance(this, connectType)
+        sdkState = SdkState.Initializing
         connectIQ.initialize(this, true, connectIQListener)
     }
 
@@ -387,6 +398,7 @@ class DefaultGarminConnector(
     private val connectIQListener = DefaultConnectIQListener(this)
 
     fun onSDKReady() {
+        sdkState = SdkState.Ready
         sdkStartCount += 1
         sentMessagesCounter = 0
         acknowledgedMessagesCounter = 0
@@ -407,14 +419,14 @@ class DefaultGarminConnector(
     }
 
     fun onSDKShutDown() {
-        if (shuttingDownSDK) {
+        if (sdkState == SdkState.ShuttingDown) {
             Log.d(TAG, "shuttingDownSDK")
         } else {
             startStats.sdkExceptionDates.add(Date())
             Log.d(TAG, "relaunchingSDKOnException")
-            shuttingDownSDK = true
+            sdkState = SdkState.ShuttingDown
             connectIQ.shutdown(this) // Workaround no actual shutdown on exceptions
-            shuttingDownSDK = false
+            sdkState = SdkState.Down
 
             lifecycleScope.launch(Dispatchers.Default) {
                 if (Looper.myLooper() == null) {
