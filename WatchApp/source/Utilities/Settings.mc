@@ -8,8 +8,6 @@ const Settings_verboseLogsK = "forceLogAll";
 const Settings_optimisticCallHandlingK = "optimisticCallHandling";
 (:background, :glance)
 const Settings_openAppOnIncomingCallK = "openAppOnIncomingCall";
-(:glance)
-const Settings_showRingingOff = "showRingingOff";
 (:background, :glance)
 const Settings_broadcastListeningK = "broadcastListening";
 const Settings_showPhoneNumbersK = "showPhoneNumbers";
@@ -48,11 +46,6 @@ module GlanceLikeSettings {
     (:noLowMemory)
     const isGlanceLoggingEnabled as Lang.Boolean =
         Properties.getValue("glanceLogging") as Lang.Boolean;
-    
-    (:noLowMemory)
-    function isRingingOffEnabled() as Lang.Boolean {
-        return Properties.getValue(Settings_showRingingOff) as Lang.Boolean;
-    }
 }
 
 module AppSettings {
