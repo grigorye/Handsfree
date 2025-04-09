@@ -22,8 +22,11 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onBack() {
-        VT.popView(SLIDE_RIGHT);
         RecentsManip.recentsDidOpen();
+        VT.popView(SLIDE_RIGHT);
+        if (VT.topViewIs(V_comm)) {
+            exitToSystemFromCommView();
+        }
     }
 }
 
