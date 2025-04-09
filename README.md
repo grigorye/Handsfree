@@ -103,14 +103,21 @@ To return to the call in progress after going back to watch, just launch the app
 
 ## Accepting calls
 
-Select "Incoming Calls" in Settings of Handsfree on your watch.
+On an incoming call, Handsfree:
 
-(Optionally) disable Garmin's own support for accepting the calls on the watch.
+-   Shows "Incoming Call" on the glance (on the devices that support glances), currently with exception of Instinct 2/3.
+-   Lets you accept/decline or ignore the call, if you open the app
 
-Depending on your watch model, on incoming call:
+By default it does not override the default incoming call handling provided by Garmin. It still lets you control any call after you accept it.
 
--   (Most of the watch models) You'll get a notification about a call, that prompts into launching Handsfree app. If you accept the prompt, Handsfree will be launched and you'll get the prompt to Accept/Decline the call.
--   (Fenix 7 family of the watches) After some delay, you'll get the prompt to Accept/Decline call, with the watch vibrating until you make your choice.
+***Alternatively***, if you enable "Ringing" in Settings, Handsfree alerts you and offers to launch the app to handle the call, or even launches automatically and vibrates (on Fenix 7 family of devices).
+
+What needs to be taken into account if you decide to enable "Ringing":
+
+-   Depending on the watch model, Handsfree does not provide much benefit over the built-in incoming calls facility, as it typically results in just a silent alert, without vibration. The standard facility typically involve vibration. This is especially important during activities: Handsfree just alerts you in those cases, typically without vibration. (The same limitation is also applicable if the call happens when you navigated away from the default watch face on the watch)
+-   On **Fenix 7 family of the devices**, Handsfree may be more beneficial to use (when not running an activity), as, instead of the silent alert, it triggers *continuous* vibration (currently not available with the default incoming call alert, in  Software Version 20.22). Handsfree automatically launches, so that you get typical Accept/Decline/Ignore prompt right away and land right on the call control screen if you accept the call. What is important in this case, is that this behavior is blocked by the default incoming call alert. Hence, if you really want to benefit from this behavior, you need to disable Calls at least in Smart Notifications > General Use.
+
+Overall "Ringing" on incoming calls is technically quite limited feature, but it's probably worth giving it a try on your particular watch model, especially if it's Fenix 7. Please provide the feedback regarding this feature specifically, even if it's negative - that will make it more clear across the whole range of the devices/potentially result in further improvements.
 
 ## Accessing recent calls
 
