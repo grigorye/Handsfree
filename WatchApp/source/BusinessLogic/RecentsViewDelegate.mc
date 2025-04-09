@@ -9,6 +9,7 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onSelect(item as WatchUi.MenuItem) as Void {
+        RecentsManip.recentsDidOpen();
         var id = item.getId() as Lang.Number or Recent;
         if (!lowMemory) {
             if (id.equals(noRecentsMenuItemId)) {
@@ -22,6 +23,7 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
 
     function onBack() {
         VT.popView(SLIDE_RIGHT);
+        RecentsManip.recentsDidOpen();
     }
 }
 
