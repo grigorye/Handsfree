@@ -70,7 +70,7 @@ class GlanceView extends WatchUi.GlanceView {
                             subtitle = "Not Ready";
                         } else if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
                             subtitle = sourceVersion;
-                        } else if (!BackgroundSettings.isOpenAppOnIncomingCallEnabled()) {
+                        } else if (!BackgroundSettings.isOpenAppOnIncomingCallEnabled() && GlanceLikeSettings.isRingingOffEnabled()) {
                             subtitle = "Ringing Off";
                         } else {
                             subtitle = "Idle";

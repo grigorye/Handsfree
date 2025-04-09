@@ -22,11 +22,15 @@
         <property id="broadcastListening" type="boolean">false</property>
         <property id="showPhoneNumbers" type="boolean">false</property>
         <property id="reportHeadset" type="boolean">true</property>
+        <property id="showRingingOff" type="boolean">false</property>
     </properties>
 
     <strings>
         <string id="openAppOnIncomingCall" scope="settings">
             Incoming calls/Ringing
+        </string>
+        <string id="showRingingOff" scope="settings">
+            Warn on Incoming calls/Ringing off
         </string>
         <string id="broadcastListening" scope="settings">
             ⚡️ Eager sync
@@ -94,6 +98,10 @@
         </setting>
         <setting propertyKey="@Properties.openAppOnIncomingCall"
             title="@Strings.openAppOnIncomingCall">
+            <settingConfig type="boolean" />
+        </setting>
+        <setting propertyKey="@Properties.showRingingOff"
+            title="@Strings.showRingingOff">
             <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.showPhoneNumbers" title="@Strings.showPhoneNumbers">
