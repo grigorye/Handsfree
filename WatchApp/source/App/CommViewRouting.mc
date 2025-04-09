@@ -40,6 +40,13 @@ function companionStatus() as CompanionStatus {
 function routeToMainUI() as Void {
     appWillRouteToMainUI();
     Navigation.openFavoritesView();
-    getRouter().updateRoute();
+    if (getCallState() instanceof Idle) {
+        var missedRecents = getMissedRecents();
+        if (missedRecents.size() > 0) {
+            Navigation.openRecentsView();
+        }
+    } else {
+        getRouter().updateRoute();
+    }
     appDidRouteToMainUI();
 }
