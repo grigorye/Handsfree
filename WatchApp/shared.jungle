@@ -29,6 +29,11 @@ fenix7xpro.resourcePath = $(fenix7xpro.resourcePath);$(fenix7_resourcePath_extra
 fenix7xpronowifi.personality = $(fenix7xpronowifi.personality);$(fenix7_personality_extras)
 fenix7xpronowifi.resourcePath = $(fenix7xpronowifi.resourcePath);$(fenix7_resourcePath_extras)
 
+fr955_personality_extras = ./traits/color
+fr955_resourcePath_extras = ./traits/auto-open;./traits/menu2-redraw
+fr955.personality = $(fr955.personality);$(fr955_personality_extras)
+fr955.resourcePath = $(fr955.resourcePath);$(fr955_resourcePath_extras)
+
 instinct_personality_extras = ./traits/glances2022;./traits/static-glances
 instinct_resourcePath_extras = ./traits/semioctagon
 descentg1.personality = $(descentg1.personality);$(instinct_resourcePath_extras)
