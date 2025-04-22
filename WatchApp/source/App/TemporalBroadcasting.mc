@@ -44,6 +44,7 @@ function scheduleStopTemporalSubjectsBroadcasting() as Void {
     var fiveMinutes = new Time.Duration(5 * 60);
     var eventTime = Time.now().add(fiveMinutes);
     Background.registerForTemporalEvent(eventTime);
+    if (debug) { _2(L_APP, "registerForTemporalEvent.done"); }
 }
 
 (:background, :glance)
