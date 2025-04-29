@@ -49,6 +49,7 @@ class App extends Application.AppBase {
     (:typecheck([disableGlanceCheck]))
     function onAppInstall() as Void {
         _2(L_APP, "onAppInstall");
+        AppBase.onAppInstall();
         if (isBroadcastListeningEnabled()) {        
             Req.requestSubjects(Req.allSubjects);
         } else {
