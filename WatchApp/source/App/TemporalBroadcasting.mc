@@ -58,6 +58,7 @@ function stopTemporalSubjectsBroadcasting() as Void {
         Storage.setValue(Storage_temporalBroadcastListening, false);
         Req.requestSubjects(appConfigSubject);
     }
+    Storage.setValue(Storage_subjectsConfirmed, null);
 }
 
 }

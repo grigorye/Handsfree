@@ -74,7 +74,8 @@ function handleRemoteMessage(iqMsgObject as Lang.Object or Null) as Void {
     }
 }
 
-typedef SubjectsChanged as Lang.Dictionary<Lang.String, Lang.Dictionary<Lang.String, Lang.Object>>;
+typedef SubjectName as Lang.String;
+typedef SubjectsChanged as Lang.Dictionary<SubjectName, Lang.Dictionary<Lang.String, Lang.Object>>;
 
 (:background)
 function handleAcceptQueryResult(args as Lang.Dictionary<Lang.String, Lang.Object>) as Void {
@@ -94,6 +95,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
     if (minDebug) {
         _3(LX_REMOTE_MSG, "subjectsReceived", names);
     }
+    var subjectsConfirmed = "";
     for (var i = 0; i < namesCount; i++) {
         var name = names[i];
         if (allSubjects.find(name) == null) {
@@ -108,12 +110,14 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
                 isHit = false;
             } else {
                 if (debug) { _3(LX_REMOTE_MSG, "appConfigHit", version); }
+                subjectsConfirmed = subjectsConfirmed + name;
             }
             continue;
         }
         switch (name) {
             case audioStateSubject: {
                 if (version.equals(Storage.getValue(AudioState_versionKey))) {
+                    subjectsConfirmed = subjectsConfirmed + name;
                     continue;
                 }
                 var audioState = subject[valueK] as AudioState or Null;
@@ -148,16 +152,19 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
                 var valueKey = valueKeyForSubject(name);
                 storeValue(valueKey, value);
                 storeVersion(versionKey, version);
+                subjectsConfirmed = subjectsConfirmed + name;
             }
             isHit = false;
         } else {
             if (debug) { _3(LX_REMOTE_MSG, "Hit." + versionKey, version); }
+            subjectsConfirmed = subjectsConfirmed + name;
         }
     }
     if (minDebug) {
         _3(LX_REMOTE_MSG, "invalidation", { "pending" => subjectsInvalidated, "isHit" => isHit });
     }
     trackHits(isHit);
+    trackSubjectsConfirmed(subjectsConfirmed);
     return subjectsInvalidated;
 }
 

@@ -9,6 +9,9 @@ import Rez.Styles;
 const L_GLANCE as LogComponent = "glance";
 
 (:glance, :watchApp, :noLowMemory)
+const liveGlanceSubjects = phoneStateSubject + recentsSubject + audioStateSubject;
+
+(:glance, :watchApp, :noLowMemory)
 class GlanceView extends WatchUi.GlanceView {
 
     function initialize() {
@@ -31,7 +34,7 @@ class GlanceView extends WatchUi.GlanceView {
         } else if (companionStatus != CompanionStatus_upToDate) {
             title = defaultTitle;
             subtitle = companionStatus == CompanionStatus_notInstalled ? "No Companion" : "Update Companion";
-        } else if (!Styles.glance_live_update.enabled) {
+        } else if (!Styles.glance_live_update.enabled || (!isBroadcastListeningEnabled() && !allSubjectsConfirmed(liveGlanceSubjects))) {
             title = defaultTitle;
             if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
                 subtitle = sourceVersion;
