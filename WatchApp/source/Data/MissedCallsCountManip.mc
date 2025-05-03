@@ -2,9 +2,6 @@ import Toybox.Lang;
 import Toybox.Application;
 
 (:glance)
-const Storage_missingRecents = "R" + valueKeySuffix;
-
-(:glance)
 typedef MissedRecents as Lang.Array<Lang.Number>;
 
 (:inline, :glance)

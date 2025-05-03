@@ -1,9 +1,6 @@
 import Toybox.Application;
 import Toybox.Lang;
 
-(:background, :glance)
-const Storage_subjectsConfirmed = "C" + valueKeySuffix;
-
 (:background)
 function trackSubjectsConfirmed(extraSubjectsConfirmed as Lang.String) as Void {
     _3(LX_REMOTE_MSG, "extraSubjectsConfirmed", extraSubjectsConfirmed);

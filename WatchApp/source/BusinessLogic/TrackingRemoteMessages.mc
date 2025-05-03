@@ -5,12 +5,6 @@ import Toybox.Lang;
 function trackRawRemoteMessageReceived() as Void {
 }
 
-(:background, :glance, :noLowMemory)
-const Storage_rawRemoteMessagesCount = "M" + valueKeySuffix;
-
-(:background, :glance, :noLowMemory)
-const Storage_validRemoteMessagesCount = "V" + valueKeySuffix;
-
 (:background, :noLowMemory)
 function trackRawRemoteMessageReceived() as Void {
     var rawRemoteMessagesCount = getRawRemoteMessagesCount();

@@ -19,9 +19,6 @@ function canSaveInBackground() as Lang.Boolean {
 }
 
 (:background)
-const Storage_backgroundSystemStats = "T" + valueKeySuffix;
-
-(:background)
 function saveBackgroundSystemStats() as Void {
     if (!canSaveInBackground()) {
         if (minDebug) { _3(L_APP_EXTRA, "canSaveInBackground", false); }

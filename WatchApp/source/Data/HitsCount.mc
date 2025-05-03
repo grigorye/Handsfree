@@ -11,9 +11,6 @@ function setHitsCount(hitsCount as Lang.Number) as Void {
 }
 
 (:background, :glance, :noLowMemory)
-const Storage_hitsCount = "H" + valueKeySuffix;
-
-(:background, :glance, :noLowMemory)
 function getHitsCount() as Lang.Number {
     var hitsCount = Storage.getValue(Storage_hitsCount) as Lang.Number or Null;
     if (hitsCount != null) {

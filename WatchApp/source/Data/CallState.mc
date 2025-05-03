@@ -20,9 +20,6 @@ function initialCallState() as CallState {
 }
 
 (:background, :glance)
-const Storage_callState = "S" + valueKeySuffix; // The value stored *is not* phoneState subject.
-
-(:background, :glance)
 function loadCallState() as CallState or Null {
     var callStateData = Storage.getValue(Storage_callState) as CallStateData or Null;
     if (callStateData == null) {
