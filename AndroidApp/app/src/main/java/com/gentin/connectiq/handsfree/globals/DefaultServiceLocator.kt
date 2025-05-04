@@ -42,6 +42,7 @@ import com.gentin.connectiq.handsfree.impl.PhoneStateId
 import com.gentin.connectiq.handsfree.impl.QueryArgs
 import com.gentin.connectiq.handsfree.impl.QueryResult
 import com.gentin.connectiq.handsfree.impl.RemoteMessageService
+import com.gentin.connectiq.handsfree.impl.VersionedPojo
 import com.gentin.connectiq.handsfree.impl.audioStatePojo
 import com.gentin.connectiq.handsfree.impl.companionInfo
 import com.gentin.connectiq.handsfree.impl.companionInfoPojo
@@ -226,25 +227,30 @@ class DefaultServiceLocator(
 
         for (subject in args.subjects) {
             val subjectName = subjectQueryName(subject)
-            val subjectVersion = subjectQueryVersion(subject)
             assert(allSubjectNames.contains(subjectName)) { "Unknown subject: $subjectName" }
+            val version = subjectQueryVersion(subject)
+
+            fun genVersionedPojo(pojo: Any?): VersionedPojo? {
+                return strippedVersionedPojo(
+                    version,
+                    pojo,
+                    metadataOnly,
+                )
+            }
+
             when (subjectName) {
                 phoneStateSubject -> {
                     val phoneState = lastTrackedPhoneState ?: fallbackPhoneState()
                     queryResult.phoneStateV1 = phoneState
-                    queryResult.phoneState =
-                        strippedVersionedPojo(
-                            subjectVersion,
-                            phoneStatePojo(phoneState),
-                            metadataOnly
-                        )
+                    queryResult.phoneState = genVersionedPojo(phoneStatePojo(phoneState))
                 }
 
                 appConfigSubject -> {
                     if (metadataOnly) {
-                        queryResult.appConfig = garminConnector.appConfig(source.device, source.app) ?: AppConfig_Undefined
+                        queryResult.appConfig = garminConnector.appConfig(source.device, source.app)
+                            ?: AppConfig_Undefined
                     } else {
-                        queryResult.appConfig = subjectVersion
+                        queryResult.appConfig = version
                     }
                 }
 
@@ -254,12 +260,9 @@ class DefaultServiceLocator(
                     } else {
                         phonesLimitFullFeatured
                     }
-                    queryResult.phones =
-                        strippedVersionedPojo(
-                            subjectVersion,
-                            phonesPojo(availableContacts(), limit),
-                            metadataOnly
-                        )
+                    queryResult.phones = genVersionedPojo(
+                        phonesPojo(availableContacts(), limit)
+                    )
                 }
 
                 recentsSubject -> {
@@ -268,39 +271,27 @@ class DefaultServiceLocator(
                     } else {
                         recentsLimitFullFeatured
                     }
-                    queryResult.recents =
-                        strippedVersionedPojo(
-                            subjectVersion,
-                            recentsPojo(recents(), limit),
-                            metadataOnly
-                        )
+                    queryResult.recents = genVersionedPojo(
+                        recentsPojo(recents(), limit)
+                    )
                 }
 
                 audioStateSubject -> {
-                    queryResult.audioState =
-                        strippedVersionedPojo(
-                            subjectVersion,
-                            audioStatePojo(audioState()),
-                            metadataOnly
-                        )
+                    queryResult.audioState = genVersionedPojo(
+                        audioStatePojo(audioState())
+                    )
                 }
 
                 companionInfoSubject -> {
-                    queryResult.companionInfo =
-                        strippedVersionedPojo(
-                            subjectVersion,
-                            companionInfoPojo(companionInfo()),
-                            metadataOnly
-                        )
+                    queryResult.companionInfo = genVersionedPojo(
+                        companionInfoPojo(companionInfo())
+                    )
                 }
 
                 readinessInfoSubject -> {
-                    queryResult.readinessInfo =
-                        strippedVersionedPojo(
-                            subjectVersion,
-                            readinessInfoPojo(readinessInfo(context = this)),
-                            metadataOnly
-                        )
+                    queryResult.readinessInfo = genVersionedPojo(
+                        readinessInfoPojo(readinessInfo(context = this)),
+                    )
                 }
 
                 else -> {
