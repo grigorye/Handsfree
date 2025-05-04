@@ -218,7 +218,12 @@ class DefaultServiceLocator(
     ): QueryResult {
         val queryResult = QueryResult()
         val appConfig = garminConnector.appConfig(source.device, source.app)
-        val lm = if (appConfig != null) { isLowMemory(appConfig) } else { true }
+        val lm = if (appConfig != null) {
+            isLowMemory(appConfig)
+        } else {
+            true
+        }
+
         for (subject in args.subjects) {
             val subjectName = subjectQueryName(subject)
             val subjectVersion = subjectQueryVersion(subject)
