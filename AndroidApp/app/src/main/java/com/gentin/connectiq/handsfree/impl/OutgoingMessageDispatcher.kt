@@ -56,20 +56,26 @@ data class VersionedPojo(
 fun strippedVersionedPojo(
     hitVersion: Version?,
     pojo: Any?,
-    metadataOnly: Boolean = false
+    metadataOnly: Boolean = false,
+    includeVersionHits: Boolean = false
 ): VersionedPojo? {
     val version = "$pojo".md5().takeLast(4).hexToInt()
-    if (version == hitVersion) {
-        return null
-    }
-    return VersionedPojo(
-        version = version,
-        pojo = if (metadataOnly) {
-            null
+    return if (version == hitVersion) {
+        if (includeVersionHits) {
+            VersionedPojo(version = version, pojo = null)
         } else {
-            pojo
+            null
         }
-    )
+    } else {
+        VersionedPojo(
+            version = version,
+            pojo = if (metadataOnly) {
+                null
+            } else {
+                pojo
+            }
+        )
+    }
 }
 
 @OptIn(ExperimentalStdlibApi::class)
