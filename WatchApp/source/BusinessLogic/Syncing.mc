@@ -21,9 +21,14 @@ const allSubjects = appConfigSubject + phoneStateSubject + phonesSubject + recen
 
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function requestSubjects(subjects as Lang.String) as Void {
+    requestSubjectsWithVersionHits(subjects, false);
+}
+
+(:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
+function requestSubjectsWithVersionHits(subjects as Lang.String, includeVersionHits as Lang.Boolean) as Void {
     dumpF(L_APP, "requestSubjects");
     _3(L_APP, "requestSubjects", subjects);
-    var msg = msgForRequestSubjects(subjects);
+    var msg = msgForRequestSubjects(subjects, includeVersionHits);
     if (isActiveUiKindApp) {
         transmitWithRetry("syncSubjects", msg, new Communications.ConnectionListener());
     } else {
@@ -32,7 +37,7 @@ function requestSubjects(subjects as Lang.String) as Void {
 }
 
 (:background, :glance)
-function msgForRequestSubjects(subjects as Lang.String) as Lang.Object {
+function msgForRequestSubjects(subjects as Lang.String, includeVersionHits as Lang.Boolean) as Lang.Object {
     var subjectsArg = [];
     var subjectsCount = subjects.length();
     for (var i = 0; i < subjectsCount; i++) {
@@ -41,14 +46,10 @@ function msgForRequestSubjects(subjects as Lang.String) as Lang.Object {
             subjectsArg.add([name, "" + BackgroundSettings.appConfigVersion()]);
         } else {
             var versionKey = versionKeyForSubject(name);
-            if (versionKey != null) {
-                var version = Storage.getValue(versionKey) as Version | Null;
-                if (version != null) {
-                    var versionValue = "" + version;
-                    subjectsArg.add([name, versionValue]);
-                } else {
-                    subjectsArg.add([name]);
-                }
+            var version = Storage.getValue(versionKey) as Version | Null;
+            if (version != null) {
+                var versionValue = "" + version;
+                subjectsArg.add([name, versionValue]);
             } else {
                 subjectsArg.add([name]);
             }
@@ -56,7 +57,8 @@ function msgForRequestSubjects(subjects as Lang.String) as Lang.Object {
     }
     var msg = {
         cmdK => Cmd_query,
-        subjectsK => subjectsArg
+        subjectsK => subjectsArg,
+        includeVersionHitsK => includeVersionHits
     } as Lang.Object;
     return msg;
 }

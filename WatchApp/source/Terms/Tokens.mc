@@ -19,6 +19,8 @@ const valueK = "l";
 (:inline, :background, :glance)
 const subjectsK = "s";
 (:inline, :background, :glance)
+const includeVersionHitsK = "h";
+(:inline, :background, :glance)
 const cmdK = "c";
 
 (:inline, :background, :glance)

@@ -26,7 +26,7 @@ function startTemporalSubjectsBroadcastingWithSubjects(subjectsToForceUpdate as 
         if (debug) { _2(L_APP, "temporalBroadcastListening.activated"); }
         Storage.setValue(Storage_temporalBroadcastListening, true);
         if (subjectsToForceUpdate != null) {
-            Req.requestSubjects(subjectsToForceUpdate);
+            Req.requestSubjectsWithVersionHits(subjectsToForceUpdate, true);
         }
     }
 }
