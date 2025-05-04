@@ -51,7 +51,8 @@ data class CallArgsV1(
 
 @Serializable
 data class QueryArgs(
-    @SerialName("s") val subjects: List<SubjectQuery>
+    @SerialName("s") val subjects: List<SubjectQuery>,
+    @SerialName("h") val includeVersionHits: Boolean = false
 )
 
 typealias SubjectQuery = List<String>

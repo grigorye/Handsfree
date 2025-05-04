@@ -167,8 +167,12 @@ class DefaultServiceLocator(
                 )
                 if (separateQueryResults) {
                     for (subject in args.subjects) {
-                        val subjectArgs = QueryArgs(listOf(subject))
+                        val subjectArgs = QueryArgs(
+                            includeVersionHits = args.includeVersionHits,
+                            subjects = listOf(subject)
+                        )
                         val result = query(subjectArgs, source = source)
+                        Log.d(TAG, "query($subject): $result")
                         outgoingMessageDispatcher.sendQueryResult(destination, result)
                     }
                 } else {
@@ -235,6 +239,7 @@ class DefaultServiceLocator(
                     version,
                     pojo,
                     metadataOnly,
+                    args.includeVersionHits
                 )
             }
 
