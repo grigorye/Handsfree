@@ -1,6 +1,7 @@
 package com.gentin.connectiq.handsfree.onboarding
 
 import android.content.Context
+import android.content.Intent
 import androidx.fragment.app.Fragment
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.globals.isInDebugMode
@@ -20,11 +21,19 @@ fun toggleDebugMode(context: Context, fragment: Fragment) {
 
 fun toggleEmulatorMode(context: Context, fragment: Fragment) {
     setIsInEmulatorMode(context, !isInEmulatorMode(context))
-    val message = if (isInEmulatorMode(context))
-        "Emulator mode is on"
-    else
-        "Emulator mode is off"
-    snackbar(fragment, message)
+    restartApp(context)
+}
+
+fun restartApp(context: Context) {
+    val intent = context.packageManager.getLaunchIntentForPackage(context.packageName)
+    intent?.apply {
+        addFlags(
+            Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                Intent.FLAG_ACTIVITY_NEW_TASK or
+                Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        context.startActivity(this)
+        Runtime.getRuntime().exit(0) // Optional: forcefully terminates the current process
+    }
 }
 
 fun snackbar(fragment: Fragment, message: String) {

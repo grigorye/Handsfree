@@ -52,7 +52,7 @@ fun isInEmulatorMode(context: Context): Boolean {
 
 fun setIsInEmulatorMode(context: Context, value: Boolean) {
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-    sharedPreferences.edit {
+    sharedPreferences.edit(commit = true) {
         putBoolean("emulatorMode", value)
     }
 }
