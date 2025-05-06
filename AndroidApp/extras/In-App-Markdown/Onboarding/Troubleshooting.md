@@ -34,4 +34,4 @@ There are several components that should work together for normal operation of H
 
 **[Ping app on the watch](do://ping)** - to verify the connection.
 
-**[Toggle emulator mode](do://toggle-emulator-mode)** - should be used only for development.
+**[Toggle watch simulator](do://toggle-emulator-mode)** - should be used for development only.
