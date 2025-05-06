@@ -30,6 +30,6 @@ There are several components that should work together for normal operation of H
 
 **[Open app on the watch](do://open-watch-app)** - just to check that it's there.
 
-**[Open app in Connect IQ](do://open-app-in-store)** - e.g. to check the latest version (it does not work reliably, though)
+**[Open app in Connect IQ](do://open-app-in-store)** - e.g. to check the latest version (it does not work reliably, though).
 
-**[Ping app on the watch](do://ping)** - to verify the connection
+**[Ping app on the watch](do://ping)** - to verify the connection.
