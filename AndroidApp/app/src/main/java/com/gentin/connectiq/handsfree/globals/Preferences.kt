@@ -1,6 +1,7 @@
 package com.gentin.connectiq.handsfree.globals
 
 import android.content.Context
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 
 fun essentialsAreOn(context: Context): Boolean {
@@ -39,8 +40,7 @@ fun isInDebugMode(context: Context): Boolean {
 
 fun setIsInDebugMode(context: Context, value: Boolean) {
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-    with(sharedPreferences.edit()) {
+    sharedPreferences.edit {
         putBoolean("debug", value)
-        apply()
     }
 }
