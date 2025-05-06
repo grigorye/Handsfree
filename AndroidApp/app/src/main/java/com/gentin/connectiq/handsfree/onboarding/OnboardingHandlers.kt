@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.globals.isInDebugMode
+import com.gentin.connectiq.handsfree.globals.isInEmulatorMode
 import com.gentin.connectiq.handsfree.globals.setIsInDebugMode
+import com.gentin.connectiq.handsfree.globals.setIsInEmulatorMode
 import com.google.android.material.snackbar.Snackbar
 
 fun toggleDebugMode(context: Context, fragment: Fragment) {
@@ -13,6 +15,15 @@ fun toggleDebugMode(context: Context, fragment: Fragment) {
         "Debug mode is on"
     else
         "Debug mode is off"
+    snackbar(fragment, message)
+}
+
+fun toggleEmulatorMode(context: Context, fragment: Fragment) {
+    setIsInEmulatorMode(context, !isInEmulatorMode(context))
+    val message = if (isInEmulatorMode(context))
+        "Emulator mode is on"
+    else
+        "Emulator mode is off"
     snackbar(fragment, message)
 }
 

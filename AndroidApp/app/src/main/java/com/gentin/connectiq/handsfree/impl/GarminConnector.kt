@@ -17,7 +17,6 @@ import com.garmin.android.connectiq.IQDevice
 import com.garmin.android.connectiq.exception.InvalidStateException
 import com.garmin.android.connectiq.exception.ServiceUnavailableException
 import com.gentin.connectiq.handsfree.globals.appLogName
-import com.gentin.connectiq.handsfree.globals.defaultApp
 import com.gentin.connectiq.handsfree.globals.simApp
 import com.gentin.connectiq.handsfree.globals.storeID
 import com.gentin.connectiq.handsfree.globals.watchApps
@@ -41,10 +40,10 @@ interface GarminConnector {
 
     fun appVersion(device: IQDevice, app: IQApp): Int?
     fun sendMessage(message: OutgoingMessage)
-    fun openWatchAppInStore(app: IQApp = defaultApp())
+    fun openWatchAppInStore(app: IQApp)
     fun openWatchAppOnDevice(device: IQDevice, app: IQApp, completion: (succeeded: Boolean) -> Unit)
     fun openWatchAppOnEveryDevice(
-        app: IQApp = defaultApp(),
+        app: IQApp,
         completion: (destination: OutgoingMessageDestination, succeeded: Boolean) -> Unit
     )
 
@@ -89,6 +88,8 @@ class DefaultGarminConnector(
 
     private lateinit var connectIQ: ConnectIQ
 
+    private val context: Context = this
+
     override val knownDeviceInfos: LiveData<List<DeviceInfo>> by lazy {
         MediatorLiveData<List<DeviceInfo>>().apply {
             addSource(knownDevices) { knownDevices ->
@@ -99,7 +100,7 @@ class DefaultGarminConnector(
 
     override fun launch() {
         Log.d(TAG, "launch")
-        val dispatcher = if (isRunningInEmulator()) Dispatchers.Main else Dispatchers.Default
+        val dispatcher = if (isRunningInEmulator(context)) Dispatchers.Main else Dispatchers.Default
 
         lifecycleScope.launch(dispatcher) {
             if (Looper.myLooper() == null) {
@@ -212,7 +213,7 @@ class DefaultGarminConnector(
 
     private fun startSDK() {
         Log.d(TAG, "startSDK")
-        val connectType = if (isRunningInEmulator()) {
+        val connectType = if (isRunningInEmulator(context)) {
             ConnectIQ.IQConnectType.TETHERED
         } else {
             ConnectIQ.IQConnectType.WIRELESS
@@ -228,7 +229,7 @@ class DefaultGarminConnector(
             TAG,
             "startIncomingMessageProcessing: ${device.deviceIdentifier}(${device.friendlyName})"
         )
-        for (app in watchApps) {
+        for (app in watchApps(context)) {
             connectIQ.registerForAppEvents(device, app) { _, _, message, _ ->
                 for (o in message) {
                     val deviceTag = "device.${device.deviceIdentifier}(${device.friendlyName})"
@@ -317,7 +318,7 @@ class DefaultGarminConnector(
             TAG,
             "startOutgoingMessageGeneration: ${device.deviceIdentifier}(${device.friendlyName})"
         )
-        for (app in watchApps) {
+        for (app in watchApps(context)) {
             connectIQ.getApplicationInfo(
                 app.applicationId,
                 device,
@@ -531,7 +532,7 @@ class DefaultGarminConnector(
     }
 
     private fun appsForSendingMessages(device: IQDevice): List<IQApp> {
-        return watchApps.filter {
+        return watchApps(context).filter {
             if (!useOnlyInstalledAppsForSendingMessages()) {
                 true
             } else {

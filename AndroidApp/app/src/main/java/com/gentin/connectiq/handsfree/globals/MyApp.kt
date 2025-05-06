@@ -1,5 +1,6 @@
 package com.gentin.connectiq.handsfree.globals
 
+import android.content.Context
 import com.garmin.android.connectiq.IQApp
 import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
 
@@ -18,15 +19,15 @@ fun storeID(app: IQApp): String? {
     }
 }
 
-fun defaultApp(): IQApp {
-    return if (isRunningInEmulator()) {
+fun defaultApp(context: Context): IQApp {
+    return if (isRunningInEmulator(context)) {
         simApp
     } else {
         prodApp
     }
 }
 
-val watchApps = if (isRunningInEmulator()) {
+fun watchApps(context: Context) = if (isRunningInEmulator(context)) {
     listOf(simApp)
 } else {
     listOf(prodApp, betaApp, prodWidget, betaWidget)

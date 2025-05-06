@@ -109,6 +109,10 @@ fun resolveLink(link: String, fragment: Fragment, navigationLabel: String? = nul
                     toggleDebugMode(context, fragment)
                 }
 
+                "toggle-emulator-mode" -> {
+                    toggleEmulatorMode(context, fragment)
+                }
+
                 "open-watch-app" -> {
                     startConnector(context, ACTIVATE_AND_OPEN_WATCH_APP_ON_DEVICE)
                 }

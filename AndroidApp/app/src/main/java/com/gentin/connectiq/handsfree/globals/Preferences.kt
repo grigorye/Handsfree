@@ -44,3 +44,15 @@ fun setIsInDebugMode(context: Context, value: Boolean) {
         putBoolean("debug", value)
     }
 }
+
+fun isInEmulatorMode(context: Context): Boolean {
+    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    return sharedPreferences.getBoolean("emulatorMode", false)
+}
+
+fun setIsInEmulatorMode(context: Context, value: Boolean) {
+    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    sharedPreferences.edit {
+        putBoolean("emulatorMode", value)
+    }
+}

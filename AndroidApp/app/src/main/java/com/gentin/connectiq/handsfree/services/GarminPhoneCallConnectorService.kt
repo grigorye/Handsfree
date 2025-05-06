@@ -7,6 +7,7 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -25,6 +26,7 @@ import androidx.preference.PreferenceManager
 import com.gentin.connectiq.handsfree.globals.AvailableContacts
 import com.gentin.connectiq.handsfree.globals.AvailableRecents
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
+import com.gentin.connectiq.handsfree.globals.defaultApp
 import com.gentin.connectiq.handsfree.globals.watchApps
 import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE
@@ -115,6 +117,8 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         }
     }
 
+    private val context: Context by lazy { l }
+
     override fun onCreate() {
         Log.d(TAG, "onCreate")
         super.onCreate()
@@ -191,12 +195,12 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             }
 
             ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE -> {
-                garminConnector.openWatchAppInStore()
+                garminConnector.openWatchAppInStore(defaultApp(context))
                 START_NOT_STICKY
             }
 
             ACTIVATE_AND_OPEN_WATCH_APP_ON_DEVICE -> {
-                for (app in watchApps) {
+                for (app in watchApps(context)) {
                     garminConnector.openWatchAppOnEveryDevice(app) { destination, succeeded ->
                         if (!succeeded) {
                             l.outgoingMessageDispatcher.sendOpenAppFailed(destination)
@@ -352,13 +356,13 @@ class GarminPhoneCallConnectorService : LifecycleService() {
                 }, 1000)
             }
         } else {
-            if (isRunningInEmulator()) {
+            if (isRunningInEmulator(context)) {
                 l.accountAudioState()
             }
         }
 
         if ((stateExtra == TelephonyManager.EXTRA_STATE_RINGING) && isOpenWatchAppOnRingingEnabled()) {
-            for (app in watchApps) {
+            for (app in watchApps(context)) {
                 l.garminConnector.openWatchAppOnEveryDevice(app) { destination, succeeded ->
                     if (!succeeded) {
                         l.outgoingMessageDispatcher.sendOpenAppFailed(destination)
