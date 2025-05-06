@@ -59,20 +59,20 @@ data class StartStats(
     var sdkExceptionDates: MutableList<Date> = mutableListOf()
 )
 
-var startStats = StartStats()
+data class Globals(
+    var startStats: StartStats = StartStats(),
+    var lastTrackedPhoneStateId: PhoneStateId? = null,
+    var lastTrackedPhoneState: PhoneState? = null,
+    var lastRecentsSentOnChange: AvailableRecents? = null,
+    var lastContactsSentOnChange: AvailableContacts? = null
+)
 
-var lastTrackedPhoneStateId: PhoneStateId? = null
-    private set
-
-var lastTrackedPhoneState: PhoneState? = null
+var g = Globals()
     private set
 
 fun fallbackPhoneState(): PhoneState {
     return PhoneState(PhoneStateId.Idle)
 }
-
-var lastRecentsSentOnChange: AvailableRecents? = null
-var lastContactsSentOnChange: AvailableContacts? = null
 
 class GarminPhoneCallConnectorService : LifecycleService() {
 
@@ -88,18 +88,18 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     private val callLogObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
         override fun onChange(selfChange: Boolean) {
             super.onChange(selfChange)
-            if (lastTrackedPhoneStateId != null && lastTrackedPhoneStateId != PhoneStateId.Idle) {
-                Log.d(TAG, "callLogDidChange.ignoredDuePhoneStateId: $lastTrackedPhoneStateId")
+            if (g.lastTrackedPhoneStateId != null && g.lastTrackedPhoneStateId != PhoneStateId.Idle) {
+                Log.d(TAG, "callLogDidChange.ignoredDuePhoneStateId: $g.lastTrackedPhoneStateId")
                 return
             }
             val recents = l.recents()
-            if (recents == lastRecentsSentOnChange) {
+            if (recents == g.lastRecentsSentOnChange) {
                 Log.d(TAG, "callLogDidChange.ignoredDueNoChangeInRecents")
                 return
             }
             Log.d(TAG, "callLogDidChange.recentsDidChangeToo")
             l.outgoingMessageDispatcher.sendRecents(recents)
-            lastRecentsSentOnChange = recents
+            g.lastRecentsSentOnChange = recents
         }
     }
 
@@ -107,13 +107,13 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         override fun onChange(selfChange: Boolean) {
             super.onChange(selfChange)
             val contacts = l.availableContacts()
-            if (contacts == lastContactsSentOnChange) {
+            if (contacts == g.lastContactsSentOnChange) {
                 Log.d(TAG, "contactsDidChange.ignoredDueToNoChanges")
                 return
             }
             Log.d(TAG, "contactsDidChange.sendingChanges")
             l.outgoingMessageDispatcher.sendContacts(contacts)
-            lastContactsSentOnChange = contacts
+            g.lastContactsSentOnChange = contacts
         }
     }
 
@@ -158,35 +158,35 @@ class GarminPhoneCallConnectorService : LifecycleService() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
 
-        startStats.total += 1
+        g.startStats.total += 1
 
         Log.d(TAG, "onStartCommand.intent: $intent")
 
         val resultCode: Int = when (intent?.action) {
             "android.intent.action.PHONE_STATE" -> {
-                startStats.phoneState += 1
+                g.startStats.phoneState += 1
                 processPhoneStateIntent(intent)
                 START_NOT_STICKY
             }
 
             "com.garmin.android.connectiq.INCOMING_MESSAGE" -> {
-                startStats.incomingMessage += 1
+                g.startStats.incomingMessage += 1
                 ensureForegroundService()
                 START_REDELIVER_INTENT
             }
 
             "android.intent.action.BOOT_COMPLETED" -> {
-                startStats.bootCompleted += 1
+                g.startStats.bootCompleted += 1
                 START_REDELIVER_INTENT
             }
 
             ACTIVATE_FROM_MAIN_ACTIVITY_ACTION -> {
-                startStats.mainActivity += 1
+                g.startStats.mainActivity += 1
                 START_REDELIVER_INTENT
             }
 
             ACTIVATE_AND_RECONNECT -> {
-                startStats.other += 1
+                g.startStats.other += 1
                 l.contactsRepository.invalidatePermissions()
                 l.callLogRepository.invalidatePermissions()
                 garminConnector.terminate()
@@ -216,7 +216,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             }
 
             else -> {
-                startStats.other += 1
+                g.startStats.other += 1
                 START_REDELIVER_INTENT
             }
         }
@@ -237,7 +237,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
         ) == PackageManager.PERMISSION_GRANTED
         Log.d(TAG, "shouldHaveIncomingNumber: $shouldHaveIncomingNumber")
 
-        lastTrackedPhoneStateId = phoneStateId(stateExtra)
+        g.lastTrackedPhoneStateId = phoneStateId(stateExtra)
 
         @Suppress("DEPRECATION")
         if (shouldHaveIncomingNumber && !intent.hasExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)) {
@@ -324,7 +324,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
                 }
             }
         )
-        val where = if (lastTrackedPhoneState?.stateId == PhoneStateId.Ringing) {
+        val where = if (g.lastTrackedPhoneState?.stateId == PhoneStateId.Ringing) {
             everywhereExactlyForIncomingCallsEnabled
         } else if (phoneState.stateId == PhoneStateId.Ringing) {
             everywhereExactlyForIncomingCallsEnabled
@@ -332,7 +332,7 @@ class GarminPhoneCallConnectorService : LifecycleService() {
             everywhere
         }
 
-        lastTrackedPhoneState = phoneState
+        g.lastTrackedPhoneState = phoneState
         l.outgoingMessageDispatcher.sendPhoneState(where, phoneState)
 
         if (phoneState.stateId == PhoneStateId.Idle) {

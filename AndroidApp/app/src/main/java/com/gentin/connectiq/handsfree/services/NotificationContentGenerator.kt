@@ -74,17 +74,17 @@ data class DebugModeStats(
 
 fun debugModeStats(garminConnector: GarminConnector): DebugModeStats {
     val launchDateFormatted = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)
-        .format(startStats.launchDate)
+        .format(g.startStats.launchDate)
     val encodedStats = TextUtils.join(
         ", ", arrayOf(
-            "i.${startStats.incomingMessage}",
-            "p.${startStats.phoneState}",
-            "e.${startStats.sdkExceptionDates.count()}",
+            "i.${g.startStats.incomingMessage}",
+            "p.${g.startStats.phoneState}",
+            "e.${g.startStats.sdkExceptionDates.count()}",
             "s.${garminConnector.sentMessagesCounter}",
             "a.${garminConnector.acknowledgedMessagesCounter}",
-            "o.${startStats.other}",
-            "b.${startStats.bootCompleted}",
-            "m.${startStats.mainActivity}"
+            "o.${g.startStats.other}",
+            "b.${g.startStats.bootCompleted}",
+            "m.${g.startStats.mainActivity}"
         )
     )
     return DebugModeStats(launchDateFormatted, encodedStats)

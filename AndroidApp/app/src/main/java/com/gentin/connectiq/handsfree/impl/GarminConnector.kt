@@ -22,7 +22,7 @@ import com.gentin.connectiq.handsfree.globals.storeID
 import com.gentin.connectiq.handsfree.globals.watchApps
 import com.gentin.connectiq.handsfree.helpers.breakIntoDebugger
 import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
-import com.gentin.connectiq.handsfree.services.startStats
+import com.gentin.connectiq.handsfree.services.g
 import com.gentin.connectiq.handsfree.terms.cmdMsgField
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
@@ -434,7 +434,7 @@ class DefaultGarminConnector(
             clearKnownDevices()
             Log.d(TAG, "shuttingDownSDK")
         } else {
-            startStats.sdkExceptionDates.add(Date())
+            g.startStats.sdkExceptionDates.add(Date())
             Log.d(TAG, "relaunchingSDKOnException")
             sdkState = SdkState.ShuttingDown
             connectIQ.shutdown(this) // Workaround no actual shutdown on exceptions

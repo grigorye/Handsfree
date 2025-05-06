@@ -57,8 +57,9 @@ import com.gentin.connectiq.handsfree.impl.strippedVersionedPojo
 import com.gentin.connectiq.handsfree.impl.subjectQueryName
 import com.gentin.connectiq.handsfree.impl.subjectQueryVersion
 import com.gentin.connectiq.handsfree.notifications.showPongNotification
+import com.gentin.connectiq.handsfree.services.Globals
 import com.gentin.connectiq.handsfree.services.fallbackPhoneState
-import com.gentin.connectiq.handsfree.services.lastTrackedPhoneState
+import com.gentin.connectiq.handsfree.services.g
 import com.gentin.connectiq.handsfree.terms.allSubjectNames
 import com.gentin.connectiq.handsfree.terms.appConfigSubject
 import com.gentin.connectiq.handsfree.terms.audioStateSubject
@@ -117,7 +118,7 @@ class DefaultServiceLocator(
                     )
                     outgoingMessageDispatcher.sendPhoneState(
                         destination,
-                        lastTrackedPhoneState ?: fallbackPhoneState()
+                        g.lastTrackedPhoneState ?: fallbackPhoneState()
                     )
                 }
             },
@@ -148,7 +149,7 @@ class DefaultServiceLocator(
             syncV1Imp = {
                 outgoingMessageDispatcher.sendSyncYouV1(
                     availableContacts().contacts,
-                    lastTrackedPhoneState
+                    g.lastTrackedPhoneState
                 )
             },
             syncPhonesV1Imp = { source ->
@@ -181,10 +182,10 @@ class DefaultServiceLocator(
                 }
             },
             openAppImp = { source, args ->
-                if (lastTrackedPhoneState?.stateId != PhoneStateId.Ringing) {
+                if (g.lastTrackedPhoneState?.stateId != PhoneStateId.Ringing) {
                     Log.d(
                         TAG,
-                        "ignoringOpenAppDueToNotRinging: ${lastTrackedPhoneState?.stateId}"
+                        "ignoringOpenAppDueToNotRinging: ${g.lastTrackedPhoneState?.stateId}"
                     )
                 } else {
                     garminConnector.openWatchAppOnDevice(source.device, source.app) { succeeded ->
@@ -245,7 +246,7 @@ class DefaultServiceLocator(
 
             when (subjectName) {
                 phoneStateSubject -> {
-                    val phoneState = lastTrackedPhoneState ?: fallbackPhoneState()
+                    val phoneState = g.lastTrackedPhoneState ?: fallbackPhoneState()
                     queryResult.phoneStateV1 = phoneState
                     queryResult.phoneState = genVersionedPojo(phoneStatePojo(phoneState))
                 }
@@ -464,12 +465,12 @@ class DefaultServiceLocator(
     val communicationDeviceChangedListener: AudioManager.OnCommunicationDeviceChangedListener by lazy {
         AudioManager.OnCommunicationDeviceChangedListener { device ->
             val deviceInfo = "\"${device?.productName}\" (${device?.type})"
-            if (lastTrackedPhoneState?.stateId == PhoneStateId.Idle) {
+            if (g.lastTrackedPhoneState?.stateId == PhoneStateId.Idle) {
                 Log.d(TAG, "communicationDeviceChangedWhileIdle: $deviceInfo")
                 accountAudioState()
             } else {
-                Log.d(TAG, "communicationDeviceChangedInCall: $deviceInfo, $lastTrackedPhoneState")
-                if (lastTrackedPhoneState?.stateId == PhoneStateId.Ringing) {
+                Log.d(TAG, "communicationDeviceChangedInCall: $deviceInfo, ${g.lastTrackedPhoneState}")
+                if (g.lastTrackedPhoneState?.stateId == PhoneStateId.Ringing) {
                     // This is workaround for watch app considered by Garmin OS as running,
                     // when we try to open it as part of incoming call, as it
                     // handles the updated audio state received in background:
