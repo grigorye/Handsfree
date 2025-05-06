@@ -671,7 +671,7 @@ class DefaultGarminConnector(
 class DefaultConnectIQListener(
     private val garminConnector: DefaultGarminConnector
 ) : ConnectIQ.ConnectIQListener {
-    override fun onInitializeError(errStatus: ConnectIQ.IQSdkErrorStatus) {
+    override fun onInitializeError(errStatus: IQSdkErrorStatus) {
         Log.e(TAG, "sdkInitializationFailure: ${errStatus.name}")
         garminConnector.onInitializeError(errStatus)
     }
