@@ -6,7 +6,14 @@ import Toybox.Background;
 module TemporalBroadcasting {
 
 (:background, :glance)
-const subjectsForStartingTemporalBroadcasting = phoneStateSubject + appConfigSubject + phonesSubject + recentsSubject + audioStateSubject + Req.companionInfoInAllSubjects + Req.readinessInfoInAllSubjects;
+const subjectsForStartingTemporalBroadcasting =
+    phoneStateSubject +
+    appConfigSubject +
+    phonesSubject +
+    recentsSubject +
+    audioStateSubject +
+    Req.companionInfoInAllSubjects +
+    Req.readinessInfoInAllSubjects;
 
 (:background, :glance)
 function startTemporalSubjectsBroadcasting() as Void {
