@@ -57,7 +57,6 @@ import com.gentin.connectiq.handsfree.impl.strippedVersionedPojo
 import com.gentin.connectiq.handsfree.impl.subjectQueryName
 import com.gentin.connectiq.handsfree.impl.subjectQueryVersion
 import com.gentin.connectiq.handsfree.notifications.showPongNotification
-import com.gentin.connectiq.handsfree.services.Globals
 import com.gentin.connectiq.handsfree.services.fallbackPhoneState
 import com.gentin.connectiq.handsfree.services.g
 import com.gentin.connectiq.handsfree.terms.allSubjectNames
@@ -166,18 +165,13 @@ class DefaultServiceLocator(
                     source.app,
                     accountBroadcastOnly = false
                 )
-                if (separateQueryResults) {
-                    for (subject in args.subjects) {
-                        val subjectArgs = QueryArgs(
-                            includeVersionHits = args.includeVersionHits,
-                            subjects = listOf(subject)
-                        )
-                        val result = query(subjectArgs, source = source)
-                        Log.d(TAG, "query($subject): $result")
-                        outgoingMessageDispatcher.sendQueryResult(destination, result)
-                    }
-                } else {
-                    val result = query(args, source = source)
+                val subjectArgs = QueryArgs(
+                    includeVersionHits = args.includeVersionHits,
+                    subjects = args.subjects
+                )
+                val results = query(subjectArgs, source = source, merging = !separateQueryResults)
+                Log.d(TAG, "query($args.subjects): $results")
+                for (result in results) {
                     outgoingMessageDispatcher.sendQueryResult(destination, result)
                 }
             },
@@ -220,9 +214,12 @@ class DefaultServiceLocator(
     private fun query(
         args: QueryArgs,
         metadataOnly: Boolean = false,
+        merging: Boolean = true,
         source: IncomingMessageSource
-    ): QueryResult {
+    ): List<QueryResult> {
         val queryResult = QueryResult()
+        val metadataOnlyResult = QueryResult()
+        val separateResults: MutableList<QueryResult> = mutableListOf()
         val appConfig = garminConnector.appConfig(source.device, source.app)
         val lm = if (appConfig != null) {
             isLowMemory(appConfig)
@@ -244,11 +241,28 @@ class DefaultServiceLocator(
                 )
             }
 
+            fun accountPojo(pojo: Any?) {
+                val versionedPojo = genVersionedPojo(pojo)
+                val destinationResult: QueryResult =
+                    if (merging) {
+                        queryResult
+                    } else {
+                        if (versionedPojo?.pojo == null) {
+                            metadataOnlyResult
+                        } else {
+                            val newQueryResult = QueryResult()
+                            separateResults.add(newQueryResult)
+                            newQueryResult
+                        }
+                    }
+                destinationResult.versionedPojos[subjectName] = versionedPojo
+            }
+
             when (subjectName) {
                 phoneStateSubject -> {
                     val phoneState = g.lastTrackedPhoneState ?: fallbackPhoneState()
                     queryResult.phoneStateV1 = phoneState
-                    queryResult.phoneState = genVersionedPojo(phoneStatePojo(phoneState))
+                    accountPojo(phoneStatePojo(phoneState))
                 }
 
                 appConfigSubject -> {
@@ -266,9 +280,7 @@ class DefaultServiceLocator(
                     } else {
                         phonesLimitFullFeatured
                     }
-                    queryResult.phones = genVersionedPojo(
-                        phonesPojo(availableContacts(), limit)
-                    )
+                    accountPojo(phonesPojo(availableContacts(), limit))
                 }
 
                 recentsSubject -> {
@@ -277,27 +289,19 @@ class DefaultServiceLocator(
                     } else {
                         recentsLimitFullFeatured
                     }
-                    queryResult.recents = genVersionedPojo(
-                        recentsPojo(recents(), limit)
-                    )
+                    accountPojo(recentsPojo(recents(), limit))
                 }
 
                 audioStateSubject -> {
-                    queryResult.audioState = genVersionedPojo(
-                        audioStatePojo(audioState())
-                    )
+                    accountPojo(audioStatePojo(audioState()))
                 }
 
                 companionInfoSubject -> {
-                    queryResult.companionInfo = genVersionedPojo(
-                        companionInfoPojo(companionInfo())
-                    )
+                    accountPojo(companionInfoPojo(companionInfo()))
                 }
 
                 readinessInfoSubject -> {
-                    queryResult.readinessInfo = genVersionedPojo(
-                        readinessInfoPojo(readinessInfo(context = this)),
-                    )
+                    accountPojo(readinessInfoPojo(readinessInfo(context = this)))
                 }
 
                 else -> {
@@ -305,7 +309,7 @@ class DefaultServiceLocator(
                 }
             }
         }
-        return queryResult
+        return listOf(queryResult, metadataOnlyResult) + separateResults
     }
 
     fun availableContacts(): AvailableContacts {
@@ -448,13 +452,15 @@ class DefaultServiceLocator(
                     }
                     val args = QueryArgs(subjects)
                     val source = IncomingMessageSource(device, app)
-                    val result = query(args, metadataOnly = true, source = source)
+                    val results = query(args, metadataOnly = true, source = source)
                     val destination = OutgoingMessageDestination(device, app)
-                    outgoingMessageDispatcher.sendQueryResult(
-                        destination,
-                        result,
-                        includeAppConfigInQueryResult = true
-                    )
+                    for (result in results) {
+                        outgoingMessageDispatcher.sendQueryResult(
+                            destination,
+                            result,
+                            includeAppConfigInQueryResult = true
+                        )
+                    }
                 }
             }
         ).apply {

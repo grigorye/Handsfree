@@ -10,20 +10,19 @@ import com.gentin.connectiq.handsfree.globals.recentsLimitFullFeatured
 import com.gentin.connectiq.handsfree.globals.recentsLimitLowMemory
 import com.gentin.connectiq.handsfree.helpers.pojoMap
 import com.gentin.connectiq.handsfree.terms.acceptQueryResultCmd
+import com.gentin.connectiq.handsfree.terms.allSubjectNames
 import com.gentin.connectiq.handsfree.terms.appConfigSubject
 import com.gentin.connectiq.handsfree.terms.argsMsgField
 import com.gentin.connectiq.handsfree.terms.argsV1MsgField
 import com.gentin.connectiq.handsfree.terms.audioStateSubject
 import com.gentin.connectiq.handsfree.terms.cmdMsgField
 import com.gentin.connectiq.handsfree.terms.cmdV1MsgField
-import com.gentin.connectiq.handsfree.terms.companionInfoSubject
 import com.gentin.connectiq.handsfree.terms.messageForWakingUpArg
 import com.gentin.connectiq.handsfree.terms.openAppFailedCmd
 import com.gentin.connectiq.handsfree.terms.openMeCompletedCmd
 import com.gentin.connectiq.handsfree.terms.phoneStateChangedV1Cmd
 import com.gentin.connectiq.handsfree.terms.phoneStateSubject
 import com.gentin.connectiq.handsfree.terms.phonesSubject
-import com.gentin.connectiq.handsfree.terms.readinessInfoSubject
 import com.gentin.connectiq.handsfree.terms.recentsSubject
 import com.gentin.connectiq.handsfree.terms.setPhonesV1Cmd
 import com.gentin.connectiq.handsfree.terms.subjectValue
@@ -35,16 +34,12 @@ import com.gentin.connectiq.handsfree.terms.syncYouCmd
 import java.security.MessageDigest
 
 typealias Version = Int
+typealias Subject = String
 
 data class QueryResult(
     var appConfig: AppConfig? = null,
     var phoneStateV1: PhoneState? = null,
-    var phoneState: VersionedPojo? = null,
-    var audioState: VersionedPojo? = null,
-    var phones: VersionedPojo? = null,
-    var recents: VersionedPojo? = null,
-    var companionInfo: VersionedPojo? = null,
-    var readinessInfo: VersionedPojo? = null,
+    var versionedPojos: MutableMap<Subject, VersionedPojo?> = mutableMapOf(),
 )
 
 data class VersionedPojo(
@@ -152,42 +147,15 @@ class DefaultOutgoingMessageDispatcher(
             sendPhoneStateV1(destination, this)
         }
 
-        queryResult.phoneState?.apply {
-            subjects[phoneStateSubject] = mapOf(
-                subjectVersion to version,
-                subjectValue to pojo
-            )
+        for (subject in allSubjectNames) {
+            queryResult.versionedPojos[subject]?.apply {
+                subjects[subject] = mapOf(
+                    subjectVersion to version,
+                    subjectValue to pojo
+                )
+            }
         }
-        queryResult.phones?.apply {
-            subjects[phonesSubject] = mapOf(
-                subjectVersion to version,
-                subjectValue to pojo
-            )
-        }
-        queryResult.recents?.apply {
-            subjects[recentsSubject] = mapOf(
-                subjectVersion to version,
-                subjectValue to pojo
-            )
-        }
-        queryResult.audioState?.apply {
-            subjects[audioStateSubject] = mapOf(
-                subjectVersion to version,
-                subjectValue to pojo
-            )
-        }
-        queryResult.companionInfo?.apply {
-            subjects[companionInfoSubject] = mapOf(
-                subjectVersion to version,
-                subjectValue to pojo
-            )
-        }
-        queryResult.readinessInfo?.apply {
-            subjects[readinessInfoSubject] = mapOf(
-                subjectVersion to version,
-                subjectValue to pojo
-            )
-        }
+
         queryResult.appConfig?.apply {
             if (includeAppConfigInQueryResult) {
                 subjects[appConfigSubject] = mapOf(
