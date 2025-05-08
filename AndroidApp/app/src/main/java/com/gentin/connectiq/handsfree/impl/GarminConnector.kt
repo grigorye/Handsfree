@@ -280,8 +280,12 @@ class DefaultGarminConnector(
         return notInstalledApps[device.deviceIdentifier]?.contains(app) ?: false
     }
 
+    private fun keyForAppConfig(device: IQDevice, app: IQApp): String {
+        return "${device.deviceIdentifier}, ${app.applicationId}"
+    }
+    
     override fun trackAppConfig(device: IQDevice, app: IQApp, config: AppConfig) {
-        val key = "${device.deviceIdentifier}, ${app.applicationId}"
+        val key = keyForAppConfig(device, app)
         run {
             appConfigs[key] = config
             appConfigsLiveData.postValue(appConfigs)
@@ -289,7 +293,7 @@ class DefaultGarminConnector(
     }
 
     override fun appConfig(device: IQDevice, app: IQApp): AppConfig? {
-        val key = "${device.deviceIdentifier}, ${app.applicationId}"
+        val key = keyForAppConfig(device, app)
         return appConfigs[key]
     }
 
@@ -303,9 +307,22 @@ class DefaultGarminConnector(
         return version
     }
 
+    private fun clearNotInstalledApps(device: IQDevice) {
+        notInstalledApps.remove(device.deviceIdentifier)
+        installedApps.remove(device.deviceIdentifier)
+    }
+
     private fun clearNotInstalledApps() {
         notInstalledApps.clear()
         installedApps.clear()
+    }
+
+    private fun clearAppConfigs(device: IQDevice) {
+        for (app in watchApps(context)) {
+            val key = keyForAppConfig(device, app)
+            appConfigs.remove(key)
+        }
+        appConfigsLiveData.postValue(appConfigs)
     }
 
     private fun clearAppConfigs() {
@@ -372,6 +389,15 @@ class DefaultGarminConnector(
                     }
                 })
         }
+    }
+
+    private fun stopOutgoingMessageGeneration(device: IQDevice) {
+        Log.d(
+            TAG,
+            "stopOutgoingMessageGeneration: ${device.deviceIdentifier}(${device.friendlyName})"
+        )
+        clearNotInstalledApps(device)
+        clearAppConfigs(device)
     }
 
     private fun stopOutgoingMessageGeneration() {
@@ -486,8 +512,15 @@ class DefaultGarminConnector(
                     TAG,
                     "device.${device.deviceIdentifier}(${device.friendlyName}) <- status($status)"
                 )
-                if (installedAppsTrackingEnabled && (status == IQDevice.IQDeviceStatus.CONNECTED)) {
-                    startOutgoingMessageGeneration(device)
+                if (installedAppsTrackingEnabled) {
+                    when (status) {
+                        IQDevice.IQDeviceStatus.CONNECTED -> {
+                            startOutgoingMessageGeneration(device)
+                        }
+                        else -> {
+                            stopOutgoingMessageGeneration(device)
+                        }
+                    }
                 }
             }
         }
