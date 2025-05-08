@@ -21,6 +21,7 @@ import com.gentin.connectiq.handsfree.contacts.ContactsRepositoryImpl
 import com.gentin.connectiq.handsfree.contacts.contactsGroupId
 import com.gentin.connectiq.handsfree.contacts.forEachContactInGroup
 import com.gentin.connectiq.handsfree.contacts.forEachContactWithPhoneNumberInFavorites
+import com.gentin.connectiq.handsfree.helpers.tracingElapsed
 import com.gentin.connectiq.handsfree.impl.AppConfig_Broadcast
 import com.gentin.connectiq.handsfree.impl.AppConfig_Undefined
 import com.gentin.connectiq.handsfree.impl.AudioControl
@@ -260,48 +261,63 @@ class DefaultServiceLocator(
 
             when (subjectName) {
                 phoneStateSubject -> {
-                    val phoneState = g.lastTrackedPhoneState ?: fallbackPhoneState()
-                    queryResult.phoneStateV1 = phoneState
-                    accountPojo(phoneStatePojo(phoneState))
+                    tracingElapsed(TAG, "phoneState") {
+                        val phoneState = g.lastTrackedPhoneState ?: fallbackPhoneState()
+                        queryResult.phoneStateV1 = phoneState
+                        accountPojo(phoneStatePojo(phoneState))
+                    }
                 }
 
                 appConfigSubject -> {
-                    if (metadataOnly) {
-                        queryResult.appConfig = garminConnector.appConfig(source.device, source.app)
-                            ?: AppConfig_Undefined
-                    } else {
-                        queryResult.appConfig = version
+                    tracingElapsed(TAG, "appConfig") {
+                        if (metadataOnly) {
+                            queryResult.appConfig =
+                                garminConnector.appConfig(source.device, source.app)
+                                    ?: AppConfig_Undefined
+                        } else {
+                            queryResult.appConfig = version
+                        }
                     }
                 }
 
                 phonesSubject -> {
-                    val limit = if (lm) {
-                        phonesLimitLowMemory
-                    } else {
-                        phonesLimitFullFeatured
+                    tracingElapsed(TAG, "phones") {
+                        val limit = if (lm) {
+                            phonesLimitLowMemory
+                        } else {
+                            phonesLimitFullFeatured
+                        }
+                        accountPojo(phonesPojo(availableContacts(), limit))
                     }
-                    accountPojo(phonesPojo(availableContacts(), limit))
                 }
 
                 recentsSubject -> {
-                    val limit = if (lm) {
-                        recentsLimitLowMemory
-                    } else {
-                        recentsLimitFullFeatured
+                    tracingElapsed(TAG, "recents") {
+                        val limit = if (lm) {
+                            recentsLimitLowMemory
+                        } else {
+                            recentsLimitFullFeatured
+                        }
+                        accountPojo(recentsPojo(recents(), limit))
                     }
-                    accountPojo(recentsPojo(recents(), limit))
                 }
 
                 audioStateSubject -> {
-                    accountPojo(audioStatePojo(audioState()))
+                    tracingElapsed(TAG, "audioState") {
+                        accountPojo(audioStatePojo(audioState()))
+                    }
                 }
 
                 companionInfoSubject -> {
-                    accountPojo(companionInfoPojo(companionInfo()))
+                    tracingElapsed(TAG, "companionInfo") {
+                        accountPojo(companionInfoPojo(companionInfo()))
+                    }
                 }
 
                 readinessInfoSubject -> {
-                    accountPojo(readinessInfoPojo(readinessInfo(context = this)))
+                    tracingElapsed(TAG, "readinessInfo") {
+                        accountPojo(readinessInfoPojo(readinessInfo(context = this)))
+                    }
                 }
 
                 else -> {
