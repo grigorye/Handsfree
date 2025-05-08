@@ -469,7 +469,10 @@ class DefaultServiceLocator(
                 Log.d(TAG, "communicationDeviceChangedWhileIdle: $deviceInfo")
                 accountAudioState()
             } else {
-                Log.d(TAG, "communicationDeviceChangedInCall: $deviceInfo, ${g.lastTrackedPhoneState}")
+                Log.d(
+                    TAG,
+                    "communicationDeviceChangedInCall: $deviceInfo, ${g.lastTrackedPhoneState}"
+                )
                 if (g.lastTrackedPhoneState?.stateId == PhoneStateId.Ringing) {
                     // This is workaround for watch app considered by Garmin OS as running,
                     // when we try to open it as part of incoming call, as it
