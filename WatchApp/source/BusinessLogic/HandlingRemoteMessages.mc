@@ -150,8 +150,8 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
                 subjectsInvalidated = subjectsInvalidated + name;
             } else {
                 var valueKey = valueKeyForSubject(name);
-                storeValue(valueKey, value);
                 storeVersion(versionKey, version);
+                storeValue(valueKey, value);
                 subjectsConfirmed = subjectsConfirmed + name;
             }
             isHit = false;
