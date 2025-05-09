@@ -372,7 +372,7 @@ class DefaultServiceLocator(
         }
     }
 
-    private fun audioState(): AudioState {
+    fun audioState(): AudioState {
         val isHeadsetConnected = headPhoneConnectionMonitor.isHeadsetConnected()
         val state = AudioState(
             isHeadsetConnected,

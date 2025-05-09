@@ -324,16 +324,25 @@ class GarminPhoneCallConnectorService : LifecycleService() {
                 }
             }
         )
-        val where = if (g.lastTrackedPhoneState?.stateId == PhoneStateId.Ringing) {
-            everywhereExactlyForIncomingCallsEnabled
-        } else if (phoneState.stateId == PhoneStateId.Ringing) {
-            everywhereExactlyForIncomingCallsEnabled
+
+        if (phoneState.stateId != PhoneStateId.Ringing) {
+            val destination = if (g.lastTrackedPhoneState?.stateId == PhoneStateId.Ringing) {
+                // When ringing on incoming calls is enabled, next state following ringing
+                // is sent even when broadcasts are disabled.
+                everywhereExactlyForIncomingCallsEnabled
+            } else {
+                everywhere
+            }
+            l.outgoingMessageDispatcher.sendPhoneState(destination, phoneState)
         } else {
-            everywhere
+            l.outgoingMessageDispatcher.sendSubjects(
+                destination = everywhereExactlyForIncomingCallsEnabled,
+                audioState = l.audioState(),
+                phoneState = phoneState,
+            )
         }
 
         g.lastTrackedPhoneState = phoneState
-        l.outgoingMessageDispatcher.sendPhoneState(where, phoneState)
 
         if (phoneState.stateId == PhoneStateId.Idle) {
             l.accountAudioState()
