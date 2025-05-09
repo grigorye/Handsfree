@@ -17,6 +17,8 @@ function handlePhoneStateChanged(state as PhoneState) as Void {
     var optimisticCallState = nextOptimisticCallState();
     switch (stateId) {
         case PhoneStateId_offHook:
+            // Account broadcasting postponed on ringing.
+            TemporalBroadcasting.startTemporalSubjectsBroadcasting();
             var inProgressNumber = state[PhoneState_number] as Lang.String or Null;
             var inProgressName = state[PhoneState_name] as Lang.String or Null;
             if (debug) { _3(L_PHONE_STATE_CHANGED, "inProgressNumber", inProgressNumber); }
