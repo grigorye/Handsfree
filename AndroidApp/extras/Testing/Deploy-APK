@@ -9,4 +9,4 @@ shift
 wd=$(dirname "$0")
 src_root="$wd"/../..
 
-adb -s "$device" install -t "$src_root"/app/build/intermediates/apk/selfHosted/debug/app-selfHosted-debug.apk
+adb -s "$device" install -t "$src_root"/app/build/outputs/apk/selfHosted/debug/app-selfHosted-debug.apk
