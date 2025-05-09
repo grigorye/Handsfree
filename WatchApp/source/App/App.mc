@@ -113,6 +113,12 @@ function activeUIKindDidChange() as Void {
     var callState = getCallState();
     if (callState instanceof CallInProgress && isIncomingCallPhone(callState.phone)) {
         if (debug) { _2(L_APP, "notStartingBroadcastsOnRinging"); }
+        // On accepting the call later, broadcasting is supposedly started
+        // elsewhere.
+        //
+        // On rejection or missing the call (following ringing), there's no need
+        // to trigger a broadcast, as the next phone state following "ringing"
+        // is sent _unconditionally_ to address this specific case.
     } else {
         TemporalBroadcasting.startTemporalSubjectsBroadcasting();
     }
