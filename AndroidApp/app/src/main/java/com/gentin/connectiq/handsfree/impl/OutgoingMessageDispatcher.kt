@@ -104,6 +104,11 @@ interface OutgoingMessageDispatcher {
     fun sendContacts(contacts: AvailableContacts)
     fun sendRecents(recents: AvailableRecents)
     fun sendPhoneStateV1(destination: OutgoingMessageDestination, phoneState: PhoneState)
+    fun sendSubjects(
+        destination: OutgoingMessageDestination,
+        audioState: AudioState,
+        phoneState: PhoneState,
+    )
     fun sendPhoneState(destination: OutgoingMessageDestination, phoneState: PhoneState)
     fun sendAudioState(state: AudioState)
     fun sendOpenAppFailed(destination: OutgoingMessageDestination)
@@ -223,6 +228,22 @@ class DefaultOutgoingMessageDispatcher(
         )
     }
 
+    override fun sendSubjects(
+        destination: OutgoingMessageDestination,
+        audioState: AudioState,
+        phoneState: PhoneState
+    ) {
+        sendPhoneStateV1(destination, phoneState)
+
+        sendSubjects(
+            destination,
+            mapOf(
+                audioStateSubject to versionedPojo(audioStatePojo(audioState)),
+                phoneStateSubject to versionedPojo(phoneStatePojo(phoneState))
+            )
+        )
+    }
+
     override fun sendPhoneState(destination: OutgoingMessageDestination, phoneState: PhoneState) {
         val destinationV1 = destination.copy(matchV1 = true)
         val argsV1 = phoneStateChangedArgsV1(phoneState)
@@ -325,6 +346,27 @@ class DefaultOutgoingMessageDispatcher(
                         subjectValue to versionedPojo.pojo
                     )
                 )
+            )
+        )
+        send(OutgoingMessage(destination, msg))
+    }
+
+    private fun sendSubjects(
+        destination: OutgoingMessageDestination,
+        subjects: Map<String, VersionedPojo>,
+    ) {
+        val subjectsEncoded = mutableMapOf<String, Any>()
+        for ((subject, versionedPojo) in subjects) {
+            subjectsEncoded[subject] = mapOf(
+                subjectVersion to versionedPojo.version,
+                subjectValue to versionedPojo.pojo
+            )
+        }
+
+        val msg = mapOf(
+            cmdMsgField to subjectsChangedCmd,
+            argsMsgField to mapOf(
+                subjectsArg to subjectsEncoded
             )
         )
         send(OutgoingMessage(destination, msg))
