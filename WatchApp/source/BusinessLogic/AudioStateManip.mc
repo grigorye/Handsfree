@@ -19,26 +19,6 @@ function updateUIForAudioStateIfRelevant(audioState as AudioState) as Void {
 function updateUIForAudioStateInApp(audioState as AudioState) as Void {
     updateCallInProgressView();
     WatchUi.requestUpdate();
-    var isHeadsetConnected = getIsHeadsetConnected(audioState);
-    var needToast;
-    var oldAudioStateImp = AudioState_oldValue;
-    if (oldAudioStateImp != null) {
-        var oldIsHeadsetConnected = getIsHeadsetConnected(oldAudioStateImp);
-        needToast = isHeadsetConnected != oldIsHeadsetConnected;
-    } else {
-        needToast = true;
-    }
-    if (needToast && AppSettings.isHeadsetReportEnabled()) {
-        if (WatchUi has :showToast) {
-            if (isHeadsetConnected != null && isHeadsetConnected && oldAudioStateImp == null) {
-                // do nothing
-            } else if (isHeadsetConnected) {
-                WatchUi.showToast("Headset On", null);
-            } else {
-                WatchUi.showToast("No Headset", null);
-            }
-        }
-    }
 }
 
 function setPendingAudioState(state as AudioState) as Void {
