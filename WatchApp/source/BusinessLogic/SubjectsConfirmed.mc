@@ -1,7 +1,11 @@
 import Toybox.Application;
 import Toybox.Lang;
 
-(:background)
+(:background, :lowMemory)
+function trackSubjectsConfirmed(extraSubjectsConfirmed as Lang.String) as Void {
+}
+
+(:background, :noLowMemory)
 function trackSubjectsConfirmed(extraSubjectsConfirmed as Lang.String) as Void {
     _3(LX_REMOTE_MSG, "extraSubjectsConfirmed", extraSubjectsConfirmed);
     var subjectsConfirmed = Storage.getValue(Storage_subjectsConfirmed) as Lang.String | Null;
@@ -18,7 +22,7 @@ function trackSubjectsConfirmed(extraSubjectsConfirmed as Lang.String) as Void {
     Storage.setValue(Storage_subjectsConfirmed, subjectsConfirmed);
 }
 
-(:glance)
+(:glance, :noLowMemory)
 function allSubjectsConfirmed(subjects as Lang.String) as Lang.Boolean {
     var subjectsConfirmed = Storage.getValue(Storage_subjectsConfirmed) as Lang.String | Null;
     if (subjectsConfirmed == null) {
