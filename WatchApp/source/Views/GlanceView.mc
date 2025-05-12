@@ -34,7 +34,7 @@ class GlanceView extends WatchUi.GlanceView {
         } else if (companionStatus != CompanionStatus_upToDate) {
             title = defaultTitle;
             subtitle = companionStatus == CompanionStatus_notInstalled ? "No Companion" : "Update Companion";
-        } else if (!Styles.glance_live_update.enabled || (!isBroadcastListeningEnabled() && !allSubjectsConfirmed(liveGlanceSubjects))) {
+        } else if (!Styles.glance_live_update.enabled || !allSubjectsConfirmed(liveGlanceSubjects)) {
             title = defaultTitle;
             if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
                 subtitle = sourceVersion;
@@ -127,7 +127,7 @@ function defaultTitle(phoneConnected as Lang.Boolean, isCompanionUpToDate as Lan
             defaultTitle = embeddingHeadsetStatusRep(statsRep);
         } else {
             var callControlReady = ReadinessInfoManip.readiness(ReadinessField_essentials).equals(ReadinessValue_ready);
-            if (isCompanionUpToDate && callControlReady && AppSettings.isHeadsetReportEnabled()) {
+            if (isCompanionUpToDate && callControlReady && AppSettings.isHeadsetReportEnabled() && allSubjectsConfirmed(liveGlanceSubjects)) {
                 var headsetStatus = headsetStatusHumanReadable();
                 defaultTitle = headsetStatus != null ? headsetStatus : defaultTitle;
             }
