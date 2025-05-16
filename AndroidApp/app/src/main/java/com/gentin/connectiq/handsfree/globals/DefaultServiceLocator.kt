@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.pm.PackageManager
+import android.database.ContentObserver
 import android.media.AudioManager
 import android.os.Handler
 import android.os.Looper
@@ -13,9 +14,11 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.gentin.connectiq.handsfree.calllogs.CallLogEntry
 import com.gentin.connectiq.handsfree.calllogs.CallLogsRepository
 import com.gentin.connectiq.handsfree.calllogs.CallLogsRepositoryImpl
 import com.gentin.connectiq.handsfree.calllogs.recentsFromCallLog
+import com.gentin.connectiq.handsfree.contacts.ContactData
 import com.gentin.connectiq.handsfree.contacts.ContactsRepository
 import com.gentin.connectiq.handsfree.contacts.ContactsRepositoryImpl
 import com.gentin.connectiq.handsfree.contacts.contactsGroupId
@@ -70,6 +73,7 @@ import com.gentin.connectiq.handsfree.terms.readinessInfoSubject
 import com.gentin.connectiq.handsfree.terms.recentsSubject
 
 private const val separateQueryResults = true
+private const val eagerlyCacheData = true
 
 const val recentsLimitLowMemory = 5
 const val recentsLimitFullFeatured = 10
@@ -88,7 +92,7 @@ class DefaultServiceLocator(
     private val targetContactsGroupName: String? = null // e.g. "Handsfree", null for Favorites
 
     val contactsRepository: ContactsRepository by lazy {
-        ContactsRepositoryImpl(this) {
+        val impl = ContactsRepositoryImpl(this) {
             if (targetContactsGroupName != null) {
                 val groupId = contactsGroupId(this, targetContactsGroupName)
                 if (groupId != null) {
@@ -98,10 +102,38 @@ class DefaultServiceLocator(
                 forEachContactWithPhoneNumberInFavorites(this, it)
             }
         }
+        impl.subscribe(contactsObserver)
+        impl
     }
 
     val callLogRepository: CallLogsRepository by lazy {
-        CallLogsRepositoryImpl(this)
+        val impl = CallLogsRepositoryImpl(this)
+        impl.subscribe(callLogObserver)
+        impl
+    }
+
+    var cachedCallLog: List<CallLogEntry>? = null
+    private val callLogObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
+        override fun onChange(selfChange: Boolean) {
+            Log.d(TAG, "cachedCallLogInvalidated")
+            cachedCallLog = if (eagerlyCacheData && hasCallLogPermission()) {
+                callLogRepository.callLog()
+            } else {
+                null
+            }
+        }
+    }
+
+    var cachedContactsData: List<ContactData>? = null
+    private val contactsObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
+        override fun onChange(selfChange: Boolean) {
+            Log.d(TAG, "cachedContactsDataInvalidated")
+            cachedContactsData = if (eagerlyCacheData && hasContactsPermission()) {
+                contactsRepository.contactsData()
+            } else {
+                null
+            }
+        }
     }
 
     private val incomingMessageDispatcher: IncomingMessageDispatcher by lazy {
@@ -332,18 +364,13 @@ class DefaultServiceLocator(
         if (!starredContactsAreOn(this)) {
             return AvailableContacts(accessIssue = AccessIssue.Disabled)
         }
-        val hasPermission = ActivityCompat.checkSelfPermission(
-            this,
-            Manifest.permission.READ_CONTACTS
-        ) == PackageManager.PERMISSION_GRANTED
-
-        if (!hasPermission) {
+        if (!hasContactsPermission()) {
             return AvailableContacts(accessIssue = AccessIssue.NoPermission)
         }
         return try {
-            AvailableContacts(
-                contactsRepository.contactsData()
-            )
+            val contactsData = cachedContactsData ?: contactsRepository.contactsData()
+            cachedContactsData = contactsData
+            AvailableContacts(contactsData)
         } catch (e: RuntimeException) {
             Log.e(TAG, "contactsRetrievalFailed: $e")
             AvailableContacts(
@@ -352,24 +379,36 @@ class DefaultServiceLocator(
         }
     }
 
+    private fun hasContactsPermission(): Boolean {
+        val hasPermission = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.READ_CONTACTS
+        ) == PackageManager.PERMISSION_GRANTED
+        return hasPermission
+    }
+
     fun recents(): AvailableRecents {
         if (!recentsAreOn(this)) {
             return AvailableRecents(accessIssue = AccessIssue.Disabled)
         }
-        val hasPermission = ActivityCompat.checkSelfPermission(
-            this,
-            Manifest.permission.READ_CALL_LOG
-        ) == PackageManager.PERMISSION_GRANTED
-
-        if (!hasPermission) {
+        if (!hasCallLogPermission()) {
             return AvailableRecents(accessIssue = AccessIssue.NoPermission)
         }
         try {
-            val recents = recentsFromCallLog(callLogRepository.callLog())
+            val callLog = cachedCallLog ?: callLogRepository.callLog()
+            cachedCallLog = callLog
+            val recents = recentsFromCallLog(callLog)
             return AvailableRecents(recents)
         } catch (e: RuntimeException) {
             return AvailableRecents(accessIssue = AccessIssue.ReadFailure)
         }
+    }
+
+    private fun hasCallLogPermission(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.READ_CALL_LOG
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     fun audioState(): AudioState {
