@@ -45,7 +45,7 @@ class DebugMenuDelegate extends WatchUi.Menu2InputDelegate {
         }
         if (item.getLabel().equals("turnOffBroadcasting")) {
             TemporalBroadcasting.stopTemporalSubjectsBroadcasting();
-            WatchUi.showToast("Broadcasting Disabled", null);
+            WatchUi.showToast("Broadcasting Off", null);
         }
         if (item.getLabel().equals("stats")) {
             Storage.clearValues();
