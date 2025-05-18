@@ -56,7 +56,8 @@ class DefaultPhoneCallService(
             return
         }
         @Suppress("DEPRECATION")
-        mgr.endCall()
+        val succeeded = mgr.endCall()
+        Log.i(TAG, "endCallSuceeded: $succeeded")
     }
 
     override fun acceptCall() {
