@@ -101,8 +101,7 @@ function isBroadcastListeningEnabled() as Lang.Boolean {
 module BackgroundSettings {
     (:glance)
     function appConfigVersion() as Lang.Number {
-        var temporalBroadcastListening = (Storage.getValue(Storage_temporalBroadcastListening) as Lang.Boolean | Null) == true;
-        var broadcastListening = temporalBroadcastListening || isBroadcastListeningEnabled();
+        var broadcastListening = TemporalBroadcasting.isBroadcastListeningActive();
         var appConfigVersion =
             (broadcastListening ? 1 : 0)
             + (!lowMemory ? 2 : 0)

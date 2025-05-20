@@ -21,14 +21,21 @@ function startTemporalSubjectsBroadcasting() as Void {
 }
 
 (:background, :glance)
-function startTemporalSubjectsBroadcastingWithSubjects(subjectsToForceUpdate as Lang.String?) as Void {
+function isBroadcastListeningActive() as Lang.Boolean {
     if (isBroadcastListeningEnabled()) {
-        if (debug) { _2(L_APP, "temporalBroadcastListening.skippedDueToSettings"); }
-        return;
+        return true;
     }
     var temporalBroadcastListening = Storage.getValue(Storage_temporalBroadcastListening) as Lang.Boolean | Null;
     if (temporalBroadcastListening != null && temporalBroadcastListening) {
-        if (debug) { _2(L_APP, "temporalBroadcastListening.alreadyActive"); }
+        return true;
+    }
+    return false;
+}
+
+(:background, :glance)
+function startTemporalSubjectsBroadcastingWithSubjects(subjectsToForceUpdate as Lang.String?) as Void {
+    if (isBroadcastListeningActive()) {
+        if (debug) { _2(L_APP, "broadcastListeningIsAlreadyActive"); }
     } else {
         if (debug) { _2(L_APP, "temporalBroadcastListening.activated"); }
         Storage.setValue(Storage_temporalBroadcastListening, true);
