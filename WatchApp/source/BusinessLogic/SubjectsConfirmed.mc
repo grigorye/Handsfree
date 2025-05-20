@@ -7,6 +7,10 @@ function trackSubjectsConfirmed(extraSubjectsConfirmed as Lang.String) as Void {
 
 (:background, :noLowMemory)
 function trackSubjectsConfirmed(extraSubjectsConfirmed as Lang.String) as Void {
+    if (!TemporalBroadcasting.isBroadcastListeningActive()) {
+        _3(LX_REMOTE_MSG, "subjectsNotConfirmedDueNoListening", extraSubjectsConfirmed);
+        return;
+    }
     _3(LX_REMOTE_MSG, "extraSubjectsConfirmed", extraSubjectsConfirmed);
     var subjectsConfirmed = Storage.getValue(Storage_subjectsConfirmed) as Lang.String | Null;
     if (subjectsConfirmed == null) {
