@@ -39,7 +39,14 @@ exec > >(filter_redundant_monkeyc_warnings) 2>&1
 # shellcheck source-path=SCRIPTDIR
 . "$src_root/sdk-env.sh"
 
-jungle="$src_root/jungle"
+if [[ "$dist" == "prod" ]]; then
+    jungle="$src_root/jungle-prod"
+    rm -rf "$jungle"
+    cp -pR "$src_root/jungle" ./jungle-prod
+    find "$jungle" -type f -name '*.jungle' -exec sed -i '' 's/manifest-.*\.xml/manifest-prod.xml/g' {} \;
+else
+    jungle="$src_root/jungle"
+fi
 manifest="$src_root/manifest-$type.xml"
 shared_jungle="$src_root/shared.jungle"
 
@@ -82,8 +89,9 @@ esac
 
 sed -e "s/__SOURCE_VERSION__/$source_version/g" "$src_root"/local/resources/sourceVersion.xml-template >"$release_resources"/sourceVersion.xml
 sed -e "s/__SOURCE_VERSION__/$source_version/g" "$src_root"/local/source/SourceVersion.mc-template >"$release_source"/SourceVersion.mc
-sed -e "s/$beta_app_id/$prod_app_id/g" "$manifest" >"$release_source"/manifest.xml
-diff "$manifest" "$release_source"/manifest.xml && false # Check that sed did something.
+manifest_prod="$src_root/manifest-prod.xml"
+sed -e "s/$beta_app_id/$prod_app_id/g" "$manifest" >"$manifest_prod"
+diff "$manifest" "$manifest_prod" && false # Check that sed did something.
 
 iq_dir="$build_dir/iq"
 prg_dir="$build_dir/prg"
