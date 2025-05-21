@@ -11,3 +11,5 @@ AndroidApp/gradlew.bat
 AndroidApp/gradlew
 AndroidApp/gradle/wrapper/gradle-wrapper.jar
 AndroidApp/.kotlin/sessions
+WatchApp/jungle-prod
+WatchApp/manifest-prod.xml
