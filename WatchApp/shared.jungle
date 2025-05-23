@@ -30,7 +30,7 @@ fenix7xpronowifi.personality = $(fenix7xpronowifi.personality);$(fenix7_personal
 fenix7xpronowifi.resourcePath = $(fenix7xpronowifi.resourcePath);$(fenix7_resourcePath_extras)
 
 fr955_personality_extras = ./traits/color
-fr955_resourcePath_extras = ./traits/auto-open;./traits/menu2-redraw
+fr955_resourcePath_extras = ./traits/menu2-redraw
 fr955.personality = $(fr955.personality);$(fr955_personality_extras)
 fr955.resourcePath = $(fr955.resourcePath);$(fr955_resourcePath_extras)
 
