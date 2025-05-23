@@ -93,64 +93,93 @@
     </strings>
 
     <settings>
-        <setting propertyKey="@Properties.dummySourceVersion" title="@Strings.sourceVersion">
+        <setting
+            propertyKey="@Properties.dummySourceVersion"
+            title="@Strings.sourceVersion">
             <settingConfig type="alphaNumeric" readonly="true" />
         </setting>
-        <setting propertyKey="@Properties.openAppOnIncomingCall"
+        <setting
+            propertyKey="@Properties.openAppOnIncomingCall"
             title="@Strings.openAppOnIncomingCall">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.showPhoneNumbers" title="@Strings.showPhoneNumbers">
+        <setting
+            propertyKey="@Properties.showPhoneNumbers"
+            title="@Strings.showPhoneNumbers">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.reportHeadset"
+        <setting
+            propertyKey="@Properties.reportHeadset"
             title="@Strings.reportHeadset">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.broadcastListening" title="@Strings.broadcastListening">
+        <setting
+            propertyKey="@Properties.broadcastListening"
+            title="@Strings.broadcastListening">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.forceLargeFonts" title="@Strings.forceLargeFonts">
+        <setting
+            propertyKey="@Properties.forceLargeFonts"
+            title="@Strings.forceLargeFonts">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.customGlanceTitle" title="@Strings.customGlanceTitle">
+        <setting
+            propertyKey="@Properties.customGlanceTitle"
+            title="@Strings.customGlanceTitle">
             <settingConfig type="alphaNumeric" />
         </setting>
-        <setting propertyKey="@Properties.incomingCallMessageFormat"
+        <setting
+            propertyKey="@Properties.incomingCallMessageFormat"
             title="@Strings.incomingCallMessageFormat">
             <settingConfig type="alphaNumeric" />
         </setting>
-        <setting propertyKey="@Properties.pendingValueFormat" title="@Strings.pendingValueFormat">
+        <setting
+            propertyKey="@Properties.pendingValueFormat"
+            title="@Strings.pendingValueFormat">
             <settingConfig type="alphaNumeric" />
         </setting>
-        <setting propertyKey="@Properties.openAppViaNotification"
+        <setting
+            propertyKey="@Properties.openAppViaNotification"
             title="@Strings.openAppViaNotification">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.optimisticCallHandling"
+        <setting
+            propertyKey="@Properties.optimisticCallHandling"
             title="@Strings.optimisticCallHandling">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.statsTracking" title="@Strings.statsTracking">
+        <setting
+            propertyKey="@Properties.statsTracking"
+            title="@Strings.statsTracking">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.forceLogAll"
+        <setting
+            propertyKey="@Properties.forceLogAll"
             title="@Strings.forceLogAll">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.beepOnComm" title="@Strings.beepOnComm">
+        <setting
+            propertyKey="@Properties.beepOnComm"
+            title="@Strings.beepOnComm">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.glanceLogging" title="@Strings.glanceLogging">
+        <setting
+            propertyKey="@Properties.glanceLogging"
+            title="@Strings.glanceLogging">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.showSourceVersion" title="@Strings.showSourceVersion">
+        <setting
+            propertyKey="@Properties.showSourceVersion"
+            title="@Strings.showSourceVersion">
             <settingConfig type="boolean" />
         </setting>
-        <setting propertyKey="@Properties.followUpCommDelay" title="@Strings.followUpCommDelay">
+        <setting
+            propertyKey="@Properties.followUpCommDelay"
+            title="@Strings.followUpCommDelay">
             <settingConfig type="numeric" />
         </setting>
-        <setting propertyKey="@Properties.forcedLogComponents"
+        <setting
+            propertyKey="@Properties.forcedLogComponents"
             title="@Strings.forcedLogComponents">
             <settingConfig type="alphaNumeric" />
         </setting>
