@@ -11,7 +11,7 @@ class GlanceView extends WatchUi.GlanceView {
     }
 
     function onUpdate(dc as Graphics.Dc) {
-        var defaultTitle = "HANDSFREE";
+        var defaultTitle = (WatchUi.loadResource(Rez.Strings.listAppName) as Lang.String).toUpper();
         var font;
         font = Styles.glance_font.font;
         var foregroundColor;

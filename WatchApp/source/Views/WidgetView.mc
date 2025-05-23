@@ -35,7 +35,7 @@ class WidgetView extends WatchUi.View {
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         }
 
-        var appName = "Handsfree";
+        var appName = WatchUi.loadResource(Rez.Strings.listAppName) as Lang.String;
         if (true) {
             var callState = getCallState();
             var lines = [] as Lang.Array<Lang.String or Null>;
