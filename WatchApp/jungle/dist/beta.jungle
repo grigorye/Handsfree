@@ -1,1 +1,1 @@
-base.resourcePath = $(base.resourcePath);../../build/resources
+base.resourcePath = $(base.resourcePath);../../build/resources;../../traits/dev
