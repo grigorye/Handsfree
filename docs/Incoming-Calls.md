@@ -22,10 +22,10 @@ To enable Handsfree handling of incoming calls:
 
      <img src="../WatchApp/extras/Connect-IQ-Store/Screenshots/Cropped/fenix7-Incoming-Call.jpg" alt="fenix7-Incoming-Call" width="20%" /> 
 
-     
+     Please note that the [headset status](./Headset-Status.md) is visible on Incoming Call screen: if you don't have a headset connected, you'll see "#" displayed after the caller name, to let you know that the audio would be routed to the *ear speaker* hence making it impossible to hear the other party without grabbing the phone or e.g. plugging a headset.
+<img src="../WatchApp/extras/Connect-IQ-Store/Screenshots/Cropped/fenix7-Incoming-Call-No-Headset.jpg" alt="fenix7-Glance-Idle" width="20%" />
 
-     [^1]: On Fenix 7 family of devices, *when the watch is idle/showing the watch face*, notification for launching the app is omitted and you get right to Accept/Decline/Ignore prompt
-     [^2]: On Fenix 7 family of devices, *when the watch is idle/showing the watch face*, the prompt is accompanied by vibration, until it is dismissed. To stop the vibration and dismiss the call without accepting or declining the call, select Ignore.
+[^1]:On Fenix 7 family of devices, *when the watch is idle/showing the watch face*, notification for launching the app is omitted and you get right to Accept/Decline/Ignore prompt.
+[^2]:On Fenix 7 family of devices, *when the watch is idle/showing the watch face*, the prompt is accompanied by vibration, until it is dismissed. To stop the vibration and dismiss the call without accepting or declining the call, select Ignore.
 
 
-Please note that the [headset status](./Headset-Status.md) is visible on Incoming Call screen: if you don't have a headset connected, you'll see "#" displayed after the caller name, to let you know that the audio would be routed to the *ear speaker* hence making it impossible to hear the other party without grabbing the phone or e.g. plugging a headset.

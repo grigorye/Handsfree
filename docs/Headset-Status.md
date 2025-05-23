@@ -4,4 +4,4 @@
 
 This is done by adding "#" to some titles or shown directly as "NO HEADSET" on the [glance](./Glance.md).
 
-<img src="../WatchApp/extras/Connect-IQ-Store/Screenshots/Cropped/fenix7-Glance-No-Headset.jpg" alt="fenix7-Glance-Idle" width="20%" />
+<img src="../WatchApp/extras/Connect-IQ-Store/Screenshots/Cropped/fenix7-Glance-No-Headset.jpg" alt="fenix7-Glance-Idle" width="20%" /> <img src="../WatchApp/extras/Connect-IQ-Store/Screenshots/Cropped/fenix7-Glance-Call-In-Progress-No-Headset.jpg" alt="fenix7-Glance-Idle" width="20%" /> <img src="../WatchApp/extras/Connect-IQ-Store/Screenshots/Cropped/fenix7-Incoming-Call-No-Headset.jpg" alt="fenix7-Glance-Idle" width="20%" />
