@@ -10,6 +10,7 @@
         <property id="pendingValueFormat" type="string">|$1$|</property>
         <property id="forceLargeFonts" type="boolean">false</property>
         <property id="incomingOpenAppViaCompanion" type="boolean">false</property>
+        <property id="openAppViaNotification" type="boolean">true</property>
         <property id="beepOnComm" type="boolean">false</property>
         <property id="statsTracking" type="boolean">false</property>
         <property id="glanceLogging" type="boolean">false</property>
@@ -48,6 +49,9 @@
         </string>
         <string id="incomingOpenAppViaCompanion" scope="settings">
             Vibrate/full-fledged prompt for incoming calls.
+        </string>
+        <string id="openAppViaNotification" scope="settings">
+            🐞 Open app via notification
         </string>
         <string id="beepOnComm" scope="settings">
             🐞 Beep on communication
@@ -118,6 +122,10 @@
         </setting>
         <setting propertyKey="@Properties.pendingValueFormat" title="@Strings.pendingValueFormat">
             <settingConfig type="alphaNumeric" />
+        </setting>
+        <setting propertyKey="@Properties.openAppViaNotification"
+            title="@Strings.openAppViaNotification">
+            <settingConfig type="boolean" />
         </setting>
         <setting propertyKey="@Properties.optimisticCallHandling"
             title="@Strings.optimisticCallHandling">

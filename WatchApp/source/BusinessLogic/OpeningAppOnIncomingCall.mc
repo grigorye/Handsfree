@@ -74,7 +74,7 @@ function promptForIncomingCall(message as Lang.String) as Void {
 
 (:background, :watchAppBuild)
 function promptForIncomingCall(message as Lang.String) as Void {
-    if (Notifications has :showNotification) {
+    if (BackgroundSettings.isOpenAppViaNotificationEnabled()) {
         Notifications.showNotification(message, "Incoming Call", {
             :actions => [
                 { :label => "Launch", :data => 1 }
@@ -87,7 +87,7 @@ function promptForIncomingCall(message as Lang.String) as Void {
 
 (:background, :watchAppBuild)
 function messageForApplicationWake(phone as Phone) as Lang.String {
-    if (Notifications has :showNotification) {
+    if (BackgroundSettings.isOpenAppViaNotificationEnabled()) {
         var name = phone[PhoneField_name] as Lang.String or Null;
         if (name != null) {
             return name;

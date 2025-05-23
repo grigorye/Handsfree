@@ -1,6 +1,7 @@
 import Toybox.Application;
 import Toybox.Lang;
 import Toybox.System;
+import Toybox.Notifications;
 
 (:background, :glance, :noLowMemory)
 const Settings_verboseLogsK = "forceLogAll";
@@ -8,6 +9,8 @@ const Settings_verboseLogsK = "forceLogAll";
 const Settings_optimisticCallHandlingK = "optimisticCallHandling";
 (:background, :glance)
 const Settings_openAppOnIncomingCallK = "openAppOnIncomingCall";
+(:background, :watchAppBuild)
+const Settings_openAppViaNotificationK = "openAppViaNotification";
 (:background, :glance)
 const Settings_broadcastListeningK = "broadcastListening";
 const Settings_showPhoneNumbersK = "showPhoneNumbers";
@@ -113,6 +116,19 @@ module BackgroundSettings {
     (:glance)
     function isOpenAppOnIncomingCallEnabled() as Lang.Boolean {
         return Properties.getValue(Settings_openAppOnIncomingCallK) as Lang.Boolean;
+    }
+
+    (:watchAppBuild)
+    function isOpenAppViaNotificationEnabled() as Lang.Boolean {
+        if (!(Notifications has :showNotification)) {
+            return false;
+        }
+        return Properties.getValue(Settings_openAppViaNotificationK) as Lang.Boolean;
+    }
+
+    (:widgetBuild)
+    function isOpenAppViaNotificationEnabled() as Lang.Boolean {
+        return false;
     }
 
     (:noCompanion)

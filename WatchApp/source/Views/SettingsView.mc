@@ -1,6 +1,7 @@
 import Toybox.WatchUi;
 import Toybox.Lang;
 import Toybox.Application;
+import Toybox.Notifications;
 
 (:settings)
 module SettingsScreen {
@@ -63,7 +64,7 @@ class View extends WatchUi.Menu2 {
 
 (:noReadiness)
 function incomingCallsEnabledMenuItemTitle() as Lang.String {
-    return BackgroundSettings.isIncomingOpenAppViaCompanionEnabled ? "Vibration/Alert" : "Alert";
+    return incomingCallsEnabledMenuItemTitleIgnoringReadiness();
 }
 
 (:readiness)
@@ -72,7 +73,17 @@ function incomingCallsEnabledMenuItemTitle() as Lang.String {
     if (!readiness.equals(ReadinessValue_ready)) {
         return "On (Not ready)";
     } else {
-        return BackgroundSettings.isIncomingOpenAppViaCompanionEnabled ? "Vibration/Alert" : "Alert";
+        return incomingCallsEnabledMenuItemTitleIgnoringReadiness();
+    }
+}
+
+function incomingCallsEnabledMenuItemTitleIgnoringReadiness() as Lang.String {
+    if (BackgroundSettings.isIncomingOpenAppViaCompanionEnabled) {
+        return "Vibration/Alert";
+    } else if (BackgroundSettings.isOpenAppViaNotificationEnabled()) {
+        return "Notification";
+    } else {
+        return "Alert";
     }
 }
 
