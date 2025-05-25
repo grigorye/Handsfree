@@ -12,6 +12,7 @@ function crashMe() as Void {
         ["turnOffBroadcasting", null],
         ["stats", statsRep()],
         ["readinessInfo", readinessInfoCompact()],
+        ["subjectsConfirmed", Storage.getValue(Storage_subjectsConfirmed) as Lang.String | Null],
         ["freeMemory", [stats.freeMemory, backgroundStats["f"]]],
         ["totalMemory", [stats.totalMemory, backgroundStats["t"]]],
         ["usedMemory", [stats.usedMemory, backgroundStats["u"]]],
