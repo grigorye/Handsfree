@@ -253,7 +253,14 @@ class DefaultServiceLocator(
         val queryResult = QueryResult()
         val metadataOnlyResult = QueryResult()
         val separateResults: MutableList<QueryResult> = mutableListOf()
-        val appConfig = garminConnector.appConfig(source.device, source.app)
+
+        val appConfigSubjectQuery = args.subjects.find { subjectQueryName(it) == appConfigSubject }
+        val appConfigInQuery = if (appConfigSubjectQuery != null) {
+            subjectQueryVersion(appConfigSubjectQuery)
+        } else {
+            null
+        }
+        val appConfig = appConfigInQuery ?: garminConnector.appConfig(source.device, source.app)
         val lm = if (appConfig != null) {
             isLowMemory(appConfig)
         } else {
