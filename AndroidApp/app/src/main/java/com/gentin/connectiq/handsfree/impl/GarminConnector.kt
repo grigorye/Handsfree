@@ -286,6 +286,10 @@ class DefaultGarminConnector(
     }
 
     override fun trackAppConfig(device: IQDevice, app: IQApp, config: AppConfig) {
+        Log.d(
+            TAG,
+            "trackAppConfig(${device.friendlyName}, ${appLogName(app)}): $config"
+        )
         val key = keyForAppConfig(device, app)
         run {
             appConfigs[key] = config
