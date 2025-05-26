@@ -198,6 +198,7 @@ class DefaultGarminConnector(
         Ready,
         ShuttingDown
     }
+
     private var sdkState: SdkState = SdkState.Down
         set(value) {
             Log.d(TAG, "sdkState: $field -> $value")
@@ -283,7 +284,7 @@ class DefaultGarminConnector(
     private fun keyForAppConfig(device: IQDevice, app: IQApp): String {
         return "${device.deviceIdentifier}, ${app.applicationId}"
     }
-    
+
     override fun trackAppConfig(device: IQDevice, app: IQApp, config: AppConfig) {
         val key = keyForAppConfig(device, app)
         run {
@@ -501,7 +502,10 @@ class DefaultGarminConnector(
                             installedApps?.map { app ->
                                 InstalledAppInfo(
                                     appConfig = { appConfig(device, app) },
-                                    appVersionInfo = WatchAppVersionInfo(app.version(), app.displayName)
+                                    appVersionInfo = WatchAppVersionInfo(
+                                        app.version(),
+                                        app.displayName
+                                    )
                                 )
                             } ?: listOf()
                         }
@@ -517,6 +521,7 @@ class DefaultGarminConnector(
                         IQDevice.IQDeviceStatus.CONNECTED -> {
                             startOutgoingMessageGeneration(device)
                         }
+
                         else -> {
                             stopOutgoingMessageGeneration(device)
                         }
@@ -683,6 +688,7 @@ class DefaultGarminConnector(
             null -> {
                 return false
             }
+
             else -> {
                 val appLogName = appLogName(app)
                 val messageLogValue = gson.toJson(
