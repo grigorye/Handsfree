@@ -77,7 +77,7 @@ private const val eagerlyCacheData = true
 
 const val recentsLimitLowMemory = 5
 const val recentsLimitFullFeatured = 10
-const val phonesLimitLowMemory = 10
+const val phonesLimitLowMemory = 5
 const val phonesLimitFullFeatured = 20
 
 class DefaultServiceLocator(
