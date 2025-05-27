@@ -110,9 +110,9 @@ private fun callLogEntry(context: Context, cursor: Cursor): CallLogEntry {
         val durationColumn = getColumnIndex(CallLog.Calls.DURATION)
         val isNewColumn = getColumnIndex(CallLog.Calls.NEW)
 
-        val phoneNumber = getString(numberColumn)
-        val stringName = getString(cachedNameColumn)
-        val name = if (stringName == "" || stringName == null) {
+        val phoneNumber: String? = getString(numberColumn)
+        val stringName: String? = getString(cachedNameColumn)
+        val name = if (phoneNumber != null && (stringName == "" || stringName == null)) {
             contactName(context, phoneNumber) ?: stringName
         } else {
             stringName
@@ -122,7 +122,7 @@ private fun callLogEntry(context: Context, cursor: Cursor): CallLogEntry {
         val duration = getLong(durationColumn)
         val isNew = getInt(isNewColumn)
 
-        return CallLogEntry(phoneNumber, name, type, date, duration, isNew)
+        return CallLogEntry(phoneNumber ?: "", name, type, date, duration, isNew)
     }
 }
 
