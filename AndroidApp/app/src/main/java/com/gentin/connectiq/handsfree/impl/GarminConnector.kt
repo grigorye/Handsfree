@@ -111,11 +111,21 @@ class DefaultGarminConnector(
     }
 
     override fun terminate() {
-        Log.d(TAG, "stop")
-        if (sdkState != SdkState.Ready && sdkState != SdkState.Initializing) {
-            Log.e(TAG, "skippingSdkShutdownDueToState: $sdkState")
-        } else {
-            shutdownSDK()
+        Log.d(TAG, "terminate")
+        when (sdkState) {
+            SdkState.Initializing -> {
+                Log.e(TAG, "shuttingDownSdkInState: Initializing")
+                shutdownSDK()
+            }
+
+            SdkState.Ready -> {
+                Log.e(TAG, "shuttingDownSdkInState: Ready")
+                shutdownSDK()
+            }
+
+            else -> {
+                Log.e(TAG, "skippingSdkShutdownDueToState: $sdkState")
+            }
         }
         pendingMessages = ArrayList()
     }
