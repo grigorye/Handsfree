@@ -11,11 +11,9 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
     function onSelect(item as WatchUi.MenuItem) as Void {
         RecentsManip.recentsDidOpen();
         var id = item.getId() as Lang.Number or Recent;
-        if (!lowMemory) {
-            if (id.equals(noRecentsMenuItemId)) {
-                Req.requestSubjects(Req.allSubjects);
-                return;
-            }
+        if (id.equals(noRecentsMenuItemId)) {
+            Req.requestSubjects(Req.allSubjects);
+            return;
         }
         var selectedRecent = id as Recent;
         Req.scheduleCall(phoneFromRecent(selectedRecent));

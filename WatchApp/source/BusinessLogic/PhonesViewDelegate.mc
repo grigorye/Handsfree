@@ -20,11 +20,9 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
                 return;
             }
         }
-        if (!lowMemory) {
-            if (id.equals(noPhonesMenuItemId)) {
-                Req.requestSubjects(Req.allSubjects);
-                return;
-            }
+        if (id.equals(noPhonesMenuItemId)) {
+            Req.requestSubjects(Req.allSubjects);
+            return;
         }
         var phone = id as Phone;
         setFocusedPhonesViewItemId(getPhoneId(phone));
