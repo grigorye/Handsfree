@@ -98,7 +98,7 @@ class DefaultGarminConnector(
         }
     }
 
-    val defaultDispatcher = Dispatchers.Default
+    val defaultDispatcher = Dispatchers.Main
 
     override fun launch() {
         Log.d(TAG, "launch")
