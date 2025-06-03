@@ -98,9 +98,11 @@ class DefaultGarminConnector(
         }
     }
 
+    val defaultDispatcher = Dispatchers.Default
+
     override fun launch() {
         Log.d(TAG, "launch")
-        val dispatcher = if (isRunningInEmulator(context)) Dispatchers.Main else Dispatchers.Default
+        val dispatcher = if (isRunningInEmulator(context)) Dispatchers.Main else defaultDispatcher
 
         lifecycleScope.launch(dispatcher) {
             if (Looper.myLooper() == null) {
@@ -456,7 +458,7 @@ class DefaultGarminConnector(
         sentMessagesCounter = 0
         acknowledgedMessagesCounter = 0
         Log.d(TAG, "sdkReady: $sdkStartCount")
-        lifecycleScope.launch(Dispatchers.Default) {
+        lifecycleScope.launch(defaultDispatcher) {
             try {
                 startObservingDeviceEvents()
                 startMessageProcessing()
@@ -481,7 +483,7 @@ class DefaultGarminConnector(
             connectIQ.shutdown(this) // Workaround no actual shutdown on exceptions
             sdkState = SdkState.Down
 
-            lifecycleScope.launch(Dispatchers.Default) {
+            lifecycleScope.launch(defaultDispatcher) {
                 if (Looper.myLooper() == null) {
                     Looper.prepare()
                 }
@@ -548,7 +550,7 @@ class DefaultGarminConnector(
     private var pendingMessages: ArrayList<OutgoingMessage>? = ArrayList()
 
     private fun sendMessageOrRescheduleAsync(message: OutgoingMessage) {
-        lifecycleScope.launch(Dispatchers.Default) {
+        lifecycleScope.launch(defaultDispatcher) {
             try {
                 sendMessageSync(message)
             } catch (e: ServiceUnavailableException) {
