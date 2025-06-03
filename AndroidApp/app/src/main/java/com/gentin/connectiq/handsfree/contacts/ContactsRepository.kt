@@ -128,9 +128,11 @@ class ContactsRepositoryImpl(
             }
             close()
 
-            val phoneData = phoneDataList[0]
-            val number = phoneData.normalized ?: phoneData.raw
-            numbers.add(number)
+            if (phoneDataList.isNotEmpty()) {
+                val phoneData = phoneDataList[0]
+                val number = phoneData.normalized ?: phoneData.raw
+                numbers.add(number)
+            }
         }
         return numbers
     }
@@ -138,8 +140,11 @@ class ContactsRepositoryImpl(
     override fun contactsData(): List<ContactData> {
         val contacts = ArrayList<ContactData>()
         iterateOverContacts { contactId, displayName ->
-            val number = numbersForContact(contactId)[0]
-            contacts.add(ContactData(contactId, displayName, number))
+            val numbers = numbersForContact(contactId)
+            if (numbers.isNotEmpty()) {
+                val number = numbersForContact(contactId)[0]
+                contacts.add(ContactData(contactId, displayName, number))
+            }
         }
         return contacts
     }
