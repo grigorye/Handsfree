@@ -11,20 +11,13 @@ kotlin {
     }
 }
 
-val compileSdkVersion: String by project
-val minSdkVersion: String by project
-val targetSdkVersion: String by project
-val packageName = "com.gentin.connectiq.handsfree"
-val versionCode: String by project
-val versionName: String by project
-
 val sourceVersion = providers.exec {
     commandLine("git", "describe", "--match", "736fd2e"/* unmatchable */, "--dirty", "--always")
 }.standardOutput.asText.get().trim().replace("-dirty", "*")
 
 android {
-    namespace = this@Build_gradle.packageName
-    compileSdk = this@Build_gradle.compileSdkVersion.toInt()
+    namespace = "com.gentin.connectiq.handsfree"
+    compileSdk = 34
 
     buildTypes {
         getByName("release") {
@@ -36,11 +29,13 @@ android {
     }
 
     defaultConfig {
-        applicationId = this@Build_gradle.packageName
-        minSdk = minSdkVersion.toInt()
-        targetSdk = targetSdkVersion.toInt()
-        versionCode = this@Build_gradle.versionCode.toInt()
-        versionName = this@Build_gradle.versionName
+        applicationId = "com.gentin.connectiq.handsfree"
+
+        minSdk = 28
+        targetSdk = 34
+
+        versionCode = 83
+        versionName = "0.0.20"
         buildConfigField("String", "SOURCE_VERSION", "\"$sourceVersion\"")
     }
 
