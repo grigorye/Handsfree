@@ -152,8 +152,9 @@ fun resolveLink(link: String, fragment: Fragment, navigationLabel: String? = nul
 }
 
 private fun restartGarminPhoneCallConnectorService(context: Context) {
-    context.stopService(Intent(context, GarminPhoneCallConnectorService::class.java))
-    context.startService(Intent(context, GarminPhoneCallConnectorService::class.java))
+    val intent = Intent(context, GarminPhoneCallConnectorService::class.java)
+    context.stopService(intent)
+    context.startService(intent)
 }
 
 fun requestPermissionsWithRationale(
