@@ -72,7 +72,7 @@ import com.gentin.connectiq.handsfree.terms.phonesSubject
 import com.gentin.connectiq.handsfree.terms.readinessInfoSubject
 import com.gentin.connectiq.handsfree.terms.recentsSubject
 
-private const val separateQueryResults = true
+private val separateQueryResults get() = true
 private const val eagerlyCacheData = true
 
 const val recentsLimitLowMemory = 5

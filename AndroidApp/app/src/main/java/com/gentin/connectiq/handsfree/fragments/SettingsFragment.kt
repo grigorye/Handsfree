@@ -228,4 +228,4 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
     }
 }
 
-private const val disableExtrasWithEssentials = false
+private val disableExtrasWithEssentials get() = false
