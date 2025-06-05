@@ -407,6 +407,7 @@ class DefaultServiceLocator(
             val recents = recentsFromCallLog(callLog)
             return AvailableRecents(recents)
         } catch (e: RuntimeException) {
+            Log.e(TAG, "recentsRetrievalFailed: $e")
             return AvailableRecents(accessIssue = AccessIssue.ReadFailure)
         }
     }
