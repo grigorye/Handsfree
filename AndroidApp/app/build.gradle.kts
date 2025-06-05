@@ -1,7 +1,8 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    kotlin("plugin.serialization") version "1.9.22"
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
+
     id("androidx.navigation.safeargs.kotlin")
 }
 
@@ -61,32 +62,45 @@ android {
     }
 }
 
+fun DependencyHandlerScope.implementationAar(
+    notation: Provider<MinimalExternalModuleDependency>,
+    configure: ModuleDependency.() -> Unit = {}
+) {
+    val dep = notation.get()
+    val group = dep.module.group
+    val name = dep.module.name
+    val version = dep.versionConstraint.requiredVersion
+    val dependencyNotation = "$group:$name:$version@aar"
+    add("implementation", dependencyNotation, configure)
+}
+
 dependencies {
-    implementation("androidx.appcompat:appcompat:1.7.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.2.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-core-ktx:2.9.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.1")
-    implementation("androidx.lifecycle:lifecycle-service:2.9.1")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.9.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.9.0")
-    implementation("androidx.preference:preference-ktx:1.2.1")
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.lifecycle.livedata.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.service)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.preference.ktx)
 
-    implementation("com.google.code.gson:gson:2.11.0")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.0")
+    implementation(libs.gson)
+    implementation(libs.jackson.module.kotlin)
 
-    implementation("com.garmin.connectiq:ciq-companion-app-sdk:2.0.3@aar")
+    implementationAar(libs.ciq.companion.app.sdk)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.coroutines.android)
 
-    implementation("dev.doubledot.doki:library:0.0.1@aar") {
+    implementationAar(libs.doki) {
         isTransitive = true
     }
-    implementation("com.google.android.material:material:1.12.0")
 
-    implementation("io.noties.markwon:core:4.6.2")
-    implementation("io.noties.markwon:image:4.6.2")
-    implementation("io.noties.markwon:html:4.6.2")
+    implementation(libs.material)
 
-    implementation("com.caverock:androidsvg-aar:1.4")
+    implementation(libs.markwon.core)
+    implementation(libs.markwon.image)
+    implementation(libs.markwon.html)
+
+    implementation(libs.androidsvg.aar)
 }
