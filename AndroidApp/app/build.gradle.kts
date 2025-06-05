@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -16,6 +18,14 @@ val sourceVersion = providers.exec {
     commandLine("git", "describe", "--match", "736fd2e"/* unmatchable */, "--dirty", "--always")
 }.standardOutput.asText.get().trim().replace("-dirty", "*")
 
+project.file("version.properties").inputStream().use {
+    val props = Properties()
+    props.load(it)
+    props.forEach { (k, v) ->
+        project.extensions.extraProperties[k.toString()] = v
+    }
+}
+
 android {
     namespace = "com.gentin.connectiq.handsfree"
     compileSdk = 35
@@ -27,8 +37,16 @@ android {
         //noinspection OldTargetApi
         targetSdk = 34
 
-        versionCode = 83
-        versionName = "0.0.20"
+        versionCode = {
+            val versionCode: String by project
+            versionCode.toInt()
+        }()
+
+        versionName = {
+            val versionName: String by project
+            versionName
+        }()
+
         buildConfigField("String", "SOURCE_VERSION", "\"$sourceVersion\"")
     }
 
