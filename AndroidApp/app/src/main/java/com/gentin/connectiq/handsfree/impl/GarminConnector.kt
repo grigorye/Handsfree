@@ -25,6 +25,7 @@ import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
 import com.gentin.connectiq.handsfree.services.g
 import com.gentin.connectiq.handsfree.terms.cmdMsgField
 import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -98,7 +99,13 @@ class DefaultGarminConnector(
         }
     }
 
-    val defaultDispatcher = Dispatchers.Main
+    private val defaultDispatcher: CoroutineDispatcher by lazy {
+        if (isRunningInEmulator(context)) {
+            Dispatchers.Default
+        } else {
+            Dispatchers.Main
+        }
+    }
 
     override fun launch() {
         Log.d(TAG, "launch")
