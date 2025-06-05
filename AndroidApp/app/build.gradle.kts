@@ -33,6 +33,7 @@ android {
         applicationId = "com.gentin.connectiq.handsfree"
 
         minSdk = 28
+        //noinspection OldTargetApi
         targetSdk = 34
 
         versionCode = 83
