@@ -20,15 +20,6 @@ android {
     namespace = "com.gentin.connectiq.handsfree"
     compileSdk = 35
 
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-            )
-        }
-    }
-
     defaultConfig {
         applicationId = "com.gentin.connectiq.handsfree"
 
@@ -39,6 +30,15 @@ android {
         versionCode = 83
         versionName = "0.0.20"
         buildConfigField("String", "SOURCE_VERSION", "\"$sourceVersion\"")
+    }
+
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            )
+        }
     }
 
     buildFeatures {
