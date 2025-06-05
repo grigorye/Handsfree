@@ -10,7 +10,6 @@ import android.provider.Settings
 import android.telecom.TelecomManager
 import android.telephony.TelephonyManager
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.net.toUri
 import com.gentin.connectiq.handsfree.globals.outgoingCallsShouldBeEnabled
@@ -46,7 +45,7 @@ class DefaultPhoneCallService(
     }
 
     override fun hangupCall() {
-        val mgr = getSystemService(AppCompatActivity.TELECOM_SERVICE) as TelecomManager
+        val mgr = getSystemService(TELECOM_SERVICE) as TelecomManager
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ANSWER_PHONE_CALLS
@@ -61,7 +60,7 @@ class DefaultPhoneCallService(
     }
 
     override fun acceptCall() {
-        val mgr = getSystemService(AppCompatActivity.TELECOM_SERVICE) as TelecomManager
+        val mgr = getSystemService(TELECOM_SERVICE) as TelecomManager
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ANSWER_PHONE_CALLS

@@ -1,6 +1,5 @@
 package com.gentin.connectiq.handsfree.impl
 
-import android.app.Service
 import android.content.Context
 import android.content.ContextWrapper
 import android.media.AudioDeviceInfo
@@ -34,7 +33,7 @@ class AudioControlImp(base: Context?) : ContextWrapper(base), AudioControl {
 
     @RequiresApi(Build.VERSION_CODES.S)
     private fun toggleSpeakerNew(on: Boolean) {
-        val audioManager = getSystemService(Service.AUDIO_SERVICE) as AudioManager
+        val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
         Log.d(TAG, "audioMode: ${audioManager.mode}")
         val speaker = audioManager.availableCommunicationDevices.first {
             it.type == AudioDeviceInfo.TYPE_BUILTIN_SPEAKER
@@ -51,14 +50,14 @@ class AudioControlImp(base: Context?) : ContextWrapper(base), AudioControl {
 
     @Suppress("DEPRECATION")
     private fun toggleSpeakerPreS(on: Boolean) {
-        val audioManager = getSystemService(Service.AUDIO_SERVICE) as AudioManager
+        val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
         val isSpeakerOn = audioManager.isSpeakerphoneOn
         Log.d(TAG, "isSpeakerphoneOn: $isSpeakerOn")
         audioManager.isSpeakerphoneOn = on
     }
 
     override fun mute(on: Boolean) {
-        val audioManager = getSystemService(Service.AUDIO_SERVICE) as AudioManager
+        val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
         audioManager.isMicrophoneMute = on
         if (audioManager.isMicrophoneMute != on) {
             Log.e(TAG, "muteFailed($on)")
@@ -68,13 +67,13 @@ class AudioControlImp(base: Context?) : ContextWrapper(base), AudioControl {
     }
 
     override fun isMuted(): Boolean {
-        val audioManager = getSystemService(Service.AUDIO_SERVICE) as AudioManager
+        val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
         return audioManager.isMicrophoneMute
     }
 
     override fun setAudioVolume(relVolume: RelVolume) {
         Log.d(TAG, "settingAudioVolume: $relVolume")
-        val audioManager = getSystemService(Service.AUDIO_SERVICE) as AudioManager
+        val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
         val stream = communicationAudioStream(audioManager)
         Log.d(TAG, "stream: $stream")
         val maxVolume = audioManager.getStreamMaxVolume(stream)
@@ -88,7 +87,7 @@ class AudioControlImp(base: Context?) : ContextWrapper(base), AudioControl {
 
     override fun audioVolume(): RelVolume {
         Log.d(TAG, "queryingAudioVolume")
-        val audioManager = getSystemService(Service.AUDIO_SERVICE) as AudioManager
+        val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
         val stream = communicationAudioStream(audioManager)
         Log.d(TAG, "stream: $stream")
         val relVolume = RelVolume(
