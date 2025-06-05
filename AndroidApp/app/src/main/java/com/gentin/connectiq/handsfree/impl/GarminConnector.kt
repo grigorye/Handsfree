@@ -290,7 +290,7 @@ class DefaultGarminConnector(
     }
 
     private fun isNotInstalledApp(device: IQDevice, app: IQApp): Boolean {
-        return notInstalledApps[device.deviceIdentifier]?.contains(app) ?: false
+        return notInstalledApps[device.deviceIdentifier]?.contains(app) == true
     }
 
     private fun keyForAppConfig(device: IQDevice, app: IQApp): String {
