@@ -18,7 +18,7 @@ val sourceVersion = providers.exec {
 
 android {
     namespace = "com.gentin.connectiq.handsfree"
-    compileSdk = 34
+    compileSdk = 35
 
     buildTypes {
         getByName("release") {
