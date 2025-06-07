@@ -48,7 +48,7 @@
             🔧 Force large font on glance
         </string>
         <string id="incomingOpenAppViaCompanion" scope="settings">
-            Vibrate/full-fledged prompt for incoming calls.
+            Vibrate/full-fledged prompt for incoming calls (Fenix 7 only).
         </string>
         <string id="openAppViaNotification" scope="settings">
             🐞 Open app via notification
@@ -69,8 +69,8 @@
             🐞 Force log components
         </string>
         <string id="incomingCallVibration" scope="settings">
-            Incoming call vibration pattern. Use 'v3;p1;v3;p2' for 'vibrate
-            3s, pause 1s, vibrate 3s, pause 2s'.
+            Incoming call vibration pattern (Fenix 7 only).
+            Use 'v3;p1;v3;p2' for 'vibrate 3s, pause 1s, vibrate 3s, pause 2s'.
         </string>
         <string id="forceLogAll" scope="settings">
             🐞 Verbose logs
@@ -112,6 +112,14 @@
             propertyKey="@Properties.reportHeadset"
             title="@Strings.reportHeadset">
             <settingConfig type="boolean" />
+        </setting>
+        <setting propertyKey="@Properties.incomingOpenAppViaCompanion"
+            title="@Strings.incomingOpenAppViaCompanion">
+            <settingConfig type="boolean" />
+        </setting>
+        <setting propertyKey="@Properties.incomingCallVibration"
+            title="@Strings.incomingCallVibration">
+            <settingConfig type="alphaNumeric" />
         </setting>
         <setting
             propertyKey="@Properties.broadcastListening"
@@ -182,6 +190,10 @@
             propertyKey="@Properties.forcedLogComponents"
             title="@Strings.forcedLogComponents">
             <settingConfig type="alphaNumeric" />
+        </setting>
+        <setting propertyKey="@Properties.workaroundNoRedrawForMenu2"
+            title="@Strings.workaroundNoRedrawForMenu2">
+            <settingConfig type="boolean" />
         </setting>
     </settings>
 
