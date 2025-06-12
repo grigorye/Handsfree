@@ -120,7 +120,7 @@ module BackgroundSettings {
 
     (:watchAppBuild)
     function isOpenAppViaNotificationEnabled() as Lang.Boolean {
-        if (!(Notifications has :showNotification)) {
+        if (!((Toybox has :Notifications) && (Notifications has :showNotification))) {
             return false;
         }
         return Properties.getValue(Settings_openAppViaNotificationK) as Lang.Boolean;

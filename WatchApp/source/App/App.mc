@@ -137,7 +137,7 @@ function registerForNotifications() as Void {
 
 (:watchAppBuild, :noLowMemory)
 function registerForNotifications() as Void {
-    if (Notifications has :registerForNotificationMessages) {
+    if ((Toybox has :Notifications) && (Notifications has :registerForNotificationMessages)) {
         Notifications.registerForNotificationMessages(Application.getApp().method(:onNotification));
     }
 }
