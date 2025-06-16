@@ -58,9 +58,9 @@ class App extends Application.AppBase {
         }
     }
 
-    (:noLowMemory)
     function onAppUpdate() as Void {
         _2(L_APP, "onAppUpdate");
+        Storage.deleteValue("phones.v1");
     }
     
     (:noLowMemory)
