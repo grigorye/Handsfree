@@ -16,8 +16,8 @@ class GlanceView extends WatchUi.GlanceView {
         font = Styles.glance_font.font;
         var foregroundColor;
         var backgroundColor;
-        foregroundColor = Graphics.COLOR_WHITE;
-        backgroundColor = Graphics.COLOR_TRANSPARENT;
+        foregroundColor = Styles.glance.foreground;
+        backgroundColor = Styles.glance.background;
         dc.setColor(foregroundColor, backgroundColor);
 
         var title;

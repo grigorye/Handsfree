@@ -15,3 +15,7 @@ glance_live_update {
 audio_volume {
     foreground: Graphics.COLOR_WHITE;
 }
+glance {
+    foreground: Graphics.COLOR_WHITE;
+    background: Graphics.COLOR_TRANSPARENT;
+}
