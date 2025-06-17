@@ -13,6 +13,7 @@ descentmk2
 Drawables
 edge1030bontrager
 edgeexplore
+edgemtb
 epix2
 Fenix
 fenixe

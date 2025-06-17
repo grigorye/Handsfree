@@ -63,3 +63,5 @@ edge540.personality = $(edge540.personality);$(edge_personality_extras)
 edge540.resourcePath = $(edge540.resourcePath);$(edge_resourcePath_extras)
 edge830.personality = $(edge830.personality);$(edge_personality_extras)
 edge830.resourcePath = $(edge830.resourcePath);$(edge_resourcePath_extras)
+edgemtb.personality = $(edgemtb.personality);$(edge_personality_extras);./traits/inverted-glance
+edgemtb.resourcePath = $(edgemtb.resourcePath);$(edge_resourcePath_extras)
