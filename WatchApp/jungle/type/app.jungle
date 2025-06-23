@@ -1,8 +1,10 @@
 project.manifest = ../../manifest-app.xml
-# Beware that we don't apply the next setting for devices with low memory
-base.excludeAnnotations = $(base.excludeAnnotations);widgetBuild;widget;lowMemory;noCompanion;noReadiness;noSettings
 
+highMemory_excludeAnnotations = widgetBuild;widget;lowMemory;noCompanion;noReadiness;noSettings
 lowMemory_excludeAnnotations = widgetBuild;widget;noLowMemory;noCompanion;noReadiness;noSettings
+
+# Beware that we don't apply the next setting for devices with low memory
+base.excludeAnnotations = $(base.excludeAnnotations);$(highMemory_excludeAnnotations)
 
 descentg1.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 descentmk2.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
@@ -45,3 +47,16 @@ marqdriver.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_exc
 marqexpedition.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 marqgolfer.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 venusq.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
+
+epix2.excludeAnnotations = $(versioning_excludeAnnotations);$(highMemory_excludeAnnotations);noFenix7
+epix2pro42mm.excludeAnnotations = $(versioning_excludeAnnotations);$(highMemory_excludeAnnotations);noFenix7
+epix2pro47mm.excludeAnnotations = $(versioning_excludeAnnotations);$(highMemory_excludeAnnotations);noFenix7
+epix2pro51mm.excludeAnnotations = $(versioning_excludeAnnotations);$(highMemory_excludeAnnotations);noFenix7
+fenix7.excludeAnnotations = $(versioning_excludeAnnotations);$(highMemory_excludeAnnotations);noFenix7
+fenix7pro.excludeAnnotations = $(versioning_excludeAnnotations);$(highMemory_excludeAnnotations);noFenix7
+fenix7pronowifi.excludeAnnotations = $(versioning_excludeAnnotations);$(highMemory_excludeAnnotations);noFenix7
+fenix7s.excludeAnnotations = $(versioning_excludeAnnotations);$(highMemory_excludeAnnotations);noFenix7
+fenix7spro.excludeAnnotations = $(versioning_excludeAnnotations);$(highMemory_excludeAnnotations);noFenix7
+fenix7x.excludeAnnotations = $(versioning_excludeAnnotations);$(highMemory_excludeAnnotations);noFenix7
+fenix7xpro.excludeAnnotations = $(versioning_excludeAnnotations);$(highMemory_excludeAnnotations);noFenix7
+fenix7xpronowifi.excludeAnnotations = $(versioning_excludeAnnotations);$(highMemory_excludeAnnotations);noFenix7
