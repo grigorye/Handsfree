@@ -135,7 +135,7 @@ module BackgroundSettings {
     const isIncomingOpenAppViaCompanionEnabled = false;
     (:companion)
     const isIncomingOpenAppViaCompanionEnabled =
-        Properties.getValue(Settings_incomingOpenAppViaCompanionK) as Lang.Boolean;
+        isFenix7 && Properties.getValue(Settings_incomingOpenAppViaCompanionK) as Lang.Boolean;
 }
 
 (:background)
