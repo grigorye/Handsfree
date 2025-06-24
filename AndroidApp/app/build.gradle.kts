@@ -8,12 +8,6 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
 }
 
-kotlin {
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of("17"))
-    }
-}
-
 val sourceVersion = providers.exec {
     commandLine("git", "describe", "--match", "736fd2e"/* unmatchable */, "--dirty", "--always")
 }.standardOutput.asText.get().trim().replace("-dirty", "*")
