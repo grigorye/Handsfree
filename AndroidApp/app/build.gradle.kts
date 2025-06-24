@@ -28,7 +28,7 @@ project.file("version.properties").inputStream().use {
 
 android {
     namespace = "com.gentin.connectiq.handsfree"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.gentin.connectiq.handsfree"
