@@ -234,7 +234,7 @@ class DefaultGarminConnector(
 
         connectIQ = ConnectIQ.getInstance(this, connectType)
         sdkState = SdkState.Initializing
-        connectIQ.initialize(this, true, connectIQListener)
+        connectIQ.initialize(this, false, connectIQListener)
     }
 
     private fun startIncomingMessageProcessing(device: IQDevice) {
