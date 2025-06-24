@@ -76,6 +76,7 @@ import com.gentin.connectiq.handsfree.terms.recentsSubject
 private val separateQueryResults get() = true
 private const val eagerlyCacheData = true
 private val recentsCachingEnabled get() = false
+private val contactDataCachingEnabled get() = false
 
 const val recentsLimitLowMemory = 5
 const val recentsLimitFullFeatured = 10
@@ -133,6 +134,9 @@ class DefaultServiceLocator(
     private val contactsObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
         override fun onChange(selfChange: Boolean) {
             Log.d(TAG, "cachedContactsDataInvalidated")
+            if (!contactDataCachingEnabled) {
+                return
+            }
             cachedContactsData = if (eagerlyCacheData && hasContactsPermission()) {
                 contactDataFromContacts(contactsRepository)
             } else {
@@ -381,7 +385,9 @@ class DefaultServiceLocator(
         }
         return try {
             val contactsData = cachedContactsData ?: contactDataFromContacts(contactsRepository)
-            cachedContactsData = contactsData
+            if (contactDataCachingEnabled) {
+                cachedContactsData = contactsData
+            }
             AvailableContacts(contactsData)
         } catch (e: RuntimeException) {
             Log.e(TAG, "contactsRetrievalFailed: $e")
