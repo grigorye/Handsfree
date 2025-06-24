@@ -75,8 +75,8 @@ import com.gentin.connectiq.handsfree.terms.recentsSubject
 
 private val separateQueryResults get() = true
 private const val eagerlyCacheData = true
-private val recentsCachingEnabled get() = false
-private val contactDataCachingEnabled get() = false
+private val recentsCachingEnabled get() = true
+private val contactDataCachingEnabled get() = true
 
 const val recentsLimitLowMemory = 5
 const val recentsLimitFullFeatured = 10
