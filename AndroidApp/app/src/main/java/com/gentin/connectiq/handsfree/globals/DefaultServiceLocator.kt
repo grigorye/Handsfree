@@ -600,5 +600,5 @@ fun recentsFromCallLog(callLogsRepository: CallLogsRepository): List<CallLogEntr
 }
 
 fun contactDataFromContacts(contactsRepository: ContactsRepository): List<ContactData> {
-    return contactsRepository.contactsData()
+    return contactsRepository.contactsData(limit = phonesLimitFullFeatured)
 }

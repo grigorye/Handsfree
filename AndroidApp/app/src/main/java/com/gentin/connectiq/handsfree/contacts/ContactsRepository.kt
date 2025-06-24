@@ -36,13 +36,13 @@ interface ContactsRepository {
     fun invalidatePermissions()
     fun subscribe(observer: ContentObserver)
     fun unsubscribe(observer: ContentObserver)
-    fun contactsData(): List<ContactData>
+    fun contactsData(limit: Int): List<ContactData>
     fun displayNamesForPhoneNumber(phoneNumber: String): List<String>
 }
 
 class ContactsRepositoryImpl(
     base: Context?,
-    val iterateOverContacts: ((contactId: Int, displayName: String) -> Unit) -> Unit
+    val iterateOverContacts: ((contactId: Int, displayName: String) -> Boolean) -> Unit
 ) : ContextWrapper(base), ContactsRepository {
 
     companion object {
@@ -137,14 +137,16 @@ class ContactsRepositoryImpl(
         return numbers
     }
 
-    override fun contactsData(): List<ContactData> {
+    override fun contactsData(limit: Int): List<ContactData> {
         val contacts = ArrayList<ContactData>()
         iterateOverContacts { contactId, displayName ->
             val numbers = numbersForContact(contactId)
             if (numbers.isNotEmpty()) {
                 val number = numbersForContact(contactId)[0]
                 contacts.add(ContactData(contactId, displayName, number))
+                return@iterateOverContacts contacts.size < limit
             }
+            true
         }
         return contacts
     }

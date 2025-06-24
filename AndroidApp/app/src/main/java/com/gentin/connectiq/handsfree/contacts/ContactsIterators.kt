@@ -6,7 +6,7 @@ import android.provider.ContactsContract
 fun forEachContactInGroup(
     context: Context,
     groupId: Int,
-    operation: (contactId: Int, displayName: String) -> Unit
+    operation: (contactId: Int, displayName: String) -> Boolean
 ) {
     val groupCursor = context.contentResolver.query(
         ContactsContract.Data.CONTENT_URI,
@@ -26,7 +26,9 @@ fun forEachContactInGroup(
         while (moveToNext()) {
             val displayName = getString(displayNameColumn)
             val contactId = getInt(contactIdColumn)
-            operation(contactId, displayName)
+            if (!operation(contactId, displayName)) {
+                break
+            }
         }
         close()
     }
@@ -34,7 +36,7 @@ fun forEachContactInGroup(
 
 fun forEachContactWithPhoneNumberInFavorites(
     context: Context,
-    operation: (contactId: Int, displayName: String) -> Unit
+    operation: (contactId: Int, displayName: String) -> Boolean
 ) {
     val contactsCursor = context.contentResolver.query(
         ContactsContract.Data.CONTENT_URI,
@@ -58,7 +60,9 @@ fun forEachContactWithPhoneNumberInFavorites(
             val displayName = getString(displayNameColumn)
 
             if (getInt(hasPhoneNumberColumn) == 1) {
-                operation(contactId, displayName)
+                if (!operation(contactId, displayName)) {
+                    break
+                }
             }
         }
         close()
