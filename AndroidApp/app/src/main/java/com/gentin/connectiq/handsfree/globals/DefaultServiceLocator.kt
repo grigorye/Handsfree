@@ -74,6 +74,7 @@ import com.gentin.connectiq.handsfree.terms.recentsSubject
 
 private val separateQueryResults get() = true
 private const val eagerlyCacheData = true
+private val recentsCachingEnabled get() = false
 
 const val recentsLimitLowMemory = 5
 const val recentsLimitFullFeatured = 10
@@ -116,6 +117,9 @@ class DefaultServiceLocator(
     private val callLogObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
         override fun onChange(selfChange: Boolean) {
             Log.d(TAG, "cachedRecentsInvalidated")
+            if (!recentsCachingEnabled) {
+                return
+            }
             cachedRecents = if (eagerlyCacheData && hasCallLogPermission()) {
                 recentsFromCallLog(callLogRepository)
             } else {
@@ -403,7 +407,9 @@ class DefaultServiceLocator(
         }
         try {
             val recents = cachedRecents ?: recentsFromCallLog(callLogRepository)
-            cachedRecents = recents
+            if (recentsCachingEnabled) {
+                cachedRecents = recents
+            }
             return AvailableRecents(recents)
         } catch (e: RuntimeException) {
             Log.e(TAG, "recentsRetrievalFailed: $e")
