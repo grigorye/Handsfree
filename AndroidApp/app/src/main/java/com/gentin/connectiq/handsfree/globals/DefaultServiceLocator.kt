@@ -112,12 +112,12 @@ class DefaultServiceLocator(
         impl
     }
 
-    var cachedCallLog: List<CallLogEntry>? = null
+    var cachedRecents: List<CallLogEntry>? = null
     private val callLogObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
         override fun onChange(selfChange: Boolean) {
-            Log.d(TAG, "cachedCallLogInvalidated")
-            cachedCallLog = if (eagerlyCacheData && hasCallLogPermission()) {
-                callLogRepository.callLog()
+            Log.d(TAG, "cachedRecentsInvalidated")
+            cachedRecents = if (eagerlyCacheData && hasCallLogPermission()) {
+                recentsFromCallLog(callLogRepository.callLog())
             } else {
                 null
             }
@@ -402,9 +402,8 @@ class DefaultServiceLocator(
             return AvailableRecents(accessIssue = AccessIssue.NoPermission)
         }
         try {
-            val callLog = cachedCallLog ?: callLogRepository.callLog()
-            cachedCallLog = callLog
-            val recents = recentsFromCallLog(callLog)
+            val recents = cachedRecents ?: recentsFromCallLog(callLogRepository.callLog())
+            cachedRecents = recents
             return AvailableRecents(recents)
         } catch (e: RuntimeException) {
             Log.e(TAG, "recentsRetrievalFailed: $e")
