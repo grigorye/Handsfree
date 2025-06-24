@@ -97,7 +97,7 @@ class ContactsRepositoryImpl(
         contentResolver.unregisterContentObserver(observer)
     }
 
-    private fun numbersForContact(contactId: Int): ArrayList<String> {
+    private fun numbersForContact(contactId: Int, limit: Int): ArrayList<String> {
         val numbers = ArrayList<String>()
         val phonesCursor = contentResolver.query(
             Phone.CONTENT_URI,
@@ -125,6 +125,9 @@ class ContactsRepositoryImpl(
                     phoneData.formatted = formatPhoneNumber(it)
                 }
                 phoneDataList.add(phoneData)
+                if (phoneDataList.size >= limit) {
+                    break
+                }
             }
             close()
 
@@ -140,9 +143,9 @@ class ContactsRepositoryImpl(
     override fun contactsData(limit: Int): List<ContactData> {
         val contacts = ArrayList<ContactData>()
         iterateOverContacts { contactId, displayName ->
-            val numbers = numbersForContact(contactId)
+            val numbers = numbersForContact(contactId, { 1 }())
             if (numbers.isNotEmpty()) {
-                val number = numbersForContact(contactId)[0]
+                val number = numbers[0]
                 contacts.add(ContactData(contactId, displayName, number))
                 return@iterateOverContacts contacts.size < limit
             }
