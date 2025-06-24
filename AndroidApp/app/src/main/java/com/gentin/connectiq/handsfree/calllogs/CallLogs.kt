@@ -83,7 +83,7 @@ class CallLogsRepositoryImpl(
     }
 
     private fun cursor(contentResolver: ContentResolver): Cursor? {
-        val sortOrder = CallLog.Calls.DATE
+        val sortOrder = CallLog.Calls.DATE + " DESC"
         val curCallLogs = contentResolver.query(callUri, null, null, null, sortOrder)
 
         return curCallLogs
@@ -97,7 +97,7 @@ class CallLogsRepositoryImpl(
             entries.add(entry)
         }
         cursor.close()
-        return entries.reversed()
+        return entries
     }
 }
 
