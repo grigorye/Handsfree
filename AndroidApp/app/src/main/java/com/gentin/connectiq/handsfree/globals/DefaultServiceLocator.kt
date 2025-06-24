@@ -117,7 +117,7 @@ class DefaultServiceLocator(
         override fun onChange(selfChange: Boolean) {
             Log.d(TAG, "cachedRecentsInvalidated")
             cachedRecents = if (eagerlyCacheData && hasCallLogPermission()) {
-                recentsFromCallLog(callLogRepository.callLog())
+                recentsFromCallLog(callLogRepository)
             } else {
                 null
             }
@@ -402,7 +402,7 @@ class DefaultServiceLocator(
             return AvailableRecents(accessIssue = AccessIssue.NoPermission)
         }
         try {
-            val recents = cachedRecents ?: recentsFromCallLog(callLogRepository.callLog())
+            val recents = cachedRecents ?: recentsFromCallLog(callLogRepository)
             cachedRecents = recents
             return AvailableRecents(recents)
         } catch (e: RuntimeException) {
