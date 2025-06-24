@@ -134,7 +134,7 @@ class DefaultServiceLocator(
         override fun onChange(selfChange: Boolean) {
             Log.d(TAG, "cachedContactsDataInvalidated")
             cachedContactsData = if (eagerlyCacheData && hasContactsPermission()) {
-                contactsRepository.contactsData()
+                contactDataFromContacts(contactsRepository)
             } else {
                 null
             }
@@ -380,7 +380,7 @@ class DefaultServiceLocator(
             return AvailableContacts(accessIssue = AccessIssue.NoPermission)
         }
         return try {
-            val contactsData = cachedContactsData ?: contactsRepository.contactsData()
+            val contactsData = cachedContactsData ?: contactDataFromContacts(contactsRepository)
             cachedContactsData = contactsData
             AvailableContacts(contactsData)
         } catch (e: RuntimeException) {
@@ -591,4 +591,8 @@ fun recentsFromCallLog(callLogsRepository: CallLogsRepository): List<CallLogEntr
     } else {
         recentsFromCallLogV1(callLogsRepository, limit = recentsLimitFullFeatured)
     }
+}
+
+fun contactDataFromContacts(contactsRepository: ContactsRepository): List<ContactData> {
+    return contactsRepository.contactsData()
 }
