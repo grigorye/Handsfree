@@ -1,7 +1,6 @@
 package com.gentin.connectiq.handsfree.helpers
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 
