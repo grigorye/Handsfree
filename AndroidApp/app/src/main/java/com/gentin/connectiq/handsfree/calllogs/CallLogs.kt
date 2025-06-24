@@ -31,6 +31,7 @@ interface CallLogsRepository {
     fun subscribe(observer: ContentObserver)
     fun unsubscribe(observer: ContentObserver)
     fun callLog(): List<CallLogEntry>
+    fun accept(visitor: (CallLogEntry) -> Boolean)
 }
 
 class CallLogsRepositoryImpl(
@@ -90,14 +91,24 @@ class CallLogsRepositoryImpl(
     }
 
     override fun callLog(): List<CallLogEntry> {
-        val cursor = cursor(contentResolver) ?: throw AssertionError("callLogs are not accessible")
         val entries = ArrayList<CallLogEntry>()
+        accept { entry ->
+            entries.add(entry)
+            true
+        }
+        return entries
+    }
+
+    override fun accept(visitor: (CallLogEntry) -> Boolean) {
+        val cursor = cursor(contentResolver) ?: throw AssertionError("callLogs are not accessible")
         while (cursor.moveToNext()) {
             val entry = callLogEntry(this, cursor)
-            entries.add(entry)
+            if (!visitor(entry)) {
+                break
+            }
         }
         cursor.close()
-        return entries
+        return
     }
 }
 
