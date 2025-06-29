@@ -3,6 +3,7 @@ import Toybox.Lang;
 import Toybox.System;
 import Toybox.Graphics;
 import Toybox.Application;
+import Toybox.Time;
 import Rez.Styles;
 
 (:glance)
@@ -55,12 +56,15 @@ class GlanceView extends WatchUi.GlanceView {
                 var missedRecents = getMissedRecents();
                 var missedRecentsCount = missedRecents.size();
                 if (missedRecentsCount > 0) {
-                    title = "Missed Calls";
                     if (missedRecentsCount == 1) {
                         var recents = Storage.getValue(Recents_valueKey) as Recents;
                         var recent = (recents[RecentsField_list] as RecentsList)[missedRecents[0]];
+                        var recentDate = getRecentDate(recent) / 1000;
+                        var dateFormatted = RecentsScreen.formatDate(recentDate);
+                        title = "! " + dateFormatted;
                         subtitle = getPhoneRep(recent);
                     } else {
+                        title = "Missed Calls";
                         subtitle = missedRecentsCount + " Contacts";
                     }
                 } else {
@@ -134,6 +138,19 @@ function defaultTitle(phoneConnected as Lang.Boolean, isCompanionUpToDate as Lan
         }
     }
     return defaultTitle;
+}
+
+(:glance, :watchApp, :noLowMemory)
+function formatDateOnGlance(date as Lang.Number) as Lang.String {
+    var moment = new Time.Moment(date);
+    var info = Time.Gregorian.info(moment, Time.FORMAT_MEDIUM);
+    var formatted;
+    if (moment.lessThan(Time.today())) {
+        formatted = info.month + " " + info.day + ", " + info.hour.format("%02d") + ":" + info.min.format("%02d");
+    } else {
+        formatted = info.hour.format("%02d") + ":" + info.min.format("%02d");
+    }
+    return formatted;
 }
 
 (:glance, :watchApp, :noLowMemory)

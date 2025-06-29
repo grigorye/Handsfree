@@ -119,6 +119,7 @@ function formatRecentType(type as Lang.Number) as Lang.String {
     }
 }
 
+(:glance)
 function formatDate(date as Lang.Number) as Lang.String {
     var moment = new Time.Moment(date);
     var info = Time.Gregorian.info(moment, Time.FORMAT_MEDIUM);
