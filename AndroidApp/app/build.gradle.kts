@@ -30,7 +30,7 @@ android {
 
         minSdk = 28
         //noinspection OldTargetApi
-        targetSdk = 34
+        targetSdk = 35
 
         versionCode = {
             val versionCode: String by project
