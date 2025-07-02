@@ -5,17 +5,21 @@
 airx
 amoled
 approachs
+Bontrager
 connectiq
 coreutils
 descentg
 descentmk
 descentmk2
+dēzl
 Drawables
 edge1030bontrager
 edgeexplore
 edgemtb
+epix
 epix2
 Fenix
+fēnix
 fenixe
 gh-sonoma-xcode
 grealpath
@@ -52,6 +56,7 @@ Persistable
 PHNE
 prgs
 pronowifi
+quatix
 recents
 Recents
 Roboto
@@ -61,6 +66,7 @@ socsieng
 SPKR
 splus
 spro
+tactix
 tap
 Unmute
 venu
@@ -69,6 +75,7 @@ venusq
 venusqm
 venux1
 vivoactive
+vívoactive
 WHST
 xattr
 xplus
