@@ -11,6 +11,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gentin.connectiq.handsfree.R
+import com.gentin.connectiq.handsfree.activities.DokiEdgeToEdgeActivity
 import com.gentin.connectiq.handsfree.contacts.openFavorites
 import com.gentin.connectiq.handsfree.helpers.shareLog
 import com.gentin.connectiq.handsfree.impl.ACTIVATE_AND_OPEN_WATCH_APP_IN_STORE
@@ -30,7 +31,6 @@ import com.gentin.connectiq.handsfree.permissions.openGarminConnectSettings
 import com.gentin.connectiq.handsfree.permissions.overlayPermissionHandler
 import com.gentin.connectiq.handsfree.services.GarminPhoneCallConnectorService
 import com.google.android.material.snackbar.Snackbar
-import dev.doubledot.doki.ui.DokiActivity
 
 
 fun resolveLink(link: String, fragment: Fragment, navigationLabel: String? = null) {
@@ -90,7 +90,7 @@ fun resolveLink(link: String, fragment: Fragment, navigationLabel: String? = nul
                 }
 
                 "doki" -> {
-                    DokiActivity.start(context)
+                    DokiEdgeToEdgeActivity.start(context)
                 }
 
                 "settings" -> {

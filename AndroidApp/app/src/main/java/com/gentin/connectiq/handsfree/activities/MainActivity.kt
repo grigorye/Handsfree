@@ -19,7 +19,6 @@ import com.gentin.connectiq.handsfree.impl.versionInfoString
 import com.gentin.connectiq.handsfree.permissions.anyPermissionMissing
 import com.gentin.connectiq.handsfree.permissions.openAppSettings
 import com.gentin.connectiq.handsfree.permissions.requestPermissions
-import dev.doubledot.doki.ui.DokiActivity
 import io.noties.markwon.Markwon
 
 
@@ -35,7 +34,7 @@ class MainActivity : Activity() {
             openFavorites(this)
         }
         findViewById<AppCompatButton>(R.id.launch_doki_btn)?.setOnClickListener {
-            DokiActivity.start(this)
+            DokiEdgeToEdgeActivity.start(this)
         }
         findViewById<AppCompatButton>(R.id.reconnect_btn)?.setOnClickListener {
             startConnector(this, ACTIVATE_AND_RECONNECT)
