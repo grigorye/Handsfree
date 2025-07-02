@@ -1,0 +1,24 @@
+#! /bin/bash
+
+set +x
+set -euo pipefail
+
+wd=$(dirname "$0")
+
+src_root="$wd/../.."
+manifest="$src_root/../WatchApp/manifest-app.xml"
+
+# shellcheck disable=SC2207
+dev_devices=($(cat "$manifest" | sed 's/iq://g' | xq -r '.manifest.application.products.product.[]|.["@id"]'))
+
+devices_root="$HOME/Library/Application Support/Garmin/ConnectIQ/Devices"
+
+for device in "${dev_devices[@]}"; do
+    compiler_json="$devices_root/$device/compiler.json"
+    test -e "$compiler_json" || {
+        echo >&2 "compiler.json for device '$device' not found in '$devices_root'."
+        exit 1
+    }
+    device_name=$(jq .displayName -r "$compiler_json")
+    echo "$device_name"
+done
