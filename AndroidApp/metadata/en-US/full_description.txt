@@ -11,36 +11,45 @@ In combination with the watch app, it allows you, right on your watch:
 • Automatically use the speakerphone when you're not wearing a headset.
 • Control the volume of the call.
 
-The following models of Garmin watches are supported:
+The following models of Garmin watches and bike computers are supported:
 • Approach® S50
 • Approach® S70 42mm
 • Approach® S70 47mm
-• Captain Marvel
 • D2™ Air
 • D2™ Air X10
 • D2™ Mach 1
-• Darth Vader™
 • Descent™ G1 / G1 Solar
 • Descent™ G2
-• Descent™ MK2 / Descent™ Mk2i
+• Descent™ Mk2 / Descent™ Mk2i
 • Descent™ Mk2 S
 • Descent™ Mk3 43mm / Mk3i 43mm
-• Descent™ MkЗі 51mm
+• Descent™ Mk3i 51mm
+• Edge® 1030
+• Edge® 1030 / Bontrager
+• Edge® 1030 Plus
+• Edge® 1040 / 1040 Solar
+• Edge® 1050
+• Edge® 530
+• Edge® 540 / 540 Solar
+• Edge® 830
+• Edge® 840 / 840 Solar
+• Edge® Explore 2
+• Edge® MTB
 • Enduro™
 • Enduro™ 3
 • epix™ (Gen 2) / quatix® 7 Sapphire
 • epix™ Pro (Gen 2) 42mm
 • epix™ Pro (Gen 2) 47mm / quatix® 7 Pro
-• epix™ Pro (Gen 2) 51mm / D2™ Mach 1 Pro / tactix® 7 - AMOLED Edition
+• epix™ Pro (Gen 2) 51mm / D2™ Mach 1 Pro / tactix® 7 – AMOLED Edition
 • fēnix® 5 Plus
 • fēnix® 5S Plus
 • fēnix® 5X Plus
 • fēnix® 6 / 6 Solar / 6 Dual Power
 • fēnix® 6 Pro / 6 Sapphire / 6 Pro Solar / 6 Pro Dual Power / quatix® 6
-• fēnix® 65 / 6S Solar / 6S Dual Power
+• fēnix® 6S / 6S Solar / 6S Dual Power
 • fēnix® 6S Pro / 6S Sapphire / 6S Pro Solar / 6S Pro Dual Power
-• fenix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Power
-• fēnix® 7 / quatix®7
+• fēnix® 6X Pro / 6X Sapphire / 6X Pro Solar / tactix® Delta Sapphire / Delta Solar / Delta Solar - Ballistics Edition / quatix® 6X / 6X Solar / 6X Dual Power
+• fēnix® 7 / quatix® 7
 • fēnix® 7 Pro
 • fēnix® 7 Pro - Solar Edition (no Wi-Fi)
 • fēnix® 7S
@@ -48,12 +57,11 @@ The following models of Garmin watches are supported:
 • fēnix® 7X / tactix® 7 / quatix® 7X Solar / Enduro™ 2
 • fēnix® 7X Pro
 • fēnix® 7X Pro - Solar Edition (no Wi-Fi)
-• fēnix® 843mm
-• fēnix® 847mm / 51mm / tactix® 8 47mm / 51mm
+• fēnix® 8 43mm
+• fēnix® 8 47mm / 51mm / tactix® 8 47mm / 51mm / quatix® 8 47mm / 51mm
 • fēnix® 8 Solar 47mm
 • fēnix® 8 Solar 51mm / tactix® 8 Solar 51mm
 • fēnix® E
-• First Avenger
 • Forerunner® 165
 • Forerunner® 165 Music
 • Forerunner® 245
@@ -65,12 +73,15 @@ The following models of Garmin watches are supported:
 • Forerunner® 265
 • Forerunner® 265s
 • Forerunner® 55
+• Forerunner® 570 42mm
+• Forerunner® 570 47mm
 • Forerunner® 645 Music
 • Forerunner® 745
 • Forerunner® 945
 • Forerunner® 945 LTE
 • Forerunner® 955 / Solar
 • Forerunner® 965
+• Forerunner® 970
 • Instinct® 2 / Solar / Dual Power / dēzl Edition
 • Instinct® 2S / Solar / Dual Power
 • Instinct® 2X Solar
@@ -80,6 +91,10 @@ The following models of Garmin watches are supported:
 • Instinct® Crossover
 • Instinct® E 40mm
 • Instinct® E 45mm
+• Captain Marvel
+• First Avenger
+• Darth Vader™
+• Rey™
 • MARQ® (Gen 2) Athlete / Adventurer / Captain / Golfer / Carbon Edition / Commander - Carbon Edition
 • MARQ® (Gen 2) Aviator
 • MARQ® Adventurer
@@ -90,7 +105,6 @@ The following models of Garmin watches are supported:
 • MARQ® Driver
 • MARQ® Expedition
 • MARQ® Golfer
-• Rey™
 • Venu®
 • Venu® 2
 • Venu® 2 Plus
@@ -99,22 +113,12 @@ The following models of Garmin watches are supported:
 • Venu® 3S
 • Venu® Mercedes-Benz® Collection
 • Venu® Sq
-• Venu® Sq2
+• Venu® Sq 2
 • Venu® Sq 2 Music
 • Venu® Sq. Music Edition
+• Venu® X1
 • vívoactive® 3 Music
 • vívoactive® 4
 • vívoactive® 4S
 • vívoactive® 5
-
-The following models of Garmin bike computers are supported:
-• Edge® 530
-• Edge® 540 / 540 Solar
-• Edge® 830
-• Edge® 840 / 840 Solar
-• Edge® 1030
-• Edge® 1030 / Bontrager
-• Edge® 1030 Plus
-• Edge® 1040 / 1040 Solar
-• Edge® 1050
-• Edge® Explore 2
+• vívoactive® 6
