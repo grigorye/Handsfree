@@ -53,7 +53,7 @@ https://youtu.be/xiZ8kEoOO0Q
 
 ## Requirements
 
--   Garmin watch or bike computer (see [Garmin IQ app page](https://apps.garmin.com/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920?tid=1) for supported models)
+-   Garmin watch or bike computer (see [Connect IQ app page](https://apps.garmin.com/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920?tid=1) for supported models)
 -   Android phone (currently limited to Android 10 or later) with Garmin Connect app installed and connected to the watch
 -   iPhones are not supported (I could not find a way to drive calls there without explicit user confirmation for each call).
 
