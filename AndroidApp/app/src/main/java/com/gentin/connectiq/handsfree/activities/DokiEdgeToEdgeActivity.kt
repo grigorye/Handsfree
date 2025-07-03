@@ -42,9 +42,10 @@ class DokiEdgeToEdgeActivity : AppCompatActivity() {
                 true
         }
 
-        api = dokiView.loadContent(manufacturerId = intent.extras?.run {
-            this[MANUFACTURER_EXTRA] as? String
-        } ?: DONT_KILL_MY_APP_DEFAULT_MANUFACTURER)
+        val manufacturerIdFromIntent = intent.getStringExtra(MANUFACTURER_EXTRA)
+        api = dokiView.loadContent(
+            manufacturerId = manufacturerIdFromIntent ?: DONT_KILL_MY_APP_DEFAULT_MANUFACTURER
+        )
 
         dokiView.setOnCloseListener { finish() }
     }
