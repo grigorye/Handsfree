@@ -63,7 +63,7 @@ https://youtu.be/xiZ8kEoOO0Q
 
 [<img src="./badges/Connect-IQ/Connect-IQ-Badge_White.svg" alt="available-connect-iq-badge" height="88"/>](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920)
 
-##### [Handsfree companion app](https://grigorye.github.io/handsfree/Installation) for Android phone
+##### Handsfree companion app for Android phone
 
 There are currently a couple ways to obtain the Android app.
 
