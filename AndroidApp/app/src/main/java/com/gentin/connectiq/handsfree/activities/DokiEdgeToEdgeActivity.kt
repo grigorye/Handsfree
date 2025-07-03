@@ -2,10 +2,12 @@ package com.gentin.connectiq.handsfree.activities
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
 import dev.doubledot.doki.api.extensions.DONT_KILL_MY_APP_DEFAULT_MANUFACTURER
 import dev.doubledot.doki.api.tasks.DokiApi
@@ -34,6 +36,11 @@ class DokiEdgeToEdgeActivity : AppCompatActivity() {
         }
 
         setContentView(dokiView)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars =
+                true
+        }
 
         api = dokiView.loadContent(manufacturerId = intent.extras?.run {
             this[MANUFACTURER_EXTRA] as? String
