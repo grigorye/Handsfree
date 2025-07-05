@@ -10,7 +10,7 @@ There're a couple settings that speed up the operation/responsiveness of the wat
 -   **Eager Sync**:
 
     -   **ON** (recommended [^1]): all the changes in recents/favorites/phone state are automatically pushed from phone to the watch, even if you don't open the watch app. All the information is instantly available on the watch when you open the app/bring glance into the view.
-        [^1]: It is recommended to turn it on, if you find yourself regularly using Handsfree for calls. Otherwise, especially if you deal *lots of* calls, it may result in wasting battery life for "nothing", though the negative effect should be still minimal.
+        [^1]: It is recommended to turn it on, if you find yourself regularly using Handsfree for calls. Otherwise, especially if you deal with *lots of* calls, it may result in wasting battery life for "nothing", though the negative effect should be still minimal.
 
     -   **OFF** (default): no data is delivered to the watch until you open the app/bring the glance into the view. You *will* observe delay with the glance data not appearing/app data updated from the phone. This is "super power saving mode", basically guaranteeing zero effect on the battery life, at least if your phone is around your watch most of the times.
 
