@@ -52,8 +52,6 @@ To be able to serve your request while working in background, Handsfree needs th
 If you don't give this permission, you'll still be able to use it in foreground, but it will be eventually stopped by the system after the app is put into the background, as it's required for these kinds of apps running in the background to always show the notification.
 
 "</string>
-    <string name="grant_permissions_btn">"Grant permissions"</string>
-    <string name="show_permissions_btn">"Manage permissions"</string>
     <string name="permissions_dialog_proceed_title">"Handsfree permissions"</string>
     <string name="permissions_dialog_proceed_btn">"Grant permissions"</string>
     <string name="permissions_dialog_app_settings_btn">"App settings"</string>
@@ -61,12 +59,6 @@ If you don't give this permission, you'll still be able to use it in foreground,
     <string name="permissions_dialog_all_granted_title">"Handsfree permissions"</string>
     <string name="permissions_dialog_all_granted_ok_btn">"OK"</string>
     <string name="app_logo_description">"App logo"</string>
-    <string name="intro_txt">"Handsfree runs in the background and serves your requests from the &lt;a href=\"https://apps.garmin.com/apps/a3d8da80-e013-41f9-aca4-f66bb38fad3f\"&gt;Garmin watch app&lt;/a&gt; (installed separately on the watch) to make calls on your phone.
-
-Use the controls below to complete or adjust the setup."</string>
-    <string name="select_contacts_hint">"Select the contacts to be shared with the watch app, to let you dial one of those later:"</string>
-    <string name="give_permissions_hint">"Give the app permissions to manage calls, have access to the contacts, and run in the background in general:"</string>
-    <string name="run_in_background_hint">"Let the app run in the background on your specific phone model:"</string>
     <string name="onboarding_essentials">"# Control calls from the watch
 
 As a bare minimum, Handsfree lets you observe and hangup calls in progress, without sharing any personal information with the watch. The only information that is shared is the fact that there's an unidentified call in progress.
