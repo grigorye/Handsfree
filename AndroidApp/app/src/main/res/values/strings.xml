@@ -67,25 +67,6 @@ Use the controls below to complete or adjust the setup."</string>
     <string name="select_contacts_hint">"Select the contacts to be shared with the watch app, to let you dial one of those later:"</string>
     <string name="give_permissions_hint">"Give the app permissions to manage calls, have access to the contacts, and run in the background in general:"</string>
     <string name="run_in_background_hint">"Let the app run in the background on your specific phone model:"</string>
-    <string name="onboarding_welcome">"# Setting it up
-
-Use the links below to let Handsfree do its job.
-
-Required:
-
-### [Run essentials](permissions://onboarding_essentials?battery_optimization&amp;manifest=android.permission.CALL_PHONE,android.permission.ANSWER_PHONE_CALLS,android.permission.READ_PHONE_STATE,android.permission.POST_NOTIFICATIONS) [(guide)](link://onboarding_essentials)
-
-To make outgoing calls:
-
-### [✅](contacts://starred)  [Check your starred contacts](contacts://starred)
-
-### [Enable outgoing calls](permissions://onboarding_outgoing_calls?draw_overlays&amp;manifest=android.permission.READ_CONTACTS) [(guide)](link://onboarding_outgoing_calls)
-
-To see all the call details:
-
-### [Enable call info](permissions://onboarding_full_featured?manifest=android.permission.READ_CALL_LOG,android.permission.READ_CONTACTS) [(guide)️](link://onboarding_full_featured)
-
-"</string>
     <string name="onboarding_essentials">"# Control calls from the watch
 
 As a bare minimum, Handsfree lets you observe and hangup calls in progress, without sharing any personal information with the watch. The only information that is shared is the fact that there's an unidentified call in progress.
