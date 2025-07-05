@@ -83,9 +83,6 @@
             android:authorities="com.gentin.connectiq.handsfree.contentproviders.SettingsProvider"
             android:exported="true"
             tools:ignore="ExportedContentProvider" />
-        <activity
-            android:name=".activities.MainActivity"
-            android:exported="false" />
     </application>
 
 </manifest>
