@@ -22,6 +22,4 @@ More info is on the project home page: https://github.com/grigorye/Handsfree
 
 **Beta-testers wanted!**
 
-If you're interested in joining the beta (and speedup getting the companion app into Google play store), please reach to me or send a request to join the dedicated Google group (https://groups.google.com/g/handsfree-beta) - I'd really appreciate that.
-
-A dedicated widget version of the app will be published soon. Stay tuned.
+If you're interested in testing pre-release versions of the app or just want to help with development of the app/share your feedback, please reach to me or send a request to join the dedicated Google group (https://groups.google.com/g/handsfree-beta) - I'd really appreciate that.
