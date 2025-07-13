@@ -61,16 +61,21 @@ class WidgetView extends WatchUi.View {
                 var missedRecents = getMissedRecents();
                 var missedRecentsCount = missedRecents.size();
                 if (missedRecentsCount > 0) {
-                    lines.add("Missed Calls");
-                    var subtitle;
                     if (missedRecentsCount == 1) {
+                        lines.add("Missed Call");
                         var recents = Storage.getValue(Recents_valueKey) as Recents;
                         var recent = (recents[RecentsField_list] as RecentsList)[missedRecents[0]];
-                        subtitle = getPhoneRep(recent);
+                        var recentDate = getRecentDate(recent) / 1000;
+                        var dateFormatted = RecentsScreen.formatDate(recentDate);
+                        var subtitle = getPhoneRep(recent);
+                        lines.add(subtitle);
+                        lines.add(dateFormatted);
                     } else {
+                        lines.add("Missed Calls");
+                        var subtitle;
                         subtitle = "Contacts: " + missedRecentsCount;
+                        lines.add(subtitle);
                     }
-                    lines.add(subtitle);
                 } else {
                     lines.add(appName);
                     var subtitle;
