@@ -4,3 +4,5 @@
 
 2.   *Never* install both app and widget variants of Handsfree: that will prevent Handsfree from properly communicating with the phone. *Uninstall* the app if you need to use the widget, *uninstall* the widget if you want to use the app.
 
+3.   Settings are not available in the widget on low-memory devices. Please use widget Settings in Garmin Connect IQ on Android instead.
+
