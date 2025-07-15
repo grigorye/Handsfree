@@ -19,6 +19,7 @@ More info is on the project home page: https://github.com/grigorye/Handsfree
 - Maximum number of favorites: 20 (5 on low-memory devices) 
 - Maximum number of recents: 10 (5 on low-memory devices)
 - With no headset, audio on accepting incoming call is routed to (default) output (e.g. phone ear speaker)
+- Glance is static on low-memory devices, shows only the app name
 
 **Beta-testers wanted!**
 
