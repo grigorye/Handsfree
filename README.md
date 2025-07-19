@@ -59,13 +59,21 @@ https://youtu.be/xiZ8kEoOO0Q
 
 ## Installation
 
-##### [Handsfree app](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920) for Garmin watch
+##### On Garmin device
 
-[<img src="./badges/Connect-IQ/Connect-IQ-Badge_White.svg" alt="available-connect-iq-badge" height="88"/>](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920)
+There are two options, depending on your device model/firmware.
 
-##### Handsfree companion app for Android phone
+1.  [Handsfree app](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920) for recent devices (not older than 2022), that have support for glances in apps:
 
-There are currently a couple ways to obtain the Android app.
+    [<img src="./badges/Connect-IQ/Connect-IQ-Badge_White.svg" alt="available-connect-iq-badge" height="88"/>](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920)
+
+2.  [Handsfree widget](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920) for *older generations* of Garmin devices:
+
+    [<img src="./badges/Connect-IQ/Connect-IQ-Badge_White.svg" alt="available-connect-iq-badge" height="88"/>](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920)
+
+##### On Android phone
+
+There two ways to obtain the Android companion app.
 
 1.   From Google Play:
 
