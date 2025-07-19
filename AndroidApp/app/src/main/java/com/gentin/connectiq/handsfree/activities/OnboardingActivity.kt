@@ -39,7 +39,8 @@ class OnboardingActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissi
     )
 
     override fun onActivityResult(
-        requestCode: Int, resultCode: Int, resultData: Intent?) {
+        requestCode: Int, resultCode: Int, resultData: Intent?
+    ) {
         super.onActivityResult(requestCode, resultCode, resultData)
         if (requestCode == REQUEST_CODE_SHARE_LOG && resultCode == RESULT_OK) {
             resultData?.data?.also { uri ->
@@ -62,7 +63,8 @@ class OnboardingActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissi
         setSupportActionBar(toolbar)
 
         ViewCompat.setOnApplyWindowInsetsListener(toolbar) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+            val insets =
+                windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
             v.updatePadding(top = insets.top, left = insets.left, right = insets.right)
             WindowInsetsCompat.CONSUMED
         }
