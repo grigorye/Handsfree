@@ -198,6 +198,8 @@ function didSeeIncomingMessageWhileRoutedToMainUI() as Void {
 
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function updateUIFromBackgroundData() as Void {
-    updateMissedRecents();
+    if (!lowMemory) {
+        updateMissedRecents();
+    }
     WatchUi.requestUpdate();
 }
