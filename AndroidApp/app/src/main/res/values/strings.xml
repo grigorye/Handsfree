@@ -191,8 +191,6 @@ There are several components that should work together for normal operation of H
     <string name="settings_preferences_subscreen">"Configuration"</string>
     <string name="device_label_connected">"Connected"</string>
     <string name="device_label_not_connected">"Not Connected"</string>
-    <string name="no_devices_preference_title">"No devices are registered."</string>
-    <string name="no_devices_preference_summary">"Use Garmin Connect to register a device."</string>
     <string name="onboarding_incoming_calls">"# Allow incoming calls
 
 Handsfree lets you show and accept the incoming calls on the watch. To fully benefit from that, give the app a couple more permissions, in addition to the [essential ones](link://onboarding_essentials).
@@ -284,4 +282,6 @@ Without the permission, no contact names for the calls will be visible.
     <string name="settings_permission_granted_fmt">"[✅ {{link_text}}]({{link_url}})"</string>
     <string name="settings_permission_not_granted_fmt">"[❎ {{link_text}}]({{link_url}})"</string>
     <string name="settings_permission_not_available_fmt">"[⛔️ {{link_text}}]({{link_url}})"</string>
+    <string name="settings_no_devices_registered_message">"No devices are registered."</string>
+    <string name="settings_no_devices_registered_suggestion">"Use Garmin Connect to register a device."</string>
 </resources>
