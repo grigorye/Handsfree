@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.isGone
 import androidx.core.view.updatePadding
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -77,6 +78,8 @@ class OnboardingActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissi
             val insets =
                 windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
             v.updatePadding(left = insets.left, right = insets.right)
+            val bottomInset = if (binding.navBarView.isGone) insets.bottom else 0
+            v.updatePadding(bottom = bottomInset)
             WindowInsetsCompat.CONSUMED
         }
 
