@@ -77,11 +77,13 @@ There two ways to obtain the Android companion app.
 
 1.   From Google Play:
 
-[<img src="./badges/Google-Play/Get-It-On-Google-Play-Badge_en.svg" height="80" />](https://play.google.com/store/apps/details?id=com.gentin.connectiq.handsfree) 
+     [<img src="./badges/Google-Play/Get-It-On-Google-Play-Badge_en.svg" height="80" />](https://play.google.com/store/apps/details?id=com.gentin.connectiq.handsfree) 
 
 2.   If you prefer to not depend on Google Play, you can install the latest version of the app from the following page:
 
-https://grigorye.github.io/handsfree/Installation
+     https://grigorye.github.io/handsfree/Installation
+
+     Alternatively, just grab .apk from [releases](https://github.com/grigorye/Handsfree/releases).
 
 ## Setup
 
