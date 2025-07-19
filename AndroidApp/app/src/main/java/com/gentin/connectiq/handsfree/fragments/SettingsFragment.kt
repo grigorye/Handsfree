@@ -115,8 +115,8 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
                     title = formattedDeviceInfos(it, context) + "\n\n" + refreshMessage + suffix
                     summary = null
                 } else {
-                    title = getString(R.string.no_devices_preference_title)
-                    summary = getString(R.string.no_devices_preference_summary)
+                    title = getString(R.string.settings_no_devices_registered_message)
+                    summary = getString(R.string.settings_no_devices_registered_suggestion)
                 }
                 setOnPreferenceClickListener { preference ->
                     Log.d(TAG, "preferenceClicked: $preference")
