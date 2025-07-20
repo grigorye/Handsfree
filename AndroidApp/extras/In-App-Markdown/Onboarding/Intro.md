@@ -10,13 +10,15 @@ Version {{version_info}}
 
 ### Keeping Handsfree companion up to date
 
-A. **If you joined the [beta program](https://groups.google.com/g/handsfree-beta)**, you can already benefit from updating the Android app from Google Play.
+A. With Google Play:
 
 [<img src="./badges/Google-Play/Get-It-On-Google-Play-Badge_en.svg" max-height="160" alt="Get it on Google Play"/>](https://play.google.com/store/apps/details?id=com.gentin.connectiq.handsfree) 
 
-B. If you are not a beta tester (or prefer to not depend on Google Play), you can install the latest version of the app using the link below:
+B. If you prefer to not depend on Google Play, you can install the latest version of the app using the link below:
 
 #### [Install the latest version without Google Play](https://grigorye.github.io/handsfree/Installation)
 
+### Beta testing
 
+If you're interested in beta testing, please send a request to join the [dedicated Google group](https://groups.google.com/g/handsfree-beta).
 
