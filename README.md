@@ -67,9 +67,9 @@ There are two options, depending on your device model/firmware.
 
     [<img src="./badges/Connect-IQ/Connect-IQ-Badge_White.svg" alt="available-connect-iq-badge" height="88"/>](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920)
 
-2.  [Handsfree widget](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920) for *older generations* of Garmin devices:
+2.  [Handsfree widget](https://apps.garmin.com/apps/629f3ba5-66bc-4b44-a078-3365a85212f8) for *older generations* of Garmin devices:
 
-    [<img src="./badges/Connect-IQ/Connect-IQ-Badge_White.svg" alt="available-connect-iq-badge" height="88"/>](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920)
+    [<img src="./badges/Connect-IQ/Connect-IQ-Badge_White.svg" alt="available-connect-iq-badge" height="88"/>](https://apps.garmin.com/apps/629f3ba5-66bc-4b44-a078-3365a85212f8)
 
 ##### On Android phone
 
