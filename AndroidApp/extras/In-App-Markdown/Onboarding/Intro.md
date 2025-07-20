@@ -28,3 +28,7 @@ B. If you prefer to not depend on Google Play, you can install the latest versio
 
 If you're interested in beta testing, please send a request to join the [dedicated Google group](https://groups.google.com/g/handsfree-beta).
 
+### Feedback
+
+Reach to <garmin9E96E@icloud.com> or the [beta testing group](https://groups.google.com/g/handsfree-beta). All the feedback is highly appreciated.
+
