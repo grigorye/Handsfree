@@ -215,6 +215,10 @@ class DefaultServiceLocator(
                 Log.d(TAG, "query($args.subjects): $results")
                 for (result in results) {
                     outgoingMessageDispatcher.sendQueryResult(destination, result)
+                    // Workaround several messages lost when sent in one go, at least in Simulator.
+                    if (source.app == simApp) {
+                        Thread.sleep(500)
+                    }
                 }
             },
             openAppImp = { source, args ->
