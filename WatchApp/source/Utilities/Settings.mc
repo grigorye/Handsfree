@@ -82,8 +82,11 @@ module AppSettings {
     (:noLowMemory)
     const incomingCallVibrationProgram as Lang.String =
         Properties.getValue("incomingCallVibration") as Lang.String;
-    const isShowingPhoneNumbersEnabled as Lang.Boolean =
-        Properties.getValue(Settings_showPhoneNumbersK) as Lang.Boolean;
+    
+    function isShowingPhoneNumbersEnabled() as Lang.Boolean {
+        return Properties.getValue(Settings_showPhoneNumbersK) as Lang.Boolean;
+    }
+
     (:noLowMemory)
     const forcedLogComponentsJoined as Lang.String =
         Properties.getValue("forcedLogComponents") as Lang.String;

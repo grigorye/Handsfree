@@ -29,6 +29,11 @@ class View extends ExtendedMenu2 {
 
     private var oldPhones as Phones = Phones_defaultValue;
 
+    (:settings)
+    function updateForSettings() as Void {
+        forcedUpdateFromPhones(oldPhones);
+    }
+
     function updateFromPhones(phones as Phones) as Void {
         if (debug) { _3(L_PHONES_VIEW, "updatingFromPhones", phones); }
         if (objectsEqual(oldPhones, phones)) {
@@ -36,6 +41,10 @@ class View extends ExtendedMenu2 {
             return;
         }
         if (debug) { _2(L_PHONES_VIEW, "phonesChanged"); }
+        forcedUpdateFromPhones(phones);
+    }
+
+    function forcedUpdateFromPhones(phones as Phones) as Void {
         beginUpdate();
         deleteAllItems();
         setFromPhones(phones);
@@ -68,7 +77,7 @@ class View extends ExtendedMenu2 {
                 }
                 var item = new WatchUi.MenuItem(
                     getPhoneName(phone), // label
-                    AppSettings.isShowingPhoneNumbersEnabled ? getPhoneNumber(phone) : null, // subLabel
+                    AppSettings.isShowingPhoneNumbersEnabled() ? getPhoneNumber(phone) : null, // subLabel
                     phone, // identifier
                     {}
                 );

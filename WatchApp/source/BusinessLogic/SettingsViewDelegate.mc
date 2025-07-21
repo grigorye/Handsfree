@@ -23,6 +23,14 @@ class ViewDelegate extends WatchUi.Menu2InputDelegate {
                 appConfigDidChange();
                 break;
             }
+            case :showPhoneNumbers: {
+                AppSettings.toggle(Settings_showPhoneNumbersK);
+                var phonesView = VT.viewWithTag(V_phones) as PhonesScreen.View or Null;
+                if (phonesView != null) {
+                    phonesView.updateForSettings();
+                }
+                break;
+            }
             case :optimisticCallHandling: {
                 AppSettings.toggle(Settings_optimisticCallHandlingK);
                 break;

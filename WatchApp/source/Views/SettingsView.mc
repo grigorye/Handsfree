@@ -10,6 +10,7 @@ class View extends WatchUi.Menu2 {
     function initialize() {
         Menu2.initialize({ :title => "Settings" });
         addItem(incomingCallsMenuItem());
+        addItem(showPhoneNumbersMenuItem());
         addItem(optimisticCallHandlingMenuItem());
         addItem(broadcastListeningMenuItem());
         addItem(new MenuItem("About", null, :about, null));
@@ -24,6 +25,19 @@ class View extends WatchUi.Menu2 {
             },
             :openAppOnIncomingCall,
             BackgroundSettings.isOpenAppOnIncomingCallEnabled(),
+            null
+        );
+    }
+
+    function showPhoneNumbersMenuItem() as WatchUi.ToggleMenuItem {
+        return new ToggleMenuItem(
+            "Phone Numbers",
+            {
+                :enabled => "On",
+                :disabled => "Off"
+            },
+            :showPhoneNumbers,
+            AppSettings.isShowingPhoneNumbersEnabled(),
             null
         );
     }
@@ -56,6 +70,7 @@ class View extends WatchUi.Menu2 {
 
     function update() as Void {
         (getItem(findItemById(:openAppOnIncomingCall)) as WatchUi.ToggleMenuItem).setEnabled(BackgroundSettings.isOpenAppOnIncomingCallEnabled());
+        (getItem(findItemById(:showPhoneNumbers)) as WatchUi.ToggleMenuItem).setEnabled(AppSettings.isShowingPhoneNumbersEnabled());
         (getItem(findItemById(:optimisticCallHandling)) as WatchUi.ToggleMenuItem).setEnabled(AppSettings.isOptimisticCallHandlingEnabled());
         (getItem(findItemById(:broadcastListening)) as WatchUi.ToggleMenuItem).setEnabled(isBroadcastListeningEnabled());
         workaroundNoRedrawForMenu2(self);
