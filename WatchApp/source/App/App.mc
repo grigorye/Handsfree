@@ -89,15 +89,10 @@ class App extends Application.AppBase {
         }
     }
 
-    (:typecheck([disableBackgroundCheck]), :watchApp)
+    (:typecheck([disableBackgroundCheck]))
     function getGlanceView() as [WatchUi.GlanceView] or [WatchUi.GlanceView, WatchUi.GlanceViewDelegate] or Null {
         setActiveUiKind(ACTIVE_UI_GLANCE);
         return [new GlanceView()];
-    }
-
-    (:typecheck([disableBackgroundCheck]), :widget)
-    function getGlanceView() as [WatchUi.GlanceView] or [WatchUi.GlanceView, WatchUi.GlanceViewDelegate] or Null {
-        System.error("getGlanceView() should not be called for widget");
     }
 }
 
@@ -145,10 +140,23 @@ function registerForNotifications() as Void {
 (:widget)
 function getInitialViewInApp() as [WatchUi.Views] or [WatchUi.Views, WatchUi.InputDelegates] {
     willReturnInitialView();
-    var view = new WidgetView();
-    var delegate = new WidgetViewDelegate();
-    VT.trackInitialView(V_widget, view, delegate);
-    return [view, delegate];
+    var view;
+    var delegate;
+    var viewTag;
+    var viewAndDelegate;
+    if (System.DeviceSettings has :isGlanceModeEnabled && System.getDeviceSettings().isGlanceModeEnabled) {
+        view = new CommView();
+        viewTag = V_comm;
+        delegate = null;
+        viewAndDelegate = [view];
+    } else {
+        view = new WidgetView();
+        delegate = new WidgetViewDelegate();
+        viewTag = V_widget;
+        viewAndDelegate = [view, delegate];
+    }
+    VT.trackInitialView(viewTag, view, delegate);
+    return viewAndDelegate;
 }
 
 (:watchApp)
