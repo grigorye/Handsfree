@@ -1,4 +1,5 @@
 const V_comm = "c";
+const V_widget = "w";
 const V_phones = "p";
 const V_recents = "r";
 const V_settings = "s";
@@ -7,4 +8,3 @@ const V_callInProgress = "g";
 const V_callActing = "a";
 const V_about = "b";
 const V_scheduling = "d";
-const V_widget = "w";

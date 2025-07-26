@@ -22,7 +22,7 @@ function updateUIForCallState() as Void {
 
 function updateUIForCallStateInApp() as Void {
     if (debug) { _3(L_CALL_STATE_UI_UPDATE, "viewStack", VT.viewStackTags()); }
-    if (VT.viewStackTagsEqual(["widget"])) {
+    if (VT.viewStackTagsEqual([V_widget])) {
         WatchUi.requestUpdate();
     } else {
         if (routerImp != null) {
