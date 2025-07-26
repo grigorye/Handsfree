@@ -7,3 +7,4 @@ const V_callInProgress = "g";
 const V_callActing = "a";
 const V_about = "b";
 const V_scheduling = "d";
+const V_widget = "w";
