@@ -20,7 +20,6 @@ edge1030.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_exclu
 edge1030bontrager.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 edge1030plus.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 edge530.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
-edge540.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
 edge830.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 enduro.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
 fenix6.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
