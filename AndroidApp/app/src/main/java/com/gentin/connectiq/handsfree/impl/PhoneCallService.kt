@@ -17,7 +17,7 @@ import com.gentin.connectiq.handsfree.globals.outgoingCallsShouldBeEnabled
 interface PhoneCallService {
     fun makeCall(number: String, withSpeakerPhone: Boolean): Boolean
     fun hangupCall()
-    fun acceptCall()
+    fun acceptCall(withSpeakerPhone: Boolean)
     fun canMakeCalls(): Boolean
 }
 
@@ -59,7 +59,7 @@ class DefaultPhoneCallService(
         Log.i(TAG, "endCallSucceeded: $succeeded")
     }
 
-    override fun acceptCall() {
+    override fun acceptCall(withSpeakerPhone: Boolean) {
         val mgr = getSystemService(TELECOM_SERVICE) as TelecomManager
         if (ActivityCompat.checkSelfPermission(
                 this,
