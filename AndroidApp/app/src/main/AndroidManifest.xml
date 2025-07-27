@@ -19,6 +19,14 @@
         android:name="android.hardware.telephony"
         android:required="false" />
 
+    <queries>
+        <!-- Allow querying any app that can handle phone calls -->
+        <intent>
+            <action android:name="android.intent.action.DIAL" />
+            <data android:scheme="tel" />
+        </intent>
+    </queries>
+
     <application
         android:allowBackup="false"
         android:fullBackupContent="false"
