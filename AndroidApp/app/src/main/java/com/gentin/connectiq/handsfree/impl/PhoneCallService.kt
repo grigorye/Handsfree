@@ -60,6 +60,18 @@ class DefaultPhoneCallService(
     }
 
     override fun acceptCall(withSpeakerPhone: Boolean) {
+        val dialerPackageName = defaultDialerPackageName(this)
+        when (dialerPackageName) {
+            "org.fossify.phone", "org.fossify.phone.debug" -> {
+                acceptCallWithFossify(withSpeakerPhone, dialerPackageName)
+            }
+            else -> {
+                acceptCallWithTelecom(withSpeakerPhone)
+            }
+        }
+    }
+
+    private fun acceptCallWithTelecom(withSpeakerPhone: Boolean) {
         val mgr = getSystemService(TELECOM_SERVICE) as TelecomManager
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -71,6 +83,18 @@ class DefaultPhoneCallService(
         }
         @Suppress("DEPRECATION")
         mgr.acceptRingingCall()
+    }
+
+    private fun acceptCallWithFossify(withSpeakerPhone: Boolean, dialerPackageName: String) {
+        val intent = Intent("org.fossify.phone.action.ACCEPT_CALL")
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.addFlags(Intent.FLAG_FROM_BACKGROUND)
+        if (withSpeakerPhone) {
+            intent.putExtra(TelecomManager.EXTRA_START_CALL_WITH_SPEAKERPHONE, true)
+        }
+        intent.setPackage(dialerPackageName)
+        Log.d(TAG, "acceptingCallWithFossify: $intent")
+        sendBroadcast(intent)
     }
 
     override fun canMakeCalls(): Boolean {
@@ -116,4 +140,11 @@ private fun simIsReady(context: Context): Boolean {
 
 private fun isAirplaneModeOn(context: Context): Boolean {
     return Settings.Global.getInt(context.contentResolver, Settings.Global.AIRPLANE_MODE_ON, 0) != 0
+}
+
+private fun defaultDialerPackageName(context: Context): String? {
+    val intent = Intent(Intent.ACTION_DIAL, "tel:".toUri())
+    val pm = context.packageManager
+    val resolveInfo = pm.resolveActivity(intent, 0)
+    return resolveInfo?.activityInfo?.packageName
 }
