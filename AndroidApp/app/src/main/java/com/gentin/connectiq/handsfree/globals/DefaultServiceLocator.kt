@@ -185,7 +185,8 @@ class DefaultServiceLocator(
                         Log.d(TAG, "appConfigIsAlreadyBroadcast: $source")
                     }
                 }
-                phoneCallService.acceptCall()
+                val withSpeakerPhone = !headPhoneConnectionMonitor.isHeadsetConnected()
+                phoneCallService.acceptCall(withSpeakerPhone)
             },
             syncV1Imp = {
                 outgoingMessageDispatcher.sendSyncYouV1(
