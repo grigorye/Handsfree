@@ -184,6 +184,7 @@ function appDidRouteToMainUI() as Void {
 function appDidRouteFromMainUI() as Void {
     if (debug) { _2(L_APP, "appDidRouteFromMainUI"); }
     setRoutedCallStateImp(null);
+    routerImp = null;
 }
 
 (:widget)
