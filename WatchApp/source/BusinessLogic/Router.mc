@@ -195,7 +195,7 @@ function exitToSystemFromCommView() as Void {
         VT.dumpViewStack("messedUpViewStack");
         System.error("viewStackIsMessedUp");
     }
-    if (VT.viewStackTagsEqual([V_comm])) {
+    if (VT.viewStackTagsEqual(viewStackTagsForCommView())) {
         if (viewDebug) { _2(L_COMM_VIEW, "willSystemExit"); }
         if (tweakingForSystemExit) {
             System.exit();
@@ -206,4 +206,19 @@ function exitToSystemFromCommView() as Void {
         if (viewDebug) { _3(L_COMM_VIEW, "poppingUpAsCommViewIsNotTop", VT.viewStackTags()); }
     }
     VT.popView(WatchUi.SLIDE_IMMEDIATE);
+}
+
+(:widget)
+function viewStackTagsForCommView() as Lang.Array<VT.ViewTag> {
+    if (System.DeviceSettings has :isGlanceModeEnabled && System.getDeviceSettings().isGlanceModeEnabled) {
+        return [V_comm];
+    }
+    else {
+        return [V_widget, V_comm];
+    }
+}
+
+(:watchApp)
+function viewStackTagsForCommView() as [VT.ViewTag] {
+    return [V_comm];
 }
