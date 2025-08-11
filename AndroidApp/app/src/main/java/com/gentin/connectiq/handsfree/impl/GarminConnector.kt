@@ -121,7 +121,7 @@ class DefaultGarminConnector(
             }
 
             SdkState.Ready -> {
-                Log.e(TAG, "shuttingDownSdkInState: Ready")
+                Log.i(TAG, "shuttingDownSdkInState: Ready")
                 shutdownSDK()
             }
 
@@ -472,28 +472,27 @@ class DefaultGarminConnector(
     }
 
     fun onSDKShutDown() {
-        if (sdkState == SdkState.ShuttingDown) {
-            Log.e(TAG, "shuttingDownSDK")
-            stopMessageProcessing()
-            clearKnownDevices()
-        } else {
+        if (sdkState != SdkState.ShuttingDown) {
+            Log.e(TAG, "shuttingDownSDKOnException, sdkState: $sdkState")
             g.startStats.sdkExceptionDates.add(Date())
             sdkState = SdkState.ShuttingDown
-            Log.e(TAG, "shuttingDownSDKOnException")
-            connectIQ.shutdown(this) // Workaround no actual shutdown on exceptions
-            sdkState = SdkState.Down
-            Log.e(TAG, "completedSDKShutdownOnException")
+        }
 
-            lifecycleScope.launch(defaultDispatcher) {
-                if (Looper.myLooper() == null) {
-                    Looper.prepare()
-                }
-                if (pendingMessages == null) {
-                    pendingMessages = ArrayList()
-                }
-                Log.e(TAG, "startingSDKAfterException")
-                startSDK()
+        Log.i(TAG, "accountingSDKShutdown")
+        stopMessageProcessing()
+        clearKnownDevices()
+        sdkState = SdkState.Down
+
+        Log.i(TAG, "schedulingSDKRestart")
+        lifecycleScope.launch(defaultDispatcher) {
+            if (Looper.myLooper() == null) {
+                Looper.prepare()
             }
+            if (pendingMessages == null) {
+                pendingMessages = ArrayList()
+            }
+            Log.i(TAG, "restartingSDK")
+            startSDK()
         }
     }
 
