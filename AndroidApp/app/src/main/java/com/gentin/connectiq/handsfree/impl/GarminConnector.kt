@@ -473,15 +473,16 @@ class DefaultGarminConnector(
 
     fun onSDKShutDown() {
         if (sdkState == SdkState.ShuttingDown) {
+            Log.e(TAG, "shuttingDownSDK")
             stopMessageProcessing()
             clearKnownDevices()
-            Log.d(TAG, "shuttingDownSDK")
         } else {
             g.startStats.sdkExceptionDates.add(Date())
-            Log.d(TAG, "relaunchingSDKOnException")
             sdkState = SdkState.ShuttingDown
+            Log.e(TAG, "shuttingDownSDKOnException")
             connectIQ.shutdown(this) // Workaround no actual shutdown on exceptions
             sdkState = SdkState.Down
+            Log.e(TAG, "completedSDKShutdownOnException")
 
             lifecycleScope.launch(defaultDispatcher) {
                 if (Looper.myLooper() == null) {
@@ -490,6 +491,7 @@ class DefaultGarminConnector(
                 if (pendingMessages == null) {
                     pendingMessages = ArrayList()
                 }
+                Log.e(TAG, "startingSDKAfterException")
                 startSDK()
             }
         }
