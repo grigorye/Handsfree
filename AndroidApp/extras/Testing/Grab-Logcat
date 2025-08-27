@@ -1,0 +1,13 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+adb_device="$1" # e.g. JELLYS0000003856
+
+date=$(date -I)
+kb=1 # everything is counted in kb
+gb=$((1024 * 1024 * kb)) # 
+rotate_kbytes=$((4 * gb))
+rotate_count=4
+adb -s "$adb_device" shell "nohup logcat --rotate-kbytes=$rotate_kbytes --rotate-count=$rotate_count -f /sdcard/logcat-$date.log  >/dev/null 2>&1 &"

@@ -1,0 +1,9 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+adb_device="$1" # e.g. JELLYS0000003856
+
+# shellcheck disable=SC2016
+adb -s "$adb_device" shell 'nohup logcat --pid=$(pgrep handsfree) -f /sdcard/Handsfree-$(date -I).log  >/dev/null 2>&1 &'
