@@ -17,6 +17,7 @@ import com.garmin.android.connectiq.IQApp
 import com.garmin.android.connectiq.IQDevice
 import com.garmin.android.connectiq.exception.InvalidStateException
 import com.garmin.android.connectiq.exception.ServiceUnavailableException
+import com.gentin.connectiq.handsfree.broadcastreceivers.CIQDeviceStatusBroadcastReceiver
 import com.gentin.connectiq.handsfree.broadcastreceivers.GCMPackageActionBroadcastReceiver
 import com.gentin.connectiq.handsfree.globals.appLogName
 import com.gentin.connectiq.handsfree.globals.simApp
@@ -117,14 +118,26 @@ class DefaultGarminConnector(
         }
     }
 
+    private val deviceStatusBroadcastReceiver = CIQDeviceStatusBroadcastReceiver { device, status ->
+        knownDevices.value?.keys?.apply {
+            if (device != null) {
+                if (!contains(device.deviceIdentifier)) {
+                    Log.i(TAG, "restartingSDKDueToUnknownDeviceDetected: ${device.deviceIdentifier}(${device.friendlyName}): $status")
+                    startConnector(context, ACTIVATE_AND_RECONNECT)
+                }
+            }
+        }
+    }
     override fun launch() {
         Log.d(TAG, "launch")
         gcmPackageActionBroadcastReceiver.registerIn(context)
+        deviceStatusBroadcastReceiver.registerIn(context)
         startSDK()
     }
 
     override fun terminate() {
         Log.d(TAG, "terminate")
+        deviceStatusBroadcastReceiver.unregisterIn(context)
         gcmPackageActionBroadcastReceiver.unregisterIn(context)
         when (sdkState) {
             SdkState.Initializing -> {
