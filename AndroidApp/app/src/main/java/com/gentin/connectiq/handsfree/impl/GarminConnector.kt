@@ -479,6 +479,7 @@ class DefaultGarminConnector(
         }
 
         Log.i(TAG, "accountingSDKShutdown")
+        stopObservingDeviceEvents()
         stopMessageProcessing()
         clearKnownDevices()
         sdkState = SdkState.Down
@@ -546,6 +547,10 @@ class DefaultGarminConnector(
                 }
             }
         }
+    }
+
+    private fun stopObservingDeviceEvents() {
+        connectIQ.unregisterAllForEvents()
     }
 
     private var pendingMessages: ArrayList<OutgoingMessage>? = ArrayList()
