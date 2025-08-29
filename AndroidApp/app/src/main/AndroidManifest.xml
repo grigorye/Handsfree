@@ -18,6 +18,9 @@
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
+    <queries>
+        <package android:name="com.garmin.android.apps.connectmobile" />
+    </queries>
 
     <application
         android:allowBackup="false"

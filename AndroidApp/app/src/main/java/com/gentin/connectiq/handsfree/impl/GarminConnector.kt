@@ -2,6 +2,7 @@ package com.gentin.connectiq.handsfree.impl
 
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.Intent
 import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
@@ -16,6 +17,7 @@ import com.garmin.android.connectiq.IQApp
 import com.garmin.android.connectiq.IQDevice
 import com.garmin.android.connectiq.exception.InvalidStateException
 import com.garmin.android.connectiq.exception.ServiceUnavailableException
+import com.gentin.connectiq.handsfree.broadcastreceivers.GCMPackageActionBroadcastReceiver
 import com.gentin.connectiq.handsfree.globals.appLogName
 import com.gentin.connectiq.handsfree.globals.simApp
 import com.gentin.connectiq.handsfree.globals.storeID
@@ -107,13 +109,23 @@ class DefaultGarminConnector(
         }
     }
 
+    private val gcmPackageActionBroadcastReceiver = GCMPackageActionBroadcastReceiver { action ->
+        when (action) {
+            Intent.ACTION_PACKAGE_ADDED, Intent.ACTION_PACKAGE_REPLACED, Intent.ACTION_PACKAGE_CHANGED -> {
+                startConnector(context, ACTIVATE_AND_RECONNECT)
+            }
+        }
+    }
+
     override fun launch() {
         Log.d(TAG, "launch")
+        gcmPackageActionBroadcastReceiver.registerIn(context)
         startSDK()
     }
 
     override fun terminate() {
         Log.d(TAG, "terminate")
+        gcmPackageActionBroadcastReceiver.unregisterIn(context)
         when (sdkState) {
             SdkState.Initializing -> {
                 Log.e(TAG, "shuttingDownSdkInState: Initializing")
