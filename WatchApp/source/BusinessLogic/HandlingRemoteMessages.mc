@@ -48,9 +48,7 @@ function handleRemoteMessage(iqMsgObject as Lang.Object or Null) as Void {
         if (minDebug) { _3(LX_REMOTE_MSG, "msg", "noCmdMsgField"); }
         return;
     }
-    if (lowMemoryDebug) {
-        _3(LX_REMOTE_MSG, "msg.cmd", cmd);
-    }
+    if (lowMemoryDebug) { _3(LX_REMOTE_MSG, "msg.cmd", cmd); }
     var args = msg[argsMsgField] as Lang.Dictionary<Lang.String, Lang.Object>;
     switch (cmd) {
         case InCmd_subjectsChanged:
@@ -66,12 +64,10 @@ function handleRemoteMessage(iqMsgObject as Lang.Object or Null) as Void {
             handleOpenMeCompleted(args);            
             break;
         default:
-            _3(LX_REMOTE_MSG, "unknownCmd", cmd);
+            if (debug) { _3(LX_REMOTE_MSG, "unknownCmd", cmd); }
             break;
     }
-    if (minDebug) {
-        _2(LX_REMOTE_MSG, "msg.committed");
-    }
+    if (minDebug) { _2(LX_REMOTE_MSG, "msg.committed"); }
 }
 
 typedef SubjectName as Lang.String;
@@ -92,14 +88,12 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
     var names = subjects.keys() as Lang.Array<Lang.String>;
     var namesCount = names.size();
     var isHit = true;
-    if (minDebug) {
-        _3(LX_REMOTE_MSG, "subjectsReceived", names);
-    }
+    if (minDebug) { _3(LX_REMOTE_MSG, "subjectsReceived", names); }
     var subjectsConfirmed = "";
     for (var i = 0; i < namesCount; i++) {
         var name = names[i];
         if (allSubjects.find(name) == null) {
-            _3(LX_REMOTE_MSG, "unknownSubject", name);
+            if (minDebug) { _3(LX_REMOTE_MSG, "unknownSubject", name); }
             continue;
         }
         var subject = subjects[name] as Lang.Dictionary<Lang.String, Lang.Object>;
@@ -160,9 +154,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
             subjectsConfirmed = subjectsConfirmed + name;
         }
     }
-    if (minDebug) {
-        _3(LX_REMOTE_MSG, "invalidation", { "pending" => subjectsInvalidated, "isHit" => isHit });
-    }
+    if (minDebug) { _3(LX_REMOTE_MSG, "invalidation", { "pending" => subjectsInvalidated, "isHit" => isHit }); }
     trackHits(isHit);
     trackSubjectsConfirmed(subjectsConfirmed);
     return subjectsInvalidated;
