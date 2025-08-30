@@ -48,7 +48,7 @@ class App extends Application.AppBase {
 
     (:typecheck([disableGlanceCheck]))
     function onAppInstall() as Void {
-        _2(L_APP, "onAppInstall");
+        if (minDebug) { _2(L_APP, "onAppInstall"); }
         AppBase.onAppInstall();
         if (isBroadcastListeningEnabled()) {        
             Req.requestSubjects(Req.allSubjects);
@@ -59,7 +59,7 @@ class App extends Application.AppBase {
     }
 
     function onAppUpdate() as Void {
-        _2(L_APP, "onAppUpdate");
+        if (minDebug) { _2(L_APP, "onAppUpdate"); }
         Storage.deleteValue("phones.v1");
     }
     
@@ -77,13 +77,13 @@ class App extends Application.AppBase {
     }
 
     function onSettingsChanged() as Void {
-        _2(L_APP, "onSettingsChanged");
+        if (minDebug) { _2(L_APP, "onSettingsChanged"); }
         appConfigDidChange();
     }
 
     (:watchAppBuild, :typecheck([disableBackgroundCheck, disableGlanceCheck]), :noLowMemory)
     function onNotification(message as Notifications.NotificationMessage) as Void {
-        _3(L_APP, "onNotification", [message.type, message.action]);
+        if (minDebug) { _3(L_APP, "onNotification", [message.type, message.action]); }
         if (message.type == Notifications.NOTIFICATION_MESSAGE_TYPE_DISMISSED) {
             dismissedNotification = true;
         }

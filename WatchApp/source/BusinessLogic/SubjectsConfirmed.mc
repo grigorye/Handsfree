@@ -8,10 +8,10 @@ function trackSubjectsConfirmed(extraSubjectsConfirmed as Lang.String) as Void {
 (:background, :noLowMemory)
 function trackSubjectsConfirmed(extraSubjectsConfirmed as Lang.String) as Void {
     if (!TemporalBroadcasting.isBroadcastListeningActive()) {
-        _3(LX_REMOTE_MSG, "subjectsNotConfirmedDueNoListening", extraSubjectsConfirmed);
+        if (minDebug) { _3(LX_REMOTE_MSG, "subjectsNotConfirmedDueNoListening", extraSubjectsConfirmed); }
         return;
     }
-    _3(LX_REMOTE_MSG, "extraSubjectsConfirmed", extraSubjectsConfirmed);
+    if (minDebug) { _3(LX_REMOTE_MSG, "extraSubjectsConfirmed", extraSubjectsConfirmed); }
     var subjectsConfirmed = Storage.getValue(Storage_subjectsConfirmed) as Lang.String | Null;
     if (subjectsConfirmed == null) {
         subjectsConfirmed = "";
@@ -22,7 +22,7 @@ function trackSubjectsConfirmed(extraSubjectsConfirmed as Lang.String) as Void {
             subjectsConfirmed = subjectsConfirmed + name;
         }
     }
-    _3(LX_REMOTE_MSG, "newSubjectsConfirmed", subjectsConfirmed);
+    if (minDebug) { _3(LX_REMOTE_MSG, "newSubjectsConfirmed", subjectsConfirmed); }
     Storage.setValue(Storage_subjectsConfirmed, subjectsConfirmed);
 }
 

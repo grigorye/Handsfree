@@ -12,7 +12,7 @@ function loadValueWithDefault(key as Lang.String, defaultValue as Lang.Object) a
 
 (:background)
 function storeVersion(key as Lang.String, version as Lang.Number) as Void {
-    _3(L_APP, "storeVersion", [key, version]);
+    if (minDebug) { _3(L_APP, "storeVersion", [key, version]); }
     Storage.setValue(key, version);
 }
 

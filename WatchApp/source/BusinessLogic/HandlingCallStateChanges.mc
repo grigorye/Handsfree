@@ -10,7 +10,7 @@ function handlePhoneStateChanged(state as PhoneState) as Void {
     var callState = getCallState();
     if (debug) { _3(L_PHONE_STATE_CHANGED, "oldCallState", callState); }
     var stateId = state[PhoneState_stateId] as Lang.String;
-    _3(L_APP, "inPhoneState", stateId);
+    if (minDebug) { _3(L_APP, "inPhoneState", stateId); }
     if (!stateId.equals(PhoneStateId_ringing)) {
         stopRequestingAttentionIfInApp();
     }
