@@ -18,14 +18,14 @@ class BackgroundServiceDelegate extends System.ServiceDelegate {
 
     function onPhoneAppMessage(msg as Communications.PhoneAppMessage) as Void {
         if (debug) { _3(L_BACKGROUND_SERVICE, "activeUiKind", activeUiKind); }
-        dumpF(L_APP, "onPhoneAppMessage");
+        if (memDebug) { dumpF(L_APP, "onPhoneAppMessage"); }
         handleRemoteMessage(msg);
         if (debug) { _3(L_BACKGROUND_SERVICE, "exit", "onPhoneAppMessage"); }
         Background.exit("onPhoneAppMessage");
     }
 
     function onTemporalEvent() as Void {
-        dumpF(L_APP, "onTemporalEvent");
+        if (memDebug) { dumpF(L_APP, "onTemporalEvent"); }
         TemporalBroadcasting.stopTemporalSubjectsBroadcasting();
     }
 }

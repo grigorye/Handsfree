@@ -14,7 +14,7 @@ module Req {
 (:background, :glance, :lowMemory)
 function transmitWithoutRetry(tagLiteral as Lang.String, msg as Lang.Object) as Void {
     var tag = formatCommTag(tagLiteral);
-    if (true) { dumpF(L_APP, "transmitWithoutRetry.preTransmit"); }
+    if (memDebug) { dumpF(L_APP, "transmitWithoutRetry.preTransmit"); }
     Communications.transmit(msg as Application.PersistableType, null, new DummyCommListener(tag));
 }
 

@@ -26,7 +26,7 @@ function requestSubjects(subjects as Lang.String) as Void {
 
 (:background, :glance, :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 function requestSubjectsWithVersionHits(subjects as Lang.String, includeVersionHits as Lang.Boolean) as Void {
-    dumpF(L_APP, "requestSubjects");
+    if (memDebug) { dumpF(L_APP, "requestSubjects"); }
     if (minDebug) { _3(L_APP, "requestSubjects", subjects); }
     var msg = msgForRequestSubjects(subjects, includeVersionHits);
     if (isActiveUiKindApp) {

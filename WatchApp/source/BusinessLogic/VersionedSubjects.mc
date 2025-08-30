@@ -35,7 +35,7 @@ function storeValue(key as Lang.String, value as Lang.Object) as Void {
     } else {
         valueSuffix = "";
     }
-    dumpF(L_APP, "storeValue: " + key + valueSuffix);
+    if (memDebug) { dumpF(L_APP, "storeValue: " + key + valueSuffix); }
     switch (key) {
         case AudioState_valueKey:
             AudioState_oldValue = Storage.getValue(key) as AudioState | Null;
