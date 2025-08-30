@@ -21,6 +21,13 @@
     {
       "type": "monkeyc",
       "request": "launch",
+      "name": "Run App on Instinct 3",
+      "stopAtLaunch": false,
+      "device": "instinct3solar45mm"
+    },
+    {
+      "type": "monkeyc",
+      "request": "launch",
       "name": "Run App on Fenix 6 Pro",
       "stopAtLaunch": false,
       "device": "fenix6pro"
