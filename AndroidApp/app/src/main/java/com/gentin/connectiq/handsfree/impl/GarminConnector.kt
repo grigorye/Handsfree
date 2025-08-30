@@ -121,12 +121,16 @@ class DefaultGarminConnector(
         knownDevices.value?.keys?.apply {
             if (device != null) {
                 if (!contains(device.deviceIdentifier)) {
-                    Log.i(TAG, "restartingSDKDueToUnknownDeviceDetected: ${device.deviceIdentifier}(${device.friendlyName}): $status")
+                    Log.i(
+                        TAG,
+                        "restartingSDKDueToUnknownDeviceDetected: ${device.deviceIdentifier}(${device.friendlyName}): $status"
+                    )
                     startConnector(context, ACTIVATE_AND_RECONNECT)
                 }
             }
         }
     }
+
     override fun launch() {
         Log.d(TAG, "launch")
         gcmPackageActionBroadcastReceiver.registerIn(context)
