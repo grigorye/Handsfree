@@ -1,8 +1,11 @@
 import Toybox.System;
 import Toybox.Lang;
 
-(:background, :glance)
+(:background, :glance, :noMemDebug)
 const memDebug = false;
+
+(:background, :glance, :memDebug)
+const memDebug = true;
 
 (:background, :glance)
 function dumpF(tag as Lang.String, loc as Lang.String) as Void {

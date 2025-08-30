@@ -164,14 +164,14 @@ build_prg() {
 if ! $build_for_side_loading; then
     iq_prefix="$iq_dir/$product_name-$dist-$type"
     iq="$iq_prefix.iq"
-    jungles="$jungle/type/$type.jungle;$jungle/dist/$dist.jungle;$jungle/versioning/release.jungle;$shared_jungle"
+    jungles="$jungle/type/$type.jungle;$jungle/dist/$dist.jungle;$jungle/versioning/$dist.jungle;$shared_jungle"
     build_iq
 else
     for device in "${dev_devices[@]}"; do
         prg_prefix="$prg_dir/$device/$product_name-beta-$type-$device"
         prg="$prg_prefix.prg"
         txt="$prg_prefix.TXT"
-        jungles="$jungle/type/$type.jungle;$jungle/dist/beta.jungle;$jungle/versioning/release.jungle;$shared_jungle"
+        jungles="$jungle/type/$type.jungle;$jungle/dist/beta.jungle;$jungle/versioning/beta.jungle;$shared_jungle"
         build_prg
         touch "$txt"
     done
