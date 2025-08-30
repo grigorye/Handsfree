@@ -3,7 +3,8 @@ project.manifest = ../../manifest-app.xml
 highMemory_excludeAnnotations = widgetBuild;widget;lowMemory;noCompanion;noReadiness;noSettings
 lowMemory_excludeAnnotations = widgetBuild;widget;noLowMemory;noCompanion;noReadiness;noSettings
 
-# Beware that we don't apply the next setting for devices with low memory
+# Beware that we don't apply the next setting for devices with low memory.
+# Don't add shared settings here, modify both high/lowMemory_excludeAnnotations instead.
 base.excludeAnnotations = $(base.excludeAnnotations);$(highMemory_excludeAnnotations)
 
 descentg1.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
