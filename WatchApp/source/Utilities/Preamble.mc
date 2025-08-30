@@ -20,11 +20,13 @@ function _preamble() as Void {
         "u" => stats.usedMemory
     };
     //             "23:57:28 "
-    System.println("-------- " + dateFormatted + " " + timeFormatted + " (" + sourceVersion + ") (" + targetUiType + "-" + featureSetRep + "-" + (testDebug ? "T" : "t") + (memDebug ? "M" : "m") + ") (" + statsRep + ")");
+    System.println(
+        "-------- "
+        + dateFormatted
+        + " "
+        + timeFormatted
+        + " (" + sourceVersion + ")"
+        + " (" + targetUiType + "-" + (lowMemory ? "L" : "l") + (testDebug ? "T" : "t") + (memDebug ? "M" : "m") + ")"
+        + " (" + statsRep + ")"
+    );
 }
-
-(:glance, :background, :lowMemory)
-const featureSetRep = "lm";
-
-(:glance, :background, :noLowMemory)
-const featureSetRep = "ff";
