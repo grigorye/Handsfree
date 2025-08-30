@@ -1,2 +1,2 @@
-versioning_excludeAnnotations = nonDistOnly;noMemDebug
+versioning_excludeAnnotations = nonDistOnly;noMemDebug;noTestDebug
 base.excludeAnnotations = $(base.excludeAnnotations);$(versioning_excludeAnnotations)

@@ -9,3 +9,9 @@ const minDebug = true;
 
 (:background, :glance, :lowMemory)
 const minDebug = false;
+
+(:background, :glance, :noTestDebug)
+const testDebug = false;
+
+(:background, :glance, :testDebug)
+const testDebug = true;
