@@ -3,7 +3,6 @@ package com.gentin.connectiq.handsfree.impl
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
-import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LiveData
@@ -508,18 +507,7 @@ class DefaultGarminConnector(
         stopMessageProcessing()
         clearKnownDevices()
         sdkState = SdkState.Down
-
-        Log.i(TAG, "schedulingSDKRestart")
-        lifecycleScope.launch(defaultDispatcher) {
-            if (Looper.myLooper() == null) {
-                Looper.prepare()
-            }
-            if (pendingMessages == null) {
-                pendingMessages = ArrayList()
-            }
-            Log.i(TAG, "restartingSDK")
-            startSDK()
-        }
+        pendingMessages = ArrayList()
     }
 
     private val knownDevices = MutableLiveData(mapOf<Long, DeviceInfo>())
