@@ -13,12 +13,6 @@ module BackgroundSystemStats {
 module BackgroundSystemStats {
 
 (:background)
-function canSaveInBackground() as Lang.Boolean {
-    var monkeyVersion = System.getDeviceSettings().monkeyVersion;
-    return monkeyVersion[0] > 3 or (monkeyVersion[0] == 3 and monkeyVersion[1] >= 2);
-}
-
-(:background)
 function saveBackgroundSystemStats() as Void {
     if (!canSaveInBackground()) {
         if (minDebug) { _3(L_APP_EXTRA, "canSaveInBackground", false); }
