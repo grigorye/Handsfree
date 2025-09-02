@@ -5,6 +5,9 @@ import Toybox.Time.Gregorian;
 
 (:glance, :background)
 function _preamble() as Void {
+    if (!testDebug) {
+        return;
+    }
     var now = Time.now();
     var info = Gregorian.info(now, Time.FORMAT_SHORT);
     System.println("");
