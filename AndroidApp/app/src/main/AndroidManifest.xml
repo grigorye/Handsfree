@@ -5,11 +5,13 @@
     <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" /> <!-- to hang up -->
     <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- to make outgoing calls -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- to observe calls in progress -->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!--  -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"
+        tools:ignore="ForegroundServicesPolicy" /> <!--  -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" /> <!--  -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- to send the contacts to the watch -->
-    <uses-permission android:name="android.permission.READ_CALL_LOG" /> <!-- to identify phone number for call in progress -->
+    <uses-permission android:name="android.permission.READ_CALL_LOG"
+        tools:ignore="SmsAndCallLogPolicy" /> <!-- to identify phone number for call in progress -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- to launch on boot -->
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" /> <!-- to not be killed -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- to direct the phone application (and let it be brought to front) -->
