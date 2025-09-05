@@ -29,13 +29,15 @@ function storeValue(key as Lang.String, value as Lang.Object) as Void {
         default:
             listValue = null;
     }
-    var valueSuffix;
-    if (listValue != null) {
-        valueSuffix = " (" + listValue.size() + ")";
-    } else {
-        valueSuffix = "";
+    if (memDebug) {
+        var valueSuffix;
+        if (listValue != null) {
+            valueSuffix = " (" + listValue.size() + ")";
+        } else {
+            valueSuffix = "";
+        }
+        dumpF(L_APP, "storeValue: " + key + valueSuffix);
     }
-    if (memDebug) { dumpF(L_APP, "storeValue: " + key + valueSuffix); }
     switch (key) {
         case AudioState_valueKey:
             AudioState_oldValue = Storage.getValue(key) as AudioState | Null;
