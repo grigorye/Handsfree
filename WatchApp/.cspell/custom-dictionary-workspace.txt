@@ -22,6 +22,7 @@ Fenix
 fēnix
 fenixe
 gh-sonoma-xcode
+gpsmaph1
 grealpath
 grigorye
 Handsfree
