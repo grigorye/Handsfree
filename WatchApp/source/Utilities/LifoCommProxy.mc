@@ -101,7 +101,11 @@ class LifoCommProxy extends Communications.ConnectionListener {
             return false;
         }
         if (simDelayTimer != null) {
-            System.error("simDelayTimerIsNotNull");
+            if (testDebug) {
+                System.error("simDelayTimerIsNotNull");
+            } else {
+                System.error("");
+            }
         }
         var timer = new Timer.Timer();
         simDelayTimer = timer;

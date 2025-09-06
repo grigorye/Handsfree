@@ -70,16 +70,28 @@ class CallActing extends CallStateImp {
     }
 
     function clone() as CallActing {
-        System.error("CallActing.clone() must be overridden");
+        if (testDebug) {
+            System.error("CallActing.clone() must be overridden");
+        } else {
+            System.error("");
+        }
     }
 
     function wouldBeNextState() as CallState {
-        System.error("CallActing.wouldBeNextState() must be overridden");
+        if (testDebug) {
+            System.error("CallActing.wouldBeNextState() must be overridden");
+        } else {
+            System.error("");
+        }
     }
 
     function stateId() as Lang.String {
         // Align with CallStateEncoding.mc.
-        System.error("CallActing.stateId() must be overridden");
+        if (testDebug) {
+            System.error("CallActing.stateId() must be overridden");
+        } else {
+            System.error("");
+        }
     }
 
     function toString() as Lang.String {

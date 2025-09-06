@@ -48,7 +48,11 @@ function encodeOptimisticCallState(callState as CallStateImp) as Application.Pro
             break;
         }
         default:
-            System.error("encodeOptimisticCallState.unexpectedCallState: " + callState);
+            if (testDebug) {
+                System.error("encodeOptimisticCallState.unexpectedCallState: " + callState);
+            } else {
+                System.error("");
+            }
     }
     return encoded as Application.PropertyValueType;
 }
@@ -68,7 +72,11 @@ function decodeOptimisticCallState(encoded as Lang.Dictionary<Lang.String, Lang.
         }
         default:
             decoded = null;
-            System.error("decodeOptimisticCallState.unexpectedType: " + type);
+            if (testDebug) {
+                System.error("decodeOptimisticCallState.unexpectedType: " + type);
+            } else {
+                System.error("");
+            }
     }
     decoded.optimistic = true;
     return decoded;

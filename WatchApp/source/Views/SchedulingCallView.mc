@@ -30,7 +30,11 @@ class SchedulingCallView extends WatchUi.ProgressBar {
                 }
                 break;
             default:
-                System.error("Unknown commStatus");
+                if (testDebug) {
+                    System.error("Unknown commStatus");
+                } else {
+                    System.error("");
+                }
         }
         ProgressBar.initialize(message, 0.0);
     }

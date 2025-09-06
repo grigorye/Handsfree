@@ -6,7 +6,11 @@ function deleteNMenuItems(menu as WatchUi.Menu2, index as Lang.Number, itemCount
     for (var i = index; i < index + itemCount; i++) {
         var existed = menu.deleteItem(index);
         if (existed == null) {
-            System.error("Failed to delete menu item at index " + index);
+            if (testDebug) {
+                System.error("Failed to delete menu item at index " + index);
+            } else {
+                System.error("");
+            }
         }
     }
 }

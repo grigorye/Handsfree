@@ -98,7 +98,11 @@ function popToViewAndPushView(parentTag as ViewTag, tag as ViewTag, view as Watc
     } else if (topViewIs(tag)) {
         if (debug) {
             if (!parentOfTopViewIs(parentTag)) {
-                System.error("popToViewAndPushView: " + parentTag + " is not parent of " + tag);
+                if (testDebug) {
+                    System.error("popToViewAndPushView: " + parentTag + " is not parent of " + tag);
+                } else {
+                    System.error("");
+                }
             }
         }
         switchToView(tag, view, delegate, WatchUi.SLIDE_IMMEDIATE);
@@ -114,7 +118,11 @@ function assertViewStackIsSane() as Void {
         if (uniqueViewTags.indexOf(viewStack[i].tag) != -1) {
             dumpViewStack("messedUp");
             if (viewDebug) { _3(L_VIEW_TRACKING, "nonUniqueView", viewStack[i]); }
-            System.error("viewStackIsMessedUp");
+            if (testDebug) {
+                System.error("viewStackIsMessedUp");
+            } else {
+                System.error("");
+            }
         }
     }
 }

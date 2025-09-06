@@ -54,7 +54,11 @@ class Router {
                         break;
                     }
                     default:
-                        System.error("Unhandled newState");
+                        if (testDebug) {
+                            System.error("Unhandled newState");
+                        } else {
+                            System.error("");
+                        }
                 }
                 break;
             case instanceof SchedulingCall:
@@ -82,7 +86,11 @@ class Router {
                         break;
                     }
                     default:
-                        System.error("Unhandled newState");
+                        if (testDebug) {
+                            System.error("Unhandled newState");
+                        } else {
+                            System.error("");
+                        }
                 }
                 break;
             case instanceof CallInProgress:
@@ -119,7 +127,11 @@ class Router {
                         break;
                     }
                     default:
-                        System.error("Unhandled newState");
+                        if (testDebug) {
+                            System.error("Unhandled newState");
+                        } else {
+                            System.error("");
+                        }
                 }
                 break;
             case instanceof CallActing:
@@ -164,11 +176,19 @@ class Router {
                         break;
                     }
                     default:
-                        System.error("Unhandled newState");
+                        if (testDebug) {
+                            System.error("Unhandled newState");
+                        } else {
+                            System.error("");
+                        }
                 }
                 break;
             default:
-                System.error("Unhandled oldState");
+                if (testDebug) {
+                    System.error("Unhandled oldState");
+                } else {
+                    System.error("");
+                }
         }
     }
 
@@ -193,7 +213,11 @@ function exitToSystemFromCommView() as Void {
     if (viewDebug) { _2(L_COMM_VIEW, "exitingToSystemFromCommView"); }
     if (!VT.topViewIs(V_comm)) {
         VT.dumpViewStack("messedUpViewStack");
-        System.error("viewStackIsMessedUp");
+        if (testDebug) {
+            System.error("viewStackIsMessedUp");
+        } else {
+            System.error("");
+        }
     }
     if (VT.viewStackTagsEqual(viewStackTagsForCommView())) {
         if (viewDebug) { _2(L_COMM_VIEW, "willSystemExit"); }

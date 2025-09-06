@@ -26,7 +26,11 @@ class CallActingView extends WatchUi.ProgressBar {
                     }
                     default: {
                         message = "";
-                        System.error("unexpectedCallState: " + callState);
+                        if (testDebug) {
+                            System.error("unexpectedCallState: " + callState);
+                        } else {
+                            System.error("");
+                        }
                     }
                 }
                 break;
@@ -46,7 +50,11 @@ class CallActingView extends WatchUi.ProgressBar {
                     }
                     default: {
                         message = "";
-                        System.error("unexpectedCallState: " + callState);
+                        if (testDebug) {
+                            System.error("unexpectedCallState: " + callState);
+                        } else {
+                            System.error("");
+                        }
                     }
                 }
                 break;
@@ -60,7 +68,11 @@ class CallActingView extends WatchUi.ProgressBar {
                 break;
             default:
                 message = "";
-                System.error("Unknown commStatus");
+                if (testDebug) {
+                    System.error("Unknown commStatus");
+                } else {
+                    System.error("");
+                }
         }
         ProgressBar.initialize(message, 0.0);
     }

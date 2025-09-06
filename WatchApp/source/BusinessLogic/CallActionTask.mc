@@ -39,7 +39,11 @@ class CallActionTask extends Communications.ConnectionListener {
             }
             default: {
                 cmd = "";
-                System.error("unknownAction: " + action);
+                if (testDebug) {
+                    System.error("unknownAction: " + action);
+                } else {
+                    System.error("");
+                }
             }
         }
         var msg = {

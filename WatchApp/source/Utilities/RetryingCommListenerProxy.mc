@@ -135,7 +135,11 @@ function dumpConnectionInfo(connectionInfo as System.ConnectionInfo) as Lang.Obj
             return "CONNECTED";
         }
         default:
-            System.error("unknownConnectionState: " + connectionInfo.state);
+            if (testDebug) {
+                System.error("unknownConnectionState: " + connectionInfo.state);
+            } else {
+                System.error("");
+            }
     }
 }
 

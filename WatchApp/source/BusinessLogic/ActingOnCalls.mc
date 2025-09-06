@@ -7,14 +7,22 @@ module Req {
 
 function hangupCallInProgress(phone as Phone) as Void {
     if (isIncomingCallPhone(phone)) {
-        System.error("isIncomingCallPhone: " + phone);
+        if (testDebug) {
+            System.error("isIncomingCallPhone: " + phone);
+        } else {
+            System.error("");
+        }
     }
     new CallActionTask(phone, CALL_IN_PROGRESS_ACTION_HANGUP).launch();
 }
 
 function acceptIncomingCall(phone as Phone) as Void {
     if (!isIncomingCallPhone(phone)) {
-        System.error("!isIncomingCallPhone: " + phone);
+        if (testDebug) {
+            System.error("!isIncomingCallPhone: " + phone);
+        } else {
+            System.error("");
+        }
     }
     deactivateRequestingAttentionTillRelaunch();
     new CallActionTask(phone, CALL_IN_PROGRESS_ACTION_ACCEPT).launch();
@@ -23,7 +31,11 @@ function acceptIncomingCall(phone as Phone) as Void {
 
 function rejectIncomingCall(phone as Phone) as Void {
     if (!isIncomingCallPhone(phone)) {
-        System.error("!isIncomingCallPhone: " + phone);
+        if (testDebug) {
+            System.error("!isIncomingCallPhone: " + phone);
+        } else {
+            System.error("");
+        }
     }
     deactivateRequestingAttentionTillRelaunch();
     new CallActionTask(phone, CALL_IN_PROGRESS_ACTION_REJECT).launch();
@@ -31,7 +43,11 @@ function rejectIncomingCall(phone as Phone) as Void {
 
 function ignoreIncomingCall(phone as Phone) as Void {
     if (!isIncomingCallPhone(phone)) {
-        System.error("!isIncomingCallPhone: " + phone);
+        if (testDebug) {
+            System.error("!isIncomingCallPhone: " + phone);
+        } else {
+            System.error("");
+        }
     }
     exitToSystemFromCurrentView();
 }

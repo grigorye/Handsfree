@@ -12,7 +12,11 @@ function trackOptimisticCallState(callState as CallStateImp) as Void {
 function untrackOptimisticCallState(callState as CallStateImp) as Void {
     var optimisticCallStates = getOptimisticCallStates();
     if (!objectsEqualOrNull(nextOptimisticCallState(), callState)) {
-        System.error("untrack.unexpectedOptimisticCallState: " + callState + ", " + optimisticCallStates);
+        if (testDebug) {
+            System.error("untrack.unexpectedOptimisticCallState: " + callState + ", " + optimisticCallStates);
+        } else {
+            System.error("");
+        }
     }
     callState.optimistic = false;
     optimisticCallStates = optimisticCallStates.slice(1, null) as CallStates;
