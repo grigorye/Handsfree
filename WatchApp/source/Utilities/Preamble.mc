@@ -29,7 +29,13 @@ function _preamble() as Void {
         + " "
         + timeFormatted
         + " (" + sourceVersion + ")"
-        + " (" + targetUiType + "-" + (lowMemory ? "L" : "l") + (testDebug ? "T" : "t") + (memDebug ? "M" : "m") + ")"
+        + " ("
+        + targetUiType + "-"
+        + (lowMemory ? "L" : "l")
+        + (testDebug ? "T" : "t")
+        + (memDebug ? "M" : "m")
+        + (errorDebug ? "E" : "e")
+        + ")"
         + " (" + statsRep + ")"
     );
 }

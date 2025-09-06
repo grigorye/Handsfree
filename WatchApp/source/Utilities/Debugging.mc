@@ -15,3 +15,6 @@ const testDebug = false;
 
 (:background, :glance, :testDebug)
 const testDebug = true;
+
+(:background, :glance, :errorDebug)
+const errorDebug = false;
