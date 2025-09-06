@@ -5,7 +5,7 @@ import Toybox.Time.Gregorian;
 
 (:glance, :background)
 function _preamble() as Void {
-    if (!testDebug) {
+    if (!(memDebug || testDebug)) {
         return;
     }
     var now = Time.now();
