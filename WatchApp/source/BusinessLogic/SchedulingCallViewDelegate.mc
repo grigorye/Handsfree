@@ -10,7 +10,7 @@ class SchedulingCallViewDelegate extends WatchUi.BehaviorDelegate {
         var callState = getCallState();
         if (debug) { _3(L_USER_ACTION, "schedulingCall.onBack.callState", callState); }
         if (!(callState instanceof SchedulingCall)) {
-            if (testDebug) {
+            if (errorDebug) {
                 System.error("badCallState: " + callState);
             } else {
                 System.error("");

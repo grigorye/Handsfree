@@ -19,7 +19,7 @@ var activeUiKind as ActiveUiKind = ACTIVE_UI_NONE;
 function setActiveUiKind(kind as ActiveUiKind) as Void {
     if (minDebug) { _3(LX_UI_KIND, "activeUiKind", kind); }
     if (!activeUiKind.equals(ACTIVE_UI_NONE)) {
-        if (testDebug) {
+        if (errorDebug) {
             System.error("Already active UI kind: " + activeUiKind);
         } else {
             System.error("");

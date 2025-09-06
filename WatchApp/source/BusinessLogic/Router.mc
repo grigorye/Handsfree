@@ -54,7 +54,7 @@ class Router {
                         break;
                     }
                     default:
-                        if (testDebug) {
+                        if (errorDebug) {
                             System.error("Unhandled newState");
                         } else {
                             System.error("");
@@ -86,7 +86,7 @@ class Router {
                         break;
                     }
                     default:
-                        if (testDebug) {
+                        if (errorDebug) {
                             System.error("Unhandled newState");
                         } else {
                             System.error("");
@@ -127,7 +127,7 @@ class Router {
                         break;
                     }
                     default:
-                        if (testDebug) {
+                        if (errorDebug) {
                             System.error("Unhandled newState");
                         } else {
                             System.error("");
@@ -176,7 +176,7 @@ class Router {
                         break;
                     }
                     default:
-                        if (testDebug) {
+                        if (errorDebug) {
                             System.error("Unhandled newState");
                         } else {
                             System.error("");
@@ -184,7 +184,7 @@ class Router {
                 }
                 break;
             default:
-                if (testDebug) {
+                if (errorDebug) {
                     System.error("Unhandled oldState");
                 } else {
                     System.error("");
@@ -213,7 +213,7 @@ function exitToSystemFromCommView() as Void {
     if (viewDebug) { _2(L_COMM_VIEW, "exitingToSystemFromCommView"); }
     if (!VT.topViewIs(V_comm)) {
         VT.dumpViewStack("messedUpViewStack");
-        if (testDebug) {
+        if (errorDebug) {
             System.error("viewStackIsMessedUp");
         } else {
             System.error("");

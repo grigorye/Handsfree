@@ -48,7 +48,7 @@ function encodeOptimisticCallState(callState as CallStateImp) as Application.Pro
             break;
         }
         default:
-            if (testDebug) {
+            if (errorDebug) {
                 System.error("encodeOptimisticCallState.unexpectedCallState: " + callState);
             } else {
                 System.error("");
@@ -72,7 +72,7 @@ function decodeOptimisticCallState(encoded as Lang.Dictionary<Lang.String, Lang.
         }
         default:
             decoded = null;
-            if (testDebug) {
+            if (errorDebug) {
                 System.error("decodeOptimisticCallState.unexpectedType: " + type);
             } else {
                 System.error("");

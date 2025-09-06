@@ -39,7 +39,7 @@ class CallActionTask extends Communications.ConnectionListener {
             }
             default: {
                 cmd = "";
-                if (testDebug) {
+                if (errorDebug) {
                     System.error("unknownAction: " + action);
                 } else {
                     System.error("");

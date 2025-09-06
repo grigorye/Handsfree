@@ -33,7 +33,7 @@ function encodeCallState(someCallState as CallState) as CallStateData {
             return { "state" => callState.stateId(), "phone" => callState.phone, "commStatus" => callState.commStatus } as CallStateData;
         }
         default: {
-            if (testDebug) {
+            if (errorDebug) {
                 System.error("Unknown call state: " + someCallState);
             } else {
                 System.error("");
@@ -47,7 +47,7 @@ function decodeCallState(callStateData as CallStateData) as CallState {
     if (debug) { _3(L_DECODING, "callStateData", callStateData); }
     var stateId = callStateData["state"] as Lang.String | Null;
     if (stateId == null) {
-        if (testDebug) {
+        if (errorDebug) {
             System.error("Call state data missing state: " + callStateData);
         } else {
             System.error("");

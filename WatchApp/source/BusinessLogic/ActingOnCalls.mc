@@ -7,7 +7,7 @@ module Req {
 
 function hangupCallInProgress(phone as Phone) as Void {
     if (isIncomingCallPhone(phone)) {
-        if (testDebug) {
+        if (errorDebug) {
             System.error("isIncomingCallPhone: " + phone);
         } else {
             System.error("");
@@ -18,7 +18,7 @@ function hangupCallInProgress(phone as Phone) as Void {
 
 function acceptIncomingCall(phone as Phone) as Void {
     if (!isIncomingCallPhone(phone)) {
-        if (testDebug) {
+        if (errorDebug) {
             System.error("!isIncomingCallPhone: " + phone);
         } else {
             System.error("");
@@ -31,7 +31,7 @@ function acceptIncomingCall(phone as Phone) as Void {
 
 function rejectIncomingCall(phone as Phone) as Void {
     if (!isIncomingCallPhone(phone)) {
-        if (testDebug) {
+        if (errorDebug) {
             System.error("!isIncomingCallPhone: " + phone);
         } else {
             System.error("");
@@ -43,7 +43,7 @@ function rejectIncomingCall(phone as Phone) as Void {
 
 function ignoreIncomingCall(phone as Phone) as Void {
     if (!isIncomingCallPhone(phone)) {
-        if (testDebug) {
+        if (errorDebug) {
             System.error("!isIncomingCallPhone: " + phone);
         } else {
             System.error("");

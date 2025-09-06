@@ -98,7 +98,7 @@ function popToViewAndPushView(parentTag as ViewTag, tag as ViewTag, view as Watc
     } else if (topViewIs(tag)) {
         if (debug) {
             if (!parentOfTopViewIs(parentTag)) {
-                if (testDebug) {
+                if (errorDebug) {
                     System.error("popToViewAndPushView: " + parentTag + " is not parent of " + tag);
                 } else {
                     System.error("");
@@ -118,7 +118,7 @@ function assertViewStackIsSane() as Void {
         if (uniqueViewTags.indexOf(viewStack[i].tag) != -1) {
             dumpViewStack("messedUp");
             if (viewDebug) { _3(L_VIEW_TRACKING, "nonUniqueView", viewStack[i]); }
-            if (testDebug) {
+            if (errorDebug) {
                 System.error("viewStackIsMessedUp");
             } else {
                 System.error("");

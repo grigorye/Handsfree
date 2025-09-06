@@ -175,7 +175,7 @@ var routedToMainUI as Lang.Boolean = false;
 
 function appDidRouteToMainUI() as Void {
     if (routedToMainUI) {
-        if (testDebug) {
+        if (errorDebug) {
             System.error("Already routed to main UI");
         } else {
             System.error("");
