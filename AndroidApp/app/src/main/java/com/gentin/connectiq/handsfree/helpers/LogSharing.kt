@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import com.gentin.connectiq.handsfree.impl.versionInfo
 import com.gentin.connectiq.handsfree.services.g
 import java.io.BufferedReader
 import java.io.BufferedWriter
@@ -38,6 +39,7 @@ fun saveLog(context: Context, uri: Uri) {
 
 fun shareLog(activity: Activity) {
     val tag = object {}.javaClass.enclosingMethod?.name
+    Log.d(tag, "${versionInfo()}")
     Log.d(tag, "startStats: $g.startStats")
     val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
         addCategory(Intent.CATEGORY_OPENABLE)
