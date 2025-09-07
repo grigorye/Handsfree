@@ -16,6 +16,7 @@ fun versionInfo(): VersionInfo {
         versionName = BuildConfig.VERSION_NAME,
         versionCode = BuildConfig.VERSION_CODE,
         sourceVersion = BuildConfig.SOURCE_VERSION,
-        buildType = BuildConfig.BUILD_TYPE
+        buildType = BuildConfig.BUILD_TYPE,
+        flavor = BuildConfig.FLAVOR
     )
 }
