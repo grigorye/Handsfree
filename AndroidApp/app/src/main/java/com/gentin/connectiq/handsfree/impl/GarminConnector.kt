@@ -27,10 +27,11 @@ import com.gentin.connectiq.handsfree.helpers.isRunningInEmulator
 import com.gentin.connectiq.handsfree.services.g
 import com.gentin.connectiq.handsfree.terms.cmdMsgField
 import com.google.gson.Gson
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Date
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 val pingBody = mapOf(cmdMsgField to "ping")
 
@@ -101,11 +102,11 @@ class DefaultGarminConnector(
         }
     }
 
-    private val defaultDispatcher: CoroutineDispatcher by lazy {
+    private val defaultDispatcher: CoroutineContext by lazy {
         if (isRunningInEmulator(context)) {
             Dispatchers.Default
         } else {
-            Dispatchers.Main
+            EmptyCoroutineContext
         }
     }
 
