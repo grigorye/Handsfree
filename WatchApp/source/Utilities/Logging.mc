@@ -9,24 +9,32 @@ typedef LogComponent as Lang.String;
 
 (:glance, :background)
 function _2(component as LogComponent, tag as Lang.String) as Void {
-    _3(component, tag, :noArg);
+    if (minDebug || testDebug) {
+        _3(component, tag, :noArg);
+    }
 }
 
 (:glance, :background)
 function _3(component as LogComponent, tag as Lang.String, value as Lang.Object or Null) as Void {
-    if (!isLogAllEnforced() && !isLogComponentEnforced(component)) {
-        return;
+    if (minDebug || testDebug) {
+        if (!isLogAllEnforced() && !isLogComponentEnforced(component)) {
+            return;
+        }
+        if (isLogComponentSuppressed(component)) {
+            return;
+        }
+        dumpImp(component, tag, value);
     }
-    if (isLogComponentSuppressed(component)) {
-        return;
-    }
-    dumpImp(component, tag, value);
 }
 
 (:glance, :background, :lowMemory)
 function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
-    var forcedComponents = [">", "<", "app", "openMe", (viewDebug && isActiveUiKindApp) ? "commView" : ""];
-    return forcedComponents.indexOf(component) != -1;
+    if (minDebug || testDebug) {
+        var forcedComponents = [">", "<", "app", "openMe", (viewDebug && isActiveUiKindApp) ? "commView" : ""];
+        return forcedComponents.indexOf(component) != -1;
+    } else {
+        return false;
+    }
 }
 
 (:glance, :background, :typecheck([disableBackgroundCheck, disableGlanceCheck]), :noLowMemory)
