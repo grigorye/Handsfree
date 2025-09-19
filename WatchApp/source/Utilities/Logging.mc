@@ -29,7 +29,7 @@ function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
     return forcedComponents.indexOf(component) != -1;
 }
 
-(:glance, :background, :typecheck([disableBackgroundCheck, disableGlanceCheck]),:noLowMemory)
+(:glance, :background, :typecheck([disableBackgroundCheck, disableGlanceCheck]), :noLowMemory)
 function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
     var forcedComponents;
     if (!isActiveUiKindApp) {
@@ -40,7 +40,7 @@ function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
     return forcedComponents.indexOf(component) != -1;
 }
 
-(:glance, :background, :typecheck([disableBackgroundCheck, disableGlanceCheck]),:noLowMemory)
+(:glance, :background, :typecheck([disableBackgroundCheck, disableGlanceCheck]), :noLowMemory)
 function isLogComponentSuppressed(component as Lang.String) as Lang.Boolean {
     if (component.equals(L_GLANCE)) {
         return !GlanceLikeSettings.isGlanceLoggingEnabled;
