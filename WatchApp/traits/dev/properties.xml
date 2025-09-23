@@ -1,13 +1,42 @@
 <resources>
     <properties>
+        <property id="glanceLogging" type="boolean">false</property>
+        <property id="forcedLogComponents" type="string">&lt;;&gt;;app</property>
+        <property id="forceLogAll" type="boolean">false</property>
         <property id="showSourceVersion" type="boolean">false</property>
         <property id="beepOnComm" type="boolean">false</property>
         <property id="statsTracking" type="boolean">false</property>
     </properties>
+    <strings>
+        <string id="glanceLogging" scope="settings">
+            🐞 Log glance
+        </string>
+        <string id="forcedLogComponents" scope="settings">
+            🐞 Force log components
+        </string>
+        <string id="forceLogAll" scope="settings">
+            🐞 Verbose logs
+        </string>
+    </strings>
     <settings>
         <setting propertyKey="@Properties.flushIncomingMessagesOnLaunch"
             title="@Strings.flushIncomingMessagesOnLaunch">
             <settingConfig type="boolean" />
+        </setting>
+        <setting
+            propertyKey="@Properties.forceLogAll"
+            title="@Strings.forceLogAll">
+            <settingConfig type="boolean" />
+        </setting>
+        <setting
+            propertyKey="@Properties.glanceLogging"
+            title="@Strings.glanceLogging">
+            <settingConfig type="boolean" />
+        </setting>
+        <setting
+            propertyKey="@Properties.forcedLogComponents"
+            title="@Strings.forcedLogComponents">
+            <settingConfig type="alphaNumeric" />
         </setting>
     </settings>
 </resources>
