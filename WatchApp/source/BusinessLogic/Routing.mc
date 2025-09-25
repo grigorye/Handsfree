@@ -1,10 +1,14 @@
 import Toybox.WatchUi;
 import Toybox.Application;
+import Toybox.System;
 
 module Routing {
 
 (:background, :noCompanion)
 function companionInfoDidChangeIfInApp() as Void {
+    if (errorDebug) {
+        System.error("Employ companionInfoEnabled check on caller side");
+    }
 }
 
 (:background, :typecheck([disableBackgroundCheck]), :companion)

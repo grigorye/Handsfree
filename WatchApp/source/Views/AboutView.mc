@@ -8,7 +8,9 @@ class AboutView extends WatchUi.Menu2 {
     function initialize() {
         Menu2.initialize({ :title => "About" });
         addItem(watchAppVersionItem());
-        addItem(companionVersionItem());
+        if (companionInfoEnabled) {
+            addItem(companionVersionItem());
+        }
     }
 
     function watchAppVersionItem() as WatchUi.MenuItem {
@@ -19,7 +21,10 @@ class AboutView extends WatchUi.Menu2 {
 
     (:noCompanion)
     function companionVersionItem() as WatchUi.MenuItem {
-        return new MenuItem("Install", "Companion App", :installCompanionApp, null);
+        if (errorDebug) {
+            System.error("Missed companionInfoEnabled check");
+        }
+        return (null as WatchUi.MenuItem?) as WatchUi.MenuItem;
     }
 
     (:companion)

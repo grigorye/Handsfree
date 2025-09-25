@@ -49,7 +49,9 @@ function storeValue(key as Lang.String, value as Lang.Object) as Void {
             AudioStateManip.updateUIForAudioStateIfRelevant(value as AudioState);
             break;
         case CompanionInfo_valueKey:
-            Routing.companionInfoDidChangeIfInApp();
+            if (companionInfoEnabled) {
+                Routing.companionInfoDidChangeIfInApp();
+            }
             break;
         case Phones_valueKey:
             PhonesManip.updateUIForPhonesIfInApp(value as Phones);
