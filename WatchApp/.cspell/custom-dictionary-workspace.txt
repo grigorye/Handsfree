@@ -18,6 +18,7 @@ edgeexplore
 edgemtb
 epix
 epix2
+etrextouch
 Fenix
 fēnix
 fenixe

@@ -24,6 +24,7 @@ edge850.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_exclud
 edgeexplore2.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 edgemtb.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 enduro.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
+etrextouch.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 fenix5plus.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 fenix5splus.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 fenix5xplus.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
