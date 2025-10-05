@@ -45,3 +45,4 @@ marqcommander.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_
 marqdriver.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 marqexpedition.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 marqgolfer.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
+venusq.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
