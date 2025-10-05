@@ -59,21 +59,26 @@ class App extends Application.AppBase {
     }
 
     function onAppUpdate() as Void {
-        if (minDebug) { _2(L_APP, "onAppUpdate"); }
+        if (minDebug || testDebug) { _2(L_APP, "onAppUpdate"); }
         Storage.deleteValue("phones.v1");
     }
     
     (:noLowMemory)
     function onStart(state as Lang.Dictionary or Null) as Void {
-        if (debug) { _3(L_APP, "onStart.state", appStateRep(state)); }
+        if (debug || testDebug) { _3(L_APP, "onStart.state", appStateRep(state)); }
+    }
+
+    (:lowMemory)
+    function onStart(state as Lang.Dictionary or Null) as Void {
+        if (debug || testDebug) { _2(L_APP, "onStart"); }
     }
 
     function onStop(state as Lang.Dictionary or Null) as Void {
         if (debug) { _3(L_APP, "onStop.state", state); }
-        if (debug) { _3(L_APP, "activeUiKindOnStop", activeUiKind); }
         if (!activeUiKind.equals(ACTIVE_UI_NONE)) {
             TemporalBroadcasting.scheduleStopTemporalSubjectsBroadcasting();
         }
+        if (minDebug || testDebug) { _3(L_APP, "activeUiKindOnStop", activeUiKind); }
     }
 
     function onSettingsChanged() as Void {
