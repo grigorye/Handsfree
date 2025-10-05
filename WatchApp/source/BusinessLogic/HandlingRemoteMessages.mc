@@ -28,12 +28,17 @@ function handleRemoteMessage(iqMsgObject as Lang.Object or Null) as Void {
         if (minDebug) { _3(LX_REMOTE_MSG, "msg", "dataIsNotObject: " + data); }
         return;
     }
+    handleRemoteMessageData(data);
+}
+
+(:background)
+function handleRemoteMessageData(data as Lang.Object) as Void {
     var lowMemoryDebug = minDebug && !isActiveUiKindApp && lowMemory;
     if (minDebug) { 
         if (lowMemoryDebug) {
             _3(LX_REMOTE_MSG, "msg", "<redacted-for-low-memory>");
         } else {
-            _3(LX_REMOTE_MSG, "msg", iqMsg.data);
+            _3(LX_REMOTE_MSG, "msg", data);
         }
     }
     didReceiveRemoteMessage();
@@ -42,7 +47,7 @@ function handleRemoteMessage(iqMsgObject as Lang.Object or Null) as Void {
         handlePing();
         return;
     }
-    var msg = iqMsg.data as Lang.Dictionary<Lang.String, Lang.Object>;
+    var msg = data as Lang.Dictionary<Lang.String, Lang.Object>;
     var cmd = msg[cmdMsgField] as Lang.String | Null;
     if (cmd == null) {
         if (minDebug) { _3(LX_REMOTE_MSG, "msg", "noCmdMsgField"); }
