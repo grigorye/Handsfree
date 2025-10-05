@@ -34,6 +34,7 @@ class App extends Application.AppBase {
         return [new Req.BackgroundServiceDelegate()];
     }
 
+    (:typecheck(disableGlanceCheck))
     function onBackgroundData(data as Application.PersistableType) as Void {
         if (memDebug) { dumpF(L_APP, "onBackgroundData"); }
         if (minDebug) { _3(LX_APP_LIFE_CYCLE, "onBackgroundData", data); }
