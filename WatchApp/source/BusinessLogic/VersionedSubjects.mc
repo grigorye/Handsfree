@@ -18,18 +18,18 @@ function storeVersion(key as Lang.String, version as Lang.Number) as Void {
 
 (:background)
 function storeValue(key as Lang.String, value as Lang.Object) as Void {
-    var listValue;
-    switch (key) {
-        case Recents_valueKey:
-            listValue = (value as Recents)[RecentsField_list] as Lang.Array;
-            break;
-        case Phones_valueKey:
-            listValue = (value as Phones)[PhonesField_list] as Lang.Array;
-            break;
-        default:
-            listValue = null;
-    }
     if (memDebug) {
+        var listValue;
+        switch (key) {
+            case Recents_valueKey:
+                listValue = (value as Recents)[RecentsField_list] as Lang.Array;
+                break;
+            case Phones_valueKey:
+                listValue = (value as Phones)[PhonesField_list] as Lang.Array;
+                break;
+            default:
+                listValue = null;
+        }
         var valueSuffix;
         if (listValue != null) {
             valueSuffix = " (" + listValue.size() + ")";
