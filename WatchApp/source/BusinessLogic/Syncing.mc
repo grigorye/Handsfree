@@ -44,16 +44,16 @@ function msgForRequestSubjects(subjects as Lang.String, includeVersionHits as La
         var name = subjects.substring(i, i + 1) as Lang.String;
         if (name.equals(appConfigSubject)) {
             subjectsArg.add([name, "" + BackgroundSettings.appConfigVersion()]);
-        } else {
-            var versionKey = versionKeyForSubject(name);
-            var version = Storage.getValue(versionKey) as Version | Null;
-            if (version != null) {
-                var versionValue = "" + version;
-                subjectsArg.add([name, versionValue]);
-            } else {
-                subjectsArg.add([name]);
-            }
+            continue;
         }
+        var versionKey = versionKeyForSubject(name);
+        var version = Storage.getValue(versionKey) as Version | Null;
+        if (version == null) {
+            subjectsArg.add([name]);
+            continue;
+        }
+        var versionValue = "" + version;
+        subjectsArg.add([name, versionValue]);
     }
     var msg = {
         cmdK => Cmd_query,
