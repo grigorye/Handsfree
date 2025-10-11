@@ -40,10 +40,15 @@ function requestSubjectsWithVersionHits(subjects as Lang.String, includeVersionH
 function msgForRequestSubjects(subjects as Lang.String, includeVersionHits as Lang.Boolean) as Lang.Object {
     var subjectsArg = [];
     var subjectsCount = subjects.length();
+    var foregroundSubjects = foregroundSubjects();
     for (var i = 0; i < subjectsCount; i++) {
         var name = subjects.substring(i, i + 1) as Lang.String;
         if (name.equals(appConfigSubject)) {
             subjectsArg.add([name, "" + BackgroundSettings.appConfigVersion()]);
+            continue;
+        }
+        if (foregroundSubjects.indexOf(name) != -1) {
+            subjectsArg.add([name]);
             continue;
         }
         var versionKey = versionKeyForSubject(name);

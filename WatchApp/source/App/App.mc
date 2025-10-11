@@ -213,6 +213,14 @@ function widgetDidShow() as Void {
 function onAppDidFinishLaunching() as Void {
     if (debug) { _2(L_APP, "onAppDidFinishLaunching"); }
     (new Req.InAppIncomingMessageDispatcher()).launch();
+    if (foregroundSubjectsEnabled) {
+        var foregroundSubjects = foregroundSubjects();
+        if (foregroundSubjects.size() > 0) {
+            if (minDebug) { _3(L_APP, "foregroundSubjectsOnLaunch", foregroundSubjects); }
+            var subjects = joinComponents(foregroundSubjects as Lang.Array<Lang.String | Null>, "");
+            Req.requestSubjects(subjects);
+        }
+    }
 }
 
 function didSeeIncomingMessageWhileRoutedToMainUI() as Void {
