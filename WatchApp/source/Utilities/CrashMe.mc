@@ -8,6 +8,7 @@ function crashMe() as Void {
     var stats = System.getSystemStats();
     var backgroundStats = BackgroundSystemStats.getBackgroundSystemStats();
     var infos = [
+        ["v", sourceVersion + (testDebug ? "-B" : "")],
         ["crashMe", null],
         ["turnOffBroadcasting", null],
         ["stats", statsRep()],
