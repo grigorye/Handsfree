@@ -18,6 +18,9 @@ const L_APP_STAT as LogComponent = "app";
 const L_APP_EXTRA as LogComponent = "app";
 
 (:glance, :background)
+var runningInBackground as Lang.Boolean = false;
+
+(:glance, :background)
 class App extends Application.AppBase {
 
     function initialize() {
@@ -30,6 +33,7 @@ class App extends Application.AppBase {
 
     (:typecheck(disableGlanceCheck))
     function getServiceDelegate() as [System.ServiceDelegate] {
+        runningInBackground = true;
         if (minDebug) { _2(L_APP_EXTRA, "getServiceDelegate"); }
         return [new Req.BackgroundServiceDelegate()];
     }
