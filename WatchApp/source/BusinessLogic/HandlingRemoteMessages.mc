@@ -154,6 +154,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
                 if (foregroundSubjectsEnabled && foregroundOnlySubjects.indexOf(name) != -1) {
                     var isPendingForeground = foregroundSubjects.indexOf(name) != -1;
                     if (runningInBackground) {
+                        if (memDebug) { dumpF(L_APP, "storeValue: " + valueKey); }
                         if (!isPendingForeground) {
                             foregroundSubjects.add(name);
                             Storage.setValue(Storage_foregroundSubjects, foregroundSubjects as Application.PropertyValueType);
