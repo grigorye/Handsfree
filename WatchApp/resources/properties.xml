@@ -13,8 +13,11 @@
         <property id="openAppViaNotification" type="boolean">true</property>
         <property id="beepOnComm" type="boolean">false</property>
         <property id="statsTracking" type="boolean">false</property>
+        <property id="glanceLogging" type="boolean">false</property>
         <property id="workaroundNoRedrawForMenu2" type="boolean">true</property>
         <property id="incomingCallVibration" type="string">v1;p1;v1;p1</property>
+        <property id="forcedLogComponents" type="string">&lt;;&gt;;app</property>
+        <property id="forceLogAll" type="boolean">false</property>
         <property id="optimisticCallHandling" type="boolean">true</property>
         <property id="followUpCommDelay" type="number">300</property>
         <property id="broadcastListening" type="boolean">false</property>
@@ -56,12 +59,21 @@
         <string id="statsTracking" scope="settings">
             🐞 Stats
         </string>
+        <string id="glanceLogging" scope="settings">
+            🐞 Log glance
+        </string>
         <string id="workaroundNoRedrawForMenu2" scope="settings">
             🐞 Workaround no redraw for Menu2
+        </string>
+        <string id="forcedLogComponents" scope="settings">
+            🐞 Force log components
         </string>
         <string id="incomingCallVibration" scope="settings">
             Incoming call vibration pattern (Fenix 7 only).
             Use 'v3;p1;v3;p2' for 'vibrate 3s, pause 1s, vibrate 3s, pause 2s'.
+        </string>
+        <string id="forceLogAll" scope="settings">
+            🐞 Verbose logs
         </string>
         <string id="flushIncomingMessagesOnLaunch" scope="settings">
             🐞 Flush incoming messages on launch
@@ -150,8 +162,18 @@
             <settingConfig type="boolean" />
         </setting>
         <setting
+            propertyKey="@Properties.forceLogAll"
+            title="@Strings.forceLogAll">
+            <settingConfig type="boolean" />
+        </setting>
+        <setting
             propertyKey="@Properties.beepOnComm"
             title="@Strings.beepOnComm">
+            <settingConfig type="boolean" />
+        </setting>
+        <setting
+            propertyKey="@Properties.glanceLogging"
+            title="@Strings.glanceLogging">
             <settingConfig type="boolean" />
         </setting>
         <setting
@@ -163,6 +185,11 @@
             propertyKey="@Properties.followUpCommDelay"
             title="@Strings.followUpCommDelay">
             <settingConfig type="numeric" />
+        </setting>
+        <setting
+            propertyKey="@Properties.forcedLogComponents"
+            title="@Strings.forcedLogComponents">
+            <settingConfig type="alphaNumeric" />
         </setting>
         <setting propertyKey="@Properties.workaroundNoRedrawForMenu2"
             title="@Strings.workaroundNoRedrawForMenu2">
