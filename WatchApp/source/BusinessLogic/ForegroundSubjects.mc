@@ -1,27 +1,27 @@
 import Toybox.Application;
 import Toybox.Lang;
 
-(:background, :lowMemory)
+(:background, :foregroundSubjects)
 const foregroundSubjectsEnabled = true;
 
-(:background, :noLowMemory)
+(:background, :noForegroundSubjects)
 const foregroundSubjectsEnabled = false;
 
-(:background, :glance, :lowMemory)
+(:background, :glance, :foregroundSubjects)
 const foregroundOnlySubjects as Lang.Array<String> = [
     phonesSubject,
     recentsSubject,
 ];
 
-(:background, :glance, :noLowMemory)
+(:background, :glance, :noForegroundSubjects)
 const foregroundOnlySubjects as Lang.Array<String> = [];
 
-(:background, :glance, :noLowMemory)
+(:background, :glance, :noForegroundSubjects)
 function foregroundSubjects() as Lang.Array<Lang.String> {
     return [];
 }
 
-(:background, :glance, :lowMemory)
+(:background, :glance, :foregroundSubjects)
 function foregroundSubjects() as Lang.Array<Lang.String> {
     var subjects = Storage.getValue(Storage_foregroundSubjects) as Lang.Array<Lang.String> or Null;
     if (subjects == null) {
