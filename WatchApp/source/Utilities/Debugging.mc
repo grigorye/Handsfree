@@ -16,7 +16,10 @@ const testDebug = false;
 (:background, :glance, :testDebug)
 const testDebug = true;
 
-(:background, :glance, :errorDebug)
+(:background, :glance, :errorDebug, :lowMemory)
+const errorDebug = false;
+
+(:background, :glance, :errorDebug, :noLowMemory)
 const errorDebug = true;
 
 (:background, :glance, :noErrorDebug)
