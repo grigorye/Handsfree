@@ -9,14 +9,13 @@ base.excludeAnnotations = $(base.excludeAnnotations);watchAppBuild;watchApp;lowM
 #
 # Also on those devices, widget memory is super limited. Hence we had to employ
 # low-memory implementations.
-lowMemory_widgetGlance_noForegroundSubjects_excludeAnnotations_extras = watchAppBuild;widget;noLowMemory;noLowMemoryManifest;noCompanion;noReadiness;noSettings;foregroundSubjects
+lowMemory_widgetGlance_excludeAnnotations_extras = watchAppBuild;widget;noLowMemory;noLowMemoryManifest;noCompanion;noReadiness;noSettings;noForegroundSubjects
+midMemory_widgetGlance_excludeAnnotations_extras = watchAppBuild;widget;noLowMemory;lowMemoryManifest;noCompanion;noReadiness;noSettings;foregroundSubjects
 
 lowMemory_excludeAnnotations = watchAppBuild;watchApp;noLowMemory;noLowMemoryManifest;noCompanion;noReadiness;noSettings;noForegroundSubjects
 lowMemory_noForegroundSubjects_excludeAnnotations = watchAppBuild;watchApp;noLowMemory;noLowMemoryManifest;noCompanion;noReadiness;settings;noForegroundSubjects
 
-highMemory_lowMemoryGlance_excludeAnnotations = watchAppBuild;watchApp;noLowMemory;lowMemoryManifest;noCompanion;noReadiness;noSettings;noForegroundSubjects
-
-descentg1.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_noForegroundSubjects_excludeAnnotations_extras)
+descentg1.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
 descentmk2.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 descentmk2s.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 edge1030.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
@@ -34,15 +33,15 @@ fenix6s.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_noFore
 fenix6spro.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 fenix6xpro.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 fr245.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_noForegroundSubjects_excludeAnnotations)
-fr245m.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
-fr55.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_noForegroundSubjects_excludeAnnotations)
-fr745.excludeAnnotations = $(versioning_excludeAnnotations);$(highMemory_lowMemoryGlance_excludeAnnotations)
-fr945.excludeAnnotations = $(versioning_excludeAnnotations);$(highMemory_lowMemoryGlance_excludeAnnotations)
-fr945lte.excludeAnnotations = $(versioning_excludeAnnotations);$(highMemory_lowMemoryGlance_excludeAnnotations)
-instinct2.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_noForegroundSubjects_excludeAnnotations_extras)
-instinct2s.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_noForegroundSubjects_excludeAnnotations_extras)
-instinct2x.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_noForegroundSubjects_excludeAnnotations_extras)
-instinctcrossover.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_noForegroundSubjects_excludeAnnotations_extras)
+fr245m.excludeAnnotations = $(versioning_excludeAnnotations);$(midMemory_widgetGlance_excludeAnnotations_extras)
+fr55.excludeAnnotations = $(versioning_excludeAnnotations);$(midMemory_widgetGlance_excludeAnnotations_extras)
+fr745.excludeAnnotations = $(versioning_excludeAnnotations);$(midMemory_widgetGlance_excludeAnnotations_extras)
+fr945.excludeAnnotations = $(versioning_excludeAnnotations);$(midMemory_widgetGlance_excludeAnnotations_extras)
+fr945lte.excludeAnnotations = $(versioning_excludeAnnotations);$(midMemory_widgetGlance_excludeAnnotations_extras)
+instinct2.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
+instinct2s.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
+instinct2x.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
+instinctcrossover.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
 marqadventurer.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 marqathlete.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 marqaviator.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
