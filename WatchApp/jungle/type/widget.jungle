@@ -12,7 +12,7 @@ base.excludeAnnotations = $(base.excludeAnnotations);watchAppBuild;watchApp;lowM
 lowMemory_widgetGlance_noForegroundSubjects_excludeAnnotations_extras = watchAppBuild;widget;noLowMemory;noCompanion;noReadiness;noSettings;foregroundSubjects
 
 lowMemory_excludeAnnotations = watchAppBuild;watchApp;noLowMemory;noCompanion;noReadiness;noSettings;noForegroundSubjects
-lowMemory_noForegroundSubjects_excludeAnnotations = watchAppBuild;watchApp;noLowMemory;noCompanion;noReadiness;settings;foregroundSubjects
+lowMemory_noForegroundSubjects_excludeAnnotations = watchAppBuild;watchApp;noLowMemory;noCompanion;noReadiness;settings;noForegroundSubjects
 
 descentg1.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_noForegroundSubjects_excludeAnnotations_extras)
 descentmk2.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
