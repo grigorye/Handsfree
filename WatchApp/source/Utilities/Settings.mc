@@ -103,6 +103,12 @@ function isBroadcastListeningEnabled() as Lang.Boolean {
     return Properties.getValue(Settings_broadcastListeningK) as Lang.Boolean;
 }
 
+(:background, :glance, :lowMemoryManifest)
+const lowMemoryManifest = true;
+
+(:background, :glance, :noLowMemoryManifest)
+const lowMemoryManifest = false;
+
 (:background)
 module BackgroundSettings {
     (:glance)
@@ -110,7 +116,7 @@ module BackgroundSettings {
         var broadcastListening = TemporalBroadcasting.isBroadcastListeningActive();
         var appConfigVersion =
             (broadcastListening ? 1 : 0)
-            + (!lowMemory ? 2 : 0)
+            + (!lowMemoryManifest ? 2 : 0)
             + (BackgroundSettings.isOpenAppOnIncomingCallEnabled() ? 4 : 0);
         if (debug) { _3(L_APP, "appConfigVersion", appConfigVersion); }
         return appConfigVersion;

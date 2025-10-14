@@ -32,6 +32,7 @@ function _preamble() as Void {
         + " ("
         + targetUiType + "-"
         + (lowMemory ? "L" : "l")
+        + (lowMemoryManifest ? "R" : "r")
         + (testDebug ? "T" : "t")
         + (memDebug ? "M" : "m")
         + (errorDebug ? "E" : "e")

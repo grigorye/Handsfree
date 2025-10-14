@@ -1,7 +1,7 @@
 project.manifest = ../../manifest-app.xml
 
-highMemory_excludeAnnotations = widgetBuild;widget;lowMemory;noCompanion;noReadiness;noSettings;foregroundSubjects
-lowMemory_excludeAnnotations = widgetBuild;widget;noLowMemory;noCompanion;noReadiness;noSettings;noForegroundSubjects
+highMemory_excludeAnnotations = widgetBuild;widget;lowMemory;lowMemoryManifest;noCompanion;noReadiness;noSettings;foregroundSubjects
+lowMemory_excludeAnnotations = widgetBuild;widget;noLowMemory;noLowMemoryManifest;noCompanion;noReadiness;noSettings;noForegroundSubjects
 
 # Beware that we don't apply the next setting for devices with low memory.
 # Don't add shared settings here, modify both high/lowMemory_excludeAnnotations instead.
