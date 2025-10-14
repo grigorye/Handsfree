@@ -1,6 +1,6 @@
 project.manifest = ../../manifest-widget.xml
 # Beware that we don't apply the next setting for some devices.
-base.excludeAnnotations = $(base.excludeAnnotations);watchAppBuild;watchApp;lowMemory;noCompanion;noReadiness;noSettings;noForegroundSubjects
+base.excludeAnnotations = $(base.excludeAnnotations);watchAppBuild;watchApp;lowMemory;noCompanion;noReadiness;noSettings;foregroundSubjects
 
 # When the app type is widget, on Instinct 2 (and some other devices), the
 # system uses glance exposed by the app. Anecdotally, the glance is not used if
