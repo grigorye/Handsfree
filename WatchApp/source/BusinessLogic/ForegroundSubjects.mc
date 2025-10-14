@@ -1,10 +1,10 @@
 import Toybox.Application;
 import Toybox.Lang;
 
-(:background, :foregroundSubjects)
+(:background, :glance, :foregroundSubjects)
 const foregroundSubjectsEnabled = true;
 
-(:background, :noForegroundSubjects)
+(:background, :glance, :noForegroundSubjects)
 const foregroundSubjectsEnabled = false;
 
 (:background, :glance, :foregroundSubjects)

@@ -35,6 +35,7 @@ function _preamble() as Void {
         + (testDebug ? "T" : "t")
         + (memDebug ? "M" : "m")
         + (errorDebug ? "E" : "e")
+        + (foregroundSubjectsEnabled ? "F" : "f")
         + ")"
         + " (" + statsRep + ")"
     );
