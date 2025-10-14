@@ -10,8 +10,8 @@ base.excludeAnnotations = $(base.excludeAnnotations);watchAppBuild;watchApp;lowM
 # Also on those devices, widget memory is super limited. Hence we had to employ
 # low-memory implementations.
 lowMemory_widgetGlance_excludeAnnotations_extras = watchAppBuild;widget;noLowMemory;noLowMemoryManifest;noCompanion;noReadiness;settings;noForegroundSubjects
-midMemory_widgetGlance_excludeAnnotations_extras = watchAppBuild;widget;noLowMemory;lowMemoryManifest;noCompanion;noReadiness;noSettings;foregroundSubjects
 
+midMemory_excludeAnnotations_extras = watchAppBuild;watchApp;noLowMemory;lowMemoryManifest;noCompanion;noReadiness;noSettings;foregroundSubjects
 lowMemory_excludeAnnotations = watchAppBuild;watchApp;noLowMemory;noLowMemoryManifest;noCompanion;noReadiness;noSettings;noForegroundSubjects
 tinyMemory_excludeAnnotations = watchAppBuild;watchApp;noLowMemory;noLowMemoryManifest;noCompanion;noReadiness;settings;noForegroundSubjects
 
@@ -33,11 +33,11 @@ fenix6s.excludeAnnotations = $(versioning_excludeAnnotations);$(tinyMemory_exclu
 fenix6spro.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 fenix6xpro.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 fr245.excludeAnnotations = $(versioning_excludeAnnotations);$(tinyMemory_excludeAnnotations)
-fr245m.excludeAnnotations = $(versioning_excludeAnnotations);$(midMemory_widgetGlance_excludeAnnotations_extras)
+fr245m.excludeAnnotations = $(versioning_excludeAnnotations);$(midMemory_excludeAnnotations_extras)
 fr55.excludeAnnotations = $(versioning_excludeAnnotations);$(tinyMemory_excludeAnnotations)
-fr745.excludeAnnotations = $(versioning_excludeAnnotations);$(midMemory_widgetGlance_excludeAnnotations_extras)
-fr945.excludeAnnotations = $(versioning_excludeAnnotations);$(midMemory_widgetGlance_excludeAnnotations_extras)
-fr945lte.excludeAnnotations = $(versioning_excludeAnnotations);$(midMemory_widgetGlance_excludeAnnotations_extras)
+fr745.excludeAnnotations = $(versioning_excludeAnnotations);$(midMemory_excludeAnnotations_extras)
+fr945.excludeAnnotations = $(versioning_excludeAnnotations);$(midMemory_excludeAnnotations_extras)
+fr945lte.excludeAnnotations = $(versioning_excludeAnnotations);$(midMemory_excludeAnnotations_extras)
 instinct2.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
 instinct2s.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
 instinct2x.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_widgetGlance_excludeAnnotations_extras)
