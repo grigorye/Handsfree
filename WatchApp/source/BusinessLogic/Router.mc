@@ -55,7 +55,7 @@ class Router {
                     }
                     default:
                         if (errorDebug) {
-                            System.error("Unhandled newState");
+                            System.error("Unhandled newState: " + newState);
                         } else {
                             System.error("");
                         }
