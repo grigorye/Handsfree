@@ -55,12 +55,7 @@ class App extends Application.AppBase {
     function onAppInstall() as Void {
         if (testDebug) { _2(L_APP, "onAppInstall"); }
         AppBase.onAppInstall();
-        if (isBroadcastListeningEnabled()) {        
-            Req.requestSubjects(Req.allSubjects);
-        } else {
-            TemporalBroadcasting.startTemporalSubjectsBroadcasting();
-            TemporalBroadcasting.scheduleStopTemporalSubjectsBroadcasting();
-        }
+        triggerRequestSubjects();
     }
 
     function onAppUpdate() as Void {
@@ -182,6 +177,16 @@ function appWillRouteToMainUI() as Void {
 }
 
 var routedToMainUI as Lang.Boolean = false;
+
+(:background)
+function triggerRequestSubjects() as Void {
+    if (isBroadcastListeningEnabled()) {
+        Req.requestSubjects(Req.allSubjects);
+    } else {
+        TemporalBroadcasting.startTemporalSubjectsBroadcasting();
+        TemporalBroadcasting.scheduleStopTemporalSubjectsBroadcasting();
+    }
+}
 
 function appDidRouteToMainUI() as Void {
     if (routedToMainUI) {
