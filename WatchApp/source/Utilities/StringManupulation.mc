@@ -28,7 +28,7 @@ function substring(value as Lang.String, start as Lang.Number, end as Lang.Numbe
     return value.substring(start, endIndex) as Lang.String;
 }
 
-(:noLowMemory)
+(:noLowMemory, :logging)
 function stringComponentsJoinedBySeparator(joined as Lang.String, separator as Lang.String) as Lang.Array<Lang.String> {
     var components = [] as Lang.Array<Lang.String>;
 

@@ -14,7 +14,11 @@ function _2(component as LogComponent, tag as Lang.String) as Void {
     }
 }
 
-(:glance, :background)
+(:glance, :background, :noLogging)
+function _3(component as LogComponent, tag as Lang.String, value as Lang.Object or Null) as Void {
+}
+
+(:glance, :background, :logging)
 function _3(component as LogComponent, tag as Lang.String, value as Lang.Object or Null) as Void {
     if (minDebug || testDebug) {
         if (!isLogAllEnforced() && !isLogComponentEnforced(component)) {
@@ -27,7 +31,7 @@ function _3(component as LogComponent, tag as Lang.String, value as Lang.Object 
     }
 }
 
-(:glance, :background, :lowMemory)
+(:glance, :background, :lowMemory, :logging)
 function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
     if (minDebug || testDebug) {
         var forcedComponents = [">", "<", "app", "openMe", (viewDebug && isActiveUiKindApp) ? "commView" : ""];
@@ -37,7 +41,7 @@ function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
     }
 }
 
-(:glance, :background, :typecheck([disableBackgroundCheck, disableGlanceCheck]), :noLowMemory)
+(:glance, :background, :typecheck([disableBackgroundCheck, disableGlanceCheck]), :noLowMemory, :logging)
 function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
     var forcedComponents;
     if (!isActiveUiKindApp) {
@@ -48,7 +52,7 @@ function isLogComponentEnforced(component as LogComponent) as Lang.Boolean {
     return forcedComponents.indexOf(component) != -1;
 }
 
-(:glance, :background, :typecheck([disableBackgroundCheck, disableGlanceCheck]), :noLowMemory)
+(:glance, :background, :typecheck([disableBackgroundCheck, disableGlanceCheck]), :noLowMemory, :logging)
 function isLogComponentSuppressed(component as Lang.String) as Lang.Boolean {
     if (component.equals(L_GLANCE)) {
         return !GlanceLikeSettings.isGlanceLoggingEnabled;
@@ -56,12 +60,12 @@ function isLogComponentSuppressed(component as Lang.String) as Lang.Boolean {
     return false;
 }
 
-(:glance, :background, :lowMemory)
+(:glance, :background, :lowMemory, :logging)
 function isLogComponentSuppressed(component as Lang.String) as Lang.Boolean {
     return false;
 }
 
-(:glance, :background)
+(:glance, :background, :logging)
 function dumpImp(component as LogComponent, tag as Lang.String, output as Lang.Object | Null) as Void {
     var prefix;
     if (!lowMemory) {
