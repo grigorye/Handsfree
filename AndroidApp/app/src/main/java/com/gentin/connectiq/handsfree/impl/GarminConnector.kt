@@ -584,7 +584,6 @@ class DefaultGarminConnector(
                     pendingMessages = ArrayList()
                 }
                 pendingMessages!!.add(message)
-                throw e
             }
         }
     }
