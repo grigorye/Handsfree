@@ -18,7 +18,6 @@ import com.gentin.connectiq.handsfree.calllogs.CallLogEntry
 import com.gentin.connectiq.handsfree.calllogs.CallLogsRepository
 import com.gentin.connectiq.handsfree.calllogs.CallLogsRepositoryImpl
 import com.gentin.connectiq.handsfree.calllogs.recentsFromCallLog
-import com.gentin.connectiq.handsfree.calllogs.recentsFromCallLogV1
 import com.gentin.connectiq.handsfree.contacts.ContactData
 import com.gentin.connectiq.handsfree.contacts.ContactsRepository
 import com.gentin.connectiq.handsfree.contacts.ContactsRepositoryImpl
@@ -597,11 +596,7 @@ class DefaultServiceLocator(
 }
 
 fun recentsFromCallLog(callLogsRepository: CallLogsRepository): List<CallLogEntry> {
-    return if ({ true }()) {
-        recentsFromCallLog(callLogsRepository, limit = recentsLimitFullFeatured)
-    } else {
-        recentsFromCallLogV1(callLogsRepository, limit = recentsLimitFullFeatured)
-    }
+    return recentsFromCallLog(callLogsRepository, limit = recentsLimitFullFeatured)
 }
 
 fun contactDataFromContacts(contactsRepository: ContactsRepository): List<ContactData> {
