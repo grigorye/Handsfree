@@ -44,6 +44,7 @@ class IncomingMessageDispatcher(
             val obj = json.decodeFromString<CommonRequest>(string)
             obj.cmd
         } catch (e: Exception) {
+            Log.d(TAG, "decodeCommonRequestFailed($json): $e")
             val obj = json.decodeFromString<CommonRequestV1>(string)
             obj.cmd
         }

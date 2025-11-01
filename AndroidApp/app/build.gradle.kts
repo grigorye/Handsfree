@@ -1,3 +1,5 @@
+@file:Suppress("RedundantLambdaOrAnonymousFunction")
+
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
 
