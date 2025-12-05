@@ -60,7 +60,7 @@ function openAppOnIncomingCall(phone as Phone) as Void {
         var msg = {
             cmdK => Cmd_openMe,
             OpenMeArgsK_messageForWakingUp => message
-        };
+        } as Message;
         transmitWithoutRetry("openMe", msg);
     } else {
         promptForIncomingCall(message);

@@ -13,7 +13,7 @@ function sendMute(on as Lang.Boolean) as Void {
     var msg = {
         cmdK => Cmd_mute,
         onArg => on
-    };
+    } as Message;
     transmitWithoutRetry("mute", msg);
 }
 
@@ -24,7 +24,7 @@ function sendAudioVolume(relVolume as RelVolume) as Void {
     var msg = {
         cmdK => Cmd_setAudioVolume,
         volumeK => relVolume
-    };
+    } as Message;
     transmitWithLifo("setAudioVolume", msg);
 }
 

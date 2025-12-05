@@ -10,7 +10,7 @@ module Req {
 function openAppInConnectIQ() as Void {
     var msg = {
         cmdK => Cmd_openAppInStore,
-    };
+    } as Message;
     transmitWithoutRetry("openAppInStore", msg);
 }
 

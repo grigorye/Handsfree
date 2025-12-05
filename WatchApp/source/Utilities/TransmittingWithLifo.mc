@@ -4,12 +4,12 @@ import Toybox.Application;
 module Req {
 
 (:lowMemory)
-function transmitWithLifo(tagLiteral as Lang.String, msg as Lang.Object) as Void {
+function transmitWithLifo(tagLiteral as Lang.String, msg as Message) as Void {
     transmitWithoutRetry(tagLiteral, msg);
 }
 
 (:noLowMemory)
-function transmitWithLifo(tagLiteral as Lang.String, msg as Lang.Object) as Void {
+function transmitWithLifo(tagLiteral as Lang.String, msg as Message) as Void {
     var proxy;
     var existingProxy = lifoCommProxies[tagLiteral];
     if (existingProxy != null) {
@@ -19,7 +19,7 @@ function transmitWithLifo(tagLiteral as Lang.String, msg as Lang.Object) as Void
         lifoCommProxies[tagLiteral] = proxy;
     }
     var tag = formatCommTag(tagLiteral);
-    proxy.send(tag, msg as Application.PersistableType);
+    proxy.send(tag, msg);
 }
 
 (:noLowMemory)

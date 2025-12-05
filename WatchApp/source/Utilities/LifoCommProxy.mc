@@ -1,6 +1,5 @@
 import Toybox.Communications;
 import Toybox.Lang;
-import Toybox.Application;
 import Toybox.Timer;
 
 (:noLowMemory)
@@ -9,9 +8,9 @@ const simulatedCommDelay = false ? 2000 : 0;
 (:noLowMemory)
 class LifoCommProxy extends Communications.ConnectionListener {
     private var tag as Lang.String | Null;
-    private var msg as Application.PersistableType | Null;
+    private var msg as Message | Null;
     private var queuedTag as Lang.String | Null;
-    private var queuedMsg as Application.PersistableType | Null;
+    private var queuedMsg as Message | Null;
     private var wrappedListener as Communications.ConnectionListener;
     (:noLowMemory)
     private var simDelayTimer as Timer.Timer | Null;
@@ -22,7 +21,7 @@ class LifoCommProxy extends Communications.ConnectionListener {
         self.wrappedListener = wrappedListener;
     }
 
-    function send(tag as Lang.String, msg as Application.PersistableType) as Void {
+    function send(tag as Lang.String, msg as Message) as Void {
         if (self.msg == null) {
             self.msg = msg;
             self.tag = tag;

@@ -37,7 +37,7 @@ function requestSubjectsWithVersionHits(subjects as Lang.String, includeVersionH
 }
 
 (:background, :glance)
-function msgForRequestSubjects(subjects as Lang.String, includeVersionHits as Lang.Boolean) as Lang.Object {
+function msgForRequestSubjects(subjects as Lang.String, includeVersionHits as Lang.Boolean) as Message {
     var subjectsArg = [];
     var subjectsCount = subjects.length();
     var foregroundSubjects = foregroundSubjects();
@@ -64,7 +64,7 @@ function msgForRequestSubjects(subjects as Lang.String, includeVersionHits as La
         cmdK => Cmd_query,
         subjectsK => subjectsArg,
         includeVersionHitsK => includeVersionHits
-    } as Lang.Object;
+    } as Message;
     return msg;
 }
 

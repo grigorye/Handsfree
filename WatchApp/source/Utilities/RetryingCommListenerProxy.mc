@@ -1,7 +1,6 @@
 import Toybox.Communications;
 import Toybox.Timer;
 import Toybox.Lang;
-import Toybox.Application;
 import Toybox.System;
 
 const L_OUT_RETRYING as LogComponent = ">";
@@ -12,35 +11,35 @@ const LX_OUT_COMM as LogComponent = ">";
 module Req {
 
 (:background, :glance, :lowMemory)
-function transmitWithoutRetry(tagLiteral as Lang.String, msg as Lang.Object) as Void {
+function transmitWithoutRetry(tagLiteral as Lang.String, msg as Message) as Void {
     var tag = formatCommTag(tagLiteral);
     if (memDebug) { dumpF(L_APP, "transmitWithoutRetry.preTransmit"); }
-    Communications.transmit(msg as Application.PersistableType, null, new DummyCommListener(tag));
+    Communications.transmit(msg, null, new DummyCommListener(tag));
 }
 
 (:background, :glance, :noLowMemory)
-function transmitWithoutRetry(tagLiteral as Lang.String, msg as Lang.Object) as Void {
+function transmitWithoutRetry(tagLiteral as Lang.String, msg as Message) as Void {
     var tag = formatCommTag(tagLiteral);
     if (minDebug) { _3(LX_OUT_COMM, tag + ".requesting", msg); }
-    Communications.transmit(msg as Application.PersistableType, null, new DummyCommListener(tag));
+    Communications.transmit(msg, null, new DummyCommListener(tag));
 }
 
-function transmitWithRetry(tagLiteral as Lang.String, msg as Lang.Object, listener as Communications.ConnectionListener) as Void {
+function transmitWithRetry(tagLiteral as Lang.String, msg as Message, listener as Communications.ConnectionListener) as Void {
     var tag = formatCommTag(tagLiteral);
-    var proxy = new RetryingCommListenerProxy(tag, msg as Application.PersistableType, listener);
+    var proxy = new RetryingCommListenerProxy(tag, msg, listener);
     proxy.launch();
 }
 
 class RetryingCommListenerProxy extends Communications.ConnectionListener {
     private var tag as Lang.String;
-    private var msg as Application.PersistableType;
+    private var msg as Message;
     private var attemptsRemaining as Lang.Number = 3;
     private var attemptNumber as Lang.Number = 0;
     private var wrappedListener as Communications.ConnectionListener;
     private var retransmitDelay as Lang.Number = 500;
     private var retransmitTimer as Timer.Timer or Null = null;
 
-    function initialize(tag as Lang.String, msg as Application.PersistableType, wrappedListener as Communications.ConnectionListener) {
+    function initialize(tag as Lang.String, msg as Message, wrappedListener as Communications.ConnectionListener) {
         ConnectionListener.initialize();
         self.tag = tag;
         self.msg = msg;
