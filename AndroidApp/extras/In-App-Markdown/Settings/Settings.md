@@ -4,6 +4,8 @@
 
 [No devices are registered.](lk:no_devices_registered_message)
 
+[Device conflict](lk:device_conflict_message)
+
 [Use Garmin Connect to register a device.](lk:no_devices_registered_suggestion)
 
 [{{symbol}}\u00A0{{device_name}}](lk:device_with_symbol_fmt) (device title)
