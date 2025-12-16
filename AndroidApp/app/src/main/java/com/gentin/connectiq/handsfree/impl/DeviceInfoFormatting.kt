@@ -64,7 +64,7 @@ fun formattedDeviceInfos(
     deviceInfos: List<DeviceInfo>,
     context: Context,
     tailorForNotifications: Boolean = false
-): String {
+): FormattedDeviceInfos {
     return if (hideDevicesWithoutApps) {
         formattedFilteredDeviceInfos(deviceInfos, context, tailorForNotifications)
     } else {
@@ -72,8 +72,8 @@ fun formattedDeviceInfos(
     }
 }
 
-fun formattedUnfilteredDeviceInfos(deviceInfos: List<DeviceInfo>): String {
-    return deviceInfos
+fun formattedUnfilteredDeviceInfos(deviceInfos: List<DeviceInfo>): FormattedDeviceInfos {
+    val text = deviceInfos
         .sortedWith(compareBy { it.connected })
         .reversed()
         .joinToString(", ") {
@@ -83,15 +83,22 @@ fun formattedUnfilteredDeviceInfos(deviceInfos: List<DeviceInfo>): String {
                 "⚠ ${it.name}"
             }
         }
+    return FormattedDeviceInfos(text = text, appConflict = null)
 }
+
+data class FormattedDeviceInfos(
+    val text: String,
+    val appConflict: Boolean?
+)
 
 fun formattedFilteredDeviceInfos(
     deviceInfos: List<DeviceInfo>,
     context: Context,
     tailorForNotifications: Boolean
-): String {
+): FormattedDeviceInfos {
     val matchingCount = deviceInfos.count { it.connected && it.installedAppsInfo.isNotEmpty() }
-    return deviceInfos
+    val appConflict = matchingCount > 1
+    val text = deviceInfos
         .filter {
             if (matchingCount > 0) {
                 it.connected && it.installedAppsInfo.isNotEmpty()
@@ -123,6 +130,7 @@ fun formattedFilteredDeviceInfos(
                 suffix
             ).joinToString(" ")
         }
+    return FormattedDeviceInfos(text = text, appConflict = appConflict)
 }
 
 fun formattedAppInfo(installedAppsInfo: List<InstalledAppInfo>, context: Context?): String? {

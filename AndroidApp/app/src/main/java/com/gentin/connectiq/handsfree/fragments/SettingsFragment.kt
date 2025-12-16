@@ -122,8 +122,9 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
                     } else {
                         ""
                     }
-                    title = formattedDeviceInfos(it, context) + "\n\n" + refreshMessage + suffix
                     summary = null
+                    val formatted = formattedDeviceInfos(it, context)
+                    title = formatted.text + "\n\n" + refreshMessage + suffix
                 } else {
                     title = getString(R.string.settings_no_devices_registered_message)
                     summary = getString(R.string.settings_no_devices_registered_suggestion)
