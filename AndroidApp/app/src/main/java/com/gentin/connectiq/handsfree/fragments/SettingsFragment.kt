@@ -122,9 +122,9 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
                     } else {
                         ""
                     }
-                    summary = null
                     val formatted = formattedDeviceInfos(it, context)
                     title = formatted.text + "\n\n" + refreshMessage + suffix
+                    summary = if (formatted.appConflict == true) { "Conflict" } else { null }
                 } else {
                     title = getString(R.string.settings_no_devices_registered_message)
                     summary = getString(R.string.settings_no_devices_registered_suggestion)

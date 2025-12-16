@@ -58,11 +58,15 @@ class NotificationContentGenerator(
             if (deviceInfos.count() > 1) {
                 val formattedDeviceInfos =
                     formattedDeviceInfos(deviceInfos, context, tailorForNotifications = true)
-                if (!outgoingCallsShouldBeEnabled(context)) {
-                    NotificationContent("Outgoing calls are off", "Serving $formattedDeviceInfos")
+                val title = if (formattedDeviceInfos.appConflict == true) {
+                    context.getString(R.string.settings_device_conflict_message)
                 } else {
-                    NotificationContent(text = "Serving $formattedDeviceInfos")
+                    null
                 }
+                NotificationContent(
+                    title = title,
+                    text = formattedDeviceInfos.text
+                )
             } else {
                 val deviceInfo = deviceInfos[0]
                 val deviceName = deviceInfo.name

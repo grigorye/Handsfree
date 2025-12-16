@@ -35,6 +35,7 @@ fun titlePrefixForDevice(
     val symbol = symbolForDeviceInfo(deviceInfo, appConflict, context)
     if (tailorForNotifications) {
         val symbolsHiddenForNotifications = listOf(
+            context.getString(R.string.settings_device_symbol_conflicting),
             context.getString(R.string.settings_device_symbol_active),
             context.getString(R.string.settings_device_symbol_standby)
         )
