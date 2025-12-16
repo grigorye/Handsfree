@@ -288,7 +288,7 @@ Without the permission, no contact names for the calls will be visible.
     <string name="settings_device_symbol_standby">"✅"</string>
     <string name="settings_device_symbol_missing_app">"⬇️️️"</string>
     <string name="settings_device_symbol_not_connected">"❌️"</string>
-    <string name="settings_device_symbol_conflicting">"‼️"</string>
+    <string name="settings_device_symbol_conflicting">"❓"</string>
     <string name="settings_device_symbol_loading">"⏳"</string>
     <string name="settings_device_suffix_silent">"(ringing off)"</string>
     <string name="settings_permission_granted_fmt">"[✅ {{link_text}}]({{link_url}})"</string>
@@ -296,5 +296,25 @@ Without the permission, no contact names for the calls will be visible.
     <string name="settings_permission_not_available_fmt">"[⛔️ {{link_text}}]({{link_url}})"</string>
     <string name="settings_no_devices_registered_message">"No devices are registered."</string>
     <string name="settings_no_devices_registered_suggestion">"Use Garmin Connect to register a device."</string>
-    <string name="settings_bluetooth_is_off">"Bluetooth off"</string>
+    <string name="settings_bluetooth_is_off">"Bluetooth is off"</string>
+    <string name="settings_device_conflict_message">"Device conflict"</string>
+    <string name="notifications_bluetooth_is_off">"Bluetooth is off"</string>
+    <string name="notifications_device_conflict">"Device conflict"</string>
+    <string name="notifications_not_connected">"Not connected"</string>
+    <string name="notifications_not_connected_hint">"Add a device via Garmin Connect"</string>
+    <string name="notifications_outgoing_calls_are_off">"Outgoing calls are off"</string>
+    <string name="notifications_connected_to_device_fmt">"Connected to {{device_name}}"</string>
+    <string name="notifications_not_connected_to_device_fmt">"Not connected to {{device_name}}"</string>
+    <string name="notifications_serving_device_fmt">"Serving {{device_name}}"</string>
+    <string name="settings_device_conflict_explanation_fmt">"HEADS UP
+More than one Garmin device with Handsfree installed is connected to the phone right now:
+
+{{devices}}
+
+This isn’t supported.
+
+To fix it:
+1) Choose ONE device to use.
+2) On all other devices, turn OFF the phone connection (or uninstall Handsfree).
+3) On the chosen device, switch the phone connection OFF, then back ON."</string>
 </resources>
