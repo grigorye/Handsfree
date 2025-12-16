@@ -22,6 +22,8 @@
 
 [(ringing off)](lk:device_suffix_silent) (no alert/vibration on incoming calls)
 
+[Bluetooth is off](lk:bluetooth_is_off) (not connected)
+
 ## [Essentials](lk:essentials_group)
 
 ### [Call control](lk:essentials)
