@@ -7,7 +7,6 @@ constraintlayout = "2.2.1"
 gson = "2.13.2"
 jacksonModuleKotlin = "2.20.1"
 kotlin = "2.2.21"
-kotlinSerialization = "2.2.21"
 kotlinxCoroutinesAndroid = "1.10.2"
 kotlinxSerializationJson = "1.9.0"
 androidxLifecycle = "2.10.0"
@@ -42,4 +41,4 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
