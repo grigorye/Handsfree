@@ -296,4 +296,5 @@ Without the permission, no contact names for the calls will be visible.
     <string name="settings_permission_not_available_fmt">"[⛔️ {{link_text}}]({{link_url}})"</string>
     <string name="settings_no_devices_registered_message">"No devices are registered."</string>
     <string name="settings_no_devices_registered_suggestion">"Use Garmin Connect to register a device."</string>
+    <string name="settings_bluetooth_is_off">"Bluetooth off"</string>
 </resources>
