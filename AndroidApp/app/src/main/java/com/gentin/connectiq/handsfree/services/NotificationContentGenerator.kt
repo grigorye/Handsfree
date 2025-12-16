@@ -72,7 +72,7 @@ class NotificationContentGenerator(
                 val deviceName = deviceInfo.name
                 if (deviceInfo.connected)
                     if (outgoingCallsShouldBeEnabled(context)) {
-                        NotificationContent(text = "Serving $deviceName")
+                        NotificationContent(title = "Serving $deviceName")
                     } else {
                         NotificationContent("Outgoing calls are off", "Connected to $deviceName")
                     }
