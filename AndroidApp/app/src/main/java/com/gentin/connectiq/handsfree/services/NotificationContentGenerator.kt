@@ -5,6 +5,9 @@ import android.text.TextUtils
 import androidx.preference.PreferenceManager
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.globals.outgoingCallsShouldBeEnabled
+import com.gentin.connectiq.handsfree.helpers.BluetoothConnector
+import com.gentin.connectiq.handsfree.helpers.BluetoothConnectorImp
+import com.gentin.connectiq.handsfree.helpers.BluetoothStatus
 import com.gentin.connectiq.handsfree.impl.GarminConnector
 import com.gentin.connectiq.handsfree.impl.formattedDeviceInfos
 import java.text.DateFormat
@@ -31,7 +34,22 @@ class NotificationContentGenerator(
         }
     }
 
+    private val bluetoothConnector: BluetoothConnector by lazy {
+        BluetoothConnectorImp()
+    }
+
     private fun releaseModeNotificationContent(): NotificationContent {
+        return if (bluetoothConnector.bluetoothStatus(context) != BluetoothStatus.On) {
+            NotificationContent(
+                text = null,
+                title = context.getString(R.string.settings_bluetooth_is_off)
+            )
+        } else {
+            knownDeviceInfoNotificationContent()
+        }
+    }
+
+    private fun knownDeviceInfoNotificationContent(): NotificationContent {
         val deviceInfos = garminConnector.knownDeviceInfos.value
 
         return if (deviceInfos.isNullOrEmpty()) {

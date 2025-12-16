@@ -8,6 +8,9 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.gentin.connectiq.handsfree.R
 import com.gentin.connectiq.handsfree.globals.DefaultServiceLocator
+import com.gentin.connectiq.handsfree.helpers.BluetoothConnector
+import com.gentin.connectiq.handsfree.helpers.BluetoothConnectorImp
+import com.gentin.connectiq.handsfree.helpers.BluetoothStatus
 import com.gentin.connectiq.handsfree.impl.DeviceInfo
 import com.gentin.connectiq.handsfree.impl.formattedDeviceInfos
 import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForEssentials
@@ -99,13 +102,20 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
         )
     }
 
+    val bluetoothConnector: BluetoothConnector by lazy {
+        BluetoothConnectorImp()
+    }
+
     private fun setupDevicesPreference(
         knownDeviceInfos: LiveData<List<DeviceInfo>> = DefaultServiceLocator.knownDeviceInfos
     ) {
         knownDeviceInfos.observe(this) {
             Log.d(TAG, "knownDeviceInfosDidChange: $it")
             devicesPreference?.apply {
-                if (it.isNotEmpty()) {
+                if (bluetoothConnector.bluetoothStatus(context) != BluetoothStatus.On) {
+                    title = context.getString(R.string.settings_bluetooth_is_off)
+                    summary = null
+                } else if (it.isNotEmpty()) {
                     val message = messageForDeviceInfos(it)
                     val suffix = if (message != "") {
                         "\n\n" + message
