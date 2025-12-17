@@ -42,7 +42,7 @@ class NotificationContentGenerator(
         return if (bluetoothConnector.bluetoothStatus(context) != BluetoothStatus.On) {
             NotificationContent(
                 text = null,
-                title = context.getString(R.string.settings_bluetooth_is_off)
+                title = context.getString(R.string.notifications_bluetooth_is_off)
             )
         } else {
             knownDeviceInfoNotificationContent()
@@ -53,13 +53,15 @@ class NotificationContentGenerator(
         val deviceInfos = garminConnector.knownDeviceInfos.value
 
         return if (deviceInfos.isNullOrEmpty()) {
-            NotificationContent("Not connected", "Add a device via Garmin Connect")
+            val title = context.getString(R.string.notifications_not_connected)
+            val text = context.getString(R.string.notifications_not_connected_hint)
+            NotificationContent(title, text)
         } else {
             if (deviceInfos.count() > 1) {
                 val formattedDeviceInfos =
                     formattedDeviceInfos(deviceInfos, context, tailorForNotifications = true)
                 val title = if (formattedDeviceInfos.appConflict == true) {
-                    context.getString(R.string.settings_device_conflict_message)
+                    context.getString(R.string.notifications_device_conflict)
                 } else {
                     null
                 }
@@ -70,14 +72,22 @@ class NotificationContentGenerator(
             } else {
                 val deviceInfo = deviceInfos[0]
                 val deviceName = deviceInfo.name
-                if (deviceInfo.connected)
+                if (deviceInfo.connected) {
                     if (outgoingCallsShouldBeEnabled(context)) {
-                        NotificationContent(title = "Serving $deviceName")
+                        val title = context.getString(R.string.notifications_serving_device_fmt)
+                            .replace("{{device_name}}", deviceName)
+                        NotificationContent(title = title)
                     } else {
-                        NotificationContent("Outgoing calls are off", "Connected to $deviceName")
+                        val title = context.getString(R.string.notifications_outgoing_calls_are_off)
+                        val text = context.getString(R.string.notifications_connected_to_device_fmt)
+                            .replace("{{device_name}}", deviceName)
+                        NotificationContent(title, text)
                     }
-                else
-                    NotificationContent("Not connected to $deviceName")
+                } else {
+                    val text = context.getString(R.string.notifications_not_connected_to_device_fmt)
+                        .replace("{{device_name}}", deviceName)
+                    NotificationContent(title = text)
+                }
             }
         }
     }
