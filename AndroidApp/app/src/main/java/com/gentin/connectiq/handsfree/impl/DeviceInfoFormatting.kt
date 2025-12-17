@@ -124,7 +124,7 @@ fun formattedFilteredDeviceInfos(
             listOfNotNull(
                 titleForDevice(
                     it,
-                    appConflict = matchingCount > 1,
+                    appConflict = appConflict,
                     context = context,
                     tailorForNotifications = tailorForNotifications
                 ),
