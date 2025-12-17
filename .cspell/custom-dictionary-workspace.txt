@@ -1,5 +1,6 @@
 bmptopnm
 kbytes
+kotlinx
 magick
 pamcomp
 pngtopnm
