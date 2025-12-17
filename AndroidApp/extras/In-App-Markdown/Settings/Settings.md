@@ -8,7 +8,7 @@
 
 [{{symbol}}\u00A0{{device_name}}](lk:device_with_symbol_fmt) (device title)
 
-[❗️️](lk:device_symbol_conflicting) (conflicting)
+[❓](lk:device_symbol_conflicting) (conflicting)
 
 [⏳](lk:device_symbol_loading) (loading app config)
 
