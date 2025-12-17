@@ -185,22 +185,5 @@ fun symbolForDeviceInfo(deviceInfo: DeviceInfo, appConflict: Boolean, context: C
     }
 }
 
-fun messageForDeviceInfos(deviceInfos: List<DeviceInfo>): String {
-    val matchingCount = deviceInfos.count { it.connected && it.installedAppsInfo.isNotEmpty() }
-    val message = if (matchingCount > 1) {
-        listOf(
-            "Only *one* connected Handsfree-enabled device is supported a time!",
-            "To workaround the issue,",
-            "1. Do one of the following:",
-            "- Uninstall the app from all but one of the devices and tap $refreshMessage.",
-            "- Disable phone connection on all but one of the devices.",
-            "2. Then toggle the phone connection OFF and ON on the only remaining Handsfree-enabled device."
-        )
-    } else {
-        listOf()
-    }
-    return message.joinToString("\n\n")
-}
-
 const val nbsp = " "
 const val refreshMessage = "🔄${nbsp}Refresh"

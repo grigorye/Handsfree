@@ -1,6 +1,7 @@
 package com.gentin.connectiq.handsfree.fragments
 
 import android.Manifest
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -18,7 +19,6 @@ import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForIncomingCall
 import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForOutgoingCalls
 import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForRecents
 import com.gentin.connectiq.handsfree.impl.hasRequiredPermissionsForStarredContacts
-import com.gentin.connectiq.handsfree.impl.messageForDeviceInfos
 import com.gentin.connectiq.handsfree.impl.refreshMessage
 import com.gentin.connectiq.handsfree.onboarding.resolveLink
 import com.gentin.connectiq.handsfree.permissions.isPermissionRequested
@@ -116,15 +116,8 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
                     title = context.getString(R.string.settings_bluetooth_is_off)
                     summary = null
                 } else if (it.isNotEmpty()) {
-                    val message = messageForDeviceInfos(it)
-                    val suffix = if (message != "") {
-                        "\n\n" + message
-                    } else {
-                        ""
-                    }
-                    val formatted = formattedDeviceInfos(it, context)
-                    title = formatted.text + "\n\n" + refreshMessage + suffix
-                    summary = if (formatted.appConflict == true) { "Conflict" } else { null }
+                    title = messageForDeviceInfos(it, context)
+                    summary = null
                 } else {
                     title = getString(R.string.settings_no_devices_registered_message)
                     summary = getString(R.string.settings_no_devices_registered_suggestion)
@@ -240,3 +233,15 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
 }
 
 private val disableExtrasWithEssentials get() = false
+
+fun messageForDeviceInfos(deviceInfos: List<DeviceInfo>, context: Context): String {
+    val matchingCount = deviceInfos.count { it.connected && it.installedAppsInfo.isNotEmpty() }
+    val formatted = formattedDeviceInfos(deviceInfos, context)
+    val message = if (matchingCount > 1) {
+        context.getString(R.string.settings_device_conflict_explanation_fmt)
+            .replace("{{devices}}", formatted.text)
+    } else {
+        formatted.text
+    }
+    return message + "\n\n" + refreshMessage
+}
