@@ -59,7 +59,12 @@ class NotificationContentGenerator(
         } else {
             if (deviceInfos.count() > 1) {
                 val formattedDeviceInfos =
-                    formattedDeviceInfos(deviceInfos, context, tailorForNotifications = true)
+                    formattedDeviceInfos(
+                        deviceInfos,
+                        context,
+                        tailorForNotifications = true,
+                        separator = ", "
+                    )
                 val title = if (formattedDeviceInfos.appConflict == true) {
                     context.getString(R.string.notifications_device_conflict)
                 } else {

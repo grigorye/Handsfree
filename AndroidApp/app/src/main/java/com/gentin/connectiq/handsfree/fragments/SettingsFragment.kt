@@ -116,7 +116,7 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
                     title = context.getString(R.string.settings_bluetooth_is_off)
                     summary = null
                 } else if (it.isNotEmpty()) {
-                    title = messageForDeviceInfos(it, context)
+                    title = messageForDeviceInfos(it, context, tailorForNotifications = false)
                     summary = null
                 } else {
                     title = getString(R.string.settings_no_devices_registered_message)
@@ -234,9 +234,19 @@ class SettingsFragment(private val preferencesResId: Int = R.xml.root_preference
 
 private val disableExtrasWithEssentials get() = false
 
-fun messageForDeviceInfos(deviceInfos: List<DeviceInfo>, context: Context): String {
+fun messageForDeviceInfos(
+    deviceInfos: List<DeviceInfo>,
+    context: Context,
+    tailorForNotifications: Boolean
+): String {
+    val separator = "\n"
     val matchingCount = deviceInfos.count { it.connected && it.installedAppsInfo.isNotEmpty() }
-    val formatted = formattedDeviceInfos(deviceInfos, context)
+    val formatted = formattedDeviceInfos(
+        deviceInfos,
+        context,
+        separator = separator,
+        tailorForNotifications = tailorForNotifications
+    )
     val message = if (matchingCount > 1) {
         context.getString(R.string.settings_device_conflict_explanation_fmt)
             .replace("{{devices}}", formatted.text)

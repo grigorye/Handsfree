@@ -64,10 +64,16 @@ private fun isSilent(deviceInfo: DeviceInfo): Boolean {
 fun formattedDeviceInfos(
     deviceInfos: List<DeviceInfo>,
     context: Context,
-    tailorForNotifications: Boolean = false
+    tailorForNotifications: Boolean = false,
+    separator: String,
 ): FormattedDeviceInfos {
     return if (hideDevicesWithoutApps) {
-        formattedFilteredDeviceInfos(deviceInfos, context, tailorForNotifications)
+        formattedFilteredDeviceInfos(
+            deviceInfos,
+            context,
+            tailorForNotifications,
+            separator = separator
+        )
     } else {
         formattedUnfilteredDeviceInfos(deviceInfos)
     }
@@ -95,7 +101,8 @@ data class FormattedDeviceInfos(
 fun formattedFilteredDeviceInfos(
     deviceInfos: List<DeviceInfo>,
     context: Context,
-    tailorForNotifications: Boolean
+    tailorForNotifications: Boolean,
+    separator: String? = null,
 ): FormattedDeviceInfos {
     val matchingCount = deviceInfos.count { it.connected && it.installedAppsInfo.isNotEmpty() }
     val appConflict = matchingCount > 1
@@ -115,7 +122,7 @@ fun formattedFilteredDeviceInfos(
             }
         })
         .reversed()
-        .joinToString(",$nbsp ") {
+        .joinToString(separator ?: ",$nbsp ") {
             val suffix = if (it.connected) {
                 formattedAppInfo(it.installedAppsInfo, context)
             } else {
