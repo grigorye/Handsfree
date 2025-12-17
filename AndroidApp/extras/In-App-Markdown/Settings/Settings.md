@@ -26,6 +26,18 @@
 
 [Bluetooth is off](lk:bluetooth_is_off) (not connected)
 
+[HEADS UP
+More than one Garmin device with Handsfree installed is connected to the phone right now:
+
+{{devices}}
+
+This isn’t supported.
+
+To fix it:
+1) Choose ONE device to use.
+2) On all other devices, turn OFF the phone connection (or uninstall Handsfree).
+3) On the chosen device, switch the phone connection OFF, then back ON.](lk:device_conflict_explanation_fmt)
+
 ## [Essentials](lk:essentials_group)
 
 ### [Call control](lk:essentials)
