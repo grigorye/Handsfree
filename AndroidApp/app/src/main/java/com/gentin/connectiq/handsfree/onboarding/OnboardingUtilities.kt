@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import android.view.View
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -78,14 +79,17 @@ fun resolveLink(link: String, fragment: Fragment, navigationLabel: String? = nul
                     startConnector(context, ACTIVATE_AND_RECONNECT)
                     val contextView = fragment.view
                     contextView?.apply {
-                        Snackbar
+                        val snackbar = Snackbar
                             .make(
                                 this,
                                 R.string.overview_snackbar_reconnecting_connectiq,
                                 Snackbar.LENGTH_SHORT
                             )
-                            .setAnchorView(R.id.nav_bar_view)
-                            .show()
+                        val navBar = fragment.requireActivity().findViewById<View>(R.id.nav_bar_view)
+                        if (navBar?.isShown == true) {
+                            snackbar.anchorView = navBar
+                        }
+                        snackbar.show()
                     }
                 }
 
