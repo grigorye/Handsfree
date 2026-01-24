@@ -16,6 +16,7 @@ import com.garmin.android.connectiq.IQApp
 import com.garmin.android.connectiq.IQDevice
 import com.garmin.android.connectiq.exception.InvalidStateException
 import com.garmin.android.connectiq.exception.ServiceUnavailableException
+import com.gentin.connectiq.handsfree.broadcastreceivers.BluetoothStatusBroadcastReceiver
 import com.gentin.connectiq.handsfree.broadcastreceivers.CIQDeviceStatusBroadcastReceiver
 import com.gentin.connectiq.handsfree.broadcastreceivers.GCMPackageActionBroadcastReceiver
 import com.gentin.connectiq.handsfree.globals.appLogName
@@ -131,11 +132,13 @@ class DefaultGarminConnector(
             }
         }
     }
+    private val bluetoothStatusBroadcastReceiver = BluetoothStatusBroadcastReceiver()
 
     override fun launch() {
         Log.d(TAG, "launch")
         gcmPackageActionBroadcastReceiver.registerIn(context)
         deviceStatusBroadcastReceiver.registerIn(context)
+        bluetoothStatusBroadcastReceiver.registerIn(context)
         startSDK()
     }
 
@@ -143,6 +146,7 @@ class DefaultGarminConnector(
         Log.d(TAG, "terminate")
         deviceStatusBroadcastReceiver.unregisterIn(context)
         gcmPackageActionBroadcastReceiver.unregisterIn(context)
+        bluetoothStatusBroadcastReceiver.unregisterIn(context)
         when (sdkState) {
             SdkState.Initializing -> {
                 Log.e(TAG, "shuttingDownSdkInState: Initializing")
