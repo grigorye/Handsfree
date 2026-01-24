@@ -33,7 +33,7 @@ class GCMPackageActionBroadcastReceiver(
         }
     }
 
-    companion object Companion {
+    companion object {
         private val TAG = GCMPackageActionBroadcastReceiver::class.java.simpleName
     }
 }

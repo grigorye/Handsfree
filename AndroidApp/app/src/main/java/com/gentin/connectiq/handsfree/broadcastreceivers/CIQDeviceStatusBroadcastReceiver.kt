@@ -38,7 +38,7 @@ class CIQDeviceStatusBroadcastReceiver(
         handleDeviceStatus(device, status)
     }
 
-    companion object Companion {
+    companion object {
         private val TAG = CIQDeviceStatusBroadcastReceiver::class.java.simpleName
     }
 }
