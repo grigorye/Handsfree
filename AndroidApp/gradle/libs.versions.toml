@@ -4,8 +4,10 @@ androidsvgAar = "1.4"
 appcompat = "1.7.1"
 ciqCompanionAppSdk = "2.3.0"
 constraintlayout = "2.2.1"
+coreTesting = "2.2.0"
 gson = "2.13.2"
 jacksonModuleKotlin = "2.21.0"
+junit = "4.13.2"
 kotlin = "2.3.0"
 kotlinxCoroutinesAndroid = "1.10.2"
 kotlinxSerializationJson = "1.10.0"
@@ -15,11 +17,13 @@ androidxPreference = "1.2.1"
 doki = "0.0.1"
 markwon = "4.6.2"
 material = "1.13.0"
+mockk = "1.14.7"
 
 [libraries]
 androidsvg-aar = { module = "com.caverock:androidsvg-aar", version.ref = "androidsvgAar" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
 androidx-lifecycle-livedata-core-ktx = { module = "androidx.lifecycle:lifecycle-livedata-core-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-service = { module = "androidx.lifecycle:lifecycle-service", version.ref = "androidxLifecycle" }
@@ -30,6 +34,7 @@ androidx-preference-ktx = { module = "androidx.preference:preference-ktx", versi
 ciq-companion-app-sdk = { module = "com.garmin.connectiq:ciq-companion-app-sdk", version.ref = "ciqCompanionAppSdk" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jacksonModuleKotlin" }
+junit = { module = "junit:junit", version.ref = "junit" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 doki = { module = "dev.doubledot.doki:library", version.ref = "doki" }
@@ -37,6 +42,7 @@ markwon-core = { module = "io.noties.markwon:core", version.ref = "markwon" }
 markwon-html = { module = "io.noties.markwon:html", version.ref = "markwon" }
 markwon-image = { module = "io.noties.markwon:image", version.ref = "markwon" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

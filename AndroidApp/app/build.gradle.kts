@@ -121,6 +121,10 @@ dependencies {
     implementation(libs.markwon.html)
 
     implementation(libs.androidsvg.aar)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.androidx.core.testing)
 }
 java {
     toolchain {
