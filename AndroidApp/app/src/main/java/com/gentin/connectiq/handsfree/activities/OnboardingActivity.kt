@@ -67,7 +67,7 @@ class OnboardingActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissi
             val insets =
                 windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
             v.updatePadding(top = insets.top, left = insets.left, right = insets.right)
-            WindowInsetsCompat.CONSUMED
+            windowInsets
         }
 
         val navHostFragment =
@@ -80,12 +80,18 @@ class OnboardingActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissi
             v.updatePadding(left = insets.left, right = insets.right)
             val bottomInset = if (binding.navBarView.isGone) insets.bottom else 0
             v.updatePadding(bottom = bottomInset)
-            WindowInsetsCompat.CONSUMED
+            windowInsets
         }
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         val navBarView = binding.navBarView
+        ViewCompat.setOnApplyWindowInsetsListener(navBarView) { v, windowInsets ->
+            val insets =
+                windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+            v.updatePadding(left = insets.left, bottom = insets.bottom, right = insets.right)
+            windowInsets
+        }
         navBarView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
