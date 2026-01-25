@@ -1,11 +1,9 @@
 @file:Suppress("RedundantLambdaOrAnonymousFunction")
 
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
 
     id("androidx.navigation.safeargs.kotlin")
@@ -63,11 +61,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlin {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_1_8)
-        }
     }
     flavorDimensions += listOf("distribution")
     productFlavors {
