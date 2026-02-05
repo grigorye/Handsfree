@@ -1,0 +1,93 @@
+#! /bin/bash
+
+set -x
+set -euo pipefail
+
+# Saves Android build outputs into a versioned folder under:
+#   ~/Workbench/Handsfree-Archives/AndroidApp/<N>/
+#
+# Copies only deliverables (apk/, bundle/) and excludes logs/ and sdk-dependencies/.
+
+wd=$(dirname "$0")
+android_root="$wd"/../..
+
+archive_dir_default="$HOME/Workbench/Handsfree-Archives/AndroidApp"
+archive_dir="${ARCHIVE_DIR:-$archive_dir_default}"
+
+dry_run=false
+
+usage() {
+  cat <<EOF
+Usage: $(basename "$0") [--archive-dir DIR] [--dry-run]
+
+Options:
+  --archive-dir DIR  Override archive directory (default: $archive_dir_default)
+  --dry-run          Print what would be done without copying
+
+Environment:
+  ARCHIVE_DIR         Same as --archive-dir
+EOF
+}
+
+while (( "$#" )); do
+  case "$1" in
+    --archive-dir)
+      shift
+      archive_dir="$1"
+      ;;
+    --dry-run)
+      dry_run=true
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown argument: $1" >&2
+      usage >&2
+      exit 2
+      ;;
+  esac
+  shift
+done
+
+outputs_dir="$android_root/app/build/outputs"
+
+if [[ ! -d "$outputs_dir" ]]; then
+  echo "Missing outputs dir: $outputs_dir" >&2
+  echo "Build the Android app first (e.g. ./gradlew assemble)" >&2
+  exit 2
+fi
+
+mkdir -p "$archive_dir"
+
+version_props="$android_root/app/version.properties"
+if [[ ! -f "$version_props" ]]; then
+  echo "Missing version properties: $version_props" >&2
+  exit 2
+fi
+
+version_code=$(awk -F= '/^versionCode=/{print $2}' "$version_props" | tr -d '[:space:]')
+if [[ -z "${version_code:-}" ]]; then
+  echo "Could not read versionCode from $version_props" >&2
+  exit 2
+fi
+
+dest="$archive_dir/$version_code"
+
+if [[ "$dry_run" == "true" ]]; then
+  exit 0
+fi
+
+mkdir -p "$dest"
+
+rsync \
+  -av \
+  --delete \
+  --exclude='logs/' \
+  --exclude='sdk-dependencies/' \
+  --exclude='.DS_Store' \
+  "$outputs_dir/" \
+  "$dest/"
+
+/bin/ls -la "$dest" | head -n 80
