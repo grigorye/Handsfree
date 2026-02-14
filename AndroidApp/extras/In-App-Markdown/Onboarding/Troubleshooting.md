@@ -8,7 +8,7 @@ There are several components that should work together for normal operation of H
 
 **[Follow hints for running apps in background on your phone](do://doki)** - this is crucial to do after you first install the app.
 
-**[Check Handsfree app settings](do://settings)** to make sure the necessary permissions are given, it's not blocked from running in the background by something extra and etc.
+**[Check Handsfree app settings](do://settings)** to make sure the necessary permissions are given, it's not blocked from running in the background by something extra etc.
 
 ### If things go wrong out of sudden
 
