@@ -16,7 +16,7 @@ To provide this minimum functionality, Handsfree needs a few essential permissio
 
 To be able to observe and hangup calls from your watch, Handsfree needs the permission from you to make and manage calls.
 
-Without the permission, Handsfree won't be able to perform much of its job, as it won't be able to see a call in progress to show you the call status on the watch, neither it would be able to hangup a call on your request from the watch.
+Without the permission, Handsfree won't be able to perform much of its job, as it won't be able to see a call in progress to show you the call status on the watch, neither it would be able to hang up a call on your request from the watch.
 
 ### [Always run in background](permissions://?battery_optimization)
 
@@ -26,7 +26,7 @@ Without the permission, you'll still be able to use it while it's in the foregro
 
 ### [Send you notifications](permissions://?manifest=android.permission.POST_NOTIFICATIONS)
 
-To be able to serve your request while working in background, Handsfree needs the permission to show you a notification. This is a measure for you to be sure that it's running in the background/awaiting for your requests from the watch. It also shows you a bit of current status of the connection to your watch.
+To be able to serve your request while working in background, Handsfree needs the permission to show you a notification. This is a measure for you to be sure that it's running in the background/awaiting your requests from the watch. It also shows you a bit of current status of the connection to your watch.
 
 Without the permission, the system will stop Handsfree soon after it switches to the background.
 
@@ -113,7 +113,7 @@ There are several components that should work together for normal operation of H
 
 **[Follow hints for running apps in background on your phone](do://doki)** - this is crucial to do after you first install the app.
 
-**[Check Handsfree app settings](do://settings)** to make sure the necessary permissions are given, it's not blocked from running in the background by something extra and etc.
+**[Check Handsfree app settings](do://settings)** to make sure the necessary permissions are given, it's not blocked from running in the background by something extra etc.
 
 ### If things go wrong out of sudden
 
