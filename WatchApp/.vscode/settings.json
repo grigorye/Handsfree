@@ -16,7 +16,7 @@
   },
   "prettierMonkeyC.typeCheckLevel": "Strict",
   "monkeyC.typeCheckLevel": "Strict",
-  "monkeyC.compilerOptions": "--build-stats 0 -r",
+  "monkeyC.compilerOptions": "--build-stats 0 --release",
   "prettierMonkeyC.checkCompilerLookupRules": "OFF",
   "cSpell.customDictionaries": {
     "custom-dictionary-workspace": {
