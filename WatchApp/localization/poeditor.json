@@ -1,0 +1,13 @@
+{
+  "api_token_env": "POEDITOR_API_TOKEN",
+  "project_id": "823926",
+  "reference_language": "en",
+  "target_languages": [
+    { "poeditor": "ru", "garmin": "rus" }
+  ],
+  "manifest_files": [
+    "manifest-app.xml",
+    "manifest-widget.xml"
+  ],
+  "output_dir_pattern": "resources-{garmin}"
+}
