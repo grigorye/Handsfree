@@ -144,29 +144,34 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
         var versionKey = versionKeyForSubject(name);
         var oldVersion = Storage.getValue(versionKey) as Version | Null;
         var foregroundSubjects = foregroundSubjects();
-        if (!version.equals(oldVersion) || (foregroundSubjectsEnabled && foregroundSubjects.indexOf(name) != -1)) {
+        if (!version.equals(oldVersion) || (foregroundSubjectsEnabled && foregroundSubjects.find(name) != null)) {
             var value = subject[valueK];
             if (value == null) {
                 subjectsInvalidated = subjectsInvalidated + name;
             } else {
                 var valueKey = valueKeyForSubject(name);
                 storeVersion(versionKey, version);
-                if (foregroundSubjectsEnabled && foregroundOnlySubjects.indexOf(name) != -1) {
-                    var isPendingForeground = foregroundSubjects.indexOf(name) != -1;
+                if (foregroundSubjectsEnabled && foregroundOnlySubjects.find(name) != null) {
+                    var isPendingForeground = foregroundSubjects.find(name) != null;
                     if (runningInBackground) {
                         if (memDebug) { dumpF(L_APP, "storeValue: " + valueKey); }
                         if (!isPendingForeground) {
-                            foregroundSubjects.add(name);
-                            Storage.setValue(Storage_foregroundSubjects, foregroundSubjects as Storage.ValueType);
+                            foregroundSubjects += name;
+                            Storage.setValue(Storage_foregroundSubjects, foregroundSubjects);
                             if (minDebug) { _3(L_APP, "extendedForegroundSubjects", foregroundSubjects); }
                         }
                     }
                     else {
                         storeValue(valueKey, value);
                         if (isPendingForeground) {
-                            foregroundSubjects.remove(name);
-                            Storage.setValue(Storage_foregroundSubjects, foregroundSubjects as Storage.ValueType);
-                            if (minDebug) { _3(L_APP, "shrunkForegroundSubjects", foregroundSubjects); }
+                            var adjustedForegroundSubjects = deleteSubstring(foregroundSubjects, name);
+                            if (adjustedForegroundSubjects == null) {
+                                if (minDebug) { _3(L_APP, "pendingForegroundSubjectNotFound", name); }
+                            } else {
+                                foregroundSubjects = adjustedForegroundSubjects;
+                                Storage.setValue(Storage_foregroundSubjects, foregroundSubjects);
+                                if (minDebug) { _3(L_APP, "shrunkForegroundSubjects", foregroundSubjects); }
+                            }
                         }
                     }
                 } else {

@@ -47,7 +47,7 @@ function msgForRequestSubjects(subjects as Lang.String, includeVersionHits as La
             subjectsArg.add([name, "" + BackgroundSettings.appConfigVersion()]);
             continue;
         }
-        if (foregroundSubjects.indexOf(name) != -1) {
+        if (foregroundSubjects.find(name) != null) {
             subjectsArg.add([name]);
             continue;
         }

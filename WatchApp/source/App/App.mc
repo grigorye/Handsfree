@@ -220,10 +220,9 @@ function onAppDidFinishLaunching() as Void {
     (new Req.InAppIncomingMessageDispatcher()).launch();
     if (foregroundSubjectsEnabled) {
         var foregroundSubjects = foregroundSubjects();
-        if (foregroundSubjects.size() > 0) {
+        if (foregroundSubjects.length() > 0) {
             if (minDebug) { _3(L_APP, "foregroundSubjectsOnLaunch", foregroundSubjects); }
-            var subjects = joinComponents(foregroundSubjects as Lang.Array<StringOrResource>, "");
-            Req.requestSubjects(subjects);
+            Req.requestSubjects(foregroundSubjects);
         }
     }
 }
