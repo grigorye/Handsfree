@@ -29,7 +29,7 @@ function crashMe() as Void {
     for (var i = 0; i < infos.size(); ++i) {
         var info = infos[i] as Lang.Array;
         var key = info[0] as StringOrResource;
-        var value = Lang.format("$1$", [info[1]]);
+        var value = "" + info[1] as Lang.Object | Null;
         var item = new WatchUi.MenuItem(key, value, key, null);
         menu.addItem(item);
     }
