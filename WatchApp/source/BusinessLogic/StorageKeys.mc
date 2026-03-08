@@ -31,4 +31,4 @@ const Storage_backgroundSystemStats = "T" + valueKeySuffix;
 const Storage_subjectsConfirmed = "C" + valueKeySuffix;
 
 (:background, :glance)
-const Storage_foregroundSubjects = "G" + valueKeySuffix;
+const Storage_foregroundSubjects = "G2" + valueKeySuffix;
