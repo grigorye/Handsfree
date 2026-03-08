@@ -1,3 +1,138 @@
 <resources>
     <string id="listAppName" scope="glance">Handsfree</string>
+
+    <string id="mainMenuItemTitleFormat">• $1$</string>
+    <string id="menuSettings">Settings</string>
+    <string id="menuAbout">About</string>
+
+    <string id="toggleRinging">Ringing</string>
+    <string id="togglePhoneNumbers">Phone Numbers</string>
+    <string id="toggleFasterCalls">Faster Calls</string>
+    <string id="toggleEagerSync">Eager Sync</string>
+
+    <string id="uiOn">On</string>
+    <string id="uiOff">Off</string>
+    <string id="uiOnNotReady">On (Not ready)</string>
+
+    <string id="modeVibrationAlert">Vibration/Alert</string>
+    <string id="modeNotification">Notification</string>
+    <string id="modeAlert">Alert</string>
+
+    <string id="contacts">Contacts</string>
+
+    <string id="glanceNotConnected" scope="glance">Not Connected</string>
+    <string id="glanceNoCompanion" scope="glance">No Companion</string>
+    <string id="glanceUpdateCompanion" scope="glance">Update Companion</string>
+    <string id="glanceIncomingCall" scope="glance">Incoming Call</string>
+    <string id="glanceInProgress" scope="glance">In Progress</string>
+    <string id="glanceMissedCalls" scope="glance">Missed Calls</string>
+    <string id="glanceContacts" scope="glance">Contacts</string>
+    <string id="glanceNoCallControl" scope="glance">No Call Control</string>
+    <string id="glanceNotReady" scope="glance">Not Ready</string>
+    <string id="glanceIdle" scope="glance">Idle</string>
+
+    <string id="callCalling">Calling</string>
+    <string id="callCommunicationFailed">Communication&#10;Failed</string>
+    <string
+        id="callPhoneNotConnected">Phone&#10;Not Connected</string>
+    <string id="callNoConnection">No Connection</string>
+
+    <string id="callAnswering">Answering</string>
+    <string id="callHangingUp">Hanging Up</string>
+    <string id="callDeclining">Declining</string>
+
+    <string id="recentsNoRecents">No Recents</string>
+    <string id="recentsPrivateNumber">Private Number</string>
+    <string id="recentsTypeNewMissedIndicator">!</string>
+    <string id="recentsTypeIncomingIndicator">&gt;</string>
+    <string id="recentsTypeOutgoingIndicator">&lt;</string>
+    <string id="recentsTypeMissedIndicator">?</string>
+    <string id="recentsTypeVoicemailIndicator">r</string>
+    <string id="recentsTypeRejectedIndicator">-</string>
+    <string id="recentsTypeBlockedIndicator">b</string>
+    <string id="recentsTypeAnsweredExternallyIndicator">a</string>
+    <string id="glanceMissedDateTitleFormat" scope="glance">! $1$</string>
+
+    <string id="durationHoursFormat">$1$h</string>
+    <string id="durationMinutesFormat">$1$m</string>
+    <string id="durationSecondsFormat">$1$s</string>
+
+    <string id="phonesNotSelected">Not Selected</string>
+
+    <string id="aboutWatchApp">Watch App</string>
+    <string id="aboutInstall">Install</string>
+    <string id="aboutCompanionApp">Companion App</string>
+
+    <string id="installActionRequired">Action Required</string>
+    <string id="installUpdateRequired">Update Required</string>
+    <string id="installInstallCompanion">Install Companion</string>
+    <string id="installVersionOrLater">v$1$ or later</string>
+
+    <string id="accessGivePermissions">Give Permissions:</string>
+    <string id="accessReadFailed">Read Failed:</string>
+    <string id="accessNotEnabled">Not Enabled:</string>
+    <string id="accessUnknownIssue">Unknown Issue:</string>
+
+    <string id="readinessCallControl">Call control</string>
+    <string id="readinessOutgoingCalls">Outgoing calls</string>
+    <string id="readinessFormatNotEnabled">$1$&#10;not enabled</string>
+    <string id="readinessFormatNotPermitted">$1$&#10;not permitted</string>
+    <string id="readinessFormatNotReady">$1$&#10;not ready</string>
+    <string id="readinessFormatNotReadyUnknown">$1$&#10;not ready?</string>
+    <string id="widgetMissedCall">Missed Call</string>
+    <string id="widgetContactsCountFormat">Contacts: $1$</string>
+    <string id="widgetNoHeadset">(No Headset)</string>
+    <string id="connectionStatusDisconnected">@</string>
+    <string id="openMeNotificationIncomingCall" scope="background">Incoming Call</string>
+    <string id="openMeNotificationLaunch" scope="background">Launch</string>
+    <string id="openMeUnknownNumber" scope="background">Unknown number</string>
+    <string id="openMeIncomingCall" scope="background">Incoming call</string>
+    <string id="openAppWakeMessage" scope="background">Open app</string>
+
+    <string id="callPromptAnswer">Answer</string>
+    <string id="callPromptDecline">Decline</string>
+    <string id="callPromptIgnore">Ignore</string>
+    <string id="callPromptHangUp">Hang Up</string>
+    <string id="callPromptVolumePercentFormat">$1$%</string>
+    <string id="callPromptVolume">Volume</string>
+    <string id="callPromptMute">Mute</string>
+    <string id="callPromptUnmute">Unmute</string>
+
+    <string id="audioDeviceHeadset">Headset</string>
+    <string id="audioDeviceSpeaker">Speaker</string>
+    <string id="audioDevicePhone">Phone</string>
+    <string id="audioDeviceWired">Wired</string>
+    <string id="audioDeviceUnknownFormat">Unknown ($1$)</string>
+
+    <string id="audioDeviceAbbrevHeadset">HSET</string>
+    <string id="audioDeviceAbbrevSpeaker">SPKR</string>
+    <string id="audioDeviceAbbrevPhone">PHNE</string>
+    <string id="audioDeviceAbbrevWired">WHST</string>
+
+    <string id="headsetStatusMarker" scope="glance">#</string>
+    <string id="headsetNoHeadset" scope="glance">No Headset</string>
+
+    <string id="toastPing">Ping</string>
+    <string id="toastBroadcastingOff">Broadcasting Off</string>
+    <string id="toastStorageErased">Storage Erased</string>
+    <string id="toastOpeningCompanion">Sent notification&#10;to your phone</string>
+
+    <string id="menuDebug">Debug</string>
+    <string id="debugKeyVersion">v</string>
+    <string id="debugKeyCrashMe">crashMe</string>
+    <string id="debugKeyTurnOffBroadcasting">turnOffBroadcasting</string>
+    <string id="debugKeyStats">stats</string>
+    <string id="debugKeyReadinessInfo">readinessInfo</string>
+    <string id="debugKeySubjectsConfirmed">subjectsConfirmed</string>
+    <string id="debugKeyFreeMemory">freeMemory</string>
+    <string id="debugKeyTotalMemory">totalMemory</string>
+    <string id="debugKeyUsedMemory">usedMemory</string>
+    <string id="debugKeyFontScale">fontScale</string>
+    <string id="debugKeyEnhancedReadability">isEnhancedReadabilityModeEnabled</string>
+    <string id="debugKeyGlanceMode">isGlanceModeEnabled</string>
+    <string id="debugKeyPartNumber">partNumber</string>
+    <string id="debugKeyFirmwareVersion">firmwareVersion</string>
+    <string id="debugKeyMonkeyVersion">monkeyVersion</string>
+
+    <string id="menuRecents">Recents</string>
 </resources>
