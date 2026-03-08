@@ -1,0 +1,79 @@
+{
+  // Globs scanned to discover string values that can be inlined into Monkey C.
+  // Add generated resource trees here if they should count as valid inline inputs.
+  "string_value_include_globs": [
+    "resources/**/*.xml",
+    "resources-*/*.xml",
+    "resources-*/**/*.xml",
+    "traits/**/*.xml",
+    "local/resources/**/*.xml",
+    "local/resources-*/*.xml",
+    "local/resources-*/**/*.xml",
+    "jungle/generated/device-id-resources/**/*.xml"
+  ],
+
+  // Directory names skipped completely during string value discovery.
+  // This currently excludes build outputs unless you explicitly relax it.
+  "string_value_excluded_dir_names": [
+    ".git",
+    "bin",
+    "build",
+    "gen",
+    "jungle-prod"
+  ],
+
+  // Path fragments that are allowed to bypass excluded directory names.
+  // Keep this empty unless a generated resource tree lives under an excluded
+  // directory such as build/.
+  "string_value_allowed_path_substrings": [],
+
+  // Path fragments excluded even if they match the include globs.
+  // traits/dev is intentionally ignored because those resources are debug-specific.
+  "string_value_excluded_path_substrings": [
+    "/traits/dev/"
+  ],
+
+  // Path fragments whose duplicate string ids are treated as device-specific
+  // resource variants rather than hard conflicts. These ids remain available for
+  // validation, but they are not inlined to one global literal value.
+  "string_value_conflict_tolerant_path_substrings": [
+    "jungle/generated/device-id-resources/"
+  ],
+
+  // Non-code files scanned for @Strings.foo references so inlined strings are not
+  // removed from XML when they are still referenced from XML, jungle, or mss files.
+  "non_code_reference_patterns": [
+    "*.xml",
+    "**/*.xml",
+    "*.jungle",
+    "**/*.jungle",
+    "*.mss",
+    "**/*.mss"
+  ],
+
+  // Directory names skipped during the non-code reference scan.
+  "non_code_reference_excluded_dir_names": [
+    ".git",
+    "bin",
+    "build",
+    "gen",
+    "__pycache__"
+  ],
+
+  // strings.xml files eligible for entry pruning after successful inlining.
+  "strings_xml_patterns": [
+    "resources/strings.xml",
+    "resources-*/strings.xml"
+  ],
+
+  // Resource-only files that are copied, pruned, or deleted as part of localized
+  // low-memory output generation.
+  "string_only_resource_patterns": [
+    "resources/strings.xml",
+    "resources/properties-strings.xml",
+    "resources-*/strings.xml",
+    "resources-*/properties-strings.xml",
+    "local/resources/sourceVersion.xml",
+    "local/resources-*/sourceVersion.xml"
+  ]
+}
