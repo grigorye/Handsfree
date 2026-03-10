@@ -24,6 +24,8 @@
 
 [Bluetooth is off](lk:bluetooth_is_off) (not connected)
 
+[🔄\u00A0Refresh](lk:refresh_message)
+
 [HEADS UP
 More than one Garmin device with Handsfree installed is connected to the phone right now:
 
