@@ -1,9 +1,10 @@
 project.typecheck = strict
 project.optimization = 3z
-base.sourcePath = build/source/**.mc;source/**.mc;local/source/**.mc
 
-fenix7_personality_extras = ./traits/glances2022;./traits/color
-fenix7_resourcePath_extras = ./traits/auto-open;./traits/menu2-redraw
+root = ../..
+
+fenix7_personality_extras = $(root)/traits/glances2022;$(root)/traits/color
+fenix7_resourcePath_extras = $(root)/traits/auto-open;$(root)/traits/menu2-redraw
 epix2.personality = $(epix2.personality);$(fenix7_personality_extras)
 epix2.resourcePath = $(epix2.resourcePath);$(fenix7_resourcePath_extras)
 epix2pro42mm.personality = $(epix2pro42mm.personality);$(fenix7_personality_extras)
@@ -29,13 +30,13 @@ fenix7xpro.resourcePath = $(fenix7xpro.resourcePath);$(fenix7_resourcePath_extra
 fenix7xpronowifi.personality = $(fenix7xpronowifi.personality);$(fenix7_personality_extras)
 fenix7xpronowifi.resourcePath = $(fenix7xpronowifi.resourcePath);$(fenix7_resourcePath_extras)
 
-fr955_personality_extras = ./traits/color
-fr955_resourcePath_extras = ./traits/menu2-redraw
+fr955_personality_extras = $(root)/traits/color
+fr955_resourcePath_extras = $(root)/traits/menu2-redraw
 fr955.personality = $(fr955.personality);$(fr955_personality_extras)
 fr955.resourcePath = $(fr955.resourcePath);$(fr955_resourcePath_extras)
 
-instinct_personality_extras = ./traits/glances2022;./traits/static-glances
-instinct_resourcePath_extras = ./traits/semioctagon
+instinct_personality_extras = $(root)/traits/glances2022;$(root)/traits/static-glances
+instinct_resourcePath_extras = $(root)/traits/semioctagon
 descentg1.personality = $(descentg1.personality);$(instinct_resourcePath_extras)
 descentg1.resourcePath = $(descentg1.resourcePath);$(instinct_resourcePath_extras)
 instinct2.personality = $(instinct2.personality);$(instinct_resourcePath_extras)
@@ -45,8 +46,8 @@ instinct2x.personality = $(instinct2x.personality);$(instinct_resourcePath_extra
 instinct3solar45mm.personality = $(instinct3solar45mm.personality);$(instinct_personality_extras)
 instinct3solar45mm.resourcePath = $(instinct3solar45mm.resourcePath);$(instinct_resourcePath_extras)
 
-edge_personality_extras = ./traits/glances2022
-edge_resourcePath_extras = ./traits/edge;./traits/color
+edge_personality_extras = $(root)/traits/glances2022
+edge_resourcePath_extras = $(root)/traits/edge;$(root)/traits/color
 edge1030.personality = $(edge1030.personality);$(edge_personality_extras)
 edge1030.resourcePath = $(edge1030.resourcePath);$(edge_resourcePath_extras)
 edge1030bontrager.personality = $(edge1030bontrager.personality);$(edge_personality_extras)
@@ -63,5 +64,5 @@ edge540.personality = $(edge540.personality);$(edge_personality_extras)
 edge540.resourcePath = $(edge540.resourcePath);$(edge_resourcePath_extras)
 edge830.personality = $(edge830.personality);$(edge_personality_extras)
 edge830.resourcePath = $(edge830.resourcePath);$(edge_resourcePath_extras)
-edgemtb.personality = $(edgemtb.personality);$(edge_personality_extras);./traits/inverted-glance
+edgemtb.personality = $(edgemtb.personality);$(edge_personality_extras);$(root)/traits/inverted-glance
 edgemtb.resourcePath = $(edgemtb.resourcePath);$(edge_resourcePath_extras)

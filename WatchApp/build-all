@@ -48,7 +48,7 @@ else
     jungle="$src_root/jungle"
 fi
 manifest="$src_root/manifest-$type.xml"
-shared_jungle="$src_root/shared.jungle"
+shared_jungle="$src_root/jungle/shared/shared.jungle;$src_root/x.jungle"
 
 if [[ ${#dev_devices[@]} -eq 0 ]]; then
     build_all_devices=true
@@ -203,14 +203,14 @@ python3 Scripts/inline_rez_strings.py --language "$low_memory_lang" --output "$l
 if ! $build_for_side_loading; then
     iq_prefix="$iq_dir/$product_name-$dist-$type"
     iq="$iq_prefix.iq"
-    jungles="$jungle/type/$type.jungle;$jungle/dist/$dist.jungle;$jungle/versioning/$dist.jungle;$shared_jungle;$lang_resources_jungle;$jungle/dist/$dist-lm.jungle;"
+    jungles="$jungle/type/$type.jungle;$jungle/dist/$dist.jungle;$jungle/dist/$dist-lm.jungle;$jungle/versioning/$dist.jungle;$shared_jungle;$lang_resources_jungle;"
     build_iq
 else
     for device in "${dev_devices[@]}"; do
         prg_prefix="$prg_dir/$device/$product_name-beta-$type-$device"
         prg="$prg_prefix.prg"
         txt="$prg_prefix.TXT"
-        jungles="$jungle/type/$type.jungle;$jungle/dist/beta.jungle;$jungle/versioning/beta.jungle;$shared_jungle;$lang_resources_jungle;$jungle/dist/beta-lm.jungle;"
+        jungles="$jungle/type/$type.jungle;$jungle/dist/beta.jungle;$jungle/dist/beta-lm.jungle;$jungle/versioning/beta.jungle;$shared_jungle;$lang_resources_jungle;"
         build_prg
         touch "$txt"
     done

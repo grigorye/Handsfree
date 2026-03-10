@@ -1,0 +1,1 @@
+base.sourcePath = build/source/**.mc;source/**.mc;local/source/**.mc
