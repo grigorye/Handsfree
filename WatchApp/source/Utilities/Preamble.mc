@@ -27,9 +27,16 @@ function _preamble() as Void {
         + (errorDebug ? "E" : "e")
         + (foregroundSubjectsEnabled ? "F" : "f");
     
+    var partNumber;
+    if (minDebug) {
+        var ds = System.getDeviceSettings();
+        partNumber = ds.partNumber;
+    } else {
+        partNumber = "-";
+    }
     var message = Lang.format(
-        "-------- $1$ $2$ ($3$) ($4$) ($5$)",
-        [dateFormatted, timeFormatted, sourceVersion, featuresRep, statsRep]
+        "-------- $1$ $2$ $6$ ($3$) ($4$) ($5$)",
+        [dateFormatted, timeFormatted, sourceVersion, featuresRep, statsRep, partNumber]
     );
     System.println(message);
 }
