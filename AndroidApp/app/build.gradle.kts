@@ -45,6 +45,10 @@ android {
         buildConfigField("String", "SOURCE_VERSION", "\"$sourceVersion\"")
     }
 
+    androidResources {
+        localeFilters += listOf("en", "ru")
+    }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false

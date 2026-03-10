@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"Handsfree"</string>
+    <string name="reconnect">"Переподключить"</string>
+    <string name="open_contacts">"Выбрать контакты"</string>
+    <string name="open_connectiq_store">"Открыть приложение в Connect IQ"</string>
+    <string name="open_hints_for_background">"Настройка работы в фоне"</string>
+    <string name="app_logo_description">"Логотип приложения"</string>
+    <string name="onboarding_essentials">"# Управление вызовами с часов
+
+Handsfree позволяет как минимум отслеживать и завершать текущие вызовы без передачи личной информации на часы. Передается только факт наличия неопознанного вызова.
+
+Для обеспечения этой минимальной функциональности Handsfree требуются некоторые основные разрешения.
+
+### [Управление вызовами](permissions://?manifest=android.permission.CALL_PHONE,android.permission.ANSWER_PHONE_CALLS,android.permission.READ_PHONE_STATE)
+
+Чтобы иметь возможность отслеживать и завершать вызовы с часов, Handsfree необходимо разрешение на управление вызовами.
+
+Без этого разрешения Handsfree не сможет выполнять свою работу, так как не будет видеть текущий вызов для отображения его статуса на часах и не сможет завершить вызов по вашему запросу с часов.
+
+### [Работа в фоновом режиме](permissions://?battery_optimization)
+
+Чтобы иметь возможность обслуживать ваши запросы, когда приложение не активно, Handsfree необходимо разрешение на постоянную работу в фоновом режиме.
+
+Без этого разрешения вы все равно сможете использовать приложение, пока оно открыто, но оно будет остановлено системой вскоре после переключения на другие приложения или, например, блокировки телефона.
+
+### [Отправка уведомлений](permissions://?manifest=android.permission.POST_NOTIFICATIONS)
+
+Чтобы иметь возможность работать в фоновом режиме, Handsfree необходимо разрешение на показ уведомлений. Это мера для того, чтобы вы были уверены, что приложение работает и ожидает ваших запросов с часов. Также в уведомлении отображается текущий статус подключения к часам.
+
+Без этого разрешения система остановит Handsfree вскоре после перехода в фоновый режим.
+
+## Работа в фоновом режиме
+
+Помимо вышеуказанных разрешений, для бесперебойной работы Handsfree ознакомьтесь с **[известными советами по работе Android-приложений в фоновом режиме на вашей конкретной модели телефона](do://doki).**
+
+"</string>
+    <string name="onboarding_outgoing_calls">"# Разрешить исходящие вызовы
+
+Handsfree позволяет совершать исходящие вызовы с часов для ваших [избранных контактов](contacts://starred) или недавних вызовов, перенаправляя ваши запросы с часов в стандартное приложение телефона.
+
+Имейте в виду, что хотя вы можете открывать избранные контакты из Handsfree, приложение не имеет к ним доступа, пока вы не дадите соответствующее разрешение.
+
+Если вы хотите использовать исходящие вызовы на часах, вам необходимо предоставить Handsfree несколько разрешений **в дополнение** к [основным](link://onboarding_essentials).
+
+### [Отображение поверх других приложений](permissions://?draw_overlays)
+
+Чтобы иметь возможность совершать вызовы через стандартное приложение телефона при работе в фоновом режиме, Handsfree необходимо разрешение на отображение поверх других приложений.
+
+Без этого разрешения Handsfree не сможет совершать вызовы для вас, когда приложение не активно или когда телефон заблокирован. Это разрешение не требуется для отслеживания или завершения текущих вызовов.
+
+"</string>
+    <string name="navigation_onboarding">"Настройка"</string>
+    <string name="onboarding_intro">"Версия {{version_info}}
+
+### [Устранение неполадок](link://onboarding_troubleshooting)
+
+### [Домашняя страница проекта](https://github.com/grigorye/Handsfree)
+
+### Установка Handsfree на устройство Garmin
+
+A. [Приложение Handsfree](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920) для современных устройств (не старше 2022 года), поддерживающих виджеты «Glances» в приложениях:
+
+[&lt;img src=\"./badges/Connect-IQ/Connect-IQ-Badge_White.svg\" max-height=\"160\" alt=\"Открыть Connect IQ\"/&gt;](https://apps.garmin.com/en-US/apps/73107243-f322-4cf2-bb3d-78f2a4ee8920)
+
+B. [Виджет Handsfree](https://apps.garmin.com/apps/629f3ba5-66bc-4b44-a078-3365a85212f8) для *старых поколений* устройств Garmin:
+
+[&lt;img src=\"./badges/Connect-IQ/Connect-IQ-Badge_White.svg\" max-height=\"160\" alt=\"Открыть Connect IQ\"/&gt;](https://apps.garmin.com/apps/629f3ba5-66bc-4b44-a078-3365a85212f8)
+
+### Обновление Handsfree
+
+A. Через Google Play:
+
+[&lt;img src=\"./badges/Google-Play/Get-It-On-Google-Play-Badge_en.svg\" max-height=\"160\" alt=\"Доступно в Google Play\"/&gt;](https://play.google.com/store/apps/details?id=com.gentin.connectiq.handsfree)
+
+B. Если вы предпочитаете не зависеть от Google Play, вы можете установить последнюю версию приложения по ссылке ниже:
+
+#### [Установить последнюю версию без Google Play](https://grigorye.github.io/handsfree/Installation)
+
+### Бета-тестирование
+
+Если вы заинтересованы в бета-тестировании, отправьте запрос на вступление в [соответствующую группу Google](https://groups.google.com/g/handsfree-beta).
+
+### Обратная связь
+
+Пишите на &lt;garmin9E96E@icloud.com&gt; или в [группу бета-тестирования](https://groups.google.com/g/handsfree-beta). Мы очень ценим любые отзывы.
+
+"</string>
+    <string name="navigation_overview">"О приложении"</string>
+    <string name="permissions_snackbar_app_settings_btn">"Настройки"</string>
+    <string name="overview_snackbar_reconnecting_connectiq">"Переподключение…"</string>
+    <string name="permissions_snackbar_permission_is_already_granted">"Разрешение уже предоставлено."</string>
+    <string name="permissions_snackbar_permission_is_denied">"Разрешение можно включить в настройках."</string>
+    <string name="settings_essentials">"Управление вызовами"</string>
+    <string name="settings_essentials_on">"Вызовы можно отслеживать и завершать на часах."</string>
+    <string name="settings_essentials_off">"Функции вызовов на часах отключены."</string>
+    <string name="settings_contacts">"🟢 Телефонная книга"</string>
+    <string name="settings_contacts_on">"Избранные контакты должны быть доступны на часах."</string>
+    <string name="settings_contacts_off">"**Избранные** контакты попадают в список для набора с часов."</string>
+    <string name="settings_outgoing_calls">"Исходящие вызовы"</string>
+    <string name="settings_outgoing_calls_off">"Набор номера с часов невозможен."</string>
+    <string name="settings_outgoing_calls_on">"Набор номера с часов возможен."</string>
+    <string name="settings_disabled_due_to_essentials_are_off">"Отключено, так как выключено основное управление вызовами."</string>
+    <string name="onboarding_troubleshooting">"# Устранение неполадок
+
+Для нормальной работы Handsfree несколько компонентов должны работать слаженно. Если приложение работает не так, как ожидалось, особенно после изменения настроек (например, вы добавили или удалили устройство Garmin, сменили телефон или обновили ОС), попробуйте советы ниже. Они охватывают все известные на данный момент проблемы.
+
+### Общие рекомендации
+
+**Убедитесь, что приложение для часов _не_ установлено и не запущено на нескольких устройствах Garmin одновременно**: это может вызвать различные проблемы. Либо установите его только на одно устройство Garmin, либо старайтесь, чтобы к телефону было подключено только одно устройство с запущенным Handsfree.
+
+**[Следуйте советам по работе приложений в фоновом режиме](do://doki)** — это крайне важно сделать сразу после первой установки приложения.
+
+**[Проверьте настройки приложения Handsfree](do://settings)**, чтобы убедиться, что предоставлены необходимые разрешения, работа в фоновом режиме не заблокирована чем-то еще и т. д.
+
+### Если что-то внезапно пошло не так
+
+**[Принудительно остановите Garmin Connect](do://garmin-connect-settings)** — это может решить проблему, когда Handsfree не реагирует на приложение в часах (такое случается). Просто нажмите «Остановить», чтобы завершить работу приложения (запускать его снова не нужно — это произойдет автоматически). Иногда после этого требуется сбросить соединение с телефоном, см. ниже.
+
+**Выключите и снова включите соединение с телефоном в настройках вашего устройства Garmin** — это помогает, когда телефон не реагирует на команды из приложения на часах.
+
+**[Переподключитесь к часам](do://reconnect-connectiq)** (вы также можете нажать на список устройств на экране управления для переподключения) — стоит попробовать, если вы не хотите принудительно останавливать Garmin Connect.
+
+**Перезагрузите телефон** — да, это может звучать банально, но это, пожалуй, самое простое, что стоит делать время от времени.
+
+### Может быть полезно в определенных ситуациях
+
+**[Переключить режим отладки](do://toggle-debug-mode)** — только если вас об этом попросили, или если вы хотите видеть внутреннюю статистику вместо обычного содержимого уведомления.
+
+**[Сохранить лог](do://share-log)** — только если вас попросили, для отладки приложения.
+
+**[Перезапустить службу](do://restart-service)** — как альтернатива принудительной остановке приложения.
+
+**[Открыть приложение на часах](do://open-watch-app)** — чтобы просто проверить, что оно там есть.
+
+**[Открыть приложение в Connect IQ](do://open-app-in-store)** — например, чтобы проверить наличие обновлений (правда, это не всегда работает надежно).
+
+**[Проверить связь с часами (пинг)](do://ping)** — для проверки соединения.
+
+**[Переключить симулятор часов](do://toggle-emulator-mode)** — должно использоваться только для разработки.
+"</string>
+    <string name="settings_essentials_group">"Основные"</string>
+    <string name="settings_extras_group">"Дополнительно"</string>
+    <string name="settings_screen">"Управление"</string>
+    <string name="settings_preference_disabled_fmt">"❎ {{title}}"</string>
+    <string name="settings_preference_enabled_fmt">"✅ {{title}}"</string>
+    <string name="settings_devices_group">"Устройства"</string>
+    <string name="settings_preferences_subscreen">"Настройка"</string>
+    <string name="device_label_connected">"Подключено"</string>
+    <string name="device_label_not_connected">"Не подключено"</string>
+    <string name="onboarding_incoming_calls">"# Разрешить входящие вызовы
+
+Handsfree позволяет отображать и принимать входящие вызовы на часах. Чтобы в полной мере воспользоваться этой возможностью, предоставьте приложению еще пару разрешений в дополнение к [основным](link://onboarding_essentials).
+
+### [Доступ к журналам вызовов](permissions://?manifest=android.permission.READ_CALL_LOG)
+
+Чтобы иметь возможность определить номер входящего вызова, Handsfree нужен доступ к журналам вызовов вашего телефона.
+
+Без этого разрешения при входящем вызове Handsfree будет отображать на часах общее сообщение «Вызов в процессе» вместо номера телефона или имени контакта.
+
+С этим разрешением Handsfree сможет показывать номер (и, вероятно, имя контакта) на часах.
+
+## На часах
+
+Когда функция включена, Handsfree перенаправляет вызовы на часы, поэтому вы можете видеть входящий вызов, *когда приложение на часах активно*.
+
+Чтобы фактически **получать оповещения** о входящем вызове, *когда приложение на часах не активно*, включите «Incoming Calls» в настройках самого приложения на часах.
+
+&lt;img src=\"./badges/Watch/Settings-Incoming-Calls.jpg\" alt=\"Settings-Incoming-Calls\" style=\"zoom:50%;\" /&gt;
+"</string>
+    <string name="settings_incoming_calls">"Входящие вызовы"</string>
+    <string name="settings_incoming_calls_off">"Входящие вызовы не отображаются на часах."</string>
+    <string name="settings_incoming_calls_on">"Входящие вызовы можно принимать на часах."</string>
+    <string name="settings_recents">"Недавние"</string>
+    <string name="settings_recents_off">"История вызовов не передается на часы."</string>
+    <string name="settings_recents_on">"Список недавних вызовов доступен на часах."</string>
+    <string name="onboarding_recents">"# Недавние
+
+Handsfree позволяет просматривать список недавних вызовов и перезванивать по ним, а также отслеживать пропущенные вызовы на часах. Для этого предоставьте приложению еще пару разрешений в дополнение к [основным](link://onboarding_essentials).
+
+### [Доступ к журналам вызовов](permissions://?manifest=android.permission.READ_CALL_LOG)
+
+Чтобы вы могли видеть недавние вызовы на часах, Handsfree необходим доступ к журналам вызовов вашего телефона.
+
+Без этого разрешения недавние вызовы не смогут отображаться на часах.
+
+С этим разрешением Handsfree сможет показывать недавние/пропущенные вызовы и позволит вам перезванивать по ним с часов (если вы включите исходящие вызовы).
+"</string>
+    <string name="onboarding_starred_contacts">"# Разрешить набор избранных контактов
+
+Handsfree позволяет совершать исходящие вызовы любому из избранных контактов. Для этого предоставьте приложению дополнительное разрешение в дополнение к тем, которые необходимы для [исходящих вызовов](link://onboarding_outgoing_calls).
+
+Вы можете проверить свои избранные контакты [здесь](contacts://starred).
+
+### [Доступ к контактам](permissions://?manifest=android.permission.READ_CONTACTS)
+
+Чтобы вы могли набрать номер избранного контакта с часов, Handsfree необходимо разрешение на доступ к вашим контактам. При наличии разрешения Handsfree отправляет имена контактов и номера телефонов на часы. Handsfree никогда не читает и не отправляет никакую другую информацию о контактах куда-либо еще.
+
+Без этого разрешения (избранные) контакты не будут отправлены на часы, и, следовательно, вы не сможете набрать их с часов.
+"</string>
+    <string name="settings_preference_enabled_no_perm_fmt">"⚠️ {{title}}"</string>
+    <string name="onboarding_call_info">"# Показывать информацию о вызывающем абоненте
+
+Handsfree позволяет видеть номер телефона и имя контакта при вызове на часах, как на обычном телефоне. Если вы хотите использовать эту функцию для вызовов, которые вы не инициировали с часов, предоставьте приложению еще пару разрешений в дополнение к [основным](link://onboarding_essentials).
+
+### [Доступ к журналам вызовов](permissions://?manifest=android.permission.READ_CALL_LOG)
+
+Чтобы иметь возможность определить номер телефона для вызова, Handsfree необходим доступ к журналам вызовов.
+
+С этим разрешением Handsfree сможет показывать номер телефона (и, возможно, имя контакта, см. ниже) на часах.
+
+Без этого разрешения Handsfree будет отображать общее сообщение «Вызов в процессе».
+
+### [Доступ к контактам](permissions://?manifest_optional=android.permission.READ_CONTACTS)
+
+Чтобы сопоставить номер телефона вызова с именем контакта и показать его на часах, Handsfree необходим доступ к вашим контактам. Так приложение сможет отправить имя контакта для отображения на часах при обнаружении вызова.
+
+Без этого разрешения имена контактов при вызовах отображаться не будут.
+"</string>
+    <string name="settings_call_info">"Определитель номера"</string>
+    <string name="settings_call_info_off">"Номера телефонов и имена не отображаются на часах."</string>
+    <string name="settings_call_info_on">"Номера телефонов или имена контактов отображаются на часах."</string>
+    <string name="settings_starred_contacts">"Контакты"</string>
+    <string name="settings_starred_contacts_off">"**Избранные** контакты не передаются на часы."</string>
+    <string name="settings_starred_contacts_on">"**Избранные** контакты доступны для набора на часах."</string>
+    <string name="settings_preference_not_available_fmt">"⛔️ {{title}}"</string>
+    <string name="settings_call_info_unavailable">"Недоступно."</string>
+    <string name="settings_recents_unavailable">"Недоступно."</string>
+    <string name="settings_permission_not_available_rationale">"&gt; Это разрешение в настоящее время недоступно в этой версии приложения."</string>
+    <string name="settings_device_with_symbol_fmt">"{{symbol}}\u00A0{{device_name}}"</string>
+    <string name="settings_device_symbol_active">"⚡️"</string>
+    <string name="settings_device_symbol_standby">"✅"</string>
+    <string name="settings_device_symbol_missing_app">"⬇️️️"</string>
+    <string name="settings_device_symbol_not_connected">"❌️"</string>
+    <string name="settings_device_symbol_conflicting">"❓"</string>
+    <string name="settings_device_symbol_loading">"⏳"</string>
+    <string name="settings_device_suffix_silent">"(звонок выключен)"</string>
+    <string name="settings_permission_granted_fmt">"[✅ {{link_text}}]({{link_url}})"</string>
+    <string name="settings_permission_not_granted_fmt">"[❎ {{link_text}}]({{link_url}})"</string>
+    <string name="settings_permission_not_available_fmt">"[⛔️ {{link_text}}]({{link_url}})"</string>
+    <string name="settings_no_devices_registered_message">"Нет зарегистрированных устройств."</string>
+    <string name="settings_no_devices_registered_suggestion">"Используйте Garmin Connect для регистрации устройства."</string>
+    <string name="settings_bluetooth_is_off">"Bluetooth выключен"</string>
+    <string name="settings_device_conflict_message">"Конфликт устройств"</string>
+    <string name="notifications_bluetooth_is_off">"Bluetooth выключен"</string>
+    <string name="notifications_device_conflict">"Конфликт устройств"</string>
+    <string name="notifications_not_connected">"Не подключено"</string>
+    <string name="notifications_not_connected_hint">"Добавьте устройство через Garmin Connect"</string>
+    <string name="notifications_outgoing_calls_are_off">"Исходящие вызовы отключены"</string>
+    <string name="notifications_connected_to_device_fmt">"Подключено к {{device_name}}"</string>
+    <string name="notifications_not_connected_to_device_fmt">"Не подключено к {{device_name}}"</string>
+    <string name="notifications_serving_device_fmt">"Обслуживание {{device_name}}"</string>
+    <string name="settings_device_conflict_explanation_fmt">"ВНИМАНИЕ
+В данный момент к телефону подключено более одного устройства Garmin с установленным Handsfree:
+
+{{devices}}
+
+Это не поддерживается.
+
+Чтобы исправить это:
+1) Выберите ОДНО устройство для использования.
+2) На всех остальных устройствах выключите соединение с телефоном (или удалите Handsfree).
+3) На выбранном устройстве выключите соединение с телефоном, а затем включите его снова."</string>
+</resources>
