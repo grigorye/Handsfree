@@ -242,6 +242,7 @@ Handsfree позволяет видеть номер телефона и имя 
     <string name="settings_no_devices_registered_suggestion">"Используйте Garmin Connect для регистрации устройства."</string>
     <string name="settings_bluetooth_is_off">"Bluetooth выключен"</string>
     <string name="settings_device_conflict_message">"Конфликт устройств"</string>
+    <string name="settings_refresh_message">"🔄\u00A0Обновить"</string>
     <string name="notifications_bluetooth_is_off">"Bluetooth выключен"</string>
     <string name="notifications_device_conflict">"Конфликт устройств"</string>
     <string name="notifications_not_connected">"Не подключено"</string>

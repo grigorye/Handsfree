@@ -263,4 +263,5 @@ To fix it:
 1) Choose ONE device to use.
 2) On all other devices, turn OFF the phone connection (or uninstall Handsfree).
 3) On the chosen device, switch the phone connection OFF, then back ON."</string>
+    <string name="settings_refresh_message">"🔄\u00A0Refresh"</string>
 </resources>
