@@ -253,5 +253,5 @@ fun messageForDeviceInfos(
     } else {
         formatted.text
     }
-    return message + "\n\n" + refreshMessage
+    return message + "\n\n" + refreshMessage(context)
 }

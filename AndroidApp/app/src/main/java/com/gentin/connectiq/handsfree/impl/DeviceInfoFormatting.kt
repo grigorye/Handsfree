@@ -197,4 +197,7 @@ fun symbolForDeviceInfo(deviceInfo: DeviceInfo, appConflict: Boolean, context: C
 }
 
 const val nbsp = " "
-const val refreshMessage = "🔄${nbsp}Refresh"
+
+fun refreshMessage(context: Context): String {
+    return context.getString(R.string.settings_refresh_message)
+}
