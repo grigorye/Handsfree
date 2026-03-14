@@ -157,7 +157,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
                         if (memDebug) { dumpF(L_APP, "storeValue: " + valueKey); }
                         if (!isPendingForeground) {
                             foregroundSubjects.add(name);
-                            Storage.setValue(Storage_foregroundSubjects, foregroundSubjects as Application.PropertyValueType);
+                            Storage.setValue(Storage_foregroundSubjects, foregroundSubjects as Storage.ValueType);
                             if (minDebug) { _3(L_APP, "extendedForegroundSubjects", foregroundSubjects); }
                         }
                     }
@@ -165,7 +165,7 @@ function handleSubjectsChanged(subjects as SubjectsChanged) as Lang.String {
                         storeValue(valueKey, value);
                         if (isPendingForeground) {
                             foregroundSubjects.remove(name);
-                            Storage.setValue(Storage_foregroundSubjects, foregroundSubjects as Application.PropertyValueType);
+                            Storage.setValue(Storage_foregroundSubjects, foregroundSubjects as Storage.ValueType);
                             if (minDebug) { _3(L_APP, "shrunkForegroundSubjects", foregroundSubjects); }
                         }
                     }

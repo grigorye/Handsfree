@@ -64,7 +64,7 @@ function msgForRequestSubjects(subjects as Lang.String, includeVersionHits as La
         cmdK => Cmd_query,
         subjectsK => subjectsArg,
         includeVersionHitsK => includeVersionHits
-    } as Message;
+    };
     return msg;
 }
 

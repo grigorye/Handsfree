@@ -1,4 +1,3 @@
-import Toybox.Application;
-import Toybox.Lang;
+import Toybox.Communications;
 
-typedef Message as Lang.Dictionary<Application.PropertyKeyType, Application.PropertyValueType>;
+typedef Message as Communications.TransmitType;

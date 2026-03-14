@@ -48,7 +48,7 @@ class CallActionTask extends Communications.ConnectionListener {
         }
         var msg = {
             cmdK => cmd
-        } as Message;
+        };
         setCallState(state as CallState);
         transmitWithRetry(cmd, msg, self);
     }

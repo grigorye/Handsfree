@@ -43,7 +43,7 @@ function storeValue(key as Lang.String, value as Lang.Object) as Void {
             AudioState_oldValue = Storage.getValue(key) as AudioState | Null;
             break;
     }
-    Storage.setValue(key, value as Application.PropertyValueType);
+    Storage.setValue(key, value as Application.Storage.ValueType);
     switch (key) {
         case AudioState_valueKey:
             AudioStateManip.updateUIForAudioStateIfRelevant(value as AudioState);

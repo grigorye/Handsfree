@@ -24,7 +24,7 @@ function saveBackgroundSystemStats() as Void {
         "t" => stats.totalMemory,
         "u" => stats.usedMemory
     };
-    Storage.setValue(Storage_backgroundSystemStats, statsRep as Application.PropertyValueType);
+    Storage.setValue(Storage_backgroundSystemStats, statsRep as Application.Storage.ValueType);
 }
 
 function getBackgroundSystemStats() as Lang.Dictionary<Lang.String, Lang.Number> {

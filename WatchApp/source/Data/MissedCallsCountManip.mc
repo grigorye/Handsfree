@@ -15,7 +15,7 @@ function getMissedRecents() as MissedRecents {
 
 (:inline, :glance)
 function setMissedRecents(missedRecents as MissedRecents | Null) as Void {
-    Storage.setValue(Storage_missingRecents, missedRecents as Application.PropertyValueType);
+    Storage.setValue(Storage_missingRecents, missedRecents as Application.Storage.ValueType);
     updateUIForMissedRecentsIfInApp();
 }
 

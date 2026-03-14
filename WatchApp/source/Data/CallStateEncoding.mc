@@ -8,7 +8,7 @@ const L_ENCODING as LogComponent = "encoding";
 const L_DECODING as LogComponent = "decoding";
 
 (:background, :glance)
-typedef CallStateData as Lang.Dictionary<Application.PropertyKeyType, Application.PropertyValueType>;
+typedef CallStateData as Lang.Dictionary<Application.PropertyKeyType, Application.Storage.ValueType>;
 
 (:background)
 function encodeCallState(someCallState as CallState) as CallStateData {

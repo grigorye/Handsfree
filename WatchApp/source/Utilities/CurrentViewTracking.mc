@@ -37,11 +37,11 @@ function switchToView(tag as ViewTag, view as WatchUi.Views, delegate as WatchUi
     WatchUi.switchToView(view, delegate, transition);
 }
 
-function pushView(tag as ViewTag, view as WatchUi.Views, delegate as WatchUi.InputDelegates or Null, transition as WatchUi.SlideType) as Lang.Boolean {
+function pushView(tag as ViewTag, view as WatchUi.Views, delegate as WatchUi.InputDelegates or Null, transition as WatchUi.SlideType) as Void {
     viewStack.add(new ViewStackEntry(tag, view, delegate));
     dumpViewStack("pushView");
     assertViewStackIsSane();
-    return WatchUi.pushView(view, delegate, transition);
+    WatchUi.pushView(view, delegate, transition);
 }
 
 function popView(transition as WatchUi.SlideType) as Void {
