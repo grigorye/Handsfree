@@ -13,6 +13,11 @@ class InAppIncomingMessageDispatcher {
     function launch() as Void {
         if (debug) { _2(L_INCOMING_INIT, "registerForPhoneAppMessages"); }
         Communications.registerForPhoneAppMessages(method(:onPhoneAppMessage));
+
+        if (Communications has :registerForPhoneAppMessageErrors) {
+            Communications.registerForPhoneAppMessageErrors(method(:phoneMessageErrorCallback));
+        }
+
         readyToSync = true;
     }
     
@@ -29,6 +34,12 @@ class InAppIncomingMessageDispatcher {
             didSeeIncomingMessageWhileRoutedToMainUI();
         }
         handleRemoteMessage(msg);
+    }
+
+    function phoneMessageErrorCallback(error as Communications.PhoneAppMessageError) as Void {
+        if (minDebug || testDebug) {
+            _3(L_APP, "phoneMessageError", error);
+        }
     }
 }
 
