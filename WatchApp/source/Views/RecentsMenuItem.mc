@@ -14,12 +14,7 @@ function updateRecentsItemInMenu(menu as WatchUi.Menu2) as Void {
     if (recentsItemIndex != null) {
         var recentsItem = menu.getItem(recentsItemIndex);
         if (recentsItem != null) {
-            recentsItem.setLabel(menuItemLabelFromRecents());
+            recentsItem.setLabel(recentsMenuTitle());
         }
     }
-}
-
-function menuItemLabelFromRecents() as Lang.String {
-    var missedCalls = missedCallsRep();
-    return joinNonNullComponents([Rez.Strings.menuRecents, missedCalls], " ");
 }
