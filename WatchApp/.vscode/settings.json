@@ -7,7 +7,7 @@
     "bin": true,
     "build/**": true
   },
-  "monkeyC.jungleFiles": "jungle/type/app.jungle;jungle/dist/local.jungle;jungle/versioning/local.jungle;jungle/dist/local-lm.jungle;jungle/shared/shared.jungle;x.jungle",
+  "monkeyC.jungleFiles": "jungle/type/app.jungle;jungle/dist/local.jungle;jungle/versioning/local.jungle;jungle/generated/device-id.jungle;jungle/dist/local-lm.jungle;jungle/shared/shared.jungle;x.jungle",
   "markdownlint.config": {
     "MD041": false,
     "MD034": false,
