@@ -1,0 +1,4 @@
+<resources>
+    <string id="deviceId" scope="glance">fenix9pro43mm</string>
+    <string id="deviceId" scope="background">fenix9pro43mm</string>
+</resources>

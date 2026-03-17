@@ -1,0 +1,4 @@
+<resources>
+    <string id="deviceId" scope="glance">approachs50</string>
+    <string id="deviceId" scope="background">approachs50</string>
+</resources>

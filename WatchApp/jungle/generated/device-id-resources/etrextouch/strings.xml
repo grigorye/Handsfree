@@ -1,0 +1,4 @@
+<resources>
+    <string id="deviceId" scope="glance">etrextouch</string>
+    <string id="deviceId" scope="background">etrextouch</string>
+</resources>

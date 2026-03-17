@@ -1,0 +1,4 @@
+<resources>
+    <string id="deviceId" scope="glance">vivoactive4s</string>
+    <string id="deviceId" scope="background">vivoactive4s</string>
+</resources>

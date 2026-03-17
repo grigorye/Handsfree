@@ -1,0 +1,4 @@
+<resources>
+    <string id="deviceId" scope="glance">d2air</string>
+    <string id="deviceId" scope="background">d2air</string>
+</resources>

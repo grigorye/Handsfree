@@ -1,0 +1,4 @@
+<resources>
+    <string id="deviceId" scope="glance">fenix7pronowifi</string>
+    <string id="deviceId" scope="background">fenix7pronowifi</string>
+</resources>

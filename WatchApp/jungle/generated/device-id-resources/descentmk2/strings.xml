@@ -1,0 +1,4 @@
+<resources>
+    <string id="deviceId" scope="glance">descentmk2</string>
+    <string id="deviceId" scope="background">descentmk2</string>
+</resources>

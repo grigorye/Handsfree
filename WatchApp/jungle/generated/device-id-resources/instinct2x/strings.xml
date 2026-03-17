@@ -1,0 +1,4 @@
+<resources>
+    <string id="deviceId" scope="glance">instinct2x</string>
+    <string id="deviceId" scope="background">instinct2x</string>
+</resources>

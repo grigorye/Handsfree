@@ -1,0 +1,4 @@
+<resources>
+    <string id="deviceId" scope="glance">instinctcrossover</string>
+    <string id="deviceId" scope="background">instinctcrossover</string>
+</resources>

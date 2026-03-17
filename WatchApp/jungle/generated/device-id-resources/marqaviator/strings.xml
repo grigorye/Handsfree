@@ -1,0 +1,4 @@
+<resources>
+    <string id="deviceId" scope="glance">marqaviator</string>
+    <string id="deviceId" scope="background">marqaviator</string>
+</resources>

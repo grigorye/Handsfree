@@ -1,0 +1,4 @@
+<resources>
+    <string id="deviceId" scope="glance">edgemtb</string>
+    <string id="deviceId" scope="background">edgemtb</string>
+</resources>

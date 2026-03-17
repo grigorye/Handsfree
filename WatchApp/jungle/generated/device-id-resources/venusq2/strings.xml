@@ -1,0 +1,4 @@
+<resources>
+    <string id="deviceId" scope="glance">venusq2</string>
+    <string id="deviceId" scope="background">venusq2</string>
+</resources>

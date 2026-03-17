@@ -1,0 +1,4 @@
+<resources>
+    <string id="deviceId" scope="glance">gpsmaph1</string>
+    <string id="deviceId" scope="background">gpsmaph1</string>
+</resources>
