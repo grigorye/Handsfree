@@ -1,0 +1,39 @@
+#! /usr/bin/env /bin/bash
+# shellcheck shell=bash
+
+set -x
+set -euo pipefail
+
+wd=$(dirname "$0")
+src_root="$wd"
+lm_dir="${1:-l}"
+low_memory_lang="${2:-eng}"
+
+rm -rf "$lm_dir"
+mkdir -p "$lm_dir"
+git -C "$src_root" archive HEAD | tar -x -C "$lm_dir"
+
+shopt -s nullglob
+for path in \
+    "$src_root"/resources \
+    "$src_root"/resources-* \
+    "$src_root"/local/resources \
+    "$src_root"/local/resources-* \
+    "$src_root"/traits; do
+    rel_path="${path#"$src_root"/}"
+    target_path="$lm_dir/$rel_path"
+    rm -rf "$target_path"
+    mkdir -p "$(dirname "$target_path")"
+    cp -pR "$path" "$target_path"
+done
+shopt -u nullglob
+
+for variant in local beta prod; do
+    python3 "$src_root"/Scripts/generate_low_memory_jungle.py \
+        --root "$src_root" \
+        --derive-from "jungle/dist/$variant.jungle"
+done
+
+python3 "$src_root"/Scripts/inline_rez_strings.py \
+    --language "$low_memory_lang" \
+    --output "$lm_dir"

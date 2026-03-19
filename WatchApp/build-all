@@ -194,17 +194,9 @@ build_prg() {
 ###
 
 lm_dir="l"
-rm -rf "$lm_dir"
-mkdir -p "$lm_dir"
-git archive HEAD | tar -x -C "$lm_dir"
-
-for i in local beta prod; do
-    python3 Scripts/generate_low_memory_jungle.py --derive-from jungle/dist/"$i".jungle
-done
-
 low_memory_lang="eng"
 
-python3 Scripts/inline_rez_strings.py --language "$low_memory_lang" --output "$lm_dir"
+"$src_root"/generate_l "$lm_dir" "$low_memory_lang"
 
 if ! $build_for_side_loading; then
     iq_prefix="$iq_dir/$product_name-$dist-$type"
