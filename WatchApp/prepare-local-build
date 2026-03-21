@@ -1,0 +1,17 @@
+#! /usr/bin/env /bin/bash
+# shellcheck shell=bash
+
+set -euo pipefail
+set -x
+
+wd=$(dirname "$0")
+src_root="$wd"
+lm_dir="${1:-l}"
+low_memory_lang="${2:-eng}"
+
+python3 "$src_root"/Scripts/generate_lang_jungle.py \
+    --output "$src_root/local/lang-resources.jungle"
+
+python3 "$src_root"/Scripts/generate_device_id_resources.py
+
+"$src_root"/generate_l "$lm_dir" "$low_memory_lang"
