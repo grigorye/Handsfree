@@ -114,21 +114,9 @@ widget)
     ;;
 esac
 
-sed -e "s/__SOURCE_VERSION__/$source_version/g" "$src_root"/local/resources/sourceVersion.xml-template >"$release_resources"/sourceVersion.xml
-
-# Also generate sourceVersion.xml into build/resources-<lang> for each declared language.
-for lang in "${manifest_languages[@]}"; do
-    if [[ -z "$lang" || "$lang" == "eng" ]]; then
-        continue
-    fi
-    localized_source_version_template="$src_root/local/resources-$lang/sourceVersion.xml-template"
-    if [[ ! -f "$localized_source_version_template" ]]; then
-        localized_source_version_template="$src_root/local/resources/sourceVersion.xml-template"
-    fi
-    sed -e "s/__SOURCE_VERSION__/$source_version/g" "$localized_source_version_template" >"$build_dir"/resources-"$lang"/sourceVersion.xml
-done
-
-sed -e "s/__SOURCE_VERSION__/$source_version/g" "$src_root"/local/source/SourceVersion.mc-template >"$release_source"/SourceVersion.mc
+/bin/bash "$src_root"/Scripts/generate_source_version_files.sh \
+    --manifest "$manifest" \
+    --output-root "$build_dir"
 manifest_prod="$src_root/manifest-prod.xml"
 sed -e "s/$beta_app_id/$prod_app_id/g" "$manifest" >"$manifest_prod"
 diff "$manifest" "$manifest_prod" && false # Check that sed did something.
