@@ -46,6 +46,7 @@ android {
     }
 
     androidResources {
+        @Suppress("UnstableApiUsage")
         localeFilters += listOf("en", "ru")
     }
 

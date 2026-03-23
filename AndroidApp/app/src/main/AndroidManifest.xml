@@ -33,7 +33,7 @@
         android:localeConfig="@xml/locales_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="DataExtractionRules">
+        tools:ignore="DataExtractionRules,UnusedAttribute">
 
         <activity
             android:name=".activities.OnboardingActivity"
