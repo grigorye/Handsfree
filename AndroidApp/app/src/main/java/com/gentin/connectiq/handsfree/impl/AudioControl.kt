@@ -105,7 +105,7 @@ class AudioControlImp(base: Context?) : ContextWrapper(base), AudioControl {
         }
         val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
         val audioInfo = mapOf(
-            "mode" to audioManager.getMode(),
+            "mode" to audioManager.mode,
             "isSpeakerphoneOn" to audioManager.isSpeakerphoneOn,
             "isBluetoothScoOn" to audioManager.isBluetoothScoOn,
             "isBluetoothA2dpOn" to audioManager.isBluetoothA2dpOn,

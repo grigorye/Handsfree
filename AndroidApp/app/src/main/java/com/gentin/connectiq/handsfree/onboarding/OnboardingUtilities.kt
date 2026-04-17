@@ -358,11 +358,11 @@ private fun permissionHandlersForLinks(uris: List<Uri>): List<PermissionHandler>
             val manifestPermissions = manifestOptionalPermissionsArg.split(",")
             accumulatedOptionalManifestPermissions += manifestPermissions
         }
-        val batteryPermissionArg = uri.getQueryParameterNames().contains("battery_optimization")
+        val batteryPermissionArg = uri.queryParameterNames.contains("battery_optimization")
         if (batteryPermissionArg) {
             handlers.add(batteryOptimizationPermissionHandler)
         }
-        val overlayPermissionArg = uri.getQueryParameterNames().contains("draw_overlays")
+        val overlayPermissionArg = uri.queryParameterNames.contains("draw_overlays")
         if (overlayPermissionArg) {
             handlers.add(overlayPermissionHandler)
         }

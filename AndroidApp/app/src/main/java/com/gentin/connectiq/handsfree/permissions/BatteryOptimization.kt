@@ -21,8 +21,8 @@ val batteryOptimizationPermissionHandler = newAllRequiredPermissionHandler(
     },
     requestPermission = { context ->
         val intent = Intent()
-        intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
-        intent.setData("package:${context.packageName}".toUri())
+        intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+        intent.data = "package:${context.packageName}".toUri()
         context.startActivity(intent)
     }
 )

@@ -33,7 +33,7 @@ class DefaultPhoneCallService(
             return false
         }
         val intent = Intent(Intent.ACTION_CALL)
-        intent.setData("tel:${number}".toUri())
+        intent.data = "tel:${number}".toUri()
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.addFlags(Intent.FLAG_FROM_BACKGROUND)
         if (withSpeakerPhone) {
