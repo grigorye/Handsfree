@@ -1,5 +1,5 @@
 [versions]
-agp = "9.1.1"
+agp = "9.2.0"
 androidsvgAar = "1.4"
 appcompat = "1.7.1"
 ciqCompanionAppSdk = "2.4.0"
