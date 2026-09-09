@@ -35,7 +35,7 @@ connect_iq_brand_assets_zip="$tmpdir"/brand-assets_2024.zip
 connect_iq_brand_assets_extracted="$tmpdir"/connect-iq-brand-brand-assets
 
 curl https://developer.garmin.com/downloads/connect-iq/brand-assets_2024.zip -o "$connect_iq_brand_assets_zip"
-unzip -q "$connect_iq_brand_assets_zip" -d "$connect_iq_brand_assets_extracted"
+7z x -y "$connect_iq_brand_assets_zip" -o"$connect_iq_brand_assets_extracted" >/dev/null 2>&1
 mv "$connect_iq_brand_assets_extracted/brand-assets/brand-assets/badges/Connect IQ Badge-White.svg" "$connect_iq_dir/Connect-IQ-Badge_White.svg"
 
 #

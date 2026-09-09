@@ -59,7 +59,7 @@ chomp $tmpdir;
 
 my $part_number = part_number($ciq_log);
 
-system("unzip", "-q", $iq, "-d", "${tmpdir}/iq");
+system("7z x -y $iq -o${tmpdir}/iq >/dev/null 2>&1");
 my $debug_xml = "${tmpdir}/iq/${part_number}/debug.xml";
 
 open(my $fh, '<', $ciq_log) or die "Failed to open file: ${ciq_log} $!";

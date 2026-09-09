@@ -28,5 +28,5 @@ part_number=$(jq -r '.worldWidePartNumber' "$devices_root/$device/compiler.json"
 # Unpack the  file from the .iq file.
 iq_unpacked_dir="$tmpdir/iq"
 iq_unpacked_part_dir="$iq_unpacked_dir/$part_number"
-unzip "$iq" "$part_number/*.prg" -d "$iq_unpacked_dir"
+7z x -y "$iq" "$part_number/*.prg" -o"$iq_unpacked_dir"
 mv "$iq_unpacked_part_dir"/*.prg "$dst"

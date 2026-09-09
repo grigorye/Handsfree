@@ -22,8 +22,7 @@ tmpdir=$(mktemp -d /tmp/"$bn".XXXXXX)
 devices_root="$HOME/Library/Application Support/Garmin/ConnectIQ/Devices"
 
 # Unpack the .iq file
-
-unzip -q "$iq" -d "$tmpdir/iq"
+7z x -y "$iq" -o"$tmpdir/iq"
 
 # Prepare a map of part number to device name.
 device_map="$tmpdir/device_map.txt"
