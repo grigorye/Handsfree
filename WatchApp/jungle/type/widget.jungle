@@ -38,6 +38,7 @@ fr55.excludeAnnotations = $(versioning_excludeAnnotations);$(tinyMemory_excludeA
 fr745.excludeAnnotations = $(versioning_excludeAnnotations);$(midMemory_excludeAnnotations)
 fr945.excludeAnnotations = $(versioning_excludeAnnotations);$(midMemory_excludeAnnotations)
 fr945lte.excludeAnnotations = $(versioning_excludeAnnotations);$(midMemory_excludeAnnotations)
+gpsmaph1.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 instinct2.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_glanceOnly_excludeAnnotations)
 instinct2s.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_glanceOnly_excludeAnnotations)
 instinct2x.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_glanceOnly_excludeAnnotations)

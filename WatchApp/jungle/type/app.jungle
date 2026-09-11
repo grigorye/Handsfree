@@ -35,6 +35,7 @@ fenix6spro.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_exc
 fenix6xpro.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 fr245.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 fr55.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
+gpsmaph1.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 instinct2.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 instinct2s.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
 instinct2x.excludeAnnotations = $(versioning_excludeAnnotations);$(lowMemory_excludeAnnotations)
