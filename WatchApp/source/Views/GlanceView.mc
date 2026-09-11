@@ -65,7 +65,13 @@ class GlanceView extends WatchUi.GlanceView {
                         subtitle = getPhoneRep(recent);
                     } else {
                         title = Rez.Strings.glanceMissedCalls;
-                        subtitle = formatIfResources("$1$ $2$", [missedRecentsCount, Rez.Strings.glanceContacts]);
+                        subtitle = formatIfResources(
+                            "$1$ $2$",
+                            [
+                                missedRecentsCount.toString(),
+                                Rez.Strings.glanceContacts
+                            ]
+                        );
                     }
                 } else {
                     title = defaultTitle;

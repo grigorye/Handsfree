@@ -74,7 +74,10 @@ class WidgetView extends WatchUi.View {
                     } else {
                         lines.add(Rez.Strings.glanceMissedCalls);
                         var subtitle;
-                        subtitle = formatIfResources(Rez.Strings.widgetContactsCountFormat, [missedRecentsCount]);
+                        subtitle = formatIfResources(
+                            Rez.Strings.widgetContactsCountFormat,
+                            [missedRecentsCount.toString()]
+                        );
                         lines.add(subtitle);
                     }
                 } else {

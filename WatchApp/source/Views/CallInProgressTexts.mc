@@ -55,7 +55,7 @@ function addAudioActions(actions as CallInProgressActions) as Void {
     var percents = toPercents(audioVolume);
     var lastKnownAudioVolume = AudioStateManip.getAudioVolume(lastKnownAudioState);
     var audioVolumeIsUpToDate = percents == toPercents(lastKnownAudioVolume);
-    var volumeSuffix = formatIfResources(Rez.Strings.callPromptVolumePercentFormat, [percents]);
+    var volumeSuffix = formatIfResources(Rez.Strings.callPromptVolumePercentFormat, [percents.toString()]);
     if (!audioVolumeIsUpToDate) {
         volumeSuffix = pendingText(volumeSuffix);
     }

@@ -151,13 +151,13 @@ function formatDuration(duration as Lang.Number) as Lang.String? {
     var minutesOnly = (minutes % 60) + (secondsOnly + 30) / 60;
     var hoursOnly = hours + (minutesOnly + 30) / 60;
     if (hoursOnly > 0) {
-        return formatIfResources(Rez.Strings.durationHoursFormat, [hoursOnly]);
+        return formatIfResources(Rez.Strings.durationHoursFormat, [hoursOnly.toString()]);
     }
     if (minutesOnly > 0) {
-        return formatIfResources(Rez.Strings.durationMinutesFormat, [minutesOnly]);
+        return formatIfResources(Rez.Strings.durationMinutesFormat, [minutesOnly.toString()]);
     }
     if (secondsOnly > 0) {
-        return formatIfResources(Rez.Strings.durationSecondsFormat, [secondsOnly]);
+        return formatIfResources(Rez.Strings.durationSecondsFormat, [secondsOnly.toString()]);
     }
     return null;
 }
