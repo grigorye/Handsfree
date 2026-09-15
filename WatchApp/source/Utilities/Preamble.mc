@@ -2,6 +2,7 @@ import Toybox.System;
 import Toybox.Lang;
 import Toybox.Time;
 import Toybox.Time.Gregorian;
+import Rez.Strings;
 
 (:glance, :background)
 function _preamble() as Void {
@@ -27,16 +28,10 @@ function _preamble() as Void {
         + (errorDebug ? "E" : "e")
         + (foregroundSubjectsEnabled ? "F" : "f");
     
-    var partNumber;
-    if (minDebug) {
-        var ds = System.getDeviceSettings();
-        partNumber = ds.partNumber;
-    } else {
-        partNumber = "-";
-    }
+    var deviceId = loadIfResource(Rez.Strings.deviceId);
     var message = Lang.format(
         "-------- $1$ $2$ $6$ ($3$) ($4$) ($5$)",
-        [dateFormatted, timeFormatted, sourceVersion, featuresRep, statsRep, partNumber]
+        [dateFormatted, timeFormatted, sourceVersion, featuresRep, statsRep, deviceId]
     );
     System.println(message);
 }
