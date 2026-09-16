@@ -70,19 +70,24 @@ function dumpImp(component as LogComponent, tag as Lang.String, output as Lang.O
     var prefix;
     if (!lowMemory) {
         var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-        var timePrefix =
-            info.hour.format("%02d") + ":" +
-            info.min.format("%02d") + ":" +
-            info.sec.format("%02d") + " ";
-        prefix = timePrefix + component + "." + tag;
+        prefix = Lang.format(
+            "$1$:$2$:$3$ $4$.$5$",
+            [
+                info.hour.format("%02d"),
+                info.min.format("%02d"),
+                info.sec.format("%02d"),
+                component,
+                tag
+            ]
+        );
     } else {
-        prefix = component + "." + tag;
+        prefix = Lang.format("$1$.$2$", [component, tag]);
     }
     var message;
     if (output == noArg) {
         message = prefix;
     } else {
-        message = prefix + ": " + output;
+        message = Lang.format("$1$: $2$", [prefix, output]);
     }
     System.println(message);
 }
