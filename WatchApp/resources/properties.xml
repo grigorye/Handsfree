@@ -25,31 +25,6 @@
         <property id="reportHeadset" type="boolean">true</property>
     </properties>
 
-    <strings>
-        <string id="openAppOnIncomingCall" scope="settings">Incoming calls/Ringing</string>
-        <string id="broadcastListening" scope="settings">⚡️ Eager sync</string>
-        <string id="showSourceVersion" scope="settings">🐞 Source version on glance</string>
-        <string id="customGlanceTitle" scope="settings">🔧 Custom title for glance</string>
-        <string id="incomingCallMessageFormat" scope="settings">🔧 Incoming call message format (keep $1$ as the placeholder)</string>
-        <string id="pendingValueFormat" scope="settings">🔧 Pending value format (keep $1$ as the placeholder)</string>
-        <string id="forceLargeFonts" scope="settings">🔧 Force large font on glance</string>
-        <string id="incomingOpenAppViaCompanion" scope="settings">Vibrate/full-fledged prompt for incoming calls (Fenix 7 only).</string>
-        <string id="openAppViaNotification" scope="settings">🐞 Open app via notification</string>
-        <string id="beepOnComm" scope="settings">🐞 Beep on communication</string>
-        <string id="statsTracking" scope="settings">🐞 Stats</string>
-        <string id="glanceLogging" scope="settings">🐞 Log glance</string>
-        <string id="workaroundNoRedrawForMenu2" scope="settings">🐞 Workaround no redraw for Menu2</string>
-        <string id="forcedLogComponents" scope="settings">🐞 Force log components</string>
-        <string id="incomingCallVibration" scope="settings">Incoming call vibration pattern (Fenix 7 only).
-Use &apos;v3;p1;v3;p2&apos; for &apos;vibrate 3s, pause 1s, vibrate 3s, pause 2s&apos;.</string>
-        <string id="forceLogAll" scope="settings">🐞 Verbose logs</string>
-        <string id="flushIncomingMessagesOnLaunch" scope="settings">🐞 Flush incoming messages on launch</string>
-        <string id="optimisticCallHandling" scope="settings">🐞 Faster calls</string>
-        <string id="followUpCommDelay" scope="settings">🐞 Comm delay on follow-up</string>
-        <string id="showPhoneNumbers" scope="settings">Phone numbers in Contacts</string>
-        <string id="reportHeadset" scope="settings">Report status of headset</string>
-    </strings>
-
     <settings>
         <setting
             propertyKey="@Properties.dummySourceVersion"
