@@ -1,21 +1,21 @@
 import Toybox.Lang;
-import Toybox.WatchUi;
+
+(:glance, :widget)
+function joinComponents(components as Lang.Array<StringOrResource>, separator as Lang.String) as Lang.String {
+    return joinNonNullComponents(components as Lang.Array<StringOrResource | Null>, separator);
+}
 
 (:glance)
-function joinComponents(components as Lang.Array<Lang.String or Lang.ResourceId or Null>, separator as Lang.String) as Lang.String {
+function joinNonNullComponents(components as Lang.Array<StringOrResource | Null>, separator as Lang.String) as Lang.String {
     var result = "";
-    for (var i = 0; i < components.size(); i++) {
+    var size = components.size();
+    for (var i = 0; i < size; i++) {
         var component = components[i];
         if (component == null) {
             continue;
         }
 
-        var adjustedComponent;
-        if (component instanceof Lang.ResourceId) {
-            adjustedComponent = WatchUi.loadResource(component) as Lang.String;
-        } else {
-            adjustedComponent = component as Lang.String;
-        }
+        var adjustedComponent = loadIfResource(component);
 
         if (result.equals("")) {
             result = adjustedComponent;
