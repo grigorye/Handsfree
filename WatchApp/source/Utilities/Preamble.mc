@@ -11,33 +11,25 @@ function _preamble() as Void {
     var now = Time.now();
     var info = Gregorian.info(now, Time.FORMAT_SHORT);
     System.println("");
-    var timeFormatted = info.hour.format("%02d") + ":" + info.min.format("%02d") + ":" + info.sec.format("%02d");
-    var dateFormatted =
-        info.year.format("%02d") + "/" +
-        (info.month as Lang.Number).format("%02d") + "/" +
-        info.day.format("%02d");
+    var timeFormatted = Lang.format("$1$:$2$:$3$", [info.hour.format("%02d"), info.min.format("%02d"), info.sec.format("%02d")]);
+    var dateFormatted = Lang.format("$1$/$2$/$3$", [info.year.format("%02d"), (info.month as Lang.Number).format("%02d"), info.day.format("%02d")]);
     var stats = System.getSystemStats();
     var statsRep = {
         "f" => stats.freeMemory,
         "t" => stats.totalMemory,
         "u" => stats.usedMemory
     };
-    //             "23:57:28 "
-    System.println(
-        "-------- "
-        + dateFormatted
-        + " "
-        + timeFormatted
-        + " (" + sourceVersion + ")"
-        + " ("
-        + targetUiType + "-"
+    var featuresRep = targetUiType + "-"
         + (lowMemory ? "L" : "l")
         + (lowMemoryManifest ? "R" : "r")
         + (testDebug ? "T" : "t")
         + (memDebug ? "M" : "m")
         + (errorDebug ? "E" : "e")
-        + (foregroundSubjectsEnabled ? "F" : "f")
-        + ")"
-        + " (" + statsRep + ")"
+        + (foregroundSubjectsEnabled ? "F" : "f");
+    
+    var message = Lang.format(
+        "-------- $1$ $2$ ($3$) ($4$) ($5$)",
+        [dateFormatted, timeFormatted, sourceVersion, featuresRep, statsRep]
     );
+    System.println(message);
 }
