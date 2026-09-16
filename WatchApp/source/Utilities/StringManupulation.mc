@@ -53,3 +53,16 @@ function stringComponentsJoinedBySeparator(joined as Lang.String, separator as L
     }
     return components;
 }
+
+(:background)
+function deleteSubstring(string as Lang.String, substring as Lang.String) as Lang.String | Null {
+    var index = string.find(substring);
+    if (index == null) {
+        return null;
+    }
+    var stringLength = string.length();
+    var substringLength = substring.length();
+    var before = index == 0 ? "" : string.substring(0, index) as Lang.String;
+    var after = index + substringLength >= stringLength ? "" : string.substring(index + substringLength, stringLength) as Lang.String;
+    return before + after;
+}
