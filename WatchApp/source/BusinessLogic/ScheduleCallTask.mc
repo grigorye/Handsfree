@@ -1,6 +1,7 @@
 import Toybox.Communications;
 import Toybox.Application;
 import Toybox.Lang;
+import Toybox.WatchUi;
 
 const L_SCHEDULE_CALL as LogComponent = "scheduleCall";
 
@@ -65,42 +66,41 @@ function preflightAllReadiness() as Lang.Boolean {
 
 (:readiness)
 function preflightAllReadiness() as Lang.Boolean {
-    if (!preflightReadiness(ReadinessField_essentials, "Call control")) {
+    if (!preflightReadiness(ReadinessField_essentials, Rez.Strings.readinessCallControl)) {
         return false;
     }
-    if (!preflightReadiness(ReadinessField_outgoingCalls, "Outgoing calls")) {
+    if (!preflightReadiness(ReadinessField_outgoingCalls, Rez.Strings.readinessOutgoingCalls)) {
         return false;
     }
     return true;
 }
 
 (:readiness)
-function preflightReadiness(field as Lang.String, title as Lang.String) as Lang.Boolean {
+function preflightReadiness(field as Lang.String, title as StringOrResource) as Lang.Boolean {
     var readiness = ReadinessInfoManip.readiness(field);
     if (readiness.equals(ReadinessValue_ready)) {
         return true;
     }
     if (debug) { _3(L_SCHEDULE_CALL, "notReady", field + ":" + readiness); }
-    var format;
+    var message;
     switch (readiness) {
         case ReadinessValue_disabled: {
-            format = "$1$\nnot enabled";
+            message = formatIfResources(Rez.Strings.readinessFormatNotEnabled, [title]);
             break;
         }
         case ReadinessValue_notPermitted: {
-            format = "$1$\nnot permitted";
+            message = formatIfResources(Rez.Strings.readinessFormatNotPermitted, [title]);
             break;
         }
         case ReadinessValue_notReady: {
-            format = "$1$\nnot ready";
+            message = formatIfResources(Rez.Strings.readinessFormatNotReady, [title]);
             break;
         }
         default: {
-            format = "$1$\nnot ready?";
+            message = formatIfResources(Rez.Strings.readinessFormatNotReadyUnknown, [title]);
             break;
         }
     }
-    var message = Lang.format(format, [title]);
     showFeedback(message);
     return false;
 }

@@ -20,5 +20,6 @@ function updateRecentsItemInMenu(menu as WatchUi.Menu2) as Void {
 }
 
 function menuItemLabelFromRecents() as Lang.String {
-    return joinComponents([extraMenuItemPrefix + "Recents", missedCallsRep()], " ");
+    var missedCalls = missedCallsRep();
+    return joinNonNullComponents([Rez.Strings.menuRecents, missedCalls], " ");
 }

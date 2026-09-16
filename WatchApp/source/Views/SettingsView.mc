@@ -8,20 +8,20 @@ module SettingsScreen {
 
 class View extends WatchUi.Menu2 {
     function initialize() {
-        Menu2.initialize({ :title => "Settings" });
+        Menu2.initialize({ :title => Rez.Strings.menuSettings });
         addItem(incomingCallsMenuItem());
         addItem(showPhoneNumbersMenuItem());
         addItem(optimisticCallHandlingMenuItem());
         addItem(broadcastListeningMenuItem());
-        addItem(new MenuItem("About", null, :about, null));
+        addItem(new MenuItem(Rez.Strings.menuAbout, null, :about, null));
     }
 
     function incomingCallsMenuItem() as WatchUi.ToggleMenuItem {
         return new ToggleMenuItem(
-            "Ringing",
+            Rez.Strings.toggleRinging,
             {
                 :enabled => incomingCallsEnabledMenuItemTitle(),
-                :disabled => "Off"
+                :disabled => Rez.Strings.uiOff
             },
             :openAppOnIncomingCall,
             BackgroundSettings.isOpenAppOnIncomingCallEnabled(),
@@ -31,10 +31,10 @@ class View extends WatchUi.Menu2 {
 
     function showPhoneNumbersMenuItem() as WatchUi.ToggleMenuItem {
         return new ToggleMenuItem(
-            "Phone Numbers",
+            Rez.Strings.togglePhoneNumbers,
             {
-                :enabled => "On",
-                :disabled => "Off"
+                :enabled => Rez.Strings.uiOn,
+                :disabled => Rez.Strings.uiOff
             },
             :showPhoneNumbers,
             AppSettings.isShowingPhoneNumbersEnabled(),
@@ -44,10 +44,10 @@ class View extends WatchUi.Menu2 {
 
     function optimisticCallHandlingMenuItem() as WatchUi.ToggleMenuItem {
         return new ToggleMenuItem(
-            "Faster Calls",
+            Rez.Strings.toggleFasterCalls,
             {
-                :enabled => "On",
-                :disabled => "Off"
+                :enabled => Rez.Strings.uiOn,
+                :disabled => Rez.Strings.uiOff
             },
             :optimisticCallHandling,
             AppSettings.isOptimisticCallHandlingEnabled(),
@@ -57,10 +57,10 @@ class View extends WatchUi.Menu2 {
 
     function broadcastListeningMenuItem() as WatchUi.ToggleMenuItem {
         return new ToggleMenuItem(
-            "Eager Sync",
+            Rez.Strings.toggleEagerSync,
             {
-                :enabled => "On",
-                :disabled => "Off"
+                :enabled => Rez.Strings.uiOn,
+                :disabled => Rez.Strings.uiOff
             },
             :broadcastListening,
             isBroadcastListeningEnabled(),
@@ -78,27 +78,27 @@ class View extends WatchUi.Menu2 {
 }
 
 (:noReadiness)
-function incomingCallsEnabledMenuItemTitle() as Lang.String {
+function incomingCallsEnabledMenuItemTitle() as StringOrResource {
     return incomingCallsEnabledMenuItemTitleIgnoringReadiness();
 }
 
 (:readiness)
-function incomingCallsEnabledMenuItemTitle() as Lang.String {
+function incomingCallsEnabledMenuItemTitle() as StringOrResource {
     var readiness = ReadinessInfoManip.readiness(ReadinessField_incomingCalls);
     if (!readiness.equals(ReadinessValue_ready)) {
-        return "On (Not ready)";
+        return Rez.Strings.uiOnNotReady;
     } else {
         return incomingCallsEnabledMenuItemTitleIgnoringReadiness();
     }
 }
 
-function incomingCallsEnabledMenuItemTitleIgnoringReadiness() as Lang.String {
+function incomingCallsEnabledMenuItemTitleIgnoringReadiness() as StringOrResource {
     if (BackgroundSettings.isIncomingOpenAppViaCompanionEnabled) {
-        return "Vibration/Alert";
+        return Rez.Strings.modeVibrationAlert;
     } else if (BackgroundSettings.isOpenAppViaNotificationEnabled()) {
-        return "Notification";
+        return Rez.Strings.modeNotification;
     } else {
-        return "Alert";
+        return Rez.Strings.modeAlert;
     }
 }
 

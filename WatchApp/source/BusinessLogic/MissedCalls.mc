@@ -49,5 +49,5 @@ function missedCallsRep() as Lang.String or Null {
     if (missedRecents.size() == 0) {
         return null;
     }
-    return "(" + missedRecents.size() + ")";
+    return Lang.format("($1$)", [missedRecents.size()]);
 }

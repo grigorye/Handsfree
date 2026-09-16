@@ -1,4 +1,5 @@
 import Toybox.WatchUi;
+import Toybox.Lang;
 import Toybox.System;
 
 const L_CALL_ACTING_DATA as LogComponent = "callActing";
@@ -8,20 +9,23 @@ class CallActingView extends WatchUi.ProgressBar {
         var commStatus = callState.commStatus;
         if (debug) { _3(L_CALL_ACTING_DATA, "commStatus", commStatus); }
         var source = displayTextForPhone(callState.phone);
-        var message;
+        var message = "" as StringOrResource;
         switch (commStatus) {
             case PENDING:
                 switch (callState) {
                     case instanceof Accepting: {
-                        message = pendingText("Answering") + "\n" + source;
+                        var pendingMessage = pendingText(Rez.Strings.callAnswering);
+                        message = Lang.format("$1$\n$2$", [pendingMessage, source]);
                         break;
                     }
                     case instanceof HangingUp: {
-                        message = pendingText("Hanging Up") + "\n" + source;
+                        var pendingMessage = pendingText(Rez.Strings.callHangingUp);
+                        message = Lang.format("$1$\n$2$", [pendingMessage, source]);
                         break;
                     }
                     case instanceof Declining: {
-                        message = pendingText("Declining") + "\n" + source;
+                        var pendingMessage = pendingText(Rez.Strings.callDeclining);
+                        message = Lang.format("$1$\n$2$", [pendingMessage, source]);
                         break;
                     }
                     default: {
@@ -37,15 +41,15 @@ class CallActingView extends WatchUi.ProgressBar {
             case SUCCEEDED:
                 switch (callState) {
                     case instanceof Accepting: {
-                        message = "Answering" + "\n" + source;
+                        message = formatIfResources("$1$\n$2$", [Rez.Strings.callAnswering, source]);
                         break;
                     }
                     case instanceof HangingUp: {
-                        message = "Hanging Up" + "\n" + source;
+                        message = formatIfResources("$1$\n$2$", [Rez.Strings.callHangingUp, source]);
                         break;
                     }
                     case instanceof Declining: {
-                        message = "Declining" + "\n" + source;
+                        message = formatIfResources("$1$\n$2$", [Rez.Strings.callDeclining, source]);
                         break;
                     }
                     default: {
@@ -61,9 +65,9 @@ class CallActingView extends WatchUi.ProgressBar {
             case FAILED:
                 var deviceSettings = System.getDeviceSettings();
                 if (deviceSettings.phoneConnected) {
-                    message = "Communication\nFailed";
+                    message = Rez.Strings.callCommunicationFailed;
                 } else {
-                    message = "No Connection";
+                    message = Rez.Strings.callNoConnection;
                 }
                 break;
             default:
@@ -74,6 +78,6 @@ class CallActingView extends WatchUi.ProgressBar {
                     System.error("");
                 }
         }
-        ProgressBar.initialize(message, 0.0);
+        ProgressBar.initialize(loadIfResource(message), 0.0);
     }
 }

@@ -1,12 +1,13 @@
 import Toybox.WatchUi;
 import Toybox.Application;
+import Toybox.Lang;
 
 (:settings)
 module Views {
 
 class AboutView extends WatchUi.Menu2 {
     function initialize() {
-        Menu2.initialize({ :title => "About" });
+        Menu2.initialize({ :title => Rez.Strings.menuAbout });
         addItem(watchAppVersionItem());
         if (companionInfoEnabled) {
             addItem(companionVersionItem());
@@ -14,9 +15,8 @@ class AboutView extends WatchUi.Menu2 {
     }
 
     function watchAppVersionItem() as WatchUi.MenuItem {
-        var title = "Watch App";
         var subtitle = sourceVersion;
-        return new MenuItem(title, subtitle, :more, null);
+        return new MenuItem(Rez.Strings.aboutWatchApp, subtitle, :more, null);
     }
 
     (:noCompanion)
@@ -24,21 +24,25 @@ class AboutView extends WatchUi.Menu2 {
         if (errorDebug) {
             System.error("Missed companionInfoEnabled check");
         }
-        return (null as WatchUi.MenuItem?) as WatchUi.MenuItem;
+        return new MenuItem(Rez.Strings.aboutCompanionApp, null, :more, null);
     }
 
     (:companion)
     function companionVersionItem() as WatchUi.MenuItem {
         var companionInfo = Storage.getValue(CompanionInfo_valueKey) as CompanionInfo | Null;
         if (companionInfo == null) {
-            return new MenuItem("Install", "Companion App", :installCompanionApp, null);
+            return new MenuItem(
+                Rez.Strings.aboutInstall,
+                Rez.Strings.aboutCompanionApp,
+                :installCompanionApp,
+                null
+            );
         } else {
             var versionCode = CompanionInfoImp.getCompanionVersionCode(companionInfo);
             var versionName = CompanionInfoImp.getCompanionVersionName(companionInfo);
             var sourceVersion = CompanionInfoImp.getCompanionSourceVersion(companionInfo);
-            var title = "Companion App";
-            var subtitle = versionName + " (" + versionCode + ") " + sourceVersion;
-            return new MenuItem(title, subtitle, :installCompanionApp, null);
+            var subtitle = Lang.format("$1$ ($2$) $3$", [versionName, versionCode, sourceVersion]);
+            return new MenuItem(Rez.Strings.aboutCompanionApp, subtitle, :installCompanionApp, null);
         }
     }
 }

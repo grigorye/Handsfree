@@ -1,9 +1,10 @@
 using Toybox.WatchUi;
 using Toybox.Lang;
 
-function showFeedback(message as Lang.String) as Void {
+function showFeedback(message as StringOrResource) as Void {
+    var adjustedMessage = loadIfResource(message);
     var progressBar = new WatchUi.ProgressBar(
-        message,
+        adjustedMessage,
         null
     );
     progressBar.setProgress(0.0);

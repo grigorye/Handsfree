@@ -7,26 +7,27 @@ class SchedulingCallView extends WatchUi.ProgressBar {
     function initialize(callState as SchedulingCall) {
         var commStatus = callState.commStatus;
         if (debug) { _3(L_SCHEDULING_CALL_VIEW, "commStatus", commStatus); }
-        var message = "";
+        var message = "" as StringOrResource;
         var destination;
         var name = callState.phone[PhoneField_name] as Lang.String or Null;
         if (name != null && !name.equals("")) {
             destination = name;
         } else {
-            destination = callState.phone[PhoneField_number];
+            destination = callState.phone[PhoneField_number] as Lang.String;
         }
         switch (callState.commStatus) {
             case PENDING:
-                message = "|Calling|" + "\n" + destination;
+                var pendingMessage = pendingText(Rez.Strings.callCalling);
+                message = Lang.format("$1$\n$2$", [pendingMessage, destination]);
                 break;
             case SUCCEEDED:
-                message = "Calling" + "\n" + destination;
+                message = formatIfResources("$1$\n$2$", [Rez.Strings.callCalling, destination]);
                 break;
             case FAILED:
                 if (System.getDeviceSettings().phoneConnected) {
-                    message = "Communication\nFailed";
+                    message = Rez.Strings.callCommunicationFailed;
                 } else {
-                    message = "Phone\nNot Connected";
+                    message = Rez.Strings.callPhoneNotConnected;
                 }
                 break;
             default:
@@ -36,6 +37,6 @@ class SchedulingCallView extends WatchUi.ProgressBar {
                     System.error("");
                 }
         }
-        ProgressBar.initialize(message, 0.0);
+        ProgressBar.initialize(loadIfResource(message), 0.0);
     }
 }

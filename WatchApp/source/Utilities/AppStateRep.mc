@@ -28,7 +28,7 @@ function appStateRep(state as Lang.Dictionary or Null) as Lang.Object | Null {
     }
     var configId = state[:configId] as Lang.Object | Null;
     if (configId != null) {
-        stateRep.add("configId(" + configId + ")");
+        stateRep.add(Lang.format("configId($1$)", [configId]));
     }
     return stateRep;
 }

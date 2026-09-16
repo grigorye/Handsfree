@@ -16,7 +16,7 @@ function handlePing() as Void {
     if (!(WatchUi has :showToast)) {
         return;
     }
-    WatchUi.showToast("Ping", null);
+    WatchUi.showToast(Rez.Strings.toastPing, null);
 }
 
 (:background)

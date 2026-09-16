@@ -6,5 +6,5 @@ var msgIndex as Lang.Number = 0;
 (:background, :glance)
 function formatCommTag(tag as Lang.String) as Lang.String {
     msgIndex++;
-    return "'" + tag + "'." + msgIndex;
+    return Lang.format("'$1$'.$2$", [tag, msgIndex]);
 }

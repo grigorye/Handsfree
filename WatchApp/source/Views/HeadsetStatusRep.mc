@@ -1,20 +1,21 @@
 import Toybox.Lang;
+import Toybox.WatchUi;
 
 (:glance)
-function headsetStatusRep() as Lang.String or Null {
+function headsetStatusRep() as StringOrResource | Null {
     var speakerWouldBeUsed = AudioStateManip.getSpeakerWouldBeUsed();
     if (speakerWouldBeUsed) {
-        return "#";
+        return Rez.Strings.headsetStatusMarker;
     } else {
         return null;
     }
 }
 
 (:glance, :noLowMemory)
-function headsetStatusHumanReadable() as Lang.String or Null {
+function headsetStatusHumanReadable() as StringOrResource | Null {
     var speakerWouldBeUsed = AudioStateManip.getSpeakerWouldBeUsed();
     if (speakerWouldBeUsed) {
-        return "No Headset";
+        return Rez.Strings.headsetNoHeadset;
     } else {
         return null;
     }
@@ -22,6 +23,7 @@ function headsetStatusHumanReadable() as Lang.String or Null {
 
 (:glance)
 function embeddingHeadsetStatusRep(title as Lang.String) as Lang.String {
-    var adjustedTitle = joinComponents([title, headsetStatusRep()], " ");
+    var headsetStatus = headsetStatusRep();
+    var adjustedTitle = joinNonNullComponents([title, headsetStatus], " ");
     return adjustedTitle;
 }

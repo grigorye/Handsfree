@@ -1,9 +1,9 @@
 import Toybox.Communications;
 import Toybox.Background;
 import Toybox.Lang;
-import Toybox.Application;
 import Toybox.System;
 import Toybox.Notifications;
+import Toybox.WatchUi;
 
 (:background)
 const LX_OPEN_ME as LogComponent = "openMe";
@@ -59,7 +59,7 @@ function openAppOnIncomingCall(phone as Phone) as Void {
     if (BackgroundSettings.isIncomingOpenAppViaCompanionEnabled) {
         var msg = {
             cmdK => Cmd_openMe,
-            OpenMeArgsK_messageForWakingUp => message
+            OpenMeArgsK_messageForWakingUp => loadIfResource(message)
         } as Lang.Dictionary<Communications.TransmitKeyType, Communications.TransmitType>;
         transmitWithoutRetry("openMe", msg);
     } else {
@@ -68,25 +68,25 @@ function openAppOnIncomingCall(phone as Phone) as Void {
 }
 
 (:background, :widgetBuild)
-function promptForIncomingCall(message as Lang.String) as Void {
-    Background.requestApplicationWake(message);
+function promptForIncomingCall(message as StringOrResource) as Void {
+    Background.requestApplicationWake(loadIfResource(message));
 }
 
 (:background, :watchAppBuild)
-function promptForIncomingCall(message as Lang.String) as Void {
+function promptForIncomingCall(message as StringOrResource) as Void {
     if (BackgroundSettings.isOpenAppViaNotificationEnabled()) {
-        Notifications.showNotification(message, "Incoming Call", {
+        Notifications.showNotification(message, Rez.Strings.openMeNotificationIncomingCall, {
             :actions => [
-                { :label => "Launch", :data => 1 }
+                { :label => Rez.Strings.openMeNotificationLaunch, :data => 1 }
             ],
         } as ShowNotificationOptions);
     } else {
-        Background.requestApplicationWake(message);
+        Background.requestApplicationWake(loadIfResource(message));
     }
 }
 
 (:background, :watchAppBuild)
-function messageForApplicationWake(phone as Phone) as Lang.String {
+function messageForApplicationWake(phone as Phone) as StringOrResource {
     if (BackgroundSettings.isOpenAppViaNotificationEnabled()) {
         var name = phone[PhoneField_name] as Lang.String or Null;
         if (name != null) {
@@ -96,7 +96,7 @@ function messageForApplicationWake(phone as Phone) as Lang.String {
         if (number != null) {
             return number;
         }
-        return "Unknown number";
+        return Rez.Strings.openMeUnknownNumber;
     } else {
         var name = phone[PhoneField_name] as Lang.String or Null;
         if (name != null) {
@@ -106,12 +106,12 @@ function messageForApplicationWake(phone as Phone) as Lang.String {
         if (number != null) {
             return incomingCallMessage(number);
         }
-        return "Incoming call";
+        return Rez.Strings.openMeIncomingCall;
     }
 }
 
 (:background, :widgetBuild)
-function messageForApplicationWake(phone as Phone) as Lang.String {
+function messageForApplicationWake(phone as Phone) as StringOrResource {
     var name = phone[PhoneField_name] as Lang.String or Null;
     if (name != null) {
         return incomingCallMessage(name);
@@ -120,7 +120,7 @@ function messageForApplicationWake(phone as Phone) as Lang.String {
     if (number != null) {
         return incomingCallMessage(number);
     }
-    return "Incoming call";
+    return Rez.Strings.openMeIncomingCall;
 }
 
 (:background)

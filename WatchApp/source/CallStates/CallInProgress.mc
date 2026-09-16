@@ -16,6 +16,6 @@ class CallInProgress extends CallStateImp {
         } else {
             optimisticElement = "";
         }
-        return "CallInProgress(" + phone + optimisticElement + ")";
+        return Lang.format("CallInProgress($1$$2$)", [phone, optimisticElement]);
     }
 }

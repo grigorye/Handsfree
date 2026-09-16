@@ -5,12 +5,12 @@ import Toybox.System;
 class CallInProgressView extends ExtendedMenu2 {
     function initialize(phone as Phone, optimistic as Lang.Boolean) {
         var texts = textsForCallInProgress(phone);
-        var title = texts[:title] as Lang.String;
+        var title = texts[:title] as StringOrResource;
         if (optimistic) {
             title = pendingText(title);
         }
         ExtendedMenu2.initialize();
-        setTitle(embeddingHeadsetStatusRep(title));
+        setTitle(embeddingHeadsetStatusRep(loadIfResource(title)));
         var actions = texts[:actions] as CallInProgressActions;
         populateFromActions(actions);
     }
@@ -20,8 +20,8 @@ class CallInProgressView extends ExtendedMenu2 {
             var action = actions[i] as CallInProgressActionSelector;
             var command = action[:command] as Lang.String;
             var item = new WatchUi.MenuItem(
-                action[:prompt] as Lang.String, // label
-                action[:subLabel] as Lang.String or Null, // subLabel
+                action[:prompt] as StringOrResource, // label
+                action[:subLabel] as StringOrResource | Null, // subLabel
                 command, // identifier
                 null // options
             );
@@ -37,8 +37,8 @@ class CallInProgressView extends ExtendedMenu2 {
             var action = actions[i] as CallInProgressActionSelector;
             var command = action[:command] as Lang.String;
             var item = new WatchUi.MenuItem(
-                action[:prompt] as Lang.String, // label
-                action[:subLabel] as Lang.String or Null, // subLabel
+                action[:prompt] as StringOrResource, // label
+                action[:subLabel] as StringOrResource | Null, // subLabel
                 command, // identifier
                 null // options
             );
@@ -74,11 +74,11 @@ class CallInProgressView extends ExtendedMenu2 {
 
     function updateFromPhone(phone as Phone, optimistic as Lang.Boolean) as Void {
         var texts = textsForCallInProgress(phone);
-        var title = texts[:title] as Lang.String;
+        var title = texts[:title] as StringOrResource;
         if (optimistic) {
             title = pendingText(title);
         }
-        setTitle(embeddingHeadsetStatusRep(title));
+        setTitle(embeddingHeadsetStatusRep(loadIfResource(title)));
 
         var actions = texts[:actions] as CallInProgressActions;
         if (actions.size() != menuItemCount) {

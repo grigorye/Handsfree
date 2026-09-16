@@ -222,7 +222,7 @@ function onAppDidFinishLaunching() as Void {
         var foregroundSubjects = foregroundSubjects();
         if (foregroundSubjects.size() > 0) {
             if (minDebug) { _3(L_APP, "foregroundSubjectsOnLaunch", foregroundSubjects); }
-            var subjects = joinComponents(foregroundSubjects as Lang.Array<Lang.String | Lang.ResourceId | Null>, "");
+            var subjects = joinComponents(foregroundSubjects as Lang.Array<StringOrResource>, "");
             Req.requestSubjects(subjects);
         }
     }

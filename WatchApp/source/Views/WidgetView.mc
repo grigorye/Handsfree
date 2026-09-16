@@ -35,10 +35,9 @@ class WidgetView extends WatchUi.View {
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         }
 
-        var appName = WatchUi.loadResource(Rez.Strings.listAppName) as Lang.String;
         if (true) {
             var callState = getCallState();
-            var lines = [] as Lang.Array<Lang.String or Null>;
+            var lines = [] as Lang.Array<StringOrResource>;
             if (callState instanceof CallInProgress) {
                 var phone = callState.phone;
                 var isIncomingCall = isIncomingCallPhone(phone);
@@ -46,9 +45,9 @@ class WidgetView extends WatchUi.View {
                 var number = phone[PhoneField_number] as Lang.String or Null;
                 var callStatusLine;
                 if (isIncomingCall) {
-                    callStatusLine = "Incoming Call";
+                    callStatusLine = Rez.Strings.glanceIncomingCall;
                 } else {
-                    callStatusLine = "In Progress";
+                    callStatusLine = Rez.Strings.glanceInProgress;
                 }
                 lines.add(callStatusLine);
 
@@ -62,34 +61,42 @@ class WidgetView extends WatchUi.View {
                 var missedRecentsCount = missedRecents.size();
                 if (missedRecentsCount > 0) {
                     if (missedRecentsCount == 1) {
-                        lines.add("Missed Call");
+                        lines.add(Rez.Strings.widgetMissedCall);
                         var recents = Storage.getValue(Recents_valueKey) as Recents;
                         var recent = (recents[RecentsField_list] as RecentsList)[missedRecents[0]];
                         var recentDate = getRecentDate(recent) / 1000;
                         var dateFormatted = RecentsScreen.formatDate(recentDate);
                         var subtitle = getPhoneRep(recent);
-                        lines.add(subtitle);
+                        if (subtitle != null) {
+                            lines.add(subtitle);
+                        }
                         lines.add(dateFormatted);
                     } else {
-                        lines.add("Missed Calls");
+                        lines.add(Rez.Strings.glanceMissedCalls);
                         var subtitle;
-                        subtitle = "Contacts: " + missedRecentsCount;
+                        subtitle = formatIfResources(Rez.Strings.widgetContactsCountFormat, [missedRecentsCount]);
                         lines.add(subtitle);
                     }
                 } else {
-                    lines.add(appName);
+                    lines.add(Rez.Strings.listAppName);
                     var subtitle;
                     if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
                         subtitle = sourceVersion;
                     } else {
-                        subtitle = "Idle";
+                        subtitle = Rez.Strings.glanceIdle;
                     }
                     lines.add(subtitle);
                 }
             }
-            lines.add(headsetStatusForWidget());
+            var headsetStatus = headsetStatusForWidget();
+            if (headsetStatus != null) {
+                lines.add(headsetStatus);
+            }
             if (GlanceLikeSettings.isStatsTrackingEnabled) {
-                lines.add(statsRep());
+                var stats = statsRep();
+                if (stats != null) {
+                    lines.add(stats);
+                }
             }
             var text = joinComponents(lines, "\n");
             dc.drawText(
@@ -104,10 +111,10 @@ class WidgetView extends WatchUi.View {
 }
 
 (:widget)
-function headsetStatusForWidget() as Lang.String or Null {
+function headsetStatusForWidget() as StringOrResource | Null {
     var speakerWouldBeUsed = AudioStateManip.getSpeakerWouldBeUsed();
     if (speakerWouldBeUsed == true && AppSettings.isHeadsetReportEnabled()) {
-        return "(No Headset)";
+        return Rez.Strings.widgetNoHeadset;
     } else {
         return null;
     }

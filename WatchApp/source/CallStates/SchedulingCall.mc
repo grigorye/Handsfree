@@ -20,6 +20,6 @@ class SchedulingCall extends CallStateImp {
     }
 
     function toString() as Lang.String {
-        return "SchedulingCall(" + phone + ", " + commStatus + ")";
+        return Lang.format("SchedulingCall($1$, $2$)", [phone, commStatus]);
     }
 }

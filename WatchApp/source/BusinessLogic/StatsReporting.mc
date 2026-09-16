@@ -28,6 +28,6 @@ function statsRep() as Lang.String or Null {
     }
     var validMessagesCount = getValidRemoteMessagesCount();
     var rawMessagesCount = getRawRemoteMessagesCount();
-    var messagesCountRep = validMessagesCount + "." + (rawMessagesCount - validMessagesCount);
-    return joinComponents([messagesCountRep, hitsCountRep], ".");
+    var messagesCountRep = Lang.format("$1$.$2$", [validMessagesCount, rawMessagesCount - validMessagesCount]);
+    return joinNonNullComponents([messagesCountRep, hitsCountRep], ".");
 }

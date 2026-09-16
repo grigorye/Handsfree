@@ -38,7 +38,7 @@ function installCompanionApp() as Void {
         {},
         null
     );
-    showFeedback("Sent notification\nto your phone");
+    showFeedback(Rez.Strings.toastOpeningCompanion);
 }
 
 }

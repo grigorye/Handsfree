@@ -28,7 +28,8 @@ class View extends ExtendedMenu2 {
     }
 
     function setTitleFromRecents() as Void {
-        var title = joinComponents(["Recents", missedCallsRep()], " ");
+        var missedCalls = missedCallsRep();
+        var title = joinNonNullComponents([Rez.Strings.menuRecents, missedCalls], " ");
         setTitle(title);
     }
 
@@ -52,12 +53,12 @@ class View extends ExtendedMenu2 {
 
     private function addMenuItemsForAccessIssue(accessIssue as AccessIssue) as Void {
         if (debug) { _2(L_RECENTS_VIEW, "addMenuItemsForAccessIssue"); }
-        addItem(accessIssueMenuItem("Recents", accessIssue, noRecentsMenuItemId));
+        addItem(accessIssueMenuItem(Rez.Strings.menuRecents, accessIssue, noRecentsMenuItemId));
     }
 
     private function addMenuItemsForEmptyRecentsList() as Void {
         if (debug) { _2(L_RECENTS_VIEW, "addMenuItemsForEmptyRecentsList"); }
-        addItem(new WatchUi.MenuItem("No Recents", "", noRecentsMenuItemId, {}));
+        addItem(new WatchUi.MenuItem(Rez.Strings.recentsNoRecents, "", noRecentsMenuItemId, {}));
     }
 
     private function addMenuItemsForNonEmptyRecentsList(recents as RecentsList) as Void {
@@ -70,7 +71,7 @@ class View extends ExtendedMenu2 {
             if (name == null || name.equals("")) {
                 var number = getRecentNumber(recent);
                 if (number.equals("")) {
-                    label = "Private Number";
+                    label = Rez.Strings.recentsPrivateNumber;
                 } else {
                     label = getRecentNumber(recent);
                 }
@@ -82,12 +83,13 @@ class View extends ExtendedMenu2 {
             var typeFormatted;
             var type = getRecentType(recent);
             if (type == 3 && recentDate > lastRecentsCheckDate && getRecentIsNew(recent) > 0) {
-                typeFormatted = "!"; // missed
+                typeFormatted = Rez.Strings.recentsTypeNewMissedIndicator;
             } else {
                 typeFormatted = formatRecentType(type);
             }
             var durationFormatted = formatDuration(getRecentDuration(recent));
-            var subLabel = joinComponents([typeFormatted + " " + dateFormatted, durationFormatted], ", ");
+            var summary = formatIfResources("$1$ $2$", [typeFormatted, dateFormatted]);
+            var subLabel = joinNonNullComponents([summary, durationFormatted], ", ");
             var item = new WatchUi.MenuItem(
                 label, // label
                 subLabel, // subLabel
@@ -101,22 +103,22 @@ class View extends ExtendedMenu2 {
 
 const noRecentsMenuItemId as Lang.Number = -1;
 
-function formatRecentType(type as Lang.Number) as Lang.String {
+function formatRecentType(type as Lang.Number) as StringOrResource {
     switch (type) {
         case 1:
-            return ">"; // incoming
+            return Rez.Strings.recentsTypeIncomingIndicator;
         case 2:
-            return "<"; // outgoing
+            return Rez.Strings.recentsTypeOutgoingIndicator;
         case 3:
-            return "?"; // missed
+            return Rez.Strings.recentsTypeMissedIndicator;
         case 4:
-            return "r"; // voicemail
+            return Rez.Strings.recentsTypeVoicemailIndicator;
         case 5:
-            return "-"; // rejected
+            return Rez.Strings.recentsTypeRejectedIndicator;
         case 6:
-            return "b"; // blocked
+            return Rez.Strings.recentsTypeBlockedIndicator;
         case 7:
-            return "a"; // answered externally
+            return Rez.Strings.recentsTypeAnsweredExternallyIndicator;
         default:
             return type.toString();
     }
@@ -128,9 +130,15 @@ function formatDate(date as Lang.Number) as Lang.String {
     var info = Time.Gregorian.info(moment, Time.FORMAT_MEDIUM);
     var formatted;
     if (moment.lessThan(Time.today())) {
-        formatted = info.month + " " + info.day + ", " + info.hour.format("%02d") + ":" + info.min.format("%02d");
+        formatted = Lang.format(
+            "$1$ $2$, $3$:$4$",
+            [info.month, info.day, info.hour.format("%02d"), info.min.format("%02d")]
+        );
     } else {
-        formatted = info.hour.format("%02d") + ":" + info.min.format("%02d");
+        formatted = Lang.format(
+            "$1$:$2$",
+            [info.hour.format("%02d"), info.min.format("%02d")]
+        );
     }
     return formatted;
 }
@@ -143,13 +151,13 @@ function formatDuration(duration as Lang.Number) as Lang.String? {
     var minutesOnly = (minutes % 60) + (secondsOnly + 30) / 60;
     var hoursOnly = hours + (minutesOnly + 30) / 60;
     if (hoursOnly > 0) {
-        return hoursOnly.toString() + "h";
+        return formatIfResources(Rez.Strings.durationHoursFormat, [hoursOnly]);
     }
     if (minutesOnly > 0) {
-        return minutesOnly.toString() + "m";
+        return formatIfResources(Rez.Strings.durationMinutesFormat, [minutesOnly]);
     }
     if (secondsOnly > 0) {
-        return secondsOnly.toString() + "s";
+        return formatIfResources(Rez.Strings.durationSecondsFormat, [secondsOnly]);
     }
     return null;
 }

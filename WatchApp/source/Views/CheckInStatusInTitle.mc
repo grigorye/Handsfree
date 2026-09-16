@@ -1,5 +1,6 @@
 import Toybox.Lang;
 import Toybox.System;
+import Toybox.WatchUi;
 
 (:noLowMemory)
 function updateStatusMenu() as Void {
@@ -12,26 +13,28 @@ function updateStatusMenu() as Void {
 }
 
 (:lowMemory)
-function statusMenuTitle() as Lang.String {
-    return "Contacts";
+function statusMenuTitle() as StringOrResource {
+    return Rez.Strings.contacts;
 }
 
 (:noLowMemory)
-function statusMenuTitle() as Lang.String {
+function statusMenuTitle() as StringOrResource {
     var statsRep = statsRep();
-    return joinComponents(
+    var nonNullStatsRep = statsRep != null ? statsRep : Rez.Strings.contacts;
+    var connectionStatusRep = connectionStatusRep();
+    return joinNonNullComponents(
         [
-            statsRep != null ? statsRep : "Contacts",
-            connectionStatusRep()
+            nonNullStatsRep,
+            connectionStatusRep
         ],
         " "
     );
 }
 
 (:noLowMemory)
-function connectionStatusRep() as Lang.String or Null {
+function connectionStatusRep() as StringOrResource | Null {
     if (!System.getDeviceSettings().phoneConnected) {
-        return "@";
+        return Rez.Strings.connectionStatusDisconnected;
     }
     return headsetStatusRep();
 }

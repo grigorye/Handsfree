@@ -7,6 +7,6 @@ class Idle extends CallStateImp {
     }
 
     function toString() as Lang.String {
-        return "Idle" + (optimistic ? "(optimistic)" : "");
+        return Lang.format("Idle$1$", [optimistic ? "(optimistic)" : ""]);
     }
 }

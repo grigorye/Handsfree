@@ -54,7 +54,7 @@ class View extends ExtendedMenu2 {
     private function setFromPhones(phones as Phones) as Void {
         var accessIssue = phones[PhonesField_accessIssue] as AccessIssue | Null;
         if (accessIssue != null) {
-            addItem(accessIssueMenuItem("Contacts", accessIssue, noPhonesMenuItemId));
+            addItem(accessIssueMenuItem(Rez.Strings.contacts, accessIssue, noPhonesMenuItemId));
         } else {
             var phoneList = phones[PhonesField_list] as PhoneList;
             setFromPhoneList(phoneList);
@@ -87,7 +87,7 @@ class View extends ExtendedMenu2 {
                 addItem(item);
             }
         } else {
-            addItem(new WatchUi.MenuItem("Not Selected", "", noPhonesMenuItemId, {}));
+            addItem(new WatchUi.MenuItem(Rez.Strings.phonesNotSelected, "", noPhonesMenuItemId, {}));
         }
 
         if (focus != null) {

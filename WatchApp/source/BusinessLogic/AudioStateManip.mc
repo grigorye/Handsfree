@@ -50,24 +50,24 @@ function getAudioVolume(audioState as AudioState) as RelVolume {
 }
 
 (:inline)
-function getActiveAudioDeviceName(audioState as AudioState) as Lang.String? {
+function getActiveAudioDeviceName(audioState as AudioState) as StringOrResource | Null {
     var audioDevice = audioState[activeAudioDeviceK] as Lang.String or Null;
     if (audioDevice != null) {
         switch (audioDevice) {
             case "h": {
-                return "Headset";
+                return Rez.Strings.audioDeviceHeadset;
             }
             case "s": {
-                return "Speaker";
+                return Rez.Strings.audioDeviceSpeaker;
             }
             case "e": {
-                return "Phone";
+                return Rez.Strings.audioDevicePhone;
             }
             case "w": {
-                return "Wired";
+                return Rez.Strings.audioDeviceWired;
             }
             default: {
-                return "Unknown (" + audioDevice + ")";
+                return formatIfResources(Rez.Strings.audioDeviceUnknownFormat, [audioDevice]);
             }
         }
     } else {
@@ -76,21 +76,21 @@ function getActiveAudioDeviceName(audioState as AudioState) as Lang.String? {
 }
 
 (:inline)
-function getActiveAudioDeviceAbbreviation(audioState as AudioState) as Lang.String or Null {
+function getActiveAudioDeviceAbbreviation(audioState as AudioState) as StringOrResource | Null {
     var audioDevice = audioState[activeAudioDeviceK] as Lang.String or Null;
     if (audioDevice != null) {
         switch (audioDevice) {
             case "h": {
-                return "HSET";
+                return Rez.Strings.audioDeviceAbbrevHeadset;
             }
             case "s": {
-                return "SPKR";
+                return Rez.Strings.audioDeviceAbbrevSpeaker;
             }
             case "e": {
-                return "PHNE";
+                return Rez.Strings.audioDeviceAbbrevPhone;
             }
             case "w": {
-                return "WHST";
+                return Rez.Strings.audioDeviceAbbrevWired;
             }
             default: {
                 return audioDevice + "?";

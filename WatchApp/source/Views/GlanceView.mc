@@ -31,10 +31,10 @@ class GlanceView extends WatchUi.GlanceView {
         var subtitle = null;
         if (!phoneConnected) {
             title = defaultTitle;
-            subtitle = "Not Connected";
+            subtitle = Rez.Strings.glanceNotConnected;
         } else if (companionStatus != CompanionStatus_upToDate) {
             title = defaultTitle;
-            subtitle = companionStatus == CompanionStatus_notInstalled ? "No Companion" : "Update Companion";
+            subtitle = companionStatus == CompanionStatus_notInstalled ? Rez.Strings.glanceNoCompanion : Rez.Strings.glanceUpdateCompanion;
         } else if (!Styles.glance_live_update.enabled || !allSubjectsConfirmed(liveGlanceSubjects)) {
             title = defaultTitle;
             if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
@@ -48,9 +48,9 @@ class GlanceView extends WatchUi.GlanceView {
                 var isIncomingCall = isIncomingCallPhone(phone);
                 subtitle = getPhoneRep(phone);
                 if (isIncomingCall) {
-                    title = "Incoming Call";
+                    title = Rez.Strings.glanceIncomingCall;
                 } else {
-                    title = "In Progress";
+                    title = Rez.Strings.glanceInProgress;
                 }
             } else {
                 var missedRecents = getMissedRecents();
@@ -61,42 +61,41 @@ class GlanceView extends WatchUi.GlanceView {
                         var recent = (recents[RecentsField_list] as RecentsList)[missedRecents[0]];
                         var recentDate = getRecentDate(recent) / 1000;
                         var dateFormatted = RecentsScreen.formatDate(recentDate);
-                        title = "! " + dateFormatted;
+                        title = formatIfResources(Rez.Strings.glanceMissedDateTitleFormat, [dateFormatted]);
                         subtitle = getPhoneRep(recent);
                     } else {
-                        title = "Missed Calls";
-                        subtitle = missedRecentsCount + " Contacts";
+                        title = Rez.Strings.glanceMissedCalls;
+                        subtitle = formatIfResources("$1$ $2$", [missedRecentsCount, Rez.Strings.glanceContacts]);
                     }
                 } else {
                     title = defaultTitle;
                     if (!ReadinessInfoManip.readiness(ReadinessField_essentials).equals(ReadinessValue_ready)) {
-                        subtitle = "No Call Control";
+                        subtitle = Rez.Strings.glanceNoCallControl;
                     } else {
                         var readiness = ReadinessInfoManip.readiness(ReadinessField_incomingCalls);
                         if (!readiness.equals(ReadinessValue_ready)) {
-                            subtitle = "Not Ready";
+                            subtitle = Rez.Strings.glanceNotReady;
                         } else if (GlanceLikeSettings.isShowingSourceVersionEnabled) {
                             subtitle = sourceVersion;
                         } else {
-                            subtitle = "Idle";
+                            subtitle = Rez.Strings.glanceIdle;
                         }
                     }
                 }
             }
         }
+        var adjustedTitle = loadIfResource(title);
         var text;
-        if (title.equals(defaultTitle)) {
-            text = title;
+        if (adjustedTitle.equals(defaultTitle)) {
+            text = adjustedTitle;
         } else {
-            text = embeddingHeadsetStatusRep(title);
+            text = embeddingHeadsetStatusRep(adjustedTitle);
         }
         if (Styles.glance_font.capitalize) {
             text = text.toUpper();
         }
         if (debug) { _3(L_GLANCE, "text", [text, subtitle]); }
-        if (subtitle != null) {
-            text = text + "\n" + subtitle;
-        }
+        text = joinNonNullComponents([text, subtitle], "\n");
         dc.drawText(
             0,
             dc.getHeight() / 2,
@@ -108,11 +107,11 @@ class GlanceView extends WatchUi.GlanceView {
 }
 
 (:glance, :watchApp, :noLowMemory)
-function customizableTitle() as Lang.String {
+function customizableTitle() as StringOrResource {
     var customTitle = GlanceSettings.customGlanceTitle;
     var adjustedTitle;
     if (customTitle.equals("")) {
-        adjustedTitle = WatchUi.loadResource(Rez.Strings.listAppName) as Lang.String;
+        adjustedTitle = Rez.Strings.listAppName;
     } else {
         adjustedTitle = customTitle;
     }
@@ -120,7 +119,7 @@ function customizableTitle() as Lang.String {
 }
 
 (:glance, :watchApp, :noLowMemory)
-function defaultTitle(phoneConnected as Lang.Boolean, isCompanionUpToDate as Lang.Boolean) as Lang.String {
+function defaultTitle(phoneConnected as Lang.Boolean, isCompanionUpToDate as Lang.Boolean) as StringOrResource {
     var defaultTitle = customizableTitle();
     if (!phoneConnected) {
         return defaultTitle;
@@ -146,9 +145,15 @@ function formatDateOnGlance(date as Lang.Number) as Lang.String {
     var info = Time.Gregorian.info(moment, Time.FORMAT_MEDIUM);
     var formatted;
     if (moment.lessThan(Time.today())) {
-        formatted = info.month + " " + info.day + ", " + info.hour.format("%02d") + ":" + info.min.format("%02d");
+        formatted = Lang.format(
+            "$1$ $2$, $3$:$4$",
+            [info.month, info.day, info.hour.format("%02d"), info.min.format("%02d")]
+        );
     } else {
-        formatted = info.hour.format("%02d") + ":" + info.min.format("%02d");
+        formatted = Lang.format(
+            "$1$:$2$",
+            [info.hour.format("%02d"), info.min.format("%02d")]
+        );
     }
     return formatted;
 }

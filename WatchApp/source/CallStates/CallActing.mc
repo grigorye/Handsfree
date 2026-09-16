@@ -95,6 +95,6 @@ class CallActing extends CallStateImp {
     }
 
     function toString() as Lang.String {
-        return stateId() + "(" + { "phone" => phone, "commStatus" => commStatus } + ")";
+        return Lang.format("$1$($2$)", [stateId(), { "phone" => phone, "commStatus" => commStatus }]);
     }
 }
